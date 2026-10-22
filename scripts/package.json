@@ -1,0 +1,19 @@
+{
+  "name": "@allmaths/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify-content": "tsx verify-content.ts",
+    "seed": "tsx seed.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@allmaths/content-schema": "workspace:*",
+    "@allmaths/notation": "workspace:*",
+    "@allmaths/db": "workspace:*",
+    "@allmaths/core": "workspace:*",
+    "tsx": "^4.19.0",
+    "@allmaths/server": "workspace:*"
+  }
+}
