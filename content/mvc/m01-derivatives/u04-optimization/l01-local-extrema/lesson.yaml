@@ -1,0 +1,146 @@
+id: mvc-m01-u04-l01
+title: Local maxima, minima and saddle points
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - critical-points
+  - second-derivative-test
+objectives:
+  - Find the critical points of a function of two variables.
+  - Classify a critical point with the second-derivative test.
+  - Recognize a saddle point and explain why it is neither a maximum nor a minimum.
+sections:
+  - id: peaks-valleys
+    type: concept
+    title: Peaks, valleys and passes
+    body: |
+      On a mountain map, a **peak** is a point higher than everything around it, a **pit** is lower than everything around
+      it, and a **mountain pass** is a point that is a maximum along one direction and a minimum along another. A
+      cyclist on the road through the pass climbs up to it and then descends: the pass is the highest point of the road.
+      A walker following the ridge goes down into the pass and then up again: the pass is the lowest point of the ridge.
+
+      The same three behaviours occur for $z=f(x,y)$. To find them without drawing, we use derivatives: at a peak or a pit
+      the surface must be **flat**, so the tangent plane is horizontal.
+
+  - id: local-extremum
+    type: definition
+    term: Local extrema and critical points
+    body: |
+      A function $f$ has a **local maximum** at $(a,b)$ if $f(x,y)\le f(a,b)$ for all points $(x,y)$ close enough to
+      $(a,b)$, and a **local minimum** if $f(x,y)\ge f(a,b)$ there.
+
+      A point $(a,b)$ is a **critical point** of $f$ if $f_x(a,b)=0$ and $f_y(a,b)=0$, or if one of the partial derivatives
+      does not exist. A critical point that is neither a local maximum nor a local minimum is a **saddle point**.
+
+  - id: fermat
+    type: theorem
+    name: Necessary condition
+    statement: |
+      If $f$ has a local maximum or minimum at an interior point $(a,b)$ where $f_x$ and $f_y$ exist, then
+      $f_x(a,b)=0$ and $f_y(a,b)=0$.
+    proof: |
+      Fix $y=b$. The function $x\mapsto f(x,b)$ of one variable has a local extremum at $x=a$, so its derivative $f_x(a,b)$
+      is zero (Fermat's theorem). The same argument with $x=a$ fixed gives $f_y(a,b)=0$.
+
+  - id: second-derivative-test
+    type: theorem
+    name: Second-derivative test
+    statement: |
+      Let $(a,b)$ be a critical point and let $f$ have continuous second derivatives. Put
+      $$D=f_{xx}(a,b)\,f_{yy}(a,b)-\left(f_{xy}(a,b)\right)^2.$$
+
+      - If $D>0$ and $f_{xx}(a,b)>0$, there is a **local minimum**.
+      - If $D>0$ and $f_{xx}(a,b)<0$, there is a **local maximum**.
+      - If $D<0$, there is a **saddle point**.
+      - If $D=0$, the test does not decide.
+    proof: |
+      Near $(a,b)$ the function behaves like its second-order Taylor polynomial, $f(a,b)+\tfrac12\left(f_{xx}h^2+2f_{xy}hk+f_{yy}k^2\right)$.
+      Completing the square shows that this quadratic form is positive for all $(h,k)\neq(0,0)$ when $D>0$ and $f_{xx}>0$, negative when
+      $D>0$ and $f_{xx}<0$, and takes both signs when $D<0$.
+
+  - id: ex-minimum
+    type: example
+    title: A minimum
+    problem: |
+      Find and classify the critical points of $f(x,y)=x^2-xy+y^2-2x-2y$.
+    steps:
+      - |
+        $f_x=2x-y-2$ and $f_y=2y-x-2$. Setting both to $0$: from the first, $y=2x-2$; substituting in the second,
+        $2(2x-2)-x-2=0$, so $x=2$ and $y=2$. The only critical point is $(2,2)$.
+      - |
+        Second derivatives: $f_{xx}=2$, $f_{yy}=2$, $f_{xy}=-1$. Then $D=2\cdot2-(-1)^2=3>0$ and $f_{xx}=2>0$.
+      - |
+        So $(2,2)$ is a local minimum, with value $f(2,2)=4-4+4-4-4=-4$.
+    answer: |
+      Local minimum at $(2,2)$, with value $-4$.
+    verify:
+      - expr: "2^2-2*2+2^2-2*2-2*2"
+        equals: "-4"
+      - expr: "2*2-(-1)^2"
+        equals: "3"
+      - expr: "diff(x^2-x*y+y^2-2*x-2*y, x)"
+        equals: "2*x-y-2"
+
+  - id: ex-saddle
+    type: example
+    title: A saddle point
+    problem: |
+      Classify the critical point of $f(x,y)=x^2-y^2$.
+    steps:
+      - |
+        $f_x=2x$ and $f_y=-2y$ vanish only at $(0,0)$.
+      - |
+        $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$, so $D=2\cdot(-2)-0=-4<0$.
+      - |
+        By the test, $(0,0)$ is a saddle point. Indeed, along the $x$-axis $f=x^2$ has a minimum at $0$, and along the $y$-axis $f=-y^2$
+        has a maximum at $0$.
+    answer: |
+      $(0,0)$ is a saddle point.
+    verify:
+      - expr: "2*(-2)-0^2"
+        equals: "-4"
+
+  - id: chk-critical
+    type: check
+    prompt: |
+      Find all the critical points of $f(x,y)=x^3-3x+y^2$.
+    answerType: points
+    answer: "(1, 0), (-1, 0)"
+    hints:
+      - |
+        Solve $f_x=3x^2-3=0$ and $f_y=2y=0$ together.
+    explanation: |
+      $f_x=3x^2-3=0$ gives $x=\pm1$ and $f_y=2y=0$ gives $y=0$. The critical points are $(1,0)$ and $(-1,0)$.
+
+  - id: chk-nature
+    type: check
+    prompt: |
+      For $f(x,y)=x^3-3x+y^2$, what is the critical point $(1,0)$?
+    answerType: multiple_choice
+    answer: "1"
+    choices:
+      - text: "A local minimum"
+        value: "1"
+      - text: "A local maximum"
+        value: "2"
+      - text: "A saddle point"
+        value: "3"
+      - text: "The test does not decide"
+        value: "4"
+    correctIndex: 0
+    hints:
+      - |
+        $f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$. Compute $D$ at $(1,0)$.
+    explanation: |
+      At $(1,0)$: $f_{xx}=6$, $f_{yy}=2$, $f_{xy}=0$, so $D=12>0$ and $f_{xx}>0$: a local minimum, with value $f(1,0)=-2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Local extrema occur at critical points, where $f_x=0$ and $f_y=0$ (or a derivative does not exist).
+      - |
+        With $D=f_{xx}f_{yy}-f_{xy}^2$: $D>0,\ f_{xx}>0$ is a minimum; $D>0,\ f_{xx}<0$ is a maximum; $D<0$ is a saddle point; $D=0$ is inconclusive.
+      - |
+        At a saddle point the function rises in some directions and falls in others.
