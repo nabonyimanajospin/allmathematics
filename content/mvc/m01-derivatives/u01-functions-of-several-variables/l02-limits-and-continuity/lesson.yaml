@@ -1,0 +1,170 @@
+id: mvc-m01-u01-l02
+title: Limits and continuity
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - limits-two-variables
+  - continuity
+objectives:
+  - Explain why a limit at a point of the plane depends on every path towards the point.
+  - Show that a limit does not exist by comparing two paths, and prove that it exists with a bound or a known limit.
+  - Find the points where a function given by a formula is not continuous.
+sections:
+  - id: many-paths
+    type: concept
+    title: A limit has many ways to be approached
+    body: |
+      On the real line, $x$ can approach $a$ only from the left or from the right. In the plane, a point
+      $(x,y)$ can approach $(a,b)$ along a straight line, a parabola, a spiral, or any other curve.
+
+      The limit of $f$ at $(a,b)$ is the number that $f(x,y)$ approaches **whatever path is followed**. If two
+      paths lead to two different numbers, there is no limit.
+
+      This is the main new difficulty of several variables: one path is never enough to prove that a limit
+      exists, but a single bad path is enough to prove that it does not.
+
+  - id: limit-definition
+    type: definition
+    term: Limit of a function of two variables
+    body: |
+      We write $\displaystyle\lim_{(x,y)\to(a,b)}f(x,y)=L$ when, for every $\varepsilon>0$, there is a
+      $\delta>0$ such that
+
+      $$|f(x,y)-L|<\varepsilon\quad\text{whenever}\quad 0<\sqrt{(x-a)^2+(y-b)^2}<\delta$$
+
+      and $(x,y)$ belongs to the domain of $f$.
+
+      In words: $f(x,y)$ is as close to $L$ as we like as soon as $(x,y)$ is close enough to $(a,b)$ and different
+      from it.
+
+  - id: path-test
+    type: theorem
+    name: The two-path test
+    statement: |
+      If $f(x,y)$ approaches $L_1$ along one path to $(a,b)$ and $L_2\neq L_1$ along another path to $(a,b)$,
+      then $\displaystyle\lim_{(x,y)\to(a,b)}f(x,y)$ does not exist.
+    proof: |
+      If the limit were $L$, then by the definition $f(x,y)$ would be within $\varepsilon$ of $L$ for all points
+      close enough to $(a,b)$, on every path. Taking $\varepsilon=\tfrac12|L_1-L_2|$, the two paths cannot both
+      end near $L$. This is a contradiction.
+
+  - id: ex-path-test
+    type: example
+    title: A limit that does not exist
+    problem: |
+      Show that $\displaystyle\lim_{(x,y)\to(0,0)}\frac{xy}{x^2+y^2}$ does not exist.
+    steps:
+      - |
+        Follow the line $y=mx$ through the origin, with $x\to0$. Then
+        $\dfrac{xy}{x^2+y^2}=\dfrac{mx^2}{x^2+m^2x^2}=\dfrac{m}{1+m^2}$.
+      - |
+        The value $\dfrac{m}{1+m^2}$ depends on the slope $m$. For $m=0$ it is $0$; for $m=1$ it is $\dfrac12$.
+      - |
+        Two paths give two different numbers, so by the two-path test the limit does not exist.
+    answer: |
+      The limit does not exist.
+    verify:
+      - expr: "limit((x*(m*x))/(x^2+(m*x)^2), x, 0)"
+        equals: "m/(1+m^2)"
+      - expr: "1/(1+1^2)"
+        equals: "1/2"
+
+  - id: showing-existence
+    type: concept
+    title: Showing that a limit exists
+    body: |
+      To prove that a limit exists, trying paths is not enough. Use one of these tools:
+
+      1. **Simplify** the formula, then substitute.
+      2. Reduce to a known one-variable limit. For example $\dfrac{\sin u}{u}\to1$ as $u\to0$, with
+         $u=xy$ or $u=x^2+y^2$.
+      3. **Squeeze**: find a function $g$ with $|f(x,y)-L|\le g(x,y)$ and $g(x,y)\to0$.
+      4. Use **polar coordinates** at the origin: $x=\rho\cos\theta$, $y=\rho\sin\theta$. Then
+         $(x,y)\to(0,0)$ means $\rho\to0$ for every $\theta$.
+
+  - id: ex-squeeze
+    type: example
+    title: A limit proved with polar coordinates
+    problem: |
+      Find $\displaystyle\lim_{(x,y)\to(0,0)}\frac{x^2y}{x^2+y^2}$.
+    steps:
+      - |
+        Put $x=\rho\cos\theta$ and $y=\rho\sin\theta$. Then $x^2+y^2=\rho^2$ and
+        $\dfrac{x^2y}{x^2+y^2}=\dfrac{\rho^3\cos^2\theta\sin\theta}{\rho^2}=\rho\cos^2\theta\sin\theta$.
+      - |
+        Since $|\cos^2\theta\sin\theta|\le1$, we get $|f|\le\rho$, and $\rho\to0$ as $(x,y)\to(0,0)$.
+      - |
+        By the squeeze principle the limit is $0$.
+    answer: |
+      The limit is $0$.
+    verify:
+      - expr: "(r*cos(t))^2*(r*sin(t))/(r^2)"
+        equals: "r*cos(t)^2*sin(t)"
+      - expr: "limit(r*cos(t)^2*sin(t), r, 0)"
+        equals: "0"
+
+  - id: chk-known-limit
+    type: check
+    prompt: |
+      Find $\displaystyle\lim_{(x,y)\to(0,0)}\frac{\sin(x^2+y^2)}{x^2+y^2}$.
+    answerType: number
+    answer: "1"
+    hints:
+      - |
+        Put $u=x^2+y^2$. As $(x,y)\to(0,0)$, what does $u$ tend to?
+    explanation: |
+      With $u=x^2+y^2\to0$ we get $\dfrac{\sin u}{u}\to1$, whatever the path.
+
+  - id: continuity
+    type: definition
+    term: Continuity
+    body: |
+      A function $f$ is **continuous at $(a,b)$** when three things hold: $(a,b)$ belongs to the domain of $f$,
+      the limit $\displaystyle\lim_{(x,y)\to(a,b)}f(x,y)$ exists, and it equals $f(a,b)$.
+
+      Sums, products, quotients (where the denominator is not zero) and compositions of continuous functions are
+      continuous. Polynomials, rational functions, $\exp$, $\sin$, $\cos$, $\ln$, $\arctan$ and roots are
+      continuous wherever they are defined.
+
+  - id: ex-discontinuity
+    type: example
+    title: Where is a formula not continuous?
+    problem: |
+      Find the points where $f(x,y)=\dfrac{1}{x^2-y}$ is not continuous.
+    steps:
+      - |
+        The function is a quotient of continuous functions, so it is continuous wherever the denominator is not zero.
+      - |
+        The denominator is zero when $x^2-y=0$, that is on the parabola $y=x^2$. There $f$ is not defined,
+        so it cannot be continuous.
+      - |
+        Check: the point $(1,1)$ is on the parabola, and $1^2-1=0$.
+    answer: |
+      $f$ is not continuous at the points of the parabola $y=x^2$ and at no other point.
+    verify:
+      - expr: "1^2-1"
+        equals: "0"
+
+  - id: chk-discontinuity
+    type: check
+    prompt: |
+      Find the set of points where $f(x,y)=\dfrac{1}{x+y-2}$ is not continuous.
+    answerType: region
+    coordinates: [x, y]
+    answer: "x+y=2"
+    hints:
+      - |
+        A quotient is continuous wherever its denominator is not zero.
+    explanation: |
+      The formula is not defined, hence not continuous, exactly when $x+y-2=0$: the line $x+y=2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\lim_{(x,y)\to(a,b)}f=L$ means that $f$ tends to $L$ along every path; two paths with different values prove that the limit does not exist.
+      - |
+        To prove that a limit exists, simplify, use a known limit such as $\dfrac{\sin u}{u}\to1$, squeeze, or use polar coordinates at the origin.
+      - |
+        $f$ is continuous at $(a,b)$ when $(a,b)$ is in the domain and the limit equals $f(a,b)$; elementary functions are continuous where they are defined.
