@@ -1,0 +1,119 @@
+id: mvc-m03-u02-l01
+title: Cylindrical and spherical coordinates
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - cylindrical-coordinates
+  - spherical-coordinates
+objectives:
+  - Convert points and solids between Cartesian, cylindrical and spherical coordinates.
+  - Use the volume elements $r\,dz\,dr\,d\theta$ and $\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$.
+  - Choose the coordinate system that makes a triple integral simplest.
+sections:
+  - id: cylindrical
+    type: concept
+    title: Cylindrical coordinates
+    body: |
+      Cylindrical coordinates $(r,\theta,z)$ are polar coordinates in the $xy$-plane, together with the height $z$:
+
+      $$x=r\cos\theta,\qquad y=r\sin\theta,\qquad z=z,\qquad r^2=x^2+y^2.$$
+
+      They suit solids with an **axis of symmetry**, such as cylinders, cones and paraboloids around the $z$-axis. The cylinder
+      $x^2+y^2=a^2$ becomes simply $r=a$.
+
+  - id: cylindrical-volume
+    type: formula
+    title: Volume element in cylindrical coordinates
+    formula: |
+      dV=r\,dz\,dr\,d\theta
+    note: |
+      This is the polar area element $r\,dr\,d\theta$ times $dz$.
+
+  - id: spherical
+    type: concept
+    title: Spherical coordinates
+    body: |
+      Spherical coordinates $(\rho,\varphi,\theta)$ describe a point by its distance $\rho$ from the origin, the angle $\varphi$ from the
+      positive $z$-axis ($0\le\varphi\le\pi$), and the same angle $\theta$ around the $z$-axis as in cylindrical coordinates:
+
+      $$x=\rho\sin\varphi\cos\theta,\qquad y=\rho\sin\varphi\sin\theta,\qquad z=\rho\cos\varphi,\qquad \rho^2=x^2+y^2+z^2.$$
+
+      They suit **spheres, balls, cones** with vertex at the origin, and integrands containing $x^2+y^2+z^2$. The sphere of radius $R$ is
+      $\rho=R$, and the half-cone $z=\sqrt{x^2+y^2}$ is $\varphi=\dfrac\pi4$.
+
+  - id: spherical-volume
+    type: theorem
+    name: Volume element in spherical coordinates
+    statement: |
+      In spherical coordinates, $dV=\rho^2\sin\varphi\;d\rho\,d\varphi\,d\theta$.
+    proof: |
+      The Jacobian determinant of $(x,y,z)$ with respect to $(\rho,\varphi,\theta)$ is $\rho^2\sin\varphi$ (up to sign). Geometrically, a small
+      piece has sides $d\rho$ (radial), $\rho\,d\varphi$ (along a meridian) and $\rho\sin\varphi\,d\theta$ (along a parallel of latitude, whose radius is
+      $\rho\sin\varphi$). The product of the three is $\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$.
+
+  - id: ex-cylinder
+    type: example
+    title: A cylinder
+    problem: |
+      Find the volume of the cylinder $x^2+y^2\le a^2$, $0\le z\le h$.
+    steps:
+      - |
+        In cylindrical coordinates: $0\le r\le a$, $0\le\theta\le2\pi$, $0\le z\le h$.
+      - |
+        $V=\displaystyle\int_0^{2\pi}\int_0^a\int_0^h r\,dz\,dr\,d\theta=2\pi\cdot\frac{a^2}{2}\cdot h=\pi a^2h$.
+    answer: |
+      $V=\pi a^2h$.
+    verify:
+      - expr: "integrate(integrate(integrate(r, z, 0, h), r, 0, a), t, 0, 2*pi)"
+        equals: "pi*a^2*h"
+
+  - id: ex-ball
+    type: example
+    title: A ball
+    problem: |
+      Find the volume of the ball $x^2+y^2+z^2\le R^2$.
+    steps:
+      - |
+        In spherical coordinates the ball is $0\le\rho\le R$, $0\le\varphi\le\pi$, $0\le\theta\le2\pi$.
+      - |
+        $V=\displaystyle\int_0^{2\pi}\int_0^{\pi}\int_0^R\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta=2\pi\cdot2\cdot\frac{R^3}{3}=\frac{4\pi R^3}{3}$.
+    answer: |
+      $V=\dfrac{4\pi R^3}{3}$.
+    verify:
+      - expr: "integrate(integrate(integrate(rho^2*sin(f), rho, 0, R), f, 0, pi), t, 0, 2*pi)"
+        equals: "4*pi*R^3/3"
+
+  - id: chk-spherical
+    type: check
+    prompt: |
+      Evaluate $\displaystyle\iiint_E(x^2+y^2+z^2)\,dV$ where $E$ is the unit ball $x^2+y^2+z^2\le1$.
+    answerType: expression
+    answer: "4*pi/5"
+    hints:
+      - |
+        $x^2+y^2+z^2=\rho^2$ and $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, so the integrand is $\rho^4\sin\varphi$.
+    explanation: |
+      $\displaystyle\int_0^{2\pi}\int_0^\pi\int_0^1\rho^4\sin\varphi\,d\rho\,d\varphi\,d\theta=2\pi\cdot2\cdot\frac15=\frac{4\pi}{5}$.
+
+  - id: choosing
+    type: concept
+    title: Which coordinates?
+    body: |
+      Look at the boundary of the solid and at the integrand.
+
+      - Planes parallel to the axes: **Cartesian**.
+      - A cylinder, or a paraboloid or cone around the $z$-axis, with $x^2+y^2$ in the formulas: **cylindrical**.
+      - A sphere, a ball or a cone with vertex at the origin, with $x^2+y^2+z^2$ in the formulas: **spherical**.
+
+      When both seem to work, choose the one where the limits are numbers: the integral then splits into three simple integrals.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Cylindrical: $x=r\cos\theta$, $y=r\sin\theta$, $z=z$, $dV=r\,dz\,dr\,d\theta$.
+      - |
+        Spherical: $x=\rho\sin\varphi\cos\theta$, $y=\rho\sin\varphi\sin\theta$, $z=\rho\cos\varphi$, $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, with $0\le\varphi\le\pi$.
+      - |
+        The ball of radius $R$ has volume $\dfrac{4\pi R^3}{3}$ and the cylinder of radius $a$ and height $h$ has volume $\pi a^2h$.
