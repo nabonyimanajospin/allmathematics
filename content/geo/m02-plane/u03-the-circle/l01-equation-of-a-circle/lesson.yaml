@@ -1,0 +1,127 @@
+id: geo-m02-u03-l01
+title: The equation of a circle
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - circle-equation
+  - circle-through-three-points
+objectives:
+  - Write the equation of a circle from its center and radius, in standard and general form.
+  - Find the center and radius from a general equation by completing the square.
+  - Find the circle through three points, or with a given diameter.
+sections:
+  - id: standard
+    type: definition
+    term: Circle
+    body: |
+      A **circle** with center $C(p,q)$ and radius $r>0$ is the set of points $P(x,y)$ at distance $r$ from $C$. Writing $CP^2=r^2$ with the distance formula gives the
+      **standard equation**
+
+      $$(x-p)^2+(y-q)^2=r^2.$$
+
+      Expanding the squares gives the **general equation** $x^2+y^2+Dx+Ey+F=0$, with $D=-2p$, $E=-2q$ and $F=p^2+q^2-r^2$.
+
+  - id: from-general
+    type: theorem
+    name: Center and radius from the general equation
+    statement: |
+      The equation $x^2+y^2+Dx+Ey+F=0$ is a circle if and only if $\dfrac{D^2}{4}+\dfrac{E^2}{4}-F>0$. Then
+
+      $$\text{center }\left(-\dfrac D2,-\dfrac E2\right),\qquad r^2=\dfrac{D^2+E^2}{4}-F.$$
+    proof: |
+      Complete the squares: $x^2+Dx=\left(x+\dfrac D2\right)^2-\dfrac{D^2}4$, and similarly for $y$. The equation becomes
+      $\left(x+\dfrac D2\right)^2+\left(y+\dfrac E2\right)^2=\dfrac{D^2+E^2}4-F$. A sum of squares equals a positive number when this number is positive: that is a circle.
+      If the number is $0$ the equation describes one point, and if it is negative there is no point.
+
+  - id: ex-complete-square
+    type: example
+    title: Completing the square
+    problem: |
+      Find the center and the radius of $x^2+y^2-6x+4y-12=0$.
+    steps:
+      - |
+        $D=-6$, $E=4$, $F=-12$. The center is $\left(3,-2\right)$.
+      - |
+        $r^2=\dfrac{36+16}{4}+12=13+12=25$, so $r=5$.
+      - |
+        In standard form: $(x-3)^2+(y+2)^2=25$.
+    answer: |
+      Center $(3,-2)$ and radius $5$.
+    verify:
+      - expr: "(-(-6)/2, -4/2)"
+        equals: "(3,-2)"
+      - expr: "(36+16)/4+12"
+        equals: "25"
+
+  - id: chk-radius
+    type: check
+    prompt: |
+      Find the radius of the circle $x^2+y^2+2x-4y-4=0$.
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        The center is $(-1,2)$. Then $r^2=1+4+4$.
+    explanation: |
+      $r^2=\dfrac{4+16}{4}+4=9$, so $r=3$.
+
+  - id: three-points
+    type: concept
+    title: A circle through three points
+    body: |
+      Three non-collinear points determine one circle. Substitute each point into $x^2+y^2+Dx+Ey+F=0$: this gives three linear equations for $D$, $E$, $F$.
+
+      A circle is also determined by the two ends of a **diameter**: the center is the midpoint of the diameter and the radius is half of its length.
+
+  - id: ex-three-points
+    type: example
+    title: Through three points
+    problem: |
+      Find the circle through $O(0,0)$, $B(6,0)$ and $C(0,8)$.
+    steps:
+      - |
+        $O$: $F=0$. $B$: $36+6D+F=0$, so $D=-6$. $C$: $64+8E+F=0$, so $E=-8$.
+      - |
+        The circle is $x^2+y^2-6x-8y=0$, that is $(x-3)^2+(y-4)^2=25$: center $(3,4)$ and radius $5$.
+      - |
+        The center is the midpoint of $BC$: $BC$ is a diameter, because the angle at $O$ is a right angle.
+    answer: |
+      $x^2+y^2-6x-8y=0$.
+    verify:
+      - expr: "0+0-6*0-8*0"
+        equals: "0"
+      - expr: "36+0-6*6-8*0"
+        equals: "0"
+      - expr: "0+64-6*0-8*8"
+        equals: "0"
+
+  - id: chk-diameter
+    type: check
+    prompt: |
+      Write the equation of the circle that has the segment from $A(1,2)$ to $B(5,6)$ as a diameter.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "(x-3)^2+(y-4)^2=8"
+    hints:
+      - |
+        The center is the midpoint of $AB$. The radius is the distance from the center to $A$.
+    explanation: |
+      The center is $(3,4)$ and $r^2=(3-1)^2+(4-2)^2=8$. The equation is $(x-3)^2+(y-4)^2=8$.
+
+  - id: measures
+    type: concept
+    title: Circumference and area
+    body: |
+      A circle of radius $r$ has **circumference** $2\pi r$ and encloses the **area** $\pi r^2$. For the circle of the example, with $r=5$, these are $10\pi$ and $25\pi$.
+      The interior of the circle is described by the inequality $(x-p)^2+(y-q)^2<r^2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $(x-p)^2+(y-q)^2=r^2$ has center $(p,q)$ and radius $r$.
+      - |
+        $x^2+y^2+Dx+Ey+F=0$ has center $\left(-\dfrac D2,-\dfrac E2\right)$ and $r^2=\dfrac{D^2+E^2}4-F$, if this is positive.
+      - |
+        Three points give three linear equations for $D$, $E$, $F$. For a diameter, take its midpoint as the center.

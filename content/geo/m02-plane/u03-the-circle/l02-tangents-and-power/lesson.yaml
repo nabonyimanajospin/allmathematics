@@ -1,0 +1,150 @@
+id: geo-m02-u03-l02
+title: "Lines and circles: tangents and the power of a point"
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - line-circle-position
+  - tangent-line
+  - power-of-a-point
+objectives:
+  - Decide whether a line cuts, touches or misses a circle.
+  - Write the tangent to a circle at a point, and the tangents from an outside point.
+  - Compute the power of a point and the length of a tangent segment.
+sections:
+  - id: position
+    type: concept
+    title: Three positions of a line
+    body: |
+      Let $d$ be the distance from the center of a circle to a line, and $r$ the radius.
+
+      - $d<r$: the line **cuts** the circle in two points (a **secant**).
+      - $d=r$: the line **touches** the circle in one point (a **tangent**).
+      - $d>r$: the line does not meet the circle.
+
+      The distance $d$ comes from the point-line distance formula. A tangent is perpendicular to the radius at the point of contact: the point of the line nearest to the center is the point of contact.
+
+  - id: tangent-at-point
+    type: theorem
+    name: Tangent at a point of the circle
+    statement: |
+      The tangent to the circle $(x-p)^2+(y-q)^2=r^2$ at its point $P_0(x_0,y_0)$ is
+
+      $$(x_0-p)(x-p)+(y_0-q)(y-q)=r^2.$$
+    proof: |
+      The tangent passes through $P_0$ and is perpendicular to the radius $\overrightarrow{CP_0}=(x_0-p,\,y_0-q)$, which is therefore its normal vector.
+      So $(x_0-p)(x-x_0)+(y_0-q)(y-y_0)=0$. Rewrite $x-x_0=(x-p)-(x_0-p)$ and $y-y_0=(y-q)-(y_0-q)$: the equation becomes
+      $(x_0-p)(x-p)+(y_0-q)(y-q)=(x_0-p)^2+(y_0-q)^2=r^2$.
+
+  - id: ex-tangent
+    type: example
+    title: A tangent
+    problem: |
+      Find the tangent to $(x-1)^2+(y+2)^2=25$ at $P_0(4,2)$.
+    steps:
+      - |
+        $P_0$ is on the circle: $3^2+4^2=25$.
+      - |
+        $3(x-1)+4(y+2)=25$, that is $3x+4y-20=0$.
+      - |
+        Check: the distance from the center $(1,-2)$ to this line is $\dfrac{|3-8-20|}{5}=5=r$.
+    answer: |
+      $3x+4y-20=0$.
+    verify:
+      - expr: "3^2+4^2"
+        equals: "25"
+      - expr: "abs(3*1+4*(-2)-20)/5"
+        equals: "5"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Find the tangent to $x^2+y^2=25$ at $(3,4)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "3*x+4*y=25"
+    hints:
+      - |
+        The center is the origin, so the formula is $x_0x+y_0y=r^2$.
+    explanation: |
+      $3x+4y=25$.
+
+  - id: from-outside
+    type: concept
+    title: Tangents from an outside point
+    body: |
+      From a point $P$ outside the circle there are exactly two tangents. To find them, write a line through $P$ with unknown slope $m$ (check separately the vertical line through $P$),
+      then require that its distance from the center is $r$. This gives an equation for $m$ with two solutions.
+
+      The tangent points are the same distance from $P$, so the two **tangent segments** from $P$ have equal lengths.
+
+  - id: ex-outside
+    type: example
+    title: Two tangents
+    problem: |
+      Find the tangents from $P(4,0)$ to the circle $x^2+y^2=4$.
+    steps:
+      - |
+        The vertical line $x=4$ has distance $4>2$ from the center: not a tangent. Take $y=m(x-4)$, that is $mx-y-4m=0$.
+      - |
+        The distance from $(0,0)$ is $\dfrac{|4m|}{\sqrt{m^2+1}}=2$, so $16m^2=4m^2+4$, $m^2=\dfrac13$ and $m=\pm\dfrac1{\sqrt3}$.
+      - |
+        The tangents are $y=\pm\dfrac{x-4}{\sqrt3}$, that is $x-\sqrt3\,y-4=0$ and $x+\sqrt3\,y-4=0$.
+    answer: |
+      $x-\sqrt3\,y-4=0$ and $x+\sqrt3\,y-4=0$.
+    verify:
+      - expr: "abs(4*(1/sqrt(3)))/sqrt((1/sqrt(3))^2+1)"
+        equals: "2"
+
+  - id: power
+    type: theorem
+    name: Power of a point
+    statement: |
+      For the circle $S:\ x^2+y^2+Dx+Ey+F=0$ and a point $P(x_0,y_0)$, the number
+
+      $$\text{pow}(P)=x_0^2+y_0^2+Dx_0+Ey_0+F=CP^2-r^2$$
+
+      is the **power** of $P$. It is negative inside the circle, $0$ on it, and positive outside. If $P$ is outside, the length of a tangent segment from $P$ is $\sqrt{\text{pow}(P)}$.
+      Moreover, every line through $P$ that meets the circle in $M$ and $N$ satisfies $PM\cdot PN=|\text{pow}(P)|$.
+    proof: |
+      The equality $\text{pow}(P)=CP^2-r^2$ is the standard form of the equation. If $T$ is a point of contact, the triangle $CTP$ has a right angle at $T$, so $PT^2=CP^2-r^2$.
+      For a secant through $P$, let $H$ be the foot of the perpendicular from $C$, so $H$ is the midpoint of $MN$. With $h=PH$ and $t=HM$ we get $PM\cdot PN=(h-t)(h+t)=h^2-t^2$,
+      and $h^2=CP^2-CH^2$, $t^2=r^2-CH^2$, so $PM\cdot PN=CP^2-r^2$.
+
+  - id: ex-power
+    type: example
+    title: Tangent length
+    problem: |
+      Find the length of the tangent segment from $P(4,0)$ to $x^2+y^2=4$.
+    steps:
+      - |
+        $\text{pow}(P)=16+0-4=12$.
+      - |
+        The tangent length is $\sqrt{12}=2\sqrt3$. Check: $CP=4$ and $r=2$, so $\sqrt{16-4}=2\sqrt3$.
+    answer: |
+      $2\sqrt3$.
+    verify:
+      - expr: "sqrt(4^2+0^2-4)"
+        equals: "2*sqrt(3)"
+
+  - id: chk-power
+    type: check
+    prompt: |
+      Find the length of the tangent segment from $(5,12)$ to the circle $x^2+y^2=25$.
+    answerType: number
+    answer: "12"
+    hints:
+      - |
+        Compute the power $x_0^2+y_0^2-25$.
+    explanation: |
+      $\text{pow}=25+144-25=144$, so the length is $\sqrt{144}=12$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Compare the distance $d$ from the center to a line with $r$: secant ($d<r$), tangent ($d=r$), no point ($d>r$).
+      - |
+        The tangent at $(x_0,y_0)$ is $(x_0-p)(x-p)+(y_0-q)(y-q)=r^2$.
+      - |
+        $\text{pow}(P)=CP^2-r^2$; the tangent length from an outside point is $\sqrt{\text{pow}(P)}$.

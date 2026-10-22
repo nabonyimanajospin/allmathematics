@@ -1,0 +1,141 @@
+id: geo-m02-u03-l03
+title: Two circles and the radical axis
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - circles-position
+  - radical-axis
+  - orthogonal-circles
+objectives:
+  - Decide the relative position of two circles from the distance between their centers.
+  - Find the radical axis and the common points of two circles.
+  - Test whether two circles are orthogonal.
+sections:
+  - id: positions
+    type: concept
+    title: Relative position of two circles
+    body: |
+      Let the circles have radii $r_1\ge r_2$ and let $d$ be the distance between their centers. The position depends only on how $d$ compares with $r_1+r_2$ and $r_1-r_2$:
+
+      | Condition | Position |
+      |---|---|
+      | $d>r_1+r_2$ | separate, outside each other |
+      | $d=r_1+r_2$ | externally tangent (one common point) |
+      | $r_1-r_2<d<r_1+r_2$ | intersecting at two points |
+      | $d=r_1-r_2>0$ | internally tangent (one common point) |
+      | $d<r_1-r_2$ | one inside the other |
+
+      The reason is the triangle inequality: the circles meet only if the three lengths $d$, $r_1$, $r_2$ can form a triangle.
+
+  - id: chk-position
+    type: check
+    prompt: |
+      The circles $x^2+y^2=1$ and $(x-3)^2+y^2=4$ are:
+    answerType: multiple_choice
+    answer: "1"
+    choices:
+      - text: "externally tangent"
+        value: "1"
+      - text: "intersecting at two points"
+        value: "2"
+      - text: "separate, outside each other"
+        value: "3"
+      - text: "internally tangent"
+        value: "4"
+    correctIndex: 0
+    hints:
+      - |
+        The centers are $(0,0)$ and $(3,0)$, with radii $1$ and $2$. Compare $d$ with $r_1+r_2$.
+    explanation: |
+      $d=3$ and $r_1+r_2=1+2=3$, so the circles are externally tangent.
+
+  - id: radical
+    type: theorem
+    name: The radical axis
+    statement: |
+      Let $S_1=0$ and $S_2=0$ be two circles with different centers, written as $x^2+y^2+D_ix+E_iy+F_i=0$. The set of points with equal power with respect to both is the line
+
+      $$S_1-S_2=0,$$
+
+      the **radical axis**. It is perpendicular to the line of centers. If the circles meet, the radical axis passes through the common points.
+    proof: |
+      The power of $P$ is the value of $S_i$ at $P$, so equal powers means $S_1(P)=S_2(P)$. Subtracting the equations, the terms $x^2+y^2$ cancel and what remains is
+      $(D_1-D_2)x+(E_1-E_2)y+(F_1-F_2)=0$, a line with normal vector $(D_1-D_2,\,E_1-E_2)$, which is parallel to the line of centers (the difference of the two centers, up to a factor $-2$).
+      A common point has power $0$ for both circles, so it lies on the line.
+
+  - id: ex-radical
+    type: example
+    title: Common points
+    problem: |
+      Find the common points of $x^2+y^2=25$ and $(x-6)^2+y^2=25$.
+    steps:
+      - |
+        Write the second circle as $x^2+y^2-12x+11=0$. The first is $x^2+y^2-25=0$.
+      - |
+        Subtracting: $12x-36=0$, so the radical axis is $x=3$.
+      - |
+        Put $x=3$ in the first circle: $y^2=16$, so $y=\pm4$.
+    answer: |
+      The common points are $(3,4)$ and $(3,-4)$.
+    verify:
+      - expr: "3^2+4^2"
+        equals: "25"
+      - expr: "(3-6)^2+4^2"
+        equals: "25"
+
+  - id: chk-radical
+    type: check
+    prompt: |
+      Find the radical axis of $x^2+y^2=9$ and $x^2+y^2-4x-6y+9=0$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "4*x+6*y-18=0"
+    hints:
+      - |
+        Write both circles as $x^2+y^2+\dots=0$ and subtract.
+    explanation: |
+      The first circle is $x^2+y^2-9=0$. Subtracting the second: $(-9)-(-4x-6y+9)=4x+6y-18=0$, or $2x+3y-9=0$. Any non-zero multiple of this equation is also correct.
+
+  - id: orthogonal
+    type: theorem
+    name: Orthogonal circles
+    statement: |
+      Two circles intersecting at a point $P$ are **orthogonal** when their tangents at $P$ are perpendicular; equivalently, the radii to $P$ are perpendicular. This happens if and only if
+
+      $$d^2=r_1^2+r_2^2.$$
+    proof: |
+      The triangle formed by the two centers and $P$ has sides $r_1$, $r_2$ and $d$. By the converse of Pythagoras, the angle at $P$ is a right angle exactly when $d^2=r_1^2+r_2^2$.
+      The tangents are perpendicular to the radii, so they are perpendicular exactly when the radii are.
+
+  - id: ex-orthogonal
+    type: example
+    title: Orthogonal circles
+    problem: |
+      Show that $x^2+y^2=9$ and $(x-5)^2+y^2=16$ are orthogonal, and find their common points.
+    steps:
+      - |
+        $d=5$, $r_1=3$, $r_2=4$, and $d^2=25=9+16$. The circles are orthogonal.
+      - |
+        The second circle is $x^2+y^2-10x+9=0$. Subtracting from $x^2+y^2-9=0$: $10x-18=0$, so $x=\dfrac95$.
+      - |
+        Then $y^2=9-\dfrac{81}{25}=\dfrac{144}{25}$, so $y=\pm\dfrac{12}5$.
+    answer: |
+      The circles are orthogonal, and they meet at $\left(\dfrac95,\dfrac{12}5\right)$ and $\left(\dfrac95,-\dfrac{12}5\right)$.
+    verify:
+      - expr: "5^2"
+        equals: "3^2+4^2"
+      - expr: "(9/5)^2+(12/5)^2"
+        equals: "9"
+      - expr: "(9/5-5)^2+(12/5)^2"
+        equals: "16"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Compare $d$ with $r_1+r_2$ and $|r_1-r_2|$: separate, tangent externally, intersecting, tangent internally, nested.
+      - |
+        The radical axis is $S_1-S_2=0$, a line perpendicular to the line of centers, through the common points.
+      - |
+        The circles are orthogonal when $d^2=r_1^2+r_2^2$.
