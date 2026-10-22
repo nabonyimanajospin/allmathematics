@@ -110,14 +110,38 @@ const example = z.strictObject({
   verify: z.array(verifySchema).min(1).max(12),
 });
 
+const coord = z.union([z.number(), z.string().min(1).max(40)]);
+const figPoint = z.array(coord).min(2).max(3);
+const figRef = z.union([z.string().min(1).max(20), figPoint]);
+const figColor = z.enum(["accent", "warning", "success", "danger", "ink", "muted"]);
+const figureItem = z.discriminatedUnion("t", [
+  z.strictObject({ t: z.literal("point"), id: z.string().min(1).max(20), at: figPoint, label: z.string().max(20).optional(), color: figColor.optional() }),
+  z.strictObject({ t: z.literal("segment"), from: figRef, to: figRef, dashed: z.boolean().optional(), color: figColor.optional(), label: z.string().max(20).optional(), arrow: z.boolean().optional() }),
+  z.strictObject({ t: z.literal("line"), through: z.tuple([figRef, figRef]), dashed: z.boolean().optional(), color: figColor.optional(), label: z.string().max(30).optional() }),
+  z.strictObject({ t: z.literal("polygon"), pts: z.array(figRef).min(3).max(12), fill: figColor.optional(), color: figColor.optional() }),
+  z.strictObject({ t: z.literal("circle"), center: figRef, r: coord, dashed: z.boolean().optional(), color: figColor.optional() }),
+  z.strictObject({ t: z.literal("right"), at: figRef, a: figRef, b: figRef }),
+  z.strictObject({ t: z.literal("text"), at: figRef, text: z.string().min(1).max(40), color: figColor.optional() }),
+]);
+/** A geometry figure drawn from exact coordinates (see packages/core/src/figure.ts). */
+export const figureSchema = z.strictObject({
+  dim: z.union([z.literal(2), z.literal(3)]),
+  alt: z.string().min(10).max(400),
+  view: z.array(z.number()).min(1).max(4),
+  axes: z.boolean().optional(),
+  items: z.array(figureItem).min(1).max(60),
+});
+
 const visual = z.strictObject({
   ...blockBase,
   type: z.literal("visual"),
   /** "vector2d": the vector explorer. "plot": a polar, parametric or Cartesian curve (see packages/core/src/plot.ts). */
-  kind: z.enum(["vector2d", "plot"]),
+  kind: z.enum(["vector2d", "plot", "figure"]),
   title: shortText,
   caption: text,
   config: z.record(z.string(), z.union([z.number(), z.string(), z.boolean()])).optional(),
+  /** For kind "figure". */
+  figure: figureSchema.optional(),
 });
 
 const choiceSchema = z.strictObject({
