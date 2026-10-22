@@ -132,9 +132,10 @@ export function ExampleBlock({ s }: { s: Of<"example"> }) {
 export function VisualBlock({ s }: { s: Of<"visual"> }) {
   return (
     <div className="rounded-[var(--radius)] border border-line bg-surface p-5">
-      <p className={`${label} text-accent`}>
-        {t("lesson.visual")}: <RichInline html={s.titleHtml} />
-      </p>
+      <p className={`${label} text-accent`}>{t("lesson.visual")}</p>
+      <h2 className="mb-3 text-lg font-bold">
+        <RichInline html={s.titleHtml} />
+      </h2>
       {s.kind === "plot" ? <PlotExplorer config={s.config}  title={s.titleHtml.replace(/<[^>]+>/g, "")} /> : <VectorExplorer mode={s.mode} />}
       <Rich html={s.captionHtml} className="mt-3 text-muted" />
     </div>

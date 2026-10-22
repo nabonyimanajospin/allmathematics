@@ -263,6 +263,9 @@ importers:
 
   packages/content-schema:
     dependencies:
+      '@allmaths/core':
+        specifier: workspace:*
+        version: link:../core
       '@allmaths/notation':
         specifier: workspace:*
         version: link:../notation

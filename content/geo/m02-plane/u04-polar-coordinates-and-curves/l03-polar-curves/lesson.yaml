@@ -37,19 +37,19 @@ sections:
     kind: plot
     title: Three spirals
     caption: |
-      $r=\dfrac\theta8$ (Archimedes) grows slowly and evenly. $r=2^{\theta}$ leaves the pole and grows quickly; $r=2^{-\theta}$ starts at $1$ and winds towards the pole.
+      The spiral of Archimedes $r=\dfrac\theta2$ grows evenly. The spiral $r=\left(\dfrac54\right)^{\theta}$ leaves the pole and grows faster and faster, while $r=\left(\dfrac45\right)^{\theta}$ starts at $1$ and winds towards the pole without reaching it.
     config:
       mode: polar
-      r: "t/8"
-      l1: "r = θ/8"
-      r2: "2^t"
-      l2: "r = 2^θ"
-      r3: "2^(-t)"
-      l3: "r = 2^(−θ)"
+      r: "t/2"
+      l1: "r = θ/2"
+      r2: "(5/4)^t"
+      l2: "r = (5/4)^θ"
+      r3: "(4/5)^t"
+      l3: "r = (4/5)^θ"
       tmin: "0"
       tmax: "3*pi"
       range: 6
-      alt: "Three spirals around the origin: a slowly growing spiral, a fast growing one and one that winds towards the origin."
+      alt: "Three spirals around the origin: one growing evenly, one growing faster and faster, one winding towards the origin."
 
   - id: cardioid
     type: definition

@@ -233,21 +233,47 @@ export function buildPlot(config: PlotConfig): Plot {
     const pieces: [number, number][][] = [];
     let cur: [number, number][] = [];
     let last: [number, number] | null = null;
-    for (let i = 0; i <= SAMPLES; i++) {
-      const t = tmin + ((tmax - tmin) * i) / SAMPLES;
+    const at = (t: number): [number, number] | null => {
       const x = s.fx(t);
       const y = s.fy(t);
-      const ok = Number.isFinite(x) && Number.isFinite(y) && Math.abs(x) < 50 * spanX && Math.abs(y) < 50 * spanY;
+      return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
+    };
+    /** Between a defined and an undefined parameter, find (by bisection) the edge of the domain: the curve then reaches its true end. */
+    const edge = (good: number, bad: number): [number, number] | null => {
+      let a = good;
+      let b = bad;
+      for (let k = 0; k < 40; k++) {
+        const m = (a + b) / 2;
+        if (at(m)) a = m;
+        else b = m;
+      }
+      return at(a);
+    };
+    let prevT = tmin;
+    let prev: [number, number] | null = null;
+    for (let i = 0; i <= SAMPLES; i++) {
+      const t = tmin + ((tmax - tmin) * i) / SAMPLES;
+      const pt = at(t);
+      if (pt === null && prev !== null) {
+        const e = edge(prevT, t);
+        if (e) cur.push(e);
+      } else if (pt !== null && prev === null && i > 0) {
+        const e = edge(t, prevT);
+        if (e) cur.push(e);
+      }
+      const visible = pt !== null && Math.abs(pt[0]) < 50 * spanX && Math.abs(pt[1]) < 50 * spanY;
       // a jump of more than a quarter of the picture between two samples is an asymptote, not a line
-      const jump = ok && last !== null && (Math.abs(x - last[0]) > spanX / 4 || Math.abs(y - last[1]) > spanY / 4);
-      if (!ok || jump) {
+      const jump = visible && last !== null && (Math.abs(pt[0] - last[0]) > spanX / 4 || Math.abs(pt[1] - last[1]) > spanY / 4);
+      if (!visible || jump || pt === null) {
         if (cur.length > 1) pieces.push(cur);
         cur = [];
       }
-      if (ok) {
-        cur.push([x, y]);
-        last = [x, y];
+      if (visible && pt !== null) {
+        cur.push(pt);
+        last = pt;
       } else last = null;
+      prev = pt;
+      prevT = t;
     }
     if (cur.length > 1) pieces.push(cur);
     return { label: s.label, pieces };
