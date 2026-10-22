@@ -41,7 +41,7 @@ describe("the real content", () => {
 
   it("has ids that follow the hierarchy", () => {
     const geo = lessons.map((l) => l.meta.id).filter((id) => id.startsWith("geo-"));
-    expect(geo).toEqual(["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"]);
+    expect(geo.slice(0, 3)).toEqual(["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"]);
     // every lesson id follows course-mNN-uNN-lNN and is unique
     const all = lessons.map((l) => l.meta.id);
     expect(new Set(all).size).toBe(all.length);

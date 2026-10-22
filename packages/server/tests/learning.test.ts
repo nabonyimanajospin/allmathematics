@@ -13,7 +13,7 @@ const at = (secs: number) => new Date(T0.getTime() + secs * 1000);
 
 let f: Fixture;
 beforeAll(async () => {
-  f = await makeFixture();
+  f = await makeFixture({ geometryModule1Only: true });
   if (!(await engine.health())) {
     if (process.env.REQUIRE_ENGINE === "1") throw new Error("Math engine is required but not running");
     throw new Error("Start the math engine on :8001 (see docs/running.md) to run these tests");
@@ -248,7 +248,7 @@ describe("check questions", () => {
 describe("progress formulas applied end to end", () => {
   let g: Fixture;
   beforeAll(async () => {
-    g = await makeFixture();
+    g = await makeFixture({ geometryModule1Only: true });
   });
   afterAll(async () => {
     await g.h.close();

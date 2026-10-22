@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { createEngineClient, requiredSeconds, type EventInput } from "@allmaths/core";
 import { schema, type DbHandle } from "@allmaths/db";
 import { openTestDb } from "@allmaths/db/testing";
-import { loadStore, syncContent, ingestEvents, checkAnswer, type ContentStore } from "../src";
+import { buildStore, loadStore, syncContent, ingestEvents, checkAnswer, type ContentStore } from "../src";
 
 export const contentDir = resolve(import.meta.dirname, "..", "..", "..", "content");
 
@@ -13,9 +13,16 @@ export interface Fixture {
   userId: string;
 }
 
-export async function makeFixture(): Promise<Fixture> {
+/** The progress formulas are tested on the first module of Geometry only, so that its numbers stay fixed as content grows. */
+export function geometryModule1Store(): ContentStore {
+  const full = loadStore(contentDir);
+  const geo = full.courses.find((c) => c.meta.id === "geo")!;
+  return buildStore([{ ...geo, modules: geo.modules.filter((m) => m.meta.id === "geo-m01") }]);
+}
+
+export async function makeFixture(options: { geometryModule1Only?: boolean } = {}): Promise<Fixture> {
   const h = await openTestDb();
-  const store = loadStore(contentDir);
+  const store = options.geometryModule1Only ? geometryModule1Store() : loadStore(contentDir);
   await syncContent(h.db, store);
   const [u] = await h.db.insert(schema.users).values({ email: `${randomUUID()}@example.com`, name: "T" }).returning();
   return { h, store, userId: u!.id };
