@@ -1,0 +1,135 @@
+id: mvc-m01-u03-l01
+title: Tangent plane and normal line to a surface
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - tangent-plane
+  - normal-line
+objectives:
+  - Write the tangent plane to a surface $z=f(x,y)$ at a point.
+  - Write the tangent plane and the normal line to a surface $F(x,y,z)=0$ at a point.
+  - Use a normal vector $\vec n$ to describe a plane and a line.
+sections:
+  - id: tangent-idea
+    type: concept
+    title: From a tangent line to a tangent plane
+    body: |
+      A curve has a tangent **line** at a point: the straight line that best approximates it there. A surface has a
+      tangent **plane**: the plane that best approximates the surface near the point.
+
+      The tangent plane contains the tangent lines of all the curves that lie on the surface and pass through the
+      point. The line through the point that is perpendicular to the tangent plane is the **normal line** of the surface;
+      a vector $\vec n$ along it is a **normal vector**.
+
+  - id: plane-graph
+    type: theorem
+    name: Tangent plane to a graph
+    statement: |
+      Let $f$ have continuous partial derivatives, and let $P(x_0,y_0,z_0)$ be a point of the surface $z=f(x,y)$.
+      The tangent plane at $P$ is
+
+      $$z-z_0=f_x(x_0,y_0)\,(x-x_0)+f_y(x_0,y_0)\,(y-y_0),$$
+
+      and $\vec n=\left(f_x(x_0,y_0),\ f_y(x_0,y_0),\ -1\right)$ is a normal vector.
+    proof: |
+      In the plane $y=y_0$, the surface cuts a curve with slope $f_x(x_0,y_0)$ at $P$, so its tangent line has direction
+      $(1,0,f_x)$. In the plane $x=x_0$, the tangent line has direction $(0,1,f_y)$. The plane through $P$ containing both
+      directions has normal vector $\crossp{(1,0,f_x)}{(0,1,f_y)}=(-f_x,-f_y,1)$, which is parallel to $(f_x,f_y,-1)$.
+
+  - id: plane-implicit
+    type: theorem
+    name: Tangent plane to a surface given by an equation
+    statement: |
+      Let the surface be $F(x,y,z)=0$ and let $P(x_0,y_0,z_0)$ be a point of it where $(F_x,F_y,F_z)\neq(0,0,0)$. Then
+      $\vec n=\left(F_x(P),\,F_y(P),\,F_z(P)\right)$ is a normal vector, and
+
+      $$F_x(P)(x-x_0)+F_y(P)(y-y_0)+F_z(P)(z-z_0)=0$$
+
+      is the tangent plane. The normal line is
+
+      $$\dfrac{x-x_0}{F_x(P)}=\dfrac{y-y_0}{F_y(P)}=\dfrac{z-z_0}{F_z(P)}.$$
+    proof: |
+      For a curve $x=x(t),\,y=y(t),\,z=z(t)$ on the surface, $F(x(t),y(t),z(t))=0$. Differentiating with the chain rule gives
+      $F_xx'+F_yy'+F_zz'=0$: the tangent vector $(x',y',z')$ of every such curve is perpendicular to $(F_x,F_y,F_z)$.
+      So all these tangents lie in the plane with normal $(F_x,F_y,F_z)$.
+
+  - id: ex-graph
+    type: example
+    title: A graph surface
+    problem: |
+      Find the tangent plane and a normal vector of $z=x^2+3y^2$ at $P(1,1,4)$.
+    steps:
+      - |
+        The point is on the surface: $1^2+3\cdot1^2=4$. The partial derivatives are $f_x=2x$ and $f_y=6y$, so at $P$:
+        $f_x=2$, $f_y=6$.
+      - |
+        The tangent plane is $z-4=2(x-1)+6(y-1)$, that is $2x+6y-z-4=0$.
+      - |
+        A normal vector is $\vec n=(2,6,-1)$.
+    answer: |
+      Tangent plane $2x+6y-z-4=0$; normal vector $\vec n=(2,6,-1)$.
+    verify:
+      - expr: "1^2+3*1^2"
+        equals: "4"
+      - expr: "diff(x^2+3*y^2, y)"
+        equals: "6*y"
+      - expr: "2*1+6*1-4"
+        equals: "4"
+
+  - id: chk-plane
+    type: check
+    prompt: |
+      Find the tangent plane to $z=xy$ at $P(2,3,6)$.
+    answerType: equation
+    coordinates: [x, y, z]
+    answer: "3*x+2*y-z-6=0"
+    hints:
+      - |
+        $f_x=y$ and $f_y=x$. Evaluate them at $(2,3)$.
+    explanation: |
+      $f_x(2,3)=3$ and $f_y(2,3)=2$, so $z-6=3(x-2)+2(y-3)$, that is $3x+2y-z-6=0$.
+
+  - id: ex-implicit
+    type: example
+    title: A surface given by an equation
+    problem: |
+      Find the tangent plane and the normal line of $x^2+y^2+z^2=14$ at $P(1,2,3)$.
+    steps:
+      - |
+        Check that $P$ is on the surface: $1+4+9=14$. Take $F=x^2+y^2+z^2-14$, so $(F_x,F_y,F_z)=(2x,2y,2z)$.
+      - |
+        At $P$ the normal vector is $(2,4,6)$, which is parallel to $\vec n=(1,2,3)$.
+      - |
+        The tangent plane is $1\cdot(x-1)+2(y-2)+3(z-3)=0$, that is $x+2y+3z=14$.
+      - |
+        The normal line is $\dfrac{x-1}{1}=\dfrac{y-2}{2}=\dfrac{z-3}{3}$. It passes through the origin, as every normal line of a sphere does.
+    answer: |
+      Tangent plane $x+2y+3z=14$; normal line $\dfrac{x-1}{1}=\dfrac{y-2}{2}=\dfrac{z-3}{3}$.
+    verify:
+      - expr: "1^2+2^2+3^2"
+        equals: "14"
+      - expr: "1*1+2*2+3*3"
+        equals: "14"
+
+  - id: chk-normal
+    type: check
+    prompt: |
+      A normal vector to the surface $x^2+y^2-z=0$ at $P(1,2,5)$ is any non-zero multiple of which vector? Enter it.
+    answerType: direction
+    answer: "(2, 4, -1)"
+    hints:
+      - |
+        Take $F=x^2+y^2-z$ and compute $(F_x,F_y,F_z)$ at $P$.
+    explanation: |
+      $(F_x,F_y,F_z)=(2x,2y,-1)$, which at $(1,2,5)$ equals $(2,4,-1)$. Any non-zero multiple, such as $(-2,-4,1)$, is also a normal vector.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        For $z=f(x,y)$ at $P(x_0,y_0,z_0)$: $z-z_0=f_x(x-x_0)+f_y(y-y_0)$, with normal vector $(f_x,f_y,-1)$.
+      - |
+        For $F(x,y,z)=0$: $F_x(P)(x-x_0)+F_y(P)(y-y_0)+F_z(P)(z-z_0)=0$, with normal vector $(F_x,F_y,F_z)$ at $P$.
+      - |
+        The normal line through $P$ has the direction of the normal vector: $\dfrac{x-x_0}{F_x}=\dfrac{y-y_0}{F_y}=\dfrac{z-z_0}{F_z}$.
