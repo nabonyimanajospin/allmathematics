@@ -154,7 +154,7 @@ const answerSpec = {
   coordinates: z.array(z.string().regex(/^[A-Za-z]$/)).min(1).max(4).optional(),
   constraint: constraintSchema.optional(),
   ode: odeSchema.optional(),
-  choices: z.array(choiceSchema).min(3).max(6).optional(),
+  choices: z.array(choiceSchema).min(2).max(6).optional(),
   correctIndex: z.number().int().min(0).max(5).optional(),
   hints: z.array(text).max(3).default([]),
   mistakes: z.array(mistakeSchema).max(6).optional(),
