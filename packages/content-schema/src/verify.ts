@@ -166,9 +166,13 @@ export function verifyLessonStatic(lesson: Lesson, file: string): ContentIssue[]
     }
   }
 
+  const squash = (t: string): string => t.replace(/\s+/g, "").toLowerCase();
   for (const set of lesson.exerciseSets) {
+    // The format hint is shown for the whole set: an example in it must not be the key of one of the exercises.
+    const examples = [...(set.format ?? "").matchAll(/`([^`]+)`/g)].map((m) => squash(m[1] ?? ""));
     for (const item of set.items) {
       const where = `exercise ${item.id}`;
+      if (examples.includes(squash(item.answer))) err(`exerciseSets(${set.id}).format: the example “${item.answer}” is the answer of ${item.id}`);
       if (item.answerType !== "multiple_choice" && !item.allowDecimal) {
         for (const li of lintAnswerExpression(item.answer)) {
           if (item.lintIgnore?.includes(li.rule)) continue;

@@ -30,7 +30,7 @@ const messages = (l: Lesson) => errors(l).map((e) => e.message);
 describe("the real content", () => {
   it("loads without any issue", () => {
     expect(tree.issues).toEqual([]);
-    expect(lessons.length).toBeGreaterThanOrEqual(3);
+    expect(lessons.length).toBeGreaterThanOrEqual(28);
   });
 
   it("passes the static verification (KaTeX, notation lint, structure)", () => {
@@ -143,6 +143,13 @@ describe("static verification catches mistakes", () => {
       if (s?.type === "concept") s.body += `\n\n$a${String.fromCharCode(12)}rac{1}{2}$`;
     });
     expect(messages(l).join("\n")).toContain("control character");
+  });
+
+  it("an example in a format hint must not be the answer of an exercise", () => {
+    const withExercises = structuredClone(lessons.find((l) => l.meta.id === "mvc-m04-u01-l02")!.meta);
+    const set = withExercises.exerciseSets[0]!;
+    set.format = `Type the solution, for example \`${set.items[0]!.answer}\`.`;
+    expect(messages(withExercises).join(" | ")).toContain("is the answer of");
   });
 
   it("counts a formula as one word", () => {
