@@ -5,6 +5,7 @@ import { Button } from "@allmaths/ui";
 import type { RSection } from "@/lib/lesson-types";
 import { t } from "@/i18n";
 import { Rich, RichInline } from "./rich";
+import { PlotExplorer } from "./plot-explorer";
 import { VectorExplorer } from "./vector-explorer";
 
 type Of<T extends RSection["type"]> = Extract<RSection, { type: T }>;
@@ -134,7 +135,7 @@ export function VisualBlock({ s }: { s: Of<"visual"> }) {
       <p className={`${label} text-accent`}>
         {t("lesson.visual")}: <RichInline html={s.titleHtml} />
       </p>
-      <VectorExplorer mode={s.mode} />
+      {s.kind === "plot" ? <PlotExplorer config={s.config}  title={s.titleHtml.replace(/<[^>]+>/g, "")} /> : <VectorExplorer mode={s.mode} />}
       <Rich html={s.captionHtml} className="mt-3 text-muted" />
     </div>
   );

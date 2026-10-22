@@ -4,3 +4,4 @@ export * from "./progress";
 export * from "./events";
 export * from "./ids";
 export * from "./engine-client";
+export * from "./plot";

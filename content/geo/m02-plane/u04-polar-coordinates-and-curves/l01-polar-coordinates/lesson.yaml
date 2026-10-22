@@ -1,0 +1,195 @@
+id: geo-m02-u04-l01
+title: Polar coordinates
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - polar-coordinates
+  - polar-cartesian-conversion
+  - polar-distance
+  - exact-trig-values
+objectives:
+  - Describe a point by its polar coordinates, and know that one point has many representations.
+  - Convert between polar and Cartesian coordinates, choosing the right quadrant.
+  - Compute the distance between two points and the midpoint of a segment from polar coordinates.
+sections:
+  - id: distance-and-direction
+    type: concept
+    title: Distance and direction instead of two distances
+    body: |
+      A sailor describes a position by **how far** and **in which direction**, not by two distances along perpendicular lines. Polar coordinates do the same for the plane.
+      Fix a point $O$, the **pole**, and a half-line $Ox$ from it, the **polar axis**. A point $M\neq O$ is given by the distance $r=OM$ and by the angle $\theta$ from the polar axis to the half-line $OM$, measured counterclockwise.
+
+      The notation is $M(r,\theta)$. The polar axis plays the role of the positive $x$-axis, and the pole that of the origin.
+
+  - id: polar-def
+    type: definition
+    term: Polar coordinates
+    body: |
+      The **polar coordinates** of $M$ are $(r,\theta)$ with $r=OM\ge0$ and $\theta$ the angle of the half-line $OM$ with the polar axis. The pole itself has $r=0$ and any $\theta$.
+
+      The angle is determined only **up to a full turn**: $(r,\theta)$ and $(r,\theta+2k\pi)$, $k\in\mathbb Z$, are the same point. It is also convenient to allow $r<0$, with the rule
+
+      $$(-r,\theta)=(r,\theta+\pi),$$
+
+      that is: a negative $r$ means going backwards. The **principal value** of the angle is the one in $]-\pi,\pi]$.
+    more: |
+      **Why allow $r<0$?** Many curves, such as the rose $r=\cos 2\theta$, are described by a formula where $r$ becomes negative for some angles. With the rule above these points are still points of the plane: $(-2,\frac\pi6)$ is the point at distance $2$ in the direction $\frac\pi6+\pi=\frac{7\pi}6$.
+
+  - id: exact-values
+    type: concept
+    title: Exact values to know by heart
+    body: |
+      Conversions use the sine and cosine of a few angles. Here are the exact values.
+
+      | $\theta$ | $0$ | $\dfrac\pi6$ | $\dfrac\pi4$ | $\dfrac\pi3$ | $\dfrac\pi2$ |
+      |---|---|---|---|---|---|
+      | $\sin\theta$ | $0$ | $\dfrac12$ | $\dfrac{\sqrt2}2$ | $\dfrac{\sqrt3}2$ | $1$ |
+      | $\cos\theta$ | $1$ | $\dfrac{\sqrt3}2$ | $\dfrac{\sqrt2}2$ | $\dfrac12$ | $0$ |
+
+      **A way to remember the table.** The sines of $0,\dfrac\pi6,\dfrac\pi4,\dfrac\pi3,\dfrac\pi2$ are $\dfrac{\sqrt0}{2},\dfrac{\sqrt1}{2},\dfrac{\sqrt2}{2},\dfrac{\sqrt3}{2},\dfrac{\sqrt4}{2}$. The cosines are the same numbers in the opposite order.
+      Spread the fingers of the left hand, thumb at $0$ and little finger at $\dfrac\pi2$: for a given finger, the number of fingers *below* it gives the square root for the sine, and the number of fingers above it gives the square root for the cosine.
+    more: |
+      **Why the cosines run backwards.** $\cos\theta=\sin\left(\dfrac\pi2-\theta\right)$. The angle $\dfrac\pi2-\theta$ for $\theta=0,\dfrac\pi6,\dfrac\pi4,\dfrac\pi3,\dfrac\pi2$ is $\dfrac\pi2,\dfrac\pi3,\dfrac\pi4,\dfrac\pi6,0$: the same list in the opposite order.
+
+  - id: conversion
+    type: theorem
+    name: Polar and Cartesian coordinates
+    statement: |
+      If the pole is the origin and the polar axis is the positive $x$-axis, then
+
+      $$x=r\cos\theta,\qquad y=r\sin\theta,\qquad r=\sqrt{x^2+y^2}.$$
+
+      For $\theta$, with $(x,y)\neq(0,0)$: $\ \cos\theta=\dfrac xr$ and $\sin\theta=\dfrac yr$. In terms of arctangent (principal value):
+
+      - $\theta=\arctan\dfrac yx$ if $x>0$;
+      - $\theta=\arctan\dfrac yx+\pi$ if $x<0$ and $y\ge0$; $\ \theta=\arctan\dfrac yx-\pi$ if $x<0$ and $y<0$;
+      - $\theta=\dfrac\pi2$ if $x=0$ and $y>0$; $\ \theta=-\dfrac\pi2$ if $x=0$ and $y<0$.
+    proof: |
+      In the right triangle with hypotenuse $OM=r$, the angle $\theta$ at $O$, the adjacent side is $x=r\cos\theta$ and the opposite side is $y=r\sin\theta$ (this stays true in every quadrant, with signs). Pythagoras gives $r^2=x^2+y^2$.
+      The function $\arctan$ takes values in $]-\dfrac\pi2,\dfrac\pi2[$, so it can only give the correct angle when $x>0$; for $x<0$ the point is in the opposite half-plane and we add or subtract $\pi$ to land in $]-\pi,\pi]$.
+    more: |
+      **Always check the quadrant.** The ratio $\dfrac yx$ is the same for $(1,1)$ and for $(-1,-1)$, but these are opposite points. Look at the signs of $x$ and $y$ first: a quick sketch tells which quadrant contains the point, and the angle must be in it.
+
+  - id: ex-to-polar
+    type: example
+    title: From Cartesian to polar
+    problem: |
+      Find the polar coordinates (principal angle) of $M(-1,\sqrt3)$ and of $N(3,-3)$.
+    steps:
+      - |
+        $M$: $r=\sqrt{1+3}=2$. The point is in the second quadrant ($x<0$, $y>0$).
+      - text: |
+          $\tan\theta=\dfrac{\sqrt3}{-1}=-\sqrt3$, so the reference angle is $\dfrac\pi3$ and $\theta=\pi-\dfrac\pi3=\dfrac{2\pi}3$. So $M\left(2,\dfrac{2\pi}3\right)$.
+        why: |
+          In the second quadrant, the angle is $\pi$ minus the acute angle whose tangent is $\sqrt3$ (that is $\dfrac\pi3$). Check with the cosine: $r\cos\theta=2\cos\dfrac{2\pi}3=2\cdot\left(-\dfrac12\right)=-1=x$ and $r\sin\theta=2\cdot\dfrac{\sqrt3}2=\sqrt3=y$.
+      - |
+        $N$: $r=\sqrt{9+9}=3\sqrt2$. It is in the fourth quadrant, and $\tan\theta=-1$, so $\theta=-\dfrac\pi4$. So $N\left(3\sqrt2,-\dfrac\pi4\right)$.
+    answer: |
+      $M\left(2,\dfrac{2\pi}3\right)$ and $N\left(3\sqrt2,-\dfrac\pi4\right)$.
+    verify:
+      - expr: "2*cos(2*pi/3)"
+        equals: "-1"
+      - expr: "2*sin(2*pi/3)"
+        equals: "sqrt(3)"
+      - expr: "3*sqrt(2)*cos(-pi/4)"
+        equals: "3"
+
+  - id: chk-to-polar
+    type: check
+    prompt: |
+      Find the polar coordinates $(r,\theta)$ with $r>0$ and $\theta\in]-\pi,\pi]$ of the point $(-2,-2)$.
+    answerType: vector
+    answer: "(2*sqrt(2), -3*pi/4)"
+    hints:
+      - |
+        The point is in the third quadrant, and $\tan\theta=1$. The angle is not $\dfrac\pi4$.
+    explanation: |
+      $r=\sqrt{4+4}=2\sqrt2$. The reference angle is $\dfrac\pi4$ and the point is in the third quadrant, so $\theta=-\pi+\dfrac\pi4=-\dfrac{3\pi}4$.
+    mistakes:
+      - expr: "(2*sqrt(2), pi/4)"
+        hint: "That is the point $(2,2)$. The point $(-2,-2)$ is in the third quadrant: add or subtract $\\pi$."
+
+  - id: ex-to-cartesian
+    type: example
+    title: From polar to Cartesian
+    problem: |
+      Find the Cartesian coordinates of $P\left(4,\dfrac{5\pi}6\right)$.
+    steps:
+      - |
+        $\cos\dfrac{5\pi}6=-\cos\dfrac\pi6=-\dfrac{\sqrt3}2$ and $\sin\dfrac{5\pi}6=\sin\dfrac\pi6=\dfrac12$ (the angle is in the second quadrant, with reference angle $\dfrac\pi6$).
+      - |
+        $x=4\cdot\left(-\dfrac{\sqrt3}2\right)=-2\sqrt3$ and $y=4\cdot\dfrac12=2$.
+    answer: |
+      $P\left(-2\sqrt3,2\right)$.
+    verify:
+      - expr: "4*cos(5*pi/6)"
+        equals: "-2*sqrt(3)"
+      - expr: "4*sin(5*pi/6)"
+        equals: "2"
+
+  - id: chk-to-cartesian
+    type: check
+    prompt: |
+      Find the Cartesian coordinates of $\left(6,-\dfrac\pi3\right)$.
+    answerType: vector
+    answer: "(3, -3*sqrt(3))"
+    hints:
+      - |
+        $\cos\left(-\dfrac\pi3\right)=\dfrac12$ and $\sin\left(-\dfrac\pi3\right)=-\dfrac{\sqrt3}2$.
+    explanation: |
+      $x=6\cdot\dfrac12=3$ and $y=6\cdot\left(-\dfrac{\sqrt3}2\right)=-3\sqrt3$.
+
+  - id: distance-theorem
+    type: theorem
+    name: Distance in polar coordinates
+    statement: |
+      The distance between $P(r_1,\theta_1)$ and $Q(r_2,\theta_2)$ is
+
+      $$PQ=\sqrt{r_1^2+r_2^2-2r_1r_2\cos(\theta_2-\theta_1)}.$$
+    proof: |
+      In the triangle $OPQ$ the sides from $O$ are $r_1$ and $r_2$ and the angle between them is $\theta_2-\theta_1$. The law of cosines gives $PQ^2=r_1^2+r_2^2-2r_1r_2\cos(\theta_2-\theta_1)$. (If the angle is larger than $\pi$ the formula still holds, because the cosine does not change when the angle is replaced by $2\pi$ minus it.)
+
+  - id: ex-distance
+    type: example
+    title: Distance and midpoint
+    problem: |
+      Find the length of the segment $AB$ with $A\left(8,-\dfrac{2\pi}3\right)$ and $B\left(6,\dfrac\pi3\right)$, and the polar coordinates of its midpoint.
+    steps:
+      - |
+        $\theta_2-\theta_1=\dfrac\pi3+\dfrac{2\pi}3=\pi$, and $\cos\pi=-1$.
+      - |
+        $AB^2=64+36+2\cdot8\cdot6=196$, so $AB=14$. The points are on opposite sides of the pole, on one line through $O$.
+      - text: |
+          The midpoint is at distance $\dfrac{14}{2}=7$ from $A$ on this line, so at distance $8-7=1$ from $O$, on the side of $A$. Its polar coordinates are $\left(1,-\dfrac{2\pi}3\right)$.
+        why: |
+          Check with Cartesian coordinates: $A=\left(8\cos\dfrac{2\pi}3,\,-8\sin\dfrac{2\pi}3\right)=(-4,-4\sqrt3)$ and $B=\left(6\cos\dfrac\pi3,\,6\sin\dfrac\pi3\right)=(3,3\sqrt3)$. The midpoint is $\left(-\dfrac12,-\dfrac{\sqrt3}2\right)$, with $r=1$ and the angle of the third quadrant whose tangent is $\sqrt3$, that is $-\dfrac{2\pi}3$.
+    answer: |
+      $AB=14$; the midpoint is $\left(1,-\dfrac{2\pi}3\right)$.
+    verify:
+      - expr: "8^2+6^2-2*8*6*cos(pi)"
+        equals: "196"
+      - expr: "(-4+3)/2"
+        equals: "-1/2"
+
+  - id: chk-distance
+    type: check
+    prompt: |
+      Find the distance between $P\left(3,\dfrac\pi3\right)$ and $Q\left(4,\dfrac\pi6\right)$, as an exact value of the form $\sqrt{a-b\sqrt3}$.
+    answerType: expression
+    answer: "sqrt(25-12*sqrt(3))"
+    hints:
+      - |
+        $\theta_2-\theta_1=-\dfrac\pi6$ and $\cos\dfrac\pi6=\dfrac{\sqrt3}2$.
+    explanation: |
+      $PQ^2=9+16-2\cdot3\cdot4\cdot\dfrac{\sqrt3}2=25-12\sqrt3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $M(r,\theta)$: distance $r$ from the pole and angle $\theta$ from the polar axis; $(r,\theta)=(r,\theta+2k\pi)=(-r,\theta+\pi)$.
+      - |
+        $x=r\cos\theta$, $y=r\sin\theta$; $r=\sqrt{x^2+y^2}$ and the angle from the quadrant of the point.
+      - |
+        $PQ=\sqrt{r_1^2+r_2^2-2r_1r_2\cos(\theta_2-\theta_1)}$.

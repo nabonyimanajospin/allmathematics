@@ -113,7 +113,8 @@ const example = z.strictObject({
 const visual = z.strictObject({
   ...blockBase,
   type: z.literal("visual"),
-  kind: z.enum(["vector2d"]),
+  /** "vector2d": the vector explorer. "plot": a polar, parametric or Cartesian curve (see packages/core/src/plot.ts). */
+  kind: z.enum(["vector2d", "plot"]),
   title: shortText,
   caption: text,
   config: z.record(z.string(), z.union([z.number(), z.string(), z.boolean()])).optional(),
@@ -161,7 +162,7 @@ const answerSpec = {
   answerType: z.enum(ANSWER_TYPES),
   /** The key in the engine language. For ODE and region types it is a model answer that checks itself. Never sent to the browser. */
   answer: z.string().min(1).max(450),
-  variables: z.array(z.string().regex(/^[A-Za-z](?:_[A-Za-z0-9]+|[0-9])?$/)).max(8).optional(),
+  variables: z.array(z.string().regex(/^(?:[A-Za-z]|theta|phi|varphi|rho|alpha|beta|gamma|lambda|psi)(?:_[A-Za-z0-9]+|[0-9])?$/)).max(8).optional(),
   /** Coordinate variables of a region or an equation, e.g. ["x", "y", "z"]. */
   coordinates: z.array(z.string().regex(/^[A-Za-z]$/)).min(1).max(4).optional(),
   constraint: constraintSchema.optional(),

@@ -6,6 +6,7 @@
  */
 
 import katex from "katex";
+import { validatePlotConfig } from "@allmaths/core";
 import { extractMath, getMacros, lintAnswerExpression, lintMath, type LintIssue } from "@allmaths/notation";
 import type { ContentIssue } from "./loader";
 import { toEngineRequest, type EngineRequestBody } from "./client";
@@ -194,6 +195,10 @@ export function verifyLessonStatic(lesson: Lesson, file: string): ContentIssue[]
       const words = wordCount(s.body);
       if (words > MAX_CONCEPT_WORDS_ERROR) err(`sections[${i}](${s.id}): concept has ${words} words (limit about 250).`);
       else if (words > MAX_CONCEPT_WORDS_WARN) warn(`sections[${i}](${s.id}): concept has ${words} words (aim for at most 250).`);
+    }
+    if (s.type === "visual" && s.kind === "plot") {
+      const problem = validatePlotConfig(s.config ?? {});
+      if (problem) err(`sections[${i}](${s.id}): ${problem}`);
     }
     if (s.type === "check" && s.hints.length === 0) warn(`sections[${i}](${s.id}): a check should have at least one hint.`);
     if (s.type === "example") {

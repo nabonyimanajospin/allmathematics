@@ -16,6 +16,7 @@
     "zod": "^4.6.7",
     "yaml": "^2.8.0",
     "katex": "^0.19.0",
+    "@allmaths/core": "workspace:*",
     "@allmaths/notation": "workspace:*"
   }
 }

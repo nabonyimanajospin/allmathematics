@@ -181,6 +181,7 @@ export function renderSection(s: ClientSection): RSection | null {
         type: "visual",
         kind: s.kind,
         mode: String(s.config?.mode ?? "components"),
+        config: s.config ?? {},
         titleHtml: renderInline(s.title),
         captionHtml: renderRich(s.caption),
       };

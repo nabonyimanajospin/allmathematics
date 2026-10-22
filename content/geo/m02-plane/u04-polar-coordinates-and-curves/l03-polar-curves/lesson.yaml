@@ -1,0 +1,221 @@
+id: geo-m02-u04-l03
+title: Polar curves
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - polar-curve-sketching
+  - cardioid
+  - rose
+  - lemniscate
+  - polar-area
+objectives:
+  - Sketch a curve $r=f(\theta)$ with a table of values, its symmetries and its domain.
+  - Recognize the spiral, the cardioid, the rose and the lemniscate from their equations.
+  - Compute the area enclosed by a polar curve with $\dfrac12\int r^2\,d\theta$.
+sections:
+  - id: how-to-sketch
+    type: concept
+    title: How to sketch $r=f(\theta)$
+    body: |
+      A curve $r=f(\theta)$ is drawn by letting $\theta$ increase and plotting the point at distance $f(\theta)$ in the direction $\theta$. A good sketch needs four questions.
+
+      1. **Where is $r$ defined?** For example $r=\sqrt{\cos2\theta}$ exists only where $\cos2\theta\ge0$.
+      2. **What are the symmetries?** If $f(-\theta)=f(\theta)$ the curve is symmetric about the polar axis; if $f(\pi-\theta)=f(\theta)$ it is symmetric about the vertical line through the pole; if $f(\theta+\pi)=f(\theta)$ it is symmetric about the pole.
+      3. **Where is $r$ largest, smallest, zero?** The zeros of $r$ are the angles at which the curve passes through the pole.
+      4. **A table of values** at the angles $0,\dfrac\pi6,\dfrac\pi4,\dfrac\pi3,\dfrac\pi2,\dots$ where the exact values are known.
+
+  - id: spirals
+    type: definition
+    term: Spirals
+    body: |
+      The **spiral of Archimedes** $r=a\theta$ ($a>0$) moves away from the pole at a constant rate: each turn adds the same distance $2\pi a$.
+      The **exponential (logarithmic) spirals** $r=b^{\theta}$ with $b>1$ grow faster and faster as $\theta$ increases; with $r=b^{-\theta}$ they wind towards the pole, which they never reach.
+
+  - id: visual-spirals
+    type: visual
+    kind: plot
+    title: Three spirals
+    caption: |
+      $r=\dfrac\theta8$ (Archimedes) grows slowly and evenly. $r=2^{\theta}$ leaves the pole and grows quickly; $r=2^{-\theta}$ starts at $1$ and winds towards the pole.
+    config:
+      mode: polar
+      r: "t/8"
+      l1: "r = θ/8"
+      r2: "2^t"
+      l2: "r = 2^θ"
+      r3: "2^(-t)"
+      l3: "r = 2^(−θ)"
+      tmin: "0"
+      tmax: "3*pi"
+      range: 6
+      alt: "Three spirals around the origin: a slowly growing spiral, a fast growing one and one that winds towards the origin."
+
+  - id: cardioid
+    type: definition
+    term: The cardioid
+    body: |
+      The **cardioid** (heart-shaped) is the curve $r=a(1+\cos\theta)$, with $a>0$. Its relatives are $r=a(1-\cos\theta)$, $r=a(1+\sin\theta)$ and $r=a(1-\sin\theta)$: the same heart turned.
+
+      For $r=a(1+\cos\theta)$: $r$ is largest, $2a$, at $\theta=0$; $r=0$ at $\theta=\pi$ (the **cusp** is at the pole); the curve is symmetric about the polar axis, because $\cos(-\theta)=\cos\theta$.
+
+  - id: visual-cardioids
+    type: visual
+    kind: plot
+    title: The cardioids $r=3(1\pm\cos\theta)$
+    caption: |
+      The two cardioids of the assignment are mirror images of each other in the $y$-axis. Each has its cusp at the pole.
+    config:
+      mode: polar
+      r: "3*(1+cos(t))"
+      l1: "r = 3(1 + cos θ)"
+      r2: "3*(1-cos(t))"
+      l2: "r = 3(1 − cos θ)"
+      range: 7
+      alt: "Two heart-shaped curves with cusps at the origin, one opening to the left and one to the right."
+
+  - id: rose
+    type: definition
+    term: The rose
+    body: |
+      The **rose** is the curve $r=a\cos n\theta$ or $r=a\sin n\theta$, with $a>0$ and $n$ a positive integer. It has the shape of a flower:
+
+      - if $n$ is **odd**, it has $n$ petals;
+      - if $n$ is **even**, it has $2n$ petals.
+
+      Each petal has length $a$. The petals are centered on the directions where $|r|=a$, that is $n\theta$ a multiple of $\pi$ for the cosine rose.
+    more: |
+      **Why the number of petals depends on the parity of $n$.** For odd $n$ the points with negative $r$ coincide with points already drawn with positive $r$ (because $(-r,\theta)=(r,\theta+\pi)$ and $\cos n(\theta+\pi)=-\cos n\theta$ when $n$ is odd). So the curve is traced twice in $[0,2\pi]$ and has $n$ petals. For even $n$ the negative values draw new petals, giving $2n$.
+
+  - id: visual-roses
+    type: visual
+    kind: plot
+    title: The roses $r=6\cos2\theta$ and $r=6\sin2\theta$
+    caption: |
+      Both have $2\cdot2=4$ petals of length $6$. The second is the first turned by $\dfrac\pi4$.
+    config:
+      mode: polar
+      r: "6*cos(2*t)"
+      l1: "r = 6 cos 2θ"
+      r2: "6*sin(2*t)"
+      l2: "r = 6 sin 2θ"
+      range: 7
+      alt: "Two flowers with four petals each, one with petals along the axes and one with petals along the diagonals."
+
+  - id: lemniscate
+    type: definition
+    term: The lemniscate
+    body: |
+      The **lemniscate** (Bernoulli's figure eight) is $r^2=a^2\cos2\theta$, that is $r=\pm a\sqrt{\cos2\theta}$. It exists only where $\cos2\theta\ge0$: for $-\dfrac\pi4\le\theta\le\dfrac\pi4$ and for $\dfrac{3\pi}4\le\theta\le\dfrac{5\pi}4$, which gives two loops meeting at the pole.
+      The variant $r^2=a^2\sin2\theta$ is the same figure turned by $\dfrac\pi4$.
+
+  - id: visual-lemniscates
+    type: visual
+    kind: plot
+    title: The lemniscates $r=4\sqrt{\cos2\theta}$ and $r=4\sqrt{\sin2\theta}$
+    caption: |
+      Each is a figure eight. The first lies along the $x$-axis and the second along the diagonal $y=x$.
+    config:
+      mode: polar
+      r: "4*sqrt(cos(2*t))"
+      l1: "r = 4 √(cos 2θ)"
+      r2: "4*sqrt(sin(2*t))"
+      l2: "r = 4 √(sin 2θ)"
+      range: 5
+      alt: "Two figure-eight curves crossing at the origin, one along the horizontal axis and one along the diagonal."
+
+  - id: ex-sketch
+    type: example
+    title: Reading a curve from its equation
+    problem: |
+      Describe the curve $r=3(1+\cos\theta)$: its extreme values, its symmetry, and the points of the table at $\theta=0,\dfrac\pi3,\dfrac\pi2,\dfrac{2\pi}3,\pi$.
+    steps:
+      - |
+        $r$ is largest at $\theta=0$: $r=6$. It is $0$ at $\theta=\pi$: the curve passes through the pole there.
+      - |
+        The curve is symmetric about the polar axis, so it is enough to study $0\le\theta\le\pi$.
+      - |
+        $\theta=0$: $r=6$. $\theta=\dfrac\pi3$: $r=3\cdot\dfrac32=\dfrac92$. $\theta=\dfrac\pi2$: $r=3$. $\theta=\dfrac{2\pi}3$: $r=3\cdot\dfrac12=\dfrac32$. $\theta=\pi$: $r=0$.
+    answer: |
+      A heart-shaped curve with maximum $r=6$ at $\theta=0$, cusp at the pole, symmetric about the $x$-axis.
+    verify:
+      - expr: "3*(1+cos(pi/3))"
+        equals: "9/2"
+      - expr: "3*(1+cos(2*pi/3))"
+        equals: "3/2"
+
+  - id: chk-rose
+    type: check
+    prompt: |
+      How many petals has the rose $r=5\cos3\theta$?
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        The number $3$ is odd.
+    explanation: |
+      For an odd $n$ the rose $r=a\cos n\theta$ has $n$ petals: here $3$.
+
+  - id: chk-cardioid
+    type: check
+    prompt: |
+      Find the largest value of $r$ on the cardioid $r=4(1-\sin\theta)$.
+    answerType: number
+    answer: "8"
+    hints:
+      - |
+        $r$ is largest when $\sin\theta=-1$.
+    explanation: |
+      $r=4(1-(-1))=8$, for $\theta=-\dfrac\pi2$.
+
+  - id: area-theorem
+    type: theorem
+    name: Area in polar coordinates
+    statement: |
+      The region swept by the half-line $OM$ when $\theta$ goes from $\alpha$ to $\beta$ ($\beta-\alpha\le2\pi$), on the curve $r=f(\theta)$, has area
+
+      $$A=\dfrac12\int_\alpha^\beta r^2\,d\theta=\dfrac12\int_\alpha^\beta f(\theta)^2\,d\theta.$$
+    proof: |
+      Cut the region into thin sectors of angle $d\theta$. A sector of a circle of radius $r$ and angle $d\theta$ has area $\dfrac12r^2\,d\theta$ (a fraction $\dfrac{d\theta}{2\pi}$ of the disk of area $\pi r^2$). Adding the sectors gives the integral. A rigorous version uses Riemann sums of the areas of circular sectors.
+    more: |
+      **A check.** For a circle $r=R$ we get $\dfrac12\int_0^{2\pi}R^2\,d\theta=\pi R^2$. The full course of integration (double integrals in polar coordinates) is in the second course; here the formula is used for first computations.
+
+  - id: ex-area
+    type: example
+    title: The area of a cardioid
+    problem: |
+      Find the area enclosed by $r=3(1+\cos\theta)$.
+    steps:
+      - |
+        $A=\dfrac12\int_0^{2\pi}9(1+\cos\theta)^2\,d\theta=\dfrac92\int_0^{2\pi}\left(1+2\cos\theta+\cos^2\theta\right)d\theta$.
+      - text: |
+          $\displaystyle\int_0^{2\pi}1\,d\theta=2\pi$, $\ \int_0^{2\pi}\cos\theta\,d\theta=0$ and $\int_0^{2\pi}\cos^2\theta\,d\theta=\pi$, so $A=\dfrac92\cdot3\pi=\dfrac{27\pi}2$.
+        why: |
+          $\cos^2\theta=\dfrac{1+\cos2\theta}{2}$, so $\displaystyle\int_0^{2\pi}\cos^2\theta\,d\theta=\dfrac12\cdot2\pi+\dfrac12\int_0^{2\pi}\cos2\theta\,d\theta=\pi+0$.
+    answer: |
+      $A=\dfrac{27\pi}{2}$.
+    verify:
+      - expr: "integrate(1/2*9*(1+cos(t))^2, t, 0, 2*pi)"
+        equals: "27*pi/2"
+
+  - id: chk-area
+    type: check
+    prompt: |
+      Find the area enclosed by the four-petal rose $r=6\cos2\theta$.
+    answerType: expression
+    answer: "18*pi"
+    hints:
+      - |
+        $A=\dfrac12\int_0^{2\pi}36\cos^22\theta\,d\theta$, and $\cos^22\theta=\dfrac{1+\cos4\theta}{2}$.
+    explanation: |
+      $A=18\int_0^{2\pi}\cos^22\theta\,d\theta=18\cdot\pi=18\pi$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        To sketch $r=f(\theta)$: domain, symmetries, extreme values and zeros, table at the angles with exact values.
+      - |
+        Spirals $r=a\theta$, $r=b^{\pm\theta}$; cardioid $r=a(1\pm\cos\theta)$; rose $r=a\cos n\theta$ ($n$ petals if $n$ is odd, $2n$ if even); lemniscate $r^2=a^2\cos2\theta$.
+      - |
+        Area: $A=\dfrac12\int_\alpha^\beta r^2\,d\theta$.

@@ -1,0 +1,119 @@
+id: geo-m02-u04-l04
+title: Change of axes in the plane
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - translation-of-axes
+  - rotation-of-axes
+objectives:
+  - Write the new coordinates of a point after a translation or a rotation of the axes.
+  - Transform the equation of a curve to simplify it.
+sections:
+  - id: why-change
+    type: concept
+    title: Choosing better axes
+    body: |
+      The equation of a curve depends on the axes chosen. A circle with center $(3,-2)$ has a long equation $x^2+y^2-6x+4y-12=0$, but if we move the origin to its center the equation becomes $x'^2+y'^2=25$.
+      Two simple changes of axes are enough in the plane: a **translation** (the origin moves, the directions stay) and a **rotation** (the origin stays, the axes turn). Together they can bring every second-degree curve into a standard position.
+
+      Throughout, the old coordinates are $(x,y)$ and the new ones are $(x',y')$.
+
+  - id: translation
+    type: theorem
+    name: Translation of the axes
+    statement: |
+      If the new origin is $O'(a,b)$ (in the old coordinates) and the axes keep their directions, then
+
+      $$x=x'+a,\qquad y=y'+b,\qquad\text{that is}\qquad x'=x-a,\quad y'=y-b.$$
+    proof: |
+      $\overrightarrow{OM}=\overrightarrow{OO'}+\overrightarrow{O'M}$. In components, $(x,y)=(a,b)+(x',y')$.
+
+  - id: ex-translation
+    type: example
+    title: A translation that simplifies a circle
+    problem: |
+      Move the origin to the center of the curve $x^2+y^2-6x+4y-12=0$ and write its new equation.
+    steps:
+      - text: |
+          Complete the squares: $(x-3)^2+(y+2)^2=12+9+4=25$. The center is $O'(3,-2)$.
+        why: |
+          $x^2-6x=(x-3)^2-9$ and $y^2+4y=(y+2)^2-4$. Moving the constants to the right side: $12+9+4=25$.
+      - |
+        With $x'=x-3$ and $y'=y+2$ the equation is $x'^2+y'^2=25$: a circle of radius $5$ centered at the new origin.
+    answer: |
+      $x'^2+y'^2=25$, with $x'=x-3$ and $y'=y+2$.
+    verify:
+      - expr: "(3-3)^2+(-2+2)^2"
+        equals: "0"
+
+  - id: rotation
+    type: theorem
+    name: Rotation of the axes
+    statement: |
+      If the axes are rotated by the angle $\varphi$ counterclockwise about the origin, then
+
+      $$x=x'\cos\varphi-y'\sin\varphi,\qquad y=x'\sin\varphi+y'\cos\varphi,$$
+
+      and conversely
+
+      $$x'=x\cos\varphi+y\sin\varphi,\qquad y'=-x\sin\varphi+y\cos\varphi.$$
+    proof: |
+      Let $M$ have polar coordinates $(r,\theta)$ in the old axes. In the rotated axes the angle of the half-line $OM$ is $\theta-\varphi$, so $x'=r\cos(\theta-\varphi)$ and $y'=r\sin(\theta-\varphi)$.
+      Expanding with the subtraction formulas and using $x=r\cos\theta$, $y=r\sin\theta$ gives $x'=x\cos\varphi+y\sin\varphi$ and $y'=-x\sin\varphi+y\cos\varphi$. Solving for $x$ and $y$ gives the first pair.
+    more: |
+      **A matrix form.** The first pair is $\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}\cos\varphi&-\sin\varphi\\\sin\varphi&\cos\varphi\end{pmatrix}\begin{pmatrix}x'\\y'\end{pmatrix}$. The matrix is orthogonal: its inverse is its transpose, which is why the second pair has the same entries with signs exchanged.
+
+  - id: ex-rotation
+    type: example
+    title: Removing the cross term
+    problem: |
+      Rotate the axes by $\dfrac\pi4$ in the curve $xy=1$.
+    steps:
+      - |
+        $\cos\dfrac\pi4=\sin\dfrac\pi4=\dfrac{\sqrt2}2$, so $x=\dfrac{\sqrt2}2(x'-y')$ and $y=\dfrac{\sqrt2}2(x'+y')$.
+      - text: |
+          $xy=\dfrac{2}{4}(x'-y')(x'+y')=\dfrac12\left(x'^2-y'^2\right)$, so the equation becomes $x'^2-y'^2=2$.
+        why: |
+          The product of a sum and a difference is a difference of squares: $(x'-y')(x'+y')=x'^2-y'^2$, and $\left(\dfrac{\sqrt2}2\right)^2=\dfrac12$. The cross term $x'y'$ disappeared: this is the aim of a rotation.
+      - |
+        The curve is a hyperbola with the new axes as its axes of symmetry (and the old axes as asymptotes).
+    answer: |
+      $x'^2-y'^2=2$.
+    verify:
+      - expr: "(sqrt(2)/2)^2"
+        equals: "1/2"
+
+  - id: chk-translation
+    type: check
+    prompt: |
+      After moving the origin to $O'(2,-1)$, what are the new coordinates $(x',y')$ of the point $M(5,3)$?
+    answerType: vector
+    answer: "(3, 4)"
+    hints:
+      - |
+        $x'=x-a$ and $y'=y-b$.
+    explanation: |
+      $x'=5-2=3$ and $y'=3-(-1)=4$.
+
+  - id: chk-rotation
+    type: check
+    prompt: |
+      The axes are rotated by $\dfrac\pi2$. Find the new coordinates of the point $M(3,4)$.
+    answerType: vector
+    answer: "(4, -3)"
+    hints:
+      - |
+        $\cos\dfrac\pi2=0$ and $\sin\dfrac\pi2=1$: $x'=x\cos\varphi+y\sin\varphi$, $y'=-x\sin\varphi+y\cos\varphi$.
+    explanation: |
+      $x'=3\cdot0+4\cdot1=4$ and $y'=-3\cdot1+4\cdot0=-3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Translation to $O'(a,b)$: $x=x'+a$, $y=y'+b$.
+      - |
+        Rotation by $\varphi$: $x=x'\cos\varphi-y'\sin\varphi$, $y=x'\sin\varphi+y'\cos\varphi$.
+      - |
+        A translation removes the first-degree terms of a centered conic; a rotation removes the cross term $xy$.

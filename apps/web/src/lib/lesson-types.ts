@@ -18,7 +18,7 @@ export type RSection =
   | (RBase & { type: "theorem"; nameHtml?: string; statementHtml: string; proofHtml?: string; moreHtml?: string })
   | (RBase & { type: "formula"; titleHtml: string; formulaHtml: string; noteHtml?: string })
   | (RBase & { type: "example"; titleHtml?: string; problemHtml: string; steps: RStep[]; answerHtml: string; moreHtml?: string })
-  | (RBase & { type: "visual"; kind: "vector2d"; mode: string; titleHtml: string; captionHtml: string })
+  | (RBase & { type: "visual"; kind: "vector2d" | "plot"; mode: string; config: Record<string, number | string | boolean>; titleHtml: string; captionHtml: string })
   | (RBase & {
       type: "check";
       promptHtml: string;
