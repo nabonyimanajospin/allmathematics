@@ -241,6 +241,8 @@ def _check(
         answer_type = kind  # type: ignore[assignment]
     if answer_type == "point":
         answer_type = "vector"
+    if answer_type == "expression" and kind == "number":
+        answer_type = "number"  # a constant such as pi^2/4 written under an "expression" question is simply a number
     if answer_type != kind:
         raise EngineError(f"The answer key is a {kind} but the problem type is {answer_type}.", "key_type_mismatch")
 
