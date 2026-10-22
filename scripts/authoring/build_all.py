@@ -25,6 +25,7 @@ MODULES = [
     "geo_polar",
     "geo_conics",
     "geo_quadrics",
+    "stat_course",
 ]
 
 

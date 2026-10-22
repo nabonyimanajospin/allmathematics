@@ -1,0 +1,118 @@
+id: stat-m01-u01-l01
+title: Counting principles
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - multiplication-principle
+  - permutations
+  - combinations
+objectives:
+  - Use the multiplication and the addition principles.
+  - Count arrangements and selections with $n!$, $A(n,k)$ and $\dbinom nk$.
+  - Choose between "order matters" and "order does not matter".
+sections:
+  - id: principles
+    type: concept
+    title: Counting without listing
+    body: |
+      To compute a probability with equally likely outcomes we must count outcomes, and lists are too long. Two principles do most of the work.
+
+      - **Multiplication principle.** If a choice is made in $k$ successive steps, with $n_1$ ways for the first, $n_2$ for the second, and so on (whatever the earlier choices), the total number of ways is $n_1n_2\cdots n_k$.
+      - **Addition principle.** If a task can be done in one of two ways that cannot happen together, with $m$ and $n$ possibilities, the total is $m+n$.
+
+      A password of $3$ letters followed by $2$ digits can be chosen in $26\cdot26\cdot26\cdot10\cdot10=1\,757\,600$ ways: five successive choices, so the numbers are multiplied.
+
+  - id: arrangements
+    type: definition
+    term: Factorials, arrangements and combinations
+    body: |
+      - $n!=n(n-1)\cdots2\cdot1$ is the number of ways to put $n$ different objects in a row (with $0!=1$).
+      - The number of ways to choose and arrange $k$ of $n$ different objects in a row (**order matters**) is
+        $$A(n,k)=n(n-1)\cdots(n-k+1)=\dfrac{n!}{(n-k)!}.$$
+      - The number of ways to choose $k$ of $n$ different objects, **without regard to order**, is the **combination**
+        $$\dbinom nk=\dfrac{n!}{k!\,(n-k)!}.$$
+    more: |
+      **Why divide by $k!$.** Each unordered choice of $k$ objects can be arranged in $k!$ different orders, and $A(n,k)$ counts all of those arrangements. So $A(n,k)=k!\dbinom nk$.
+
+  - id: symmetry
+    type: theorem
+    name: Properties of combinations
+    statement: |
+      $$\dbinom nk=\dbinom n{n-k},\qquad \dbinom n0=\dbinom nn=1,\qquad \dbinom{n}{k}=\dbinom{n-1}{k-1}+\dbinom{n-1}{k}.$$
+    proof: |
+      The first: choosing $k$ objects to take is the same as choosing the $n-k$ objects to leave. The third (Pascal's rule): fix one object; the $k$-element choices either contain it (choose the other $k-1$ among $n-1$) or do not (choose all $k$ among $n-1$).
+
+  - id: ex-committee
+    type: example
+    title: A committee and a podium
+    problem: |
+      From $8$ students, (a) how many committees of $3$ can be formed? (b) In how many ways can a president, a secretary and a treasurer be chosen?
+    steps:
+      - text: |
+          (a) The order does not matter: $\dbinom83=\dfrac{8\cdot7\cdot6}{3\cdot2\cdot1}=56$.
+        why: |
+          $\dfrac{8!}{3!\,5!}$ simplifies because $8!=8\cdot7\cdot6\cdot5!$; the factor $5!$ cancels.
+      - |
+        (b) The offices are different, so the order matters: $A(8,3)=8\cdot7\cdot6=336=3!\cdot56$.
+    answer: |
+      (a) $56$; (b) $336$.
+    verify:
+      - expr: "8*7*6/(3*2*1)"
+        equals: "56"
+      - expr: "8*7*6"
+        equals: "336"
+
+  - id: ex-conditions
+    type: example
+    title: Counting with a condition
+    problem: |
+      How many $4$-digit numbers (no leading zero) have all their digits different?
+    steps:
+      - |
+        The first digit: $9$ choices ($1$ to $9$).
+      - text: |
+          The second: $9$ choices (any digit except the first, and $0$ is now allowed). The third: $8$. The fourth: $7$.
+        why: |
+          The multiplication principle needs the number of choices at each step to be the same whatever the earlier choices were. After the first digit, exactly $9$ digits remain, including $0$; so the count of the second step is $9$ in every case.
+      - |
+        Total: $9\cdot9\cdot8\cdot7=4536$.
+    answer: |
+      $4536$.
+    verify:
+      - expr: "9*9*8*7"
+        equals: "4536"
+
+  - id: chk-comb
+    type: check
+    prompt: |
+      In how many ways can $4$ cards be chosen from $10$ different cards?
+    answerType: number
+    answer: "210"
+    hints:
+      - |
+        The order does not matter.
+    explanation: |
+      $\dbinom{10}4=\dfrac{10\cdot9\cdot8\cdot7}{4\cdot3\cdot2\cdot1}=210$.
+
+  - id: chk-arr
+    type: check
+    prompt: |
+      In how many ways can $5$ runners finish in the first three places?
+    answerType: number
+    answer: "60"
+    hints:
+      - |
+        The places are different: the order matters.
+    explanation: |
+      $A(5,3)=5\cdot4\cdot3=60$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Successive choices multiply; alternative cases add.
+      - |
+        Order matters: $A(n,k)=\dfrac{n!}{(n-k)!}$. Order does not matter: $\dbinom nk=\dfrac{n!}{k!(n-k)!}$.
+      - |
+        $\dbinom nk=\dbinom n{n-k}$ and Pascal's rule $\dbinom nk=\dbinom{n-1}{k-1}+\dbinom{n-1}{k}$.

@@ -1,0 +1,107 @@
+id: stat-m02-u02-l01
+title: Density and distribution function
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - probability-density
+  - distribution-function
+  - continuous-expectation
+objectives:
+  - Use a density to compute probabilities.
+  - Find the constant that makes a function a density.
+  - Compute the expectation and the variance of a continuous random variable.
+sections:
+  - id: density
+    type: definition
+    term: Probability density
+    body: |
+      A **continuous** random variable can take any value in an interval, for example a waiting time. Its probabilities are areas under a **density** $f$:
+
+      $$P(a\le X\le b)=\int_a^bf(x)\,dx,\qquad f(x)\ge0,\qquad\int_{-\infty}^{\infty}f(x)\,dx=1.$$
+
+      For a continuous variable $P(X=a)=0$ for every single value, so it does not matter whether the inequalities are strict. The **distribution function** is $F(x)=P(X\le x)=\int_{-\infty}^xf(t)\,dt$, and $F'(x)=f(x)$ where $f$ is continuous.
+
+  - id: moments
+    type: theorem
+    name: Expectation and variance
+    statement: |
+      $$E[X]=\int_{-\infty}^{\infty}x\,f(x)\,dx,\qquad E\left[X^2\right]=\int_{-\infty}^{\infty}x^2f(x)\,dx,\qquad\operatorname{Var}(X)=E\left[X^2\right]-E[X]^2.$$
+
+      The rules $E[aX+b]=aE[X]+b$ and $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$ still hold.
+    proof: |
+      These are the formulas of the discrete case with the sums replaced by integrals: a thin strip of width $dx$ at $x$ has probability $f(x)\,dx$ and contributes $x\,f(x)\,dx$ to the mean.
+
+  - id: ex-density
+    type: example
+    title: A density on $[0,1]$
+    problem: |
+      $X$ has the density $f(x)=3x^2$ for $0\le x\le1$ and $0$ elsewhere. Find $P\left(X>\dfrac12\right)$, $E[X]$ and $\operatorname{Var}(X)$.
+    steps:
+      - text: |
+          $P\left(X>\dfrac12\right)=\displaystyle\int_{\frac{1}{2}}^{1}3x^2\,dx=\left[x^3\right]_{\frac{1}{2}}^{1}=1-\dfrac18=\dfrac78$.
+        why: |
+          An antiderivative of $3x^2$ is $x^3$. First check that $f$ is a density: $\int_0^13x^2\,dx=1$.
+      - |
+        $E[X]=\displaystyle\int_0^1x\cdot3x^2\,dx=\dfrac34$.
+      - |
+        $E[X^2]=\displaystyle\int_0^13x^4\,dx=\dfrac35$, so $\operatorname{Var}(X)=\dfrac35-\dfrac9{16}=\dfrac{3}{80}$.
+    answer: |
+      $P=\dfrac78$, $E[X]=\dfrac34$, $\operatorname{Var}(X)=\dfrac3{80}$.
+    verify:
+      - expr: "integrate(3*x^2, x, 1/2, 1)"
+        equals: "7/8"
+      - expr: "integrate(3*x^3, x, 0, 1)"
+        equals: "3/4"
+      - expr: "integrate(3*x^4, x, 0, 1) - (3/4)^2"
+        equals: "3/80"
+
+  - id: ex-constant
+    type: example
+    title: Finding the constant
+    problem: |
+      Find $c$ so that $f(x)=c\,x(2-x)$ on $[0,2]$ (and $0$ elsewhere) is a density, and compute $F(1)$.
+    steps:
+      - |
+        $\displaystyle\int_0^2c\,x(2-x)\,dx=c\left[x^2-\dfrac{x^3}{3}\right]_0^2=c\left(4-\dfrac83\right)=\dfrac{4c}{3}$. This must equal $1$: $c=\dfrac34$.
+      - |
+        $F(1)=\dfrac34\displaystyle\int_0^1x(2-x)\,dx=\dfrac34\left(1-\dfrac13\right)=\dfrac12$, as expected from the symmetry of $f$ about $x=1$.
+    answer: |
+      $c=\dfrac34$, $F(1)=\dfrac12$.
+    verify:
+      - expr: "integrate(3/4*x*(2-x), x, 0, 2)"
+        equals: "1"
+      - expr: "integrate(3/4*x*(2-x), x, 0, 1)"
+        equals: "1/2"
+
+  - id: chk-prob
+    type: check
+    prompt: |
+      $f(x)=2x$ on $[0,1]$. Find $P\left(X\le\dfrac12\right)$.
+    answerType: expression
+    answer: "1/4"
+    hints:
+      - |
+        $\int_0^{\frac{1}{2}}2x\,dx$.
+    explanation: |
+      $\left[x^2\right]_0^{\frac{1}{2}}=\dfrac14$.
+
+  - id: chk-mean
+    type: check
+    prompt: |
+      $f(x)=2x$ on $[0,1]$. Find $E[X]$.
+    answerType: expression
+    answer: "2/3"
+    hints:
+      - |
+        $\int_0^1x\cdot2x\,dx$.
+    explanation: |
+      $\displaystyle\int_0^12x^2\,dx=\dfrac23$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Density: $f\ge0$, $\int f=1$; $P(a\le X\le b)=\int_a^bf$.
+      - |
+        $E[X]=\int xf$; $\operatorname{Var}(X)=\int x^2f-E[X]^2$; $F(x)=\int_{-\infty}^xf$.

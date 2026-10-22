@@ -1,0 +1,130 @@
+id: stat-m02-u02-l02
+title: The uniform, exponential and normal distributions
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - uniform-distribution
+  - exponential-distribution
+  - normal-distribution
+objectives:
+  - Compute probabilities, means and variances for the uniform and exponential laws.
+  - Standardize a normal variable and use its symmetry.
+sections:
+  - id: why
+    type: concept
+    title: Three densities
+    body: |
+      Three densities cover most applications: the uniform one (all values of an interval equally likely), the exponential one (waiting times) and the normal one (sums and averages of many small effects, measurement errors).
+
+  - id: uniform
+    type: theorem
+    name: The uniform distribution
+    statement: |
+      $X$ is **uniform** on $[a,b]$ if its density is constant, $f(x)=\dfrac1{b-a}$ for $a\le x\le b$. Then
+
+      $$P(c\le X\le d)=\dfrac{d-c}{b-a},\qquad E[X]=\dfrac{a+b}2,\qquad\operatorname{Var}(X)=\dfrac{(b-a)^2}{12}.$$
+    proof: |
+      The probability is the area of a rectangle of height $\dfrac1{b-a}$ and base $d-c$. The mean is the midpoint by symmetry. Finally $E[X^2]=\dfrac1{b-a}\displaystyle\int_a^bx^2\,dx=\dfrac{a^2+ab+b^2}{3}$, and $\operatorname{Var}(X)=\dfrac{a^2+ab+b^2}3-\dfrac{(a+b)^2}4=\dfrac{(b-a)^2}{12}$.
+
+  - id: exponential
+    type: theorem
+    name: The exponential distribution
+    statement: |
+      $X$ is **exponential** with rate $\lambda>0$ if $f(x)=\lambda e^{-\lambda x}$ for $x\ge0$. Then
+
+      $$P(X>t)=e^{-\lambda t},\qquad E[X]=\dfrac1\lambda,\qquad\operatorname{Var}(X)=\dfrac1{\lambda^2},$$
+
+      and $X$ is **memoryless**: $P(X>s+t\mid X>s)=P(X>t)$.
+    proof: |
+      $P(X>t)=\displaystyle\int_t^{\infty}\lambda e^{-\lambda x}dx=e^{-\lambda t}$. For the mean, integrate by parts: $\int_0^{\infty}x\lambda e^{-\lambda x}dx=\dfrac1\lambda$. Memorylessness: $\dfrac{P(X>s+t)}{P(X>s)}=\dfrac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}$.
+    more: |
+      **Meaning of memoryless.** If a component has already worked for $s$ hours, the probability that it works $t$ more hours is the same as for a new one. The exponential law models the waiting time between Poisson events.
+
+  - id: normal
+    type: definition
+    term: The normal distribution
+    body: |
+      $X$ is **normal** with mean $\mu$ and standard deviation $\sigma>0$, written $X\sim\mathrm{N}(\mu,\sigma^2)$, if its density is the bell curve
+
+      $$f(x)=\dfrac1{\sigma\sqrt{2\pi}}\,e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}.$$
+
+      The graph is symmetric about $x=\mu$, so $P(X\le\mu)=\dfrac12$ and $P(X\le\mu-a)=P(X\ge\mu+a)$. The **standardized** variable $Z=\dfrac{X-\mu}{\sigma}$ is $\mathrm N(0,1)$; every probability about $X$ becomes a probability about $Z$ through $P(X\le x)=\Phi\left(\dfrac{x-\mu}{\sigma}\right)$, where $\Phi$ is the distribution function of $Z$.
+    more: |
+      **Why no formula for $\Phi$.** The function $e^{-\frac{z^2}{2}}$ has no antiderivative in elementary functions, so $\Phi$ is given by tables or by a calculator. We therefore leave such probabilities as $\Phi(\cdot)$ when an exact answer is wanted.
+
+  - id: ex-uniform
+    type: example
+    title: Uniform and exponential
+    problem: |
+      (a) $X$ is uniform on $[2,8]$. Find $P(X>5)$, $E[X]$ and $\operatorname{Var}(X)$. (b) $T$ is exponential with rate $\dfrac13$. Find $P(T>6)$ and $E[T]$.
+    steps:
+      - |
+        (a) $P(X>5)=\dfrac{8-5}{8-2}=\dfrac12$, $E[X]=\dfrac{2+8}2=5$, $\operatorname{Var}(X)=\dfrac{36}{12}=3$.
+      - text: |
+          (b) $P(T>6)=e^{-\frac13\cdot6}=e^{-2}$ and $E[T]=3$.
+        why: |
+          The rate $\lambda=\dfrac13$ per unit of time, so the mean waiting time is its reciprocal, $3$. Then $\lambda t=\dfrac13\cdot6=2$.
+    answer: |
+      (a) $\dfrac12$, $5$, $3$. (b) $e^{-2}$, $3$.
+    verify:
+      - expr: "(8-5)/(8-2)"
+        equals: "1/2"
+      - expr: "(8-2)^2/12"
+        equals: "3"
+      - expr: "exp(-6/3)"
+        equals: "exp(-2)"
+
+  - id: ex-normal
+    type: example
+    title: Standardizing
+    problem: |
+      $X\sim\mathrm N(10,4)$ (so $\sigma=2$). Express $P(X\le14)$ with $\Phi$, and find $P(X\le10)$ and the value of $P(X\le6)+P(X\le14)$.
+    steps:
+      - |
+        $P(X\le14)=\Phi\left(\dfrac{14-10}{2}\right)=\Phi(2)$.
+      - |
+        $P(X\le10)=\dfrac12$, because $10$ is the mean.
+      - text: |
+          $P(X\le6)=\Phi(-2)=1-\Phi(2)$, so the sum is $1$.
+        why: |
+          $6$ and $14$ are at the same distance $4$ from the mean. By symmetry the area to the left of $6$ equals the area to the right of $14$, that is $1-P(X\le14)$.
+    answer: |
+      $\Phi(2)$; $\dfrac12$; $1$.
+    verify:
+      - expr: "(14-10)/2"
+        equals: "2"
+
+  - id: chk-exp
+    type: check
+    prompt: |
+      $T$ is exponential with mean $5$. Find $P(T>10)$.
+    answerType: expression
+    answer: "exp(-2)"
+    hints:
+      - |
+        $\lambda=\dfrac15$ and $P(T>t)=e^{-\lambda t}$.
+    explanation: |
+      $e^{-\frac{10}{5}}=e^{-2}$.
+
+  - id: chk-z
+    type: check
+    prompt: |
+      $X\sim\mathrm N(50,9)$. Find the standardized value $z$ of $x=44$.
+    answerType: number
+    answer: "-2"
+    hints:
+      - |
+        $\sigma=3$ and $z=\dfrac{x-\mu}{\sigma}$.
+    explanation: |
+      $z=\dfrac{44-50}{3}=-2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Uniform on $[a,b]$: mean $\dfrac{a+b}2$, variance $\dfrac{(b-a)^2}{12}$.
+      - |
+        Exponential (rate $\lambda$): $P(X>t)=e^{-\lambda t}$, mean $\dfrac1\lambda$, memoryless.
+      - |
+        Normal: standardize with $z=\dfrac{x-\mu}{\sigma}$; symmetric about $\mu$.

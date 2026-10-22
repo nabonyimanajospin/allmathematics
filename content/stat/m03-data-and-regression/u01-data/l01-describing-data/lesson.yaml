@@ -1,0 +1,97 @@
+id: stat-m03-u01-l01
+title: Describing a data set
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - mean-median-mode
+  - sample-variance
+objectives:
+  - Compute the mean, the median and the mode of a data set.
+  - Compute the variance and the standard deviation of a population and of a sample.
+sections:
+  - id: centre
+    type: definition
+    term: Measures of centre
+    body: |
+      For the data $x_1,\dots,x_n$:
+
+      - the **mean** is $\bar x=\dfrac{x_1+\cdots+x_n}{n}$;
+      - the **median** is the middle value of the data in increasing order (the average of the two middle values if $n$ is even);
+      - the **mode** is the most frequent value.
+
+      The mean uses every value, so one extreme value moves it; the median does not. For $2,4,4,6,9$: mean $5$, median $4$, mode $4$. If $9$ becomes $90$, the mean becomes $\dfrac{106}{5}$, which is larger than every other value in the set, while the median is still $4$.
+
+  - id: spread
+    type: definition
+    term: Measures of spread
+    body: |
+      The **range** is the largest value minus the smallest. The **variance** averages the squared deviations from the mean. For a whole population of size $n$ it is $\sigma^2=\dfrac1n\sum(x_i-\bar x)^2$. For a **sample** drawn from a larger population the divisor is $n-1$:
+
+      $$s^2=\dfrac1{n-1}\sum_{i=1}^{n}(x_i-\bar x)^2,\qquad s=\sqrt{s^2}.$$
+
+      The standard deviation has the same unit as the data.
+    more: |
+      **Why $n-1$ for a sample.** The deviations are measured from $\bar x$, which is itself computed from the sample and is closer to the sample values than the true mean would be. Dividing by $n$ would therefore underestimate the variance on average; dividing by $n-1$ corrects exactly this (we say that $s^2$ is an *unbiased* estimator). Only $n-1$ deviations are free, since they add up to $0$.
+
+  - id: ex-data
+    type: example
+    title: Summary of a small data set
+    problem: |
+      For the data $2,4,4,6,9$ find the mean, the median, the range, the population variance and the sample standard deviation.
+    steps:
+      - |
+        Mean: $\dfrac{2+4+4+6+9}{5}=5$. Median: $4$. Range: $9-2=7$.
+      - text: |
+          Deviations from $5$: $-3,-1,-1,1,4$. Squares: $9,1,1,1,16$, with sum $28$.
+        why: |
+          The sum of the deviations is $-3-1-1+1+4=0$, which is a check of the mean.
+      - |
+        Population variance: $\dfrac{28}{5}$. Sample variance: $\dfrac{28}{4}=7$, so $s=\sqrt7$.
+    answer: |
+      Mean $5$, median $4$, range $7$, $\sigma^2=\dfrac{28}{5}$, $s=\sqrt7$.
+    verify:
+      - expr: "(9+1+1+1+16)/5"
+        equals: "28/5"
+      - expr: "(9+1+1+1+16)/4"
+        equals: "7"
+
+  - id: shortcut
+    type: theorem
+    name: A shorter formula
+    statement: |
+      $$\sum(x_i-\bar x)^2=\sum x_i^2-n\bar x^2.$$
+    proof: |
+      Expand $(x_i-\bar x)^2=x_i^2-2\bar xx_i+\bar x^2$ and add: $\sum x_i^2-2\bar x\cdot n\bar x+n\bar x^2=\sum x_i^2-n\bar x^2$.
+
+  - id: chk-mean
+    type: check
+    prompt: |
+      Find the mean of $3,5,7,9,16$.
+    answerType: number
+    answer: "8"
+    hints:
+      - |
+        Add the values and divide by $5$.
+    explanation: |
+      $\dfrac{40}{5}=8$.
+
+  - id: chk-variance
+    type: check
+    prompt: |
+      Find the sample variance of $1,3,5$.
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        The mean is $3$; the squared deviations are $4,0,4$.
+    explanation: |
+      $\dfrac{8}{2}=4$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Mean, median, mode locate the centre; range, variance and standard deviation measure the spread.
+      - |
+        Population variance divides by $n$; sample variance divides by $n-1$.

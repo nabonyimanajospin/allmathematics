@@ -1,0 +1,138 @@
+id: stat-m02-u01-l02
+title: The binomial, geometric and Poisson distributions
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - binomial-distribution
+  - geometric-distribution
+  - poisson-distribution
+objectives:
+  - Recognize the situations modelled by the binomial, geometric and Poisson laws.
+  - Compute probabilities, expectations and variances exactly.
+sections:
+  - id: why
+    type: concept
+    title: Three models for counting trials
+    body: |
+      Many random variables count what happens in repeated independent trials. Three situations come back again and again: the number of successes in a fixed number of trials, the number of trials until the first success, and the number of rare events in a time interval. Each has a name and a formula.
+
+  - id: binomial
+    type: theorem
+    name: The binomial distribution
+    statement: |
+      Repeat $n$ times, independently, an experiment with probability of success $p$, and let $X$ be the number of successes. Then
+
+      $$P(X=k)=\dbinom nk\,p^k(1-p)^{n-k},\quad k=0,1,\dots,n,\qquad E[X]=np,\quad\operatorname{Var}(X)=np(1-p).$$
+
+      We write $X\sim\mathrm{B}(n,p)$.
+    proof: |
+      A particular sequence with $k$ successes and $n-k$ failures has probability $p^k(1-p)^{n-k}$ by independence, and there are $\dbinom nk$ such sequences (choose the positions of the successes). For the mean, $X=X_1+\cdots+X_n$ where $X_i$ is $1$ for a success and $0$ otherwise, $E[X_i]=p$; the variance of the sum of independent terms is the sum of the variances $p(1-p)$.
+
+  - id: ex-binomial
+    type: example
+    title: Successes in five trials
+    problem: |
+      A fair die is thrown $5$ times. Find the probability of getting exactly two sixes, and the expected number of sixes.
+    steps:
+      - |
+        $X\sim\mathrm{B}\left(5,\dfrac16\right)$.
+      - text: |
+          $P(X=2)=\dbinom52\left(\dfrac16\right)^2\left(\dfrac56\right)^3=10\cdot\dfrac{125}{7776}=\dfrac{625}{3888}$.
+        why: |
+          $\left(\dfrac16\right)^2\left(\dfrac56\right)^3=\dfrac{125}{6^5}=\dfrac{125}{7776}$. Multiplying by $10$ gives $\dfrac{1250}{7776}$, which simplifies by $2$ to $\dfrac{625}{3888}$.
+      - |
+        $E[X]=5\cdot\dfrac16=\dfrac56$.
+    answer: |
+      $P(X=2)=\dfrac{625}{3888}$, $E[X]=\dfrac56$.
+    verify:
+      - expr: "10*(1/6)^2*(5/6)^3"
+        equals: "625/3888"
+
+  - id: geometric
+    type: theorem
+    name: The geometric distribution
+    statement: |
+      Repeat independent trials with probability of success $p$ until the first success, and let $X$ be the number of trials. Then
+
+      $$P(X=k)=(1-p)^{k-1}p,\quad k=1,2,\dots,\qquad E[X]=\dfrac1p,\quad\operatorname{Var}(X)=\dfrac{1-p}{p^2}.$$
+    proof: |
+      The first $k-1$ trials fail and the $k$-th succeeds: $(1-p)^{k-1}p$. The mean is $\sum k(1-p)^{k-1}p=p\cdot\dfrac{1}{p^2}=\dfrac1p$, using $\sum_{k\ge1}kq^{k-1}=\dfrac1{(1-q)^2}$.
+
+  - id: poisson
+    type: theorem
+    name: The Poisson distribution
+    statement: |
+      The number $X$ of events that occur in a fixed interval, when they occur independently and at an average rate $\lambda$ per interval, follows the Poisson law:
+
+      $$P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!},\quad k=0,1,2,\dots,\qquad E[X]=\operatorname{Var}(X)=\lambda.$$
+    proof: |
+      The probabilities add to $e^{-\lambda}\sum\dfrac{\lambda^k}{k!}=e^{-\lambda}e^{\lambda}=1$. The mean is $\sum k\,e^{-\lambda}\dfrac{\lambda^k}{k!}=\lambda e^{-\lambda}\sum\dfrac{\lambda^{k-1}}{(k-1)!}=\lambda$.
+    more: |
+      **Where it comes from.** If $X\sim\mathrm{B}(n,p)$ with $n$ large and $p$ small so that $np=\lambda$ stays fixed, then $P(X=k)$ tends to $e^{-\lambda}\dfrac{\lambda^k}{k!}$. Rare events (calls to a switchboard, misprints per page) are Poisson.
+
+  - id: ex-geo-poi
+    type: example
+    title: Waiting and counting
+    problem: |
+      (a) A fair die is thrown until a six appears. Find the probability that this takes exactly $3$ throws. (b) The number of calls per hour is Poisson with mean $2$. Find the probability of at most one call.
+    steps:
+      - |
+        (a) $p=\dfrac16$: $P(X=3)=\left(\dfrac56\right)^2\dfrac16=\dfrac{25}{216}$.
+      - text: |
+          (b) $P(X\le1)=e^{-2}\left(\dfrac{2^0}{0!}+\dfrac{2^1}{1!}\right)=3e^{-2}$.
+        why: |
+          "At most one" means $X=0$ or $X=1$, two mutually exclusive cases, so the probabilities add. The answer is left as $3e^{-2}$: it is exact.
+    answer: |
+      (a) $\dfrac{25}{216}$; (b) $3e^{-2}$.
+    verify:
+      - expr: "(5/6)^2*(1/6)"
+        equals: "25/216"
+      - expr: "exp(-2)*(1+2)"
+        equals: "3*exp(-2)"
+
+  - id: chk-binomial
+    type: check
+    prompt: |
+      A fair coin is tossed $4$ times. Find the probability of exactly $2$ heads.
+    answerType: expression
+    answer: "3/8"
+    hints:
+      - |
+        $\dbinom42\left(\dfrac12\right)^4$.
+    explanation: |
+      $6\cdot\dfrac1{16}=\dfrac38$.
+
+  - id: chk-variance
+    type: check
+    prompt: |
+      $X\sim\mathrm{B}\left(12,\dfrac14\right)$. Find $\operatorname{Var}(X)$.
+    answerType: expression
+    answer: "9/4"
+    hints:
+      - |
+        $np(1-p)$.
+    explanation: |
+      $12\cdot\dfrac14\cdot\dfrac34=\dfrac94$.
+
+  - id: chk-poisson
+    type: check
+    prompt: |
+      $X$ is Poisson with mean $3$. Find $P(X=2)$.
+    answerType: expression
+    answer: "9*exp(-3)/2"
+    hints:
+      - |
+        $e^{-\lambda}\dfrac{\lambda^k}{k!}$.
+    explanation: |
+      $e^{-3}\dfrac{9}{2}=\dfrac{9}{2}e^{-3}$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\mathrm{B}(n,p)$: $P(X=k)=\dbinom nkp^k(1-p)^{n-k}$, mean $np$, variance $np(1-p)$.
+      - |
+        Geometric: $P(X=k)=(1-p)^{k-1}p$, mean $\dfrac1p$.
+      - |
+        Poisson: $P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!}$, mean and variance $\lambda$.

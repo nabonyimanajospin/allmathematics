@@ -1,0 +1,7 @@
+id: stat
+title: Probability and Statistics
+description: >-
+  Counting, probability and Bayes, random variables and their distributions, and the description and fitting of data, with
+  exact answers (fractions, radicals and symbolic e).
+status: draft
+order: 3

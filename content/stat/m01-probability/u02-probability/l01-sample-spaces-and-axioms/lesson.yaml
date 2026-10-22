@@ -1,0 +1,123 @@
+id: stat-m01-u02-l01
+title: Sample spaces and the axioms of probability
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - sample-space
+  - probability-axioms
+  - equally-likely
+objectives:
+  - Describe an experiment by its sample space and events.
+  - Use the axioms and their consequences, including the addition rule and the complement.
+  - Compute probabilities with equally likely outcomes.
+sections:
+  - id: model
+    type: definition
+    term: Sample space and events
+    body: |
+      A random experiment has several possible outcomes, and we cannot predict which one occurs. The set of all possible outcomes is the **sample space** $S$. An **event** is a subset of $S$; we say it **occurs** if the outcome belongs to it.
+
+      Events combine as sets: $A\cup B$ ("$A$ or $B$"), $A\cap B$ ("$A$ and $B$"), $A^{c}$ ("not $A$"). Two events are **mutually exclusive** (disjoint) if $A\cap B=\varnothing$.
+
+      Throwing two dice has $S=\{(i,j):1\le i,j\le6\}$, with $36$ outcomes. The event "the sum is $7$" is $\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\}$.
+
+  - id: axioms
+    type: theorem
+    name: The axioms and their consequences
+    statement: |
+      A probability $P$ assigns to each event a number so that
+
+      1. $P(A)\ge0$;
+      2. $P(S)=1$;
+      3. if $A$ and $B$ are mutually exclusive, $P(A\cup B)=P(A)+P(B)$.
+
+      Consequences:
+
+      - $P(A^{c})=1-P(A)$ and $P(\varnothing)=0$;
+      - $P(A\cup B)=P(A)+P(B)-P(A\cap B)$ (for any events);
+      - if $A\subset B$ then $P(A)\le P(B)$, and $0\le P(A)\le1$.
+    proof: |
+      $A$ and $A^{c}$ are disjoint with union $S$, so $P(A)+P(A^{c})=1$. For the addition rule write $A\cup B=A\cup(B\setminus A)$ and $B=(A\cap B)\cup(B\setminus A)$, all unions being disjoint: $P(A\cup B)=P(A)+P(B\setminus A)$ and $P(B\setminus A)=P(B)-P(A\cap B)$.
+    more: |
+      **Why subtract $P(A\cap B)$.** In $P(A)+P(B)$ the outcomes that belong to both events are counted twice, so we remove one copy.
+
+  - id: equally-likely
+    type: theorem
+    name: Equally likely outcomes
+    statement: |
+      If $S$ is finite and all outcomes are equally likely, then for every event $A$
+
+      $$P(A)=\dfrac{\text{number of outcomes in }A}{\text{number of outcomes in }S}.$$
+    proof: |
+      Each outcome has the same probability $p$; the $N$ outcomes are mutually exclusive and their union is $S$, so $Np=1$. An event with $m$ outcomes then has probability $mp=\dfrac mN$.
+
+  - id: ex-dice
+    type: example
+    title: Two dice
+    problem: |
+      Two fair dice are thrown. Find the probability that (a) the sum is $7$; (b) at least one die shows a six.
+    steps:
+      - |
+        (a) $6$ favorable outcomes among $36$: $P=\dfrac{6}{36}=\dfrac16$.
+      - text: |
+          (b) The complement is "no six": $5\cdot5=25$ outcomes. So $P=1-\dfrac{25}{36}=\dfrac{11}{36}$.
+        why: |
+          Counting "at least one six" directly means adding the cases "first is six", "second is six" and removing the overlap $(6,6)$: $6+6-1=11$. The complement is shorter: any phrase "at least one" is easier through "none".
+    answer: |
+      (a) $\dfrac16$; (b) $\dfrac{11}{36}$.
+    verify:
+      - expr: "6/36"
+        equals: "1/6"
+      - expr: "1-25/36"
+        equals: "11/36"
+
+  - id: ex-addition
+    type: example
+    title: The addition rule
+    problem: |
+      A card is drawn from a standard deck of $52$. Find the probability that it is a heart or a king.
+    steps:
+      - |
+        $P(\text{heart})=\dfrac{13}{52}$, $P(\text{king})=\dfrac4{52}$, $P(\text{king of hearts})=\dfrac1{52}$.
+      - |
+        $P(\text{heart or king})=\dfrac{13+4-1}{52}=\dfrac{16}{52}=\dfrac4{13}$.
+    answer: |
+      $\dfrac4{13}$.
+    verify:
+      - expr: "(13+4-1)/52"
+        equals: "4/13"
+
+  - id: chk-complement
+    type: check
+    prompt: |
+      Three fair coins are tossed. Find the probability of getting at least one head.
+    answerType: expression
+    answer: "7/8"
+    hints:
+      - |
+        The complement is "three tails".
+    explanation: |
+      $1-\left(\dfrac12\right)^3=\dfrac78$.
+
+  - id: chk-union
+    type: check
+    prompt: |
+      $P(A)=\dfrac12$, $P(B)=\dfrac13$ and $P(A\cap B)=\dfrac15$. Find $P(A\cup B)$.
+    answerType: expression
+    answer: "19/30"
+    hints:
+      - |
+        $P(A\cup B)=P(A)+P(B)-P(A\cap B)$.
+    explanation: |
+      $\dfrac12+\dfrac13-\dfrac15=\dfrac{15+10-6}{30}=\dfrac{19}{30}$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Axioms: $P(A)\ge0$, $P(S)=1$, additivity for mutually exclusive events.
+      - |
+        $P(A^c)=1-P(A)$; $P(A\cup B)=P(A)+P(B)-P(A\cap B)$.
+      - |
+        Equally likely outcomes: $P(A)=\dfrac{|A|}{|S|}$.

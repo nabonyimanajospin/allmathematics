@@ -1,0 +1,119 @@
+id: stat-m02-u01-l01
+title: Discrete random variables, expectation and variance
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - discrete-distribution
+  - expectation
+  - variance
+objectives:
+  - Describe a discrete random variable by its probability mass function.
+  - Compute the expectation and the variance.
+  - Use the rules for $aX+b$.
+sections:
+  - id: definition
+    type: definition
+    term: Random variable and probability mass function
+    body: |
+      A **random variable** $X$ is a number determined by the outcome of an experiment: the sum of two dice, the number of heads in $10$ tosses. It is **discrete** if it takes finitely many (or countably many) values $x_1,x_2,\dots$ Its **probability mass function** is $p(x_i)=P(X=x_i)$, with $p(x_i)\ge0$ and $\sum p(x_i)=1$.
+
+  - id: expectation
+    type: definition
+    term: Expectation and variance
+    body: |
+      The **expectation** (mean) of $X$ is the weighted average of its values:
+
+      $$E[X]=\sum x_i\,p(x_i).$$
+
+      The **variance** measures how far $X$ typically is from its mean:
+
+      $$\operatorname{Var}(X)=E\left[(X-\mu)^2\right]=E\left[X^2\right]-\mu^2,\qquad\mu=E[X],$$
+
+      where $E[X^2]=\sum x_i^2\,p(x_i)$. The **standard deviation** is $\sigma=\sqrt{\operatorname{Var}(X)}$.
+    more: |
+      **Why the two forms of the variance agree.** Expand the square: $E[(X-\mu)^2]=E[X^2]-2\mu E[X]+\mu^2=E[X^2]-2\mu^2+\mu^2=E[X^2]-\mu^2$. The second form is usually faster to compute.
+
+  - id: rules
+    type: theorem
+    name: Linearity
+    statement: |
+      For constants $a$, $b$:
+
+      $$E[aX+b]=a\,E[X]+b,\qquad\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X).$$
+
+      Also $E[X+Y]=E[X]+E[Y]$ for any two random variables.
+    proof: |
+      $E[aX+b]=\sum(ax_i+b)p(x_i)=a\sum x_ip(x_i)+b\sum p(x_i)$. For the variance, $aX+b-E[aX+b]=a(X-\mu)$, whose square has expectation $a^2\operatorname{Var}(X)$: adding $b$ shifts the values but does not change their spread.
+
+  - id: ex-die
+    type: example
+    title: A fair die
+    problem: |
+      Find the expectation and the variance of the result $X$ of a fair die.
+    steps:
+      - |
+        $E[X]=\dfrac{1+2+3+4+5+6}{6}=\dfrac72$.
+      - text: |
+          $E[X^2]=\dfrac{1+4+9+16+25+36}{6}=\dfrac{91}{6}$.
+        why: |
+          The values of $X^2$ are $1,4,9,16,25,36$, each with probability $\dfrac16$; their sum is $91$.
+      - |
+        $\operatorname{Var}(X)=\dfrac{91}6-\dfrac{49}4=\dfrac{182-147}{12}=\dfrac{35}{12}$.
+    answer: |
+      $E[X]=\dfrac72$, $\operatorname{Var}(X)=\dfrac{35}{12}$.
+    verify:
+      - expr: "(1+2+3+4+5+6)/6"
+        equals: "7/2"
+      - expr: "91/6-(7/2)^2"
+        equals: "35/12"
+
+  - id: ex-table
+    type: example
+    title: From a table
+    problem: |
+      $X$ takes the values $1$, $2$, $6$ with probabilities $\dfrac12$, $\dfrac13$, $\dfrac16$. Find $E[X]$ and $\operatorname{Var}(X)$.
+    steps:
+      - |
+        $E[X]=1\cdot\dfrac12+2\cdot\dfrac13+6\cdot\dfrac16=\dfrac12+\dfrac23+1=\dfrac{13}{6}$.
+      - |
+        $E[X^2]=\dfrac12+\dfrac43+6=\dfrac{47}{6}$ and $\operatorname{Var}(X)=\dfrac{47}6-\dfrac{169}{36}=\dfrac{113}{36}$.
+    answer: |
+      $E[X]=\dfrac{13}6$, $\operatorname{Var}(X)=\dfrac{113}{36}$.
+    verify:
+      - expr: "1/2+2/3+1"
+        equals: "13/6"
+      - expr: "47/6-(13/6)^2"
+        equals: "113/36"
+
+  - id: chk-expectation
+    type: check
+    prompt: |
+      $X$ takes the values $0$, $1$, $4$ with probabilities $\dfrac12$, $\dfrac14$, $\dfrac14$. Find $E[X]$.
+    answerType: expression
+    answer: "5/4"
+    hints:
+      - |
+        $\sum x_ip(x_i)$.
+    explanation: |
+      $0+\dfrac14+1=\dfrac54$.
+
+  - id: chk-linear
+    type: check
+    prompt: |
+      $E[X]=3$ and $\operatorname{Var}(X)=2$. Find $\operatorname{Var}(5-4X)$.
+    answerType: number
+    answer: "32"
+    hints:
+      - |
+        $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$ with $a=-4$.
+    explanation: |
+      $(-4)^2\cdot2=32$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $E[X]=\sum x_ip(x_i)$; $\operatorname{Var}(X)=E[X^2]-E[X]^2$.
+      - |
+        $E[aX+b]=aE[X]+b$; $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$.

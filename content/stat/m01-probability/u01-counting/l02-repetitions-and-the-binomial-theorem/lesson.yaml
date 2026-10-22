@@ -1,0 +1,105 @@
+id: stat-m01-u01-l02
+title: Repetitions and the binomial theorem
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - multiset-permutations
+  - binomial-theorem
+objectives:
+  - Count arrangements of objects that are not all different.
+  - Expand $(a+b)^n$ and find a given coefficient.
+sections:
+  - id: why
+    type: concept
+    title: When some objects are identical
+    body: |
+      The formula $n!$ for the arrangements of $n$ objects assumes that they are all different. If two letters of a word are the same, swapping them gives the same word, so $n!$ counts too much. We correct by dividing, and the same idea gives a formula for the powers $(a+b)^n$.
+
+  - id: repeated
+    type: theorem
+    name: Arrangements with identical objects
+    statement: |
+      If $n$ objects consist of $n_1$ identical objects of one kind, $n_2$ of a second kind, …, $n_r$ of the last kind ($n_1+\cdots+n_r=n$), the number of different arrangements in a row is
+
+      $$\dfrac{n!}{n_1!\,n_2!\cdots n_r!}.$$
+    proof: |
+      Imagine the objects of each kind numbered, so that all are different: there are $n!$ arrangements. Renumbering within a kind does not change the visible arrangement, and each visible arrangement appears $n_1!\,n_2!\cdots n_r!$ times, once for every way to number the objects inside each kind. Divide.
+
+  - id: ex-word
+    type: example
+    title: The letters of a word
+    problem: |
+      How many different arrangements of the letters of MISSISSIPPI are there?
+    steps:
+      - |
+        $11$ letters: $I$ appears $4$ times, $S$ $4$ times, $P$ twice, $M$ once.
+      - |
+        $\dfrac{11!}{4!\,4!\,2!\,1!}=\dfrac{39\,916\,800}{24\cdot24\cdot2}=34\,650$.
+    answer: |
+      $34\,650$.
+    verify:
+      - expr: "(11*10*9*8*7*6*5*4*3*2)/((4*3*2)*(4*3*2)*(2))"
+        equals: "34650"
+
+  - id: binomial
+    type: theorem
+    name: The binomial theorem
+    statement: |
+      For every integer $n\ge0$,
+
+      $$(a+b)^n=\sum_{k=0}^{n}\dbinom nk\,a^{n-k}b^k=a^n+\dbinom n1a^{n-1}b+\cdots+b^n.$$
+    proof: |
+      Expand $(a+b)(a+b)\cdots(a+b)$ ($n$ factors). A term $a^{n-k}b^k$ is obtained by taking $b$ from $k$ of the factors and $a$ from the others; there are $\dbinom nk$ ways to choose which $k$ factors give $b$.
+    more: |
+      **Two consequences.** Putting $a=b=1$: $\displaystyle\sum_{k}\dbinom nk=2^n$, the number of subsets of a set with $n$ elements. Putting $a=1$, $b=-1$: the alternating sum is $0$ (for $n\ge1$).
+
+  - id: ex-coefficient
+    type: example
+    title: A coefficient
+    problem: |
+      Find the coefficient of $x^3$ in $(2x+1)^5$.
+    steps:
+      - |
+        The general term is $\dbinom5k(2x)^{k}\cdot1^{5-k}$, of degree $k$ in $x$.
+      - text: |
+          For $x^3$ take $k=3$: $\dbinom53\cdot2^3=10\cdot8=80$.
+        why: |
+          $(2x)^3=8x^3$ brings the factor $2^3$. The binomial coefficient $\dbinom53=\dbinom52=10$.
+    answer: |
+      $80$.
+    verify:
+      - expr: "10*2^3"
+        equals: "80"
+
+  - id: chk-word
+    type: check
+    prompt: |
+      How many different arrangements of the letters of BANANA are there?
+    answerType: number
+    answer: "60"
+    hints:
+      - |
+        $6$ letters: A three times, N twice, B once.
+    explanation: |
+      $\dfrac{6!}{3!\,2!\,1!}=\dfrac{720}{12}=60$.
+
+  - id: chk-coefficient
+    type: check
+    prompt: |
+      Find the coefficient of $x^2$ in $(x-3)^4$.
+    answerType: number
+    answer: "54"
+    hints:
+      - |
+        $\dbinom42x^2(-3)^2$.
+    explanation: |
+      $6\cdot9=54$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Identical objects: divide $n!$ by the factorials of the multiplicities.
+      - |
+        $(a+b)^n=\sum\dbinom nk a^{n-k}b^k$; $\sum\dbinom nk=2^n$.

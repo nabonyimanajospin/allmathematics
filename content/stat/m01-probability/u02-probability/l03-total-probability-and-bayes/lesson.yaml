@@ -1,0 +1,103 @@
+id: stat-m01-u02-l03
+title: Total probability and Bayes' theorem
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - total-probability
+  - bayes
+objectives:
+  - Split a probability over the cases of a partition.
+  - Reverse a conditional probability with Bayes' theorem.
+sections:
+  - id: partition
+    type: concept
+    title: Splitting a problem into cases
+    body: |
+      Sometimes an event is easy to study once we know the "case" we are in. A product comes from one of three factories, a patient has or has not a disease. The cases form a **partition**: events $B_1,\dots,B_n$ that are mutually exclusive and cover the whole sample space.
+
+  - id: total
+    type: theorem
+    name: Law of total probability and Bayes' theorem
+    statement: |
+      If $B_1,\dots,B_n$ is a partition of $S$ with $P(B_i)>0$, then for every event $A$
+
+      $$P(A)=\sum_{i=1}^{n}P(B_i)\,P(A\mid B_i),$$
+
+      and, if $P(A)>0$,
+
+      $$P(B_j\mid A)=\dfrac{P(B_j)\,P(A\mid B_j)}{\displaystyle\sum_{i=1}^{n}P(B_i)\,P(A\mid B_i)}.$$
+    proof: |
+      $A=(A\cap B_1)\cup\cdots\cup(A\cap B_n)$, a union of mutually exclusive events, so $P(A)=\sum P(A\cap B_i)=\sum P(B_i)P(A\mid B_i)$. Bayes: $P(B_j\mid A)=\dfrac{P(A\cap B_j)}{P(A)}$ and $P(A\cap B_j)=P(B_j)P(A\mid B_j)$.
+    more: |
+      **How to read Bayes' formula.** The probabilities $P(B_j)$ are what we believed before the observation; $P(A\mid B_j)$ says how likely the observation is in each case; the result $P(B_j\mid A)$ is the updated belief once $A$ is observed. It reverses the direction of conditioning, from "effect given cause" to "cause given effect".
+
+  - id: ex-factories
+    type: example
+    title: Three factories
+    problem: |
+      Factories $F_1$, $F_2$, $F_3$ make $\dfrac12$, $\dfrac3{10}$ and $\dfrac15$ of the bolts, and $\dfrac1{50}$, $\dfrac3{100}$ and $\dfrac1{20}$ of their bolts are defective. A bolt is chosen at random. Find (a) the probability that it is defective; (b) the probability that it came from $F_1$ if it is defective.
+    steps:
+      - text: |
+          (a) $P(D)=\dfrac12\cdot\dfrac1{50}+\dfrac3{10}\cdot\dfrac3{100}+\dfrac15\cdot\dfrac1{20}=\dfrac1{100}+\dfrac9{1000}+\dfrac1{100}=\dfrac{29}{1000}$.
+        why: |
+          Each product is "the bolt comes from this factory and is defective". The three cases do not overlap and cover all bolts, so their probabilities add. The common denominator is $1000$: $\dfrac{10+9+10}{1000}$.
+      - |
+        (b) $P(F_1\mid D)=\dfrac{\dfrac{1}{100}}{\dfrac{29}{1000}}=\dfrac{10}{29}$.
+    answer: |
+      (a) $\dfrac{29}{1000}$; (b) $\dfrac{10}{29}$.
+    verify:
+      - expr: "1/2*1/50 + 3/10*3/100 + 1/5*1/20"
+        equals: "29/1000"
+      - expr: "(1/100)/(29/1000)"
+        equals: "10/29"
+
+  - id: ex-test
+    type: example
+    title: A medical test
+    problem: |
+      One person in $100$ has a disease. A test is positive for $\dfrac9{10}$ of the sick people and for $\dfrac1{20}$ of the healthy ones. A person tests positive. What is the probability that the person is sick?
+    steps:
+      - |
+        $P(+)=\dfrac1{100}\cdot\dfrac9{10}+\dfrac{99}{100}\cdot\dfrac1{20}=\dfrac{9}{1000}+\dfrac{99}{2000}=\dfrac{117}{2000}$.
+      - text: |
+          $P(\text{sick}\mid+)=\dfrac{\dfrac{9}{1000}}{\dfrac{117}{2000}}=\dfrac{18}{117}=\dfrac2{13}$.
+        why: |
+          Although the test detects $90\%$ of the sick, the disease is rare, so most positive results come from the many healthy people. The answer, a little more than $\dfrac1{7}$, is much smaller than $\dfrac9{10}$: this is the mistake of confusing $P(+\mid\text{sick})$ with $P(\text{sick}\mid+)$.
+    answer: |
+      $\dfrac2{13}$.
+    verify:
+      - expr: "(9/1000)/(117/2000)"
+        equals: "2/13"
+
+  - id: chk-total
+    type: check
+    prompt: |
+      Urn 1 has $3$ red and $1$ blue ball, urn 2 has $1$ red and $3$ blue. An urn is chosen at random, then a ball is drawn from it. Find the probability that the ball is red.
+    answerType: expression
+    answer: "1/2"
+    hints:
+      - |
+        $P(\text{red})=\dfrac12\cdot\dfrac34+\dfrac12\cdot\dfrac14$.
+    explanation: |
+      $\dfrac38+\dfrac18=\dfrac12$.
+
+  - id: chk-bayes
+    type: check
+    prompt: |
+      In the same experiment, the ball drawn is red. Find the probability that it came from urn 1.
+    answerType: expression
+    answer: "3/4"
+    hints:
+      - |
+        $P(\text{urn }1\mid\text{red})=\dfrac{\dfrac{3}{8}}{\dfrac{1}{2}}$.
+    explanation: |
+      $\dfrac{\dfrac{3}{8}}{\dfrac{1}{2}}=\dfrac34$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Total probability: $P(A)=\sum P(B_i)P(A\mid B_i)$ for a partition $B_i$.
+      - |
+        Bayes: $P(B_j\mid A)=\dfrac{P(B_j)P(A\mid B_j)}{P(A)}$. Do not confuse $P(A\mid B)$ with $P(B\mid A)$.
