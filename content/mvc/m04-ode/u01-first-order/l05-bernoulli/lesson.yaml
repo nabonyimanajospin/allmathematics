@@ -1,0 +1,94 @@
+id: mvc-m04-u01-l05
+title: Bernoulli equations
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - bernoulli-ode
+objectives:
+  - Recognize a Bernoulli equation $y'+P(x)y=Q(x)y^n$.
+  - Turn it into a linear equation with the substitution $z=y^{1-n}$.
+  - Recover $y$ and keep track of solutions lost in the process.
+sections:
+  - id: bernoulli-form
+    type: definition
+    term: Bernoulli equation
+    body: |
+      A **Bernoulli equation** has the form
+
+      $$y'+P(x)\,y=Q(x)\,y^n,$$
+
+      where $n$ is a real number. For $n=0$ or $n=1$ the equation is already linear. For other values of $n$ it is non-linear, but a
+      substitution makes it linear.
+
+  - id: substitution
+    type: theorem
+    name: The substitution $z=y^{1-n}$
+    statement: |
+      If $y$ solves $y'+Py=Qy^n$ ($n\neq0,1$) and $z=y^{1-n}$, then $z$ satisfies the **linear** equation
+
+      $$z'+(1-n)P\,z=(1-n)Q.$$
+    proof: |
+      Divide the equation by $y^n$: $y^{-n}y'+P\,y^{1-n}=Q$. Since $z=y^{1-n}$, we have $z'=(1-n)y^{-n}y'$, so $y^{-n}y'=\dfrac{z'}{1-n}$.
+      Substitute: $\dfrac{z'}{1-n}+Pz=Q$. Multiply by $1-n$.
+
+  - id: ex-bernoulli
+    type: example
+    title: A Bernoulli equation
+    problem: |
+      Solve $y'+\dfrac yx=y^2$ for $x>0$.
+    steps:
+      - |
+        Here $n=2$, so put $z=y^{-1}$. Then $z'+(1-2)\dfrac zx=(1-2)\cdot1$, that is $z'-\dfrac zx=-1$.
+      - |
+        Integrating factor: $\mu=e^{-\int dx/x}=\dfrac1x$. Then $\left(\dfrac zx\right)'=-\dfrac1x$, so $\dfrac zx=-\ln x+C$ and $z=x(C-\ln x)$.
+      - |
+        Back to $y$: $y=\dfrac1z=\dfrac{1}{x(C-\ln x)}$. The constant function $y=0$ is also a solution, which this formula never gives.
+    answer: |
+      $y=\dfrac1{x(C-\ln x)}$, and $y=0$.
+    verify:
+      - expr: "diff(1/(x*(C-ln(x))), x)+1/(x*(C-ln(x)))/x"
+        equals: "(1/(x*(C-ln(x))))^2"
+
+  - id: chk-bernoulli
+    type: check
+    prompt: |
+      For $y'+y=y^2$, the substitution $z=y^{1-n}$ gives which equation for $z$?
+    answerType: multiple_choice
+    answer: "1"
+    choices:
+      - text: "$z'-z=-1$"
+        value: "1"
+      - text: "$z'+z=1$"
+        value: "2"
+      - text: "$z'+z=z^2$"
+        value: "3"
+      - text: "$z'-z=1$"
+        value: "4"
+    correctIndex: 0
+    hints:
+      - |
+        Here $n=2$ and $P=1$, $Q=1$. Use $z'+(1-n)Pz=(1-n)Q$.
+    explanation: |
+      With $n=2$: $z'+(1-2)\cdot1\cdot z=(1-2)\cdot1$, that is $z'-z=-1$.
+
+  - id: lost
+    type: concept
+    title: Lost solutions
+    body: |
+      When $n>0$, the constant function $y=0$ solves $y'+Py=Qy^n$ (both sides vanish), but the substitution $z=y^{1-n}$ divides by a power of $y$.
+      So $y=0$ is usually **not** contained in the formula and should be stated separately.
+
+      For a negative $n$, such as $n=-1$, the substitution $z=y^2$ is also valid; there $y=0$ is not a solution because $y^{-1}$ is undefined.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A Bernoulli equation is $y'+Py=Qy^n$.
+      - |
+        For $n\neq0,1$ put $z=y^{1-n}$; it gives the linear equation $z'+(1-n)Pz=(1-n)Q$.
+      - |
+        Solve for $z$, then return to $y=z^{1/(1-n)}$.
+      - |
+        For $n>0$, remember the solution $y=0$.

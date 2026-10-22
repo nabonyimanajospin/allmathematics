@@ -1,0 +1,124 @@
+id: mvc-m04-u01-l01
+title: Differential equations, solutions and how to form them
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - ode-vocabulary
+  - verify-solution
+  - form-ode
+objectives:
+  - State what a differential equation, its order, a general solution and an initial-value problem are.
+  - Check that a given function is a solution by substituting it into the equation.
+  - Form a differential equation from a family of curves by eliminating the arbitrary constants.
+sections:
+  - id: what-is-ode
+    type: concept
+    title: An equation about change
+    body: |
+      A population $y(t)$ grows at a rate proportional to its size: $y'=ky$, where $y'=\dfrac{dy}{dt}$ is the rate of change.
+      This is not an equation for a number, but for a **function**: we must find all functions whose derivative is $k$ times
+      themselves. Here $y=Ce^{kt}$ works for every constant $C$, because $y'=kCe^{kt}=ky$.
+
+      An equation that contains an unknown function and **its derivatives** is a **differential equation**. Many laws of physics,
+      chemistry, biology and economics are differential equations.
+
+  - id: vocabulary
+    type: definition
+    term: Vocabulary
+    body: |
+      - The **order** of a differential equation is the order of the highest derivative in it. The equation $y''-3y'+2y=0$ has order $2$.
+      - It is **linear** if the unknown $y$ and its derivatives appear only to the first power and are not multiplied together; otherwise it is
+        **non-linear**. The equation $y'=y^2$ is non-linear.
+      - A **solution** is a function that turns the equation into an identity when substituted in it.
+      - The **general solution** of an equation of order $n$ contains $n$ independent arbitrary constants and describes all the solutions.
+      - A **particular solution** is obtained by giving values to the constants, usually from **initial conditions** such as $y(0)=1$.
+        An equation together with initial conditions is an **initial-value problem** (IVP).
+
+  - id: ex-verify
+    type: example
+    title: Checking a solution
+    problem: |
+      Show that $y=C_1e^x+C_2e^{2x}$ is a solution of $y''-3y'+2y=0$.
+    steps:
+      - |
+        Differentiate: $y'=C_1e^x+2C_2e^{2x}$ and $y''=C_1e^x+4C_2e^{2x}$.
+      - |
+        Substitute in the left-hand side: $y''-3y'+2y=(C_1e^x+4C_2e^{2x})-3(C_1e^x+2C_2e^{2x})+2(C_1e^x+C_2e^{2x})$.
+      - |
+        Collect: $C_1e^x(1-3+2)+C_2e^{2x}(4-6+2)=0$. The equation is satisfied for all $C_1$, $C_2$, and there are two constants for an
+        equation of order two.
+    answer: |
+      $y''-3y'+2y=0$ for every $C_1$ and $C_2$, so $y$ is a solution.
+    verify:
+      - expr: "diff(C1*e^x+C2*e^(2*x), x, 2)-3*diff(C1*e^x+C2*e^(2*x), x)+2*(C1*e^x+C2*e^(2*x))"
+        equals: "0"
+
+  - id: chk-verify
+    type: check
+    prompt: |
+      For $y=Ce^{-3x}$, compute $y'+3y$. (If it is $0$, $y$ is a solution of $y'+3y=0$.)
+    answerType: number
+    answer: "0"
+    hints:
+      - |
+        $y'=-3Ce^{-3x}$.
+    explanation: |
+      $y'+3y=-3Ce^{-3x}+3Ce^{-3x}=0$, so $y=Ce^{-3x}$ is a solution for every $C$.
+
+  - id: forming
+    type: concept
+    title: From a family of curves to an equation
+    body: |
+      A family of curves with $n$ arbitrary constants is the general solution of a differential equation of order $n$. To **form** the
+      equation, eliminate the constants:
+
+      1. Differentiate the relation $n$ times.
+      2. You now have $n+1$ equations (the relation and its $n$ derivatives) and $n$ constants. Eliminate the constants.
+      3. The result involves $x$, $y$ and the derivatives, and no constants.
+
+      The equation is not unique in form, but all correct forms are equivalent.
+
+  - id: ex-form
+    type: example
+    title: Eliminating one constant
+    problem: |
+      Form the differential equation whose general solution is $y=Cx^2$.
+    steps:
+      - |
+        One constant, so differentiate once: $y'=2Cx$.
+      - |
+        From $y=Cx^2$ we get $C=\dfrac{y}{x^2}$. Substitute in $y'=2Cx$: $y'=\dfrac{2y}{x}$.
+      - |
+        The equation is $xy'-2y=0$.
+    answer: |
+      $xy'-2y=0$.
+    verify:
+      - expr: "x*diff(C*x^2, x)-2*(C*x^2)"
+        equals: "0"
+
+  - id: chk-form
+    type: check
+    prompt: |
+      Form the differential equation whose general solution is $y=Ce^{3x}$. Write it with $y'$ and $y$.
+    answerType: ode_family
+    answer: "y' = 3*y"
+    ode:
+      order: 1
+      family: "y = C*e^(3*x)"
+      constants: [C]
+    hints:
+      - |
+        Differentiate once and eliminate $C$: $y'=3Ce^{3x}$ and $y=Ce^{3x}$.
+    explanation: |
+      $y'=3Ce^{3x}=3y$. The equation is $y'=3y$ (or $y'-3y=0$).
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A differential equation links an unknown function to its derivatives; its order is the order of the highest derivative.
+      - |
+        The general solution of an equation of order $n$ has $n$ independent constants; an initial-value problem fixes them.
+      - |
+        To check a solution, substitute it. To form an equation from a family, differentiate $n$ times and eliminate the $n$ constants.

@@ -1,0 +1,105 @@
+id: mvc-m04-u01-l04
+title: Linear equations of the first order
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - linear-first-order
+  - integrating-factor
+objectives:
+  - Write a first-order linear equation in the standard form $y'+P(x)y=Q(x)$.
+  - Solve it with an integrating factor.
+  - Solve an initial-value problem for a linear equation.
+sections:
+  - id: standard-form
+    type: definition
+    term: Linear equation of the first order
+    body: |
+      A first-order differential equation is **linear** when it can be written in the **standard form**
+
+      $$y'+P(x)\,y=Q(x),$$
+
+      where $P$ and $Q$ are functions of $x$ only. If $Q=0$, the equation $y'+Py=0$ is separable and easy to solve.
+      If the equation is given as $a(x)y'+b(x)y=c(x)$, divide by $a(x)$ first.
+
+  - id: integrating-factor
+    type: theorem
+    name: The integrating factor
+    statement: |
+      Let $\mu(x)=e^{\int P(x)\,dx}$. Then $\mu\,y'+\mu P\,y=(\mu y)'$, and the general solution of $y'+Py=Q$ is
+
+      $$y=\dfrac{1}{\mu(x)}\left(\int\mu(x)\,Q(x)\,dx+C\right).$$
+    proof: |
+      Because $\mu'=P\mu$, the product rule gives $(\mu y)'=\mu y'+\mu'y=\mu(y'+Py)$. Multiply the equation by $\mu$: $(\mu y)'=\mu Q$.
+      Integrate: $\mu y=\int\mu Q\,dx+C$, then divide by $\mu$.
+
+  - id: ex-linear
+    type: example
+    title: A first example
+    problem: |
+      Solve $y'+\dfrac{2}{x}\,y=x$ for $x>0$.
+    steps:
+      - |
+        Here $P=\dfrac2x$ and $Q=x$. An integrating factor is $\mu=e^{\int2/x\,dx}=e^{2\ln x}=x^2$.
+      - |
+        Multiply the equation by $x^2$: $(x^2y)'=x^3$.
+      - |
+        Integrate: $x^2y=\dfrac{x^4}{4}+C$, so $y=\dfrac{x^2}{4}+\dfrac{C}{x^2}$.
+    answer: |
+      $y=\dfrac{x^2}{4}+\dfrac{C}{x^2}$.
+    verify:
+      - expr: "diff(x^2/4+C/x^2, x)+2/x*(x^2/4+C/x^2)"
+        equals: "x"
+
+  - id: chk-linear
+    type: check
+    prompt: |
+      Solve $y'+y=e^{-2x}$.
+    answerType: ode_solution
+    ode:
+      order: 1
+      equation: "y1 + y - e^(-2*x)"
+    answer: "y = -e^(-2*x) + C*e^(-x)"
+    hints:
+      - |
+        $P=1$, so $\mu=e^x$. Then $(e^xy)'=e^{x}e^{-2x}=e^{-x}$.
+    explanation: |
+      $\mu=e^x$ and $(e^xy)'=e^{-x}$, so $e^xy=-e^{-x}+C$ and $y=-e^{-2x}+Ce^{-x}$.
+
+  - id: ivp
+    type: concept
+    title: With an initial condition
+    body: |
+      First find the general solution, then use the condition to determine $C$. Be careful when the equation was divided by a function
+      that vanishes at the initial point: the formula may involve a limit there.
+
+      Example: $xy'+y=\cos x$ is $(xy)'=\cos x$, so $xy=\sin x+C$. The solution $y=\dfrac{\sin x+C}{x}$ is finite at $x=0$ only for $C=0$,
+      and then $y(0)=\lim_{x\to0}\dfrac{\sin x}{x}=1$.
+
+  - id: ex-ivp
+    type: example
+    title: A linear initial-value problem
+    problem: |
+      Solve $y'-y\tan x=\dfrac1{\cos x}$ with $y(0)=0$, for $|x|<\dfrac\pi2$.
+    steps:
+      - |
+        $P=-\tan x$, so $\mu=e^{-\int\tan x\,dx}=e^{\ln\cos x}=\cos x$.
+      - |
+        $(y\cos x)'=\cos x\cdot\dfrac1{\cos x}=1$, so $y\cos x=x+C$.
+      - |
+        $y(0)=0$ gives $0=0+C$, so $C=0$ and $y=\dfrac{x}{\cos x}$.
+    answer: |
+      $y=\dfrac{x}{\cos x}$.
+    verify:
+      - expr: "diff(x/cos(x), x)-(x/cos(x))*tan(x)"
+        equals: "1/cos(x)"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Write the equation as $y'+P(x)y=Q(x)$; the integrating factor is $\mu=e^{\int P\,dx}$.
+      - |
+        Then $(\mu y)'=\mu Q$, so $y=\dfrac1\mu\left(\int\mu Q\,dx+C\right)$.
+      - |
+        An initial condition determines $C$; take a limit if the formula is singular at the initial point.

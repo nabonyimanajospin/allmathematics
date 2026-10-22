@@ -1,0 +1,100 @@
+id: mvc-m04-u01-l02
+title: Separable equations
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - separable-ode
+objectives:
+  - Recognize an equation in which the variables can be separated.
+  - Solve it by integrating each side, and write the solution in explicit or implicit form.
+  - Use an initial condition to find the constant, and notice solutions lost by a division.
+sections:
+  - id: separate
+    type: concept
+    title: Put each variable on its own side
+    body: |
+      An equation is **separable** if it can be written as $\dfrac{dy}{dx}=f(x)\,g(y)$: a product of a function of $x$ alone and a
+      function of $y$ alone. Then divide by $g(y)$ and multiply by $dx$:
+
+      $$\dfrac{dy}{g(y)}=f(x)\,dx.$$
+
+      Each side now contains one variable only, and we can integrate each of them: $\displaystyle\int\frac{dy}{g(y)}=\int f(x)\,dx+C$.
+      One constant $C$ is enough, because the two constants of integration can be merged.
+
+  - id: ex-separable
+    type: example
+    title: A first example
+    problem: |
+      Solve $\dfrac{dy}{dx}=xy$.
+    steps:
+      - |
+        Separate: $\dfrac{dy}{y}=x\,dx$ (for $y\neq0$).
+      - |
+        Integrate: $\ln|y|=\dfrac{x^2}{2}+C_0$.
+      - |
+        Exponentiate: $|y|=e^{C_0}e^{x^2/2}$, so $y=Ce^{x^2/2}$, where $C=\pm e^{C_0}$ is a non-zero constant.
+      - |
+        The function $y=0$ also satisfies the equation, and it is obtained for $C=0$. So the general solution is $y=Ce^{x^2/2}$ for any real $C$.
+    answer: |
+      $y=Ce^{x^2/2}$.
+    verify:
+      - expr: "diff(C*e^(x^2/2), x)"
+        equals: "x*(C*e^(x^2/2))"
+
+  - id: chk-separable
+    type: check
+    prompt: |
+      Solve $y'=2xy$. Write the general solution.
+    answerType: ode_solution
+    ode:
+      order: 1
+      equation: "y1 - 2*x*y"
+    answer: "y = C*e^(x^2)"
+    hints:
+      - |
+        Separate the variables: $\dfrac{dy}{y}=2x\,dx$.
+    explanation: |
+      $\ln|y|=x^2+C_0$, so $y=Ce^{x^2}$.
+
+  - id: lost-solutions
+    type: concept
+    title: Solutions lost by a division
+    body: |
+      Dividing by $g(y)$ assumes $g(y)\neq0$. If $g(y_0)=0$ for a constant $y_0$, the constant function $y=y_0$ is also a solution (because
+      $y'=0$ and $f(x)g(y_0)=0$), and it may not appear in the formula obtained by integrating.
+
+      Check each root of $g$: sometimes the formula includes it (like $y=0$ for $C=0$ above), sometimes not. For the equation $y'=y^2$, the
+      formula $y=-\dfrac1{x+C}$ never gives $y=0$, so $y=0$ must be stated separately.
+
+  - id: ex-ivp
+    type: example
+    title: An initial-value problem
+    problem: |
+      Solve $y'=y^2$ with $y(0)=1$.
+    steps:
+      - |
+        Separate: $\dfrac{dy}{y^2}=dx$. Integrate: $-\dfrac1y=x+C$, that is $y=-\dfrac1{x+C}$.
+      - |
+        Use $y(0)=1$: $1=-\dfrac1{C}$, so $C=-1$.
+      - |
+        The solution is $y=\dfrac{1}{1-x}$, valid for $x<1$. It becomes infinite at $x=1$: the solution "blows up".
+    answer: |
+      $y=\dfrac1{1-x}$.
+    verify:
+      - expr: "diff(1/(1-x), x)"
+        equals: "(1/(1-x))^2"
+      - expr: "1/(1-0)"
+        equals: "1"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\dfrac{dy}{dx}=f(x)g(y)$ is separable: write $\dfrac{dy}{g(y)}=f(x)\,dx$ and integrate both sides.
+      - |
+        The solution may be explicit ($y=\dots$) or implicit (a relation between $x$ and $y$); one arbitrary constant is enough.
+      - |
+        A division by $g(y)$ can lose the constant solutions $y=y_0$ with $g(y_0)=0$: check them.
+      - |
+        An initial condition determines the constant.

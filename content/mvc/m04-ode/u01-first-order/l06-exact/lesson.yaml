@@ -1,0 +1,102 @@
+id: mvc-m04-u01-l06
+title: Exact equations
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - exact-ode
+objectives:
+  - Test whether $M\,dx+N\,dy=0$ is exact.
+  - Find the function $F(x,y)$ whose differential is $M\,dx+N\,dy$.
+  - Write the solution as $F(x,y)=C$.
+sections:
+  - id: exact-idea
+    type: concept
+    title: A differential that is a total differential
+    body: |
+      Recall that the total differential of $F(x,y)$ is $dF=F_x\,dx+F_y\,dy$. The equation
+      $M(x,y)\,dx+N(x,y)\,dy=0$ is **exact** if there is a function $F$ with $F_x=M$ and $F_y=N$. Then the equation says $dF=0$,
+      so $F(x,y)=C$ is its general solution, written as a relation between $x$ and $y$.
+
+      For example $2xy\,dx+x^2\,dy=0$ is $d(x^2y)=0$, with solution $x^2y=C$.
+
+  - id: exactness-test
+    type: theorem
+    name: The exactness test
+    statement: |
+      Let $M$ and $N$ have continuous partial derivatives on a rectangle. The equation $M\,dx+N\,dy=0$ is exact if and only if
+
+      $$\pd My=\pd Nx.$$
+    proof: |
+      If $M=F_x$ and $N=F_y$, then $M_y=F_{xy}$ and $N_x=F_{yx}$, which are equal by Schwarz's theorem. The converse is shown by the construction
+      of $F$ in the method below.
+
+  - id: method
+    type: concept
+    title: Finding $F$
+    body: |
+      1. Check that $M_y=N_x$.
+      2. Integrate $M$ with respect to $x$: $F=\int M\,dx+g(y)$, where $g(y)$ is an unknown function of $y$ only.
+      3. Differentiate with respect to $y$ and set $F_y=N$: this determines $g'(y)$, and then $g(y)$.
+      4. The solution is $F(x,y)=C$.
+
+  - id: ex-exact
+    type: example
+    title: An exact equation
+    problem: |
+      Solve $(2xy+3)\,dx+(x^2-1)\,dy=0$.
+    steps:
+      - |
+        $M=2xy+3$ and $N=x^2-1$. Then $M_y=2x=N_x$: the equation is exact.
+      - |
+        $F=\int(2xy+3)\,dx=x^2y+3x+g(y)$.
+      - |
+        $F_y=x^2+g'(y)$ must equal $N=x^2-1$, so $g'(y)=-1$ and $g=-y$.
+      - |
+        So $F=x^2y+3x-y$, and the solution is $x^2y+3x-y=C$.
+    answer: |
+      $x^2y+3x-y=C$.
+    verify:
+      - expr: "diff(2*x*y+3, y)-diff(x^2-1, x)"
+        equals: "0"
+      - expr: "diff(x^2*y+3*x-y, x)"
+        equals: "2*x*y+3"
+      - expr: "diff(x^2*y+3*x-y, y)"
+        equals: "x^2-1"
+
+  - id: chk-exact
+    type: check
+    prompt: |
+      Is $(y+1)\,dx+(x+2y)\,dy=0$ exact? Find $F$ if it is, and give the solution $F=C$.
+    answerType: ode_solution
+    ode:
+      order: 1
+      equation: "(y+1) + (x+2*y)*y1"
+    answer: "x*y + x + y^2 = C"
+    hints:
+      - |
+        $M_y=1$ and $N_x=1$. Integrate $M$ in $x$: $F=xy+x+g(y)$.
+    explanation: |
+      $M_y=1=N_x$: exact. $F=\int(y+1)\,dx=xy+x+g(y)$, and $F_y=x+g'(y)=x+2y$ gives $g=y^2$. The solution is $xy+x+y^2=C$.
+
+  - id: not-exact
+    type: concept
+    title: When the test fails
+    body: |
+      If $M_y\neq N_x$ the equation is not exact, but sometimes multiplying it by a function $\mu$ (an **integrating factor**) makes it exact.
+      Two common cases:
+
+      - if $\dfrac{M_y-N_x}{N}$ depends only on $x$, then $\mu(x)=e^{\int\frac{M_y-N_x}{N}\,dx}$;
+      - if $\dfrac{N_x-M_y}{M}$ depends only on $y$, then $\mu(y)=e^{\int\frac{N_x-M_y}{M}\,dy}$.
+
+      Example: $y\,dx-x\,dy=0$ is not exact ($M_y=1$, $N_x=-1$), but multiplied by $\dfrac1{x^2}$ it becomes $d\!\left(\dfrac yx\right)=0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $M\,dx+N\,dy=0$ is exact when $M_y=N_x$; then there is $F$ with $F_x=M$ and $F_y=N$.
+      - |
+        Find $F=\int M\,dx+g(y)$, determine $g$ from $F_y=N$, and write the solution $F(x,y)=C$.
+      - |
+        If the equation is not exact, an integrating factor $\mu$ may make it exact.
