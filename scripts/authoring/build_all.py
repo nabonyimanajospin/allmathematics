@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 MODULES = [
     "mvc_m01_u01",
+    "mvc_m01_u02",
 ]
 
 
