@@ -19,6 +19,7 @@ MODULES = [
     "mvc_m03",
     "mvc_m04",
     "geo_m02",
+    "geo_m03",
 ]
 
 
