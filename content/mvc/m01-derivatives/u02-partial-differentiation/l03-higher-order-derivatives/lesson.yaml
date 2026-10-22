@@ -1,0 +1,138 @@
+id: mvc-m01-u02-l03
+title: Partial derivatives of higher order
+estMinutes: 30
+version: 1
+status: draft
+skills:
+  - second-order-partials
+  - schwarz-theorem
+objectives:
+  - Compute the second-order partial derivatives of a function of two or three variables.
+  - State and use the theorem that mixed partial derivatives are equal.
+  - Check whether a function satisfies a partial differential equation such as Laplace's equation.
+sections:
+  - id: derivative-of-derivative
+    type: concept
+    title: Differentiate again
+    body: |
+      A partial derivative of a function of $x$ and $y$ is again a function of $x$ and $y$, so we can differentiate it
+      once more, with respect to the same variable or to the other one. For $z=f(x,y)$ there are four **second-order**
+      partial derivatives:
+
+      $$z_{xx}=\dfrac{\partial^2z}{\partial x^2},\qquad z_{xy}=(z_x)_y,\qquad z_{yx}=(z_y)_x,\qquad z_{yy}=\dfrac{\partial^2z}{\partial y^2}.$$
+
+      The derivatives $z_{xy}$ and $z_{yx}$ are called **mixed** derivatives. In $z_{xy}$ we differentiate first with respect
+      to $x$ and then with respect to $y$.
+
+  - id: schwarz
+    type: theorem
+    name: Schwarz (Clairaut) theorem
+    statement: |
+      If $z_{xy}$ and $z_{yx}$ are continuous in a disc around $(x_0,y_0)$, then $z_{xy}(x_0,y_0)=z_{yx}(x_0,y_0)$.
+    proof: |
+      The proof compares the double difference $f(x+h,y+k)-f(x+h,y)-f(x,y+k)+f(x,y)$, which can be written in two ways using the
+      mean value theorem once in each variable. Letting $h,k\to0$ gives each of the two mixed derivatives, so they are equal.
+
+  - id: ex-second-order
+    type: example
+    title: All second-order derivatives
+    problem: |
+      Compute the second-order partial derivatives of $z=x^3y^2+\sin(xy)$.
+    steps:
+      - |
+        First order: $z_x=3x^2y^2+y\cos(xy)$ and $z_y=2x^3y+x\cos(xy)$.
+      - |
+        $z_{xx}=6xy^2-y^2\sin(xy)$ and $z_{yy}=2x^3-x^2\sin(xy)$.
+      - |
+        $z_{xy}=(z_x)_y=6x^2y+\cos(xy)-xy\sin(xy)$.
+      - |
+        Check with $z_{yx}=(z_y)_x=6x^2y+\cos(xy)-xy\sin(xy)$: the two mixed derivatives are equal, as the theorem predicts.
+    answer: |
+      $z_{xx}=6xy^2-y^2\sin(xy)$, $z_{xy}=z_{yx}=6x^2y+\cos(xy)-xy\sin(xy)$, $z_{yy}=2x^3-x^2\sin(xy)$.
+    verify:
+      - expr: "diff(x^3*y^2+sin(x*y), x, 2)"
+        equals: "6*x*y^2-y^2*sin(x*y)"
+      - expr: "diff(diff(x^3*y^2+sin(x*y), x), y)"
+        equals: "6*x^2*y+cos(x*y)-x*y*sin(x*y)"
+      - expr: "diff(diff(x^3*y^2+sin(x*y), y), x)"
+        equals: "6*x^2*y+cos(x*y)-x*y*sin(x*y)"
+      - expr: "diff(x^3*y^2+sin(x*y), y, 2)"
+        equals: "2*x^3-x^2*sin(x*y)"
+
+  - id: chk-second
+    type: check
+    prompt: |
+      For $z=x^2y^3$, enter $\left(z_{xx},\ z_{xy},\ z_{yy}\right)$.
+    answerType: vector
+    variables: [x, y]
+    answer: "(2*y^3, 6*x*y^2, 6*x^2*y)"
+    hints:
+      - |
+        $z_x=2xy^3$ and $z_y=3x^2y^2$. Differentiate each again.
+    explanation: |
+      $z_{xx}=2y^3$, $z_{xy}=(2xy^3)_y=6xy^2$, $z_{yy}=6x^2y$. (Also $z_{yx}=(3x^2y^2)_x=6xy^2$.)
+
+  - id: count
+    type: concept
+    title: How many different derivatives are there?
+    body: |
+      Because of Schwarz's theorem, the order of differentiation does not matter for the functions of this course
+      (polynomials, exponentials, trigonometric functions and their combinations are smooth where defined).
+      A function of two variables therefore has $3$ different second-order derivatives, $4$ of third order ($z_{xxx}$,
+      $z_{xxy}$, $z_{xyy}$, $z_{yyy}$), and in general $n+1$ of order $n$.
+
+      For $u=f(x,y,z)$ there are $6$ different second-order derivatives:
+      $u_{xx},\,u_{yy},\,u_{zz},\,u_{xy},\,u_{xz},\,u_{yz}$.
+
+  - id: chk-count
+    type: check
+    prompt: |
+      How many different second-order partial derivatives does a function $u=f(x,y,z)$ of three variables have, when mixed derivatives in a different order are counted once?
+    answerType: multiple_choice
+    answer: "6"
+    choices:
+      - text: "$3$"
+        value: "3"
+      - text: "$6$"
+        value: "6"
+      - text: "$9$"
+        value: "9"
+      - text: "$4$"
+        value: "4"
+    correctIndex: 1
+    hints:
+      - |
+        Count the pure ones ($u_{xx}$, …) and the mixed ones ($u_{xy}$, …).
+    explanation: |
+      There are $3$ pure derivatives ($u_{xx},u_{yy},u_{zz}$) and $3$ mixed ones ($u_{xy},u_{xz},u_{yz}$): $6$ in total.
+      Without Schwarz's theorem there would be $9$.
+
+  - id: ex-laplace
+    type: example
+    title: Laplace's equation
+    problem: |
+      Show that $f(x,y)=\ln\sqrt{x^2+y^2}$ satisfies $f_{xx}+f_{yy}=0$ for $(x,y)\neq(0,0)$.
+    steps:
+      - |
+        Write $f=\tfrac12\ln(x^2+y^2)$. Then $f_x=\dfrac{x}{x^2+y^2}$ and $f_y=\dfrac{y}{x^2+y^2}$.
+      - |
+        $f_{xx}=\dfrac{(x^2+y^2)-2x^2}{(x^2+y^2)^2}=\dfrac{y^2-x^2}{(x^2+y^2)^2}$ and
+        $f_{yy}=\dfrac{x^2-y^2}{(x^2+y^2)^2}$.
+      - |
+        Adding, $f_{xx}+f_{yy}=0$. Functions with this property are called **harmonic**; they describe steady temperatures and
+        electric potentials.
+    answer: |
+      $f_{xx}+f_{yy}=0$ for $(x,y)\neq(0,0)$.
+    verify:
+      - expr: "diff(ln(x^2+y^2)/2, x, 2)+diff(ln(x^2+y^2)/2, y, 2)"
+        equals: "0"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The second-order derivatives of $z=f(x,y)$ are $z_{xx}$, $z_{xy}$, $z_{yx}$, $z_{yy}$; in $z_{xy}$ we differentiate first in $x$, then in $y$.
+      - |
+        If the mixed derivatives are continuous, $z_{xy}=z_{yx}$ (Schwarz), so there are $3$ different second-order derivatives for two variables and $6$ for three.
+      - |
+        A function with $f_{xx}+f_{yy}=0$ is harmonic.
