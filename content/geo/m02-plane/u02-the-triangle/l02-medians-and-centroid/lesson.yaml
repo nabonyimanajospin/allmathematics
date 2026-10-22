@@ -28,12 +28,18 @@ sections:
     problem: |
       Write the equation of the median from $A$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
     steps:
-      - |
-        $M_a=\left(\dfrac{14+5}{2},\dfrac{0+12}{2}\right)=\left(\dfrac{19}2,6\right)$, and $\overrightarrow{AM_a}=\left(\dfrac{19}{2},6\right)$, which is parallel to $(19,12)$.
+      - text: |
+          $M_a=\left(\dfrac{14+5}{2},\dfrac{0+12}{2}\right)=\left(\dfrac{19}2,6\right)$, and $\overrightarrow{AM_a}=\left(\dfrac{19}{2},6\right)$, which is parallel to $(19,12)$.
+        why: |
+          The midpoint of a segment is the average of its ends, coordinate by coordinate: $\dfrac{14+5}{2}=\dfrac{19}2$ and $\dfrac{0+12}{2}=6$.
+          The direction vector $\left(\dfrac{19}2,6\right)$ has fractions; multiplying it by $2$ gives $(19,12)$, which has the same direction and is easier to use.
       - |
         Vector: $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\overrightarrow{AM_a}$. Parametric: $x=\dfrac{19}2\lambda$, $y=6\lambda$. Canonical: $\dfrac{x}{19}=\dfrac{y}{12}$.
-      - |
-        Implicit: the normal vector is $(12,-19)$, so $12x-19y=0$. Explicit: $y=\dfrac{12}{19}\,x$.
+      - text: |
+          Implicit: the normal vector is $(12,-19)$, so $12x-19y=0$. Explicit: $y=\dfrac{12}{19}\,x$.
+        why: |
+          For a direction vector $(d_1,d_2)$ a normal vector is $(d_2,-d_1)$: it is perpendicular because $d_1d_2+d_2(-d_1)=0$. With $(19,12)$ the normal is $(12,-19)$.
+          The line passes through $A(0,0)$, so the constant term is $0$: $12x-19y=0$. Check with $M_a$: $12\cdot\dfrac{19}2-19\cdot6=114-114=0$.
     answer: |
       $m_a:\ 12x-19y=0$.
     verify:
@@ -66,6 +72,10 @@ sections:
       Since $M_a$ is the midpoint of $BC$, $\overrightarrow{AM_a}=\dfrac12\left(\overrightarrow{AB}+\overrightarrow{AC}\right)$. Then
       $m_a^2=\dfrac14\left(c^2+b^2+2\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}\right)$. By the law of cosines $2\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}=b^2+c^2-a^2$, so
       $m_a^2=\dfrac14\left(2b^2+2c^2-a^2\right)$.
+    more: |
+      **The formula by an example of coordinates.** Take $A$ as the origin, $B=(c,0)$ on the $x$-axis and $C=(p,q)$. Then $b^2=p^2+q^2$ and $a^2=(p-c)^2+q^2$.
+      The midpoint of $BC$ is $\left(\dfrac{c+p}{2},\dfrac q2\right)$, so $m_a^2=\dfrac{(c+p)^2+q^2}{4}=\dfrac{c^2+2cp+p^2+q^2}{4}$.
+      Now $2b^2+2c^2-a^2=2p^2+2q^2+2c^2-(p^2-2pc+c^2+q^2)=p^2+q^2+c^2+2pc$, which is the numerator above. So $m_a^2=\dfrac{2b^2+2c^2-a^2}{4}$.
 
   - id: ex-median-length
     type: example

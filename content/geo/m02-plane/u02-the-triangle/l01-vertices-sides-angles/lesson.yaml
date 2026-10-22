@@ -94,8 +94,12 @@ sections:
     problem: |
       Find the angles of $A(0,0)$, $B(14,0)$, $C(5,12)$, with $a=15$, $b=13$, $c=14$.
     steps:
-      - |
-        $\cos\hat A=\dfrac{169+196-225}{2\cdot13\cdot14}=\dfrac{140}{364}=\dfrac5{13}$, so $\hat A=\arccos\dfrac5{13}$.
+      - text: |
+          $\cos\hat A=\dfrac{169+196-225}{2\cdot13\cdot14}=\dfrac{140}{364}=\dfrac5{13}$, so $\hat A=\arccos\dfrac5{13}$.
+        why: |
+          Both ways of getting an angle give the same number. Here the three side lengths are already known, so the law of cosines is quicker than building dot products.
+          The numerator is $b^2+c^2-a^2=169+196-225=140$ and the denominator is $2bc=2\cdot13\cdot14=364$; the fraction simplifies by $28$ to $\dfrac5{13}$.
+          The answer is left as $\arccos\dfrac5{13}$: it is an exact value, while a decimal angle would only be an approximation.
       - |
         $\cos\hat B=\dfrac{225+196-169}{2\cdot15\cdot14}=\dfrac{252}{420}=\dfrac35$, so $\hat B=\arccos\dfrac35$.
       - |
@@ -139,6 +143,11 @@ sections:
       The first formula is half of the area of the parallelogram built on $\overrightarrow{AB}$ and $\overrightarrow{AC}$, which is the absolute value of their determinant.
       For Heron's formula write $K=\dfrac12bc\sin\hat A$ and $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$. Then $16K^2=4b^2c^2-(b^2+c^2-a^2)^2$, and factoring the difference of squares gives
       $16K^2=(a+b+c)(-a+b+c)(a-b+c)(a+b-c)=16\,s(s-a)(s-b)(s-c)$. The other forms are shown in the following lessons.
+    more: |
+      **Where the determinant comes from.** Place the triangle so that $A$ is the origin. The vectors $\overrightarrow{AB}=(p,q)$ and $\overrightarrow{AC}=(r,s)$ span a parallelogram. Its area is the base times the height; computing it with the cross product of two plane vectors gives $|ps-qr|$, which is the absolute value of the determinant $\begin{vmatrix}p&q\\r&s\end{vmatrix}$.
+      The diagonal $BC$ cuts the parallelogram into two equal triangles, so the triangle has half of this area. The $3\times3$ determinant with a column of ones gives the same number: subtracting the first row from the other two leaves exactly the $2\times2$ determinant above.
+
+      **Sign.** The determinant is positive when $A,B,C$ turn counterclockwise and negative otherwise. The area is always positive, hence the absolute value.
 
   - id: ex-area
     type: example
@@ -191,6 +200,11 @@ sections:
       | intercept | $\dfrac x{14}+\dfrac{3y}{56}=1$ |
 
       The normal form has $\cos\alpha=\dfrac45$, $\sin\alpha=\dfrac35$ and $p=\dfrac{56}5$. The sides $AB$ and $CA$ are written in the same way.
+    more: |
+      **How each row was found for $BC$, with $B(14,0)$ and $C(5,12)$.**
+      The direction vector is $\overrightarrow{BC}=(5-14,12-0)=(-9,12)$; we use the shorter parallel vector $(-3,4)$ (dividing by $3$ keeps the same line).
+      Canonical: $\dfrac{x-14}{-9}=\dfrac{y-0}{12}$. Implicit: a normal vector is $(4,3)$ (turn $(-3,4)$ into $(4,3)$: swap the components and change one sign), so $4(x-14)+3y=0$, that is $4x+3y-56=0$.
+      Explicit: $3y=-4x+56$. Intercepts: $y=0$ gives $x=14$; $x=0$ gives $y=\dfrac{56}{3}$. Normal form: $c=-56<0$, so $\varepsilon=+1$ and we divide by $\sqrt{16+9}=5$: $\dfrac45x+\dfrac35y-\dfrac{56}{5}=0$.
 
   - id: chk-side
     type: check

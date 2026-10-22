@@ -38,6 +38,9 @@ sections:
       The distance from $P(x,y)$ to a line $a_ix+b_iy+c_i=0$ is $\dfrac{|a_ix+b_iy+c_i|}{\sqrt{a_i^2+b_i^2}}$, and equal distances give the equation, with either sign.
       The sum of two unit vectors is the diagonal of a rhombus, which bisects the angle between them: that is the internal bisector. For the foot, the bisector theorem states $BD_a:D_aC=AB:AC=c:b$,
       and the section formula with $k=\dfrac cb$ gives $D_a=\dfrac{B+\frac cbC}{1+\frac cb}=\dfrac{bB+cC}{b+c}$.
+    more: |
+      **Why the sum of the unit vectors?** Two vectors of the same length span a **rhombus**, and the diagonal of a rhombus bisects its angles. Dividing $\overrightarrow{AB}$ by $c$ and $\overrightarrow{AC}$ by $b$ makes both vectors of length $1$, so their sum is the diagonal, and it points along the internal bisector.
+      If we used the difference of the unit vectors we would get the other diagonal, which is the direction of the **external** bisector. This is also why the equation with the two signs $\pm$ gives two lines: one is the internal and the other the external bisector, and they are perpendicular.
 
   - id: ex-bisector-equation
     type: example
@@ -45,8 +48,11 @@ sections:
     problem: |
       Find the internal bisector from $A$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$, with $a=15$, $b=13$, $c=14$.
     steps:
-      - |
-        Unit vectors along the sides: $\dfrac{\overrightarrow{AB}}{14}=(1,0)$ and $\dfrac{\overrightarrow{AC}}{13}=\left(\dfrac5{13},\dfrac{12}{13}\right)$. Their sum is $\vec w=\left(\dfrac{18}{13},\dfrac{12}{13}\right)$, parallel to $(3,2)$.
+      - text: |
+          Unit vectors along the sides: $\dfrac{\overrightarrow{AB}}{14}=(1,0)$ and $\dfrac{\overrightarrow{AC}}{13}=\left(\dfrac5{13},\dfrac{12}{13}\right)$. Their sum is $\vec w=\left(\dfrac{18}{13},\dfrac{12}{13}\right)$, parallel to $(3,2)$.
+        why: |
+          $\overrightarrow{AB}=(14,0)$ has length $c=14$, so dividing by $14$ gives $(1,0)$. $\overrightarrow{AC}=(5,12)$ has length $b=13$, so dividing by $13$ gives $\left(\dfrac5{13},\dfrac{12}{13}\right)$.
+          The sum is $\left(\dfrac{18}{13},\dfrac{12}{13}\right)$. Multiplying by $\dfrac{13}{6}$ gives the simpler direction $(3,2)$, which has the same direction.
       - |
         The bisector passes through $A(0,0)$ with direction $(3,2)$, so its normal vector is $(2,-3)$: $2x-3y=0$.
       - |

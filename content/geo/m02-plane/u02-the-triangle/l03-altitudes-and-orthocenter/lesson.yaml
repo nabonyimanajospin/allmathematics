@@ -27,12 +27,18 @@ sections:
     problem: |
       Write the equation of the altitude from $A$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
     steps:
-      - |
-        $\overrightarrow{BC}=(-9,12)$, parallel to $(-3,4)$. This is the normal vector of the altitude: $-3(x-0)+4(y-0)=0$, that is $3x-4y=0$.
+      - text: |
+          $\overrightarrow{BC}=(-9,12)$, parallel to $(-3,4)$. This is the normal vector of the altitude: $-3(x-0)+4(y-0)=0$, that is $3x-4y=0$.
+        why: |
+          Two lines are perpendicular when a direction vector of one is orthogonal to a direction vector of the other. The altitude is perpendicular to $BC$, so the vector $\overrightarrow{BC}$ is orthogonal to the altitude's direction: it plays the role of the **normal** vector of the altitude.
+          That is why the equation is written directly as $\dotp{\overrightarrow{BC}}{\overrightarrow{AP}}=0$, without finding the direction first.
       - |
         Direction vector of the altitude: $(4,3)$. Parametric: $x=4\lambda$, $y=3\lambda$. Canonical: $\dfrac x4=\dfrac y3$. Explicit: $y=\dfrac34\,x$.
-      - |
-        The foot $H_a$ is the intersection with $BC:\ 4x+3y-56=0$. With $y=\dfrac34x$: $4x+\dfrac94x=56$, so $x=\dfrac{224}{25}$ and $y=\dfrac{168}{25}$.
+      - text: |
+          The foot $H_a$ is the intersection with $BC:\ 4x+3y-56=0$. With $y=\dfrac34x$: $4x+\dfrac94x=56$, so $x=\dfrac{224}{25}$ and $y=\dfrac{168}{25}$.
+        why: |
+          The foot is the point that lies on both lines. Put $y=\dfrac34x$ in $4x+3y-56=0$: $4x+\dfrac94x=56$, so $\dfrac{25}{4}x=56$ and $x=\dfrac{224}{25}$. Then $y=\dfrac34\cdot\dfrac{224}{25}=\dfrac{168}{25}$.
+          As a check, the distance $AH_a$ must equal the altitude: $\sqrt{\left(\dfrac{224}{25}\right)^2+\left(\dfrac{168}{25}\right)^2}=\dfrac{56\cdot5}{25}=\dfrac{56}{5}$, the value found below with $h_a=\dfrac{2K}{a}$.
     answer: |
       $h_a:\ 3x-4y=0$, with foot $H_a\left(\dfrac{224}{25},\dfrac{168}{25}\right)$.
     verify:

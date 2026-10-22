@@ -82,6 +82,12 @@ sections:
     proof: |
       Let $H$ be the foot of the perpendicular from $O$, so $\overrightarrow{OH}=p\,\vec u$. A point $P$ is on the line when $\overrightarrow{HP}\perp\vec u$, that is $\dotp{\overrightarrow{OP}-p\vec u}{\vec u}=0$.
       Since $\dotp{\vec u}{\vec u}=1$ this reads $x\cos\alpha+y\sin\alpha=p$. The division by $\varepsilon\sqrt{a^2+b^2}$ makes the normal a unit vector with a non-positive constant term, which is $-p$.
+    more: |
+      **Why the sign rule?** The number $p$ is a distance, so it cannot be negative. Dividing $ax+by+c=0$ by $\sqrt{a^2+b^2}$ gives a **unit** normal vector and a constant term $\dfrac{c}{\sqrt{a^2+b^2}}$.
+      In the normal form this constant term must be $-p\le0$. If $c>0$ the constant is positive, which would make $p$ negative: it means that the unit normal points *away* from the origin.
+      Multiplying the whole equation by $-1$ turns the normal around, and then the constant becomes $-\dfrac{c}{\sqrt{a^2+b^2}}\le0$. That is the role of $\varepsilon=-1$.
+
+      **A picture to check.** For $3x+4y-10=0$ we get $\dfrac35x+\dfrac45y-2=0$, so $p=2$ and the unit normal is $\left(\dfrac35,\dfrac45\right)$. Starting from the origin and walking $2$ units in this direction we arrive at $\left(\dfrac65,\dfrac85\right)$, and indeed $3\cdot\dfrac65+4\cdot\dfrac85=10$: this point is on the line, and it is the foot of the perpendicular from the origin.
 
   - id: polar-form
     type: theorem
@@ -116,12 +122,23 @@ sections:
         **Implicit:** a normal vector is $(3,-4)$, so $3(x+3)-4(y-2)=0$, that is $3x-4y+17=0$.
       - |
         **Explicit:** $4y=3x+17$, so $y=\dfrac34\,x+\dfrac{17}4$.
-      - |
-        **Normal:** $a=3$, $b=-4$, $c=17>0$, so $\varepsilon=-1$ and $\sqrt{a^2+b^2}=5$. Then $\cos\alpha=-\dfrac35$, $\sin\alpha=\dfrac45$, $p=\dfrac{17}5$, and the equation is $-\dfrac35\,x+\dfrac45\,y-\dfrac{17}5=0$.
-      - |
-        **Polar:** $r=\dfrac{17}{5\cos(\theta-\alpha)}$, with $\cos\alpha=-\dfrac35$ and $\sin\alpha=\dfrac45$. Expanding $\cos(\theta-\alpha)$ gives $r\,(-3\cos\theta+4\sin\theta)=17$.
-      - |
-        **Intercept:** $q_1=-\dfrac{17}{3}$ and $q_2=\dfrac{17}{4}$, so $\dfrac{x}{-\dfrac{17}{3}}+\dfrac{y}{\dfrac{17}{4}}=1$, that is $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
+      - text: |
+          **Normal:** $a=3$, $b=-4$, $c=17>0$, so $\varepsilon=-1$ and $\sqrt{a^2+b^2}=5$. Then $\cos\alpha=-\dfrac35$, $\sin\alpha=\dfrac45$, $p=\dfrac{17}5$, and the equation is $-\dfrac35\,x+\dfrac45\,y-\dfrac{17}5=0$.
+        why: |
+          We want $x\cos\alpha+y\sin\alpha-p=0$ with $p\ge0$. The implicit equation $3x-4y+17=0$ has the constant term $+17$, so dividing by $+5$ would give $+\dfrac{17}{5}=-p$ and a negative $p$.
+          We divide by $-5$ instead: $-\dfrac35x+\dfrac45y-\dfrac{17}5=0$. Reading the coefficients: $\cos\alpha=-\dfrac35$, $\sin\alpha=\dfrac45$ and $p=\dfrac{17}5$.
+          Check: $\left(-\dfrac35\right)^2+\left(\dfrac45\right)^2=1$, so $(\cos\alpha,\sin\alpha)$ is really a unit vector.
+      - text: |
+          **Polar:** $r=\dfrac{17}{5\cos(\theta-\alpha)}$, with $\cos\alpha=-\dfrac35$ and $\sin\alpha=\dfrac45$. Expanding $\cos(\theta-\alpha)$ gives $r\,(-3\cos\theta+4\sin\theta)=17$.
+        why: |
+          A point with polar coordinates $(r,\theta)$ has $x=r\cos\theta$ and $y=r\sin\theta$. Substituting into the normal form: $r(\cos\theta\cos\alpha+\sin\theta\sin\alpha)=p$.
+          The subtraction formula $\cos(\theta-\alpha)=\cos\theta\cos\alpha+\sin\theta\sin\alpha$ turns the bracket into one cosine, so $r\cos(\theta-\alpha)=p$.
+          Expanding instead with $\cos\alpha=-\dfrac35$ and $\sin\alpha=\dfrac45$ gives $r\left(-\dfrac35\cos\theta+\dfrac45\sin\theta\right)=\dfrac{17}5$, and multiplying by $5$ gives $r(-3\cos\theta+4\sin\theta)=17$.
+      - text: |
+          **Intercept:** $q_1=-\dfrac{17}{3}$ and $q_2=\dfrac{17}{4}$, so $\dfrac{x}{-\dfrac{17}{3}}+\dfrac{y}{\dfrac{17}{4}}=1$, that is $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
+        why: |
+          The $x$-intercept is where the line meets $y=0$: $3x+17=0$ gives $x=-\dfrac{17}{3}$. The $y$-intercept is where it meets $x=0$: $-4y+17=0$ gives $y=\dfrac{17}{4}$.
+          In $\dfrac{x}{q_1}+\dfrac{y}{q_2}=1$, a point of the $x$-axis has $y=0$ and the equation gives $x=q_1$; the same holds for $q_2$ on the $y$-axis, so $q_1$ and $q_2$ are exactly these intercepts.
       - |
         Check with $B(1,5)$ in the implicit form: $3-20+17=0$.
     answer: |
