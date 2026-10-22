@@ -1,0 +1,99 @@
+id: geo-m01-u02-l06
+title: Volumes of a parallelepiped and of a tetrahedron
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - parallelepiped-volume
+  - tetrahedron-volume-vectors
+  - coplanar-points
+objectives:
+  - Compute the volume of a parallelepiped and of a tetrahedron from vectors or from vertices.
+  - Test whether four points are coplanar.
+  - Find a height of a solid from its volume.
+sections:
+  - id: volume-idea
+    type: concept
+    title: Base times height, with vectors
+    body: |
+      The parallelepiped built on $\vec u$, $\vec v$, $\vec w$ has the parallelogram on $\vec u,\vec v$ as a base, with area $\norm{\crossp{\vec u}{\vec v}}$. Its height is the length of the projection of $\vec w$ on the direction perpendicular to the base, that is on $\crossp{\vec u}{\vec v}$:
+      $h=\dfrac{|\dotp{\vec w}{\crossp{\vec u}{\vec v}}|}{\norm{\crossp{\vec u}{\vec v}}}$. The product base area times height is the volume, and the norms cancel.
+
+  - id: volume-theorem
+    type: theorem
+    name: Volumes
+    statement: |
+      The volume of the parallelepiped built on $\vec u,\vec v,\vec w$ is $\ V=\left|\boxp{\vec u}{\vec v}{\vec w}\right|$.
+
+      The volume of the tetrahedron $ABCD$ is $\ V=\dfrac16\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|$. The four points are coplanar if and only if this box product is $0$.
+    proof: |
+      The first formula was explained above: $V=\norm{\crossp{\vec u}{\vec v}}\cdot\dfrac{|\dotp{\vec w}{\crossp{\vec u}{\vec v}}|}{\norm{\crossp{\vec u}{\vec v}}}=|\boxp{\vec u}{\vec v}{\vec w}|$.
+      A tetrahedron has one third of the volume of the prism with the same base and height, and that prism is half of the parallelepiped: $\dfrac13\cdot\dfrac12=\dfrac16$.
+
+  - id: ex-tetrahedron
+    type: example
+    title: A tetrahedron from its vertices
+    problem: |
+      Find the volume of the tetrahedron with $A(1,1,1)$, $B(2,3,4)$, $C(4,2,3)$, $D(3,5,2)$.
+    steps:
+      - |
+        $\overrightarrow{AB}=(1,2,3)$, $\overrightarrow{AC}=(3,1,2)$, $\overrightarrow{AD}=(2,4,1)$.
+      - |
+        $\begin{vmatrix}1&2&3\\3&1&2\\2&4&1\end{vmatrix}=1\cdot(1-8)-2\cdot(3-4)+3\cdot(12-2)=-7+2+30=25$.
+      - |
+        $V=\dfrac{25}{6}$.
+    answer: |
+      $V=\dfrac{25}{6}$.
+    verify:
+      - expr: "1*(1-8)-2*(3-4)+3*(12-2)"
+        equals: "25"
+
+  - id: chk-parallelepiped
+    type: check
+    prompt: |
+      Find the volume of the parallelepiped built on $(2,0,0)$, $(1,3,0)$, $(0,1,4)$.
+    answerType: number
+    answer: "24"
+    hints:
+      - |
+        The determinant of a triangular matrix is the product of its diagonal.
+    explanation: |
+      $\begin{vmatrix}2&0&0\\1&3&0\\0&1&4\end{vmatrix}=2\cdot3\cdot4=24$.
+
+  - id: ex-coplanar-points
+    type: example
+    title: Four points in a plane
+    problem: |
+      Are $A(0,0,0)$, $B(1,2,3)$, $C(2,1,0)$, $D(3,3,3)$ in one plane?
+    steps:
+      - |
+        $\overrightarrow{AB}=(1,2,3)$, $\overrightarrow{AC}=(2,1,0)$, $\overrightarrow{AD}=(3,3,3)$.
+      - |
+        $\overrightarrow{AD}=\overrightarrow{AB}+\overrightarrow{AC}$, so the box product is $0$: the four points are coplanar.
+    answer: |
+      Yes: $A,B,C,D$ are coplanar ($D$ completes a parallelogram).
+    verify:
+      - expr: "(1,2,3)+(2,1,0)"
+        equals: "(3,3,3)"
+
+  - id: chk-height
+    type: check
+    prompt: |
+      A tetrahedron has volume $12$ and the face $ABC$ has area $9$. Find the height from $D$.
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        $V=\dfrac13\,S\,h$.
+    explanation: |
+      $h=\dfrac{3V}{S}=\dfrac{36}{9}=4$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Parallelepiped: $V=|\boxp{\vec u}{\vec v}{\vec w}|$. Tetrahedron: $V=\dfrac16|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}|$.
+      - |
+        Four points are coplanar when this box product is $0$.
+      - |
+        A height is $h=\dfrac{3V}{S}$ for a tetrahedron with base area $S$.

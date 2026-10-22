@@ -1,0 +1,124 @@
+id: geo-m01-u02-l03
+title: The cross product
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - cross-product
+  - right-hand-rule
+  - cross-product-properties
+objectives:
+  - Compute the cross product with the determinant of components.
+  - "State its geometric properties: direction, length and orientation."
+  - Use its algebraic properties, including that it is not commutative.
+sections:
+  - id: why-cross
+    type: concept
+    title: A vector perpendicular to two vectors
+    body: |
+      Given two vectors $\vec u$ and $\vec v$ that are not collinear, there is a whole line of directions perpendicular to both. The **cross product** $\crossp{\vec u}{\vec v}$ picks from it one vector, with a precise length and a precise orientation.
+      Its length is the area of the parallelogram built on $\vec u$ and $\vec v$, and its direction is given by the right-hand rule. The result is a **vector**, which is why it is also called the vector product.
+
+  - id: cross-def
+    type: definition
+    term: Cross product
+    body: |
+      The cross product of $\vec u=(u_1,u_2,u_3)$ and $\vec v=(v_1,v_2,v_3)$ is the vector
+
+      $$\crossp{\vec u}{\vec v}=\left(u_2v_3-u_3v_2,\ u_3v_1-u_1v_3,\ u_1v_2-u_2v_1\right)=\begin{vmatrix}\vec i&\vec j&\vec k\\u_1&u_2&u_3\\v_1&v_2&v_3\end{vmatrix},$$
+
+      where the determinant is expanded along the first row. The components are the three $2\times2$ determinants obtained by deleting a column, with a minus sign for the middle one.
+    more: |
+      **How to remember it.** For the first component cover the first column and compute $u_2v_3-u_3v_2$. For the second cover the second column and compute $u_3v_1-u_1v_3$ (the order is reversed: this is the same as the minus sign in the expansion of the determinant). For the third cover the third column: $u_1v_2-u_2v_1$. The indices go round cyclically: $1\to2\to3\to1$.
+
+  - id: ex-cross
+    type: example
+    title: A cross product
+    problem: |
+      Compute $\crossp{\vec u}{\vec v}$ for $\vec u=(2,-1,3)$ and $\vec v=(1,4,-2)$.
+    steps:
+      - |
+        First component: $(-1)(-2)-3\cdot4=2-12=-10$.
+      - |
+        Second component: $3\cdot1-2\cdot(-2)=3+4=7$.
+      - |
+        Third component: $2\cdot4-(-1)\cdot1=8+1=9$.
+      - text: |
+          $\crossp{\vec u}{\vec v}=(-10,7,9)$. Check: $\dotp{(-10,7,9)}{\vec u}=-20-7+27=0$ and $\dotp{(-10,7,9)}{\vec v}=-10+28-18=0$.
+        why: |
+          The cross product is perpendicular to both vectors, so its dot product with each of them must be $0$. This is a quick check against sign errors, which are the most common mistake.
+    answer: |
+      $\crossp{\vec u}{\vec v}=(-10,7,9)$.
+    verify:
+      - expr: "cross((2,-1,3),(1,4,-2))"
+        equals: "(-10,7,9)"
+      - expr: "dot((-10,7,9),(2,-1,3))"
+        equals: "0"
+      - expr: "dot((-10,7,9),(1,4,-2))"
+        equals: "0"
+
+  - id: chk-cross
+    type: check
+    prompt: |
+      Compute $\crossp{\vec u}{\vec v}$ for $\vec u=(1,2,3)$ and $\vec v=(4,5,6)$.
+    answerType: vector
+    answer: "(-3, 6, -3)"
+    hints:
+      - |
+        First component: $2\cdot6-3\cdot5$.
+    explanation: |
+      $(12-15,\ 12-6,\ 5-8)=(-3,6,-3)$.
+    mistakes:
+      - expr: "(3, -6, 3)"
+        hint: "The order matters: $\\crossp{\\vec v}{\\vec u}$ is the opposite vector."
+
+  - id: cross-geometry
+    type: theorem
+    name: Geometric properties
+    statement: |
+      For non-zero vectors $\vec u,\vec v$ with angle $\theta$:
+
+      1. $\crossp{\vec u}{\vec v}$ is orthogonal to $\vec u$ and to $\vec v$.
+      2. $\norm{\crossp{\vec u}{\vec v}}=\norm{\vec u}\,\norm{\vec v}\,\sin\theta$, the area of the parallelogram built on $\vec u$ and $\vec v$.
+      3. If $\vec u,\vec v$ are not collinear, then $\left(\vec u,\vec v,\crossp{\vec u}{\vec v}\right)$ is a **right-handed** triple: curl the fingers of the right hand from $\vec u$ to $\vec v$, and the thumb gives the direction of $\crossp{\vec u}{\vec v}$.
+    proof: |
+      Direct computation. For 1, expanding $\dotp{\crossp{\vec u}{\vec v}}{\vec u}$ gives six terms that cancel in pairs. For 2, expanding both sides gives **Lagrange's identity** $\norm{\crossp{\vec u}{\vec v}}^2=\norm{\vec u}^2\norm{\vec v}^2-\dotp{\vec u}{\vec v}^2$; since $\dotp{\vec u}{\vec v}=\norm{\vec u}\norm{\vec v}\cos\theta$, this is $\norm{\vec u}^2\norm{\vec v}^2\sin^2\theta$.
+    more: |
+      **Lagrange's identity on an example.** For $\vec u=(2,-1,3)$ and $\vec v=(1,4,-2)$: $\norm{\vec u}^2=14$, $\norm{\vec v}^2=21$, $\dotp{\vec u}{\vec v}=2-4-6=-8$, so $14\cdot21-64=230$. And $\norm{(-10,7,9)}^2=100+49+81=230$. The two sides agree.
+
+  - id: cross-algebra
+    type: theorem
+    name: Algebraic properties
+    statement: |
+      For all vectors $\vec u,\vec v,\vec w$ and every number $\lambda$:
+
+      1. $\crossp{\vec u}{\vec v}=-\crossp{\vec v}{\vec u}$ (**anticommutative**); in particular $\crossp{\vec u}{\vec u}=\vec0$.
+      2. $\crossp{\vec u}{\vec v+\vec w}=\crossp{\vec u}{\vec v}+\crossp{\vec u}{\vec w}$ and $\crossp{\lambda\vec u}{\vec v}=\lambda\crossp{\vec u}{\vec v}$.
+      3. $\crossp{\vec u}{\vec v}=\vec0$ if and only if $\vec u$ and $\vec v$ are collinear.
+      4. $\crossp{\vec i}{\vec j}=\vec k$, $\crossp{\vec j}{\vec k}=\vec i$, $\crossp{\vec k}{\vec i}=\vec j$.
+
+      The cross product is **not** associative: in general $\crossp{\vec u}{\crossp{\vec v}{\vec w}}\neq\crossp{\crossp{\vec u}{\vec v}}{\vec w}$.
+    proof: |
+      Properties 1 and 2 follow from the formula (swapping $\vec u$ and $\vec v$ changes the sign of every $2\times2$ determinant). Property 3 follows from $\norm{\crossp{\vec u}{\vec v}}=\norm{\vec u}\norm{\vec v}\sin\theta$ and $\sin\theta=0$ for collinear vectors. Property 4 is a computation with the components of $\vec i,\vec j,\vec k$.
+
+  - id: chk-anti
+    type: check
+    prompt: |
+      If $\crossp{\vec u}{\vec v}=(1,-2,4)$, what is $\crossp{\vec v}{\vec u}$?
+    answerType: vector
+    answer: "(-1, 2, -4)"
+    hints:
+      - |
+        Swapping the two factors changes the sign.
+    explanation: |
+      $\crossp{\vec v}{\vec u}=-\crossp{\vec u}{\vec v}=(-1,2,-4)$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\crossp{\vec u}{\vec v}=(u_2v_3-u_3v_2,\ u_3v_1-u_1v_3,\ u_1v_2-u_2v_1)$, orthogonal to both vectors; check with two dot products.
+      - |
+        $\norm{\crossp{\vec u}{\vec v}}=\norm{\vec u}\norm{\vec v}\sin\theta$ and the orientation is given by the right-hand rule.
+      - |
+        $\crossp{\vec u}{\vec v}=-\crossp{\vec v}{\vec u}$; $\ \crossp{\vec u}{\vec v}=\vec0$ iff collinear; not associative.

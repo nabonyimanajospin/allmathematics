@@ -1,0 +1,102 @@
+id: geo-m01-u02-l04
+title: Areas with the cross product
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - parallelogram-area
+  - triangle-area-vectors
+  - distance-point-line-vectors
+objectives:
+  - Compute the area of a parallelogram and of a triangle in space.
+  - Find the height of a parallelogram or triangle from its area.
+  - Compute the distance from a point to a line.
+sections:
+  - id: area-idea
+    type: concept
+    title: Area from two vectors
+    body: |
+      Two vectors $\vec u$ and $\vec v$ placed at the same point are two sides of a parallelogram. Its area is base times height. Taking $\vec u$ as the base, the height is $\norm{\vec v}\sin\theta$,
+      so the area is $\norm{\vec u}\norm{\vec v}\sin\theta$. The previous lesson showed that this is exactly the length of $\crossp{\vec u}{\vec v}$. The triangle on the same two vectors has half of this area.
+
+  - id: area-theorem
+    type: theorem
+    name: Areas
+    statement: |
+      The parallelogram built on $\vec u$ and $\vec v$ has area $\norm{\crossp{\vec u}{\vec v}}$. The triangle $ABC$ has area
+
+      $$K=\dfrac12\norm{\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}}.$$
+
+      The distance from a point $P$ to the line through $A$ with direction $\vec d$ is $\ \delta=\dfrac{\norm{\crossp{\overrightarrow{AP}}{\vec d}}}{\norm{\vec d}}$.
+    proof: |
+      The first statement is property 2 of the cross product. The triangle is half of the parallelogram built on $\overrightarrow{AB}$ and $\overrightarrow{AC}$. For the distance, the parallelogram on $\overrightarrow{AP}$ and $\vec d$ has area $\norm{\crossp{\overrightarrow{AP}}{\vec d}}$, and also base $\norm{\vec d}$ times height $\delta$.
+
+  - id: ex-triangle
+    type: example
+    title: The area of a triangle in space
+    problem: |
+      Find the area of the triangle $A(1,0,2)$, $B(3,1,0)$, $C(2,2,3)$.
+    steps:
+      - |
+        $\overrightarrow{AB}=(2,1,-2)$ and $\overrightarrow{AC}=(1,2,1)$.
+      - |
+        $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=(1\cdot1-(-2)\cdot2,\ (-2)\cdot1-2\cdot1,\ 2\cdot2-1\cdot1)=(5,-4,3)$.
+      - |
+        $\norm{(5,-4,3)}=\sqrt{25+16+9}=\sqrt{50}=5\sqrt2$, so $K=\dfrac{5\sqrt2}2$.
+    answer: |
+      $K=\dfrac{5\sqrt2}{2}$.
+    verify:
+      - expr: "cross((2,1,-2),(1,2,1))"
+        equals: "(5,-4,3)"
+      - expr: "sqrt(5^2+4^2+3^2)/2"
+        equals: "5*sqrt(2)/2"
+
+  - id: chk-parallelogram
+    type: check
+    prompt: |
+      Find the area of the parallelogram built on $\vec u=(1,2,2)$ and $\vec v=(2,0,1)$.
+    answerType: expression
+    answer: "sqrt(29)"
+    hints:
+      - |
+        $\crossp{\vec u}{\vec v}=(2\cdot1-2\cdot0,\ 2\cdot2-1\cdot1,\ 1\cdot0-2\cdot2)$.
+    explanation: |
+      $\crossp{\vec u}{\vec v}=(2,3,-4)$, with norm $\sqrt{4+9+16}=\sqrt{29}$.
+
+  - id: ex-distance
+    type: example
+    title: The distance from a point to a line
+    problem: |
+      Find the distance from $P(1,2,3)$ to the line through the origin with direction $\vec d=(1,2,2)$.
+    steps:
+      - |
+        $\overrightarrow{OP}=(1,2,3)$ and $\crossp{\overrightarrow{OP}}{\vec d}=(2\cdot2-3\cdot2,\ 3\cdot1-1\cdot2,\ 1\cdot2-2\cdot1)=(-2,1,0)$.
+      - |
+        The norm of the cross product is $\sqrt{4+1+0}=\sqrt5$ and $\norm{\vec d}=\sqrt{1+4+4}=3$, so $\delta=\dfrac{\sqrt5}{3}$.
+    answer: |
+      $\delta=\dfrac{\sqrt5}{3}$.
+    verify:
+      - expr: "cross((1,2,3),(1,2,2))"
+        equals: "(-2,1,0)"
+
+  - id: chk-triangle
+    type: check
+    prompt: |
+      Find the area of the triangle with vertices $O(0,0,0)$, $A(3,0,0)$, $B(0,4,0)$.
+    answerType: number
+    answer: "6"
+    hints:
+      - |
+        $\crossp{\overrightarrow{OA}}{\overrightarrow{OB}}=(0,0,12)$.
+    explanation: |
+      $K=\dfrac12\cdot12=6$, the area of the right triangle with legs $3$ and $4$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Parallelogram: $\norm{\crossp{\vec u}{\vec v}}$. Triangle $ABC$: $\dfrac12\norm{\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}}$.
+      - |
+        Distance from $P$ to a line through $A$ with direction $\vec d$: $\dfrac{\norm{\crossp{\overrightarrow{AP}}{\vec d}}}{\norm{\vec d}}$.
+      - |
+        A height is the area divided by the base: $h=\dfrac{2K}{\text{base}}$.

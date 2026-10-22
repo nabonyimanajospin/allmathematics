@@ -1,0 +1,154 @@
+id: geo-m01-u01-l04
+title: Norm, unit vectors and direction cosines
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - vector-norm
+  - unit-vector
+  - direction-cosines
+objectives:
+  - Compute the norm (length) of a vector and use its properties.
+  - Normalize a vector to a unit vector, and build a vector of a given length in a given direction.
+  - Compute the direction cosines of a vector and use $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$.
+sections:
+  - id: length
+    type: concept
+    title: The length of a vector
+    body: |
+      The vector $\vec u=(u_1,u_2,u_3)$ is an arrow from the origin to the point $(u_1,u_2,u_3)$. Its length is the distance of that point from the origin.
+      In the plane this is Pythagoras: a vector $(u_1,u_2)$ has length $\sqrt{u_1^2+u_2^2}$. In space we apply Pythagoras twice, first in the horizontal plane (the diagonal of the rectangle with sides $|u_1|$ and $|u_2|$), then with the height $|u_3|$.
+
+  - id: norm-def
+    type: definition
+    term: Norm of a vector
+    body: |
+      The **norm** (or **length**) of $\vec u=(u_1,u_2,u_3)$ is
+
+      $$\norm{\vec u}=\sqrt{u_1^2+u_2^2+u_3^2}.$$
+
+      Properties: $\norm{\vec u}\ge0$, and $\norm{\vec u}=0$ only for $\vec u=\vec0$; for every number $\lambda$, $\ \norm{\lambda\vec u}=|\lambda|\,\norm{\vec u}$.
+      The distance between the points $A$ and $B$ is $AB=\norm{\overrightarrow{AB}}$.
+    more: |
+      **Why $\norm{\lambda\vec u}=|\lambda|\norm{\vec u}$.** Multiplying every component by $\lambda$ gives $\sqrt{\lambda^2u_1^2+\lambda^2u_2^2+\lambda^2u_3^2}=\sqrt{\lambda^2}\sqrt{u_1^2+u_2^2+u_3^2}$, and $\sqrt{\lambda^2}=|\lambda|$, not $\lambda$: a negative $\lambda$ reverses the arrow but does not make it shorter.
+
+  - id: ex-norm
+    type: example
+    title: A norm
+    problem: |
+      Find the norm of $\vec u=(2,-3,6)$.
+    steps:
+      - |
+        $\norm{\vec u}=\sqrt{2^2+(-3)^2+6^2}=\sqrt{4+9+36}=\sqrt{49}=7$.
+    answer: |
+      $\norm{\vec u}=7$.
+    verify:
+      - expr: "sqrt(2^2+(-3)^2+6^2)"
+        equals: "7"
+
+  - id: chk-norm
+    type: check
+    prompt: |
+      Find the norm of $\vec v=(1,-2,2)$.
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        Add the squares of the components, then take the square root.
+    explanation: |
+      $\sqrt{1+4+4}=\sqrt9=3$.
+
+  - id: unit-def
+    type: definition
+    term: Unit vector and normalization
+    body: |
+      A **unit vector** has norm $1$. Every non-zero vector $\vec u$ has exactly one unit vector in its direction, its **normalization**
+
+      $$\hat u=\dfrac{\vec u}{\norm{\vec u}}.$$
+
+      Then $\vec u=\norm{\vec u}\,\hat u$: a vector is its length times its direction. To get a vector of length $L$ in the direction of $\vec u$, take $L\,\hat u$.
+    more: |
+      **Why $\hat u$ has norm $1$.** By the property of the norm, $\norm{\dfrac{1}{\norm{\vec u}}\vec u}=\dfrac1{\norm{\vec u}}\norm{\vec u}=1$, since $\norm{\vec u}>0$ and so $\left|\dfrac1{\norm{\vec u}}\right|=\dfrac1{\norm{\vec u}}$.
+
+  - id: ex-unit
+    type: example
+    title: A unit vector and a vector of given length
+    problem: |
+      For $\vec u=(2,-3,6)$, find $\hat u$, and a vector of length $14$ in the opposite direction.
+    steps:
+      - |
+        $\norm{\vec u}=7$, so $\hat u=\left(\dfrac27,-\dfrac37,\dfrac67\right)$.
+      - text: |
+          The opposite direction is $-\hat u$, so the vector is $-14\,\hat u=(-4,6,-12)$.
+        why: |
+          A vector of length $L$ in the direction of $\hat u$ is $L\hat u$ because $\norm{L\hat u}=L$. For the opposite direction use $-\hat u$. Here $14\cdot\dfrac27=4$, $14\cdot\dfrac37=6$ and $14\cdot\dfrac67=12$.
+    answer: |
+      $\hat u=\left(\dfrac27,-\dfrac37,\dfrac67\right)$ and the vector is $(-4,6,-12)$.
+    verify:
+      - expr: "(2/7)^2+(3/7)^2+(6/7)^2"
+        equals: "1"
+      - expr: "-14*(2/7,-3/7,6/7)"
+        equals: "(-4,6,-12)"
+
+  - id: chk-unit
+    type: check
+    prompt: |
+      Find the unit vector in the direction of $(3,4)$.
+    answerType: vector
+    answer: "(3/5, 4/5)"
+    hints:
+      - |
+        The norm of $(3,4)$ is $5$.
+    explanation: |
+      $\dfrac{(3,4)}{5}=\left(\dfrac35,\dfrac45\right)$.
+
+  - id: cosines
+    type: theorem
+    name: Direction cosines
+    statement: |
+      Let $\alpha$, $\beta$, $\gamma$ be the angles that the non-zero vector $\vec u=(u_1,u_2,u_3)$ makes with the positive $x$-, $y$- and $z$-axes. Then
+
+      $$\cos\alpha=\dfrac{u_1}{\norm{\vec u}},\qquad\cos\beta=\dfrac{u_2}{\norm{\vec u}},\qquad\cos\gamma=\dfrac{u_3}{\norm{\vec u}},$$
+
+      that is $\hat u=(\cos\alpha,\cos\beta,\cos\gamma)$, and therefore $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$.
+    proof: |
+      The vector $\vec u$ and the unit vector $\vec i=(1,0,0)$ make the angle $\alpha$. In the right triangle formed by the arrow, its projection on the $x$-axis, and the perpendicular, the adjacent side is $u_1$ and the hypotenuse is $\norm{\vec u}$, so $\cos\alpha=\dfrac{u_1}{\norm{\vec u}}$. The same holds for the other axes.
+      The sum of the squares is $\dfrac{u_1^2+u_2^2+u_3^2}{\norm{\vec u}^2}=1$.
+
+  - id: ex-cosines
+    type: example
+    title: Direction cosines
+    problem: |
+      Find the direction cosines of $\vec u=(2,-3,6)$ and the angle that it makes with the $x$-axis.
+    steps:
+      - |
+        $\norm{\vec u}=7$, so $\cos\alpha=\dfrac27$, $\cos\beta=-\dfrac37$ and $\cos\gamma=\dfrac67$.
+      - |
+        The angle with the $x$-axis is $\alpha=\arccos\dfrac27$. Check: $\dfrac{4+9+36}{49}=1$.
+    answer: |
+      $\left(\dfrac27,-\dfrac37,\dfrac67\right)$, and $\alpha=\arccos\dfrac27$.
+    verify:
+      - expr: "(2/7)^2+(-3/7)^2+(6/7)^2"
+        equals: "1"
+
+  - id: chk-cosine
+    type: check
+    prompt: |
+      A vector makes equal angles with the $x$- and $y$-axes, and $\gamma=\dfrac\pi2$ with the $z$-axis. Find $\cos\alpha$ if $0<\alpha<\dfrac\pi2$.
+    answerType: expression
+    answer: "sqrt(2)/2"
+    hints:
+      - |
+        $\cos\gamma=0$ and $\cos\alpha=\cos\beta$.
+    explanation: |
+      $2\cos^2\alpha=1$, so $\cos\alpha=\dfrac{\sqrt2}2$ (positive, because $\alpha$ is acute).
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\norm{\vec u}=\sqrt{u_1^2+u_2^2+u_3^2}$ and $\norm{\lambda\vec u}=|\lambda|\norm{\vec u}$.
+      - |
+        $\hat u=\dfrac{\vec u}{\norm{\vec u}}$ is the unit vector of the direction; a vector of length $L$ in that direction is $L\hat u$.
+      - |
+        The direction cosines are the components of $\hat u$, so their squares add up to $1$.

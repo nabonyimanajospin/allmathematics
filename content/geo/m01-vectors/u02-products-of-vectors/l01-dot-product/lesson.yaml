@@ -1,0 +1,129 @@
+id: geo-m01-u02-l01
+title: The dot product
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - dot-product
+  - angle-between-vectors
+  - orthogonality
+objectives:
+  - Compute the dot product of two vectors from their components.
+  - Find the angle between two vectors, and decide when they are orthogonal.
+  - Use the properties of the dot product to expand expressions.
+sections:
+  - id: why-dot
+    type: concept
+    title: Measuring how much two vectors point the same way
+    body: |
+      Two vectors can be added and scaled, but we also want to measure the angle between them and the length of one along the other. The **dot product** (or scalar product) does this with a single number:
+      it is large and positive when the vectors point in nearly the same direction, zero when they are perpendicular, and negative when they point in opposite directions.
+
+      It is called a *scalar* product because its result is a number, not a vector.
+
+  - id: dot-def
+    type: definition
+    term: Dot product
+    body: |
+      For $\vec u=(u_1,u_2,u_3)$ and $\vec v=(v_1,v_2,v_3)$,
+
+      $$\dotp{\vec u}{\vec v}=u_1v_1+u_2v_2+u_3v_3.$$
+
+      In the plane the third term is absent. In particular $\dotp{\vec u}{\vec u}=\norm{\vec u}^2$.
+    more: |
+      **Notation.** In this course the dot product of two vectors is written with angle brackets around the two vectors. Other books put a dot between them; both mean the same number.
+
+  - id: dot-properties
+    type: theorem
+    name: Properties of the dot product
+    statement: |
+      For all vectors $\vec u,\vec v,\vec w$ and every number $\lambda$:
+
+      1. $\dotp{\vec u}{\vec v}=\dotp{\vec v}{\vec u}$ (symmetry);
+      2. $\dotp{\vec u+\vec v}{\vec w}=\dotp{\vec u}{\vec w}+\dotp{\vec v}{\vec w}$ and $\dotp{\lambda\vec u}{\vec v}=\lambda\dotp{\vec u}{\vec v}$ (linearity);
+      3. $\dotp{\vec u}{\vec u}\ge0$, with equality only for $\vec u=\vec0$.
+    proof: |
+      Each property is checked on the components. For instance, $\dotp{\vec u+\vec v}{\vec w}=\sum(u_i+v_i)w_i=\sum u_iw_i+\sum v_iw_i$. For the third, $\dotp{\vec u}{\vec u}=u_1^2+u_2^2+u_3^2$ is a sum of squares, which is $0$ only when every component is $0$.
+
+  - id: angle-theorem
+    type: theorem
+    name: The angle between two vectors
+    statement: |
+      If $\theta\in[0,\pi]$ is the angle between the non-zero vectors $\vec u$ and $\vec v$, then
+
+      $$\dotp{\vec u}{\vec v}=\norm{\vec u}\,\norm{\vec v}\cos\theta,\qquad\text{that is}\qquad\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\,\norm{\vec v}}.$$
+
+      The vectors are **orthogonal** (perpendicular) if and only if $\dotp{\vec u}{\vec v}=0$.
+    proof: |
+      Place $\vec u$ and $\vec v$ at the origin: the third side of the triangle they form is $\vec u-\vec v$. By the law of cosines, $\norm{\vec u-\vec v}^2=\norm{\vec u}^2+\norm{\vec v}^2-2\norm{\vec u}\norm{\vec v}\cos\theta$.
+      Expanding the left side with the properties above, $\norm{\vec u-\vec v}^2=\dotp{\vec u-\vec v}{\vec u-\vec v}=\norm{\vec u}^2-2\dotp{\vec u}{\vec v}+\norm{\vec v}^2$. Comparing the two expressions gives the formula.
+
+  - id: ex-angle
+    type: example
+    title: An angle in space
+    problem: |
+      Find the angle between $\vec u=(1,2,2)$ and $\vec v=(2,-1,2)$.
+    steps:
+      - |
+        $\dotp{\vec u}{\vec v}=1\cdot2+2\cdot(-1)+2\cdot2=4$.
+      - |
+        $\norm{\vec u}=\sqrt{1+4+4}=3$ and $\norm{\vec v}=\sqrt{4+1+4}=3$.
+      - text: |
+          $\cos\theta=\dfrac{4}{3\cdot3}=\dfrac49$, so $\theta=\arccos\dfrac49$.
+        why: |
+          The angle is not one of the familiar angles, so we leave it as $\arccos\dfrac49$: this is exact. A decimal would only be an approximation.
+    answer: |
+      $\theta=\arccos\dfrac49$.
+    verify:
+      - expr: "dot((1,2,2),(2,-1,2))"
+        equals: "4"
+
+  - id: chk-dot
+    type: check
+    prompt: |
+      Compute $\dotp{\vec u}{\vec v}$ for $\vec u=(1,-2,3)$ and $\vec v=(4,5,6)$.
+    answerType: number
+    answer: "12"
+    hints:
+      - |
+        $1\cdot4+(-2)\cdot5+3\cdot6$.
+    explanation: |
+      $4-10+18=12$.
+
+  - id: ex-orthogonal
+    type: example
+    title: Finding a parameter
+    problem: |
+      For which $k$ are $\vec u=(k,2,-1)$ and $\vec v=(3,k,4)$ orthogonal?
+    steps:
+      - |
+        Orthogonal means $\dotp{\vec u}{\vec v}=0$: $3k+2k-4=0$.
+      - |
+        $5k=4$, so $k=\dfrac45$.
+    answer: |
+      $k=\dfrac45$.
+    verify:
+      - expr: "3*(4/5)+2*(4/5)-4"
+        equals: "0"
+
+  - id: chk-angle
+    type: check
+    prompt: |
+      Find the angle between $\vec u=(1,1,0)$ and $\vec v=(0,1,1)$.
+    answerType: expression
+    answer: "pi/3"
+    hints:
+      - |
+        $\dotp{\vec u}{\vec v}=1$ and both norms are $\sqrt2$.
+    explanation: |
+      $\cos\theta=\dfrac{1}{\sqrt2\cdot\sqrt2}=\dfrac12$, so $\theta=\dfrac\pi3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\dotp{\vec u}{\vec v}=u_1v_1+u_2v_2+u_3v_3$; it is a number, symmetric and linear in each vector.
+      - |
+        $\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\norm{\vec v}}$.
+      - |
+        $\vec u\perp\vec v$ if and only if $\dotp{\vec u}{\vec v}=0$.

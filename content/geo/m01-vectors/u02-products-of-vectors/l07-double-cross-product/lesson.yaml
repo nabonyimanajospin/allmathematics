@@ -1,0 +1,85 @@
+id: geo-m01-u02-l07
+title: The double cross product
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - double-cross-product
+  - bac-cab
+objectives:
+  - State and use the identity $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+  - Explain why the cross product is not associative.
+sections:
+  - id: two-crosses
+    type: concept
+    title: Crossing twice
+    body: |
+      The vector $\crossp{\vec v}{\vec w}$ is perpendicular to the plane of $\vec v$ and $\vec w$. Crossing it with $\vec u$ gives a vector perpendicular to $\crossp{\vec v}{\vec w}$, so it **lies in the plane of $\vec v$ and $\vec w$**.
+      This means that $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ is a combination $\alpha\vec v+\beta\vec w$. The identity of this lesson gives the two coefficients.
+
+  - id: bac-cab
+    type: theorem
+    name: The double cross product
+    statement: |
+      For all vectors $\vec u,\vec v,\vec w$,
+
+      $$\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\,\dotp{\vec u}{\vec w}-\vec w\,\dotp{\vec u}{\vec v}.$$
+
+      Consequently $\crossp{\crossp{\vec u}{\vec v}}{\vec w}=\vec v\,\dotp{\vec u}{\vec w}-\vec u\,\dotp{\vec v}{\vec w}$, and in general $\crossp{\vec u}{\crossp{\vec v}{\vec w}}\neq\crossp{\crossp{\vec u}{\vec v}}{\vec w}$.
+    proof: |
+      Compare the first components. Write $\crossp{\vec v}{\vec w}=(c_1,c_2,c_3)$ with $c_2=v_3w_1-v_1w_3$ and $c_3=v_1w_2-v_2w_1$. The first component of $\crossp{\vec u}{\vec c}$ is $u_2c_3-u_3c_2=u_2(v_1w_2-v_2w_1)-u_3(v_3w_1-v_1w_3)$.
+      The first component of the right-hand side is $v_1(u_1w_1+u_2w_2+u_3w_3)-w_1(u_1v_1+u_2v_2+u_3v_3)=u_2v_1w_2+u_3v_1w_3-u_2v_2w_1-u_3v_3w_1$.
+      The two expressions are equal. The other components are obtained by a cyclic change of the indices. The second identity follows from the first and from $\crossp{\vec a}{\vec b}=-\crossp{\vec b}{\vec a}$.
+    more: |
+      **A way to remember it.** The right-hand side is "middle times the dot of the other two, minus the last times the dot of the first two": the vector in the **middle** of the bracket, $\vec v$, goes with $\dotp{\vec u}{\vec w}$. Some books call it the "BAC minus CAB" rule, from the order of the letters in the result.
+
+  - id: ex-double
+    type: example
+    title: A double cross product, computed in two ways
+    problem: |
+      For $\vec u=(1,2,3)$, $\vec v=(2,0,1)$, $\vec w=(1,1,0)$ compute $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$.
+    steps:
+      - |
+        $\crossp{\vec v}{\vec w}=(0\cdot0-1\cdot1,\ 1\cdot1-2\cdot0,\ 2\cdot1-0\cdot1)=(-1,1,2)$.
+      - |
+        $\crossp{\vec u}{(-1,1,2)}=(2\cdot2-3\cdot1,\ 3\cdot(-1)-1\cdot2,\ 1\cdot1-2\cdot(-1))=(1,-5,3)$.
+      - text: |
+          With the identity: $\dotp{\vec u}{\vec w}=3$ and $\dotp{\vec u}{\vec v}=5$, so $3\,(2,0,1)-5\,(1,1,0)=(1,-5,3)$. The two results agree.
+        why: |
+          The identity replaces two cross products by two dot products and a combination of $\vec v$ and $\vec w$, which is shorter by hand, and it is a good check of the long computation.
+    answer: |
+      $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=(1,-5,3)$.
+    verify:
+      - expr: "cross((1,2,3),cross((2,0,1),(1,1,0)))"
+        equals: "(1,-5,3)"
+      - expr: "3*(2,0,1)-5*(1,1,0)"
+        equals: "(1,-5,3)"
+
+  - id: chk-double
+    type: check
+    prompt: |
+      Use the identity to compute $\crossp{\vec i}{\crossp{\vec i}{\vec j}}$.
+    answerType: vector
+    answer: "(0, -1, 0)"
+    hints:
+      - |
+        $\crossp{\vec i}{\crossp{\vec i}{\vec j}}=\vec i\,\dotp{\vec i}{\vec j}-\vec j\,\dotp{\vec i}{\vec i}$.
+    explanation: |
+      $\dotp{\vec i}{\vec j}=0$ and $\dotp{\vec i}{\vec i}=1$, so the result is $-\vec j=(0,-1,0)$. Directly: $\crossp{\vec i}{\vec j}=\vec k$ and $\crossp{\vec i}{\vec k}=-\vec j$.
+
+  - id: not-associative
+    type: concept
+    title: Not associative
+    body: |
+      With the vectors of the example, $\crossp{\crossp{\vec u}{\vec v}}{\vec w}=\vec v\dotp{\vec u}{\vec w}-\vec u\dotp{\vec v}{\vec w}=3(2,0,1)-2(1,2,3)=(4,-4,-3)$,
+      which is different from $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=(1,-5,3)$. The brackets matter: the cross product of three vectors must always be written with the brackets.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$: it lies in the plane of $\vec v$ and $\vec w$.
+      - |
+        $\crossp{\crossp{\vec u}{\vec v}}{\vec w}=\vec v\dotp{\vec u}{\vec w}-\vec u\dotp{\vec v}{\vec w}$, so the two groupings differ.
+      - |
+        The brackets are essential: the cross product is not associative.

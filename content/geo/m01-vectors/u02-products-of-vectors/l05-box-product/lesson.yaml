@@ -1,0 +1,107 @@
+id: geo-m01-u02-l05
+title: The box product
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - box-product
+  - coplanarity
+  - orientation
+objectives:
+  - Compute the box product (scalar triple product) as a $3\times3$ determinant.
+  - Test whether three vectors are coplanar and whether a triple is right-handed.
+  - State its symmetry properties.
+sections:
+  - id: why-box
+    type: concept
+    title: Three vectors, one number
+    body: |
+      The cross product of two vectors is a vector; its dot product with a third vector is a number. This number, the **box product**, measures the box built on the three vectors: its absolute value is the volume of the parallelepiped, and its sign tells whether the three vectors are right-handed or left-handed.
+      It vanishes exactly when the three vectors lie in one plane: then the box is flat.
+
+  - id: box-def
+    type: definition
+    term: Box product
+    body: |
+      The **box product** (or scalar triple product) of $\vec u$, $\vec v$, $\vec w$ is
+
+      $$\boxp{\vec u}{\vec v}{\vec w}=\dotp{\crossp{\vec u}{\vec v}}{\vec w}=\begin{vmatrix}u_1&u_2&u_3\\v_1&v_2&v_3\\w_1&w_2&w_3\end{vmatrix}.$$
+    more: |
+      **Why the determinant.** Expanding $\dotp{\crossp{\vec u}{\vec v}}{\vec w}$ with the components of the cross product gives $w_1(u_2v_3-u_3v_2)+w_2(u_3v_1-u_1v_3)+w_3(u_1v_2-u_2v_1)$. This is the expansion of the $3\times3$ determinant along its third row.
+
+  - id: box-properties
+    type: theorem
+    name: Properties of the box product
+    statement: |
+      1. $\boxp{\vec u}{\vec v}{\vec w}=\boxp{\vec v}{\vec w}{\vec u}=\boxp{\vec w}{\vec u}{\vec v}$ (a **cyclic** permutation keeps the value), and swapping two vectors changes the sign.
+      2. $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$: the dot and the cross can be exchanged.
+      3. The vectors are **coplanar** if and only if $\boxp{\vec u}{\vec v}{\vec w}=0$.
+      4. If $\boxp{\vec u}{\vec v}{\vec w}>0$ the triple is right-handed; if it is $<0$ it is left-handed.
+    proof: |
+      Properties 1 and 2 follow from the determinant: a cyclic permutation of the rows keeps it, a swap changes its sign. For 3, $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\crossp{\vec u}{\vec v}}{\vec w}$ is zero when $\vec w$ is orthogonal to $\crossp{\vec u}{\vec v}$, that is when $\vec w$ lies in the plane of $\vec u$ and $\vec v$.
+
+  - id: ex-box
+    type: example
+    title: A box product
+    problem: |
+      Compute $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=(1,2,3)$, $\vec v=(0,1,4)$, $\vec w=(5,6,0)$.
+    steps:
+      - |
+        $\begin{vmatrix}1&2&3\\0&1&4\\5&6&0\end{vmatrix}=1\cdot(0-24)-2\cdot(0-20)+3\cdot(0-5)$.
+      - |
+        $=-24+40-15=1$. It is positive: the triple is right-handed.
+    answer: |
+      $\boxp{\vec u}{\vec v}{\vec w}=1$.
+    verify:
+      - expr: "1*(0-24)-2*(0-20)+3*(0-5)"
+        equals: "1"
+
+  - id: chk-box
+    type: check
+    prompt: |
+      Compute $\boxp{\vec i}{\vec k}{\vec j}$, where $\vec i,\vec j,\vec k$ are the standard basis vectors.
+    answerType: number
+    answer: "-1"
+    hints:
+      - |
+        $\boxp{\vec i}{\vec j}{\vec k}=1$. What happens when two vectors are swapped?
+    explanation: |
+      $\boxp{\vec i}{\vec k}{\vec j}$ is $\boxp{\vec i}{\vec j}{\vec k}$ with the last two swapped, so it is $-1$.
+
+  - id: ex-coplanar
+    type: example
+    title: Coplanar vectors
+    problem: |
+      For which $k$ are $(1,2,k)$, $(2,1,0)$ and $(0,1,1)$ coplanar?
+    steps:
+      - |
+        $\begin{vmatrix}1&2&k\\2&1&0\\0&1&1\end{vmatrix}=1\cdot(1-0)-2\cdot(2-0)+k\cdot(2-0)=1-4+2k$.
+      - |
+        The box product is $0$ for $2k=3$, so $k=\dfrac32$.
+    answer: |
+      $k=\dfrac32$.
+    verify:
+      - expr: "1*(1-0)-2*(2-0)+(3/2)*(2-0)"
+        equals: "0"
+
+  - id: chk-coplanar
+    type: check
+    prompt: |
+      Are $(1,0,1)$, $(0,1,1)$ and $(1,1,2)$ coplanar? Answer $1$ for yes and $0$ for no.
+    answerType: number
+    answer: "1"
+    hints:
+      - |
+        Look at the sum of the first two vectors.
+    explanation: |
+      $(1,0,1)+(0,1,1)=(1,1,2)$, so the third vector is a combination of the first two: the three vectors are coplanar. The determinant is $0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\crossp{\vec u}{\vec v}}{\vec w}$ is the determinant of the three vectors.
+      - |
+        It keeps its value under a cyclic permutation and changes sign when two vectors are swapped.
+      - |
+        It is $0$ exactly for coplanar vectors; its sign gives the orientation.
