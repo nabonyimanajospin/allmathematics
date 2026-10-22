@@ -19,6 +19,26 @@ sections:
       Two vectors $\vec u$ and $\vec v$ placed at the same point are two sides of a parallelogram. Its area is base times height. Taking $\vec u$ as the base, the height is $\norm{\vec v}\sin\theta$,
       so the area is $\norm{\vec u}\norm{\vec v}\sin\theta$. The previous lesson showed that this is exactly the length of $\crossp{\vec u}{\vec v}$. The triangle on the same two vectors has half of this area.
 
+  - id: fig-parallelogram
+    type: visual
+    kind: figure
+    title: The parallelogram on two vectors
+    caption: |
+      The vectors $\vec u=(4,1)$ and $\vec v=(1,3)$ span a parallelogram. Its area is $\left|u_1v_2-u_2v_1\right|=|4\cdot3-1\cdot1|=11$ squ, and the triangle on $\vec u$ and $\vec v$ has half of it.
+    figure:
+      dim: 2
+      alt: "A parallelogram with a vertex at the origin built on the vectors u equal to (4, 1) and v equal to (1, 3), with its diagonal."
+      view: [-1, 7, -1, 6]
+      items:
+        - {t: point, id: O, at: [0, 0]}
+        - {t: point, id: U, at: [4, 1], color: accent}
+        - {t: point, id: W, at: [5, 4], color: ink}
+        - {t: point, id: V, at: [1, 3], color: warning}
+        - {t: polygon, pts: [O, U, W, V], fill: accent}
+        - {t: segment, from: O, to: U, arrow: true, color: accent, label: u}
+        - {t: segment, from: O, to: V, arrow: true, color: warning, label: v}
+        - {t: segment, from: U, to: V, dashed: true, color: success}
+
   - id: area-theorem
     type: theorem
     name: Areas
@@ -44,7 +64,7 @@ sections:
       - |
         $\norm{(5,-4,3)}=\sqrt{25+16+9}=\sqrt{50}=5\sqrt2$, so $K=\dfrac{5\sqrt2}2$.
     answer: |
-      $K=\dfrac{5\sqrt2}{2}$.
+      $K=\dfrac{5\sqrt2}{2}\ \text{squ}$.
     verify:
       - expr: "cross((2,1,-2),(1,2,1))"
         equals: "(5,-4,3)"
@@ -74,7 +94,7 @@ sections:
       - |
         The norm of the cross product is $\sqrt{4+1+0}=\sqrt5$ and $\norm{\vec d}=\sqrt{1+4+4}=3$, so $\delta=\dfrac{\sqrt5}{3}$.
     answer: |
-      $\delta=\dfrac{\sqrt5}{3}$.
+      $\delta=\dfrac{\sqrt5}{3}\ \text{lu}$.
     verify:
       - expr: "cross((1,2,3),(1,2,2))"
         equals: "(-2,1,0)"

@@ -6,7 +6,7 @@
   items:
     - id: vl-01
       statement: |-
-        The volume of the parallelepiped built on $\left(2,\,0,\,0\right)$, $\left(1,\,3,\,0\right)$, $\left(0,\,1,\,4\right)$.
+        The volume of the parallelepiped built on $\left(2,\,0,\,0\right)$, $\left(1,\,3,\,0\right)$, $\left(0,\,1,\,4\right)$. The unit is cu: give the number only.
       answerType: number
       answer: "24"
       hints:
@@ -14,7 +14,7 @@
       solution: "The determinant is $24$; the volume is its absolute value $24$."
     - id: vl-02
       statement: |-
-        The volume of the parallelepiped built on $\left(1,\,2,\,3\right)$, $\left(3,\,1,\,2\right)$, $\left(2,\,4,\,1\right)$.
+        The volume of the parallelepiped built on $\left(1,\,2,\,3\right)$, $\left(3,\,1,\,2\right)$, $\left(2,\,4,\,1\right)$. The unit is cu: give the number only.
       answerType: number
       answer: "25"
       hints:
@@ -22,7 +22,7 @@
       solution: "The determinant is $25$; the volume is its absolute value $25$."
     - id: vl-03
       statement: |-
-        The volume of the parallelepiped built on $\left(1,\,1,\,0\right)$, $\left(0,\,1,\,1\right)$, $\left(1,\,0,\,1\right)$.
+        The volume of the parallelepiped built on $\left(1,\,1,\,0\right)$, $\left(0,\,1,\,1\right)$, $\left(1,\,0,\,1\right)$. The unit is cu: give the number only.
       answerType: number
       answer: "2"
       hints:
@@ -30,7 +30,7 @@
       solution: "The determinant is $2$; the volume is its absolute value $2$."
     - id: vl-04
       statement: |-
-        The volume of the tetrahedron $A\left(1,\,1,\,1\right)$, $B\left(2,\,3,\,4\right)$, $C\left(4,\,2,\,3\right)$, $D\left(3,\,5,\,2\right)$.
+        The volume of the tetrahedron $A\left(1,\,1,\,1\right)$, $B\left(2,\,3,\,4\right)$, $C\left(4,\,2,\,3\right)$, $D\left(3,\,5,\,2\right)$. The unit is cu: give the number only.
       answerType: expression
       answer: "25/6"
       hints:
@@ -39,7 +39,7 @@
         The box product of $\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}$ is $25$, so $V=\dfrac{|25|}{6}=\frac{25}{6}$.
     - id: vl-05
       statement: |-
-        The volume of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$.
+        The volume of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$. The unit is cu: give the number only.
       answerType: expression
       answer: "8"
       hints:
@@ -48,7 +48,7 @@
         The box product of $\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}$ is $48$, so $V=\dfrac{|48|}{6}=8$.
     - id: vl-06
       statement: |-
-        The volume of the tetrahedron $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$.
+        The volume of the tetrahedron $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$. The unit is cu: give the number only.
       answerType: expression
       answer: "1/3"
       hints:
@@ -65,7 +65,8 @@
       solution: |-
         $\overrightarrow{AD}=\overrightarrow{AB}+\overrightarrow{AC}$, so the box product is $0$: the points are coplanar.
     - id: vl-08
-      statement: "A tetrahedron has volume $12$ and the face $ABC$ has area $9$. Find the height from $D$."
+      statement: |-
+        A tetrahedron has volume $12$ and the face $ABC$ has area $9$. Find the height from $D$. The unit is cu: give the number only.
       answerType: number
       answer: "4"
       hints:

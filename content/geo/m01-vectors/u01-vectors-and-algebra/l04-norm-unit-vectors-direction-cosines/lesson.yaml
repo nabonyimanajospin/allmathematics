@@ -28,7 +28,7 @@ sections:
       $$\norm{\vec u}=\sqrt{u_1^2+u_2^2+u_3^2}.$$
 
       Properties: $\norm{\vec u}\ge0$, and $\norm{\vec u}=0$ only for $\vec u=\vec0$; for every number $\lambda$, $\ \norm{\lambda\vec u}=|\lambda|\,\norm{\vec u}$.
-      The distance between the points $A$ and $B$ is $AB=\norm{\overrightarrow{AB}}$.
+      The distance between the points $A$ and $B$ is $\norm{\overrightarrow{AB}}=\norm{\overrightarrow{AB}}$.
     more: |
       **Why $\norm{\lambda\vec u}=|\lambda|\norm{\vec u}$.** Multiplying every component by $\lambda$ gives $\sqrt{\lambda^2u_1^2+\lambda^2u_2^2+\lambda^2u_3^2}=\sqrt{\lambda^2}\sqrt{u_1^2+u_2^2+u_3^2}$, and $\sqrt{\lambda^2}=|\lambda|$, not $\lambda$: a negative $\lambda$ reverses the arrow but does not make it shorter.
 

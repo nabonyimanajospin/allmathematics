@@ -43,7 +43,7 @@ sections:
       - |
         $V=\dfrac{25}{6}$.
     answer: |
-      $V=\dfrac{25}{6}$.
+      $V=\dfrac{25}{6}\ \text{cu}$.
     verify:
       - expr: "1*(1-8)-2*(3-4)+3*(12-2)"
         equals: "25"
