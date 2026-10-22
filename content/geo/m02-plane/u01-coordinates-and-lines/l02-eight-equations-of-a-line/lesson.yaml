@@ -121,7 +121,7 @@ sections:
       - |
         **Polar:** $r=\dfrac{17}{5\cos(\theta-\alpha)}$, with $\cos\alpha=-\dfrac35$ and $\sin\alpha=\dfrac45$. Expanding $\cos(\theta-\alpha)$ gives $r\,(-3\cos\theta+4\sin\theta)=17$.
       - |
-        **Intercept:** $q_1=-\dfrac{17}{3}$ and $q_2=\dfrac{17}{4}$, so $\dfrac{x}{-17/3}+\dfrac{y}{17/4}=1$, that is $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
+        **Intercept:** $q_1=-\dfrac{17}{3}$ and $q_2=\dfrac{17}{4}$, so $\dfrac{x}{-\dfrac{17}{3}}+\dfrac{y}{\dfrac{17}{4}}=1$, that is $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
       - |
         Check with $B(1,5)$ in the implicit form: $3-20+17=0$.
     answer: |

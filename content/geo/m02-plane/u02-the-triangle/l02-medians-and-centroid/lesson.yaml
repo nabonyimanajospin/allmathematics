@@ -121,7 +121,7 @@ sections:
       - |
         Check: $12\cdot\dfrac{19}3-19\cdot4=76-76=0$, so $G$ is on $12x-19y=0$.
       - |
-        Check the ratio: $\overrightarrow{AG}=\left(\dfrac{19}3,4\right)$ and $\overrightarrow{AM_a}=\left(\dfrac{19}2,6\right)$, and $\dfrac{19/3}{19/2}=\dfrac23$.
+        Check the ratio: $\overrightarrow{AG}=\left(\dfrac{19}3,4\right)$ and $\overrightarrow{AM_a}=\left(\dfrac{19}2,6\right)$, and $\dfrac{\dfrac{19}{3}}{\dfrac{19}{2}}=\dfrac23$.
     answer: |
       $G\left(\dfrac{19}3,4\right)$.
     verify:

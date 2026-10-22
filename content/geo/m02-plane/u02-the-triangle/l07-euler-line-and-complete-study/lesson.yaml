@@ -60,7 +60,7 @@ sections:
     answer: "(3, 6)"
     hints:
       - |
-        $H=3G-2O$.
+        Start from the relation between the three centers: the vector from $O$ to $H$ is three times the vector from $O$ to $G$.
     explanation: |
       $H=3(1,2)-2(0,0)=(3,6)$.
 
