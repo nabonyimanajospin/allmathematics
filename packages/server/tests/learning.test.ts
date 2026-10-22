@@ -30,10 +30,12 @@ describe("content sync", () => {
     const first = await syncContent(f.h.db, f.store);
     const again = await syncContent(f.h.db, f.store);
     expect(first).toEqual(again);
-    expect(first.lessons).toBe(3);
+    const inStore = f.store.courses.flatMap((c) => c.modules.flatMap((m) => m.units.flatMap((u) => u.lessons))).length;
+    expect(first.lessons).toBe(inStore);
     const lessons = await f.h.db.select().from(schema.lessons);
-    expect(lessons.map((l) => l.unitId)).toEqual(["geo-m01-u01", "geo-m01-u01", "geo-m01-u01"]);
-    const [mod] = await f.h.db.select().from(schema.modules);
+    expect(lessons).toHaveLength(inStore);
+    expect(lessons.filter((l) => l.unitId === "geo-m01-u01").map((l) => l.id).sort()).toEqual([L1, L2, L3]);
+    const [mod] = await f.h.db.select().from(schema.modules).where(eq(schema.modules.id, "geo-m01"));
     expect(mod?.free).toBe(true);
   });
 });
