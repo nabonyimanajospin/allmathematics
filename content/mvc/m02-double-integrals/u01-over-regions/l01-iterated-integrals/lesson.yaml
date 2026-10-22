@@ -1,0 +1,155 @@
+id: mvc-m02-u01-l01
+title: Double integrals over rectangles and general regions
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - double-integral
+  - iterated-integral
+objectives:
+  - Explain a double integral as a volume under a surface.
+  - Evaluate a double integral over a rectangle as two successive ordinary integrals.
+  - Describe a region between curves and set up the limits of an iterated integral.
+sections:
+  - id: volume-idea
+    type: concept
+    title: Volume under a surface
+    body: |
+      For a function of one variable, $\int_a^bf(x)\,dx$ is the area under a curve. For a function of two variables with
+      $f\ge0$ on a region $D$ of the plane, we ask for the **volume** of the solid under the surface $z=f(x,y)$ and above $D$.
+
+      Cut $D$ into small rectangles of area $\Delta A$. Above each one, the solid is approximately a box of height $f(x_i,y_j)$.
+      Adding the volumes of these boxes, and letting the rectangles shrink, gives the exact volume. This limit of sums
+      is the **double integral**.
+
+  - id: double-integral-definition
+    type: definition
+    term: Double integral
+    body: |
+      The double integral of $f$ over the region $D$ is
+
+      $$\iint_Df\,dA=\lim\sum_{i,j}f(x_i,y_j)\,\Delta A,$$
+
+      the limit of the sums as the small rectangles shrink, when this limit exists. It exists for every continuous
+      function on a closed bounded region. If $f=1$, the integral $\iint_D dA$ is the **area** of $D$.
+
+  - id: fubini
+    type: theorem
+    name: Fubini's theorem
+    statement: |
+      If $f$ is continuous on the rectangle $R=[a,b]\times[c,d]$, then
+
+      $$\iint_Rf\,dA=\int_a^b\left(\int_c^df(x,y)\,dy\right)dx=\int_c^d\left(\int_a^bf(x,y)\,dx\right)dy.$$
+
+      So a double integral is computed as two successive ordinary integrals, in either order.
+    proof: |
+      Idea. Slice the solid by planes $x=\text{constant}$. The cross-section at $x$ has area $\int_c^df(x,y)\,dy$. Adding the volumes
+      of the slices, of thickness $dx$, gives $\int_a^b\left(\int_c^df\,dy\right)dx$. Slicing by planes $y=\text{constant}$ gives the
+      other order.
+
+  - id: ex-rectangle
+    type: example
+    title: A rectangle
+    problem: |
+      Evaluate $\displaystyle\iint_R xy^2\,dA$ over $R=[0,2]\times[0,1]$.
+    steps:
+      - |
+        Integrate first with respect to $y$, treating $x$ as a constant: $\displaystyle\int_0^1xy^2\,dy=x\cdot\frac{1}{3}$.
+      - |
+        Then integrate with respect to $x$: $\displaystyle\int_0^2\frac x3\,dx=\frac13\cdot\frac{2^2}{2}=\frac23$.
+      - |
+        Because the integrand is a product of a function of $x$ and a function of $y$, we could also write
+        $\left(\int_0^2x\,dx\right)\left(\int_0^1y^2\,dy\right)=2\cdot\dfrac13$.
+    answer: |
+      $\dfrac23$.
+    verify:
+      - expr: "integrate(integrate(x*y^2, y, 0, 1), x, 0, 2)"
+        equals: "2/3"
+      - expr: "integrate(integrate(x*y^2, x, 0, 2), y, 0, 1)"
+        equals: "2/3"
+
+  - id: general-regions
+    type: concept
+    title: Regions that are not rectangles
+    body: |
+      Most regions are bounded by curves. Two shapes cover most cases.
+
+      - **Type I:** $a\le x\le b$ and $g_1(x)\le y\le g_2(x)$. Then
+        $\iint_Df\,dA=\int_a^b\int_{g_1(x)}^{g_2(x)}f(x,y)\,dy\,dx$.
+      - **Type II:** $c\le y\le d$ and $h_1(y)\le x\le h_2(y)$. Then
+        $\iint_Df\,dA=\int_c^d\int_{h_1(y)}^{h_2(y)}f(x,y)\,dx\,dy$.
+
+      The **inner** limits may depend on the outer variable; the **outer** limits are numbers. To find them, draw the region,
+      draw a thin line parallel to an axis through it, and read where the line enters and leaves.
+
+  - id: ex-type-one
+    type: example
+    title: A region between two curves
+    problem: |
+      Evaluate $\displaystyle\iint_D(x+y)\,dA$ where $D$ is the region between $y=x^2$ and $y=x$ for $0\le x\le1$.
+    steps:
+      - |
+        On $[0,1]$ we have $x^2\le x$, so $D$ is $0\le x\le1$, $x^2\le y\le x$ (type I).
+      - |
+        Inner integral: $\displaystyle\int_{x^2}^{x}(x+y)\,dy=\left[xy+\frac{y^2}{2}\right]_{x^2}^{x}=\frac{3x^2}{2}-x^3-\frac{x^4}{2}$.
+      - |
+        Outer integral: $\displaystyle\int_0^1\left(\frac{3x^2}{2}-x^3-\frac{x^4}{2}\right)dx=\frac12-\frac14-\frac1{10}=\frac{3}{20}$.
+    answer: |
+      $\dfrac3{20}$.
+    verify:
+      - expr: "integrate(x+y, y, x^2, x)"
+        equals: "3*x^2/2-x^3-x^4/2"
+      - expr: "integrate(integrate(x+y, y, x^2, x), x, 0, 1)"
+        equals: "3/20"
+
+  - id: chk-iterated
+    type: check
+    prompt: |
+      Evaluate $\displaystyle\int_0^1\int_0^{x}y\,dy\,dx$.
+    answerType: number
+    answer: "1/6"
+    hints:
+      - |
+        Inner integral first: $\int_0^xy\,dy=\dfrac{x^2}{2}$.
+    explanation: |
+      $\displaystyle\int_0^xy\,dy=\frac{x^2}2$, and $\displaystyle\int_0^1\frac{x^2}{2}\,dx=\frac16$.
+
+  - id: when-diverges
+    type: concept
+    title: When an integral does not exist
+    body: |
+      A double integral can fail to converge when $f$ becomes very large near a point of the region. Take
+      $f=\dfrac1{(x+y)^2}$ on the square $[0,1]\times[0,1]$, which is huge near the corner $(0,0)$. Integrating first in $y$ gives
+
+      $$\int_0^1\dfrac{dy}{(x+y)^2}=\dfrac1x-\dfrac1{x+1},$$
+
+      and then $\int_0^1\left(\dfrac1x-\dfrac1{x+1}\right)dx$ is infinite, because $\int\dfrac{dx}{x}=\ln x$ tends to $-\infty$ at $0$.
+      We say that the integral **diverges**. Always look at the integrand near the edge of the region before computing.
+
+  - id: ex-diverge
+    type: example
+    title: Checking an inner integral
+    problem: |
+      Verify the inner integral used above: compute $\displaystyle\int_0^1\frac{dy}{(x+y)^2}$ for $x>0$.
+    steps:
+      - |
+        An antiderivative in $y$ is $-\dfrac{1}{x+y}$.
+      - |
+        Evaluate between $0$ and $1$: $-\dfrac1{x+1}+\dfrac1x$.
+    answer: |
+      $\dfrac1x-\dfrac1{x+1}$, which is not integrable at $x=0$.
+    verify:
+      - expr: "integrate(1/(x+y)^2, y, 0, 1)"
+        equals: "1/x-1/(x+1)"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\iint_Df\,dA$ is the volume under $z=f(x,y)$ above $D$ (and the area of $D$ when $f=1$).
+      - |
+        Over a rectangle, Fubini's theorem lets you integrate one variable at a time, in either order.
+      - |
+        For a region between curves, the inner limits are functions of the outer variable; the outer limits are numbers. Draw the region first.
+      - |
+        An integrand that blows up inside the region can make the integral diverge.
