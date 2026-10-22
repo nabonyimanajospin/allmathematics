@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ENGINE_TOKEN: ci-engine-token-123456
+  MATH_ENGINE_TOKEN: ci-engine-token-123456
+  MATH_ENGINE_URL: http://127.0.0.1:8001
+  REQUIRE_ENGINE: "1"
+
+jobs:
+  engine:
+    name: Math engine (ruff + pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/math-engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: apps/math-engine/requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: python -m pytest
+
+  app:
+    name: Web, packages and content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pnpm install --frozen-lockfile
+      - name: Start the math engine
+        run: |
+          pip install -r apps/math-engine/requirements.txt
+          cd apps/math-engine
+          nohup python -m uvicorn allmaths_engine.main:app --host 127.0.0.1 --port 8001 > engine.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8001/health && break; sleep 1; done
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      # Nothing is published unless the content verification passes (spec section 7.4).
+      - name: Verify content (static + math engine)
+        run: pnpm verify-content
+      - run: pnpm --filter @allmaths/web build
+        env:
+          DATABASE_URL: ""
+      - name: End-to-end tests
+        run: |
+          pnpm --filter @allmaths/web exec playwright install --with-deps chromium
+          pnpm --filter @allmaths/web exec playwright test --project=desktop --project=phone
