@@ -1,0 +1,218 @@
+id: geo-m02-u02-l01
+title: "The triangle: vertices, sides, perimeter, angles and area"
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - triangle-sides
+  - triangle-angles
+  - triangle-area
+objectives:
+  - Define a triangle by its vertices, and name its sides, vectors and angles.
+  - Compute the sides, the perimeter, the angles (with the dot product) and the area (by the determinant and by Heron's formula).
+  - Write the equations of a side.
+sections:
+  - id: definition
+    type: definition
+    term: Triangle
+    body: |
+      A **triangle** $ABC$ is given by three points $A$, $B$, $C$, its **vertices**, that are **not on one line**. The three segments $AB$, $BC$, $CA$ are its **sides**.
+      Each side is named by the opposite vertex and has a length written with a lower-case letter:
+
+      $$a=BC,\qquad b=CA,\qquad c=AB.$$
+
+      The angle at the vertex $A$ is written $\hat A$ (the angle between the sides $AB$ and $AC$), and similarly $\hat B$ and $\hat C$. The **perimeter** is $a+b+c=2s$, where $s$ is the **semi-perimeter**, and $K$ is the **area**.
+
+      The vertices are non-collinear exactly when $\overrightarrow{AB}$ and $\overrightarrow{AC}$ are not collinear, that is when $\det(\overrightarrow{AB},\overrightarrow{AC})\neq0$. All the lessons of this unit use the triangle
+      $A(0,0)$, $B(14,0)$, $C(5,12)$ as running example.
+
+  - id: sides-theorem
+    type: theorem
+    name: Sides and perimeter
+    statement: |
+      The vectors of the sides are $\overrightarrow{AB}=B-A$, $\overrightarrow{BC}=C-B$, $\overrightarrow{CA}=A-C$, and the lengths are their norms:
+
+      $$a=\norm{\overrightarrow{BC}},\qquad b=\norm{\overrightarrow{CA}},\qquad c=\norm{\overrightarrow{AB}},\qquad\text{perimeter }=a+b+c.$$
+    proof: |
+      The vector from $P(x_1,y_1)$ to $Q(x_2,y_2)$ is $(x_2-x_1,\,y_2-y_1)$ and the distance $PQ$ is the norm of this vector (the distance formula).
+
+  - id: ex-sides
+    type: example
+    title: Sides and perimeter
+    problem: |
+      Find the vectors of the sides, the lengths and the perimeter of $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        $\overrightarrow{AB}=(14,0)$, $\overrightarrow{BC}=(5-14,\,12-0)=(-9,12)$, $\overrightarrow{CA}=(0-5,\,0-12)=(-5,-12)$.
+      - |
+        $c=\sqrt{14^2}=14$, $a=\sqrt{81+144}=\sqrt{225}=15$ and $b=\sqrt{25+144}=\sqrt{169}=13$.
+      - |
+        The perimeter is $13+14+15=42$ and $s=21$.
+    answer: |
+      $a=15$, $b=13$, $c=14$; the perimeter is $42$.
+    verify:
+      - expr: "sqrt((5-14)^2+(12-0)^2)"
+        equals: "15"
+      - expr: "sqrt(5^2+12^2)"
+        equals: "13"
+
+  - id: chk-perimeter
+    type: check
+    prompt: |
+      Find the perimeter of the triangle $A(0,0)$, $B(3,0)$, $C(0,4)$.
+    answerType: number
+    answer: "12"
+    hints:
+      - |
+        The sides are $AB=3$, $AC=4$ and $BC=\sqrt{9+16}$.
+    explanation: |
+      $BC=5$, so the perimeter is $3+4+5=12$.
+
+  - id: angles-theorem
+    type: theorem
+    name: The angles
+    statement: |
+      The angle $\hat A$ is the angle between the vectors $\overrightarrow{AB}$ and $\overrightarrow{AC}$, and so on:
+
+      $$\cos\hat A=\dfrac{\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}}{\norm{\overrightarrow{AB}}\,\norm{\overrightarrow{AC}}},\quad
+      \cos\hat B=\dfrac{\dotp{\overrightarrow{BA}}{\overrightarrow{BC}}}{\norm{\overrightarrow{BA}}\,\norm{\overrightarrow{BC}}},\quad
+      \cos\hat C=\dfrac{\dotp{\overrightarrow{CA}}{\overrightarrow{CB}}}{\norm{\overrightarrow{CA}}\,\norm{\overrightarrow{CB}}}.$$
+
+      In terms of the sides (the law of cosines):
+
+      $$\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc},\quad\cos\hat B=\dfrac{a^2+c^2-b^2}{2ac},\quad\cos\hat C=\dfrac{a^2+b^2-c^2}{2ab},$$
+
+      and $\hat A+\hat B+\hat C=\pi$.
+    proof: |
+      The first formulas are the angle formula of the dot product. For the second, $\overrightarrow{BC}=\overrightarrow{AC}-\overrightarrow{AB}$, so
+      $a^2=\norm{\overrightarrow{AC}-\overrightarrow{AB}}^2=b^2+c^2-2\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}$, which gives $\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}=\dfrac{b^2+c^2-a^2}{2}$.
+      The sum of the angles is $\pi$: draw the parallel to $BC$ through $A$ and use the equal alternate angles.
+
+  - id: ex-angles
+    type: example
+    title: The three angles
+    problem: |
+      Find the angles of $A(0,0)$, $B(14,0)$, $C(5,12)$, with $a=15$, $b=13$, $c=14$.
+    steps:
+      - |
+        $\cos\hat A=\dfrac{169+196-225}{2\cdot13\cdot14}=\dfrac{140}{364}=\dfrac5{13}$, so $\hat A=\arccos\dfrac5{13}$.
+      - |
+        $\cos\hat B=\dfrac{225+196-169}{2\cdot15\cdot14}=\dfrac{252}{420}=\dfrac35$, so $\hat B=\arccos\dfrac35$.
+      - |
+        $\cos\hat C=\dfrac{225+169-196}{2\cdot15\cdot13}=\dfrac{198}{390}=\dfrac{33}{65}$, so $\hat C=\arccos\dfrac{33}{65}$.
+      - |
+        Check that the sum is $\pi$: $\sin\hat A=\dfrac{12}{13}$, $\sin\hat B=\dfrac45$, so $\cos(\hat A+\hat B)=\dfrac5{13}\cdot\dfrac35-\dfrac{12}{13}\cdot\dfrac45=-\dfrac{33}{65}=-\cos\hat C$. Hence $\hat A+\hat B=\pi-\hat C$.
+    answer: |
+      $\hat A=\arccos\dfrac5{13}$, $\hat B=\arccos\dfrac35$, $\hat C=\arccos\dfrac{33}{65}$.
+    verify:
+      - expr: "(169+196-225)/(2*13*14)"
+        equals: "5/13"
+      - expr: "(225+196-169)/(2*15*14)"
+        equals: "3/5"
+      - expr: "(225+169-196)/(2*15*13)"
+        equals: "33/65"
+      - expr: "5/13*3/5-12/13*4/5"
+        equals: "-33/65"
+
+  - id: chk-angle
+    type: check
+    prompt: |
+      Find $\cos\hat B$ for the triangle $A(0,0)$, $B(4,0)$, $C(0,3)$.
+    answerType: number
+    answer: "4/5"
+    hints:
+      - |
+        $\overrightarrow{BA}=(-4,0)$ and $\overrightarrow{BC}=(-4,3)$.
+    explanation: |
+      $\dotp{\overrightarrow{BA}}{\overrightarrow{BC}}=16$, $\norm{\overrightarrow{BA}}=4$, $\norm{\overrightarrow{BC}}=5$, so $\cos\hat B=\dfrac{16}{20}=\dfrac45$.
+
+  - id: area-theorem
+    type: theorem
+    name: Area of a triangle
+    statement: |
+      For $A(x_1,y_1)$, $B(x_2,y_2)$, $C(x_3,y_3)$,
+
+      $$K=\dfrac12\left|\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}\right|=\dfrac12\left|(x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)\right|.$$
+
+      **Heron's formula:** $K=\sqrt{s(s-a)(s-b)(s-c)}$. Other forms: $K=\dfrac12bc\sin\hat A=r\,s=\dfrac{abc}{4R}=\dfrac12\,a\,h_a$, where $r$ and $R$ are the radii of the incircle and circumcircle and $h_a$ is the altitude on $BC$.
+    proof: |
+      The first formula is half of the area of the parallelogram built on $\overrightarrow{AB}$ and $\overrightarrow{AC}$, which is the absolute value of their determinant.
+      For Heron's formula write $K=\dfrac12bc\sin\hat A$ and $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$. Then $16K^2=4b^2c^2-(b^2+c^2-a^2)^2$, and factoring the difference of squares gives
+      $16K^2=(a+b+c)(-a+b+c)(a-b+c)(a+b-c)=16\,s(s-a)(s-b)(s-c)$. The other forms are shown in the following lessons.
+
+  - id: ex-area
+    type: example
+    title: Area by two methods
+    problem: |
+      Find the area of $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        Determinant: $\overrightarrow{AB}=(14,0)$ and $\overrightarrow{AC}=(5,12)$, so $K=\dfrac12|14\cdot12-0\cdot5|=84$.
+      - |
+        Heron: $s=21$, so $K=\sqrt{21\cdot6\cdot7\cdot8}=\sqrt{7056}=84$.
+    answer: |
+      $K=84$.
+    verify:
+      - expr: "abs(14*12-0*5)/2"
+        equals: "84"
+      - expr: "sqrt(21*6*7*8)"
+        equals: "84"
+
+  - id: chk-area
+    type: check
+    prompt: |
+      Find the area of the triangle with vertices $(0,0)$, $(4,1)$ and $(1,3)$.
+    answerType: number
+    answer: "11/2"
+    hints:
+      - |
+        Take $A=(0,0)$: the vectors from $A$ are $(4,1)$ and $(1,3)$.
+    explanation: |
+      $K=\dfrac12|4\cdot3-1\cdot1|=\dfrac{11}2$.
+    mistakes:
+      - expr: "11"
+        hint: "The determinant gives the area of the parallelogram; the triangle is half of it."
+
+  - id: side-lines
+    type: concept
+    title: The equations of the sides
+    body: |
+      Each side is a line, so it has the eight equations of the previous lesson. For the side $BC$ of the running triangle, $B(14,0)$ and $C(5,12)$, the direction vector is $\overrightarrow{BC}=(-9,12)$, or the parallel vector $(-3,4)$.
+
+      | Form | Equation of $BC$ |
+      |---|---|
+      | vector | $\overrightarrow{OP}=\overrightarrow{OB}+\lambda\overrightarrow{BC}$ |
+      | parametric | $x=14-9\lambda,\ y=12\lambda$ |
+      | canonical | $\dfrac{x-14}{-9}=\dfrac{y}{12}$ |
+      | implicit | $4x+3y-56=0$ |
+      | explicit | $y=-\dfrac43x+\dfrac{56}3$ |
+      | normal | $\dfrac45x+\dfrac35y-\dfrac{56}5=0$ |
+      | polar | $r=\dfrac{56}{4\cos\theta+3\sin\theta}$ |
+      | intercept | $\dfrac x{14}+\dfrac{3y}{56}=1$ |
+
+      The normal form has $\cos\alpha=\dfrac45$, $\sin\alpha=\dfrac35$ and $p=\dfrac{56}5$. The sides $AB$ and $CA$ are written in the same way.
+
+  - id: chk-side
+    type: check
+    prompt: |
+      Find an equation of the side $CA$ of the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "12*x-5*y=0"
+    hints:
+      - |
+        The line passes through the origin and has direction $(5,12)$.
+    explanation: |
+      A normal vector is $(12,-5)$, and the line passes through $A(0,0)$: $12x-5y=0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A triangle has three non-collinear vertices; the side opposite $A$ is $a=BC$.
+      - |
+        The sides are norms of $\overrightarrow{AB}$, $\overrightarrow{BC}$, $\overrightarrow{CA}$; the angles come from the dot product or the law of cosines: $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$.
+      - |
+        $K=\dfrac12|\det(\overrightarrow{AB},\overrightarrow{AC})|=\sqrt{s(s-a)(s-b)(s-c)}$.
+      - |
+        Every side has eight equations.

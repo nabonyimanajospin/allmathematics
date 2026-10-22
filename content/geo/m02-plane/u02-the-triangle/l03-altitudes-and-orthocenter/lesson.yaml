@@ -1,0 +1,152 @@
+id: geo-m02-u02-l03
+title: Altitudes and the orthocenter
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - altitude-equation
+  - altitude-length
+  - orthocenter
+objectives:
+  - Find the equations of an altitude, in all forms.
+  - Compute the length of an altitude with $h_a=\dfrac{2K}{a}$.
+  - Find the orthocenter by two altitudes, and by a determinant formula.
+sections:
+  - id: altitude-def
+    type: definition
+    term: Altitude
+    body: |
+      An **altitude** of a triangle is the segment from a vertex perpendicular to the line of the opposite side; its foot is on that line. The altitude from $A$ has length $h_a$, and its foot is $H_a$.
+
+      The altitude from $A$ is the line through $A$ whose **normal vector is $\overrightarrow{BC}$**: it is perpendicular to $BC$. So its implicit equation is
+      $(x_C-x_B)(x-x_A)+(y_C-y_B)(y-y_A)=0$, and its direction vector is $\overrightarrow{BC}$ turned by a right angle.
+
+  - id: ex-altitude-equation
+    type: example
+    title: The altitude from $A$
+    problem: |
+      Write the equation of the altitude from $A$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        $\overrightarrow{BC}=(-9,12)$, parallel to $(-3,4)$. This is the normal vector of the altitude: $-3(x-0)+4(y-0)=0$, that is $3x-4y=0$.
+      - |
+        Direction vector of the altitude: $(4,3)$. Parametric: $x=4\lambda$, $y=3\lambda$. Canonical: $\dfrac x4=\dfrac y3$. Explicit: $y=\dfrac34\,x$.
+      - |
+        The foot $H_a$ is the intersection with $BC:\ 4x+3y-56=0$. With $y=\dfrac34x$: $4x+\dfrac94x=56$, so $x=\dfrac{224}{25}$ and $y=\dfrac{168}{25}$.
+    answer: |
+      $h_a:\ 3x-4y=0$, with foot $H_a\left(\dfrac{224}{25},\dfrac{168}{25}\right)$.
+    verify:
+      - expr: "3*(224/25)-4*(168/25)"
+        equals: "0"
+      - expr: "4*(224/25)+3*(168/25)-56"
+        equals: "0"
+
+  - id: chk-altitude-equation
+    type: check
+    prompt: |
+      In the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$, find an equation of the altitude from $C$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "x=5"
+    hints:
+      - |
+        The side $AB$ is horizontal.
+    explanation: |
+      $\overrightarrow{AB}=(14,0)$ is the normal vector of the altitude from $C$, so the altitude is the vertical line through $C$: $x=5$.
+
+  - id: altitude-length
+    type: theorem
+    name: Length of an altitude
+    statement: |
+      $$h_a=\dfrac{2K}{a},\qquad h_b=\dfrac{2K}{b},\qquad h_c=\dfrac{2K}{c}.$$
+
+      Equivalently $h_a$ is the distance from $A$ to the line $BC$: $h_a=\dfrac{|a_1x_A+b_1y_A+c_1|}{\sqrt{a_1^2+b_1^2}}$ for $BC:\ a_1x+b_1y+c_1=0$. Also $h_a=c\sin\hat B=b\sin\hat C$.
+    proof: |
+      The area of the triangle with base $BC$ and height $h_a$ is $K=\dfrac12\,a\,h_a$; solve for $h_a$. The distance formula is the one for a point and a line. In the right triangle $ABH_a$ the height is $h_a=c\sin\hat B$.
+
+  - id: ex-altitude-length
+    type: example
+    title: Length of the altitude from $A$
+    problem: |
+      Find $h_a$ for $A(0,0)$, $B(14,0)$, $C(5,12)$ (where $K=84$ and $a=15$).
+    steps:
+      - |
+        $h_a=\dfrac{2\cdot84}{15}=\dfrac{56}5$.
+      - |
+        Check with the distance from $A$ to $4x+3y-56=0$: $\dfrac{|-56|}{5}=\dfrac{56}5$.
+    answer: |
+      $h_a=\dfrac{56}5$.
+    verify:
+      - expr: "2*84/15"
+        equals: "56/5"
+      - expr: "abs(-56)/sqrt(4^2+3^2)"
+        equals: "56/5"
+
+  - id: chk-altitude-length
+    type: check
+    prompt: |
+      Find the length of the altitude from $C$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    answerType: number
+    answer: "12"
+    hints:
+      - |
+        $h_c=\dfrac{2K}{c}$ with $K=84$ and $c=14$.
+    explanation: |
+      $h_c=\dfrac{168}{14}=12$, which is the $y$-coordinate of $C$, as expected since $AB$ lies on the $x$-axis.
+
+  - id: orthocenter-theorem
+    type: theorem
+    name: The orthocenter
+    statement: |
+      The three altitudes meet at one point, the **orthocenter** $H$. It is found by solving the equations of two altitudes together. With the signed area
+      $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ (positive when $A,B,C$ are in counterclockwise order),
+
+      $$x_H=-\dfrac{1}{2S}\begin{vmatrix}y_1^2+x_2x_3&y_1&1\\y_2^2+x_1x_3&y_2&1\\y_3^2+x_1x_2&y_3&1\end{vmatrix},\qquad
+      y_H=-\dfrac{1}{2S}\begin{vmatrix}x_1&x_1^2+y_2y_3&1\\x_2&x_2^2+y_1y_3&1\\x_3&x_3^2+y_1y_2&1\end{vmatrix}.$$
+
+      In a right triangle $H$ is the vertex of the right angle. Also $H=A+B+C-2O$, where $O$ is the circumcenter.
+    proof: |
+      The altitude from $A$ is $(x_3-x_2)(x-x_1)+(y_3-y_2)(y-y_1)=0$ and the altitude from $B$ is $(x_3-x_1)(x-x_2)+(y_3-y_1)(y-y_2)=0$. Solving this pair of linear equations by Cramer's rule and simplifying gives the determinants above.
+      The third altitude passes through the same point because $H=A+B+C-2O$ is symmetric in the vertices (see the lesson on the Euler line).
+
+  - id: ex-orthocenter
+    type: example
+    title: The orthocenter
+    problem: |
+      Find the orthocenter of $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        The altitude from $C$ is $x=5$. The altitude from $A$ is $y=\dfrac34\,x$. At $x=5$: $y=\dfrac{15}4$.
+      - |
+        Check with the altitude from $B$, whose normal vector is $\overrightarrow{AC}=(5,12)$: $5(x-14)+12y=5(-9)+12\cdot\dfrac{15}4=-45+45=0$.
+      - |
+        Check with the formula: $S=84$ and the first determinant is $-840$, so $x_H=-\dfrac{-840}{168}=5$.
+    answer: |
+      $H\left(5,\dfrac{15}4\right)$.
+    verify:
+      - expr: "5*(5-14)+12*(15/4)"
+        equals: "0"
+      - expr: "3*5-4*(15/4)"
+        equals: "0"
+
+  - id: chk-orthocenter
+    type: check
+    prompt: |
+      A triangle has a right angle at $A(0,0)$, with $B(4,0)$ and $C(0,3)$. Where is the orthocenter?
+    answerType: vector
+    answer: "(0, 0)"
+    hints:
+      - |
+        Two of the sides are themselves perpendicular to each other.
+    explanation: |
+      $AC$ is perpendicular to $AB$, so $AC$ is the altitude from $C$ and $AB$ is the altitude from $B$. They meet at $A$: in a right triangle the orthocenter is the vertex of the right angle.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The altitude from $A$ is the line through $A$ with normal vector $\overrightarrow{BC}$.
+      - |
+        $h_a=\dfrac{2K}{a}$.
+      - |
+        The orthocenter is the intersection of two altitudes; in a right triangle it is the vertex of the right angle.

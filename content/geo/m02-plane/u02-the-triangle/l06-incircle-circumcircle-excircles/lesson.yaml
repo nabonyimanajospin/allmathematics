@@ -1,0 +1,139 @@
+id: geo-m02-u02-l06
+title: The incircle, the circumcircle and the excircles
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - incircle-equations
+  - circumcircle-equations
+  - excircle
+objectives:
+  - Write the analytic and the parametric equations of the incircle and of the circumcircle.
+  - Compute the perimeter and the area of these circles.
+  - Find an excenter and an exradius.
+sections:
+  - id: circle-equations
+    type: definition
+    term: Equations of a circle
+    body: |
+      A circle with center $C_0(p,q)$ and radius $\rho$ has two equations.
+
+      - **Analytic equation:** $(x-p)^2+(y-q)^2=\rho^2$.
+      - **Parametric equations:** $x=p+\rho\cos t$, $y=q+\rho\sin t$, with $t\in[0,2\pi)$.
+
+      Its **perimeter** (circumference) is $2\pi\rho$ and its **area** is $\pi\rho^2$.
+
+      A triangle has two special circles. The **incircle** is inside the triangle and touches the three sides: center $I$, radius $r=\dfrac Ks$. The **circumcircle** passes through the three vertices: center $O$, radius $R=\dfrac{abc}{4K}$.
+
+  - id: ex-incircle
+    type: example
+    title: The incircle
+    problem: |
+      Write the equations of the incircle of $A(0,0)$, $B(14,0)$, $C(5,12)$, and find its perimeter and area.
+    steps:
+      - |
+        From the previous lessons $I=(6,4)$ and $r=\dfrac{K}{s}=4$.
+      - |
+        Analytic: $(x-6)^2+(y-4)^2=16$. Parametric: $x=6+4\cos t$, $y=4+4\sin t$.
+      - |
+        Perimeter $2\pi r=8\pi$. Area $\pi r^2=16\pi$.
+      - |
+        Check that it touches $BC:\ 4x+3y-56=0$: the distance from $I$ is $\dfrac{|24+12-56|}{5}=4=r$.
+    answer: |
+      $(x-6)^2+(y-4)^2=16$; perimeter $8\pi$; area $16\pi$.
+    verify:
+      - expr: "abs(4*6+3*4-56)/5"
+        equals: "4"
+      - expr: "2*pi*4"
+        equals: "8*pi"
+
+  - id: ex-circumcircle
+    type: example
+    title: The circumcircle
+    problem: |
+      Write the equations of the circumcircle of the same triangle, and find its perimeter and area.
+    steps:
+      - |
+        $O=\left(7,\dfrac{33}8\right)$ and $R=\dfrac{65}8$.
+      - |
+        Analytic: $(x-7)^2+\left(y-\dfrac{33}8\right)^2=\dfrac{4225}{64}$. Parametric: $x=7+\dfrac{65}8\cos t$, $y=\dfrac{33}8+\dfrac{65}8\sin t$.
+      - |
+        Perimeter $2\pi R=\dfrac{65\pi}4$. Area $\pi R^2=\dfrac{4225\pi}{64}$.
+      - |
+        Check with the vertex $C(5,12)$: $(5-7)^2+\left(12-\dfrac{33}8\right)^2=4+\dfrac{3969}{64}=\dfrac{4225}{64}$.
+    answer: |
+      $(x-7)^2+\left(y-\dfrac{33}8\right)^2=\dfrac{4225}{64}$; perimeter $\dfrac{65\pi}4$; area $\dfrac{4225\pi}{64}$.
+    verify:
+      - expr: "(5-7)^2+(12-33/8)^2"
+        equals: "4225/64"
+      - expr: "2*pi*65/8"
+        equals: "65*pi/4"
+
+  - id: chk-incircle-area
+    type: check
+    prompt: |
+      Find the area of the incircle of the right triangle with sides $3$, $4$, $5$.
+    answerType: expression
+    answer: "pi"
+    hints:
+      - |
+        $r=\dfrac Ks$ with $K=6$ and $s=6$.
+    explanation: |
+      $r=1$, so the area is $\pi r^2=\pi$.
+
+  - id: chk-circumcircle-perimeter
+    type: check
+    prompt: |
+      Find the perimeter of the circumcircle of the right triangle with sides $3$, $4$, $5$.
+    answerType: expression
+    answer: "5*pi"
+    hints:
+      - |
+        $R=\dfrac{abc}{4K}$.
+    explanation: |
+      $R=\dfrac52$, so the perimeter is $2\pi\cdot\dfrac52=5\pi$.
+
+  - id: excircle-theorem
+    type: theorem
+    name: Excircles
+    statement: |
+      The **excircle** opposite $A$ touches the side $BC$ from outside and the extensions of the other two sides. Its center $I_a$ (the **excenter**) and radius $r_a$ (the **exradius**) are
+
+      $$I_a=\dfrac{-a\,A+b\,B+c\,C}{-a+b+c},\qquad r_a=\dfrac{K}{s-a}.$$
+
+      For the excircles opposite $B$ and $C$ change the sign of $b$, respectively $c$, in the same way: $I_b=\dfrac{aA-bB+cC}{a-b+c}$, $r_b=\dfrac K{s-b}$.
+    proof: |
+      The excenter is on the internal bisector from $A$ and on the external bisectors at $B$ and $C$. The same argument as for the incenter, with the external bisector theorem, changes the sign of the side $a$.
+      For the radius, the triangle $ABC$ is the sum of the triangles $I_aAB$ and $I_aAC$ minus the triangle $I_aBC$, so $K=\dfrac12r_a(b+c-a)=r_a(s-a)$.
+
+  - id: ex-excircle
+    type: example
+    title: An excircle
+    problem: |
+      For the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$, find the excircle opposite $A$.
+    steps:
+      - |
+        $r_a=\dfrac{84}{21-15}=14$.
+      - |
+        $I_a=\dfrac{-15A+13B+14C}{-15+13+14}=\dfrac{13B+14C}{12}$: $x=\dfrac{182+70}{12}=21$ and $y=\dfrac{168}{12}=14$.
+      - |
+        Check: $I_a$ is at distance $14$ from the line $AB$ ($y=0$), and from $BC$: $\dfrac{|84+42-56|}{5}=14$.
+    answer: |
+      $I_a(21,14)$ and $r_a=14$; the excircle is $(x-21)^2+(y-14)^2=196$.
+    verify:
+      - expr: "84/(21-15)"
+        equals: "14"
+      - expr: "(13*14+14*5)/12"
+        equals: "21"
+      - expr: "abs(4*21+3*14-56)/5"
+        equals: "14"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Circle with center $(p,q)$ and radius $\rho$: $(x-p)^2+(y-q)^2=\rho^2$, or $x=p+\rho\cos t$, $y=q+\rho\sin t$; perimeter $2\pi\rho$, area $\pi\rho^2$.
+      - |
+        Incircle: center $I=\dfrac{aA+bB+cC}{a+b+c}$, radius $r=\dfrac Ks$. Circumcircle: center $O$, radius $R=\dfrac{abc}{4K}$.
+      - |
+        Excircle opposite $A$: $I_a=\dfrac{-aA+bB+cC}{-a+b+c}$, $r_a=\dfrac K{s-a}$.

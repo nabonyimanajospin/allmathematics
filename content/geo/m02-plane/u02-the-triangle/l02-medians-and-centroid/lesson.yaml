@@ -1,0 +1,153 @@
+id: geo-m02-u02-l02
+title: Medians and the centroid
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - median-equation
+  - median-length
+  - centroid
+objectives:
+  - Find the equations of a median, in all forms.
+  - Compute the length of a median with the formula $m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}$.
+  - Find the centroid (barycenter) and use the ratio $2:1$.
+sections:
+  - id: median-def
+    type: definition
+    term: Median
+    body: |
+      A **median** of a triangle is the segment from a vertex to the midpoint of the opposite side. The median from $A$ ends at the midpoint $M_a$ of $BC$, whose coordinates are
+
+      $$M_a=\dfrac{B+C}{2}=\left(\dfrac{x_B+x_C}{2},\ \dfrac{y_B+y_C}{2}\right).$$
+
+      Its length is written $m_a$ (and $m_b$, $m_c$ for the other two medians). The median is a line through two known points $A$ and $M_a$, so its equation is found as in the lesson on the eight equations of a line, with the direction vector $\overrightarrow{AM_a}$.
+
+  - id: ex-median-equation
+    type: example
+    title: The median from $A$
+    problem: |
+      Write the equation of the median from $A$ in the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        $M_a=\left(\dfrac{14+5}{2},\dfrac{0+12}{2}\right)=\left(\dfrac{19}2,6\right)$, and $\overrightarrow{AM_a}=\left(\dfrac{19}{2},6\right)$, which is parallel to $(19,12)$.
+      - |
+        Vector: $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\overrightarrow{AM_a}$. Parametric: $x=\dfrac{19}2\lambda$, $y=6\lambda$. Canonical: $\dfrac{x}{19}=\dfrac{y}{12}$.
+      - |
+        Implicit: the normal vector is $(12,-19)$, so $12x-19y=0$. Explicit: $y=\dfrac{12}{19}\,x$.
+    answer: |
+      $m_a:\ 12x-19y=0$.
+    verify:
+      - expr: "12*(19/2)-19*6"
+        equals: "0"
+      - expr: "12*0-19*0"
+        equals: "0"
+
+  - id: chk-median-equation
+    type: check
+    prompt: |
+      In the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$, find an equation of the median from $B$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "12*x+23*y-168=0"
+    hints:
+      - |
+        The midpoint of $CA$ is $\left(\dfrac52,6\right)$. The direction vector is $\overrightarrow{BM_b}=\left(-\dfrac{23}{2},6\right)$.
+    explanation: |
+      $M_b=\left(\dfrac52,6\right)$ and $\overrightarrow{BM_b}=\left(-\dfrac{23}2,6\right)\parallel(-23,12)$. A normal vector is $(12,23)$: $12(x-14)+23y=0$, that is $12x+23y-168=0$.
+
+  - id: median-length
+    type: theorem
+    name: Length of a median
+    statement: |
+      $$m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}.$$
+
+      The same formula holds for $m_b$ and $m_c$, exchanging the letters.
+    proof: |
+      Since $M_a$ is the midpoint of $BC$, $\overrightarrow{AM_a}=\dfrac12\left(\overrightarrow{AB}+\overrightarrow{AC}\right)$. Then
+      $m_a^2=\dfrac14\left(c^2+b^2+2\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}\right)$. By the law of cosines $2\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}=b^2+c^2-a^2$, so
+      $m_a^2=\dfrac14\left(2b^2+2c^2-a^2\right)$.
+
+  - id: ex-median-length
+    type: example
+    title: A median length
+    problem: |
+      Find $m_a$ for $a=15$, $b=13$, $c=14$.
+    steps:
+      - |
+        $2b^2+2c^2-a^2=2\cdot169+2\cdot196-225=505$.
+      - |
+        $m_a=\dfrac12\sqrt{505}$. Check with the coordinates: $\sqrt{\left(\dfrac{19}2\right)^2+6^2}=\sqrt{\dfrac{361+144}{4}}=\dfrac12\sqrt{505}$.
+    answer: |
+      $m_a=\dfrac{\sqrt{505}}2$.
+    verify:
+      - expr: "sqrt(2*13^2+2*14^2-15^2)/2"
+        equals: "sqrt(505)/2"
+      - expr: "sqrt((19/2)^2+6^2)"
+        equals: "sqrt(505)/2"
+
+  - id: chk-median-length
+    type: check
+    prompt: |
+      A triangle has sides $a=6$, $b=7$, $c=5$. Find the length of the median $m_a$.
+    answerType: expression
+    answer: "2*sqrt(7)"
+    hints:
+      - |
+        $2b^2+2c^2-a^2=98+50-36$.
+    explanation: |
+      $m_a=\dfrac12\sqrt{112}=\dfrac12\cdot4\sqrt7=2\sqrt7$.
+
+  - id: centroid-theorem
+    type: theorem
+    name: The centroid (barycenter)
+    statement: |
+      The three medians meet at one point, the **centroid** $G$ (also called the **barycenter**), with coordinates
+
+      $$G=\dfrac{A+B+C}{3}=\left(\dfrac{x_1+x_2+x_3}{3},\ \dfrac{y_1+y_2+y_3}{3}\right).$$
+
+      $G$ divides each median in the ratio $2:1$ counted from the vertex: $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$, that is $AG=\dfrac23\,m_a$.
+    proof: |
+      The point of $AM_a$ with $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$ has the coordinates $\dfrac{A+2M_a}{1+2}=\dfrac{A+B+C}{3}$ by the section formula with $k=2$.
+      This expression is symmetric in $A$, $B$, $C$, so the same point is found on the other two medians.
+
+  - id: ex-centroid
+    type: example
+    title: The centroid
+    problem: |
+      Find the centroid of $A(0,0)$, $B(14,0)$, $C(5,12)$ and check that it lies on the median from $A$.
+    steps:
+      - |
+        $G=\left(\dfrac{0+14+5}{3},\dfrac{0+0+12}{3}\right)=\left(\dfrac{19}3,4\right)$.
+      - |
+        Check: $12\cdot\dfrac{19}3-19\cdot4=76-76=0$, so $G$ is on $12x-19y=0$.
+      - |
+        Check the ratio: $\overrightarrow{AG}=\left(\dfrac{19}3,4\right)$ and $\overrightarrow{AM_a}=\left(\dfrac{19}2,6\right)$, and $\dfrac{19/3}{19/2}=\dfrac23$.
+    answer: |
+      $G\left(\dfrac{19}3,4\right)$.
+    verify:
+      - expr: "12*(19/3)-19*4"
+        equals: "0"
+      - expr: "(19/3)/(19/2)"
+        equals: "2/3"
+
+  - id: chk-centroid
+    type: check
+    prompt: |
+      Find the centroid of the triangle with vertices $(1,2)$, $(5,-1)$ and $(3,8)$.
+    answerType: vector
+    answer: "(3, 3)"
+    hints:
+      - |
+        Add the three $x$-coordinates and divide by $3$. Do the same for $y$.
+    explanation: |
+      $\left(\dfrac{1+5+3}{3},\dfrac{2-1+8}{3}\right)=(3,3)$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The median from $A$ joins $A$ to $M_a=\dfrac{B+C}2$; its direction vector is $\overrightarrow{AM_a}$.
+      - |
+        $m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}$.
+      - |
+        The centroid $G=\dfrac{A+B+C}{3}$ divides each median $2:1$ from the vertex.

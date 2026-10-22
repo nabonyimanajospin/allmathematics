@@ -1,0 +1,175 @@
+id: geo-m02-u02-l05
+title: Perpendicular bisectors and the circumcenter
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - perpendicular-bisector
+  - circumcenter
+  - circumradius
+objectives:
+  - Write the equation of the perpendicular bisector of a side.
+  - Compute the length of the part of a perpendicular bisector inside the triangle.
+  - Find the circumcenter and the circumradius.
+sections:
+  - id: bisector-def
+    type: definition
+    term: Perpendicular bisector of a side
+    body: |
+      The **perpendicular bisector** of the side $BC$ is the line through the midpoint $M_a$ of $BC$ perpendicular to $BC$. A point is on it exactly when it is at the same distance from $B$ and from $C$.
+
+      Its normal vector is $\overrightarrow{BC}$, so its equation is
+
+      $$(x_C-x_B)\left(x-x_{M}\right)+(y_C-y_B)\left(y-y_{M}\right)=0,\qquad M=\dfrac{B+C}{2}.$$
+
+      Equivalent form: $PB^2=PC^2$ with $P(x,y)$. Its direction vector is $\overrightarrow{BC}$ turned by a right angle.
+
+  - id: ex-perp-bisector
+    type: example
+    title: The perpendicular bisector of $BC$
+    problem: |
+      Find the perpendicular bisector of $BC$ for $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        $M=\left(\dfrac{19}2,6\right)$ and $\overrightarrow{BC}=(-9,12)$, so the normal vector is $(-9,12)\parallel(-3,4)$.
+      - |
+        $-3\left(x-\dfrac{19}2\right)+4(y-6)=0$, that is $-6x+57+8y-48=0$, so $6x-8y-9=0$.
+      - |
+        Check with $PB^2=PC^2$: the point $\left(\dfrac32,0\right)$ is on the line ($9-9=0$), and $PB^2=\left(\dfrac{25}{2}\right)^2$, $PC^2=\left(\dfrac72\right)^2+144=\dfrac{49+576}{4}=\dfrac{625}{4}$. Both equal $\dfrac{625}4$.
+    answer: |
+      $6x-8y-9=0$.
+    verify:
+      - expr: "6*(19/2)-8*6-9"
+        equals: "0"
+      - expr: "(14-3/2)^2"
+        equals: "(5-3/2)^2+12^2"
+
+  - id: chk-perp-bisector
+    type: check
+    prompt: |
+      Find an equation of the perpendicular bisector of the segment with ends $A(1,2)$ and $B(5,6)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "x+y-7=0"
+    hints:
+      - |
+        The midpoint is $(3,4)$ and the normal vector is $\overrightarrow{AB}=(4,4)$.
+    explanation: |
+      $4(x-3)+4(y-4)=0$, that is $x+y-7=0$.
+
+  - id: length-theorem
+    type: theorem
+    name: Length inside the triangle
+    statement: |
+      The perpendicular bisector of $BC$ starts at the midpoint $M_a$ and leaves the triangle through one of the other two sides. Let $\hat B$ and $\hat C$ be the angles at $B$ and $C$.
+
+      - If $b>c$ (so $\hat B>\hat C$) it leaves through $AC$, and its length inside the triangle is $\dfrac a2\tan\hat C$.
+      - If $c>b$ it leaves through $AB$, and the length is $\dfrac a2\tan\hat B$.
+      - If $b=c$ it passes through $A$, and the length is the altitude $h_a$.
+    proof: |
+      Suppose $b>c$. Then $A$ is nearer to $B$ than to $C$, so $A$ and $C$ are on opposite sides of the perpendicular bisector, which therefore crosses the side $AC$ at a point $P$ with $PB=PC$.
+      In the right triangle $M_aCP$, the angle at $C$ is $\hat C$ and $CM_a=\dfrac a2$, so $M_aP=\dfrac a2\tan\hat C$. The angle $\hat C$ is acute, since $\hat B>\hat C$ and two angles of a triangle cannot both be $\ge\dfrac\pi2$.
+      The case $c>b$ is the same with $B$ and $C$ exchanged.
+
+  - id: ex-perp-length
+    type: example
+    title: A length of a perpendicular bisector
+    problem: |
+      Find the length of the perpendicular bisector of $BC$ inside the triangle $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        $b=13<c=14$, so it leaves through $AB$ and the length is $\dfrac a2\tan\hat B$.
+      - |
+        $\cos\hat B=\dfrac35$, so $\sin\hat B=\dfrac45$ and $\tan\hat B=\dfrac43$. The length is $\dfrac{15}{2}\cdot\dfrac43=10$.
+      - |
+        Check: the line $6x-8y-9=0$ meets $AB$ ($y=0$) at $P\left(\dfrac32,0\right)$, and $M_aP=\sqrt{\left(\dfrac{19}2-\dfrac32\right)^2+6^2}=\sqrt{64+36}=10$.
+    answer: |
+      The length is $10$.
+    verify:
+      - expr: "15/2*(4/5)/(3/5)"
+        equals: "10"
+      - expr: "sqrt((19/2-3/2)^2+6^2)"
+        equals: "10"
+
+  - id: chk-perp-length
+    type: check
+    prompt: |
+      A triangle has a side $BC=6$ with $\hat B=\dfrac\pi4$ and $c>b$ (so the perpendicular bisector of $BC$ leaves through $AB$). Find its length inside the triangle.
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        The length is $\dfrac a2\tan\hat B$ with $a=6$.
+    explanation: |
+      $\dfrac62\tan\dfrac\pi4=3\cdot1=3$.
+
+  - id: circumcenter-theorem
+    type: theorem
+    name: The circumcenter and the circumradius
+    statement: |
+      The three perpendicular bisectors meet at one point, the **circumcenter** $O$, at the same distance $R$ (the **circumradius**) from the three vertices. With the signed area
+      $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$,
+
+      $$x_O=\dfrac{1}{4S}\begin{vmatrix}x_1^2+y_1^2&y_1&1\\x_2^2+y_2^2&y_2&1\\x_3^2+y_3^2&y_3&1\end{vmatrix},\qquad
+      y_O=\dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix},\qquad R=\dfrac{abc}{4K}=\dfrac{a}{2\sin\hat A}.$$
+
+      In a right triangle $O$ is the midpoint of the hypotenuse and $R$ is half of it.
+    proof: |
+      $O$ satisfies $OA^2=OB^2=OC^2$. Subtracting the equations of $OA^2=OB^2$ and $OA^2=OC^2$ gives two linear equations in $x_O$ and $y_O$, which Cramer's rule solves with the determinants above.
+      By the law of sines $a=2R\sin\hat A$, and $K=\dfrac12bc\sin\hat A=\dfrac{abc}{4R}$, so $R=\dfrac{abc}{4K}$.
+
+  - id: ex-circumcenter
+    type: example
+    title: The circumcenter and the circumradius
+    problem: |
+      Find $O$ and $R$ for $A(0,0)$, $B(14,0)$, $C(5,12)$.
+    steps:
+      - |
+        The perpendicular bisector of $AB$ is $x=7$. So $O=(7,y)$ with $OA^2=OC^2$: $49+y^2=4+(y-12)^2$, that is $49=148-24y$, so $y=\dfrac{99}{24}=\dfrac{33}8$.
+      - |
+        $R=\dfrac{abc}{4K}=\dfrac{15\cdot13\cdot14}{4\cdot84}=\dfrac{2730}{336}=\dfrac{65}8$. Check: $OA^2=49+\dfrac{1089}{64}=\dfrac{4225}{64}=\left(\dfrac{65}8\right)^2$.
+      - |
+        Check with the determinants: $S=84$ and $4S=336$; the first determinant is $2352$, so $x_O=\dfrac{2352}{336}=7$.
+    answer: |
+      $O\left(7,\dfrac{33}8\right)$ and $R=\dfrac{65}8$.
+    verify:
+      - expr: "49+(33/8)^2"
+        equals: "(65/8)^2"
+      - expr: "15*13*14/(4*84)"
+        equals: "65/8"
+      - expr: "2352/336"
+        equals: "7"
+
+  - id: chk-circumcenter
+    type: check
+    prompt: |
+      Find the circumcenter of the triangle $A(0,0)$, $B(6,0)$, $C(0,8)$.
+    answerType: vector
+    answer: "(3, 4)"
+    hints:
+      - |
+        The perpendicular bisectors of $AB$ and $AC$ are $x=3$ and $y=4$.
+    explanation: |
+      The perpendicular bisector of $AB$ is $x=3$ and that of $AC$ is $y=4$, so $O=(3,4)$. It is the midpoint of the hypotenuse $BC$.
+
+  - id: chk-circumradius
+    type: check
+    prompt: |
+      Find the circumradius of the right triangle with sides $3$, $4$, $5$.
+    answerType: number
+    answer: "5/2"
+    hints:
+      - |
+        $K=6$. Use $R=\dfrac{abc}{4K}$.
+    explanation: |
+      $R=\dfrac{3\cdot4\cdot5}{4\cdot6}=\dfrac{60}{24}=\dfrac52$, half of the hypotenuse.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The perpendicular bisector of $BC$: through $M_a$, with normal vector $\overrightarrow{BC}$; its points satisfy $PB=PC$.
+      - |
+        Its length inside the triangle is $\dfrac a2\tan\hat C$ if $b>c$, $\dfrac a2\tan\hat B$ if $c>b$, and $h_a$ if $b=c$.
+      - |
+        The circumcenter $O$ is where the perpendicular bisectors meet; $R=\dfrac{abc}{4K}$.
