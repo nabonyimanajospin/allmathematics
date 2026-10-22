@@ -29,14 +29,15 @@ export function sectionTextFields(s: Section, index: number): TextField[] {
   const p = (k: string) => `sections[${index}](${s.id}).${k}`;
   switch (s.type) {
     case "concept":
-      return [...(s.title ? [field(p("title"), s.title, s)] : []), field(p("body"), s.body, s)];
+      return [...(s.title ? [field(p("title"), s.title, s)] : []), field(p("body"), s.body, s), ...(s.more ? [field(p("more"), s.more, s)] : [])];
     case "definition":
-      return [field(p("term"), s.term, s), field(p("body"), s.body, s)];
+      return [field(p("term"), s.term, s), field(p("body"), s.body, s), ...(s.more ? [field(p("more"), s.more, s)] : [])];
     case "theorem":
       return [
         ...(s.name ? [field(p("name"), s.name, s)] : []),
         field(p("statement"), s.statement, s),
         ...(s.proof ? [field(p("proof"), s.proof, s)] : []),
+        ...(s.more ? [field(p("more"), s.more, s)] : []),
       ];
     case "formula":
       return [
@@ -48,8 +49,13 @@ export function sectionTextFields(s: Section, index: number): TextField[] {
       return [
         ...(s.title ? [field(p("title"), s.title, s)] : []),
         field(p("problem"), s.problem, s),
-        ...s.steps.map((t, i) => field(p(`steps[${i}]`), t, s)),
+        ...s.steps.flatMap((t, i) =>
+          typeof t === "string"
+            ? [field(p(`steps[${i}]`), t, s)]
+            : [field(p(`steps[${i}]`), t.text, s), field(p(`steps[${i}].why`), t.why, s)],
+        ),
         field(p("answer"), s.answer, s),
+        ...(s.more ? [field(p("more"), s.more, s)] : []),
       ];
     case "visual":
       return [field(p("title"), s.title, s), field(p("caption"), s.caption, s)];

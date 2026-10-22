@@ -18,6 +18,12 @@ export const slug = z
 const text = z.string().min(1).max(6000);
 const shortText = z.string().min(1).max(300);
 
+/** The longer explanation of a block: hidden until the student asks for it ("Explain this in more detail"). */
+const more = text.optional();
+
+/** A step of a worked example; `why` is the optional explanation of how the step was found, hidden until asked. */
+const step = z.union([text, z.strictObject({ text, why: text })]);
+
 /** Keys common to every block. */
 const blockBase = {
   id: slug,
@@ -63,6 +69,7 @@ const concept = z.strictObject({
   type: z.literal("concept"),
   title: shortText.optional(),
   body: text,
+  more,
 });
 
 const definition = z.strictObject({
@@ -70,6 +77,7 @@ const definition = z.strictObject({
   type: z.literal("definition"),
   term: shortText,
   body: text,
+  more,
 });
 
 const theorem = z.strictObject({
@@ -78,6 +86,7 @@ const theorem = z.strictObject({
   name: shortText.optional(),
   statement: text,
   proof: text.optional(),
+  more,
 });
 
 const formula = z.strictObject({
@@ -94,8 +103,9 @@ const example = z.strictObject({
   type: z.literal("example"),
   title: shortText.optional(),
   problem: text,
-  steps: z.array(text).min(1).max(12),
+  steps: z.array(step).min(1).max(12),
   answer: text,
+  more,
   /** Every stated result is recomputed by the math engine (spec 7.4, step 3). */
   verify: z.array(verifySchema).min(1).max(12),
 });

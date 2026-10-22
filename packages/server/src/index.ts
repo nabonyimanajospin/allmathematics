@@ -8,4 +8,5 @@ export * from "./content/sync";
 export * from "./learning/progress";
 export * from "./learning/events";
 export * from "./learning/checks";
+export * from "./learning/outline";
 export * from "./learning/state";

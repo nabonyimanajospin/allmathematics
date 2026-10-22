@@ -152,6 +152,23 @@ describe("static verification catches mistakes", () => {
     expect(messages(withExercises).join(" | ")).toContain("is the answer of");
   });
 
+  it("accepts a step with an explanation and a block with a longer explanation, and checks their math", () => {
+    const l = mutated((x) => {
+      const ex = x.sections.find((s) => s.type === "example");
+      if (ex?.type === "example") {
+        ex.steps.push({ text: "Then $x=1$.", why: "Because $x+1=2$ gives $x=1$." });
+        ex.more = "A longer explanation with $\\dfrac{1}{2}$.";
+      }
+    });
+    expect(lessonSchema.safeParse(l).success).toBe(true);
+    expect(errors(l)).toEqual([]);
+    const broken = mutated((x) => {
+      const ex = x.sections.find((s) => s.type === "example");
+      if (ex?.type === "example") ex.steps.push({ text: "ok", why: "Broken $\\frac{1}{$ math" });
+    });
+    expect(messages(broken).join(" | ")).toContain("math does not compile");
+  });
+
   it("counts a formula as one word", () => {
     expect(wordCount("The vector $\\vec u=(1,2,3)$ has three components.")).toBe(6);
   });
