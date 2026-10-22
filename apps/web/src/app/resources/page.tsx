@@ -1,10 +1,12 @@
 import { statSync } from "node:fs";
 import { extname, join } from "node:path";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { isDownloadable, type Resource } from "@allmaths/content-schema";
-import { Card, buttonClass } from "@allmaths/ui";
+import { buttonClass } from "@allmaths/ui";
 import { t, type MessageKey } from "@/i18n";
 import { getResourceCatalog } from "@/server/resources";
+import { getCurrentUser } from "@/server/session";
 
 export const metadata: Metadata = { title: t("resources.title") };
 export const dynamic = "force-dynamic";
@@ -16,36 +18,49 @@ function sizeLabel(bytes: number): string {
 
 const COURSES = ["geo", "mvc", "stat"] as const;
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/signin?next=/resources");
   const catalog = getResourceCatalog();
   const byCourse = COURSES.map((c) => ({ course: c, items: catalog.resources.filter((r) => r.course === c) })).filter((g) => g.items.length > 0);
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <h1 className="text-3xl font-extrabold tracking-tight">{t("resources.title")}</h1>
       <p className="mt-3 max-w-2xl text-muted">{t("resources.lead")}</p>
+
+      {byCourse.length > 1 ? (
+        <nav aria-label={t("resources.jump")} className="mt-6 flex flex-wrap gap-2">
+          {byCourse.map((g) => (
+            <a key={g.course} href={`#c-${g.course}`} className={buttonClass("secondary")}>
+              {t(`resources.course.${g.course}` as MessageKey)}
+            </a>
+          ))}
+        </nav>
+      ) : null}
+
       {byCourse.length === 0 ? <p className="mt-8 text-muted">{t("resources.empty")}</p> : null}
       {byCourse.map((g) => (
-        <section key={g.course} aria-labelledby={`c-${g.course}`} className="mt-10">
-          <h2 id={`c-${g.course}`} className="text-xl font-bold">
+        <section key={g.course} aria-labelledby={`c-${g.course}-h`} id={`c-${g.course}`} className="mt-10 scroll-mt-24">
+          <h2 id={`c-${g.course}-h`} className="text-xl font-bold">
             {t(`resources.course.${g.course}` as MessageKey)}
           </h2>
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-            {g.items.map((r: Resource) => {
-              const ok = isDownloadable(catalog, r);
-              const ext = r.file ? extname(r.file).slice(1).toUpperCase() : "";
-              const size = ok && r.file ? sizeLabel(statSync(join(catalog.filesDir, r.file)).size) : "";
-              return (
-                <li key={r.id}>
-                  <Card>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted">{t(`resources.kind.${r.kind}` as MessageKey)}</p>
-                    <h3 className="mt-1 text-lg font-bold">{r.title}</h3>
-                    <p className="mt-2 text-muted">{r.description}</p>
-                    {ok ? (
-                      <p className="mt-2 text-sm font-medium">
-                        {ext} · {size}
+          <div className="mt-4 rounded-[var(--radius)] border border-line bg-surface shadow-[var(--shadow-sm)]">
+            <ul className="divide-y divide-line">
+              {g.items.map((r: Resource) => {
+                const ok = isDownloadable(catalog, r);
+                const ext = r.file ? extname(r.file).slice(1).toUpperCase() : "";
+                const size = ok && r.file ? sizeLabel(statSync(join(catalog.filesDir, r.file)).size) : "";
+                return (
+                  <li key={r.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+                        {t(`resources.kind.${r.kind}` as MessageKey)}
+                        {ok ? ` · ${ext} · ${size}` : ""}
                       </p>
-                    ) : null}
-                    <div className="mt-4 flex flex-wrap gap-2">
+                      <h3 className="mt-0.5 text-base font-bold">{r.title}</h3>
+                      <p className="mt-1 text-sm text-muted">{r.description}</p>
+                    </div>
+                    <div className="flex shrink-0 flex-wrap items-center gap-2">
                       {ok ? (
                         <>
                           {ext === "PDF" ? (
@@ -61,11 +76,11 @@ export default function ResourcesPage() {
                         <p className="text-sm text-muted">{t("resources.unavailable")}</p>
                       )}
                     </div>
-                  </Card>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </section>
       ))}
     </div>
