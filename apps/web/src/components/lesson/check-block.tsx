@@ -85,7 +85,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const answer = isChoice ? (choice === null ? "" : String(choice)) : value.trim();
+    const answer = isChoice ? (choice === null ? "" : String(choice)) : value.trim().replaceAll("°", "*(pi/180)");
     if (!answer || busy) return;
     setBusy(true);
     const r = await post<CheckResponseDto & { error?: { message: string } }>(`${base}/check`, { answer });
@@ -163,6 +163,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
     { label: "√", title: t("check.insertRoot"), text: "sqrt()", caret: 5, latex: "\\sqrt{#?}" },
     { label: "a/b", title: t("check.insertFraction"), text: "()/()", caret: 1, latex: "\\frac{#?}{#?}" },
     { label: "π", title: t("check.insertPi"), text: "pi", latex: "\\pi" },
+    { label: "°", title: t("check.insertDegree"), text: "°", latex: "^{\\circ}" },
     { label: "( )", title: "( )", text: "()", caret: 1, latex: "\\left(#?\\right)" },
     { label: "xⁿ", title: "^", text: "^()", caret: 2, latex: "^{#?}" },
     { label: ",", title: ",", text: ", " },
@@ -276,11 +277,22 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
                   type="button"
                   disabled={done}
                   title={b.title}
-                  aria-label={`${b.label} ${b.title}`}
+                  aria-label={b.label === "a/b" ? undefined : `${b.label} ${b.title}`}
                   onClick={() => insert(b.text, b.caret, b.latex)}
                   className="min-h-10 min-w-10 rounded-[var(--radius-sm)] border border-line bg-surface-2 px-3 font-mono text-base font-semibold hover:bg-accent-soft disabled:opacity-50"
                 >
-                  {b.label}
+                  {b.label === "a/b" ? (
+                    <>
+                      <span className="inline-flex flex-col items-center text-xs leading-none" aria-hidden="true">
+                        <span>a</span>
+                        <span className="my-0.5 h-px w-3.5 bg-current" />
+                        <span>b</span>
+                      </span>
+                      <span className="sr-only">{b.title}</span>
+                    </>
+                  ) : (
+                    b.label
+                  )}
                 </button>
               ))}
             </div>

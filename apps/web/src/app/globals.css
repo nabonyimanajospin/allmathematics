@@ -171,3 +171,17 @@ math-field.math-answer::part(virtual-keyboard-toggle),
 math-field.math-answer::part(menu-toggle) {
   display: none;
 }
+
+/* A vector written as a column, as in print. */
+.colvec {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.1em;
+  padding: 0.05em 0.4em;
+  line-height: 1.3;
+  border-left: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  border-radius: 0.45em;
+}

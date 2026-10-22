@@ -17,6 +17,11 @@ describe("latexToEngine", () => {
     expect(latexToEngine("\\sqrt[3]{x}")).toBe("(x)^(1/(3))");
   });
 
+  it("reads degrees as exact multiples of pi", () => {
+    expect(latexToEngine("60^{\\circ}")).toBe("60*(pi/180)");
+    expect(latexToEngine("150^\\circ")).toBe("150*(pi/180)");
+  });
+
   it("reads vectors, equations and regions", () => {
     expect(latexToEngine("(1,\\ -2,\\ 3)")).toBe("(1, -2, 3)");
     expect(latexToEngine("x+2y-z=0")).toBe("x+2y-z=0");

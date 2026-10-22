@@ -5,6 +5,8 @@
 
 const FUNCTIONS = new Set(["sin", "cos", "tan", "cot", "sec", "csc", "arcsin", "arccos", "arctan", "sinh", "cosh", "tanh", "ln", "log", "exp"]);
 
+const DEGREE = new RegExp(String.raw`^\^(\{\s*\\circ\s*\}|\\circ)`);
+
 const SYMBOLS: Record<string, string> = {
   pi: "pi",
   theta: "theta",
@@ -56,6 +58,10 @@ class Reader {
       else if (c === "{") {
         this.i++;
         out += this.convert(true);
+      } else if (c === "^" && DEGREE.test(this.s.slice(this.i))) {
+        // a degree sign: 60^\circ is 60 times pi/180, an exact multiple of pi
+        this.i += DEGREE.exec(this.s.slice(this.i))![0].length;
+        out += "*(pi/180)";
       } else if (c === "^") {
         this.i++;
         const exp = this.argument();
