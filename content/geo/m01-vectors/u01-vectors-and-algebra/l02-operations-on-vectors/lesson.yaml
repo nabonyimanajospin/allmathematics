@@ -1,0 +1,233 @@
+id: geo-m01-u01-l02
+title: Operations on vectors
+estMinutes: 30
+version: 1
+status: draft
+skills:
+  - vector-addition
+  - scalar-multiplication
+  - linear-combination
+objectives:
+  - Add vectors with the triangle rule, the parallelogram rule and componentwise.
+  - Multiply a vector by a scalar and interpret the result geometrically.
+  - Compute linear combinations, and use them to find midpoints and centroids.
+sections:
+  - id: adding-vectors
+    type: concept
+    title: Adding vectors
+    body: |
+      Walk from $A$ to $B$, then from $B$ to $C$. The total displacement is the same as going straight
+      from $A$ to $C$. This is the **triangle rule**:
+
+      $$\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$$
+
+      The end of the first vector must be the start of the second one. This identity is called
+      **Chasles' relation**, and it holds for any three points $A$, $B$, $C$, even if they are on one line.
+
+      The same sum can be drawn as a **parallelogram**. If two vectors $\vec u$ and $\vec v$ start at the
+      same point, their sum is the diagonal of the parallelogram built on them, starting at that point.
+
+  - id: chasles
+    type: theorem
+    name: Chasles' relation
+    statement: |
+      For all points $A$, $B$ and $C$,
+      $$\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}.$$
+    proof: |
+      Add the first components of $\overrightarrow{AB}$ and $\overrightarrow{BC}$:
+      $(x_B-x_A)+(x_C-x_B)=x_C-x_A$. The terms $x_B$ cancel, and the result is the first component of
+      $\overrightarrow{AC}$. The other components work in exactly the same way.
+
+  - id: sum-components
+    type: definition
+    term: Sum and difference of vectors
+    body: |
+      For $\vec u=(u_1,u_2,u_3)$ and $\vec v=(v_1,v_2,v_3)$, the sum and the difference are computed
+      component by component:
+
+      $$\vec u+\vec v=(u_1+v_1,\;u_2+v_2,\;u_3+v_3),\qquad \vec u-\vec v=(u_1-v_1,\;u_2-v_2,\;u_3-v_3).$$
+
+      The vector $-\vec v=(-v_1,-v_2,-v_3)$ is the opposite of $\vec v$, and $\vec u-\vec v=\vec u+(-\vec v)$.
+
+  - id: ex-add
+    type: example
+    title: Sum and difference
+    problem: |
+      Let $\vec u=(2,-1,3)$ and $\vec v=(1,4,-2)$. Compute $\vec u+\vec v$ and $\vec u-\vec v$.
+    steps:
+      - |
+        Add the components: $(2+1,\,-1+4,\,3+(-2))=(3,3,1)$.
+      - |
+        Subtract the components: $(2-1,\,-1-4,\,3-(-2))=(1,-5,5)$.
+    answer: |
+      $\vec u+\vec v=(3,3,1)$ and $\vec u-\vec v=(1,-5,5)$.
+    verify:
+      - expr: "(2,-1,3)+(1,4,-2)"
+        equals: "(3,3,1)"
+      - expr: "(2,-1,3)-(1,4,-2)"
+        equals: "(1,-5,5)"
+
+  - id: chk-add
+    type: check
+    prompt: |
+      Let $\vec u=(3,-2)$ and $\vec v=(-1,5)$. Compute $\vec u+\vec v$.
+    answerType: vector
+    answer: "(2, 3)"
+    hints:
+      - |
+        Add the first components together, then the second components together.
+    explanation: |
+      $\vec u+\vec v=(3+(-1),\,-2+5)=(2,3)$.
+    mistakes:
+      - expr: "(4, -7)"
+        hint: "That is $\\vec u-\\vec v$. The question asks for the sum."
+
+  - id: scalar-multiplication
+    type: concept
+    title: Multiplying a vector by a number
+    body: |
+      A real number is called a **scalar**. For a scalar $\lambda$ and a vector
+      $\vec u=(u_1,u_2,u_3)$, the product is
+
+      $$\lambda\vec u=(\lambda u_1,\;\lambda u_2,\;\lambda u_3).$$
+
+      Geometrically:
+
+      - if $\lambda>0$, the vector $\lambda\vec u$ has the same direction as $\vec u$;
+      - if $\lambda<0$, it has the opposite direction;
+      - its length is multiplied by $|\lambda|$;
+      - if $\lambda=0$, the result is the zero vector $\vec 0$.
+
+      For example $2\vec u$ is twice as long, and $-\vec u$ is the opposite vector.
+
+  - id: properties
+    type: theorem
+    name: Rules of vector algebra
+    statement: |
+      For all vectors $\vec u$, $\vec v$, $\vec w$ and all scalars $\lambda$, $\mu$:
+
+      1. $\vec u+\vec v=\vec v+\vec u$ and $(\vec u+\vec v)+\vec w=\vec u+(\vec v+\vec w)$.
+      2. $\vec u+\vec 0=\vec u$ and $\vec u+(-\vec u)=\vec 0$.
+      3. $\lambda(\vec u+\vec v)=\lambda\vec u+\lambda\vec v$ and $(\lambda+\mu)\vec u=\lambda\vec u+\mu\vec u$.
+      4. $\lambda(\mu\vec u)=(\lambda\mu)\vec u$ and $1\vec u=\vec u$.
+    proof: |
+      Each rule holds for the components, because it holds for real numbers. For instance, the first
+      component of $\lambda(\vec u+\vec v)$ is $\lambda(u_1+v_1)=\lambda u_1+\lambda v_1$, which is the
+      first component of $\lambda\vec u+\lambda\vec v$.
+
+  - id: ex-lincomb
+    type: example
+    title: A linear combination
+    problem: |
+      Let $\vec u=(1,2,-1)$, $\vec v=(0,1,4)$ and $\vec w=(-3,0,2)$. Compute $2\vec u-3\vec v+\vec w$.
+    steps:
+      - |
+        Multiply first: $2\vec u=(2,4,-2)$ and $-3\vec v=(0,-3,-12)$.
+      - |
+        Add the three vectors component by component:
+        $(2+0+(-3),\;4+(-3)+0,\;-2+(-12)+2)$.
+      - |
+        The result is $(-1,1,-12)$.
+    answer: |
+      $2\vec u-3\vec v+\vec w=(-1,1,-12)$.
+    verify:
+      - expr: "2*(1,2,-1)-3*(0,1,4)+(-3,0,2)"
+        equals: "(-1,1,-12)"
+
+  - id: lincomb-def
+    type: definition
+    term: Linear combination
+    body: |
+      A vector $\vec w$ is a **linear combination** of $\vec u_1,\dots,\vec u_n$ if there are scalars
+      $\lambda_1,\dots,\lambda_n$ with
+
+      $$\vec w=\lambda_1\vec u_1+\dots+\lambda_n\vec u_n.$$
+
+      The scalars $\lambda_i$ are the **coefficients**. The vector $2\vec u-3\vec v+\vec w$ above is a
+      linear combination of $\vec u$, $\vec v$ and $\vec w$ with coefficients $2$, $-3$ and $1$.
+
+  - id: chk-lincomb
+    type: check
+    prompt: |
+      Let $\vec u=(2,-1,4)$ and $\vec v=(1,3,-2)$. Compute $3\vec u-2\vec v$.
+    answerType: vector
+    answer: "(4, -9, 16)"
+    hints:
+      - |
+        Multiply each vector by its scalar first: $3\vec u=(6,-3,12)$.
+      - |
+        Then subtract $2\vec v=(2,6,-4)$ component by component.
+    explanation: |
+      $3\vec u=(6,-3,12)$ and $2\vec v=(2,6,-4)$, so $3\vec u-2\vec v=(4,-9,16)$.
+    mistakes:
+      - expr: "(8, 3, 8)"
+        hint: "You added instead of subtracting $2\\vec v$ (check the sign of the second term)."
+
+  - id: midpoint
+    type: concept
+    title: Midpoints and centroids
+    body: |
+      Linear combinations give clean formulas in geometry. Let $M$ be the midpoint of $[AB]$. Then
+      $\overrightarrow{AM}=\tfrac12\overrightarrow{AB}$, and with the origin $O$,
+
+      $$\overrightarrow{OM}=\tfrac12\left(\overrightarrow{OA}+\overrightarrow{OB}\right).$$
+
+      So the coordinates of $M$ are the averages of the coordinates of $A$ and $B$.
+
+      In the same way, the **centroid** $G$ of a triangle $ABC$ (the intersection of its medians) satisfies
+
+      $$\overrightarrow{OG}=\tfrac13\left(\overrightarrow{OA}+\overrightarrow{OB}+\overrightarrow{OC}\right).$$
+
+  - id: ex-midpoint
+    type: example
+    title: Midpoint in space
+    problem: |
+      Find the midpoint $M$ of $[AB]$ for $A(2,-1,3)$ and $B(6,5,-1)$.
+    steps:
+      - |
+        Average the coordinates: $x_M=\dfrac{2+6}{2}=4$, $y_M=\dfrac{-1+5}{2}=2$, $z_M=\dfrac{3+(-1)}{2}=1$.
+      - |
+        So $M(4,2,1)$.
+    answer: |
+      $M(4,2,1)$.
+    verify:
+      - expr: "(1/2)*((2,-1,3)+(6,5,-1))"
+        equals: "(4,2,1)"
+
+  - id: visual-sum
+    type: visual
+    kind: vector2d
+    title: The triangle and parallelogram rules
+    caption: |
+      Drag the tips of $\vec u$ and $\vec v$. The sum $\vec u+\vec v$ is drawn both ways: head to tail
+      (triangle) and as the diagonal of the parallelogram.
+    config:
+      mode: sum
+
+  - id: chk-centroid
+    type: check
+    prompt: |
+      Find the centroid $G$ of the triangle with vertices $A(1,2,3)$, $B(4,-2,0)$ and $C(-2,3,6)$.
+    answerType: point
+    answer: "(1, 1, 3)"
+    hints:
+      - |
+        The centroid has coordinates equal to the average of the three vertices' coordinates.
+    explanation: |
+      $x_G=\dfrac{1+4+(-2)}{3}=1$, $y_G=\dfrac{2+(-2)+3}{3}=1$, $z_G=\dfrac{3+0+6}{3}=3$.
+      So $G(1,1,3)$.
+    mistakes:
+      - expr: "(3, 3, 9)"
+        hint: "You added the coordinates but did not divide by 3."
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Triangle rule (Chasles): $\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$; parallelogram rule for two vectors with the same start.
+      - |
+        Sum, difference and scalar multiple are computed component by component.
+      - |
+        $\lambda\vec u$ keeps the direction if $\lambda>0$, reverses it if $\lambda<0$ and multiplies the length by $|\lambda|$.
+      - |
+        The midpoint of $[AB]$ is $\tfrac12(A+B)$ and the centroid of $ABC$ is $\tfrac13(A+B+C)$, coordinate by coordinate.
