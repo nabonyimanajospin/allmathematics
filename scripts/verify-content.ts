@@ -9,6 +9,7 @@ import { createEngineClient } from "@allmaths/core";
 import {
   allLessons,
   loadContent,
+  loadResources,
   verifyLessonStatic,
   verifyLessonWithEngine,
   type ContentIssue,
@@ -21,6 +22,9 @@ async function main(): Promise<number> {
   const tree = loadContent(contentDir);
   const issues: ContentIssue[] = [...tree.issues];
   const lessons = allLessons(tree);
+  for (const message of loadResources(resolve(contentDir, "..", "resources")).issues) {
+    issues.push({ file: "resources/resources.yaml", message, severity: "error" });
+  }
   console.log(`Loaded ${tree.courses.length} course(s), ${lessons.length} lesson(s) from ${contentDir}`);
 
   for (const l of lessons) issues.push(...verifyLessonStatic(l.meta, l.file));

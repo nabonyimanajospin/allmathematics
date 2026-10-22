@@ -1,0 +1,89 @@
+# Catalogue of the downloadable documents of the Resources page (spec section 12.2).
+# `permission` decides whether a document can be downloaded:
+#   granted  - we may publish it; the file must exist in resources/files
+#   pending  - listed, but not downloadable until written permission is recorded in `note`
+# Large books are kept out of git: put the file in resources/files and set permission to granted.
+- id: syllabus-math8213
+  title: Course syllabus, MATH8213 Multivariable Calculus and Differential Equations
+  kind: syllabus
+  course: mvc
+  description: The official outline of the university course that Course 2 follows.
+  file: syllabus-math8213.pdf
+  permission: granted
+- id: notes-unit1
+  title: Lecture notes, Unit 1
+  kind: notes
+  course: mvc
+  description: Unit 1 of the MATH8213 lecture notes.
+  file: notes-unit1.pdf
+  permission: granted
+- id: notes-unit2
+  title: Lecture notes, Unit 2
+  kind: notes
+  course: mvc
+  description: Unit 2 of the MATH8213 lecture notes.
+  file: notes-unit2.pdf
+  permission: granted
+- id: notes-unit3
+  title: Lecture notes, Unit 3
+  kind: notes
+  course: mvc
+  description: Unit 3 of the MATH8213 lecture notes.
+  file: notes-unit3.pdf
+  permission: granted
+- id: notes-differential-equations
+  title: Lecture notes, Differential Equations
+  kind: notes
+  course: mvc
+  description: The differential equations part of the MATH8213 lecture notes.
+  file: notes-differential-equations.pdf
+  permission: granted
+- id: notes-multivariable-calculus
+  title: Lecture notes, Multivariable Calculus
+  kind: notes
+  course: mvc
+  description: The multivariable calculus part of the MATH8213 lecture notes.
+  file: notes-multivariable-calculus.pdf
+  permission: granted
+- id: exercise-sheet
+  title: Exercise sheet (MATH126, T. Hakizimana)
+  kind: exercises
+  course: mvc
+  description: The printed exercise sheet. Every question of it is also a worked exercise inside the lessons of Course 2.
+  file: exercise-sheet.docx
+  permission: granted
+- id: geometry-assignment-1
+  title: Geometry, Assignment 1
+  kind: exercises
+  course: geo
+  description: The first geometry assignment. Its questions on polar coordinates are solved in Course 1.
+  file: geometry-assignment-1.pdf
+  permission: granted
+- id: geometry-2d-past-paper
+  title: Plane geometry, worked past-paper questions (2D)
+  kind: exercises
+  course: geo
+  description: Past-paper questions on the triangle and the line, with the solutions as done at school.
+  file: geometry-2d-past-paper.pdf
+  permission: granted
+- id: integral-table
+  title: Table of integrals
+  kind: formulas
+  course: mvc
+  description: A reference table of integrals.
+  file: integral-table.pdf
+  permission: granted
+- id: book-zill
+  title: Advanced Engineering Mathematics (D. G. Zill, W. S. Wright)
+  kind: book
+  course: mvc
+  description: The main textbook for differential equations and Fourier series. Jones & Bartlett Learning, 2012.
+  permission: pending
+  note: Commercial textbook. Download is switched on only after written permission from the publisher.
+- id: book-calculus
+  title: Calculus textbook
+  kind: book
+  course: mvc
+  description: The calculus textbook used as the main reference for Course 2.
+  permission: pending
+  note: Commercial textbook. Download is switched on only after written permission from the publisher.

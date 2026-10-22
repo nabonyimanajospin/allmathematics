@@ -68,3 +68,10 @@ The dev server reloads content when a file changes.
 
 Set `DATABASE_URL` (PostgreSQL), `MATH_ENGINE_URL`, `MATH_ENGINE_TOKEN` (long random string, same as the engine's
 `ENGINE_TOKEN`), and keep the engine on a private network. The app refuses to start in production without them.
+
+## Resources (downloadable documents)
+
+The page `/resources` lists the documents of `resources/resources.yaml`; the files are in `resources/files/`. A document is
+downloadable only if `permission: granted` and its file exists (`pnpm verify-content` checks this). To add one: copy the file
+into `resources/files/`, add an entry to the catalogue, set `permission: granted` only when we may publish it (spec 12.2).
+Very large books (tens of MB) should not go into git: keep them on the server in `resources/files/` (or set `RESOURCES_DIR`).

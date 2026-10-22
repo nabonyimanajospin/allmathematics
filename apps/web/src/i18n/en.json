@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -70,5 +70,14 @@
     "start": "start", "end": "end"
   },
   "errors": { "notFound": "We could not find that page.", "notFoundTitle": "Page not found", "signInRequired": "Please sign in to continue.", "back": "Go back home", "serverTitle": "Something went wrong", "retry": "Try again" },
-  "footer": { "rights": "© {year} Allmaths. All rights reserved." }
+  "footer": { "rights": "© {year} Allmaths. All rights reserved." },
+  "resources": {
+    "title": "Resources",
+    "lead": "Books, lecture notes and exercise sheets that go with the courses. Download them for free.",
+    "empty": "No documents yet.",
+    "download": "Download",
+    "unavailable": "Not available for download yet.",
+    "course": { "geo": "Geometry", "mvc": "Multivariable Calculus and Differential Equations", "stat": "Probability and Statistics" },
+    "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" }
+  }
 }
