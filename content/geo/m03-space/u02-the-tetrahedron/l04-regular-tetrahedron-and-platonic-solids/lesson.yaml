@@ -102,7 +102,7 @@ sections:
     answer: "30"
     hints:
       - |
-        $V-E+F=2$.
+        Use Euler's formula, which links the numbers of vertices, edges and faces of a convex polyhedron.
     explanation: |
       $12-E+20=2$, so $E=30$ (this is the icosahedron).
 
