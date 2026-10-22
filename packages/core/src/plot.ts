@@ -166,6 +166,8 @@ export function compileExpr(src: string, vars: readonly string[] = []): (...args
 export type PlotMode = "polar" | "parametric" | "cartesian";
 export interface Curve {
   label: string;
+  /** Drawn as a dashed line (an asymptote, an axis of symmetry). */
+  dashed: boolean;
   /** Pieces of the curve: a piece is broken where the function is undefined or jumps off the picture. */
   pieces: [number, number][][];
 }
@@ -206,23 +208,24 @@ export function buildPlot(config: PlotConfig): Plot {
   const tmax = num(config, "tmax", mode === "cartesian" ? xmax : 2 * Math.PI);
   if (!(tmax > tmin)) throw new PlotExpressionError("tmax must be larger than tmin");
 
-  const specs: { label: string; fx: (t: number) => number; fy: (t: number) => number }[] = [];
-  for (const suffix of ["", "2", "3"]) {
+  const specs: { label: string; dashed: boolean; fx: (t: number) => number; fy: (t: number) => number }[] = [];
+  for (const suffix of ["", "2", "3", "4", "5"]) {
     const label = String(config[`l${suffix || "1"}`] ?? "");
+    const dashed = config[`dash${suffix || "1"}`] === true;
     if (mode === "polar") {
       const src = config[`r${suffix}`];
       if (typeof src !== "string") continue;
       const r = compileExpr(src, ["t"]);
-      specs.push({ label, fx: (t) => r(t) * Math.cos(t), fy: (t) => r(t) * Math.sin(t) });
+      specs.push({ label, dashed, fx: (t) => r(t) * Math.cos(t), fy: (t) => r(t) * Math.sin(t) });
     } else if (mode === "parametric") {
       const sx = config[`x${suffix}`];
       const sy = config[`y${suffix}`];
       if (typeof sx !== "string" || typeof sy !== "string") continue;
-      specs.push({ label, fx: compileExpr(sx, ["t"]), fy: compileExpr(sy, ["t"]) });
+      specs.push({ label, dashed, fx: compileExpr(sx, ["t"]), fy: compileExpr(sy, ["t"]) });
     } else {
       const src = config[`f${suffix}`];
       if (typeof src !== "string") continue;
-      specs.push({ label, fx: (t) => t, fy: compileExpr(src, ["x"]) });
+      specs.push({ label, dashed, fx: (t) => t, fy: compileExpr(src, ["x"]) });
     }
   }
   if (specs.length === 0) throw new PlotExpressionError("A plot needs at least one curve");
@@ -276,7 +279,7 @@ export function buildPlot(config: PlotConfig): Plot {
       prevT = t;
     }
     if (cur.length > 1) pieces.push(cur);
-    return { label: s.label, pieces };
+    return { label: s.label, dashed: s.dashed, pieces };
   });
   return { mode, curves, xmin, xmax, ymin, ymax };
 }

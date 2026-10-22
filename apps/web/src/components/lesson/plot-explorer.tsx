@@ -49,7 +49,7 @@ export function PlotExplorer({ config, title }: { config: PlotConfig; title: str
   const yt = ticks(plot.ymin, plot.ymax, step);
   const axisX = plot.ymin <= 0 && plot.ymax >= 0 ? py(0) : height - PAD;
   const axisY = plot.xmin <= 0 && plot.xmax >= 0 ? px(0) : PAD;
-  const labelled = plot.curves.filter((c) => c.label !== "");
+  const labelled = plot.curves.filter((c) => c.label !== "" && !c.dashed);
 
   return (
     <figure>
@@ -87,9 +87,10 @@ export function PlotExplorer({ config, title }: { config: PlotConfig; title: str
           c.pieces.map((piece, j) => (
             <polyline
               key={`${i}-${j}`}
-              className={COLORS[i % COLORS.length]}
+              className={c.dashed ? "stroke-muted" : COLORS[i % COLORS.length]}
               fill="none"
-              strokeWidth="2.5"
+              strokeDasharray={c.dashed ? "7 6" : undefined}
+              strokeWidth={c.dashed ? "1.8" : "2.5"}
               strokeLinejoin="round"
               strokeLinecap="round"
               points={piece.map(([x, y]) => `${px(x).toFixed(1)},${py(y).toFixed(1)}`).join(" ")}
@@ -100,7 +101,7 @@ export function PlotExplorer({ config, title }: { config: PlotConfig; title: str
       {labelled.length > 0 ? (
         <ul className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm">
           {plot.curves.map((c, i) =>
-            c.label ? (
+            c.label && !c.dashed ? (
               <li key={i} className="flex items-center gap-2">
                 <span className={`inline-block h-1 w-6 rounded-full ${SWATCH[i % SWATCH.length]}`} aria-hidden="true" />
                 <span>{c.label}</span>
