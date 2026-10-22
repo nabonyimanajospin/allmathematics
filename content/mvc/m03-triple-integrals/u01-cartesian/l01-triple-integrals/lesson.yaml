@@ -1,0 +1,123 @@
+id: mvc-m03-u01-l01
+title: Triple integrals in Cartesian coordinates
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - triple-integral
+  - describe-solid
+objectives:
+  - Interpret a triple integral as the mass of a solid with a given density.
+  - Describe a solid by inequalities and write the limits of an iterated triple integral.
+  - Evaluate triple integrals over boxes and over regions bounded by planes and surfaces.
+sections:
+  - id: mass-idea
+    type: concept
+    title: From area to volume, from plates to solids
+    body: |
+      A double integral adds contributions over a region of the plane. A **triple integral** does the same over a solid
+      $E$ of space. Cut $E$ into small boxes of volume $\Delta V$; if the density (mass per unit volume) near the point
+      $(x,y,z)$ is $f(x,y,z)$, the box has mass about $f\,\Delta V$.
+
+      The sum of these masses, in the limit of very small boxes, is the triple integral $\displaystyle\iiint_Ef\,dV$.
+      When $f=1$, the integral $\displaystyle\iiint_E dV$ is the **volume** of $E$.
+
+  - id: fubini-three
+    type: theorem
+    name: Iterated triple integrals
+    statement: |
+      Let $E$ be a solid with $(x,y)$ in a region $D$ of the plane and $z_1(x,y)\le z\le z_2(x,y)$. For a continuous $f$,
+
+      $$\iiint_Ef\,dV=\iint_D\left(\int_{z_1(x,y)}^{z_2(x,y)}f(x,y,z)\,dz\right)dA.$$
+
+      For a box $[a,b]\times[c,d]\times[p,q]$, the three integrals can be done in any of the six orders.
+    proof: |
+      Idea. For fixed $(x,y)$, the inner integral adds the density along the vertical line through $(x,y)$ inside $E$; the result is the mass
+      of a thin vertical column. The outer double integral then adds the columns over $D$.
+
+  - id: describing-solids
+    type: concept
+    title: Describing a solid
+    body: |
+      To write the limits, work from the inside out:
+
+      1. Find the **bottom** and **top** surfaces: $z$ runs from $z_1(x,y)$ to $z_2(x,y)$.
+      2. Project the solid on the $xy$-plane to get the region $D$, and describe $D$ with limits for $y$ (as functions of $x$) and for $x$ (numbers).
+      3. The innermost limits may depend on the other two variables, the middle ones on the outer variable, the outermost are numbers.
+
+      For the tetrahedron bounded by the coordinate planes and $x+y+z=1$: $z$ goes from $0$ to $1-x-y$, and the projection is the triangle
+      $0\le y\le1-x$, $0\le x\le1$.
+
+  - id: ex-box
+    type: example
+    title: A box
+    problem: |
+      Evaluate $\displaystyle\iiint_E xyz\,dV$ over the box $E=[0,1]\times[0,2]\times[0,3]$.
+    steps:
+      - |
+        The integrand is a product of one-variable functions over a box, so the integral is a product:
+        $\displaystyle\int_0^1x\,dx\cdot\int_0^2y\,dy\cdot\int_0^3z\,dz$.
+      - |
+        $=\dfrac12\cdot2\cdot\dfrac92=\dfrac92$.
+    answer: |
+      $\dfrac92$.
+    verify:
+      - expr: "integrate(integrate(integrate(x*y*z, z, 0, 3), y, 0, 2), x, 0, 1)"
+        equals: "9/2"
+
+  - id: ex-tetrahedron
+    type: example
+    title: A tetrahedron
+    problem: |
+      Evaluate $\displaystyle\iiint_E z\,dV$ where $E$ is the solid bounded by the coordinate planes and $x+y+z=1$.
+    steps:
+      - |
+        $E$: $0\le z\le1-x-y$, $0\le y\le1-x$, $0\le x\le1$.
+      - |
+        Innermost: $\displaystyle\int_0^{1-x-y}z\,dz=\frac{(1-x-y)^2}{2}$.
+      - |
+        Middle: $\displaystyle\int_0^{1-x}\frac{(1-x-y)^2}{2}\,dy=\frac{(1-x)^3}{6}$.
+      - |
+        Outer: $\displaystyle\int_0^1\frac{(1-x)^3}{6}\,dx=\frac1{24}$.
+    answer: |
+      $\dfrac1{24}$.
+    verify:
+      - expr: "integrate(z, z, 0, 1-x-y)"
+        equals: "(1-x-y)^2/2"
+      - expr: "integrate(integrate(integrate(z, z, 0, 1-x-y), y, 0, 1-x), x, 0, 1)"
+        equals: "1/24"
+
+  - id: chk-limits
+    type: check
+    prompt: |
+      Evaluate $\displaystyle\int_0^1\int_0^x\int_0^y dz\,dy\,dx$. (It is the volume of the solid $0\le z\le y\le x\le1$.)
+    answerType: number
+    answer: "1/6"
+    hints:
+      - |
+        Innermost: $\int_0^ydz=y$. Then $\int_0^xy\,dy=\dfrac{x^2}{2}$.
+    explanation: |
+      $\displaystyle\int_0^ydz=y$, $\displaystyle\int_0^xy\,dy=\frac{x^2}2$, $\displaystyle\int_0^1\frac{x^2}{2}\,dx=\frac16$.
+
+  - id: symmetry
+    type: concept
+    title: Using symmetry
+    body: |
+      If the solid is unchanged when the roles of $x$, $y$, $z$ are exchanged (a cube $[0,1]^3$, a ball centred at the origin, the
+      tetrahedron above), then $\iiint x^2\,dV=\iiint y^2\,dV=\iiint z^2\,dV$. So
+
+      $$\iiint_E(x^2+y^2+z^2)\,dV=3\iiint_Ex^2\,dV.$$
+
+      This turns one integral of a sum into three times a simpler one. Look for such symmetry before you start computing.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\iiint_Ef\,dV$ is the mass of a solid with density $f$; with $f=1$ it is the volume.
+      - |
+        Describe the solid from the inside out: $z$ between two surfaces, then the projection on the $xy$-plane, then the limits of $y$ and $x$.
+      - |
+        Inner limits may depend on the outer variables; the outermost limits are numbers.
+      - |
+        Use symmetry when the solid is symmetric in $x$, $y$, $z$.
