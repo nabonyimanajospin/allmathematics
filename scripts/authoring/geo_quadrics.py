@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from toolkit import ex, exset_plain as exset, write_exercises
+from toolkit import ex, exset_plain as exset, write_exercises, with_units
 
 BASE = "geo/m03-space/u04-quadric-surfaces"
 FMT = "Type a point as `(x, y, z)`, an equation with `=`, or an exact value such as `4*pi/3` or `sqrt(7)`."
@@ -61,6 +61,7 @@ def l02() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(f"{BASE}/l01-the-canonical-quadrics", [exset("quadrics", "The canonical quadrics.", l01(), format=FMT)], "geo_quadrics.py")
     write_exercises(f"{BASE}/l02-cylinders-cones-and-surfaces-of-revolution", [exset("cylinders", "Cylinders, cones and surfaces of revolution.", l02(), format=FMT)], "geo_quadrics.py")

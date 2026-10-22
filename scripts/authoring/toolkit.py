@@ -191,6 +191,50 @@ def write_exercises(lesson_dir: str, sets: list[dict], script: str) -> Path:
     return path
 
 
+# --- units -----------------------------------------------------------------------------------------------------------
+# A length is given in lu, an area in squ and a volume in cu. Builders of geometry and integrals switch this on.
+UNITS = False
+_VOLUME = re.compile(r"\bvolume\b", re.I)
+_AREA = re.compile(r"\barea\b", re.I)
+_LENGTH = re.compile(r"\b(length|distance|perimeter|radius|height|altitude|circumference|circumradius|inradius)\b", re.I)
+
+
+_SEGMENT_EQ = re.compile(r"(?<![A-Za-z\\{}_])([A-F]{2})((?:\^2)?)(?=\s*=)")
+
+
+def segment_norms(text: str) -> str:
+    """AB = 5 is written ||AB|| = 5 (the length of the vector AB), also in the texts of exercises."""
+    if not UNITS or "$" not in text:
+        return text
+    parts = text.split("$")
+    for i in range(1, len(parts), 2):
+        parts[i] = _SEGMENT_EQ.sub(lambda m: "\\norm{\\overrightarrow{" + m.group(1) + "}}" + m.group(2), parts[i])
+    return "$".join(parts)
+
+
+def unit_note(statement: str, answer_type: str) -> str:
+    """The statement of a question about a length, an area or a volume, with its unit."""
+    if not UNITS or answer_type not in ("number", "expression") or " lu" in statement or " squ" in statement or " cu" in statement:
+        return statement
+    for pat, unit in ((_VOLUME, "cu"), (_AREA, "squ"), (_LENGTH, "lu")):
+        if pat.search(statement):
+            return statement.rstrip() + f" The unit is {unit}: give the number only."
+    return statement
+
+
+def with_units(fn):
+    """Decorator for a `build` function: its exercises state the units of lengths, areas and volumes."""
+    def run(*args, **kwargs):
+        global UNITS
+        UNITS = True
+        try:
+            return fn(*args, **kwargs)
+        finally:
+            UNITS = False
+    run.__name__ = fn.__name__
+    return run
+
+
 # --- exercise constructors ---------------------------------------------------------------------------------
 SOURCE = "MATH126 exercise sheet, T. Hakizimana"
 
@@ -205,12 +249,12 @@ def ex(
     hints: list[str] | None = None,
     **extra: object,
 ) -> dict:
-    item: dict = {"id": id, "statement": statement, "answerType": answer_type, "answer": answer}
+    item: dict = {"id": id, "statement": segment_norms(unit_note(statement, answer_type)), "answerType": answer_type, "answer": answer}
     for key in ("variables", "coordinates", "constraint", "ode", "choices", "correctIndex"):
         if key in extra:
             item[key] = extra.pop(key)
-    item["hints"] = hints or []
-    item["solution"] = solution
+    item["hints"] = [segment_norms(h) for h in (hints or [])]
+    item["solution"] = segment_norms(solution)
     for key, val in extra.items():
         item[key] = val
     return _tidy(item)

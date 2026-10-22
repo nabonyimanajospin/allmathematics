@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sympy as sp
 from geo_m03 import cross, dot, item_num, item_pt, norm, pt3_eng, pt3_tex, rad, sub, vec3_tex
-from toolkit import eng, ex, exset_plain as exset, tex, write_exercises
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, with_units
 
 BASE = "geo/m01-vectors"
 U1 = f"{BASE}/u01-vectors-and-algebra"
@@ -190,6 +190,7 @@ def u2l7() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(f"{U1}/l04-norm-unit-vectors-direction-cosines", [exset("norms", "Norms, unit vectors and direction cosines.", u1l4(), format=FMT)], "geo_m01.py")
     write_exercises(f"{U2}/l01-dot-product", [exset("dot", "The dot product.", u2l1(), format=FMT)], "geo_m01.py")

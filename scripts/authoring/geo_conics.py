@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sympy as sp
-from toolkit import eng, ex, exset_plain as exset, tex, write_exercises
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, with_units
 
 BASE = "geo/m02-plane/u05-conics-and-loci"
 R = sp.Rational
@@ -143,6 +143,7 @@ def l06() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(f"{BASE}/l01-the-parabola", [exset("parabola", "The parabola.", l01(), format=FMT)], "geo_conics.py")
     write_exercises(f"{BASE}/l02-the-ellipse", [exset("ellipse", "The ellipse.", l02(), format=FMT)], "geo_conics.py")

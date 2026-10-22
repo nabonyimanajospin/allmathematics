@@ -11,7 +11,7 @@ import math
 import sympy as sp
 from geo_m02 import PAPER_NOTE as _unused  # noqa: F401  (keeps the import order of the two modules explicit)
 from geo_m02 import rad
-from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y, z
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y, z, with_units
 
 BASE = "geo/m03-space"
 U1 = f"{BASE}/u01-points-lines-planes"
@@ -281,7 +281,7 @@ def u1l2() -> list[dict]:
                              rf"Substitute $\lambda={lam}$: ${pt3_tex(Pt)}$.", ["Substitute the value of $\\lambda$ in each coordinate."]))
     # point on a line? parameter value
     n += 1
-    items.append(ex(f"ln-{n:02d}", r"For which value of $\lambda$ does the line $x=1+2\lambda$, $y=-3+\lambda$, $z=4-3\lambda$ pass through $(7,0,-5)$?", "number", "3",
+    items.append(ex(f"ln-{n:02d}", r"For which value of $\lambda$ does the line $\begin{cases}x=1+2\lambda\\ y=-3+\lambda\\ z=4-3\lambda\end{cases}$ pass through $(7,0,-5)$?", "number", "3",
                     hints=["Solve the first equation for $\\lambda$ and check the others."],
                     solution=r"$1+2\lambda=7$ gives $\lambda=3$; then $y=-3+3=0$ and $z=4-9=-5$: the point is on the line."))
     n += 1
@@ -595,6 +595,7 @@ def u3l2() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     f = "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
     write_exercises(f"{U1}/l01-points-in-space", [exset("points", "Points in space.", u1l1(), format=f)], "geo_m03.py")

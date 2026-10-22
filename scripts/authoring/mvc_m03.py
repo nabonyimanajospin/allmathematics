@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import mpmath as mp
 import sympy as sp
-from toolkit import eng, ex, exset, same_number, tex, write_exercises, x, y, z
+from toolkit import eng, ex, exset, same_number, tex, write_exercises, x, y, z, with_units
 
 BASE = "mvc/m03-triple-integrals"
 a, b, R = sp.symbols("a b R", positive=True)
@@ -140,6 +140,7 @@ def volume_items() -> list[dict]:
     ]
 
 
+@with_units
 def build() -> None:
     write_exercises(
         f"{BASE}/u01-cartesian/l01-triple-integrals",

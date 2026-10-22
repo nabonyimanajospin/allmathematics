@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import mpmath as mp
 import sympy as sp
-from toolkit import eng, ex, exset, numeric_double, same_number, tex, write_exercises, x, y
+from toolkit import eng, ex, exset, numeric_double, same_number, tex, write_exercises, x, y, with_units
 
 BASE = "mvc/m02-double-integrals"
 a, b = sp.symbols("a b", positive=True)
@@ -305,6 +305,7 @@ def area_items() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(
         f"{BASE}/u01-over-regions/l01-iterated-integrals",

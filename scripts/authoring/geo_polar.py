@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sympy as sp
-from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y, with_units
 
 BASE = "geo/m02-plane/u04-polar-coordinates-and-curves"
 R = sp.Rational
@@ -130,6 +130,7 @@ def u4l4() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(f"{BASE}/l01-polar-coordinates", [exset("polar", "Polar coordinates.", u4l1(), format=FMT)], "geo_polar.py")
     write_exercises(f"{BASE}/l02-lines-and-circles-in-polar-form", [exset("polar-equations", "Equations in polar form.", u4l2(), format=FMT)], "geo_polar.py")

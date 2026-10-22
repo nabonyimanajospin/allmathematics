@@ -10,7 +10,7 @@ from __future__ import annotations
 import math
 
 import sympy as sp
-from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y, with_units
 
 BASE = "geo/m02-plane"
 U1 = f"{BASE}/u01-coordinates-and-lines"
@@ -392,7 +392,7 @@ def u1l2() -> list[dict]:
         nonlocal n
         L = line_through((x0, y0), (x0 + d1, y0 + d2))
         n += 1
-        items.append(line_item(f"eq-{n:02d}", rf"Write in implicit form the line $x={x0}{d1:+d}\lambda$, $y={y0}{d2:+d}\lambda$.", L,
+        items.append(line_item(f"eq-{n:02d}", rf"Write in implicit form the line $\begin{{cases}}x={x0}{d1:+d}\lambda\\ y={y0}{d2:+d}\lambda\end{{cases}}$.", L,
                                rf"The direction vector is $({d1},{d2})$, so a normal vector is $({d2},{-d1})$. Through $({x0},{y0})$: ${line_tex(L)}$.",
                                ["The coefficients of $\\lambda$ form the direction vector."]))
 
@@ -407,7 +407,7 @@ def u1l2() -> list[dict]:
     n += 1
     P0, d = (1, -2), (3, 1)
     Pt = (P0[0] - 2 * d[0], P0[1] - 2 * d[1])
-    items.append(pt_item(f"eq-{n:02d}", r"The point of the line $x=1+3\lambda$, $y=-2+\lambda$ for $\lambda=-2$.", Pt,
+    items.append(pt_item(f"eq-{n:02d}", r"The point of the line $\begin{cases}x=1+3\lambda\\ y=-2+\lambda\end{cases}$ for $\lambda=-2$.", Pt,
                          rf"$x=1+3\cdot(-2)={tex(Pt[0])}$ and $y=-2+(-2)={tex(Pt[1])}$.", ["Substitute $\\lambda=-2$."]))
     L = tuple(map(sp.sympify, (3, -5, 15)))
     q1, q2 = rad(-L[2] / L[0]), rad(-L[2] / L[1])
@@ -513,7 +513,7 @@ def u1l5() -> list[dict]:
         L1, L2 = tuple(map(sp.sympify, L1)), tuple(map(sp.sympify, L2))
         p = meet(L1, L2)
         items.append(pt_item(f"in-{n:02d}", rf"The intersection of ${line_tex(L1)}$ and ${line_tex(L2)}$.", p,
-                             rf"$D={tex(L1[0]*L2[1]-L2[0]*L1[1])}\neq0$, and solving gives $x={tex(p[0])}$, $y={tex(p[1])}$.",
+                             rf"$D={tex(L1[0]*L2[1]-L2[0]*L1[1])}\neq0$, and solving gives $x={tex(p[0])}$, $y={tex(p[1])}$. The two lines meet at the point $P\left({tex(p[0])},\,{tex(p[1])}\right)$.",
                              ["Eliminate one variable, or use $D=a_1b_2-a_2b_1$."]))
 
     inter(1, (3, -1, -5), (1, 2, -4))
@@ -541,12 +541,12 @@ def u2l1() -> list[dict]:
         extra = {"note": PAPER_NOTE} if T is TP else {}
         items.append(num_item(
             f"tl1-p{i}", intro(T) + "find the perimeter.", T.per,
-            rf"$a=BC={tex(T.a)}$, $b=CA={tex(T.b)}$, $c=AB={tex(T.c)}$. The perimeter is $a+b+c={tex(T.per)}$.",
+            rf"$a=\norm{{\overrightarrow{{BC}}}}={tex(T.a)}$, $b=\norm{{\overrightarrow{{CA}}}}={tex(T.b)}$, $c=\norm{{\overrightarrow{{AB}}}}={tex(T.c)}$. The perimeter is $a+b+c={tex(T.per)}$.",
             ["Find the three side lengths with the distance formula."], **extra))
         AB, AC = vec(A, B), vec(A, C)
         items.append(num_item(
             f"tl1-k{i}", intro(T) + "find the area.", T.K,
-            rf"$\overrightarrow{{AB}}={vec_tex(AB)}$, $\overrightarrow{{AC}}={vec_tex(AC)}$, so $K=\dfrac12\left|{par(AB[0])}\cdot{par(AC[1])}-{par(AC[0])}\cdot{par(AB[1])}\right|={tex(T.K)}$.",
+            rf"$\overrightarrow{{AB}}={vec_tex(AB)}$, $\overrightarrow{{AC}}={vec_tex(AC)}$, so $S=\dfrac12\left|{par(AB[0])}\cdot{par(AC[1])}-{par(AC[0])}\cdot{par(AB[1])}\right|={tex(T.K)}$.",
             ["Half of the absolute value of the determinant of $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$."]))
         for v in "ABC":
             P, Q, Rr, opp, bq, cr = T.V(v)
@@ -609,8 +609,8 @@ def u2l3() -> list[dict]:
             ["The altitude is perpendicular to the opposite side: that side's vector is the normal."], **extra))
         items.append(num_item(
             f"tl3-l{i}", intro(T) + rf"find the length of the altitude from ${v}$.", h,
-            rf"$K={tex(T.K)}$ and the opposite side is $a={tex(opp)}$, so $h=\dfrac{{2K}}{{a}}={tex(h)}$.",
-            ["$h_a=\\dfrac{2K}{a}$."], **extra))
+            rf"$S={tex(T.K)}$ and the opposite side is $a={tex(opp)}$, so $h=\dfrac{{2S}}{{a}}={tex(h)}$.",
+            ["$h_a=\\dfrac{2S}{a}$."], **extra))
         items.append(pt_item(
             f"tl3-h{i}", intro(T) + "find the orthocenter $H$.", T.H,
             rf"Two altitudes meet at $H={pt_tex(T.H)}$ (also $H=A+B+C-2O$ with $O={pt_tex(T.O)}$).",
@@ -638,9 +638,9 @@ def u2l4() -> list[dict]:
             rf"$I=\dfrac{{aA+bB+cC}}{{a+b+c}}$ with $a={tex(T.a)}$, $b={tex(T.b)}$, $c={tex(T.c)}$: $I={pt_tex(T.I)}$.",
             ["Weight each vertex by the length of the opposite side."]))
     items.append(num_item("tl4-r1", r"Find the inradius $r$ of the triangle with sides $13$, $14$, $15$.", R(4),
-                          r"$s=21$, $K=\sqrt{21\cdot8\cdot7\cdot6}=84$, so $r=\dfrac Ks=4$.", ["$r=\\dfrac{K}{s}$."]))
+                          r"$s=21$, $S=\sqrt{21\cdot8\cdot7\cdot6}=84$, so $r=\dfrac Ss=4$.", ["$r=\\dfrac{S}{s}$."]))
     items.append(num_item("tl4-r2", r"Find the inradius of the triangle $A(0,0)$, $B(4,0)$, $C(0,3)$.", R(1),
-                          r"$K=6$ and $s=6$, so $r=1$.", ["$r=\\dfrac{K}{s}$."]))
+                          r"$S=6$ and $s=6$, so $r=1$.", ["$r=\\dfrac{S}{s}$."]))
     return items
 
 
@@ -663,8 +663,8 @@ def u2l5() -> list[dict]:
             rf"The perpendicular bisectors meet at $O={pt_tex(T.O)}$.", ["Intersect two perpendicular bisectors."], **extra))
         items.append(num_item(
             f"tl5-r{i}", intro(T) + "find the circumradius $R$.", T.Rc,
-            rf"$R=\dfrac{{abc}}{{4K}}=\dfrac{{{tex(rad(T.a*T.b*T.c))}}}{{4\cdot{tex(T.K)}}}={tex(T.Rc)}$.",
-            ["$R=\\dfrac{abc}{4K}$."], **extra))
+            rf"$R=\dfrac{{abc}}{{4S}}=\dfrac{{{tex(rad(T.a*T.b*T.c))}}}{{4\cdot{tex(T.K)}}}={tex(T.Rc)}$.",
+            ["$R=\\dfrac{abc}{4S}$."], **extra))
     return items
 
 
@@ -675,11 +675,11 @@ def u2l6() -> list[dict]:
         r2 = rad(T.r**2)
         items.append(ex(f"tl6-i{i}", intro(T) + "write the analytic equation of the incircle.", "equation",
                         f"(x-({eng(T.I[0])}))^2+(y-({eng(T.I[1])}))^2={eng(r2)}", coordinates=["x", "y"],
-                        hints=["Center $I$ and radius $r=\\dfrac Ks$."],
+                        hints=["Center $I$ and radius $r=\\dfrac Ss$."],
                         solution=rf"$I={pt_tex(T.I)}$ and $r={tex(T.r)}$, so $(x-{par(T.I[0])})^2+(y-{par(T.I[1])})^2={tex(r2)}$.", **extra))
         items.append(ex(f"tl6-c{i}", intro(T) + "write the analytic equation of the circumcircle.", "equation",
                         f"(x-({eng(T.O[0])}))^2+(y-({eng(T.O[1])}))^2={eng(rad(T.Rc**2))}", coordinates=["x", "y"],
-                        hints=["Center $O$ and radius $R=\\dfrac{abc}{4K}$."],
+                        hints=["Center $O$ and radius $R=\\dfrac{abc}{4S}$."],
                         solution=rf"$O={pt_tex(T.O)}$ and $R={tex(T.Rc)}$, so $(x-{par(T.O[0])})^2+(y-{par(T.O[1])})^2={tex(rad(T.Rc**2))}$.", **extra))
         items.append(ex(f"tl6-p{i}", intro(T) + "find the perimeter of the incircle.", "expression", eng(rad(2 * PI * T.r)),
                         hints=["$2\\pi r$."], solution=rf"$2\pi r=2\pi\cdot{tex(T.r)}={tex(rad(2*PI*T.r))}$.", **extra))
@@ -690,7 +690,7 @@ def u2l6() -> list[dict]:
     items.append(pt_item("tl6-x1", intro(T1) + "find the excenter $I_a$ opposite $A$.", ctr,
                          rf"$I_a=\dfrac{{-aA+bB+cC}}{{-a+b+c}}={pt_tex(ctr)}$.", ["Change the sign of $a$ in the incenter formula."]))
     items.append(num_item("tl6-x2", intro(T1) + "find the exradius $r_a$.", ra,
-                          rf"$r_a=\dfrac{{K}}{{s-a}}={tex(ra)}$.", ["$r_a=\\dfrac{K}{s-a}$."]))
+                          rf"$r_a=\dfrac{{S}}{{s-a}}={tex(ra)}$.", ["$r_a=\\dfrac{S}{s-a}$."]))
     items.append(ex("tl6-x3", r"A circle has center $(2,-3)$ and radius $5$. Give the point of its parametric equation for $t=\dfrac\pi2$.", "vector", "(2, 2)",
                     variables=["x"], hints=["$x=2+5\\cos t$, $y=-3+5\\sin t$."],
                     solution=r"$x=2+5\cos\dfrac\pi2=2$ and $y=-3+5\sin\dfrac\pi2=2$."))
@@ -716,8 +716,8 @@ def u2l7() -> list[dict]:
     items.append(num_item("st-03", intro(T) + "find the ratio $\\dfrac{GM_a}{AM_a}$ of the centroid on the median from $A$ (a number).", R(1, 3),
                           r"The centroid divides the median $2:1$ from the vertex, so $GM_a=\dfrac13AM_a$.", ["The centroid is at two thirds from the vertex."], **note))
     # equal sums
-    items.append(num_item("st-04", intro(T) + "find $h_a\\cdot a$ (the double area $2K$).", rad(2 * T.K),
-                          rf"$h_a\cdot a=2K={tex(rad(2*T.K))}$.", ["$h_a=\\dfrac{2K}{a}$."], **note))
+    items.append(num_item("st-04", intro(T) + "find $h_a\\cdot a$ (the double area $2S$).", rad(2 * T.K),
+                          rf"$h_a\cdot a=2S={tex(rad(2*T.K))}$.", ["$h_a=\\dfrac{2S}{a}$."], **note))
     items.append(ex("st-05", intro(T) + "write in implicit form the line through the circumcenter and the centroid (the Euler line).", "equation",
                     line_eng(line_through(T.O, T.G)), coordinates=["x", "y"], hints=["The Euler line passes through $O$, $G$ and $H$."],
                     solution=rf"The direction is $\overrightarrow{{OG}}={vec_tex(vec(T.O,T.G))}$, so the line is ${line_tex(line_through(T.O,T.G))}$; $H$ is on it.", **note))
@@ -734,7 +734,7 @@ def u2l7() -> list[dict]:
     iy = f"(8*sqrt(10)+5*sqrt(145)-35)/{den}"
     assert abs(float(sp.N(P_expr(ix) - T.I[0], 20))) < 1e-12 and abs(float(sp.N(P_expr(iy) - T.I[1], 20))) < 1e-12
     items.append(ex("st-08", intro(T) + "find the incenter $I$ (leave the denominator as it is).", "vector", f"({ix}, {iy})",
-                    hints=["$I=\\dfrac{aA+bB+cC}{a+b+c}$ with $a=BC=4\\sqrt{10}$, $b=CA=\\sqrt{145}$, $c=AB=5$."],
+                    hints=["$I=\\dfrac{aA+bB+cC}{a+b+c}$ with $a=\\norm{\\overrightarrow{BC}}=4\\sqrt{10}$, $b=\\norm{\\overrightarrow{CA}}=\\sqrt{145}$, $c=\\norm{\\overrightarrow{AB}}=5$."],
                     solution=(r"The sides are $a=4\sqrt{10}$, $b=\sqrt{145}$, $c=5$, so $a+b+c=5+\sqrt{145}+4\sqrt{10}$. "
                               r"$x_I=\dfrac{a\cdot(-3)+b\cdot1+c\cdot5}{a+b+c}=\dfrac{-12\sqrt{10}+\sqrt{145}+25}{5+\sqrt{145}+4\sqrt{10}}$ and "
                               r"$y_I=\dfrac{a\cdot2+b\cdot5+c\cdot(-7)}{a+b+c}=\dfrac{8\sqrt{10}+5\sqrt{145}-35}{5+\sqrt{145}+4\sqrt{10}}$."),
@@ -848,6 +848,7 @@ def u3l3() -> list[dict]:
     return items
 
 
+@with_units
 def build() -> None:
     write_exercises(f"{U1}/l01-distance-and-division", [exset("distance", "Distance, midpoint and division of a segment.", u1l1(),
                     format="Type a point as `(x, y)` and a number or an exact expression such as `sqrt(2)/3`.")], "geo_m02.py")
