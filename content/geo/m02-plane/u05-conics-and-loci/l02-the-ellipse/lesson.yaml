@@ -1,0 +1,152 @@
+id: geo-m02-u05-l02
+title: The ellipse
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - ellipse
+  - ellipse-tangent
+objectives:
+  - Define the ellipse by the sum of the distances to two foci and derive its canonical equation.
+  - Compute the semi-axes, the foci, the eccentricity and the latus rectum.
+  - Write the tangent at a point and a parametrization.
+sections:
+  - id: definition
+    type: definition
+    term: Ellipse
+    body: |
+      An **ellipse** is the set of points $M$ of the plane for which the sum of the distances to two fixed points $F_1$ and $F_2$, the **foci**, is a constant $2a$ larger than $F_1F_2$:
+
+      $$MF_1+MF_2=2a,\qquad 2a>F_1F_2=2c.$$
+
+      The midpoint of $F_1F_2$ is the **center**. The line $F_1F_2$ and its perpendicular through the center are the **axes**; the ellipse meets them at four **vertices**.
+
+  - id: canonical
+    type: theorem
+    name: Canonical equation
+    statement: |
+      With the center at the origin and the foci $F_1(-c,0)$, $F_2(c,0)$, put $b^2=a^2-c^2$. Then the ellipse is
+
+      $$\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\qquad(a\ge b>0).$$
+
+      The vertices are $(\pm a,0)$ and $(0,\pm b)$; $a$ and $b$ are the **semi-axes**. The **eccentricity** is $e=\dfrac ca\in[0,1)$; it measures how flat the ellipse is ($e=0$ is a circle). The **latus rectum** (the chord through a focus perpendicular to the major axis) has length $\dfrac{2b^2}{a}$.
+    proof: |
+      $MF_1+MF_2=2a$ reads $\sqrt{(x+c)^2+y^2}+\sqrt{(x-c)^2+y^2}=2a$. Move one root, square: $(x+c)^2+y^2=4a^2-4a\sqrt{(x-c)^2+y^2}+(x-c)^2+y^2$, so $a\sqrt{(x-c)^2+y^2}=a^2-cx$. Square again: $a^2x^2-2a^2cx+a^2c^2+a^2y^2=a^4-2a^2cx+c^2x^2$, that is $(a^2-c^2)x^2+a^2y^2=a^2(a^2-c^2)$. Divide by $a^2(a^2-c^2)=a^2b^2$.
+    more: |
+      **Why $a>c$ is needed.** The triangle inequality gives $MF_1+MF_2\ge F_1F_2$, so $2a\ge2c$; equality means $M$ is on the segment $F_1F_2$ and the "ellipse" collapses to that segment. So $a>c$ and $b^2=a^2-c^2>0$.
+
+  - id: visual-ellipse
+    type: visual
+    kind: plot
+    title: The ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$
+    caption: |
+      Here $a=5$, $b=3$, $c=4$: the foci are $(\pm4,0)$ and the eccentricity is $e=\dfrac45$. The dashed vertical lines are the directrices $x=\pm\dfrac{25}{4}$.
+    config:
+      mode: parametric
+      x: "5*cos(t)"
+      y: "3*sin(t)"
+      l1: "x²/25 + y²/9 = 1"
+      x2: "25/4"
+      y2: "t"
+      dash2: true
+      x3: "-25/4"
+      y3: "t"
+      dash3: true
+      tmin: "0"
+      tmax: "2*pi"
+      xmin: -8
+      xmax: 8
+      ymin: -5
+      ymax: 5
+      alt: "An ellipse wider than tall, centered at the origin, with two dashed vertical lines outside it."
+
+  - id: ex-elements
+    type: example
+    title: The elements of an ellipse
+    problem: |
+      Find the semi-axes, the foci, the eccentricity and the latus rectum of $9x^2+25y^2=225$.
+    steps:
+      - text: |
+          Divide by $225$: $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$, so $a=5$ and $b=3$.
+        why: |
+          The canonical form has $1$ on the right side. Dividing $9x^2$ by $225$ gives $\dfrac{x^2}{25}$ and dividing $25y^2$ by $225$ gives $\dfrac{y^2}{9}$. The larger denominator, $25$, is below $x^2$, so the major axis is horizontal.
+      - |
+        $c^2=a^2-b^2=25-9=16$, so $c=4$ and the foci are $(\pm4,0)$.
+      - |
+        $e=\dfrac ca=\dfrac45$ and the latus rectum is $\dfrac{2b^2}a=\dfrac{18}5$.
+    answer: |
+      $a=5$, $b=3$, foci $(\pm4,0)$, $e=\dfrac45$, latus rectum $\dfrac{18}5$.
+    verify:
+      - expr: "sqrt(25-9)"
+        equals: "4"
+      - expr: "2*9/5"
+        equals: "18/5"
+
+  - id: chk-focus
+    type: check
+    prompt: |
+      Find the eccentricity of $\dfrac{x^2}{169}+\dfrac{y^2}{144}=1$.
+    answerType: expression
+    answer: "5/13"
+    hints:
+      - |
+        $c^2=a^2-b^2=169-144$.
+    explanation: |
+      $c^2=25$, $c=5$, $a=13$, so $e=\dfrac5{13}$.
+
+  - id: tangent
+    type: theorem
+    name: Tangent and parametrization
+    statement: |
+      The tangent to $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ at its point $T(x_0,y_0)$ is
+
+      $$\dfrac{x\,x_0}{a^2}+\dfrac{y\,y_0}{b^2}=1.$$
+
+      A parametrization is $x=a\cos t$, $y=b\sin t$, with $t\in[0,2\pi)$.
+    proof: |
+      Differentiating, $\dfrac{2x}{a^2}+\dfrac{2yy'}{b^2}=0$, so at $T$ the line through $T$ with this slope satisfies $\dfrac{x_0}{a^2}(x-x_0)+\dfrac{y_0}{b^2}(y-y_0)=0$. Using $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$, this becomes $\dfrac{xx_0}{a^2}+\dfrac{yy_0}{b^2}=1$.
+
+  - id: ex-tangent
+    type: example
+    title: A tangent
+    problem: |
+      Find the tangent to $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$ at $T\left(4,\dfrac95\right)$.
+    steps:
+      - |
+        $T$ is on the ellipse: $\dfrac{16}{25}+\dfrac{81}{25\cdot9}=\dfrac{16}{25}+\dfrac{9}{25}=1$.
+      - |
+        The tangent is $\dfrac{4x}{25}+\dfrac{\frac95y}{9}=1$, that is $\dfrac{4x}{25}+\dfrac y5=1$.
+      - text: |
+          Multiply by $25$: $4x+5y=25$.
+        why: |
+          $\dfrac{9}{5}\cdot\dfrac{1}{9}=\dfrac15$, so the second term is $\dfrac y5$; the common denominator of $\dfrac{4x}{25}$ and $\dfrac y5$ is $25$.
+    answer: |
+      $4x+5y=25$.
+    verify:
+      - expr: "16/25+(9/5)^2/9"
+        equals: "1"
+      - expr: "4*4+5*(9/5)"
+        equals: "25"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Find the tangent to $\dfrac{x^2}{8}+\dfrac{y^2}{2}=1$ at $(2,1)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "x+2y=4"
+    hints:
+      - |
+        $\dfrac{2x}{8}+\dfrac{1\cdot y}{2}=1$.
+    explanation: |
+      $\dfrac x4+\dfrac y2=1$, so $x+2y=4$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Ellipse: $MF_1+MF_2=2a$; canonical equation $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ with $c^2=a^2-b^2$, $e=\dfrac ca<1$.
+      - |
+        Latus rectum $\dfrac{2b^2}a$; directrices $x=\pm\dfrac{a^2}c$.
+      - |
+        Tangent at $(x_0,y_0)$: $\dfrac{xx_0}{a^2}+\dfrac{yy_0}{b^2}=1$; parametrization $x=a\cos t$, $y=b\sin t$.

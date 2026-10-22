@@ -1,0 +1,146 @@
+id: geo-m02-u05-l01
+title: The parabola
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - parabola
+  - parabola-tangent
+objectives:
+  - Define the parabola by its focus and directrix, and derive its canonical equation.
+  - Read the vertex, the focus, the directrix and the parameter from an equation, also when the vertex is not at the origin.
+  - Write the tangent at a point and a parametrization.
+sections:
+  - id: definition
+    type: definition
+    term: Parabola
+    body: |
+      A **parabola** is the set of points of the plane that are at the same distance from a fixed point $F$, the **focus**, and from a fixed line $d$, the **directrix** ($F\notin d$).
+
+      The distance from the focus to the directrix is the **focal parameter** $p$. The line through $F$ perpendicular to $d$ is the **axis**, and the point of the parabola on the axis, midway between $F$ and $d$, is the **vertex**.
+
+  - id: canonical
+    type: theorem
+    name: Canonical equation
+    statement: |
+      Take the vertex as origin and the axis as the $x$-axis, with the focus $F\left(\dfrac p2,0\right)$ and the directrix $x=-\dfrac p2$. Then the parabola has the equation
+
+      $$y^2=2px.$$
+
+      Its vertex is $(0,0)$ and it opens to the right if $p>0$. The equations $y^2=-2px$, $x^2=2py$ and $x^2=-2py$ describe the same curve turned to open to the left, upward and downward.
+    proof: |
+      A point $M(x,y)$ is on the parabola when $MF=\operatorname{dist}(M,d)$: $\sqrt{\left(x-\dfrac p2\right)^2+y^2}=\left|x+\dfrac p2\right|$. Squaring, $x^2-px+\dfrac{p^2}{4}+y^2=x^2+px+\dfrac{p^2}4$, which simplifies to $y^2=2px$.
+
+  - id: visual-parabola
+    type: visual
+    kind: plot
+    title: The parabola $y^2=8x$
+    caption: |
+      Here $p=4$: the focus is $(2,0)$ and the directrix is the line $x=-2$ (dashed). Every point of the curve is as far from the focus as from the directrix.
+    config:
+      mode: parametric
+      x: "t^2/8"
+      y: "t"
+      l1: "y² = 8x"
+      x2: "-2"
+      y2: "t"
+      l2: "directrix"
+      dash2: true
+      tmin: "-6"
+      tmax: "6"
+      xmin: -3
+      xmax: 9
+      ymin: -6
+      ymax: 6
+      alt: "A parabola opening to the right with its vertex at the origin and a vertical dashed directrix at x equals minus 2."
+
+  - id: ex-elements
+    type: example
+    title: The elements of a parabola
+    problem: |
+      Find the vertex, the focus, the directrix and the parameter of $y^2-6y-8x+25=0$.
+    steps:
+      - text: |
+          Complete the square in $y$: $(y-3)^2-9-8x+25=0$, so $(y-3)^2=8x-16=8(x-2)$.
+        why: |
+          $y^2-6y=(y-3)^2-9$. Then $-9+25=16$ goes to the other side with $8x$: $(y-3)^2=8x-16$, and factoring $8$ gives $8(x-2)$.
+      - |
+        With $Y=y-3$ and $X=x-2$ (a translation of the axes) the equation is $Y^2=8X$, which is $Y^2=2pX$ with $p=4$.
+      - |
+        Vertex $(2,3)$. Focus: $\dfrac p2=2$ to the right of the vertex, $(4,3)$. Directrix: $\dfrac p2=2$ to the left of the vertex, $x=0$.
+    answer: |
+      Vertex $(2,3)$, focus $(4,3)$, directrix $x=0$, $p=4$.
+    verify:
+      - expr: "(3-3)^2-8*(2-2)"
+        equals: "0"
+      - expr: "sqrt((6-4)^2+(7-3)^2)"
+        equals: "sqrt(20)"
+
+  - id: chk-parabola
+    type: check
+    prompt: |
+      Find the focus of the parabola $y^2=12x$.
+    answerType: vector
+    answer: "(3, 0)"
+    hints:
+      - |
+        $2p=12$, so $p=6$. The focus is at $\left(\dfrac p2,0\right)$.
+    explanation: |
+      $p=6$, so the focus is $(3,0)$ and the directrix is $x=-3$.
+
+  - id: tangent
+    type: theorem
+    name: Tangent and parametrization
+    statement: |
+      The tangent to $y^2=2px$ at its point $T(x_0,y_0)$ is
+
+      $$y\,y_0=p\,(x+x_0).$$
+
+      A parametrization of the parabola is $x=\dfrac{t^2}{2p}$, $\ y=t$, with $t\in\mathbb R$.
+    proof: |
+      Differentiate $y^2=2px$: $2yy'=2p$, so the slope at $T$ is $y'=\dfrac{p}{y_0}$ (if $y_0\neq0$). The tangent is $y-y_0=\dfrac p{y_0}(x-x_0)$; multiplying by $y_0$ gives $yy_0-y_0^2=px-px_0$, and using $y_0^2=2px_0$ we get $yy_0=px+px_0$. At the vertex ($y_0=0$) the tangent is the vertical line $x=0$, which the formula gives as well.
+
+  - id: ex-tangent
+    type: example
+    title: A tangent
+    problem: |
+      Find the tangent to $y^2=8x$ at the point $T(2,4)$.
+    steps:
+      - |
+        $T$ is on the parabola: $16=8\cdot2$. Here $p=4$.
+      - |
+        $y\cdot4=4(x+2)$, so $y=x+2$.
+      - text: |
+          Check with the focus: $TF=\sqrt{0+16}=4$ and the distance from $T$ to the directrix $x=-2$ is $2+2=4$.
+        why: |
+          The tangent at $T$ makes equal angles with the segment $TF$ and with the line through $T$ parallel to the axis: this is the reflection property of the parabola (a light ray from the focus leaves parallel to the axis). It is the reason why headlights are parabolic.
+    answer: |
+      $y=x+2$.
+    verify:
+      - expr: "4*4"
+        equals: "4*(2+2)"
+      - expr: "2+2"
+        equals: "4"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Find the tangent to $y^2=4x$ at the point $(1,2)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "y=x+1"
+    hints:
+      - |
+        Here $2p=4$, so $p=2$: $2y=2(x+1)$.
+    explanation: |
+      $y\cdot2=2(x+1)$, that is $y=x+1$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Parabola: $MF=\operatorname{dist}(M,d)$; canonical equation $y^2=2px$ with focus $\left(\dfrac p2,0\right)$ and directrix $x=-\dfrac p2$.
+      - |
+        $(y-k)^2=2p(x-h)$ has vertex $(h,k)$; complete the square to find it.
+      - |
+        Tangent at $(x_0,y_0)$: $yy_0=p(x+x_0)$; parametrization $x=\dfrac{t^2}{2p}$, $y=t$.

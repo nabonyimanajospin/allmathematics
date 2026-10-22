@@ -1,0 +1,159 @@
+id: geo-m02-u05-l03
+title: The hyperbola
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - hyperbola
+  - hyperbola-asymptotes
+objectives:
+  - Define the hyperbola by the difference of the distances to two foci and derive its canonical equation.
+  - Compute the semi-axes, the foci, the eccentricity and the asymptotes.
+  - Write the tangent at a point and recognize the rectangular hyperbola.
+sections:
+  - id: definition
+    type: definition
+    term: Hyperbola
+    body: |
+      A **hyperbola** is the set of points $M$ of the plane for which the absolute value of the difference of the distances to two fixed points $F_1$ and $F_2$, the **foci**, is a constant $2a$ smaller than $F_1F_2$:
+
+      $$\left|MF_1-MF_2\right|=2a,\qquad 0<2a<F_1F_2=2c.$$
+
+      It has two separate **branches**. The midpoint of $F_1F_2$ is the **center**.
+
+  - id: canonical
+    type: theorem
+    name: Canonical equation
+    statement: |
+      With the center at the origin and the foci $F_1(-c,0)$, $F_2(c,0)$, put $b^2=c^2-a^2$. Then the hyperbola is
+
+      $$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1.$$
+
+      The vertices are $(\pm a,0)$. The eccentricity is $e=\dfrac ca>1$. The lines
+      $$y=\pm\dfrac bax$$
+      are the **asymptotes**: the branches get closer and closer to them without touching them. The conjugate hyperbola $\dfrac{y^2}{b^2}-\dfrac{x^2}{a^2}=1$ has the same asymptotes.
+    proof: |
+      The computation is that of the ellipse with $a^2-c^2$ replaced by $a^2-c^2<0$: after squaring twice, $(c^2-a^2)x^2-a^2y^2=a^2(c^2-a^2)$, and dividing by $a^2b^2$ gives the equation.
+    more: |
+      **Where the asymptotes come from.** Solve for $y$: $y=\pm\dfrac ba\sqrt{x^2-a^2}=\pm\dfrac bax\sqrt{1-\dfrac{a^2}{x^2}}$. When $|x|$ is large, $\dfrac{a^2}{x^2}$ is close to $0$, so $y$ is close to $\pm\dfrac bax$. Equivalently, the left side factors: $\left(\dfrac xa-\dfrac yb\right)\left(\dfrac xa+\dfrac yb\right)=1$, and the asymptotes are where each factor is $0$.
+
+  - id: visual-hyperbola
+    type: visual
+    kind: plot
+    title: The hyperbola $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$
+    caption: |
+      Here $a=3$, $b=4$, $c=5$: the foci are $(\pm5,0)$, the eccentricity is $e=\dfrac53$ and the dashed lines are the asymptotes $y=\pm\dfrac43x$.
+    config:
+      mode: parametric
+      x: "3*cosh(t)"
+      y: "4*sinh(t)"
+      l1: "x²/9 − y²/16 = 1"
+      x2: "-3*cosh(t)"
+      y2: "4*sinh(t)"
+      x3: "t"
+      y3: "4*t/3"
+      dash3: true
+      x4: "t"
+      y4: "-4*t/3"
+      dash4: true
+      tmin: "-2"
+      tmax: "2"
+      xmin: -9
+      xmax: 9
+      ymin: -8
+      ymax: 8
+      alt: "A hyperbola with two branches, one to the left and one to the right, between two crossing dashed asymptote lines."
+
+  - id: ex-elements
+    type: example
+    title: The elements of a hyperbola
+    problem: |
+      Find the semi-axes, the foci, the eccentricity and the asymptotes of $16x^2-9y^2=144$.
+    steps:
+      - |
+        Divide by $144$: $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$, so $a=3$ and $b=4$.
+      - text: |
+          $c^2=a^2+b^2=25$, so $c=5$: the foci are $(\pm5,0)$ and $e=\dfrac53$.
+        why: |
+          For the hyperbola the relation is $c^2=a^2+b^2$ (for the ellipse it is $c^2=a^2-b^2$). It follows from $b^2=c^2-a^2$ in the definition of $b$.
+      - |
+        The asymptotes are $y=\pm\dfrac bax=\pm\dfrac43x$.
+    answer: |
+      $a=3$, $b=4$, foci $(\pm5,0)$, $e=\dfrac53$, asymptotes $y=\pm\dfrac43x$.
+    verify:
+      - expr: "sqrt(9+16)"
+        equals: "5"
+      - expr: "5/3"
+        equals: "5/3"
+
+  - id: chk-eccentricity
+    type: check
+    prompt: |
+      Find the eccentricity of $\dfrac{x^2}{16}-\dfrac{y^2}{9}=1$.
+    answerType: expression
+    answer: "5/4"
+    hints:
+      - |
+        $c^2=a^2+b^2=16+9$.
+    explanation: |
+      $c=5$ and $a=4$, so $e=\dfrac54$.
+
+  - id: tangent
+    type: theorem
+    name: Tangent
+    statement: |
+      The tangent to $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ at its point $T(x_0,y_0)$ is
+
+      $$\dfrac{x\,x_0}{a^2}-\dfrac{y\,y_0}{b^2}=1.$$
+
+      A parametrization of the right branch is $x=a\cosh t$, $y=b\sinh t$.
+    proof: |
+      As for the ellipse: differentiating gives $\dfrac{2x}{a^2}-\dfrac{2yy'}{b^2}=0$, the tangent satisfies $\dfrac{x_0}{a^2}(x-x_0)-\dfrac{y_0}{b^2}(y-y_0)=0$, and $\dfrac{x_0^2}{a^2}-\dfrac{y_0^2}{b^2}=1$ turns it into the stated form.
+
+  - id: ex-tangent
+    type: example
+    title: A tangent
+    problem: |
+      Find the tangent to $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$ at $T\left(5,\dfrac{16}3\right)$.
+    steps:
+      - |
+        $T$ is on the hyperbola: $\dfrac{25}{9}-\dfrac{256}{9\cdot16}=\dfrac{25}9-\dfrac{16}9=1$.
+      - text: |
+          The tangent is $\dfrac{5x}{9}-\dfrac{\frac{16}3y}{16}=1$, that is $\dfrac{5x}9-\dfrac y3=1$; multiply by $9$: $5x-3y=9$.
+        why: |
+          $\dfrac{16}{3}\cdot\dfrac1{16}=\dfrac13$. The common denominator of $\dfrac{5x}9$ and $\dfrac y3$ is $9$.
+    answer: |
+      $5x-3y=9$.
+    verify:
+      - expr: "25/9-(16/3)^2/16"
+        equals: "1"
+      - expr: "5*5-3*(16/3)"
+        equals: "9"
+
+  - id: rectangular
+    type: concept
+    title: The rectangular hyperbola
+    body: |
+      When $a=b$ the asymptotes are perpendicular and the hyperbola is called **rectangular** (or equilateral): $x^2-y^2=a^2$. Rotating the axes by $\dfrac\pi4$ (see the lesson on change of axes) gives its other familiar form $xy=\dfrac{a^2}{2}$, whose asymptotes are the coordinate axes. The graph of $y=\dfrac kx$ is a rectangular hyperbola.
+
+  - id: chk-asymptote
+    type: check
+    prompt: |
+      Find the positive slope of the asymptotes of $\dfrac{x^2}{4}-\dfrac{y^2}{25}=1$.
+    answerType: expression
+    answer: "5/2"
+    hints:
+      - |
+        The asymptotes are $y=\pm\dfrac bax$.
+    explanation: |
+      $a=2$, $b=5$: the slope is $\dfrac52$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Hyperbola: $|MF_1-MF_2|=2a$; canonical equation $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ with $c^2=a^2+b^2$, $e=\dfrac ca>1$.
+      - |
+        Asymptotes $y=\pm\dfrac bax$; directrices $x=\pm\dfrac{a^2}c$.
+      - |
+        Tangent at $(x_0,y_0)$: $\dfrac{xx_0}{a^2}-\dfrac{yy_0}{b^2}=1$. If $a=b$ the hyperbola is rectangular.

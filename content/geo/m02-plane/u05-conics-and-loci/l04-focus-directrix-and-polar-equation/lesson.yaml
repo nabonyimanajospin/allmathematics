@@ -1,0 +1,136 @@
+id: geo-m02-u05-l04
+title: Focus, directrix, eccentricity and the polar equation
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - conic-focus-directrix
+  - conic-polar-equation
+objectives:
+  - Describe the three conics by one property, the focus–directrix–eccentricity definition.
+  - Write the polar equation of a conic with a focus at the pole and read $e$ from it.
+sections:
+  - id: idea
+    type: concept
+    title: Three curves, one rule
+    body: |
+      The parabola compares the distance to a point with the distance to a line. The ellipse and the hyperbola can be described in the same way if the two distances are allowed to have a fixed ratio $e$. This single rule gives all three curves, and it also gives a short equation in polar coordinates when the focus is taken as the pole.
+
+  - id: unified
+    type: theorem
+    name: One definition for the three conics
+    statement: |
+      Let $F$ be a point, $d$ a line not through $F$, and $e>0$ a number. The set of points $M$ with
+
+      $$MF=e\cdot\operatorname{dist}(M,d)$$
+
+      is a parabola if $e=1$, an ellipse if $0<e<1$ and a hyperbola if $e>1$. The point $F$ is a **focus**, the line $d$ the corresponding **directrix**, and $e$ the **eccentricity**.
+    proof: |
+      For $e=1$ this is the definition of the parabola. For an ellipse of semi-axes $a>b$ and focus $F(c,0)$, the directrix is $x=\dfrac{a^2}{c}$: indeed $MF^2=(x-c)^2+y^2$ and, with $y^2=b^2\left(1-\dfrac{x^2}{a^2}\right)$, $MF^2=\dfrac{c^2}{a^2}x^2-2cx+a^2=\left(\dfrac ca\right)^2\left(\dfrac{a^2}c-x\right)^2$. So $MF=e\left|\dfrac{a^2}c-x\right|$ with $e=\dfrac ca$. The hyperbola is the same computation with $b^2$ replaced by $-b^2$.
+    more: |
+      **What happens at the extremes.** When $e\to0$ the foci come together and the ellipse becomes a circle, whose directrix is "at infinity". When $e$ grows the ellipse gets flatter and then, at $e=1$, opens into a parabola; beyond $1$ the curve has two branches.
+
+  - id: polar
+    type: theorem
+    name: Polar equation of a conic
+    statement: |
+      Put the focus at the pole and the directrix at the line $x=-d$. Then the conic is
+
+      $$r=\dfrac{e\,d}{1-e\cos\varphi}.$$
+
+      The number $\ell=ed$ is the **semi-latus rectum**: it is the value of $r$ at $\varphi=\dfrac\pi2$, half of the chord through the focus perpendicular to the axis.
+    proof: |
+      For a point $M(r,\varphi)$ the distance to the directrix $x=-d$ is $d+r\cos\varphi$. The condition $MF=e\,\operatorname{dist}(M,d)$ reads $r=e(d+r\cos\varphi)$, so $r(1-e\cos\varphi)=ed$.
+    more: |
+      **Other positions.** If the directrix is $x=d$ (to the right of the focus) the sign changes: $r=\dfrac{ed}{1+e\cos\varphi}$. For a directrix $y=\pm d$ replace $\cos\varphi$ by $\sin\varphi$.
+
+  - id: visual-polar
+    type: visual
+    kind: plot
+    title: An ellipse and a parabola with a focus at the pole
+    caption: |
+      The ellipse $r=\dfrac{9}{5-4\cos\varphi}$ ($e=\dfrac45$) and the parabola $r=\dfrac{4}{1-\cos\varphi}$ ($e=1$) share the pole as a focus.
+    config:
+      mode: polar
+      r: "9/(5-4*cos(t))"
+      l1: "e = 4/5"
+      r2: "4/(1-cos(t))"
+      l2: "e = 1"
+      tmin: "0.6"
+      tmax: "2*pi-0.6"
+      range: 8
+      alt: "An ellipse and a parabola, both with the origin as a focus; the parabola opens to the right."
+
+  - id: ex-identify
+    type: example
+    title: Identify a conic from its polar equation
+    problem: |
+      Identify the conic $r=\dfrac{12}{3-2\cos\varphi}$ and find $e$, $d$ and the semi-latus rectum.
+    steps:
+      - text: |
+          Divide numerator and denominator by $3$ so that the denominator starts with $1$: $r=\dfrac{4}{1-\frac23\cos\varphi}$.
+        why: |
+          The standard form is $\dfrac{ed}{1-e\cos\varphi}$, whose denominator begins with $1$. Dividing $12$ by $3$ gives $4$ and dividing $3-2\cos\varphi$ by $3$ gives $1-\dfrac23\cos\varphi$.
+      - |
+        So $e=\dfrac23<1$: the conic is an ellipse, and $ed=4$ gives $d=4\cdot\dfrac32=6$.
+      - |
+        The semi-latus rectum is $\ell=ed=4$.
+    answer: |
+      An ellipse with $e=\dfrac23$, directrix $x=-6$, semi-latus rectum $4$.
+    verify:
+      - expr: "12/(3-2*cos(pi/2))"
+        equals: "4"
+      - expr: "(2/3)*6"
+        equals: "4"
+
+  - id: ex-write
+    type: example
+    title: Write the polar equation
+    problem: |
+      Write the polar equation of the hyperbola with a focus at the pole, eccentricity $\dfrac53$ and directrix $x=-\dfrac{16}{5}$.
+    steps:
+      - |
+        $e=\dfrac53$ and $d=\dfrac{16}5$, so $ed=\dfrac{16}{3}$.
+      - text: |
+          $r=\dfrac{\frac{16}3}{1-\frac53\cos\varphi}=\dfrac{16}{3-5\cos\varphi}$.
+        why: |
+          Multiply the numerator and the denominator by $3$ to remove the fractions.
+    answer: |
+      $r=\dfrac{16}{3-5\cos\varphi}$.
+    verify:
+      - expr: "(5/3)*(16/5)"
+        equals: "16/3"
+
+  - id: chk-eccentricity
+    type: check
+    prompt: |
+      Find the eccentricity of the conic $r=\dfrac{6}{2-\cos\varphi}$.
+    answerType: expression
+    answer: "1/2"
+    hints:
+      - |
+        Divide the numerator and the denominator by $2$.
+    explanation: |
+      $r=\dfrac{3}{1-\frac12\cos\varphi}$, so $e=\dfrac12$: an ellipse.
+
+  - id: chk-semilatus
+    type: check
+    prompt: |
+      A parabola has its focus at the pole and its directrix is $x=-4$. Find the value of $r$ at $\varphi=\dfrac\pi2$.
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        For a parabola $e=1$ and $ed=4$.
+    explanation: |
+      $r=\dfrac{4}{1-\cos\frac\pi2}=4$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $MF=e\cdot\operatorname{dist}(M,d)$: parabola ($e=1$), ellipse ($e<1$), hyperbola ($e>1$).
+      - |
+        With a focus at the pole: $r=\dfrac{ed}{1-e\cos\varphi}$ (directrix $x=-d$).
+      - |
+        To read $e$ from $r=\dfrac{k}{m-n\cos\varphi}$, divide by $m$: $e=\dfrac nm$.

@@ -1,0 +1,126 @@
+id: geo-m02-u05-l06
+title: Loci
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - locus
+objectives:
+  - Find the equation of a locus defined by a geometric condition.
+  - Recognize the line, the circle or the conic that the equation represents.
+sections:
+  - id: definition
+    type: definition
+    term: Locus
+    body: |
+      A **locus** is the set of all the points that satisfy a given geometric condition, and only those. To find it:
+
+      1. call $M(x,y)$ a general point of the plane;
+      2. translate the condition into an equation in $x$ and $y$ (distances, ratios, angles);
+      3. simplify and recognize the curve;
+      4. check that no point has been added or lost (for example by squaring).
+
+  - id: ex-bisector
+    type: example
+    title: Equidistant from two points
+    problem: |
+      Find the locus of the points $M$ with $MA=MB$, where $A(1,2)$ and $B(3,6)$.
+    steps:
+      - |
+        $MA^2=MB^2$: $(x-1)^2+(y-2)^2=(x-3)^2+(y-6)^2$.
+      - text: |
+          Expand: $-2x-4y+5=-6x-12y+45$, so $4x+8y=40$, that is $x+2y=10$.
+        why: |
+          The terms $x^2$ and $y^2$ cancel on both sides: this is why the locus is a line, not a curve. $(x-1)^2+(y-2)^2=x^2+y^2-2x-4y+5$ and $(x-3)^2+(y-6)^2=x^2+y^2-6x-12y+45$.
+      - |
+        This is the perpendicular bisector of $AB$: the midpoint $(2,4)$ satisfies $2+8=10$.
+    answer: |
+      The line $x+2y=10$.
+    verify:
+      - expr: "2+2*4"
+        equals: "10"
+
+  - id: ex-sum
+    type: example
+    title: A constant sum of squares
+    problem: |
+      Find the locus of the points $M$ with $MA^2+MB^2=10$, where $A(-1,0)$ and $B(1,0)$.
+    steps:
+      - |
+        $(x+1)^2+y^2+(x-1)^2+y^2=10$, that is $2x^2+2y^2+2=10$.
+      - |
+        So $x^2+y^2=4$: the circle with center $O$ (the midpoint of $AB$) and radius $2$.
+    answer: |
+      The circle $x^2+y^2=4$.
+    verify:
+      - expr: "2*4+2"
+        equals: "10"
+
+  - id: ex-apollonius
+    type: example
+    title: A constant ratio of distances
+    problem: |
+      Find the locus of the points $M$ with $MA=2\,MB$, where $A(0,0)$ and $B(3,0)$.
+    steps:
+      - |
+        Square: $x^2+y^2=4\left((x-3)^2+y^2\right)$, so $3x^2+3y^2-24x+36=0$, that is $x^2+y^2-8x+12=0$.
+      - text: |
+          Complete the square: $(x-4)^2+y^2=4$: the circle with center $(4,0)$ and radius $2$.
+        why: |
+          $x^2-8x=(x-4)^2-16$ and $-16+12=-4$, which goes to the right side. When the ratio is not $1$ the locus is a circle (the **circle of Apollonius**), not a line.
+    answer: |
+      The circle $(x-4)^2+y^2=4$.
+    verify:
+      - expr: "16-12"
+        equals: "4"
+
+  - id: ex-conic
+    type: example
+    title: A locus that is a conic
+    problem: |
+      Find the locus of the points $M$ whose distance to $F(2,0)$ is half of their distance to the line $x=8$.
+    steps:
+      - |
+        $MF=\dfrac12\operatorname{dist}(M,d)$: $(x-2)^2+y^2=\dfrac14(x-8)^2$.
+      - |
+        Multiply by $4$: $4x^2-16x+16+4y^2=x^2-16x+64$, so $3x^2+4y^2=48$.
+      - |
+        Divide by $48$: $\dfrac{x^2}{16}+\dfrac{y^2}{12}=1$, an ellipse with $e=\dfrac12$, as expected from $MF=e\cdot\operatorname{dist}(M,d)$.
+    answer: |
+      The ellipse $\dfrac{x^2}{16}+\dfrac{y^2}{12}=1$.
+    verify:
+      - expr: "4*16-16*2+16"
+        equals: "48"
+
+  - id: chk-line
+    type: check
+    prompt: |
+      Find the locus of the points $M$ with $MA^2-MB^2=8$, where $A(0,0)$ and $B(4,0)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "x=3"
+    hints:
+      - |
+        $x^2+y^2-\left((x-4)^2+y^2\right)=8$.
+    explanation: |
+      $8x-16=8$, so $x=3$: a line perpendicular to $AB$.
+
+  - id: chk-circle
+    type: check
+    prompt: |
+      Find the radius of the locus of the points $M$ with $MA^2+MB^2=26$, where $A(-2,0)$ and $B(2,0)$.
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        $MA^2+MB^2=2x^2+2y^2+8$.
+    explanation: |
+      $2x^2+2y^2+8=26$ gives $x^2+y^2=9$: radius $3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A locus problem: write the condition for a general point $M(x,y)$, simplify, recognize the curve.
+      - |
+        $MA=MB$: a line; $MA^2+MB^2=k$: a circle; $MA=k\,MB$ ($k\ne1$): a circle; $MF=e\cdot\operatorname{dist}(M,d)$: a conic.

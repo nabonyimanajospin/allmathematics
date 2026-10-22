@@ -22,6 +22,7 @@ MODULES = [
     "geo_m03",
     "geo_m01",
     "geo_polar",
+    "geo_conics",
 ]
 
 
