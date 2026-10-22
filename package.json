@@ -1,0 +1,30 @@
+{
+  "name": "allmaths",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@12.14.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @allmaths/web dev",
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "eslint .",
+    "test": "pnpm -r --if-present test",
+    "test:engine": "python -m pytest apps/math-engine",
+    "verify-content": "pnpm --filter @allmaths/scripts verify-content",
+    "db:generate": "pnpm --filter @allmaths/db generate",
+    "seed": "pnpm --filter @allmaths/scripts seed",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "typescript": "~5.9.0",
+    "vitest": "^3.2.0",
+    "eslint": "^9.20.0",
+    "typescript-eslint": "^8.30.0",
+    "@eslint/js": "^9.20.0",
+    "prettier": "^3.4.0",
+    "@types/node": "^22"
+  }
+}
