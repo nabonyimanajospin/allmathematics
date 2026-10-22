@@ -2,6 +2,7 @@
 
 import { and, desc, eq } from "drizzle-orm";
 import { schema, type AppDb } from "@allmaths/db";
+import { allExercises } from "@allmaths/content-schema";
 import type { ContentStore } from "../content/store";
 import { dbSectionId } from "../content/store";
 import { readProgress, type ProgressValue, type ProgressSnapshot } from "./progress";
@@ -11,6 +12,9 @@ export interface LessonState {
   sectionsTotal: number;
   /** Content section ids (not database ids) that are complete. */
   completedSectionIds: string[];
+  /** Exercises answered correctly (content ids). */
+  solvedExerciseIds: string[];
+  exercisesTotal: number;
   hintsUsed: Record<string, number>;
   /** Section to open: the one the student touched last ("resume where I left off"). */
   resumeSectionId: string;
@@ -30,12 +34,19 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
 
   const prefix = `${lessonId}-`;
   const contentIds = new Set(ref.lesson.sections.map((s) => s.id));
+  const exerciseIds = new Set(allExercises(ref.lesson).map((e) => e.id));
+  const solved = new Set<string>();
   const toContentId = (dbId: string): string => (dbId.startsWith(prefix) ? dbId.slice(prefix.length) : dbId);
 
   const completed = new Set<string>();
   const hints: Record<string, number> = {};
   for (const r of rows) {
     const id = toContentId(r.sectionId);
+    if (exerciseIds.has(id)) {
+      if (r.completedAt) solved.add(id);
+      if (r.hintsUsed > 0) hints[id] = r.hintsUsed;
+      continue;
+    }
     if (!contentIds.has(id)) continue;
     if (r.completedAt) completed.add(id);
     if (r.hintsUsed > 0) hints[id] = r.hintsUsed;
@@ -57,6 +68,8 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
     lessonId,
     sectionsTotal: ref.lesson.sections.length,
     completedSectionIds: ref.lesson.sections.filter((s) => completed.has(s.id)).map((s) => s.id),
+    solvedExerciseIds: allExercises(ref.lesson).filter((e) => solved.has(e.id)).map((e) => e.id),
+    exercisesTotal: exerciseIds.size,
     hintsUsed: hints,
     resumeSectionId: resume,
     nextIncompleteSectionId: firstIncomplete,

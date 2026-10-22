@@ -29,7 +29,19 @@ const computeResponse = z.object({
 });
 
 export interface EngineCheckRequest {
-  answer_type: "number" | "expression" | "vector" | "point" | "multiple_choice" | "auto";
+  answer_type:
+    | "number"
+    | "expression"
+    | "vector"
+    | "point"
+    | "multiple_choice"
+    | "auto"
+    | "region"
+    | "equation"
+    | "direction"
+    | "points"
+    | "ode_solution"
+    | "ode_family";
   student: string;
   correct: string;
   input_format?: "auto" | "latex" | "text";
@@ -37,6 +49,16 @@ export interface EngineCheckRequest {
   allow_decimal?: boolean;
   sig_figs?: number;
   mistakes?: { expr: string; hint: string }[];
+  coordinates?: string[];
+  constraint?: { equation: string; solve_for: string; ranges?: Record<string, [number, number]> };
+  ode?: {
+    order: number;
+    equation?: string;
+    family?: string;
+    constants?: string[];
+    conditions?: { at: string; value: string; derivative?: number }[];
+    sample?: [number, number];
+  };
 }
 
 export class EngineUnavailableError extends Error {

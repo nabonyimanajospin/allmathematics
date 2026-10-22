@@ -7,7 +7,7 @@ import { randomUUID } from "node:crypto";
 import { and, eq } from "drizzle-orm";
 import { schema, type AppDb } from "@allmaths/db";
 import { EngineUnavailableError, type EngineClient } from "@allmaths/core";
-import type { CheckSection } from "@allmaths/content-schema";
+import { toEngineRequest, type CheckSpec } from "@allmaths/content-schema";
 import type { ContentStore } from "../content/store";
 import { dbSectionId } from "../content/store";
 import { AppError, Errors } from "../errors";
@@ -33,11 +33,23 @@ export interface CheckOutcome {
   progress?: ProgressSnapshot;
 }
 
-function findCheck(store: ContentStore, lessonId: string, sectionId: string): { check: CheckSection; sectionDb: string } {
+/** A check inside the lesson, or an exercise of one of its exercise sets: both are questions with a key. */
+interface Question extends CheckSpec {
+  /** Shown after a correct answer or on request: the explanation of a check, the solution of an exercise. */
+  explanation: string;
+  allowDecimal?: boolean | undefined;
+}
+
+function findCheck(store: ContentStore, lessonId: string, sectionId: string): { check: Question; sectionDb: string } {
   const ref = store.lesson(lessonId);
-  const s = ref?.lesson.sections.find((x) => x.id === sectionId);
-  if (!ref || !s || s.type !== "check") throw Errors.notFound("Question not found");
-  return { check: s, sectionDb: dbSectionId(lessonId, sectionId) };
+  if (!ref) throw Errors.notFound("Question not found");
+  const s = ref.lesson.sections.find((x) => x.id === sectionId);
+  if (s && s.type === "check") return { check: s, sectionDb: dbSectionId(lessonId, sectionId) };
+  for (const set of ref.lesson.exerciseSets) {
+    const item = set.items.find((x) => x.id === sectionId);
+    if (item) return { check: { ...item, explanation: item.solution }, sectionDb: dbSectionId(lessonId, sectionId) };
+  }
+  throw Errors.notFound("Question not found");
 }
 
 async function ensureRow(db: AppDb, userId: string, lessonId: string, sectionDb: string, now: Date): Promise<void> {
@@ -61,18 +73,7 @@ export async function checkAnswer(
 
   let res;
   try {
-    res = await engine.check(
-      check.answerType === "multiple_choice"
-        ? { answer_type: "multiple_choice", student: answer, correct: String(check.correctIndex ?? -1) }
-        : {
-            answer_type: check.answerType,
-            student: answer,
-            correct: check.answer,
-            input_format: "auto",
-            ...(check.variables ? { variables: check.variables } : {}),
-            ...(check.mistakes ? { mistakes: check.mistakes } : {}),
-          },
-    );
+    res = await engine.check(toEngineRequest(check, answer));
   } catch (e) {
     if (e instanceof EngineUnavailableError) throw Errors.unavailable("Answer checking is temporarily unavailable. Please try again.", e);
     throw e;

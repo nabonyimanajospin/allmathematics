@@ -44,7 +44,7 @@ export async function syncContent(db: AppDb, store: ContentStore): Promise<{ les
           for (const ln of unit.lessons) {
             const l = ln.meta;
             lessonCount++;
-            const hasPractice = l.sections.some((s) => s.type === "practice");
+            const hasPractice = l.exerciseSets.length > 0;
             await tx
               .insert(schema.lessons)
               .values({
@@ -70,6 +70,23 @@ export async function syncContent(db: AppDb, store: ContentStore): Promise<{ les
                   target: schema.sections.id,
                   set: { lessonId: l.id, order: i + 1, type: s.type, minSeconds: s.minSeconds ?? null, contentJson: s },
                 });
+            }
+            // exercises are stored as sections of type "exercise" so that progress rows can reference them
+            let exerciseOrder = 1000;
+            for (const set of l.exerciseSets) {
+              for (const item of set.items) {
+                const id = dbSectionId(l.id, item.id);
+                ids.push(id);
+                await tx
+                  .insert(schema.sections)
+                  .values({ id, lessonId: l.id, order: exerciseOrder, type: "exercise", minSeconds: null, contentJson: item })
+                  .onConflictDoUpdate({
+                    target: schema.sections.id,
+                    set: { lessonId: l.id, order: exerciseOrder, type: "exercise", minSeconds: null, contentJson: item },
+                  });
+                exerciseOrder++;
+                sectionCount++;
+              }
             }
             await tx
               .delete(schema.sections)

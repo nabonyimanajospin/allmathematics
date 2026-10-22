@@ -14,6 +14,7 @@ import {
   type Frac,
   type Weighted,
 } from "@allmaths/core";
+import { allExercises } from "@allmaths/content-schema";
 import type { ContentStore, LessonRef } from "../content/store";
 import { dbSectionId } from "../content/store";
 
@@ -72,13 +73,15 @@ export async function computeLessonFrac(db: AppDb, userId: string, ref: LessonRe
       ),
     );
   const valid = new Set(ref.lesson.sections.map((s) => dbSectionId(ref.lesson.id, s.id)));
+  const exercises = new Set(allExercises(ref.lesson).map((e) => dbSectionId(ref.lesson.id, e.id)));
   const completed = rows.filter((r) => valid.has(r.sectionId)).length;
+  const solved = rows.filter((r) => exercises.has(r.sectionId)).length;
   return lessonProgress({
     sectionsCompleted: completed,
     sectionsTotal: ref.lesson.sections.length,
-    practiceSolved: 0,
+    practiceSolved: solved,
     quizPassed: false,
-    hasPractice: ref.lesson.sections.some((s) => s.type === "practice"),
+    hasPractice: exercises.size > 0,
     hasQuiz: false,
   });
 }
