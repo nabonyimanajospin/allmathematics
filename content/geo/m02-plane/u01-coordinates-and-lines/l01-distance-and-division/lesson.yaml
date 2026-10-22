@@ -1,0 +1,165 @@
+id: geo-m02-u01-l01
+title: Distance, midpoint and division of a segment
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - distance-formula
+  - midpoint
+  - section-formula
+objectives:
+  - Compute the distance between two points from their coordinates.
+  - Find the midpoint of a segment.
+  - Find the point that divides a segment in a given ratio, inside or outside the segment.
+sections:
+  - id: measuring
+    type: concept
+    title: Measuring with coordinates
+    body: |
+      Two points $A(x_1,y_1)$ and $B(x_2,y_2)$ are given by their coordinates. How far apart are they?
+
+      Draw the horizontal line through $A$ and the vertical line through $B$. They meet at the point $C(x_2,y_1)$, and the triangle $ACB$ has a right angle at $C$.
+      Its legs have lengths $|x_2-x_1|$ and $|y_2-y_1|$, and the segment $AB$ is the hypotenuse. Pythagoras' theorem gives the length of $AB$ at once.
+
+  - id: distance-formula
+    type: theorem
+    name: Distance formula
+    statement: |
+      The distance between $A(x_1,y_1)$ and $B(x_2,y_2)$ is
+
+      $$AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}=\norm{\overrightarrow{AB}}.$$
+    proof: |
+      In the right triangle $ACB$ the legs are $|x_2-x_1|$ and $|y_2-y_1|$. By Pythagoras, $AB^2=|x_2-x_1|^2+|y_2-y_1|^2$, and squares do not need the absolute values.
+      The same number is the norm of $\overrightarrow{AB}=(x_2-x_1,\,y_2-y_1)$.
+
+  - id: ex-distance
+    type: example
+    title: A distance with a radical
+    problem: |
+      Find the distance between $A(1,2)$ and $B(7,5)$.
+    steps:
+      - |
+        $\overrightarrow{AB}=(7-1,\,5-2)=(6,3)$.
+      - |
+        $AB=\sqrt{6^2+3^2}=\sqrt{45}=3\sqrt5$.
+    answer: |
+      $AB=3\sqrt5$.
+    verify:
+      - expr: "sqrt((7-1)^2+(5-2)^2)"
+        equals: "3*sqrt(5)"
+
+  - id: chk-distance
+    type: check
+    prompt: |
+      Find the distance between $A(-2,1)$ and $B(1,5)$.
+    answerType: number
+    answer: "5"
+    hints:
+      - |
+        $\overrightarrow{AB}=(1-(-2),\,5-1)$.
+    explanation: |
+      $\overrightarrow{AB}=(3,4)$, so $AB=\sqrt{9+16}=5$.
+    mistakes:
+      - expr: "1"
+        hint: "That is the distance of the horizontal leg only: add the vertical difference with Pythagoras."
+
+  - id: section
+    type: theorem
+    name: Dividing a segment
+    statement: |
+      Let $A\neq B$. A point $P$ of the line $AB$ other than $B$ is determined by the number $k\neq-1$ with
+      $\overrightarrow{AP}=k\,\overrightarrow{PB}$. Its coordinates are
+
+      $$x=\dfrac{x_1+k\,x_2}{1+k},\qquad y=\dfrac{y_1+k\,y_2}{1+k}.$$
+
+      If $k>0$, $P$ lies **between** $A$ and $B$ (internal division). If $k<0$, $P$ lies **outside** the segment (external division).
+      For $k=1$ the point is the **midpoint**, with coordinates $\left(\dfrac{x_1+x_2}{2},\dfrac{y_1+y_2}{2}\right)$.
+    proof: |
+      Write the vector equation with coordinates: $P-A=k\,(B-P)$. Collect $P$ on the left: $(1+k)P=A+kB$. Divide by $1+k$ and read each coordinate.
+
+  - id: ratio
+    type: concept
+    title: From a ratio to the number $k$
+    body: |
+      A ratio such as $AP:PB=m:n$ tells the lengths. The number $k$ also carries the position of $P$:
+
+      - **Internal division** in the ratio $m:n$: $P$ is on the segment, and $k=\dfrac mn$.
+      - **External division** in the ratio $m:n$ (with $m\neq n$): $P$ is on the line but outside the segment, and $k=-\dfrac mn$.
+
+      Take $A$ at $0$ and $B$ at $6$ on a number line. The point $P$ at $4$ has $AP=4$ and $PB=2$, so $AP:PB=2:1$ internally, with $k=2$.
+      The point at $12$ also has $AP:PB=12:6=2:1$, but it is outside the segment: that is the external division, with $k=-2$.
+
+  - id: ex-internal
+    type: example
+    title: Internal division
+    problem: |
+      Find the point $P$ of the segment $AB$ with $A(1,2)$, $B(7,5)$ and $AP:PB=2:1$.
+    steps:
+      - |
+        Internal division: $k=\dfrac21=2$.
+      - |
+        $x=\dfrac{1+2\cdot7}{1+2}=5$ and $y=\dfrac{2+2\cdot5}{1+2}=4$.
+    answer: |
+      $P(5,4)$.
+    verify:
+      - expr: "(1+2*7)/(1+2)"
+        equals: "5"
+      - expr: "(2+2*5)/(1+2)"
+        equals: "4"
+
+  - id: ex-external
+    type: example
+    title: External division
+    problem: |
+      Find the point $Q$ of the line $AB$ outside the segment with $AQ:QB=3:1$, for the same $A(1,2)$ and $B(7,5)$.
+    steps:
+      - |
+        External division: $k=-3$.
+      - |
+        $x=\dfrac{1-3\cdot7}{1-3}=\dfrac{-20}{-2}=10$ and $y=\dfrac{2-3\cdot5}{1-3}=\dfrac{-13}{-2}=\dfrac{13}{2}$.
+      - |
+        Check: $\overrightarrow{AQ}=\left(9,\dfrac92\right)$ and $\overrightarrow{QB}=\left(-3,-\dfrac32\right)$. The first is $-3$ times the second, as $k=-3$ requires.
+    answer: |
+      $Q\left(10,\dfrac{13}{2}\right)$.
+    verify:
+      - expr: "(1-3*7)/(1-3)"
+        equals: "10"
+      - expr: "(2-3*5)/(1-3)"
+        equals: "13/2"
+
+  - id: chk-midpoint
+    type: check
+    prompt: |
+      Find the midpoint of the segment with ends $A(-3,4)$ and $B(5,-2)$.
+    answerType: vector
+    answer: "(1, 1)"
+    hints:
+      - |
+        Add the coordinates and divide by $2$.
+    explanation: |
+      $\left(\dfrac{-3+5}{2},\dfrac{4+(-2)}{2}\right)=(1,1)$.
+
+  - id: chk-ratio
+    type: check
+    prompt: |
+      Find the point $P$ of the segment $AB$ with $A(0,0)$, $B(8,4)$ and $AP:PB=1:3$.
+    answerType: vector
+    answer: "(2, 1)"
+    hints:
+      - |
+        $AP:PB=1:3$ means $k=\dfrac13$: $P$ is closer to $A$.
+    explanation: |
+      $k=\dfrac13$, so $x=\dfrac{0+\frac13\cdot8}{1+\frac13}=\dfrac{8/3}{4/3}=2$ and $y=\dfrac{\frac13\cdot4}{\frac43}=1$. Equivalently, $P$ is one quarter of the way from $A$ to $B$.
+    mistakes:
+      - expr: "(6, 3)"
+        hint: "That divides the segment in the ratio $3:1$. Here $AP$ is the short part, one third of $PB$."
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+      - |
+        The midpoint of $AB$ has coordinates $\left(\dfrac{x_1+x_2}2,\dfrac{y_1+y_2}2\right)$.
+      - |
+        If $\overrightarrow{AP}=k\,\overrightarrow{PB}$, then $P=\dfrac{A+kB}{1+k}$ in each coordinate; $k=\dfrac mn$ inside the segment and $k=-\dfrac mn$ outside it.

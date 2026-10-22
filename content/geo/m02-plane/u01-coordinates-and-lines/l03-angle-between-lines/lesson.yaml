@@ -1,0 +1,124 @@
+id: geo-m02-u01-l03
+title: Angle between two lines, parallel and perpendicular lines
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - angle-between-lines
+  - parallel-perpendicular
+objectives:
+  - Compute the angle between two lines from their directions or slopes.
+  - Decide whether two lines are parallel or perpendicular.
+  - Write the line through a point parallel or perpendicular to a given line.
+sections:
+  - id: angle-idea
+    type: concept
+    title: The angle between two lines
+    body: |
+      Two intersecting lines make four angles, equal in pairs and adding up to $\pi$. By convention, **the angle between two lines** is the smaller one, so it lies in $\left[0,\dfrac\pi2\right]$.
+
+      Each line has a direction vector, and the angle between the vectors is either the angle between the lines or its supplement. The dot product gives
+      $\cos\varphi$ for the angle $\varphi$ between the vectors. Taking the absolute value removes the doubt, because $|\cos\varphi|=\cos(\pi-\varphi)$ for the two possible angles.
+      The same works with the normal vectors, which are the direction vectors turned by a right angle.
+
+  - id: angle-formula
+    type: theorem
+    name: Angle between two lines
+    statement: |
+      Let $\vec u$ and $\vec v$ be direction vectors (or normal vectors) of two lines. The angle $\theta\in\left[0,\dfrac\pi2\right]$ between the lines satisfies
+
+      $$\cos\theta=\dfrac{\left|\dotp{\vec u}{\vec v}\right|}{\norm{\vec u}\,\norm{\vec v}}.$$
+
+      For lines with slopes $m_1,m_2$ and $m_1m_2\neq-1$:
+
+      $$\tan\theta=\left|\dfrac{m_2-m_1}{1+m_1m_2}\right|.$$
+    proof: |
+      The first formula is the angle formula of the dot product with the absolute value explained above. For the second, a line of slope $m$ makes an angle $\alpha$ with the $x$-axis where $\tan\alpha=m$.
+      The angle between two lines is $|\alpha_2-\alpha_1|$ (or its supplement), and $\tan(\alpha_2-\alpha_1)=\dfrac{m_2-m_1}{1+m_1m_2}$ by the subtraction formula for the tangent.
+
+  - id: ex-angle
+    type: example
+    title: An angle of $\dfrac\pi4$
+    problem: |
+      Find the angle between the lines $3x-y=0$ and $x-2y=0$.
+    steps:
+      - |
+        Normal vectors: $\vec n_1=(3,-1)$ and $\vec n_2=(1,-2)$. Then $\dotp{\vec n_1}{\vec n_2}=3+2=5$.
+      - |
+        $\norm{\vec n_1}\norm{\vec n_2}=\sqrt{10}\cdot\sqrt5=5\sqrt2$.
+      - |
+        $\cos\theta=\dfrac{5}{5\sqrt2}=\dfrac{\sqrt2}2$, so $\theta=\dfrac\pi4$.
+    answer: |
+      $\theta=\dfrac\pi4$.
+    verify:
+      - expr: "(3*1+(-1)*(-2))/(sqrt(10)*sqrt(5))"
+        equals: "sqrt(2)/2"
+
+  - id: chk-angle
+    type: check
+    prompt: |
+      Find the angle between the line $y=\sqrt3\,x$ and the $x$-axis.
+    answerType: expression
+    answer: "pi/3"
+    hints:
+      - |
+        The slope of the line is $\tan\alpha=\sqrt3$.
+    explanation: |
+      The $x$-axis has slope $0$, so $\tan\theta=\left|\dfrac{\sqrt3-0}{1+0}\right|=\sqrt3$ and $\theta=\dfrac\pi3$.
+
+  - id: parallel-perpendicular
+    type: theorem
+    name: Parallel and perpendicular lines
+    statement: |
+      Let the lines be $a_1x+b_1y+c_1=0$ and $a_2x+b_2y+c_2=0$.
+
+      - They are **parallel** (or equal) if and only if their normals are collinear: $a_1b_2-a_2b_1=0$.
+      - They are **perpendicular** if and only if $a_1a_2+b_1b_2=0$.
+
+      With slopes, perpendicular lines satisfy $m_1m_2=-1$.
+    proof: |
+      Parallel lines have collinear normals, and collinearity of $(a_1,b_1)$ and $(a_2,b_2)$ is $a_1b_2-a_2b_1=0$. Perpendicular lines have orthogonal normals: $\dotp{\vec n_1}{\vec n_2}=a_1a_2+b_1b_2=0$.
+      With $m_i=-\dfrac{a_i}{b_i}$ this reads $\dfrac{a_1a_2}{b_1b_2}=-1$, that is $m_1m_2=-1$.
+
+  - id: ex-through-point
+    type: example
+    title: Parallel and perpendicular through a point
+    problem: |
+      Find the lines through $P(2,3)$ that are parallel and perpendicular to $4x-y+1=0$.
+    steps:
+      - |
+        A parallel line has the same normal $(4,-1)$: $4x-y+c=0$. It contains $P$ when $8-3+c=0$, so $c=-5$.
+      - |
+        A perpendicular line has the normal $(1,4)$ (the direction vector of the given line): $x+4y+c=0$. Through $P$: $2+12+c=0$, so $c=-14$.
+    answer: |
+      Parallel: $4x-y-5=0$. Perpendicular: $x+4y-14=0$.
+    verify:
+      - expr: "4*2-3-5"
+        equals: "0"
+      - expr: "2+4*3-14"
+        equals: "0"
+      - expr: "4*1+(-1)*4"
+        equals: "0"
+
+  - id: chk-perpendicular
+    type: check
+    prompt: |
+      Find the line through the origin perpendicular to $2x+3y-6=0$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "3*x-2*y=0"
+    hints:
+      - |
+        The normal $(2,3)$ of the given line is a direction vector of the perpendicular line.
+    explanation: |
+      The perpendicular line has the normal $(3,-2)$, which is perpendicular to $(2,3)$. Through the origin: $3x-2y=0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The angle between two lines is in $\left[0,\dfrac\pi2\right]$: $\cos\theta=\dfrac{|\dotp{\vec u}{\vec v}|}{\norm{\vec u}\norm{\vec v}}$.
+      - |
+        Parallel: $a_1b_2-a_2b_1=0$. Perpendicular: $a_1a_2+b_1b_2=0$, that is $m_1m_2=-1$.
+      - |
+        For a parallel line keep the normal $(a,b)$ and change $c$; for a perpendicular line use the normal $(b,-a)$.

@@ -1,0 +1,189 @@
+id: geo-m02-u01-l02
+title: The eight equations of a straight line
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - line-equations
+  - direction-and-normal
+  - normal-and-polar-form
+objectives:
+  - Write one line in eight forms (vector, parametric, canonical, analytic implicit, analytic explicit, normal, polar and intercept form).
+  - Pass from one form to another, and know when a form does not exist.
+  - Find the line through two points and read its direction, normal, slope, distance from the origin and intercepts.
+sections:
+  - id: determined
+    type: concept
+    title: One line, eight ways to write it
+    body: |
+      A line in the plane is determined by **a point** $A$ on it and **a direction**. The direction is given by a non-zero vector $\vec d$ parallel to the line, the **direction vector**.
+      Equally, a non-zero vector $\vec n$ perpendicular to the line, the **normal vector**, gives the direction.
+
+      A point $P$ is on the line when $\overrightarrow{AP}$ is parallel to $\vec d$. Writing this condition in different ways gives eight equations of the same line.
+      Each one answers a different need: the first four use the direction vector, the next two use the normal vector, the last two give geometric information at once (the distance from the origin, the intercepts).
+      Throughout this lesson the line is the line $AB$ through $A(-3,2)$ and $B(1,5)$.
+
+  - id: vector-parametric
+    type: definition
+    term: Vector and parametric equations
+    body: |
+      **1. Vector equation.** The line through $A$ with direction $\vec d$ is the set of points $P$ with
+
+      $$\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d,\qquad\lambda\in\mathbb R.$$
+
+      For the line through two points use $\vec d=\overrightarrow{AB}$.
+
+      **2. Parametric equations.** Write the vector equation coordinate by coordinate. For $A(x_0,y_0)$ and $\vec d=(d_1,d_2)$:
+
+      $$x=x_0+\lambda\,d_1,\qquad y=y_0+\lambda\,d_2.$$
+
+      Each value of the **parameter** $\lambda$ gives one point of the line; $\lambda=0$ gives $A$ and, for $\vec d=\overrightarrow{AB}$, $\lambda=1$ gives $B$.
+
+  - id: canonical
+    type: definition
+    term: Canonical (symmetric) equation
+    body: |
+      **3.** Eliminate $\lambda$ from the parametric equations: both $\dfrac{x-x_0}{d_1}$ and $\dfrac{y-y_0}{d_2}$ are equal to $\lambda$, so
+
+      $$\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}.$$
+
+      This form exists when $d_1\neq0$ and $d_2\neq0$. A vertical line ($d_1=0$) is written $x=x_0$, and a horizontal line ($d_2=0$) is written $y=y_0$.
+
+  - id: implicit-explicit
+    type: theorem
+    name: Analytic implicit and explicit equations
+    statement: |
+      **4. Implicit equation.** The line through $A(x_0,y_0)$ with normal vector $\vec n=(a,b)\neq\vec0$ has the equation
+
+      $$a(x-x_0)+b(y-y_0)=0,\qquad\text{that is}\qquad ax+by+c=0\ \text{ with }\ c=-ax_0-by_0.$$
+
+      Conversely, every equation $ax+by+c=0$ with $(a,b)\neq(0,0)$ is a line, with normal vector $(a,b)$ and direction vector $(-b,a)$.
+
+      **5. Explicit equation.** If $b\neq0$ solve for $y$:
+
+      $$y=m\,x+p,\qquad m=-\dfrac ab=\dfrac{d_2}{d_1},\quad p=-\dfrac cb.$$
+
+      $m$ is the **slope** and $p$ the **$y$-intercept**. A vertical line has no explicit equation.
+    proof: |
+      $P(x,y)$ is on the line exactly when $\overrightarrow{AP}\perp\vec n$, that is when $\dotp{\overrightarrow{AP}}{\vec n}=a(x-x_0)+b(y-y_0)=0$.
+      The vector $(-b,a)$ is perpendicular to $(a,b)$, because $a(-b)+b\,a=0$. Solving $ax+by+c=0$ for $y$ gives the explicit form, and the slope is the ratio of the components of the direction $(-b,a)$: $\dfrac{a}{-b}=-\dfrac ab$.
+
+  - id: normal-form
+    type: theorem
+    name: The normal (Hesse) equation
+    statement: |
+      **6.** Let $p\ge0$ be the distance from the origin $O$ to the line, and $\alpha$ the angle that the unit vector $\vec u=(\cos\alpha,\sin\alpha)$, perpendicular to the line and pointing from $O$ towards it, makes with the $x$-axis. Then the line is
+
+      $$x\cos\alpha+y\sin\alpha-p=0.$$
+
+      From $ax+by+c=0$ divide by $\varepsilon\sqrt{a^2+b^2}$, where $\varepsilon=-1$ if $c>0$ and $\varepsilon=1$ if $c\le0$ (so that the constant term is not positive):
+
+      $$\cos\alpha=\dfrac{\varepsilon a}{\sqrt{a^2+b^2}},\qquad\sin\alpha=\dfrac{\varepsilon b}{\sqrt{a^2+b^2}},\qquad p=\dfrac{|c|}{\sqrt{a^2+b^2}}.$$
+    proof: |
+      Let $H$ be the foot of the perpendicular from $O$, so $\overrightarrow{OH}=p\,\vec u$. A point $P$ is on the line when $\overrightarrow{HP}\perp\vec u$, that is $\dotp{\overrightarrow{OP}-p\vec u}{\vec u}=0$.
+      Since $\dotp{\vec u}{\vec u}=1$ this reads $x\cos\alpha+y\sin\alpha=p$. The division by $\varepsilon\sqrt{a^2+b^2}$ makes the normal a unit vector with a non-positive constant term, which is $-p$.
+
+  - id: polar-form
+    type: theorem
+    name: Polar and intercept equations
+    statement: |
+      **7. Polar equation.** In polar coordinates $(r,\theta)$ the line of the normal form is
+
+      $$r=\dfrac{p}{\cos(\theta-\alpha)},\qquad\text{equivalently}\qquad r\cos(\theta-\alpha)=p.$$
+
+      **8. Intercept equation.** If the line meets the axes at $(q_1,0)$ and $(0,q_2)$ with $q_1,q_2\neq0$ (that is $a,b,c$ all non-zero),
+
+      $$\dfrac{x}{q_1}+\dfrac{y}{q_2}=1,\qquad q_1=-\dfrac ca,\quad q_2=-\dfrac cb.$$
+    proof: |
+      Put $x=r\cos\theta$, $y=r\sin\theta$ in the normal form: $r(\cos\theta\cos\alpha+\sin\theta\sin\alpha)=r\cos(\theta-\alpha)=p$.
+      For the intercepts, put $y=0$ in $ax+by+c=0$ to get $q_1=-\dfrac ca$, and $x=0$ to get $q_2=-\dfrac cb$. Dividing the equation by $-c$ gives $\dfrac xq_1+\dfrac y{q_2}=1$.
+
+  - id: ex-eight
+    type: example
+    title: All eight equations of the line $AB$
+    problem: |
+      Write the eight equations of the line through $A(-3,2)$ and $B(1,5)$.
+    steps:
+      - |
+        Direction vector: $\overrightarrow{AB}=(1-(-3),\,5-2)=(4,3)$.
+      - |
+        **Vector:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\overrightarrow{AB}$, that is $(x,y)=(-3,2)+\lambda(4,3)$.
+      - |
+        **Parametric:** $x=-3+4\lambda$, $y=2+3\lambda$.
+      - |
+        **Canonical:** $\dfrac{x+3}{4}=\dfrac{y-2}{3}$.
+      - |
+        **Implicit:** a normal vector is $(3,-4)$, so $3(x+3)-4(y-2)=0$, that is $3x-4y+17=0$.
+      - |
+        **Explicit:** $4y=3x+17$, so $y=\dfrac34\,x+\dfrac{17}4$.
+      - |
+        **Normal:** $a=3$, $b=-4$, $c=17>0$, so $\varepsilon=-1$ and $\sqrt{a^2+b^2}=5$. Then $\cos\alpha=-\dfrac35$, $\sin\alpha=\dfrac45$, $p=\dfrac{17}5$, and the equation is $-\dfrac35\,x+\dfrac45\,y-\dfrac{17}5=0$.
+      - |
+        **Polar:** $r=\dfrac{17}{5\cos(\theta-\alpha)}$, with $\cos\alpha=-\dfrac35$ and $\sin\alpha=\dfrac45$. Expanding $\cos(\theta-\alpha)$ gives $r\,(-3\cos\theta+4\sin\theta)=17$.
+      - |
+        **Intercept:** $q_1=-\dfrac{17}{3}$ and $q_2=\dfrac{17}{4}$, so $\dfrac{x}{-17/3}+\dfrac{y}{17/4}=1$, that is $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
+      - |
+        Check with $B(1,5)$ in the implicit form: $3-20+17=0$.
+    answer: |
+      Implicit $3x-4y+17=0$; explicit $y=\dfrac34x+\dfrac{17}4$; normal $-\dfrac35x+\dfrac45y-\dfrac{17}5=0$; intercept $-\dfrac{3x}{17}+\dfrac{4y}{17}=1$.
+    verify:
+      - expr: "3*(-3)-4*2+17"
+        equals: "0"
+      - expr: "3*1-4*5+17"
+        equals: "0"
+      - expr: "(-3/5)^2+(4/5)^2"
+        equals: "1"
+      - expr: "3*(-17/3)-4*0+17"
+        equals: "0"
+      - expr: "3*0-4*(17/4)+17"
+        equals: "0"
+
+  - id: chk-two-points
+    type: check
+    prompt: |
+      Find an equation of the line through $A(2,-1)$ and $B(5,3)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "4*x-3*y-11=0"
+    hints:
+      - |
+        $\overrightarrow{AB}=(3,4)$, so a normal vector is $(4,-3)$.
+    explanation: |
+      $4(x-2)-3(y+1)=0$, that is $4x-3y-11=0$. Any non-zero multiple of this equation is also correct.
+
+  - id: chk-distance-origin
+    type: check
+    prompt: |
+      Find the distance $p$ from the origin to the line $3x+4y-10=0$ (the number $p$ of its normal form).
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        $p=\dfrac{|c|}{\sqrt{a^2+b^2}}$.
+    explanation: |
+      Here $\sqrt{a^2+b^2}=\sqrt{9+16}=5$, so $p=\dfrac{10}{5}=2$. The normal form is $\dfrac35x+\dfrac45y-2=0$.
+
+  - id: chk-slope
+    type: check
+    prompt: |
+      What is the slope of the line $6x+3y-5=0$?
+    answerType: number
+    answer: "-2"
+    hints:
+      - |
+        Solve for $y$, or use $m=-\dfrac ab$.
+    explanation: |
+      $3y=-6x+5$, so $y=-2x+\dfrac53$. The slope is $-2$.
+    mistakes:
+      - expr: "2"
+        hint: "Check the sign: moving $6x$ to the other side changes its sign."
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        With a point $A(x_0,y_0)$ and a direction $(d_1,d_2)$: vector $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\vec d$; parametric $x=x_0+\lambda d_1$, $y=y_0+\lambda d_2$; canonical $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}$.
+      - |
+        Implicit $ax+by+c=0$ (normal $(a,b)$, direction $(-b,a)$); explicit $y=mx+p$ with $m=-\dfrac ab$.
+      - |
+        Normal form $x\cos\alpha+y\sin\alpha-p=0$ with $p=\dfrac{|c|}{\sqrt{a^2+b^2}}\ge0$; polar form $r=\dfrac p{\cos(\theta-\alpha)}$; intercept form $\dfrac x{q_1}+\dfrac y{q_2}=1$.

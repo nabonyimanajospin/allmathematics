@@ -1,0 +1,118 @@
+id: geo-m02-u01-l04
+title: Distance from a point to a line
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - point-line-distance
+  - parallel-lines-distance
+  - foot-of-perpendicular
+objectives:
+  - Compute the distance from a point to a line.
+  - Find the foot of the perpendicular from a point to a line.
+  - Compute the distance between two parallel lines.
+sections:
+  - id: shortest
+    type: concept
+    title: The shortest way to a line
+    body: |
+      The distance from a point $P$ to a line $\ell$ is the length of the shortest segment from $P$ to a point of $\ell$. That segment is perpendicular to $\ell$:
+      for any other point $Q$ of $\ell$, the segment $PQ$ is the hypotenuse of a right triangle whose leg is the perpendicular segment, so it is longer.
+
+      The perpendicular direction is the direction of the normal vector $\vec n=(a,b)$ of $\ell$. So the distance is the length of the part of a vector $\overrightarrow{QP}$,
+      with $Q$ on $\ell$, that points along $\vec n$: the length of the orthogonal projection of $\overrightarrow{QP}$ onto $\vec n$.
+
+  - id: distance-theorem
+    type: theorem
+    name: Distance from a point to a line
+    statement: |
+      The distance from $P(x_0,y_0)$ to the line $ax+by+c=0$ is
+
+      $$d=\dfrac{|a\,x_0+b\,y_0+c|}{\sqrt{a^2+b^2}}.$$
+
+      The foot of the perpendicular from $P$ is $H=P-t\,(a,b)$ with $t=\dfrac{a\,x_0+b\,y_0+c}{a^2+b^2}$.
+    proof: |
+      Let $Q(x_1,y_1)$ be a point of the line, so $c=-ax_1-by_1$. The projection of $\overrightarrow{QP}$ onto $\vec n=(a,b)$ has length
+      $\dfrac{|\dotp{\overrightarrow{QP}}{\vec n}|}{\norm{\vec n}}=\dfrac{|a(x_0-x_1)+b(y_0-y_1)|}{\sqrt{a^2+b^2}}=\dfrac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}$.
+
+      For the foot, move from $P$ along $\vec n$ by a multiple $t$ so that the result is on the line: $a(x_0-ta)+b(y_0-tb)+c=0$ gives $t=\dfrac{ax_0+by_0+c}{a^2+b^2}$.
+
+  - id: ex-distance
+    type: example
+    title: Distance and foot
+    problem: |
+      Find the distance from $P(3,-1)$ to the line $3x+4y-10=0$, and the foot of the perpendicular.
+    steps:
+      - |
+        $a x_0+b y_0+c=9-4-10=-5$ and $\sqrt{a^2+b^2}=5$, so $d=\dfrac{|-5|}{5}=1$.
+      - |
+        $t=\dfrac{-5}{25}=-\dfrac15$, so $H=(3,-1)+\dfrac15(3,4)=\left(\dfrac{18}5,-\dfrac15\right)$.
+      - |
+        Check: $H$ is on the line, since $3\cdot\dfrac{18}5+4\cdot\left(-\dfrac15\right)-10=\dfrac{54-4-50}{5}=0$.
+    answer: |
+      $d=1$ and $H\left(\dfrac{18}{5},-\dfrac15\right)$.
+    verify:
+      - expr: "abs(3*3+4*(-1)-10)/sqrt(3^2+4^2)"
+        equals: "1"
+      - expr: "3*(18/5)+4*(-1/5)-10"
+        equals: "0"
+
+  - id: chk-distance
+    type: check
+    prompt: |
+      Find the distance from the origin to the line $5x-12y+26=0$.
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        $\sqrt{5^2+12^2}=13$.
+    explanation: |
+      $d=\dfrac{|26|}{13}=2$.
+
+  - id: parallel
+    type: theorem
+    name: Distance between parallel lines
+    statement: |
+      The parallel lines $ax+by+c_1=0$ and $ax+by+c_2=0$, written with the **same** $a$ and $b$, are at distance
+
+      $$d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}.$$
+    proof: |
+      Take any point $P(x_0,y_0)$ of the second line, so $ax_0+by_0=-c_2$. Its distance to the first line is $\dfrac{|ax_0+by_0+c_1|}{\sqrt{a^2+b^2}}=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}$.
+
+  - id: ex-parallel
+    type: example
+    title: Parallel lines with different scales
+    problem: |
+      Find the distance between $2x-y+3=0$ and $4x-2y-7=0$.
+    steps:
+      - |
+        The coefficients must be the same: divide the second equation by $2$ to get $2x-y-\dfrac72=0$.
+      - |
+        The length of the normal $(2,-1)$ is $\sqrt5$, and $\left|3-\left(-\dfrac72\right)\right|=\dfrac{13}2$. So $d=\dfrac{13}{2}\cdot\dfrac{\sqrt5}{5}=\dfrac{13\sqrt5}{10}$.
+    answer: |
+      $d=\dfrac{13\sqrt5}{10}$.
+    verify:
+      - expr: "(3+7/2)/sqrt(5)"
+        equals: "13*sqrt(5)/10"
+
+  - id: chk-parallel
+    type: check
+    prompt: |
+      Find the distance between the lines $3x+4y+1=0$ and $3x+4y-9=0$.
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        The coefficients of $x$ and $y$ are already equal.
+    explanation: |
+      The normal $(3,4)$ has length $5$, and $|1-(-9)|=10$. So $d=\dfrac{10}{5}=2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $d(P,\ell)=\dfrac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}$: substitute the point into the equation of the line and divide by the length of the normal.
+      - |
+        The foot of the perpendicular is $P-t(a,b)$ with $t=\dfrac{ax_0+by_0+c}{a^2+b^2}$.
+      - |
+        For parallel lines with equal $a$ and $b$: $d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}$. Make the coefficients equal first.

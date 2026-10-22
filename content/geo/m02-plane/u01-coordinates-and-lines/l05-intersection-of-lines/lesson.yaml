@@ -1,0 +1,149 @@
+id: geo-m02-u01-l05
+title: Intersection of lines, concurrent lines and pencils
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - line-intersection
+  - concurrent-lines
+  - pencil-of-lines
+objectives:
+  - Find the intersection of two lines, and decide when it is a point, empty, or a whole line.
+  - Test whether three lines pass through one point.
+  - Use a pencil of lines to write a line through the intersection of two lines.
+sections:
+  - id: two-lines
+    type: concept
+    title: Two lines in the plane
+    body: |
+      Two lines of the plane are in exactly one of three positions. They **intersect at one point**, they are **parallel** (no common point), or they **coincide** (all points common).
+
+      To find the intersection, solve the two equations together. A point on both lines satisfies both equations, so the intersection is the set of solutions of the system
+
+      $$a_1x+b_1y+c_1=0,\qquad a_2x+b_2y+c_2=0.$$
+
+  - id: cramer
+    type: theorem
+    name: Solving two linear equations
+    statement: |
+      Put $D=a_1b_2-a_2b_1$.
+
+      - If $D\neq0$, the lines meet at exactly one point, $x=\dfrac{b_1c_2-b_2c_1}{D}$ and $y=\dfrac{c_1a_2-c_2a_1}{D}$.
+      - If $D=0$, the lines are parallel or equal: they coincide when the coefficient triples $(a_1,b_1,c_1)$ and $(a_2,b_2,c_2)$ are proportional, and are parallel otherwise.
+    proof: |
+      Multiply the first equation by $b_2$ and the second by $b_1$, then subtract: $(a_1b_2-a_2b_1)x=b_1c_2-b_2c_1$. Eliminating $x$ in the same way gives $(a_1b_2-a_2b_1)y=c_1a_2-c_2a_1$.
+      If $D\neq0$ divide by $D$. If $D=0$ the normals are collinear, so the lines are parallel by the previous lesson.
+
+  - id: ex-intersection
+    type: example
+    title: A point of intersection
+    problem: |
+      Find the intersection of $2x+3y-7=0$ and $x-y-1=0$.
+    steps:
+      - |
+        $D=2\cdot(-1)-1\cdot3=-5\neq0$.
+      - |
+        $x=\dfrac{3\cdot(-1)-(-1)(-7)}{-5}=\dfrac{-10}{-5}=2$ and $y=\dfrac{(-7)\cdot1-(-1)\cdot2}{-5}=\dfrac{-5}{-5}=1$.
+      - |
+        Check: $2\cdot2+3\cdot1-7=0$ and $2-1-1=0$.
+    answer: |
+      The lines meet at $(2,1)$.
+    verify:
+      - expr: "2*2+3*1-7"
+        equals: "0"
+      - expr: "2-1-1"
+        equals: "0"
+
+  - id: chk-intersection
+    type: check
+    prompt: |
+      Find the intersection of $3x-y-5=0$ and $x+2y-4=0$.
+    answerType: vector
+    answer: "(2, 1)"
+    hints:
+      - |
+        From the first equation $y=3x-5$. Substitute in the second.
+    explanation: |
+      $x+2(3x-5)-4=0$ gives $7x=14$, so $x=2$ and $y=1$.
+
+  - id: concurrent
+    type: theorem
+    name: Concurrent lines
+    statement: |
+      Three lines $a_ix+b_iy+c_i=0$ ($i=1,2,3$), not all parallel, pass through one point (are **concurrent**) if and only if
+
+      $$\begin{vmatrix}a_1&b_1&c_1\\a_2&b_2&c_2\\a_3&b_3&c_3\end{vmatrix}=0.$$
+    proof: |
+      If the lines pass through $(x,y)$, then $(x,y,1)$ is a non-zero solution of the three equations $a_ix+b_iy+c_i\cdot1=0$, so the determinant of the system is $0$.
+      Conversely, if two of the lines meet at $P$ (they do, since not all three are parallel) and the determinant is $0$, then the third equation is a combination of the first two, so $P$ satisfies it too.
+
+  - id: ex-concurrent
+    type: example
+    title: Testing three lines
+    problem: |
+      Are the lines $x+y-3=0$, $2x-y=0$ and $x+4y-9=0$ concurrent?
+    steps:
+      - |
+        $\begin{vmatrix}1&1&-3\\2&-1&0\\1&4&-9\end{vmatrix}=1\cdot(9-0)-1\cdot(-18-0)+(-3)\cdot(8+1)=9+18-27=0$.
+      - |
+        The determinant is $0$, so the lines are concurrent. The common point is $(1,2)$, found from the first two lines.
+    answer: |
+      Yes, they all pass through $(1,2)$.
+    verify:
+      - expr: "1*(9-0)-1*(-18-0)+(-3)*(8+1)"
+        equals: "0"
+      - expr: "1+4*2-9"
+        equals: "0"
+
+  - id: chk-concurrent
+    type: check
+    prompt: |
+      For which value of $k$ are the lines $x+y-3=0$, $2x-y=0$ and $x+ky-9=0$ concurrent?
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        The first two lines meet at $(1,2)$. The third line must pass through that point.
+    explanation: |
+      From $x+y=3$ and $y=2x$ we get $(1,2)$. Then $1+2k-9=0$ gives $k=4$.
+
+  - id: pencil
+    type: concept
+    title: A pencil of lines
+    body: |
+      All the lines through one point $P$ form the **pencil** of lines at $P$. If $P$ is the intersection of $L_1=0$ and $L_2=0$, where $L_i=a_ix+b_iy+c_i$,
+      then every line of the pencil, except $L_2=0$ itself, has an equation of the form
+
+      $$L_1+\lambda\,L_2=0.$$
+
+      This is a line (the coefficients are $a_1+\lambda a_2$ and $b_1+\lambda b_2$), and it passes through $P$, where $L_1=L_2=0$. Choosing $\lambda$ so that the line also passes through a second point gives the line without finding $P$.
+
+  - id: ex-pencil
+    type: example
+    title: A line of the pencil
+    problem: |
+      Find the line through the intersection of $x+y-3=0$ and $2x-y=0$ that also passes through $(2,0)$.
+    steps:
+      - |
+        The line is $(x+y-3)+\lambda(2x-y)=0$. Put $(2,0)$: $(2-3)+\lambda\cdot4=0$, so $\lambda=\dfrac14$.
+      - |
+        $(x+y-3)+\dfrac14(2x-y)=0$. Multiply by $4$: $4x+4y-12+2x-y=0$, that is $6x+3y-12=0$, or $2x+y-4=0$.
+      - |
+        Check with the intersection point $(1,2)$: $2+2-4=0$.
+    answer: |
+      $2x+y-4=0$.
+    verify:
+      - expr: "2*2+0-4"
+        equals: "0"
+      - expr: "2*1+2-4"
+        equals: "0"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Two lines: one point if $a_1b_2-a_2b_1\neq0$; parallel or equal if it is $0$.
+      - |
+        Three lines are concurrent when the $3\times3$ determinant of their coefficients is $0$.
+      - |
+        The lines through the intersection of $L_1=0$ and $L_2=0$ are $L_1+\lambda L_2=0$ (and $L_2=0$).
