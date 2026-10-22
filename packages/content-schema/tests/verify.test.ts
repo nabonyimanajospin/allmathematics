@@ -40,7 +40,12 @@ describe("the real content", () => {
   });
 
   it("has ids that follow the hierarchy", () => {
-    expect(lessons.map((l) => l.meta.id)).toEqual(["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"]);
+    const geo = lessons.map((l) => l.meta.id).filter((id) => id.startsWith("geo-"));
+    expect(geo).toEqual(["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"]);
+    // every lesson id follows course-mNN-uNN-lNN and is unique
+    const all = lessons.map((l) => l.meta.id);
+    expect(new Set(all).size).toBe(all.length);
+    for (const id of all) expect(id).toMatch(/^[a-z]{3,5}-m\d{2}-u\d{2}-l\d{2}$/);
   });
 });
 
@@ -130,6 +135,14 @@ describe("static verification catches mistakes", () => {
       if (s?.type === "concept") s.body = Array(400).fill("word").join(" ");
     });
     expect(messages(l).join("\n")).toContain("words");
+  });
+
+  it("control characters, for example a form feed made from \\f, are errors", () => {
+    const l = mutated((x) => {
+      const s = x.sections.find((s) => s.type === "concept");
+      if (s?.type === "concept") s.body += `\n\n$a${String.fromCharCode(12)}rac{1}{2}$`;
+    });
+    expect(messages(l).join("\n")).toContain("control character");
   });
 
   it("counts a formula as one word", () => {
