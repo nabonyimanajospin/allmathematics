@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { toClientLesson } from "@allmaths/content-schema";
-import { getLessonState } from "@allmaths/server";
+import { getCourseOutline, getLessonState } from "@allmaths/server";
+import { CourseOutlinePanel } from "@/components/course-outline";
+import { t } from "@/i18n";
 import { LessonPlayer } from "@/components/lesson/player";
 import { renderLesson } from "@/server/render";
 import { getServices } from "@/server/runtime";
@@ -33,7 +35,9 @@ export default async function LessonPage({ params }: Params) {
   const idx = order.findIndex((l) => l.id === lessonId);
   const nextMeta = idx >= 0 ? order[idx + 1] : undefined;
 
-  return (
+  const outline = await getCourseOutline(db, store, user.id, lessonId);
+
+  const player = (
     <LessonPlayer
       lesson={renderLesson(toClientLesson(ref.lesson))}
       initial={{
@@ -46,5 +50,21 @@ export default async function LessonPage({ params }: Params) {
       userId={user.id}
       next={nextMeta ? { id: nextMeta.id, title: nextMeta.title } : null}
     />
+  );
+
+  if (!outline) return player;
+  return (
+    <div className="mx-auto max-w-[88rem] lg:grid lg:grid-cols-[22rem_minmax(0,1fr)]">
+      <aside className="sticky top-[var(--header-h)] hidden h-[calc(100dvh-var(--header-h))] overflow-y-auto border-r border-line bg-surface lg:block">
+        <CourseOutlinePanel outline={outline} />
+      </aside>
+      <div className="min-w-0">
+        <details className="border-b border-line bg-surface lg:hidden">
+          <summary className="flex min-h-12 cursor-pointer items-center gap-2 px-4 font-semibold text-accent">{t("outline.open")}</summary>
+          <CourseOutlinePanel outline={outline} />
+        </details>
+        {player}
+      </div>
+    </div>
   );
 }

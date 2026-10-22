@@ -1,5 +1,11 @@
 /** Lesson as delivered to the browser: every text is pre-rendered HTML, no answer keys. */
 
+/** A step of a worked example, with the optional explanation of how it was found. */
+export interface RStep {
+  html: string;
+  whyHtml?: string;
+}
+
 export interface RBase {
   id: string;
   /** Active seconds that complete this section; null for questions (they need a correct answer). */
@@ -7,11 +13,11 @@ export interface RBase {
 }
 
 export type RSection =
-  | (RBase & { type: "concept"; titleHtml?: string; bodyHtml: string })
-  | (RBase & { type: "definition"; termHtml: string; bodyHtml: string })
-  | (RBase & { type: "theorem"; nameHtml?: string; statementHtml: string; proofHtml?: string })
+  | (RBase & { type: "concept"; titleHtml?: string; bodyHtml: string; moreHtml?: string })
+  | (RBase & { type: "definition"; termHtml: string; bodyHtml: string; moreHtml?: string })
+  | (RBase & { type: "theorem"; nameHtml?: string; statementHtml: string; proofHtml?: string; moreHtml?: string })
   | (RBase & { type: "formula"; titleHtml: string; formulaHtml: string; noteHtml?: string })
-  | (RBase & { type: "example"; titleHtml?: string; problemHtml: string; stepsHtml: string[]; answerHtml: string })
+  | (RBase & { type: "example"; titleHtml?: string; problemHtml: string; steps: RStep[]; answerHtml: string; moreHtml?: string })
   | (RBase & { type: "visual"; kind: "vector2d"; mode: string; titleHtml: string; captionHtml: string })
   | (RBase & {
       type: "check";

@@ -131,9 +131,21 @@ export function renderSection(s: ClientSection): RSection | null {
   const base = { id: s.id, requiredSeconds: reqSeconds(s) };
   switch (s.type) {
     case "concept":
-      return { ...base, type: "concept", ...(s.title ? { titleHtml: renderInline(s.title) } : {}), bodyHtml: renderRich(s.body) };
+      return {
+        ...base,
+        type: "concept",
+        ...(s.title ? { titleHtml: renderInline(s.title) } : {}),
+        bodyHtml: renderRich(s.body),
+        ...(s.more ? { moreHtml: renderRich(s.more) } : {}),
+      };
     case "definition":
-      return { ...base, type: "definition", termHtml: renderInline(s.term), bodyHtml: renderRich(s.body) };
+      return {
+        ...base,
+        type: "definition",
+        termHtml: renderInline(s.term),
+        bodyHtml: renderRich(s.body),
+        ...(s.more ? { moreHtml: renderRich(s.more) } : {}),
+      };
     case "theorem":
       return {
         ...base,
@@ -141,6 +153,7 @@ export function renderSection(s: ClientSection): RSection | null {
         ...(s.name ? { nameHtml: renderInline(s.name) } : {}),
         statementHtml: renderRich(s.statement),
         ...(s.proof ? { proofHtml: renderRich(s.proof) } : {}),
+        ...(s.more ? { moreHtml: renderRich(s.more) } : {}),
       };
     case "formula":
       return {
@@ -156,8 +169,11 @@ export function renderSection(s: ClientSection): RSection | null {
         type: "example",
         ...(s.title ? { titleHtml: renderInline(s.title) } : {}),
         problemHtml: renderRich(s.problem),
-        stepsHtml: s.steps.map(renderRich),
+        steps: s.steps.map((st) =>
+          typeof st === "string" ? { html: renderRich(st) } : { html: renderRich(st.text), whyHtml: renderRich(st.why) },
+        ),
         answerHtml: renderRich(s.answer),
+        ...(s.more ? { moreHtml: renderRich(s.more) } : {}),
       };
     case "visual":
       return {

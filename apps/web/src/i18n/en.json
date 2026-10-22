@@ -36,11 +36,15 @@
     "free": "Free", "course": "Course", "module": "Module", "unit": "Unit", "lesson": "Lesson",
     "courseProgress": "Course progress", "allDone": "You have finished everything available. New lessons are coming."
   },
+  "outline": {
+    "title": "Course outline", "search": "Search the course outline", "courseProgress": "Course progress",
+    "moduleProgress": "module progress", "done": "Done", "open": "Open the course outline"
+  },
   "lesson": {
     "progress": "Lesson progress", "back": "Back to my learning", "objectives": "In this lesson you will",
     "resumeBanner": "Welcome back. We saved your place.",
     "definition": "Definition", "theorem": "Theorem", "formula": "Key formula", "example": "Worked example",
-    "proof": "Show proof", "nextStep": "Show next step", "showAll": "Show all steps", "answerLabel": "Answer",
+    "proof": "Show proof", "more": "Explain this in more detail", "why": "How was this step found?", "nextStep": "Show next step", "showAll": "Show all steps", "answerLabel": "Answer",
     "visual": "Explore", "equation": "Equation (scroll sideways if it is wide)", "summary": "Summary", "check": "Quick check",
     "bookmark": "Save to formula sheet", "bookmarked": "Saved",
     "locked": "Answer the question above to continue.",

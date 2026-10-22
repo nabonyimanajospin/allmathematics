@@ -11,11 +11,25 @@ type Of<T extends RSection["type"]> = Extract<RSection, { type: T }>;
 
 const label = "mb-2 text-sm font-bold uppercase tracking-wide";
 
+/** The longer explanation of a block, hidden until the student asks for it. */
+function More({ html, summary = t("lesson.more") }: { html?: string | undefined; summary?: string }) {
+  if (!html) return null;
+  return (
+    <details className="mt-4 rounded-[var(--radius-sm)] border border-line bg-surface-2">
+      <summary className="flex min-h-11 cursor-pointer items-center gap-2 px-4 font-semibold text-accent">{summary}</summary>
+      <div className="border-t border-line px-4 py-3">
+        <Rich html={html} />
+      </div>
+    </details>
+  );
+}
+
 export function ConceptBlock({ s }: { s: Of<"concept"> }) {
   return (
     <div>
       {s.titleHtml ? <h2 className="mb-3 text-2xl font-bold tracking-tight"><RichInline html={s.titleHtml} /></h2> : null}
       <Rich html={s.bodyHtml} />
+      <More html={s.moreHtml} />
     </div>
   );
 }
@@ -26,6 +40,7 @@ export function DefinitionBlock({ s }: { s: Of<"definition"> }) {
       <p className={`${label} text-accent`}>{t("lesson.definition")}</p>
       <h2 className="mb-2 text-xl font-bold"><RichInline html={s.termHtml} /></h2>
       <Rich html={s.bodyHtml} />
+      <More html={s.moreHtml} />
     </div>
   );
 }
@@ -46,6 +61,7 @@ export function TheoremBlock({ s }: { s: Of<"theorem"> }) {
           </div>
         </details>
       ) : null}
+      <More html={s.moreHtml} />
     </div>
   );
 }
@@ -75,7 +91,7 @@ export function FormulaBlock({
 
 export function ExampleBlock({ s }: { s: Of<"example"> }) {
   const [shown, setShown] = useState(0);
-  const total = s.stepsHtml.length;
+  const total = s.steps.length;
   return (
     <div className="rounded-[var(--radius)] border border-line bg-surface p-5">
       <p className={`${label} text-accent`}>
@@ -84,10 +100,13 @@ export function ExampleBlock({ s }: { s: Of<"example"> }) {
       </p>
       <Rich html={s.problemHtml} className="font-medium" />
       <ol className="mt-4 grid gap-3" aria-live="polite">
-        {s.stepsHtml.slice(0, shown).map((html, i) => (
+        {s.steps.slice(0, shown).map((step, i) => (
           <li key={i} className="fade-up flex gap-3">
             <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-sm font-bold text-accent">{i + 1}</span>
-            <Rich html={html} />
+            <div className="min-w-0 flex-1">
+              <Rich html={step.html} />
+              <More html={step.whyHtml} summary={t("lesson.why")} />
+            </div>
           </li>
         ))}
       </ol>
@@ -104,6 +123,7 @@ export function ExampleBlock({ s }: { s: Of<"example"> }) {
           <Rich html={s.answerHtml} />
         </div>
       )}
+      <More html={s.moreHtml} />
     </div>
   );
 }
