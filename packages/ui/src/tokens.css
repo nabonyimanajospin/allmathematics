@@ -7,12 +7,12 @@
 :root {
   color-scheme: light;
 
-  --bg: #fbfbf9;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f2f4f0;
+  --surface-2: #f4f6f8;
   --ink: #1b2330;
   --muted: #566274;
-  --line: #dfe3da;
+  --line: #dde2e8;
   --accent: #2c5a87;
   --accent-strong: #1f4568;
   --accent-soft: #e6eef6;
