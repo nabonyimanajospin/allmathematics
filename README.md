@@ -27,7 +27,8 @@ scripts/            verify-content, seed
 
 **Phase 1 (foundation) is complete.** Content so far:
 
-- Geometry, Module 1 (Vectors), Unit 1, Lessons 1–3.
+- Geometry: Module 1 (Vectors), Unit 1, Lessons 1–3; Module 2 (plane: the line with its eight equations, the triangle with all its
+  centers, cevians and circles, the circle); Module 3 (space: lines and planes, the tetrahedron, the sphere). 24 lessons with exercises.
 - Multivariable Calculus and Differential Equations: Module 1 (derivatives), Module 2 (double integrals),
   Module 3 (triple integrals), Module 4 (ordinary differential equations), 25 lessons with about 190 exercises,
   each with hints and a worked solution. Every answer key is recomputed by the math engine in `pnpm verify-content`.

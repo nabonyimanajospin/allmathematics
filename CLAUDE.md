@@ -51,5 +51,5 @@ write original content (spec section 12.2).
 - Commits: small, plain messages, authored by the repository owner only (no co-author lines).
 
 ## Current phase
-Phase 1 foundation done; Course 2 (mvc) Modules 1 to 4 written (PDE module still to write).
+Phase 1 foundation done; Course 1 (geo) Modules 2 and 3 written, Module 1 Unit 2 (products) and Module 2 polar coordinates and conics still to write; Course 2 (mvc) Modules 1 to 4 written (PDE module still to write).
 Spec version 1.2 (hierarchy: Course > Module > Unit > Lesson).
