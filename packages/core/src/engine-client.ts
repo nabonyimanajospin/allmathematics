@@ -50,7 +50,7 @@ export interface EngineCheckRequest {
   sig_figs?: number;
   mistakes?: { expr: string; hint: string }[];
   coordinates?: string[];
-  constraint?: { equation: string; solve_for: string; ranges?: Record<string, [number, number]> };
+  constraint?: { equation: string; solve_for: string; ranges?: Record<string, [number, number]>; substitutions?: Record<string, string> };
   ode?: {
     order: number;
     equation?: string;

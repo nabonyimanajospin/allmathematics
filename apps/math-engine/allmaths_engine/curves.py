@@ -59,8 +59,18 @@ def equal_on_curve(
     equation: sp.Expr,
     dependent: str,
     ranges: dict[str, tuple[float, float]] | None = None,
+    substitutions: dict[str, str] | None = None,
 ) -> bool | None:
-    """True/False when decided; None when too few points of the curve could be found."""
+    """True/False when decided; None when too few points of the curve could be found.
+
+    `substitutions` replaces symbols such as y1 (the derivative y') by expressions in x and y before comparing."""
+    from .parser import parse  # local import: parser does not depend on this module
+
+    for name, text in (substitutions or {}).items():
+        repl = parse(text, fmt="text", trusted=True).value
+        assert isinstance(repl, sp.Expr)
+        a = a.subs(_symbol(name), repl)
+        b = b.subs(_symbol(name), repl)
     pts = curve_points(equation, dependent, ranges or {})
     if len(pts) < 5:
         return None

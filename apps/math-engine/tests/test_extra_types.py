@@ -254,3 +254,13 @@ def test_form_equation_leibniz_notation():
 
 def test_ode_types_need_specification():
     assert chk("ode_solution", "y = C e^x", "unused").code == "bad_spec"
+
+
+def test_second_derivative_may_use_y_prime():
+    # x^2 + y^2 = 25:  y' = -x/y   and   y'' = -(x^2+y^2)/y^3 = -25/y^3
+    c = Constraint("x^2+y^2-25", "y", {"x": (0.5, 3.0)}, {"y1": "-x/y"})
+    key = "(-x/y, -25/y^3)"
+    for s in ["(-x/y, -25/y^3)", "(-x/y, -(y - x y')/y^2)", "(-x/y, (-y - x*(-x/y))/y^2)", "(-x/y, -(x^2+y^2)/y^3)"]:
+        r = chk("vector", s, key, variables=["x", "y", "y1"], constraint=c)
+        assert r.status == "correct", s
+    assert chk("vector", "(-x/y, -1/y^3)", key, variables=["x", "y", "y1"], constraint=c).status == "incorrect"

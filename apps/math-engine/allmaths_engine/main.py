@@ -45,6 +45,7 @@ class ConstraintIn(BaseModel):
     equation: str = Field(max_length=MAX_TEXT)
     solve_for: str = Field(pattern=r"^[A-Za-z]$")
     ranges: dict[str, tuple[float, float]] = Field(default_factory=dict, max_length=4)
+    substitutions: dict[str, str] = Field(default_factory=dict, max_length=3)
 
 
 class ConditionIn(BaseModel):
@@ -131,7 +132,9 @@ def check(req: CheckRequest) -> CheckResponse:
         mistakes=[checker.Mistake(m.expr, m.hint) for m in req.mistakes],
         coordinates=req.coordinates,
         constraint=(
-            checker.Constraint(req.constraint.equation, req.constraint.solve_for, dict(req.constraint.ranges))
+            checker.Constraint(
+                req.constraint.equation, req.constraint.solve_for, dict(req.constraint.ranges), dict(req.constraint.substitutions)
+            )
             if req.constraint
             else None
         ),

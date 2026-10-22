@@ -53,6 +53,8 @@ class Constraint:
     equation: str
     dependent: str
     ranges: dict[str, tuple[float, float]] = field(default_factory=dict)
+    #: symbols to replace before comparing, e.g. {"y1": "(2*y-x^2)/(y^2-2*x)"} so that answers may use y'
+    substitutions: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -299,7 +301,8 @@ def _scalar_equal(
     from .equations import equation_poly
 
     on_curve = equal_on_curve(
-        value, key, equation_poly(constraint.equation, "text"), constraint.dependent, constraint.ranges
+        value, key, equation_poly(constraint.equation, "text"), constraint.dependent, constraint.ranges,
+        constraint.substitutions,
     )
     return (True, "on-curve") if on_curve else (False, method)
 

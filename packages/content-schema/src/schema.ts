@@ -123,6 +123,8 @@ const constraintSchema = z.strictObject({
   equation: z.string().min(1).max(200),
   solveFor: z.string().regex(/^[A-Za-z]$/),
   ranges: rangesSchema.optional(),
+  /** Symbols replaced before comparing, e.g. { y1: "(2*y-x^2)/(y^2-2*x)" } so that answers may use y'. */
+  substitutions: z.record(z.string(), z.string()).optional(),
 });
 
 const conditionSchema = z.strictObject({
@@ -146,7 +148,7 @@ const odeSchema = z.strictObject({
 const answerSpec = {
   answerType: z.enum(ANSWER_TYPES),
   /** The key in the engine language. For ODE and region types it is a model answer that checks itself. Never sent to the browser. */
-  answer: z.string().min(1).max(300),
+  answer: z.string().min(1).max(450),
   variables: z.array(z.string().regex(/^[A-Za-z](?:_[A-Za-z0-9]+|[0-9])?$/)).max(8).optional(),
   /** Coordinate variables of a region or an equation, e.g. ["x", "y", "z"]. */
   coordinates: z.array(z.string().regex(/^[A-Za-z]$/)).min(1).max(4).optional(),

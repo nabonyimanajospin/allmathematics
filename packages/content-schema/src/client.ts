@@ -101,7 +101,7 @@ export interface EngineRequestBody {
   coordinates?: string[];
   allow_decimal?: boolean;
   mistakes?: { expr: string; hint: string }[];
-  constraint?: { equation: string; solve_for: string; ranges?: Record<string, [number, number]> };
+  constraint?: { equation: string; solve_for: string; ranges?: Record<string, [number, number]>; substitutions?: Record<string, string> };
   ode?: {
     order: number;
     equation?: string;
@@ -130,6 +130,7 @@ export function toEngineRequest(q: CheckSpec & { allowDecimal?: boolean | undefi
       equation: q.constraint.equation,
       solve_for: q.constraint.solveFor,
       ...(q.constraint.ranges ? { ranges: q.constraint.ranges as Record<string, [number, number]> } : {}),
+      ...(q.constraint.substitutions ? { substitutions: q.constraint.substitutions } : {}),
     };
   }
   if (q.ode) {
