@@ -40,7 +40,7 @@ sections:
       Solve $y'+\dfrac{2}{x}\,y=x$ for $x>0$.
     steps:
       - |
-        Here $P=\dfrac2x$ and $Q=x$. An integrating factor is $\mu=e^{\int2/x\,dx}=e^{2\ln x}=x^2$.
+        Here $P=\dfrac2x$ and $Q=x$. An integrating factor is $\mu=e^{\int\dfrac2x\,dx}=e^{2\ln x}=x^2$.
       - |
         Multiply the equation by $x^2$: $(x^2y)'=x^3$.
       - |

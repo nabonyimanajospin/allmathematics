@@ -46,7 +46,7 @@ sections:
       - |
         The top surface is $z=c\left(1-\dfrac xa-\dfrac yb\right)$. The base is the triangle $0\le y\le b\left(1-\dfrac xa\right)$, $0\le x\le a$.
       - |
-        $V=\displaystyle\int_0^a\int_0^{b(1-x/a)}c\left(1-\frac xa-\frac yb\right)dy\,dx=\int_0^a\frac{bc}{2}\left(1-\frac xa\right)^2dx=\frac{abc}{6}$.
+        $V=\displaystyle\int_0^a\int_0^{b(1-\frac{x}{a})}c\left(1-\frac xa-\frac yb\right)dy\,dx=\int_0^a\frac{bc}{2}\left(1-\frac xa\right)^2dx=\frac{abc}{6}$.
       - |
         Check with geometry: the volume of a pyramid is $\dfrac13\cdot(\text{base area})\cdot\text{height}=\dfrac13\cdot\dfrac{ab}{2}\cdot c=\dfrac{abc}6$.
     answer: |

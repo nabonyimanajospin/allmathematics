@@ -27,9 +27,9 @@
         sample:
           [0.1, 0.8]
       hints:
-        - "Put $z=1/y$, then $z'=-y'/y^2$."
+        - "Put $z=\\dfrac{1}{y}$, then $z'=-\\dfrac{y'}{y^2}$."
       solution: |-
-        Divide by $y^2$ and put $z=\dfrac1y$: $z'+\dfrac x{1-x^2}\,z=-\dfrac x{1-x^2}$. With $\mu=(1-x^2)^{-1/2}$: $\left(\dfrac z{\sqrt{1-x^2}}\right)'=-\dfrac x{(1-x^2)^{3/2}}$, so $\dfrac z{\sqrt{1-x^2}}=-\dfrac1{\sqrt{1-x^2}}+C$ and $\dfrac1y=C\sqrt{1-x^2}-1$.
+        Divide by $y^2$ and put $z=\dfrac1y$: $z'+\dfrac x{1-x^2}\,z=-\dfrac x{1-x^2}$. With $\mu=(1-x^2)^{-\frac{1}{2}}$: $\left(\dfrac z{\sqrt{1-x^2}}\right)'=-\dfrac x{(1-x^2)^{\frac{3}{2}}}$, so $\dfrac z{\sqrt{1-x^2}}=-\dfrac1{\sqrt{1-x^2}}+C$ and $\dfrac1y=C\sqrt{1-x^2}-1$.
     - id: ber-c
       statement: "$3y^{2}y'-y^{3}-x-1=0$"
       answerType: ode_solution
@@ -51,7 +51,7 @@
         equation: "(y*ln(x) - 2)*y - x*y1"
       hints:
         - |-
-          Put $z=1/y$. The integral of $\ln x/x^3$ is done by parts.
+          Put $z=\dfrac{1}{y}$. The integral of $\dfrac{\ln x}{x^3}$ is done by parts.
       solution: |-
         $xy'=y^2\ln x-2y$. Divide by $y^2$ and put $z=\dfrac1y$: $z'-\dfrac2x\,z=-\dfrac{\ln x}x$. With $\mu=x^{-2}$: $\left(\dfrac z{x^2}\right)'=-\dfrac{\ln x}{x^3}$, and $\int-\dfrac{\ln x}{x^3}\,dx=\dfrac{\ln x}{2x^2}+\dfrac1{4x^2}$ (by parts). Hence $z=\dfrac{\ln x}2+\dfrac14+Cx^2$.
       note: |-
@@ -68,7 +68,7 @@
           [0.2, 1.2]
       hints:
         - |-
-          Put $z=1/y$. The integrating factor of $z'+\sec x\,z$ is $\sec x+\tan x$.
+          Put $z=\dfrac{1}{y}$. The integrating factor of $z'+\sec x\,z$ is $\sec x+\tan x$.
       solution: |-
         $y'=y\sec x-y^2(1-\sin x)$. Put $z=\dfrac1y$: $z'+\sec x\,z=1-\sin x$. With $\mu=\sec x+\tan x=\dfrac{1+\sin x}{\cos x}$: $(\mu z)'=\dfrac{(1+\sin x)(1-\sin x)}{\cos x}=\cos x$, so $\mu z=\sin x+C$ and $\dfrac1y=\dfrac{\cos x\,(\sin x+C)}{1+\sin x}$.
     - id: ber-f
@@ -80,7 +80,7 @@
         order: 1
         equation: "y1 + y/x + x*y^2"
       hints:
-        - "Put $z=1/y$; the equation becomes $z'-z/x=x$."
+        - "Put $z=\\dfrac{1}{y}$; the equation becomes $z'-\\dfrac{z}{x}=x$."
       solution: |-
         Put $z=\dfrac1y$: $z'-\dfrac zx=x$. With $\mu=\dfrac1x$: $\left(\dfrac zx\right)'=1$, so $z=x(x+C)$ and $\dfrac1y=x^2+Cx$.
     - id: ber-g

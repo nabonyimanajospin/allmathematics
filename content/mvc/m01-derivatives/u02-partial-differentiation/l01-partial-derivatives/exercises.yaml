@@ -138,7 +138,7 @@
         [x, y]
       hints:
         - |-
-          Write $z=x\,(x^2+y^2)^{-1/2}$ and use the product rule in $x$.
+          Write $z=x\,(x^2+y^2)^{-\frac{1}{2}}$ and use the product rule in $x$.
       solution: |-
         Differentiate with respect to each variable in turn, treating the other variables as constants.
 

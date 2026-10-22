@@ -17,7 +17,7 @@
           [0.3, 1.2]
       hints:
         - |-
-          Divide by $\cos x\,\sin^2y$ so that each side has one variable. Note that $\tan x/\cos x=\sin x/\cos^2x$.
+          Divide by $\cos x\,\sin^2y$ so that each side has one variable. Note that $\dfrac{\tan x}{\cos x}=\dfrac{\sin x}{\cos^2x}$.
       solution: |-
         Divide by $\cos x\,\sin^2y$: $\dfrac{\sin x}{\cos^2x}\,dx+\dfrac{\cos y}{\sin^3y}\,dy=0$. Integrate: $\dfrac1{\cos x}-\dfrac1{2\sin^2y}=C$.
     - id: sep-b

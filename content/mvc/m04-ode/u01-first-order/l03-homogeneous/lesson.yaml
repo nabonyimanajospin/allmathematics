@@ -71,7 +71,7 @@ sections:
       - |
         Divide the numerator and the denominator by $x$: the right side depends only on $\dfrac yx$.
     explanation: |
-      $\dfrac{x+y}{x-y}=\dfrac{1+y/x}{1-y/x}$ depends only on $\dfrac yx$. The substitution $y=vx$ gives $v+xv'=\dfrac{1+v}{1-v}$, which is separable.
+      $\dfrac{x+y}{x-y}=\dfrac{1+\dfrac{y}{x}}{1-\dfrac{y}{x}}$ depends only on $\dfrac yx$. The substitution $y=vx$ gives $v+xv'=\dfrac{1+v}{1-v}$, which is separable.
 
   - id: reducible-intro
     type: concept

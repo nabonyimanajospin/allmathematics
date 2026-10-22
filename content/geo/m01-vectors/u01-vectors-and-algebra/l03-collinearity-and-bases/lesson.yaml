@@ -38,7 +38,7 @@ sections:
 
       Conversely, suppose $u_1v_2-u_2v_1=0$ and $\vec u\neq\vec 0$, say $u_1\neq 0$ (if $u_1=0$ then
       $u_2\neq0$ and the argument is the same with the roles of the coordinates exchanged). Put
-      $\lambda=v_1/u_1$. Then $v_1=\lambda u_1$, and from $u_1v_2=u_2v_1$ we get $v_2=\lambda u_2$.
+      $\lambda=\dfrac{v_1}{u_1}$. Then $v_1=\lambda u_1$, and from $u_1v_2=u_2v_1$ we get $v_2=\lambda u_2$.
       Hence $\vec v=\lambda\vec u$.
 
   - id: ex-collinear-plane

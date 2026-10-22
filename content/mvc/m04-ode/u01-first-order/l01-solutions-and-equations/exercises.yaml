@@ -81,7 +81,7 @@
         - |-
           $\dfrac{d}{dx}\arcsin x=\dfrac1{\sqrt{1-x^2}}$, so each exponential gains the factor $\pm\dfrac1{\sqrt{1-x^2}}$ when differentiated.
       solution: |-
-        With $u=\arcsin x$, $u'=\dfrac1{\sqrt{1-x^2}}$, so $y'=\dfrac{c_1e^{u}-c_2e^{-u}}{\sqrt{1-x^2}}$. Differentiating again, $y''=\dfrac{c_1e^{u}+c_2e^{-u}}{1-x^2}+\dfrac{x\,(c_1e^{u}-c_2e^{-u})}{(1-x^2)^{3/2}}$. Then $(1-x^2)y''=y+xy'$, which is the equation. Enter $(y',y'')$.
+        With $u=\arcsin x$, $u'=\dfrac1{\sqrt{1-x^2}}$, so $y'=\dfrac{c_1e^{u}-c_2e^{-u}}{\sqrt{1-x^2}}$. Differentiating again, $y''=\dfrac{c_1e^{u}+c_2e^{-u}}{1-x^2}+\dfrac{x\,(c_1e^{u}-c_2e^{-u})}{(1-x^2)^{\frac{3}{2}}}$. Then $(1-x^2)y''=y+xy'$, which is the equation. Enter $(y',y'')$.
       note: "The printed sheet writes $y''$ without simplification; any equivalent form of the derivatives is accepted."
 - id: form
   task: Eliminate the arbitrary constants to find the differential equation of lowest order.

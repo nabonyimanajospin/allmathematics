@@ -33,7 +33,7 @@
       solution: |-
         Inner integral: $\displaystyle\int_0^{3\cos\theta}r^2\,dr=\frac{(3\cos\theta)^3}{3}=9\cos^3\theta$.
 
-        Outer integral: $\displaystyle9\int_{-\pi/2}^{\pi/2}\sin^2\theta\cos^3\theta\,d\theta$. With $s=\sin\theta$ and $ds=\cos\theta\,d\theta$, $\cos^2\theta=1-s^2$, this is $9\int_{-1}^{1}s^2(1-s^2)\,ds=9\left(\dfrac23-\dfrac25\right)=\dfrac{12}{5}$.
+        Outer integral: $\displaystyle9\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\sin^2\theta\cos^3\theta\,d\theta$. With $s=\sin\theta$ and $ds=\cos\theta\,d\theta$, $\cos^2\theta=1-s^2$, this is $9\int_{-1}^{1}s^2(1-s^2)\,ds=9\left(\dfrac23-\dfrac25\right)=\dfrac{12}{5}$.
       note: |-
         The integrand is taken exactly as printed, $r^2\sin^2\theta$ with $dr\,d\theta$. If the intended integral was $\iint y^2\,dA$ in polar coordinates, the area element $r\,dr\,d\theta$ adds a factor $r$, and the value would be $\dfrac{81\pi}{64}$.
     - id: pol-03
@@ -49,7 +49,7 @@
       solution: |-
         The region is a quarter of a disc: $0\le r\le a$, $0\le\theta\le\dfrac\pi2$. With $\sqrt{x^2+y^2}=r$ and $dx\,dy=r\,dr\,d\theta$:
 
-        $$\int_0^{\pi/2}\int_0^{a}r\cdot r\,dr\,d\theta=\dfrac\pi2\cdot\dfrac{a^3}{3}=\dfrac{\pi a^3}{6}.$$
+        $$\int_0^{\frac{\pi}{2}}\int_0^{a}r\cdot r\,dr\,d\theta=\dfrac\pi2\cdot\dfrac{a^3}{3}=\dfrac{\pi a^3}{6}.$$
       verify:
         - expr: "integrate(integrate(r*r, r, 0, a), t, 0, pi/2)"
           equals: "pi*a^3/6"

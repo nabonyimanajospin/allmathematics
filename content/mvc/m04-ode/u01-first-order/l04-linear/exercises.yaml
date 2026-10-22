@@ -28,7 +28,7 @@
         equation: "y1 - y/x - (x + 1)/x"
       hints:
         - |-
-          Multiply by $\mu=1/x$.
+          Multiply by $\mu=\dfrac{1}{x}$.
       solution: |-
         $\mu=e^{-\ln|x|}=\dfrac1x$ and $\left(\dfrac yx\right)'=\dfrac{x+1}{x^2}=\dfrac1x+\dfrac1{x^2}$. Integrate: $\dfrac yx=\ln|x|-\dfrac1x+C$, so $y=x\ln|x|-1+Cx$.
     - id: lin-c
@@ -45,7 +45,7 @@
         - |-
           Decompose $\dfrac{2x^2-1}{x(1-x^2)}$ into partial fractions to integrate it.
       solution: |-
-        Divide by $x(1-x^2)$: $P=\dfrac{2x^2-1}{x(1-x^2)}=-\dfrac1x+\dfrac1{2(1-x)}-\dfrac1{2(1+x)}$. For $0<x<1$ this gives $\mu=\dfrac1{x\sqrt{1-x^2}}$. Then $(\mu y)'=\dfrac{x^2}{1-x^2}\cdot\dfrac1{x\sqrt{1-x^2}}=\dfrac x{(1-x^2)^{3/2}}$, so $\mu y=\dfrac1{\sqrt{1-x^2}}+C$ and $y=x+Cx\sqrt{1-x^2}$.
+        Divide by $x(1-x^2)$: $P=\dfrac{2x^2-1}{x(1-x^2)}=-\dfrac1x+\dfrac1{2(1-x)}-\dfrac1{2(1+x)}$. For $0<x<1$ this gives $\mu=\dfrac1{x\sqrt{1-x^2}}$. Then $(\mu y)'=\dfrac{x^2}{1-x^2}\cdot\dfrac1{x\sqrt{1-x^2}}=\dfrac x{(1-x^2)^{\frac{3}{2}}}$, so $\mu y=\dfrac1{\sqrt{1-x^2}}+C$ and $y=x+Cx\sqrt{1-x^2}$.
     - id: lin-d
       statement: |-
         $y'\cos x+y\sin x=-1$
@@ -99,7 +99,7 @@
         - |-
           Integrate $P$ term by term: $\int\dfrac{dx}{x^2}=-\dfrac1x$.
       solution: |-
-        $P=\dfrac1{x^2}-\dfrac2x$, so $\mu=e^{-1/x-2\ln x}=\dfrac{e^{-1/x}}{x^2}$. Then $(\mu y)'=\mu=\dfrac{e^{-1/x}}{x^2}$, and since $\dfrac d{dx}e^{-1/x}=\dfrac{e^{-1/x}}{x^2}$: $\mu y=e^{-1/x}+C$. Hence $y=x^2\left(1+Ce^{1/x}\right)$.
+        $P=\dfrac1{x^2}-\dfrac2x$, so $\mu=e^{-\frac{1}{x}-2\ln x}=\dfrac{e^{-\frac{1}{x}}}{x^2}$. Then $(\mu y)'=\mu=\dfrac{e^{-\frac{1}{x}}}{x^2}$, and since $\dfrac d{dx}e^{-\frac{1}{x}}=\dfrac{e^{-\frac{1}{x}}}{x^2}$: $\mu y=e^{-\frac{1}{x}}+C$. Hence $y=x^2\left(1+Ce^{\frac{1}{x}}\right)$.
 - id: linear-ivp
   task: Solve the initial-value problem.
   format: "Type $y$ as a function of $x$."

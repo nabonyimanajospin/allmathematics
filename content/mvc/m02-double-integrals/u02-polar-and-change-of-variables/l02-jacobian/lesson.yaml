@@ -68,14 +68,14 @@ sections:
     type: example
     title: A region made of lines
     problem: |
-      Evaluate $\displaystyle\iint_D e^{(x-y)/(x+y)}\,dA$, where $D$ is the triangle $x\ge0$, $y\ge0$, $x+y\le1$.
+      Evaluate $\displaystyle\iint_D e^{\frac{x-y}{x+y}}\,dA$, where $D$ is the triangle $x\ge0$, $y\ge0$, $x+y\le1$.
     steps:
       - |
         Put $u=x-y$ and $v=x+y$. Then $x=\dfrac{u+v}2$, $y=\dfrac{v-u}2$ and $\left|\jac{x,y}{u,v}\right|=\dfrac12$.
       - |
         The conditions $x\ge0$, $y\ge0$, $x+y\le1$ become $-v\le u\le v$ and $0\le v\le1$.
       - |
-        $\displaystyle\iint=\int_0^1\int_{-v}^{v}e^{u/v}\cdot\frac12\,du\,dv=\int_0^1\frac v2\left(e-\frac1e\right)dv=\frac14\left(e-\frac1e\right)$.
+        $\displaystyle\iint=\int_0^1\int_{-v}^{v}e^{\frac{u}{v}}\cdot\frac12\,du\,dv=\int_0^1\frac v2\left(e-\frac1e\right)dv=\frac14\left(e-\frac1e\right)$.
     answer: |
       $\dfrac14\left(e-\dfrac1e\right)$.
     verify:

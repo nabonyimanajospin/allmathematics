@@ -81,9 +81,9 @@
       solution: |-
         The region is the triangle $0\le x\le\dfrac\pi2$, $x\le y\le\dfrac\pi2$.
 
-        Inner integral: $\displaystyle\int_x^{\pi/2}\sin(x+y)\,dy=\sin{\left(x \right)} + \cos{\left(2 x \right)}$.
+        Inner integral: $\displaystyle\int_x^{\frac{\pi}{2}}\sin(x+y)\,dy=\sin{\left(x \right)} + \cos{\left(2 x \right)}$.
 
-        Outer integral: $\displaystyle\int_0^{\pi/2}\left(\sin{\left(x \right)} + \cos{\left(2 x \right)}\right)dx=1$.
+        Outer integral: $\displaystyle\int_0^{\frac{\pi}{2}}\left(\sin{\left(x \right)} + \cos{\left(2 x \right)}\right)dx=1$.
       verify:
         - expr: "integrate(integrate(sin(x+y), y, x, pi/2), x, 0, pi/2)"
           equals: "1"

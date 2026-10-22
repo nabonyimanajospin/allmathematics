@@ -108,7 +108,9 @@ export function lintMath(latex: string, opts: { allowDecimal?: boolean; display?
   const bar = RE_BAR_NORM.exec(latex);
   if (bar) push(LINT_RULES.barNorm, "warning", "Write the norm with \\norm{\\vec u}.", bar[0]);
 
-  if (opts.display && /\\frac\b/.test(latex)) {
+  // A small fraction is right inside an exponent or a subscript: only a fraction on the main line must be \dfrac.
+  const mainLine = latex.replace(/[\^_]\{(?:[^{}]|\{[^{}]*\})*\}/g, "");
+  if (opts.display && /\\frac\b/.test(mainLine)) {
     push(LINT_RULES.displayFrac, "warning", "Use \\dfrac in display math.", "\\frac");
   }
 

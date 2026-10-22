@@ -42,7 +42,7 @@
       solution: |-
         The curves meet at $(0,0)$ and $(4,4)$. For $0<x<4$ the curve $y=2\sqrt x$ is above $y=\dfrac{x^2}{4}$. Then
 
-        $$A=\int_0^4\left(2\sqrt x-\dfrac{x^2}{4}\right)dx=\left[\dfrac43x^{3/2}-\dfrac{x^3}{12}\right]_0^4=\dfrac{32}{3}-\dfrac{16}{3}=\dfrac{16}{3}.$$
+        $$A=\int_0^4\left(2\sqrt x-\dfrac{x^2}{4}\right)dx=\left[\dfrac43x^{\frac{3}{2}}-\dfrac{x^3}{12}\right]_0^4=\dfrac{32}{3}-\dfrac{16}{3}=\dfrac{16}{3}.$$
       verify:
         - expr: "integrate(integrate(1, y, x^2/4, 2*sqrt(x)), x, 0, 4)"
           equals: "16/3"

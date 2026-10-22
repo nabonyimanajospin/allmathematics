@@ -33,11 +33,11 @@ sections:
       - |
         Integrate: $\ln|y|=\dfrac{x^2}{2}+C_0$.
       - |
-        Exponentiate: $|y|=e^{C_0}e^{x^2/2}$, so $y=Ce^{x^2/2}$, where $C=\pm e^{C_0}$ is a non-zero constant.
+        Exponentiate: $|y|=e^{C_0}e^{\frac{x^2}{2}}$, so $y=Ce^{\frac{x^2}{2}}$, where $C=\pm e^{C_0}$ is a non-zero constant.
       - |
-        The function $y=0$ also satisfies the equation, and it is obtained for $C=0$. So the general solution is $y=Ce^{x^2/2}$ for any real $C$.
+        The function $y=0$ also satisfies the equation, and it is obtained for $C=0$. So the general solution is $y=Ce^{\frac{x^2}{2}}$ for any real $C$.
     answer: |
-      $y=Ce^{x^2/2}$.
+      $y=Ce^{\frac{x^2}{2}}$.
     verify:
       - expr: "diff(C*e^(x^2/2), x)"
         equals: "x*(C*e^(x^2/2))"

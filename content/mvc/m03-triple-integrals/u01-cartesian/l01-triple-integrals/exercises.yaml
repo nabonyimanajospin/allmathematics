@@ -29,7 +29,7 @@
       solution: |-
         The upper limit $\sqrt{1-x^2-y^2}$ is real only when $x^2+y^2\le1$, so $D$ is the part of the unit ball with $x,y,z\ge0$, that is one eighth of the ball: $0\le\rho\le1$, $0\le\varphi\le\dfrac\pi2$, $0\le\theta\le\dfrac\pi2$.
 
-        $$\int_0^{\pi/2}\int_0^{\pi/2}\int_0^1\rho^2\cdot\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta=\dfrac15\cdot1\cdot\dfrac\pi2=\dfrac{\pi}{10}.$$
+        $$\int_0^{\frac{\pi}{2}}\int_0^{\frac{\pi}{2}}\int_0^1\rho^2\cdot\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta=\dfrac15\cdot1\cdot\dfrac\pi2=\dfrac{\pi}{10}.$$
       verify:
         - expr: "integrate(integrate(integrate(rho^4*sin(f), rho, 0, 1), f, 0, pi/2), t, 0, pi/2)"
           equals: pi/10

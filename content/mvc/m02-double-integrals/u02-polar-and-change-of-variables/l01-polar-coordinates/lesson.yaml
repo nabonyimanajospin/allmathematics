@@ -82,7 +82,7 @@ sections:
       - |
         In polar coordinates the boundary is $r=2\cos\theta$, and $r\ge0$ requires $-\dfrac\pi2\le\theta\le\dfrac\pi2$.
       - |
-        Area $=\displaystyle\int_{-\pi/2}^{\pi/2}\int_0^{2\cos\theta}r\,dr\,d\theta=\int_{-\pi/2}^{\pi/2}2\cos^2\theta\,d\theta=\pi$.
+        Area $=\displaystyle\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\int_0^{2\cos\theta}r\,dr\,d\theta=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}2\cos^2\theta\,d\theta=\pi$.
       - |
         Check: the disc has radius $1$ (it is $(x-1)^2+y^2\le1$), so its area is $\pi\cdot1^2=\pi$.
     answer: |

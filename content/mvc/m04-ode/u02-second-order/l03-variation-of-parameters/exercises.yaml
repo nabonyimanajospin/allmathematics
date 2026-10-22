@@ -49,7 +49,7 @@
         - |-
           Compute $W$ first: $W=e^{-2x}$.
       solution: |-
-        $y_1=e^{-x}$, $y_2=xe^{-x}$, $W=e^{-2x}$. $u_1'=-\dfrac{xe^{-x}\cdot e^{-x}/x}{e^{-2x}}=-1$ and $u_2'=\dfrac{e^{-x}\cdot e^{-x}/x}{e^{-2x}}=\dfrac1x$, so $u_1=-x$ and $u_2=\ln x$. Then $y_p=-xe^{-x}+xe^{-x}\ln x$; the term $-xe^{-x}$ belongs to $y_h$, so it is absorbed in $C_2$.
+        $y_1=e^{-x}$, $y_2=xe^{-x}$, $W=e^{-2x}$. $u_1'=-\dfrac{xe^{-x}\cdot \dfrac{e^{-x}}{x}}{e^{-2x}}=-1$ and $u_2'=\dfrac{e^{-x}\cdot \dfrac{e^{-x}}{x}}{e^{-2x}}=\dfrac1x$, so $u_1=-x$ and $u_2=\ln x$. Then $y_p=-xe^{-x}+xe^{-x}\ln x$; the term $-xe^{-x}$ belongs to $y_h$, so it is absorbed in $C_2$.
     - id: var-d
       statement: |-
         $y''=-y+\sec x$

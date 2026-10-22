@@ -27,7 +27,7 @@
         [k]
       hints:
         - |-
-          Write $\left(1+\dfrac yx\right)^x=\left[\left(1+\dfrac yx\right)^{x/y}\right]^{y}$ and recall $\left(1+\dfrac1n\right)^n\to e$.
+          Write $\left(1+\dfrac yx\right)^x=\left[\left(1+\dfrac yx\right)^{\frac{x}{y}}\right]^{y}$ and recall $\left(1+\dfrac1n\right)^n\to e$.
       solution: |-
         With $n=\dfrac xy$ we get $\left(1+\dfrac yx\right)^x=\left[\left(1+\dfrac1n\right)^n\right]^y$. As $x\to\infty$ with $y\to k$ (and $k\neq0$), $n\to\infty$ and $\left(1+\dfrac1n\right)^n\to e$, while $y\to k$. The limit is $e^k$. For $k=0$ the expression equals $1=e^0$ as well.
       verify:

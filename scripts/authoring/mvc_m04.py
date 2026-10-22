@@ -240,7 +240,7 @@ def build_l02() -> None:
             "1/cos(x) = 1/(2*sin(y)^2) + C",
             r"Divide by $\cos x\,\sin^2y$: $\dfrac{\sin x}{\cos^2x}\,dx+\dfrac{\cos y}{\sin^3y}\,dy=0$. Integrate: "
             r"$\dfrac1{\cos x}-\dfrac1{2\sin^2y}=C$.",
-            ["Divide by $\\cos x\\,\\sin^2y$ so that each side has one variable. Note that $\\tan x/\\cos x=\\sin x/\\cos^2x$."], sample=(0.3, 1.2)),
+            ["Divide by $\\cos x\\,\\sin^2y$ so that each side has one variable. Note that $\\dfrac{\\tan x}{\\cos x}=\\dfrac{\\sin x}{\\cos^2x}$."], sample=(0.3, 1.2)),
         sol("sep-b", r"$xy'-y=y^3$", "x*y1 - y - y^3", "y^2/(1+y^2) = C*x^2",
             r"$xy'=y(1+y^2)$, so $\dfrac{dy}{y(1+y^2)}=\dfrac{dx}x$. With $\dfrac1{y(1+y^2)}=\dfrac1y-\dfrac y{1+y^2}$: "
             r"$\ln|y|-\tfrac12\ln(1+y^2)=\ln|x|+c$, that is $\dfrac{y^2}{1+y^2}=Cx^2$. The constant solution $y=0$ is the case $C=0$.",
@@ -428,7 +428,7 @@ def build_l05() -> None:
         sol("ber-d", r"$(y\ln x-2)\,y\,dx=x\,dy$", "(y*ln(x) - 2)*y - x*y1", "1/y = ln(x)/2 + 1/4 + C*x^2",
             r"$xy'=y^2\ln x-2y$. Divide by $y^2$ and put $z=\dfrac1y$: $z'-\dfrac2x\,z=-\dfrac{\ln x}x$. With $\mu=x^{-2}$: $\left(\dfrac z{x^2}\right)'=-\dfrac{\ln x}{x^3}$, "
             r"and $\int-\dfrac{\ln x}{x^3}\,dx=\dfrac{\ln x}{2x^2}+\dfrac1{4x^2}$ (by parts). Hence $z=\dfrac{\ln x}2+\dfrac14+Cx^2$.",
-            ["Put $z=1/y$. The integral of $\\ln x/x^3$ is done by parts."],
+            ["Put $z=1/y$. The integral of $\\dfrac{\\ln x}{x^3}$ is done by parts."],
             note=r"The sheet writes $y\,\ell nx$ for $y\ln x$."),
         sol("ber-e", r"$y-y'\cos x=y^{2}\cos x\,(1-\sin x)$", "y - y1*cos(x) - y^2*cos(x)*(1 - sin(x))",
             "1/y = cos(x)*(sin(x) + C)/(1 + sin(x))",

@@ -41,7 +41,7 @@ sections:
       - |
         Here $n=2$, so put $z=y^{-1}$. Then $z'+(1-2)\dfrac zx=(1-2)\cdot1$, that is $z'-\dfrac zx=-1$.
       - |
-        Integrating factor: $\mu=e^{-\int dx/x}=\dfrac1x$. Then $\left(\dfrac zx\right)'=-\dfrac1x$, so $\dfrac zx=-\ln x+C$ and $z=x(C-\ln x)$.
+        Integrating factor: $\mu=e^{-\int \frac{dx}{x}}=\dfrac1x$. Then $\left(\dfrac zx\right)'=-\dfrac1x$, so $\dfrac zx=-\ln x+C$ and $z=x(C-\ln x)$.
       - |
         Back to $y$: $y=\dfrac1z=\dfrac{1}{x(C-\ln x)}$. The constant function $y=0$ is also a solution, which this formula never gives.
     answer: |
@@ -89,6 +89,6 @@ sections:
       - |
         For $n\neq0,1$ put $z=y^{1-n}$; it gives the linear equation $z'+(1-n)Pz=(1-n)Q$.
       - |
-        Solve for $z$, then return to $y=z^{1/(1-n)}$.
+        Solve for $z$, then return to $y=z^{\frac{1}{1-n}}$.
       - |
         For $n>0$, remember the solution $y=0$.
