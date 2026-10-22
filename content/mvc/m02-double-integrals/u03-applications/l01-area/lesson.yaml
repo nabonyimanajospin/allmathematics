@@ -1,0 +1,87 @@
+id: mvc-m02-u03-l01
+title: Area of a region between curves
+estMinutes: 30
+version: 1
+status: draft
+skills:
+  - area-double-integral
+objectives:
+  - Express the area of a plane region as a double integral.
+  - Find the intersection points of two curves and decide which curve is above (or to the right of) the other.
+  - Choose between integrating in $y$ first or in $x$ first.
+sections:
+  - id: area-formula
+    type: concept
+    title: Area as a double integral
+    body: |
+      If $f=1$ the double integral $\iint_D dA$ counts the area of $D$. For a region between two curves this reduces to the
+      one-variable formula that you know:
+
+      $$\text{area}(D)=\iint_D dA=\int_a^b\big(g_2(x)-g_1(x)\big)\,dx\qquad\text{for }a\le x\le b,\ g_1(x)\le y\le g_2(x).$$
+
+      The double integral is more flexible: it works with any order of integration, and with any change of variables.
+
+  - id: method
+    type: concept
+    title: Four steps
+    body: |
+      1. **Find the intersection points** of the curves by solving them together. They give the limits of the outer integral.
+      2. **Sketch** the region, or test a point between the intersections, to see which curve is above (or to the right).
+      3. **Choose the order.** If a curve is given as $x=\dots y\dots$, as in $x=4-y^2$, integrating in $x$ first is natural:
+         $\int\!\!\int dx\,dy$. A bad choice splits the region in two pieces.
+      4. **Integrate**, and check that the answer is positive.
+
+  - id: ex-parabola-line
+    type: example
+    title: A parabola and a line
+    problem: |
+      Find the area between $y=x^2$ and $y=2x$.
+    steps:
+      - |
+        Intersection: $x^2=2x$ gives $x=0$ or $x=2$. For $0<x<2$, $2x>x^2$ (for example, at $x=1$: $2>1$), so the line is above.
+      - |
+        Area $=\displaystyle\int_0^2\int_{x^2}^{2x}dy\,dx=\int_0^2(2x-x^2)\,dx=\left[x^2-\frac{x^3}{3}\right]_0^2=4-\frac83=\frac43$.
+    answer: |
+      $\dfrac43$.
+    verify:
+      - expr: "integrate(integrate(1, y, x^2, 2*x), x, 0, 2)"
+        equals: "4/3"
+
+  - id: chk-area
+    type: check
+    prompt: |
+      Find the area between the curves $y=x^2$ and $y=x$.
+    answerType: number
+    answer: "1/6"
+    hints:
+      - |
+        The curves meet at $x=0$ and $x=1$; on $(0,1)$ the line $y=x$ is above the parabola.
+    explanation: |
+      $\displaystyle\int_0^1(x-x^2)\,dx=\frac12-\frac13=\frac16$.
+
+  - id: ex-sideways
+    type: example
+    title: A parabola with a horizontal axis
+    problem: |
+      Find the area between $x=y^2$ and $x=2-y^2$.
+    steps:
+      - |
+        Both curves are given as $x$ in terms of $y$, so integrate in $x$ first. Intersection: $y^2=2-y^2$, so $y=\pm1$.
+        For $|y|<1$, $2-y^2>y^2$, so $x=2-y^2$ is on the right.
+      - |
+        Area $=\displaystyle\int_{-1}^{1}\int_{y^2}^{2-y^2}dx\,dy=\int_{-1}^{1}(2-2y^2)\,dy=2\left(2-\frac23\right)=\frac83$.
+    answer: |
+      $\dfrac83$.
+    verify:
+      - expr: "integrate(integrate(1, x, y^2, 2-y^2), y, -1, 1)"
+        equals: "8/3"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The area of $D$ is $\iint_D dA$. Between curves: $\int_a^b(\text{upper}-\text{lower})\,dx$, or $\int_c^d(\text{right}-\text{left})\,dy$.
+      - |
+        Solve the curves together to find the limits, and test a point to know which curve is above.
+      - |
+        Integrate first in the variable that avoids splitting the region, and check that the area is positive.
