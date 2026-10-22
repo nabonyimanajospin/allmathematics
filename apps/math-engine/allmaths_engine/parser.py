@@ -40,7 +40,7 @@ _UNICODE = {
     "’": "'", " ": " ",
 }
 
-CONSTANTS: dict[str, sp.Expr] = {"pi": sp.pi, "e": sp.E}
+CONSTANTS: dict[str, sp.Expr] = {"pi": sp.pi, "e": sp.E, "oo": sp.oo}
 
 _UNARY: dict[str, Callable[[sp.Expr], sp.Expr]] = {
     "sin": sp.sin, "cos": sp.cos, "tan": sp.tan, "cot": sp.cot, "sec": sp.sec, "csc": sp.csc,
@@ -58,8 +58,11 @@ _VECTOR_FUNCS: dict[str, Callable[..., object]] = {
     "dot": vec.dot, "cross": vec.cross, "norm": vec.norm, "box": vec.box, "proj": vec.proj,
     "comp": vec.comp, "cos_angle": vec.cos_angle, "unit": vec.unit,
 }
+# Calculus functions are for trusted content only (worked examples and answer keys), never for student input:
+# an integral or a limit can take arbitrarily long to compute.
+_CALCULUS = {"diff", "integrate", "limit"}
 _WORDS = sorted(
-    set(_UNARY) | set(_VECTOR_FUNCS) | set(CONSTANTS) | _GREEK | {"root"}, key=len, reverse=True
+    set(_UNARY) | set(_VECTOR_FUNCS) | set(CONSTANTS) | _GREEK | {"root"} | _CALCULUS, key=len, reverse=True
 )
 
 _TOKEN_RE = re.compile(
@@ -142,7 +145,8 @@ def _split_name(word: str) -> list[Token]:
 
 
 class _Parser:
-    def __init__(self, tokens: list[Token], variables: set[str] | None) -> None:
+    def __init__(self, tokens: list[Token], variables: set[str] | None, trusted: bool = False) -> None:
+        self.trusted = trusted
         self.t = tokens
         self.i = 0
         self.depth = 0
@@ -309,6 +313,10 @@ class _Parser:
 
     def name_or_call(self) -> object:
         name = self.eat().text
+        if name in _CALCULUS:
+            if not self.trusted:
+                raise ParseError(f"“{name}” cannot be used in an answer.", "not_allowed")
+            return self.call(name)
         if name in _UNARY or name in _VECTOR_FUNCS or name == "root":
             return self.call(name)
         if name in CONSTANTS:
@@ -331,7 +339,7 @@ class _Parser:
             self.leave()
             self.expect(")")
         else:
-            if name in _VECTOR_FUNCS or name == "root":
+            if name in _VECTOR_FUNCS or name == "root" or name in _CALCULUS:
                 raise ParseError(f"“{name}” needs parentheses, like {name}(…).", "func_parens")
             arg = self.power()
             if self.starts_atom():
@@ -344,6 +352,8 @@ class _Parser:
 
     @staticmethod
     def apply(name: str, args: list[object]) -> object:
+        if name in _CALCULUS:
+            return _calculus(name, args)
         if name == "root":
             if len(args) != 2 or not all(isinstance(a, sp.Expr) for a in args):
                 raise ParseError("root(x, n) needs two numbers.", "bad_call")
@@ -362,11 +372,38 @@ class _Parser:
             raise ParseError(f"{name}(…) was used with the wrong arguments: {exc}", "bad_call") from exc
 
 
+def _calculus(name: str, args: list[object]) -> object:
+    """diff(f, x[, n]), integrate(f, x[, a, b]) and limit(f, x, a): evaluated exactly by SymPy."""
+    if not args or not all(isinstance(a, sp.Expr) for a in args):
+        raise ParseError(f"{name}(...) needs expressions, not vectors.", "bad_call")
+    exprs = [a for a in args if isinstance(a, sp.Expr)]
+    f = exprs[0]
+    if len(exprs) < 2 or not isinstance(exprs[1], sp.Symbol):
+        raise ParseError(f"{name}(f, x, ...) needs a variable as its second argument.", "bad_call")
+    x = exprs[1]
+    try:
+        if name == "diff":
+            n = int(exprs[2]) if len(exprs) > 2 else 1
+            return sp.diff(f, x, n)
+        if name == "integrate":
+            if len(exprs) == 2:
+                return sp.integrate(f, x)
+            if len(exprs) == 4:
+                return sp.simplify(sp.integrate(f, (x, exprs[2], exprs[3])))
+            raise ParseError("integrate(f, x) or integrate(f, x, a, b).", "bad_call")
+        if len(exprs) != 3:
+            raise ParseError("limit(f, x, a).", "bad_call")
+        return sp.limit(f, x, exprs[2])
+    except (ValueError, NotImplementedError, TypeError) as exc:
+        raise ParseError(f"{name}(...) could not be computed: {exc}", "bad_call") from exc
+
+
 def parse(
     text: str,
     *,
     fmt: str = "auto",
     variables: set[str] | None = None,
+    trusted: bool = False,
 ) -> Parsed:
     """Parse `text` (LaTeX or plain text) into a SymPy value.
 
@@ -386,7 +423,7 @@ def parse(
         raise ParseError("Unknown input format.", "bad_format")
     text = normalize(text)
     tokens, has_decimal = tokenize(text)
-    p = _Parser(tokens, variables)
+    p = _Parser(tokens, variables, trusted)
     value = p.parse()
     if sp.count_ops(value) > MAX_OPS:
         raise ComplexityError("The answer is too complex.", "too_complex")

@@ -35,7 +35,8 @@ const RE_TIMES = new RegExp(String.raw`${VECTOR_TOKEN}\s*\\times|\\times\s*${VEC
 const RE_BOLD = /\\(?:mathbf|boldsymbol|bm)\s*\{\s*[a-z]\s*\}/;
 const RE_RAW_ANGLE = /\\(?:left)?\\?(?:langle|rangle)/;
 const RE_DECIMAL = /(?<![\w.])\d+\.\d+(?!\w)/;
-const RE_UNRATIONALIZED_LATEX = /\\d?frac\s*\{[^{}]*\}\s*\{[^{}]*\\sqrt/;
+/** A radical of a plain number in a denominator, e.g. \frac{1}{\sqrt{2}}. A radical of an expression with letters is fine. */
+const RE_UNRATIONALIZED_LATEX = /\\d?frac\s*\{[^{}]*\}\s*\{[^{}]*\\sqrt\s*\{[^{}a-zA-Z\\]*\}/;
 const RE_BAR_NORM = /\\(?:left)?\\?(?:lvert|\|)\s*\\vec|\\vec\s*\{[^{}]*\}\s*\\(?:right)?\\?(?:rvert|\|)/;
 /** Arguments of the product macros must be vectors or explicit coordinates. */
 const PRODUCT_MACROS = ["dotp", "crossp", "boxp"] as const;
@@ -141,7 +142,7 @@ export function lintAnswerExpression(expr: string): LintIssue[] {
   const dec = RE_DECIMAL.exec(expr);
   if (dec)
     issues.push({ rule: LINT_RULES.decimal, severity: "error", message: "Answer keys must be exact (no decimals).", excerpt: dec[0] });
-  if (/\/\s*(?:\d+\s*\*\s*)?sqrt\s*\(/.test(expr)) {
+  if (/\/\s*(?:\d+\s*\*\s*)?sqrt\s*\(\s*[\d\s+\-*^]*\)/.test(expr)) {
     issues.push({
       rule: LINT_RULES.unrationalized,
       severity: "error",

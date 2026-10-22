@@ -231,7 +231,7 @@ def _check(
     if correct_raw.strip() == "@dne":
         return _check_nonexistent(student_raw, answer_type)
 
-    key = parse(correct_raw, fmt="text")  # the key is trusted text written by authors
+    key = parse(correct_raw, fmt="text", trusted=True)  # the key is trusted text written by authors
     if key.has_decimal:
         raise EngineError("The answer key contains a decimal. Keys must be exact.", "decimal_in_key")
     kind = _kind_of(key.value)
@@ -359,7 +359,7 @@ def _check_vector(
 _NONEXISTENT = {
     "dne", "d.n.e.", "d.n.e", "does not exist", "doesnt exist", "doesn't exist", "no limit", "does not converge",
     "diverges", "divergent", "diverge", "the integral diverges", "limit does not exist", "infinite", "infinity",
-    "oo", "∞", "none", "undefined", "not exist", "nonexistent", "non-existent",
+    "oo", "∞", "none", "undefined", "not exist", "nonexistent", "non-existent", "@dne",
 }
 
 
@@ -399,7 +399,7 @@ def compute(expression: str) -> tuple[str, str]:
     """Evaluate a trusted content expression, e.g. cross((1,2,3),(4,5,6)). Returns (canonical text, latex)."""
 
     def work() -> tuple[str, str]:
-        p = parse(expression, fmt="text")
+        p = parse(expression, fmt="text", trusted=True)
         return str(p.value), value_to_latex(p.value)
 
     return run_limited(work)
@@ -409,7 +409,7 @@ def values_equal(expr_a: str, expr_b: str) -> tuple[bool, str]:
     """Used by content verification: do two trusted expressions denote the same exact value?"""
 
     def work() -> tuple[bool, str]:
-        a, b = parse(expr_a, fmt="text"), parse(expr_b, fmt="text")
+        a, b = parse(expr_a, fmt="text", trusted=True), parse(expr_b, fmt="text", trusted=True)
         if a.has_decimal or b.has_decimal:
             raise EngineError("Content values must be exact (no decimals).", "decimal_in_content")
         va, vb = a.value, b.value

@@ -98,6 +98,7 @@ describe("lint: exact values", () => {
     expect(lintAnswerExpression("19/sqrt(35)").map((i) => i.rule)).toEqual(["unrationalized-denominator"]);
     expect(lintAnswerExpression("3.5").map((i) => i.rule)).toEqual(["decimal-in-math"]);
     expect(lintAnswerExpression("abs(dot(a,b))/norm(c)")).toEqual([]);
+    expect(lintAnswerExpression("x/sqrt(x^2+y^2)")).toEqual([]); // a radical of an expression with letters is fine
   });
 });
 
