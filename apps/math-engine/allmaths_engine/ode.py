@@ -153,17 +153,36 @@ def _sample_xs(spec: OdeSpec, n: int, rng: random.Random) -> list[sp.Rational]:
 def _implicit_points(
     g: sp.Expr, consts: list[sp.Symbol], spec: OdeSpec, rng: random.Random, count: int
 ) -> list[tuple[dict[sp.Symbol, object], sp.Expr]]:
-    """Points (substitution, y) on the curve g(x, y, constants) = 0."""
-    guesses = [sp.Rational(1, 2), sp.Integer(1), sp.Integer(2), sp.Rational(3, 2), sp.Integer(-1), sp.Integer(4)]
+    """Points (substitution, y) on the curve g(x, y, constants) = 0.
+
+    With one constant, choose a point (x0, y0) first and solve for the constant: this always finds points of the
+    family. With several constants, choose them at random and solve for y."""
     out: list[tuple[dict[sp.Symbol, object], sp.Expr]] = []
     tries = 0
+    if len(consts) == 1:
+        c = consts[0]
+        while len(out) < count and tries < count * 25:
+            tries += 1
+            x0 = _sample_xs(spec, 1, rng)[0]
+            y0 = sp.Rational(rng.randint(30, 250), 100)
+            try:
+                roots = sp.solve(g.subs({X: x0, Y: y0}), c)
+            except (NotImplementedError, ValueError, TypeError):
+                continue
+            for root in roots:
+                val = sp.N(root, 40)
+                if val.is_number and val.is_real and not val.has(sp.nan, sp.zoo, sp.oo):
+                    out.append(({c: val, X: x0, Y: y0}, y0))
+                    break
+        return out
+    guesses = [sp.Rational(1, 2), sp.Integer(1), sp.Integer(2), sp.Rational(3, 2), sp.Integer(-1), sp.Integer(4)]
     while len(out) < count and tries < count * 15:
         tries += 1
         sub = _random_constants(consts, rng)
         x0 = _sample_xs(spec, 1, rng)[0]
         sub[X] = x0
         f = g.subs(sub)
-        for guess in guesses + [sp.Float(rng.uniform(0.3, 3))]:
+        for guess in [*guesses, sp.Float(rng.uniform(0.3, 3))]:
             try:
                 root = sp.nsolve(f, Y, guess, tol=1e-30, maxsteps=60, prec=40)
             except (ValueError, ZeroDivisionError, TypeError, NoConvergence):
@@ -295,18 +314,25 @@ def check_solution(student: str, spec: OdeSpec, fmt: str = "auto") -> OdeResult:
     return _ok()
 
 
+def _value_at(expr: sp.Expr, at: sp.Expr) -> sp.Expr:
+    """expr evaluated at X = at; if the formula is singular there (like (e^x - 1)/x at 0) use the limit."""
+    value = expr.subs(X, at)
+    if value.has(sp.nan, sp.zoo, sp.oo, -sp.oo):
+        value = sp.limit(expr, X, at)
+    return value
+
+
 def _check_condition(cond: Condition, explicit: sp.Expr | None, g: sp.Expr, spec: OdeSpec) -> bool:
     at = sp.sympify(parse(cond.at, fmt="text").value)
     target = sp.sympify(parse(cond.value, fmt="text").value)
     if explicit is not None:
         d = sp.diff(explicit, X, cond.derivative) if cond.derivative else explicit
-        value = d.subs(X, at)
+        value = _value_at(d, at)
         return bool(sp.simplify(value - target) == 0 or abs(sp.N(value - target, 30)) < sp.Float("1e-25"))
     if cond.derivative == 0:
         residue = g.subs({X: at, Y: target})
         return bool(sp.simplify(residue) == 0 or abs(sp.N(residue, 30)) < sp.Float("1e-25"))
-    # implicit and a derivative condition: use the implicit derivative at the point (y = value of y at `at`
-    # is not available here), so only first-order IVPs are supported for implicit answers.
+    # an implicit answer with a condition on a derivative is not supported (first-order problems only)
     return False
 
 

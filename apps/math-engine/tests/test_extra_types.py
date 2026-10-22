@@ -264,3 +264,19 @@ def test_second_derivative_may_use_y_prime():
         r = chk("vector", s, key, variables=["x", "y", "y1"], constraint=c)
         assert r.status == "correct", s
     assert chk("vector", "(-x/y, -1/y^3)", key, variables=["x", "y", "y1"], constraint=c).status == "incorrect"
+
+
+def test_implicit_family_where_solving_for_y_is_hard():
+    # tan x sin^2 y dx + cos x cot y dy = 0   ->   1/cos x = 1/(2 sin^2 y) + C
+    s = spec(1, "tan(x)*sin(y)^2 + cos(x)*cos(y)/sin(y)*y1", sample=(0.3, 1.2))
+    assert ode_sol("1/cos(x) = 1/(2*sin(y)^2) + C", s).status == "correct"
+    assert ode_sol("1/cos(x) - 1/(2*sin(y)^2) = C", s).status == "correct"
+    assert ode_sol("2*sin(y)^2 = cos(x)/(1 - C*cos(x))", s).status == "correct"
+    assert ode_sol("1/cos(x) = 1/sin(y)^2 + C", s).code == "not_a_solution"
+
+
+def test_initial_condition_at_a_singular_point_uses_the_limit():
+    # x y' + y = e^x with y(0) = 1:  y = (e^x - 1)/x, and y(0) is the limit 1
+    s = spec(1, "x*y1 + y - e^x", [Condition("0", "1")])
+    assert ode_sol("y = (e^x - 1)/x", s).status == "correct"
+    assert ode_sol("y = (e^x + 1)/x", s).code == "condition_not_met"
