@@ -3,7 +3,6 @@
 - id: study
   task: Checks on the triangle of the past paper.
   format: "Type an exact value or an equation with `=`; a point or a vector as `(x, y)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: st-01
       statement: |-

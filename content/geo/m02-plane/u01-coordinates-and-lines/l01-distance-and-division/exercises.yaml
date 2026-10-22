@@ -3,7 +3,6 @@
 - id: distance
   task: "Distance, midpoint and division of a segment."
   format: "Type a point as `(x, y)` and a number or an exact expression such as `sqrt(2)/3`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: dd-01
       statement: |-

@@ -3,7 +3,6 @@
 - id: quadrics
   task: The canonical quadrics.
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value such as `4*pi/3` or `sqrt(7)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: qs-01
       statement: "The volume of the solid bounded by $4x^2+9y^2+36z^2=36$."

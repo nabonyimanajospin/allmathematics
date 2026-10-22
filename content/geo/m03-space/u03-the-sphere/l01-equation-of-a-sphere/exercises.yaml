@@ -3,7 +3,6 @@
 - id: spheres
   task: Equations of spheres.
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: sp-01
       statement: "The center and the radius of the sphere $x^{2} - 2 x + y^{2} + 4 y + z^{2} - 6 z - 11=0$ (center first, then the radius)."

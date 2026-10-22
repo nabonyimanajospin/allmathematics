@@ -3,7 +3,6 @@
 - id: circles
   task: "The incircle, the circumcircle and the excircles."
   format: "Type a circle as `(x-1)^2+(y-2)^2=9`, a perimeter or an area with `pi`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tl6-i1
       statement: |-

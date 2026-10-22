@@ -3,7 +3,6 @@
 - id: angles
   task: "Angles, parallel and perpendicular lines."
   format: "Type a number or an exact expression such as `pi/6` or `sqrt(3)/2`; type an equation with `=`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: an-01
       statement: |-

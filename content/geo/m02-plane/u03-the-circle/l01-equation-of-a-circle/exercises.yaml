@@ -3,7 +3,6 @@
 - id: circles
   task: Equations of circles.
   format: "Type an equation with `=`; for the center and the radius type `(p, q, r)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: ci-g1
       statement: "Find the center and the radius of the circle $x^{2} - 6 x + y^{2} + 4 y - 12=0$ (enter the center first, then the radius)."

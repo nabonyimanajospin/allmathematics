@@ -3,7 +3,6 @@
 - id: bisectors
   task: Angle bisectors and the incenter.
   format: "Type an exact value or an equation with `=`; a point as `(x, y)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tl4-e1
       statement: |-

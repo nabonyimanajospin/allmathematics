@@ -3,7 +3,6 @@
 - id: two-circles
   task: Two circles and the radical axis.
   format: "Type an equation with `=`, a point as `(x, y)`, or a number."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tc-01
       statement: "The radical axis of $x^{2} + y^{2} - 9=0$ and $x^{2} - 4 x + y^{2} - 6 y + 9=0$."

@@ -111,7 +111,7 @@ sections:
     answer: "9/4"
     hints:
       - |
-        $np(1-p)$.
+        Multiply $n$, $p$ and the probability of failure.
     explanation: |
       $12\cdot\dfrac14\cdot\dfrac34=\dfrac94$.
 

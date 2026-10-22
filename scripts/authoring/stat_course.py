@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 
 import sympy as sp
-from toolkit import eng, ex, exset, tex, write_exercises
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises
 
 R = sp.Rational
 C = sp.binomial

@@ -3,7 +3,6 @@
 - id: parabola
   task: The parabola.
   format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`; for an angle you can type `theta`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: pa-01
       statement: "The focus of the parabola $y^2=12x$."

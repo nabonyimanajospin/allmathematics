@@ -3,7 +3,6 @@
 - id: loci
   task: Loci.
   format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`; for an angle you can type `theta`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: lo-01
       statement: "The locus of the points $M$ with $MA=MB$, where $A(2,0)$ and $B(0,4)$."

@@ -3,7 +3,6 @@
 - id: planes
   task: Planes.
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: pl-01
       statement: |-

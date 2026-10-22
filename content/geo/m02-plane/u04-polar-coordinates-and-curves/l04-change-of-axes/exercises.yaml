@@ -3,7 +3,6 @@
 - id: axes
   task: Change of axes.
   format: "Type a point as `(a, b)`, an exact value such as `5*pi/6` or `sqrt(3)/2`; an equation with `=`; for an angle you can type `theta`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: ca-01
       statement: "After moving the origin to $O'(2,-1)$, the new coordinates of $M(5,3)$."

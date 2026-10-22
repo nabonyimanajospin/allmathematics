@@ -3,7 +3,6 @@
 - id: centers
   task: "Centroid, circumsphere and insphere."
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tc-g1
       statement: |-

@@ -3,7 +3,6 @@
 - id: regular
   task: "The regular tetrahedron and Euler's formula."
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: rg-v1
       statement: "The volume of the regular tetrahedron of edge $a=2$."

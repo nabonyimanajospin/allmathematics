@@ -3,7 +3,6 @@
 - id: intersections
   task: Intersections and concurrent lines.
   format: "Type a point as `(x, y)` or a number."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: in-01
       statement: "The intersection of $3 x - y - 5=0$ and $x + 2 y - 4=0$."

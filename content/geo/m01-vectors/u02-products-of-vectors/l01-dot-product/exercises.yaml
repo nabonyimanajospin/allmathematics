@@ -3,7 +3,6 @@
 - id: dot
   task: The dot product.
   format: "Type a vector as `(a, b, c)`, a number or an exact expression such as `sqrt(7)/4`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: dp-01
       statement: |-

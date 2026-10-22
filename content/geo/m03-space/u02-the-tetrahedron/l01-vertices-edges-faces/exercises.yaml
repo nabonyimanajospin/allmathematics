@@ -3,7 +3,6 @@
 - id: faces
   task: "Edges, faces and angles of a tetrahedron."
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: te-eab1
       statement: |-

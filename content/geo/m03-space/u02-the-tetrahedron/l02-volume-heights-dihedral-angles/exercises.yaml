@@ -3,7 +3,6 @@
 - id: volume
   task: "Volume, heights and dihedral angles."
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tv-v1
       statement: |-

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from toolkit import ex, exset, write_exercises
+from toolkit import ex, exset_plain as exset, write_exercises
 
 BASE = "geo/m03-space/u04-quadric-surfaces"
 FMT = "Type a point as `(x, y, z)`, an equation with `=`, or an exact value such as `4*pi/3` or `sqrt(7)`."

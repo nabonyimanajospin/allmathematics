@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sympy as sp
 from geo_m03 import cross, dot, item_num, item_pt, norm, pt3_eng, pt3_tex, rad, sub, vec3_tex
-from toolkit import eng, ex, exset, tex, write_exercises
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises
 
 BASE = "geo/m01-vectors"
 U1 = f"{BASE}/u01-vectors-and-algebra"

@@ -3,7 +3,6 @@
 - id: distances
   task: "Distances from a point to a line, and between parallel lines."
   format: "Type an exact value such as `7/5` or `3*sqrt(2)`; a point as `(x, y)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: ds-01
       statement: |-

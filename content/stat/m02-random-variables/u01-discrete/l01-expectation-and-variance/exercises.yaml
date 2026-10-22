@@ -3,7 +3,6 @@
 - id: expectation
   task: Expectation and variance.
   format: "Type a whole number, a fraction such as `3/11`, or an exact expression such as `exp(-3)` or `sqrt(5)/3`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: ev-01
       statement: |-

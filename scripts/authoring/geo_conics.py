@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sympy as sp
-from toolkit import eng, ex, exset, tex, write_exercises
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises
 
 BASE = "geo/m02-plane/u05-conics-and-loci"
 R = sp.Rational

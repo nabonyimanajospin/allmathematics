@@ -242,5 +242,14 @@ def exset(id: str, task: str, items: list[dict], format: str | None = None, sour
     return out
 
 
+def exset_plain(id: str, task: str, items: list[dict], format: str | None = None) -> dict:
+    """An exercise set that is not taken from the printed exercise sheet (no source line)."""
+    out: dict = {"id": id, "task": task}
+    if format:
+        out["format"] = format
+    out["items"] = items
+    return out
+
+
 def floor_sqrt(n: int) -> int:
     return math.isqrt(n)

@@ -3,7 +3,6 @@
 - id: hyperbola
   task: The hyperbola.
   format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`; for an angle you can type `theta`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: hy-01
       statement: "The eccentricity of $16x^2-9y^2=144$."

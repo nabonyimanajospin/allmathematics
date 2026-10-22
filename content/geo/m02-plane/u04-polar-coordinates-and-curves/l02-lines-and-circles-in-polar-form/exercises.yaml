@@ -3,7 +3,6 @@
 - id: polar-equations
   task: Equations in polar form.
   format: "Type a point as `(a, b)`, an exact value such as `5*pi/6` or `sqrt(3)/2`; an equation with `=`; for an angle you can type `theta`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: pe-01
       statement: |-

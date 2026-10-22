@@ -4,7 +4,6 @@
   task: Equations of a line.
   format: |-
     Type an equation with `=`, for example `x - 2*y + 5 = 0` (any non-zero multiple is accepted). A list of points: `(1, 0), (0, 3)`.
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: eq-01
       statement: |-

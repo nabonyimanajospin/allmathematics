@@ -3,7 +3,6 @@
 - id: sections
   task: "Planes, tangent planes and two spheres."
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: sq-01
       statement: |-

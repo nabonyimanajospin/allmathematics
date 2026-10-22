@@ -11,7 +11,7 @@ import math
 import sympy as sp
 from geo_m02 import PAPER_NOTE as _unused  # noqa: F401  (keeps the import order of the two modules explicit)
 from geo_m02 import rad
-from toolkit import eng, ex, exset, tex, write_exercises, x, y, z
+from toolkit import eng, ex, exset_plain as exset, tex, write_exercises, x, y, z
 
 BASE = "geo/m03-space"
 U1 = f"{BASE}/u01-points-lines-planes"

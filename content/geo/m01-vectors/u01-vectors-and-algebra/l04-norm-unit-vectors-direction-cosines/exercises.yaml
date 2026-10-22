@@ -3,7 +3,6 @@
 - id: norms
   task: "Norms, unit vectors and direction cosines."
   format: "Type a vector as `(a, b, c)`, a number or an exact expression such as `sqrt(7)/4`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: nm-01
       statement: |-

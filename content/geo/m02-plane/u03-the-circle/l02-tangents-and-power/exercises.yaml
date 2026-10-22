@@ -3,7 +3,6 @@
 - id: tangents
   task: Tangents and the power of a point.
   format: "Type an equation with `=` or an exact number."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tg-01
       statement: |-

@@ -3,7 +3,6 @@
 - id: sides
   task: "Sides, perimeter, angles and area."
   format: "Type an exact value; radicals as `sqrt(145)`. A point as `(x, y)`; a list of points as `(a, 0), (0, b)`."
-  source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: tl1-p1
       statement: |-
