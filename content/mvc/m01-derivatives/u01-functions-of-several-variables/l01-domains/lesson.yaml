@@ -1,0 +1,157 @@
+id: mvc-m01-u01-l01
+title: Functions of several variables and their domain
+estMinutes: 30
+version: 1
+status: draft
+skills:
+  - domain-of-definition
+  - level-curves
+objectives:
+  - Evaluate a function of two or three variables at a point.
+  - Find the domain of a function given by a formula, as a set of conditions on $x$, $y$ and $z$.
+  - Describe a level curve $f(x,y)=c$ and find the one through a given point.
+sections:
+  - id: several-inputs
+    type: concept
+    title: A quantity that depends on several things
+    body: |
+      Many quantities are determined by more than one input. The area of a rectangle with sides $x$ and $y$
+      is $A=xy$. The temperature in a room depends on the place $(x,y,z)$ where you measure it.
+
+      A **function of two variables** gives, for each point $(x,y)$ of a set $D$ of the plane, exactly one real
+      number $z=f(x,y)$. A **function of three variables** does the same for each point $(x,y,z)$ of a set
+      of space.
+
+      For example, $f(x,y)=x^2+y^2$ gives $f(1,2)=1+4=5$, and $g(x,y,z)=xyz$ gives $g(2,1,3)=6$.
+
+      The rest of this course extends the ideas of one-variable calculus (limits, derivatives, integrals) to
+      such functions. Before we can differentiate a function, we must know **where it is defined**.
+
+  - id: domain-range
+    type: definition
+    term: Domain and range
+    body: |
+      The **domain** of a function $f$ is the set $D$ of points at which $f$ is defined. The **range** is the
+      set of values $f(x,y)$ obtained when $(x,y)$ runs through $D$.
+
+      When a function is given only by a formula, its **natural domain** is the set of all points at which
+      the formula produces a real number. This is the domain asked for in this lesson.
+
+  - id: rules-for-domains
+    type: concept
+    title: What can go wrong in a formula
+    body: |
+      A formula fails to give a real number in only a few ways. Each way gives one condition:
+
+      - a **denominator** must not be $0$;
+      - the expression under an **even root** such as $\sqrt{\ }$ must be $\ge 0$;
+      - the argument of $\ln$ must be $>0$;
+      - the argument of $\arcsin$ or $\arccos$ must lie in $[-1,1]$.
+
+      Functions such as $\arctan$, $\sin$, $\cos$ and $\exp$ accept every real number.
+
+      When a formula contains several of these, **all** the conditions must hold at once: the domain is the
+      set of points that satisfy every condition. Write each condition as an inequality, simplify it, then
+      describe the set it defines.
+
+  - id: ex-domain-two-conditions
+    type: example
+    title: A domain with two conditions
+    problem: |
+      Find the domain of $f(x,y)=\sqrt{x-y}+\ln(x+y)$.
+    steps:
+      - |
+        The square root needs $x-y\ge 0$, that is $y\le x$.
+      - |
+        The logarithm needs $x+y>0$, that is $y>-x$.
+      - |
+        Both conditions must hold. The domain is the set of points on or below the line $y=x$ and strictly
+        above the line $y=-x$. The line $y=x$ belongs to the domain; the line $y=-x$ does not.
+      - |
+        Check with the point $(1,0)$: $x-y=1\ge 0$ and $x+y=1>0$, so $f(1,0)=\sqrt1+\ln1=1$.
+    answer: |
+      $D=\{(x,y)\;:\;y\le x\ \text{and}\ y>-x\}$.
+    verify:
+      - expr: "sqrt(1-0)+ln(1+0)"
+        equals: "1"
+
+  - id: chk-point-in-domain
+    type: check
+    prompt: |
+      Which point belongs to the domain of $f(x,y)=\ln(4-x^2-y^2)$?
+    answerType: multiple_choice
+    answer: "(1, 1)"
+    choices:
+      - text: "$(1,1)$"
+        value: "(1, 1)"
+      - text: "$(2,0)$"
+        value: "(2, 0)"
+      - text: "$(0,3)$"
+        value: "(0, 3)"
+      - text: "$(-2,1)$"
+        value: "(-2, 1)"
+    correctIndex: 0
+    hints:
+      - |
+        The logarithm needs $4-x^2-y^2>0$, that is $x^2+y^2<4$. Test each point.
+    explanation: |
+      The domain is the open disc $x^2+y^2<4$. For $(1,1)$ we get $1+1=2<4$. For $(2,0)$ we get $4$, which is
+      not smaller than $4$ (and $\ln 0$ is undefined). For $(0,3)$ we get $9$ and for $(-2,1)$ we get $5$.
+
+  - id: level-curves
+    type: concept
+    title: Seeing a function with level curves
+    body: |
+      To picture $z=f(x,y)$ we mark the points where $f$ takes one fixed value $c$. This set is the
+      **level curve** $f(x,y)=c$. It is like a contour line on a map, where $f$ is the height.
+
+      For $f(x,y)=x^2+y^2$:
+
+      - for $c=4$ the level curve is the circle $x^2+y^2=4$ of radius $2$;
+      - for $c=0$ it is the single point $(0,0)$;
+      - for $c<0$ it is empty, because $x^2+y^2$ is never negative.
+
+      Where level curves are close together, $f$ changes quickly. For a function of three variables the sets
+      $f(x,y,z)=c$ are **level surfaces**.
+
+  - id: ex-level-curve
+    type: example
+    title: The level curve through a point
+    problem: |
+      Find the level curve of $f(x,y)=x^2-y$ that passes through $A(2,1)$.
+    steps:
+      - |
+        The value of $f$ at $A$ is $f(2,1)=2^2-1=3$.
+      - |
+        So the level curve is $x^2-y=3$, that is $y=x^2-3$, a parabola.
+      - |
+        Check: for $x=2$ the parabola gives $y=4-3=1$, which is the point $A$.
+    answer: |
+      The level curve is the parabola $y=x^2-3$.
+    verify:
+      - expr: "2^2-1"
+        equals: "3"
+      - expr: "2^2-3"
+        equals: "1"
+
+  - id: chk-level-value
+    type: check
+    prompt: |
+      Let $f(x,y)=x^2+3y$. For which value $c$ does the level curve $f(x,y)=c$ pass through $(1,2)$?
+    answerType: number
+    answer: "7"
+    hints:
+      - |
+        The level curve through a point has $c$ equal to the value of $f$ at that point.
+    explanation: |
+      $c=f(1,2)=1^2+3\cdot2=7$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A function of two (three) variables gives a real number for each point $(x,y)$ (or $(x,y,z)$) of its domain.
+      - |
+        The natural domain of a formula is the set where all conditions hold: denominators $\neq0$, even-root arguments $\ge0$, logarithm arguments $>0$, $\arcsin$ and $\arccos$ arguments in $[-1,1]$.
+      - |
+        A level curve $f(x,y)=c$ is the set where $f$ equals $c$; the level curve through a point $P$ uses $c=f(P)$.
