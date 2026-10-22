@@ -230,6 +230,8 @@ export const exerciseSchema = z.strictObject({
   ...answerSpec,
   /** Worked solution (Markdown with math). Required: every exercise is explained. */
   solution: text,
+  /** Optional independent recomputation of the key by the engine, e.g. diff(f, x) equals the stated derivative. */
+  verify: z.array(verifySchema).max(6).optional(),
   /** A remark for the student, e.g. a correction to the printed exercise. */
   note: text.optional(),
   allowDecimal: z.boolean().optional(),

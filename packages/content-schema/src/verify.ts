@@ -263,7 +263,15 @@ export async function verifyLessonWithEngine(lesson: Lesson, file: string, engin
     if (s.type === "check") await verifyQuestion(where, s, engine, err);
   }
   for (const set of lesson.exerciseSets) {
-    for (const item of set.items) await verifyQuestion(`exercise ${item.id}`, item as Exercise, engine, err);
+    for (const item of set.items) {
+      const where = `exercise ${item.id}`;
+      await verifyQuestion(where, item as Exercise, engine, err);
+      for (const [j, v] of (item.verify ?? []).entries()) {
+        const r = await engine.verify(v.expr, v.equals);
+        if (r.code) err(`${where}.verify[${j}]: the engine could not evaluate it (${r.code}: ${r.message ?? ""}) — ${v.expr}`);
+        else if (!r.equal) err(`${where}.verify[${j}]: ${v.expr} is NOT equal to ${v.equals}`);
+      }
+    }
   }
   return issues;
 }

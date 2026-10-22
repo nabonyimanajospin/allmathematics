@@ -5,7 +5,7 @@
  */
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { parse as parseYaml, YAMLParseError } from "yaml";
 import type { z } from "zod";
 import {
@@ -57,19 +57,17 @@ function subdirs(dir: string, pattern: RegExp): { name: string; order: number }[
     .sort((a, b) => a.order - b.order);
 }
 
-function readYaml<S extends z.ZodType>(file: string, schema: S, issues: ContentIssue[]): z.infer<S> | null {
-  if (!existsSync(file)) {
-    issues.push({ file, message: "File is missing", severity: "error" });
-    return null;
-  }
-  let raw: unknown;
+function readRawYaml(file: string, issues: ContentIssue[]): unknown {
   try {
-    raw = parseYaml(readFileSync(file, "utf8"), { prettyErrors: true });
+    return parseYaml(readFileSync(file, "utf8"), { prettyErrors: true });
   } catch (e) {
     const msg = e instanceof YAMLParseError ? e.message : String(e);
     issues.push({ file, message: `YAML syntax error: ${msg}`, severity: "error" });
-    return null;
+    return undefined;
   }
+}
+
+function validate<S extends z.ZodType>(file: string, raw: unknown, schema: S, issues: ContentIssue[]): z.infer<S> | null {
   const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     for (const i of parsed.error.issues) {
@@ -78,6 +76,40 @@ function readYaml<S extends z.ZodType>(file: string, schema: S, issues: ContentI
     return null;
   }
   return parsed.data;
+}
+
+function readYaml<S extends z.ZodType>(file: string, schema: S, issues: ContentIssue[]): z.infer<S> | null {
+  if (!existsSync(file)) {
+    issues.push({ file, message: "File is missing", severity: "error" });
+    return null;
+  }
+  const raw = readRawYaml(file, issues);
+  if (raw === undefined) return null;
+  return validate(file, raw, schema, issues);
+}
+
+/**
+ * A lesson is `lesson.yaml` (teaching sections, written by hand). Its exercises may sit beside it in
+ * `exercises.yaml` (a list of exercise sets, often produced by a script that computes the answers with SymPy).
+ */
+function readLessonYaml(file: string, issues: ContentIssue[]): Lesson | null {
+  if (!existsSync(file)) {
+    issues.push({ file, message: "File is missing", severity: "error" });
+    return null;
+  }
+  const raw = readRawYaml(file, issues);
+  if (raw === undefined) return null;
+  const exFile = join(dirname(file), "exercises.yaml");
+  if (existsSync(exFile) && raw && typeof raw === "object") {
+    const ex = readRawYaml(exFile, issues);
+    if (ex === undefined) return null;
+    if ("exerciseSets" in raw) {
+      issues.push({ file, message: "exerciseSets is defined in lesson.yaml and in exercises.yaml; keep only one", severity: "error" });
+      return null;
+    }
+    (raw as Record<string, unknown>).exerciseSets = ex;
+  }
+  return validate(file, raw, lessonSchema, issues);
 }
 
 const two = (n: number): string => String(n).padStart(2, "0");
@@ -120,7 +152,7 @@ export function loadContent(contentDir: string): ContentTree {
         const unit: UnitNode = { meta: umeta, lessons: [] };
         for (const l of subdirs(upath, /^l(\d{2})-/)) {
           const lfile = join(upath, l.name, "lesson.yaml");
-          const lmeta = readYaml(lfile, lessonSchema, issues);
+          const lmeta = readLessonYaml(lfile, issues);
           if (!lmeta) continue;
           const expectedLesson = `${expectedUnit}-l${two(l.order)}`;
           if (lmeta.id !== expectedLesson) {
