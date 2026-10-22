@@ -1,0 +1,68 @@
+{
+  "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
+  "nav": {
+    "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
+  },
+  "home": {
+    "title": "Learn university mathematics, step by step",
+    "lead": "Vectors, geometry, multivariable calculus and differential equations. Every answer is checked by a real math engine, and your progress is tracked section by section.",
+    "cta": "Start for free",
+    "ctaSignedIn": "Continue learning",
+    "free": "The whole of Module 1 (Vectors) is free.",
+    "courses": "Courses",
+    "feature1Title": "Exact answers",
+    "feature1Text": "Fractions, radicals and π. Any equivalent exact form is accepted, so 2/√2 is the same as √2.",
+    "feature2Title": "Progress you can trust",
+    "feature2Text": "Your bar moves after every section you read and every question you answer, and it is still there when you come back.",
+    "feature3Title": "Built for phones",
+    "feature3Text": "Light pages that load fast on a slow connection, with a calm layout that keeps the mathematics large and clear."
+  },
+  "auth": {
+    "signInTitle": "Welcome back", "signUpTitle": "Create your account",
+    "email": "E-mail", "name": "Full name", "password": "Password",
+    "passwordHint": "At least 10 characters.",
+    "signInButton": "Sign in", "signUpButton": "Create account",
+    "noAccount": "New here?", "haveAccount": "Already have an account?",
+    "working": "Please wait…",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorNetwork": "Could not reach the server. Check your connection."
+  },
+  "dashboard": {
+    "title": "My learning", "hello": "Hello, {name}",
+    "continue": "Continue", "continueFrom": "Pick up where you left off",
+    "startLesson": "Start", "resume": "Resume", "review": "Review",
+    "minutes": "{n} min", "complete": "Complete", "inProgress": "In progress", "notStarted": "Not started",
+    "free": "Free", "course": "Course", "module": "Module", "unit": "Unit", "lesson": "Lesson",
+    "courseProgress": "Course progress", "allDone": "You have finished everything available. New lessons are coming."
+  },
+  "lesson": {
+    "progress": "Lesson progress", "back": "Back to my learning", "objectives": "In this lesson you will",
+    "resumeBanner": "Welcome back. We saved your place.",
+    "definition": "Definition", "theorem": "Theorem", "formula": "Key formula", "example": "Worked example",
+    "proof": "Show proof", "nextStep": "Show next step", "showAll": "Show all steps", "answerLabel": "Answer",
+    "visual": "Explore", "equation": "Equation (scroll sideways if it is wide)", "summary": "Summary", "check": "Quick check",
+    "bookmark": "Save to formula sheet", "bookmarked": "Saved",
+    "locked": "Answer the question above to continue.",
+    "sectionDone": "Section completed", "reading": "Reading",
+    "lessonDone": "Lesson complete. Well done.", "next": "Next lesson", "keepGoing": "Keep going"
+  },
+  "check": {
+    "yourAnswer": "Your answer", "submit": "Check", "checking": "Checking…",
+    "hint": "Show a hint ({used} of {total})", "noMoreHints": "No more hints",
+    "showSolution": "Show the solution", "correct": "Correct.", "incorrect": "Not correct yet. Try again.",
+    "invalid": "We could not read that answer.", "explanation": "Explanation",
+    "placeholderNumber": "e.g. 7/2 or 2*sqrt(3)", "placeholderVector": "e.g. (1, -2, 3)",
+    "placeholderExpression": "e.g. 2x + 1",
+    "exactNote": "Give exact values: fractions, radicals, π. No decimals.",
+    "symbols": "Symbols", "insertFraction": "Fraction", "insertRoot": "Square root", "insertPi": "π",
+    "chooseOne": "Choose one answer", "unavailable": "Answer checking is unavailable right now. Please try again in a moment."
+  },
+  "visual": {
+    "dragHint": "Drag the dots. Points snap to whole numbers.",
+    "components": "Components", "sum": "Sum", "coordinates": "Coordinates in the basis",
+    "start": "start", "end": "end"
+  },
+  "errors": { "notFound": "We could not find that page.", "notFoundTitle": "Page not found", "signInRequired": "Please sign in to continue.", "back": "Go back home", "serverTitle": "Something went wrong", "retry": "Try again" },
+  "footer": { "rights": "© {year} Allmaths. All rights reserved." }
+}
