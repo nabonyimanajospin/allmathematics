@@ -1,0 +1,7 @@
+id: mvc-m05
+title: Partial differential equations
+description: >-
+  Equations with partial derivatives: classification, the method of characteristics, separation of variables for the heat,
+  wave and Laplace equations, and Fourier series.
+order: 5
+free: false

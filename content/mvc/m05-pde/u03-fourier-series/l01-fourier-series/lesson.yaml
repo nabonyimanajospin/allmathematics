@@ -1,0 +1,143 @@
+id: mvc-m05-u03-l01
+title: Fourier series
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - fourier-coefficients
+  - even-odd-functions
+  - fourier-convergence
+objectives:
+  - Compute the Fourier coefficients of a function on $]-L,L[$.
+  - Use parity to know which coefficients vanish.
+  - State what the series converges to, also at a jump.
+sections:
+  - id: idea
+    type: concept
+    title: Building a function from sines and cosines
+    body: |
+      The solutions of the previous lessons were sums of $\sin\dfrac{n\pi x}{L}$. To use the method for any initial profile $f$, we need to write $f$ as a (possibly infinite) sum of such functions. A **Fourier series** does it:
+
+      $$f(x)\sim\dfrac{a_0}{2}+\sum_{n=1}^{\infty}\left(a_n\cos\dfrac{n\pi x}{L}+b_n\sin\dfrac{n\pi x}{L}\right).$$
+
+      All the terms have the period $2L$, so the series describes the $2L$-periodic extension of $f$. The functions $\cos\dfrac{n\pi x}{L}$ and $\sin\dfrac{m\pi x}{L}$ are orthogonal on $]-L,L[$: the integral of a product of two different ones is $0$. This is what makes the coefficients easy to find.
+
+  - id: coefficients
+    type: theorem
+    name: Fourier coefficients
+    statement: |
+      For a function $f$ on $]-L,L[$ (integrable):
+
+      $$a_n=\dfrac1L\int_{-L}^{L}f(x)\cos\dfrac{n\pi x}{L}\,dx\quad(n\ge0),\qquad b_n=\dfrac1L\int_{-L}^{L}f(x)\sin\dfrac{n\pi x}{L}\,dx\quad(n\ge1).$$
+
+      If $f$ is **even** then every $b_n=0$ and $a_n=\dfrac2L\int_0^Lf(x)\cos\dfrac{n\pi x}{L}\,dx$. If $f$ is **odd** then every $a_n=0$ and $b_n=\dfrac2L\int_0^Lf(x)\sin\dfrac{n\pi x}{L}\,dx$.
+    proof: |
+      Multiply the series by $\cos\dfrac{m\pi x}{L}$ and integrate over $]-L,L[$. By orthogonality every term vanishes except the one with $n=m$, for which $\int_{-L}^{L}\cos^2\dfrac{m\pi x}{L}\,dx=L$ (and $2L$ for $m=0$, which is why the constant term is written $\dfrac{a_0}{2}$). Thus $\int f\cos\dfrac{m\pi x}{L}=La_m$. The same with a sine gives $b_m$. For parity: the product of two odd functions, or of two even functions, is even; the product of an even and an odd function is odd and has integral $0$ on $]-L,L[$.
+
+  - id: ex-x
+    type: example
+    title: The series of $f(x)=x$
+    problem: |
+      Find the Fourier series of $f(x)=x$ on $]-\pi,\pi[$.
+    steps:
+      - |
+        $f$ is odd, so all $a_n=0$ and $b_n=\dfrac2\pi\displaystyle\int_0^\pi x\sin nx\,dx$.
+      - text: |
+          Integration by parts: $\displaystyle\int_0^\pi x\sin nx\,dx=\left[-\dfrac{x\cos nx}{n}\right]_0^\pi+\dfrac1n\int_0^\pi\cos nx\,dx=-\dfrac{\pi(-1)^n}{n}+0$.
+        why: |
+          Take $u=x$ and $dv=\sin nx\,dx$, so $du=dx$ and $v=-\dfrac{\cos nx}{n}$. At $x=\pi$, $\cos n\pi=(-1)^n$; at $x=0$ the term is $0$. The remaining integral is $\dfrac1n\cdot\dfrac{\sin nx}{n}\Big|_0^\pi=0$.
+      - |
+        So $b_n=\dfrac2\pi\cdot\dfrac{-\pi(-1)^n}{n}=\dfrac{2(-1)^{n+1}}{n}$ and
+        $$x\sim2\sin x-\sin2x+\dfrac23\sin3x-\dfrac12\sin4x+\cdots$$
+    answer: |
+      $x\sim\displaystyle\sum_{n=1}^{\infty}\dfrac{2(-1)^{n+1}}{n}\sin nx$.
+    verify:
+      - expr: "2/pi*integrate(x*sin(3*x), x, 0, pi)"
+        equals: "2/3"
+
+  - id: visual-partial
+    type: visual
+    kind: plot
+    title: Partial sums of the series of $x$
+    caption: |
+      The line $f(x)=x$ and the partial sums with $2$ and with $5$ terms. The more terms we add, the closer the sum is to $f$ inside the interval; near $\pm\pi$, where the periodic extension jumps, the convergence is slower.
+    config:
+      mode: cartesian
+      f: "x"
+      l1: "f(x) = x"
+      f2: "2*sin(x)-sin(2*x)"
+      l2: "2 terms"
+      f3: "2*sin(x)-sin(2*x)+2*sin(3*x)/3-sin(4*x)/2+2*sin(5*x)/5"
+      l3: "5 terms"
+      xmin: -3.2
+      xmax: 3.2
+      ymin: -4
+      ymax: 4
+      alt: "The straight line y equals x with two wavy approximations by sums of sines that follow it more and more closely."
+
+  - id: convergence
+    type: theorem
+    name: Convergence (Dirichlet)
+    statement: |
+      If $f$ is piecewise smooth (it and its derivative are continuous except at finitely many jumps), then the Fourier series of $f$ converges at every $x$:
+
+      - to $f(x)$ where $f$ is continuous;
+      - to the average $\dfrac{f(x^-)+f(x^+)}{2}$ of the left and right limits at a jump.
+    proof: |
+      The proof studies the partial sums as integrals of $f$ against the Dirichlet kernel; it is given in courses of analysis. Here we use the result.
+    more: |
+      **An example.** The series of $x$ at $x=\pi$: every term $\sin n\pi$ is $0$, so the sum is $0$. The periodic extension jumps at $\pi$ from the value $\pi$ (left limit) to $-\pi$ (right limit), and the average is $0$.
+
+  - id: ex-abs
+    type: example
+    title: An even function
+    problem: |
+      Find the coefficients $a_n$ of $f(x)=|x|$ on $]-\pi,\pi[$.
+    steps:
+      - |
+        $f$ is even: $b_n=0$ and $a_n=\dfrac2\pi\displaystyle\int_0^\pi x\cos nx\,dx$.
+      - text: |
+          $\displaystyle\int_0^\pi x\cos nx\,dx=\left[\dfrac{x\sin nx}{n}\right]_0^\pi-\dfrac1n\int_0^\pi\sin nx\,dx=\dfrac{(-1)^n-1}{n^2}$ for $n\ge1$.
+        why: |
+          By parts with $u=x$, $dv=\cos nx\,dx$. The first term is $0$ at both ends. The remaining integral is $\dfrac1n\cdot\dfrac{1-\cos n\pi}{n}=\dfrac{1-(-1)^n}{n^2}$, with the minus sign in front: $\dfrac{(-1)^n-1}{n^2}$.
+      - |
+        So $a_n=\dfrac{2\left((-1)^n-1\right)}{\pi n^2}$, which is $0$ for even $n$ and $-\dfrac{4}{\pi n^2}$ for odd $n$. Also $a_0=\dfrac2\pi\displaystyle\int_0^\pi x\,dx=\pi$.
+    answer: |
+      $|x|\sim\dfrac\pi2-\dfrac4\pi\left(\cos x+\dfrac{\cos3x}{9}+\dfrac{\cos5x}{25}+\cdots\right)$.
+    verify:
+      - expr: "2/pi*integrate(x*cos(3*x), x, 0, pi)"
+        equals: "-4/(9*pi)"
+
+  - id: chk-coefficient
+    type: check
+    prompt: |
+      Find the coefficient $b_3$ of the series of $f(x)=x$ on $]-\pi,\pi[$.
+    answerType: expression
+    answer: "2/3"
+    hints:
+      - |
+        $b_n=\dfrac{2(-1)^{n+1}}{n}$.
+    explanation: |
+      $b_3=\dfrac{2(-1)^4}{3}=\dfrac23$.
+
+  - id: chk-jump
+    type: check
+    prompt: |
+      The function $f(x)=-1$ on $]-\pi,0[$ and $f(x)=1$ on $]0,\pi[$ has a jump at $x=0$. To what number does its Fourier series converge at $x=0$?
+    answerType: number
+    answer: "0"
+    hints:
+      - |
+        Average the left and right limits.
+    explanation: |
+      The limits are $-1$ and $1$, and their average is $0$. (Also $f$ is odd, so every sine vanishes at $0$.)
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $f\sim\dfrac{a_0}2+\sum\left(a_n\cos\dfrac{n\pi x}{L}+b_n\sin\dfrac{n\pi x}{L}\right)$ with $a_n=\dfrac1L\int_{-L}^Lf\cos\dfrac{n\pi x}{L}$ and $b_n=\dfrac1L\int_{-L}^Lf\sin\dfrac{n\pi x}{L}$.
+      - |
+        Even $f$: only cosines; odd $f$: only sines.
+      - |
+        At a jump the series converges to the average of the two one-sided limits.

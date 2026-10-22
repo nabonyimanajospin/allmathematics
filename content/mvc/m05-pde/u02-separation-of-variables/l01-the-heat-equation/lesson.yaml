@@ -1,0 +1,119 @@
+id: mvc-m05-u02-l01
+title: The heat equation on a rod
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - separation-of-variables
+  - heat-equation
+objectives:
+  - Set up the heat problem on a rod with its ends kept at temperature $0$.
+  - Separate the variables and derive the normal modes $e^{-k(n\pi/L)^2t}\sin\dfrac{n\pi x}{L}$.
+  - Write the solution for an initial temperature that is a finite sum of sines.
+sections:
+  - id: problem
+    type: concept
+    title: A rod with cold ends
+    body: |
+      A thin rod occupies $0\le x\le L$. Its temperature $u(x,t)$ satisfies the **heat equation** $u_t=k\,u_{xx}$, where $k>0$ is the thermal diffusivity. The ends are kept at temperature $0$ (**boundary conditions**) and the temperature at $t=0$ is given (**initial condition**):
+
+      $$u_t=k\,u_{xx},\qquad u(0,t)=u(L,t)=0,\qquad u(x,0)=f(x).$$
+
+      The idea of **separation of variables** is to look for solutions that are a product $u(x,t)=X(x)\,T(t)$, where each factor depends on one variable only. The general case is then obtained by adding such solutions, thanks to linearity.
+
+  - id: separation
+    type: theorem
+    name: The normal modes
+    statement: |
+      The products $u=X(x)T(t)$ that satisfy $u_t=k\,u_{xx}$ and the boundary conditions, with $u\not\equiv0$, are the multiples of
+
+      $$u_n(x,t)=e^{-k\left(\dfrac{n\pi}{L}\right)^2t}\sin\dfrac{n\pi x}{L},\qquad n=1,2,3,\dots$$
+
+      If the initial temperature is $f(x)=\sum b_n\sin\dfrac{n\pi x}{L}$ (a finite sum), the solution is
+
+      $$u(x,t)=\sum b_n\,e^{-k\left(\dfrac{n\pi}{L}\right)^2t}\sin\dfrac{n\pi x}{L}.$$
+    proof: |
+      Substitute $u=XT$: $X\,T'=k\,X''\,T$. Divide by $kXT$: $\dfrac{T'}{kT}=\dfrac{X''}{X}$. The left side depends only on $t$, the right side only on $x$, so both are equal to the same constant, written $-\lambda$.
+
+      The equation in $x$ is $X''+\lambda X=0$ with $X(0)=X(L)=0$. For $\lambda\le0$ the only solution is $X=0$. For $\lambda>0$, $X=A\cos\sqrt\lambda\,x+B\sin\sqrt\lambda\,x$ and $X(0)=0$ gives $A=0$; then $X(L)=0$ needs $\sin\sqrt\lambda L=0$, so $\sqrt\lambda=\dfrac{n\pi}{L}$. The equation in $t$, $T'=-k\lambda T$, gives $T=e^{-k\lambda t}$.
+    more: |
+      **Why $\lambda\le0$ gives nothing.** If $\lambda=0$, $X=A+Bx$ and the two conditions force $A=B=0$. If $\lambda=-\mu^2<0$, $X=A\cosh\mu x+B\sinh\mu x$; $X(0)=0$ gives $A=0$, and $X(L)=B\sinh\mu L=0$ forces $B=0$ because $\sinh$ vanishes only at $0$.
+
+  - id: ex-two-modes
+    type: example
+    title: Two modes
+    problem: |
+      A rod of length $\pi$ with $k=3$ has the initial temperature $f(x)=\sin x-4\sin3x$ and the ends at $0$. Find $u(x,t)$.
+    steps:
+      - |
+        $L=\pi$, so the modes are $e^{-3n^2t}\sin nx$.
+      - text: |
+          $n=1$: the factor is $e^{-3t}$. $n=3$: the factor is $e^{-27t}$.
+        why: |
+          $k\left(\dfrac{n\pi}{L}\right)^2=3n^2$ for $L=\pi$. For $n=1$ that is $3$ and for $n=3$ it is $27$. Higher modes decay much faster: $e^{-27t}$ is negligible long before $e^{-3t}$.
+      - |
+        $u(x,t)=e^{-3t}\sin x-4e^{-27t}\sin3x$.
+    answer: |
+      $u(x,t)=e^{-3t}\sin x-4e^{-27t}\sin3x$.
+    verify:
+      - expr: "diff(exp(-3*t)*sin(x) - 4*exp(-27*t)*sin(3*x), t) - 3*diff(exp(-3*t)*sin(x) - 4*exp(-27*t)*sin(3*x), x, 2)"
+        equals: "0"
+
+  - id: ex-other-length
+    type: example
+    title: Another length
+    problem: |
+      A rod has length $1$, $k=2$ and the initial temperature $f(x)=5\sin\pi x+\sin3\pi x$. Find $u(x,t)$.
+    steps:
+      - |
+        $L=1$: the factor of the mode $n$ is $e^{-2n^2\pi^2t}$.
+      - |
+        $u(x,t)=5e^{-2\pi^2t}\sin\pi x+e^{-18\pi^2t}\sin3\pi x$.
+    answer: |
+      $u(x,t)=5e^{-2\pi^2t}\sin\pi x+e^{-18\pi^2t}\sin3\pi x$.
+    verify:
+      - expr: "diff(exp(-2*pi^2*t)*sin(pi*x), t) - 2*diff(exp(-2*pi^2*t)*sin(pi*x), x, 2)"
+        equals: "0"
+      - expr: "diff(exp(-18*pi^2*t)*sin(3*pi*x), t) - 2*diff(exp(-18*pi^2*t)*sin(3*pi*x), x, 2)"
+        equals: "0"
+
+  - id: behaviour
+    type: concept
+    title: What the formula says
+    body: |
+      Every mode decays, and the higher the mode the faster: the factor $e^{-k(n\pi/L)^2t}$ decreases with $n$. So after some time only the first mode remains, the temperature becomes a half-wave $\sin\dfrac{\pi x}{L}$ and then drops to $0$. Heat flows out through the cold ends, and sharp features of the initial temperature (which need large $n$) are smoothed out immediately: this is the signature of a parabolic equation.
+
+  - id: chk-mode
+    type: check
+    prompt: |
+      A rod of length $\pi$ has $k=4$ and the initial temperature $f(x)=2\sin x$ (ends at $0$). Find $u(x,t)$.
+    answerType: expression
+    variables: [x, t]
+    answer: "2*exp(-4*t)*sin(x)"
+    hints:
+      - |
+        Only the mode $n=1$ is present: the factor is $e^{-kt}$ when $L=\pi$.
+    explanation: |
+      $u(x,t)=2e^{-4t}\sin x$.
+
+  - id: chk-rate
+    type: check
+    prompt: |
+      On a rod of length $\pi$ with $k=3$, by what number $\mu$ is $t$ multiplied in the exponent $e^{-\mu t}$ of the mode $n=2$?
+    answerType: number
+    answer: "12"
+    hints:
+      - |
+        $\mu=k\left(\dfrac{n\pi}{L}\right)^2$.
+    explanation: |
+      $\mu=3\cdot2^2=12$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Heat problem: $u_t=k\,u_{xx}$, $u(0,t)=u(L,t)=0$, $u(x,0)=f(x)$.
+      - |
+        Separation $u=X(x)T(t)$ gives $X''+\lambda X=0$ with $\lambda_n=\left(\dfrac{n\pi}{L}\right)^2$ and $T_n=e^{-k\lambda_nt}$.
+      - |
+        If $f=\sum b_n\sin\dfrac{n\pi x}{L}$ then $u=\sum b_n\,e^{-k(n\pi/L)^2t}\sin\dfrac{n\pi x}{L}$; high modes decay fastest.

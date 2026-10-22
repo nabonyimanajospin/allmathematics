@@ -1,0 +1,138 @@
+id: mvc-m05-u02-l02
+title: The wave equation
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - wave-equation
+  - dalembert
+objectives:
+  - Solve the vibrating string with fixed ends by separation of variables.
+  - Use d'Alembert's formula on the whole line.
+sections:
+  - id: problem
+    type: concept
+    title: A vibrating string
+    body: |
+      A string of length $L$ fixed at both ends has the displacement $u(x,t)$ satisfying the **wave equation**
+
+      $$u_{tt}=c^2u_{xx},\qquad u(0,t)=u(L,t)=0,\qquad u(x,0)=f(x),\quad u_t(x,0)=g(x),$$
+
+      where $c$ is the speed of the waves, and $f$, $g$ are the initial shape and velocity. Because the equation is of second order in $t$, two initial conditions are needed.
+
+  - id: modes
+    type: theorem
+    name: The normal modes of the string
+    statement: |
+      The products $X(x)T(t)$ that satisfy the equation and the boundary conditions are combinations of
+
+      $$\cos\dfrac{n\pi ct}{L}\,\sin\dfrac{n\pi x}{L}\qquad\text{and}\qquad\sin\dfrac{n\pi ct}{L}\,\sin\dfrac{n\pi x}{L},\qquad n=1,2,\dots$$
+
+      If $f(x)=\sum a_n\sin\dfrac{n\pi x}{L}$ and $g(x)=\sum B_n\sin\dfrac{n\pi x}{L}$ (finite sums), the solution is
+
+      $$u(x,t)=\sum\left(a_n\cos\dfrac{n\pi ct}{L}+\dfrac{B_nL}{n\pi c}\sin\dfrac{n\pi ct}{L}\right)\sin\dfrac{n\pi x}{L}.$$
+    proof: |
+      With $u=XT$ we get $\dfrac{T''}{c^2T}=\dfrac{X''}{X}=-\lambda$ and, as for the heat equation, $\lambda_n=\left(\dfrac{n\pi}{L}\right)^2$, $X_n=\sin\dfrac{n\pi x}{L}$. Now $T''+c^2\lambda_nT=0$ has the solutions $\cos\omega_nt$ and $\sin\omega_nt$ with $\omega_n=\dfrac{n\pi c}{L}$. At $t=0$: $u=\sum a_nX_n$ gives the coefficients $a_n$ of $f$, and $u_t(x,0)=\sum b_n\omega_nX_n$ must equal $g$, so $b_n\omega_n=B_n$.
+    more: |
+      **Music.** The numbers $\omega_n=\dfrac{n\pi c}{L}$ are the angular frequencies of the string: the fundamental $\omega_1$ and the overtones $2\omega_1$, $3\omega_1$, … A shorter string ($L$ smaller) has a higher pitch, and a tighter string (larger $c$) too.
+
+  - id: ex-string
+    type: example
+    title: A string released at rest
+    problem: |
+      A string with $c=2$ and $L=\pi$ starts at rest with the shape $f(x)=3\sin x$. Find $u(x,t)$.
+    steps:
+      - |
+        Only the mode $n=1$ is present, with $\omega_1=\dfrac{\pi\cdot2}{\pi}=2$.
+      - text: |
+          Since $g=0$ we have no sine in time: $u(x,t)=3\cos2t\,\sin x$.
+        why: |
+          $u_t(x,0)=0$ forces the coefficients $B_n$ of $\sin\omega_nt$ to be $0$. The cosine in time is $1$ at $t=0$, which reproduces $f$.
+    answer: |
+      $u(x,t)=3\cos2t\sin x$.
+    verify:
+      - expr: "diff(3*cos(2*t)*sin(x), t, 2) - 4*diff(3*cos(2*t)*sin(x), x, 2)"
+        equals: "0"
+
+  - id: ex-velocity
+    type: example
+    title: A string struck at $t=0$
+    problem: |
+      A string with $c=1$ and $L=\pi$ starts flat, $f=0$, with the velocity $g(x)=\sin2x$. Find $u(x,t)$.
+    steps:
+      - |
+        $B_2=1$ and $n=2$, $\omega_2=2$: the coefficient of $\sin2t$ is $\dfrac{B_2}{\omega_2}=\dfrac12$.
+      - |
+        $u(x,t)=\dfrac12\sin2t\,\sin2x$.
+    answer: |
+      $u(x,t)=\dfrac12\sin2t\,\sin2x$.
+    verify:
+      - expr: "diff(sin(2*t)*sin(2*x)/2, t, 2) - diff(sin(2*t)*sin(2*x)/2, x, 2)"
+        equals: "0"
+      - expr: "cos(2*0)*sin(2*x)"
+        equals: "sin(2*x)"
+
+  - id: dalembert
+    type: theorem
+    name: d'Alembert's formula
+    statement: |
+      On the whole line, the problem $u_{tt}=c^2u_{xx}$, $u(x,0)=f(x)$, $u_t(x,0)=g(x)$ has the solution
+
+      $$u(x,t)=\dfrac{f(x-ct)+f(x+ct)}{2}+\dfrac{1}{2c}\int_{x-ct}^{x+ct}g(s)\,ds.$$
+    proof: |
+      The equation factors: $\left(\partial_t-c\,\partial_x\right)\left(\partial_t+c\,\partial_x\right)u=0$. Both $F(x-ct)$ and $G(x+ct)$ are solutions (see the lesson on characteristics): a wave moving right and a wave moving left. So $u=F(x-ct)+G(x+ct)$. The conditions at $t=0$ give $F+G=f$ and $c\,(G'-F')=g$; solving for $F$ and $G$ gives the formula.
+    more: |
+      **Two travelling waves.** If $g=0$, the initial shape splits into two halves of the same shape: one goes to the right and the other to the left, each at speed $c$.
+
+  - id: ex-dalembert
+    type: example
+    title: Using d'Alembert's formula
+    problem: |
+      Solve $u_{tt}=c^2u_{xx}$ with $u(x,0)=x^2$ and $u_t(x,0)=0$.
+    steps:
+      - text: |
+          $u=\dfrac{(x-ct)^2+(x+ct)^2}{2}$.
+        why: |
+          Here $f(s)=s^2$ and $g=0$, so only the first term of the formula remains.
+      - |
+        $(x-ct)^2+(x+ct)^2=2x^2+2c^2t^2$, so $u(x,t)=x^2+c^2t^2$.
+    answer: |
+      $u(x,t)=x^2+c^2t^2$.
+    verify:
+      - expr: "diff(x^2+c^2*t^2, t, 2) - c^2*diff(x^2+c^2*t^2, x, 2)"
+        equals: "0"
+
+  - id: chk-dalembert
+    type: check
+    prompt: |
+      Solve $u_{tt}=u_{xx}$ with $u(x,0)=0$ and $u_t(x,0)=\cos x$ ($c=1$).
+    answerType: expression
+    variables: [x, t]
+    answer: "cos(x)*sin(t)"
+    hints:
+      - |
+        $u=\dfrac12\int_{x-t}^{x+t}\cos s\,ds$.
+    explanation: |
+      $u=\dfrac12\left[\sin(x+t)-\sin(x-t)\right]=\cos x\sin t$.
+
+  - id: chk-frequency
+    type: check
+    prompt: |
+      A string has $c=6$ and $L=3$. Find the angular frequency $\omega_2$ of the second mode.
+    answerType: expression
+    answer: "4*pi"
+    hints:
+      - |
+        $\omega_n=\dfrac{n\pi c}{L}$.
+    explanation: |
+      $\omega_2=\dfrac{2\pi\cdot6}{3}=4\pi$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Fixed string: $u=\sum\left(a_n\cos\omega_nt+b_n\sin\omega_nt\right)\sin\dfrac{n\pi x}{L}$, $\omega_n=\dfrac{n\pi c}{L}$.
+      - |
+        $a_n$ are the sine coefficients of $f$, and $b_n=\dfrac{B_n}{\omega_n}$ where $B_n$ are those of $g$.
+      - |
+        On the whole line, $u=\dfrac{f(x-ct)+f(x+ct)}{2}+\dfrac1{2c}\int_{x-ct}^{x+ct}g$.

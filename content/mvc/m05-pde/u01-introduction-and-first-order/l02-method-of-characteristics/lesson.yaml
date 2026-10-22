@@ -1,0 +1,134 @@
+id: mvc-m05-u01-l02
+title: First-order linear equations and characteristics
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - pde-characteristics
+objectives:
+  - Solve $a\,u_x+b\,u_y=0$ and write the solution that fits a given initial curve.
+  - Use characteristic curves for variable coefficients and for a term $c\,u$.
+sections:
+  - id: idea
+    type: concept
+    title: Solutions that are constant along curves
+    body: |
+      Consider $a\,u_x+b\,u_y=0$ with constants $a$, $b$. The left side is the derivative of $u$ in the direction of the vector $(a,b)$, because it is the dot product of $\nabla u$ with $(a,b)$. So $u$ does not change when we move along a line with direction $(a,b)$. These lines, $bx-ay=\text{constant}$, are the **characteristics**.
+
+      A function that is constant on each characteristic is a function of the constant that labels it, so $u=f(bx-ay)$ with $f$ arbitrary.
+
+  - id: theorem
+    type: theorem
+    name: Constant coefficients
+    statement: |
+      The general solution of $a\,u_x+b\,u_y=0$ ($a$ or $b\ne0$) is
+
+      $$u(x,y)=f(bx-ay),$$
+
+      where $f$ is an arbitrary differentiable function of one variable.
+    proof: |
+      With $s=bx-ay$ and $u=f(s)$ the chain rule gives $u_x=b\,f'(s)$ and $u_y=-a\,f'(s)$, so $a\,u_x+b\,u_y=ab\,f'-ab\,f'=0$. Conversely, in the new variables $s=bx-ay$ and $r=ax+by$ the equation becomes $(a^2+b^2)\,u_r=0$, so $u$ depends on $s$ only.
+    more: |
+      **The transport equation.** With $y=t$, the equation $u_t+c\,u_x=0$ has the solution $u=f(x-ct)$: the profile $f$ is carried to the right at speed $c$ without changing shape. This is the simplest model of a wave.
+
+  - id: ex-initial
+    type: example
+    title: Fitting the initial condition
+    problem: |
+      Solve $3u_x+2u_y=0$ with $u(x,0)=x^2$.
+    steps:
+      - |
+        Here $a=3$, $b=2$: $u=f(2x-3y)$.
+      - text: |
+          At $y=0$: $f(2x)=x^2$. Put $s=2x$: $f(s)=\dfrac{s^2}{4}$.
+        why: |
+          The initial condition fixes the function $f$ on all its values. Since $f(2x)=x^2$ for every $x$, writing $s=2x$, that is $x=\dfrac s2$, gives $f(s)=\left(\dfrac s2\right)^2$.
+      - |
+        So $u(x,y)=\dfrac{(2x-3y)^2}{4}$.
+    answer: |
+      $u(x,y)=\dfrac{(2x-3y)^2}{4}$.
+    verify:
+      - expr: "3*diff((2*x-3*y)^2/4, x) + 2*diff((2*x-3*y)^2/4, y)"
+        equals: "0"
+
+  - id: variable
+    type: concept
+    title: "Variable coefficients and characteristic curves"
+    body: |
+      For $u_x+p(x,y)\,u_y=0$ the characteristics are the solution curves of the ordinary differential equation $\dfrac{dy}{dx}=p(x,y)$. Along such a curve, $\dfrac{d}{dx}u(x,y(x))=u_x+u_y\dfrac{dy}{dx}=0$, so $u$ is constant. If the family of curves is $\varphi(x,y)=C$, then $u=f(\varphi(x,y))$.
+
+  - id: ex-variable
+    type: example
+    title: A curved characteristic
+    problem: |
+      Solve $u_x+x\,u_y=0$ with $u(0,y)=y^2$.
+    steps:
+      - text: |
+          The characteristics satisfy $\dfrac{dy}{dx}=x$, so $y=\dfrac{x^2}{2}+C$, that is $C=y-\dfrac{x^2}{2}$.
+        why: |
+          This is a separable ODE: integrate $dy=x\,dx$. The constant $C$ is the label of the curve, and $u$ is constant on each curve.
+      - |
+        The solution is $u=f\left(y-\dfrac{x^2}2\right)$.
+      - |
+        At $x=0$: $f(y)=y^2$. So $u(x,y)=\left(y-\dfrac{x^2}{2}\right)^2$.
+    answer: |
+      $u(x,y)=\left(y-\dfrac{x^2}{2}\right)^2$.
+    verify:
+      - expr: "diff((y-x^2/2)^2, x) + x*diff((y-x^2/2)^2, y)"
+        equals: "0"
+
+  - id: ex-source
+    type: example
+    title: A term proportional to $u$
+    problem: |
+      Solve $u_x+u_y=u$ with $u(x,0)=\cos x$.
+    steps:
+      - text: |
+          Along the line $x-y=C$, $\dfrac{du}{dx}=u_x+u_y=u$, so $u=K\,e^{x}$ with $K$ constant on the line: $u=e^{x}f(x-y)$.
+        why: |
+          Along a characteristic, moving by $dx$ moves $y$ by $dy=dx$, so the derivative of $u$ along the line is $u_x+u_y$. That equals $u$, an ODE $\dfrac{du}{dx}=u$ with solution $Ke^{x}$; the constant $K$ may be different on different lines, so it is a function $f$ of the label $x-y$.
+      - |
+        At $y=0$: $e^{x}f(x)=\cos x$, so $f(s)=e^{-s}\cos s$.
+      - |
+        $u=e^{x}e^{-(x-y)}\cos(x-y)=e^{y}\cos(x-y)$.
+    answer: |
+      $u(x,y)=e^{y}\cos(x-y)$.
+    verify:
+      - expr: "diff(exp(y)*cos(x-y), x) + diff(exp(y)*cos(x-y), y) - exp(y)*cos(x-y)"
+        equals: "0"
+
+  - id: chk-general
+    type: check
+    prompt: |
+      Solve $u_x+2u_y=0$ with $u(x,0)=x^3$ and give $u(x,y)$.
+    answerType: expression
+    variables: [x, y]
+    answer: "(x-y/2)^3"
+    hints:
+      - |
+        $u=f(2x-y)$. At $y=0$: $f(2x)=x^3$.
+    explanation: |
+      $u=f(2x-y)$ with $f(s)=\left(\dfrac s2\right)^3$, so $u=\left(x-\dfrac y2\right)^3$.
+
+  - id: chk-transport
+    type: check
+    prompt: |
+      A profile $u(x,0)=\dfrac{1}{1+x^2}$ moves according to $u_t+3u_x=0$. Find $u(x,t)$.
+    answerType: expression
+    variables: [x, t]
+    answer: "1/(1+(x-3*t)^2)"
+    hints:
+      - |
+        The profile moves to the right at speed $3$: $u=f(x-3t)$.
+    explanation: |
+      $u(x,t)=\dfrac{1}{1+(x-3t)^2}$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $a\,u_x+b\,u_y=0$ has the general solution $u=f(bx-ay)$: $u$ is constant along the characteristic lines.
+      - |
+        For variable coefficients, solve $\dfrac{dy}{dx}=p(x,y)$ to find the characteristics $\varphi(x,y)=C$; then $u=f(\varphi)$.
+      - |
+        The initial condition determines $f$.

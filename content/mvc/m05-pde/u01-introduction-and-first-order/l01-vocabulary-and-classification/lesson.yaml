@@ -1,0 +1,133 @@
+id: mvc-m05-u01-l01
+title: Vocabulary, solutions and classification
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - pde-vocabulary
+  - pde-verify-solution
+  - pde-classification
+objectives:
+  - State the order and the linearity of a partial differential equation.
+  - Check that a function is a solution by substitution.
+  - Classify a second-order linear equation as elliptic, parabolic or hyperbolic.
+sections:
+  - id: what-is-pde
+    type: concept
+    title: Equations in several variables
+    body: |
+      An ordinary differential equation links a function of one variable to its derivatives. When the unknown depends on **several** variables, for example the temperature $u(x,t)$ of a rod at the position $x$ and the time $t$, the derivatives are partial derivatives and the equation is a **partial differential equation** (PDE).
+
+      We write $u_x=\dfrac{\partial u}{\partial x}$, $u_{xx}=\dfrac{\partial^2u}{\partial x^2}$, $u_{xt}=\dfrac{\partial^2u}{\partial t\,\partial x}$, and so on. Three equations govern a large part of physics:
+
+      - the **heat equation** $u_t=k\,u_{xx}$ (diffusion of temperature);
+      - the **wave equation** $u_{tt}=c^2u_{xx}$ (vibrating string, sound);
+      - **Laplace's equation** $u_{xx}+u_{yy}=0$ (equilibrium: steady temperature, electrostatic potential).
+
+  - id: vocabulary
+    type: definition
+    term: Order and linearity
+    body: |
+      - The **order** of a PDE is the order of its highest partial derivative.
+      - A PDE is **linear** if the unknown $u$ and all its derivatives appear only to the first power and are not multiplied together; the coefficients may depend on the variables. It is **homogeneous** if every term contains $u$ or a derivative of $u$.
+      - A **solution** is a function that makes the equation true on a region, after substitution.
+
+      For example $u_t=k\,u_{xx}$ is linear, homogeneous, of order $2$; $u_t+u\,u_x=0$ is of order $1$ and **not** linear, since $u\,u_x$ is a product.
+    more: |
+      **Why linearity matters.** For a linear homogeneous equation, if $u_1$ and $u_2$ are solutions, so is $\alpha u_1+\beta u_2$ (the **superposition principle**). Separation of variables, in the next unit, builds all solutions by adding simple ones.
+
+  - id: general-solutions
+    type: concept
+    title: Arbitrary functions instead of constants
+    body: |
+      The general solution of an ODE of order $n$ has $n$ constants. For a PDE it contains **arbitrary functions**. For example, $u_{xy}=0$ means that $u_x$ does not depend on $y$, so $u_x=g(x)$, and integrating in $x$:
+
+      $$u(x,y)=f(x)+h(y),$$
+
+      where $f$ and $h$ are arbitrary functions. A particular solution is then selected by **boundary conditions** (values at the ends of the space interval) and **initial conditions** (values at $t=0$).
+
+  - id: ex-verify
+    type: example
+    title: Checking a solution
+    problem: |
+      Show that $u(x,t)=e^{-4t}\sin2x$ is a solution of $u_t=u_{xx}$.
+    steps:
+      - |
+        $u_t=-4e^{-4t}\sin2x$.
+      - text: |
+          $u_x=2e^{-4t}\cos2x$, then $u_{xx}=-4e^{-4t}\sin2x$.
+        why: |
+          Differentiate with respect to $x$ twice, treating $t$ as a constant: the derivative of $\sin2x$ is $2\cos2x$, and of $2\cos2x$ is $-4\sin2x$.
+      - |
+        So $u_t=u_{xx}$: the function is a solution.
+    answer: |
+      $u_t=u_{xx}=-4e^{-4t}\sin2x$.
+    verify:
+      - expr: "diff(exp(-4*t)*sin(2*x), t) - diff(exp(-4*t)*sin(2*x), x, 2)"
+        equals: "0"
+
+  - id: classification
+    type: theorem
+    name: Classification of second-order linear equations
+    statement: |
+      The equation $A\,u_{xx}+B\,u_{xy}+C\,u_{yy}+(\text{lower-order terms})=0$ with constant coefficients is
+
+      - **elliptic** if $B^2-4AC<0$ (example: Laplace's equation, $B^2-4AC=-4$);
+      - **parabolic** if $B^2-4AC=0$ (example: the heat equation $u_t=u_{xx}$, with $A=1$, $B=C=0$);
+      - **hyperbolic** if $B^2-4AC>0$ (example: the wave equation $u_{tt}-c^2u_{xx}=0$, $B^2-4AC=4c^2$).
+    proof: |
+      This is the same test as for the conics $Ax^2+Bxy+Cy^2+\dots=0$ (see the lesson on the general second-degree equation): the sign of $B^2-4AC$ is invariant under changes of variables, and it decides the type of the canonical form.
+    more: |
+      **Why the type matters.** The three types behave differently. Elliptic equations describe equilibria and their solutions are smooth. Parabolic equations describe diffusion, which smooths data and goes only forward in time. Hyperbolic equations transport signals at finite speed.
+
+  - id: ex-classify
+    type: example
+    title: Classify an equation
+    problem: |
+      Classify $u_{xx}+4u_{xy}+u_{yy}=0$ and $4u_{xx}+4u_{xy}+u_{yy}=0$.
+    steps:
+      - |
+        First: $A=1$, $B=4$, $C=1$ and $B^2-4AC=16-4=12>0$: hyperbolic.
+      - |
+        Second: $A=4$, $B=4$, $C=1$ and $B^2-4AC=16-16=0$: parabolic.
+    answer: |
+      Hyperbolic, then parabolic.
+    verify:
+      - expr: "4^2-4*1*1"
+        equals: "12"
+      - expr: "4^2-4*4*1"
+        equals: "0"
+
+  - id: chk-order
+    type: check
+    prompt: |
+      What is the order of $u_t=u_{xxx}+u_x$?
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        Look at the highest derivative.
+    explanation: |
+      The highest derivative is $u_{xxx}$: order $3$.
+
+  - id: chk-type
+    type: check
+    prompt: |
+      Find $B^2-4AC$ for $u_{xx}+3u_{xy}+2u_{yy}=0$.
+    answerType: number
+    answer: "1"
+    hints:
+      - |
+        $A=1$, $B=3$, $C=2$.
+    explanation: |
+      $9-8=1>0$: the equation is hyperbolic.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A PDE has an unknown of several variables; order = highest partial derivative; linear = $u$ and its derivatives appear to the first power with no products.
+      - |
+        General solutions contain arbitrary functions, for example $u_{xy}=0\Rightarrow u=f(x)+h(y)$.
+      - |
+        $B^2-4AC<0$ elliptic, $=0$ parabolic, $>0$ hyperbolic.

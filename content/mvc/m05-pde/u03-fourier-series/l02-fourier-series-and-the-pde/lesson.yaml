@@ -1,0 +1,126 @@
+id: mvc-m05-u03-l02
+title: Fourier series in the heat and wave equations
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - sine-series
+  - heat-fourier
+  - wave-fourier
+objectives:
+  - Expand an initial profile on $]0,L[$ in a sine series.
+  - Write the full series solutions of the heat and wave problems.
+sections:
+  - id: why
+    type: concept
+    title: Any initial profile
+    body: |
+      The previous lessons solved the heat and wave problems when the initial profile was a sum of sines chosen for the purpose. A real profile, such as a rod heated more in the middle, is not of that form. Fourier series fill the gap: every reasonable profile on $]0,L[$ can be expanded in the sines that satisfy the boundary conditions.
+
+  - id: half-range
+    type: theorem
+    name: The sine series on an interval
+    statement: |
+      Every piecewise smooth function $f$ on $]0,L[$ can be written as
+
+      $$f(x)=\sum_{n=1}^{\infty}b_n\sin\dfrac{n\pi x}{L},\qquad b_n=\dfrac2L\int_0^Lf(x)\sin\dfrac{n\pi x}{L}\,dx,$$
+
+      at every point where $f$ is continuous.
+    proof: |
+      Extend $f$ to $]-L,0[$ as an odd function, $f(-x)=-f(x)$. The extension is odd, so its Fourier series contains only sines, with $b_n=\dfrac1L\int_{-L}^{L}=\dfrac2L\int_0^L$ by parity. On $]0,L[$ the series represents the original $f$.
+    more: |
+      **Why this is the series we need.** The boundary conditions $u(0,t)=u(L,t)=0$ select exactly the sines $\sin\dfrac{n\pi x}{L}$, which vanish at both ends. The odd extension is the way to expand an arbitrary $f$ on $]0,L[$ in them.
+
+  - id: ex-parabola
+    type: example
+    title: The profile $x(\pi-x)$
+    problem: |
+      Expand $f(x)=x(\pi-x)$ on $]0,\pi[$ in a sine series.
+    steps:
+      - |
+        $b_n=\dfrac2\pi\displaystyle\int_0^\pi x(\pi-x)\sin nx\,dx$.
+      - text: |
+          Two integrations by parts give $\displaystyle\int_0^\pi x(\pi-x)\sin nx\,dx=\dfrac{2\left(1-(-1)^n\right)}{n^3}$.
+        why: |
+          Each integration by parts lowers the power of $x$ and divides by $n$, so the result has $n^3$ in the denominator. The boundary terms involve $\cos n\pi=(-1)^n$, which is why the odd and even $n$ behave differently.
+      - |
+        So $b_n=\dfrac{4\left(1-(-1)^n\right)}{\pi n^3}$: $b_n=\dfrac{8}{\pi n^3}$ for odd $n$ and $b_n=0$ for even $n$.
+    answer: |
+      $x(\pi-x)=\dfrac8\pi\left(\sin x+\dfrac{\sin3x}{27}+\dfrac{\sin5x}{125}+\cdots\right)$.
+    verify:
+      - expr: "2/pi*integrate(x*(pi-x)*sin(x), x, 0, pi)"
+        equals: "8/pi"
+      - expr: "2/pi*integrate(x*(pi-x)*sin(2*x), x, 0, pi)"
+        equals: "0"
+
+  - id: heat
+    type: theorem
+    name: The heat problem with any initial profile
+    statement: |
+      The problem $u_t=k\,u_{xx}$, $u(0,t)=u(L,t)=0$, $u(x,0)=f(x)$ has the solution
+
+      $$u(x,t)=\sum_{n=1}^{\infty}b_n\,e^{-k\left(\dfrac{n\pi}{L}\right)^2t}\sin\dfrac{n\pi x}{L},\qquad b_n=\dfrac2L\int_0^Lf(x)\sin\dfrac{n\pi x}{L}\,dx.$$
+    proof: |
+      Each term is a normal mode, so it solves the equation and the boundary conditions, and so does the sum, by linearity. At $t=0$ the sum is the sine series of $f$.
+
+  - id: ex-heat
+    type: example
+    title: Cooling of a rod
+    problem: |
+      A rod of length $\pi$ with $k=1$ and ends at $0$ has the initial temperature $f(x)=x(\pi-x)$. Write $u(x,t)$ and its first term.
+    steps:
+      - |
+        By the previous example $b_n=\dfrac{8}{\pi n^3}$ for odd $n$, and $0$ for even $n$.
+      - text: |
+          $u(x,t)=\dfrac8\pi\left(e^{-t}\sin x+\dfrac{e^{-9t}}{27}\sin3x+\dfrac{e^{-25t}}{125}\sin5x+\cdots\right)$.
+        why: |
+          With $L=\pi$ and $k=1$ the factor of the mode $n$ is $e^{-n^2t}$: $n=1,3,5$ give $e^{-t}$, $e^{-9t}$, $e^{-25t}$.
+      - |
+        After a short time only the first term matters: $u\approx\dfrac8\pi e^{-t}\sin x$.
+    answer: |
+      $u(x,t)=\displaystyle\sum_{n\ \mathrm{odd}}\dfrac{8}{\pi n^3}e^{-n^2t}\sin nx$.
+    verify:
+      - expr: "diff(exp(-t)*sin(x), t) - diff(exp(-t)*sin(x), x, 2)"
+        equals: "0"
+
+  - id: wave
+    type: concept
+    title: The vibrating string
+    body: |
+      In the same way, the wave problem $u_{tt}=c^2u_{xx}$, $u(0,t)=u(L,t)=0$, $u(x,0)=f(x)$, $u_t(x,0)=0$ has the solution
+
+      $$u(x,t)=\sum_{n=1}^{\infty}b_n\cos\dfrac{n\pi ct}{L}\,\sin\dfrac{n\pi x}{L},$$
+
+      where the $b_n$ are the sine coefficients of the initial shape $f$. Contrary to the heat equation, the modes do not decay: they oscillate forever (we have neglected friction).
+
+  - id: chk-coefficient
+    type: check
+    prompt: |
+      Find the coefficient $b_3$ in the sine series of $f(x)=1$ on $]0,\pi[$.
+    answerType: expression
+    answer: "4/(3*pi)"
+    hints:
+      - |
+        $b_n=\dfrac2\pi\int_0^\pi\sin nx\,dx=\dfrac{2\left(1-(-1)^n\right)}{\pi n}$.
+    explanation: |
+      $b_3=\dfrac{2\cdot2}{3\pi}=\dfrac{4}{3\pi}$.
+
+  - id: chk-first
+    type: check
+    prompt: |
+      For the rod of the example ($L=\pi$, $k=1$, $f=x(\pi-x)$), find the coefficient $b_1$ of the first mode.
+    answerType: expression
+    answer: "8/pi"
+    hints:
+      - |
+        $b_1=\dfrac2\pi\int_0^\pi x(\pi-x)\sin x\,dx$.
+    explanation: |
+      The integral is $4$, so $b_1=\dfrac8\pi$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A function on $]0,L[$ has the sine series $\sum b_n\sin\dfrac{n\pi x}{L}$ with $b_n=\dfrac2L\int_0^Lf\sin\dfrac{n\pi x}{L}$.
+      - |
+        Heat: multiply each term by $e^{-k(n\pi/L)^2t}$. Wave (at rest): multiply by $\cos\dfrac{n\pi ct}{L}$.
