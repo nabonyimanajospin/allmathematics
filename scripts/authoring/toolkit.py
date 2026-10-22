@@ -213,6 +213,23 @@ def ex(
     item["solution"] = solution
     for key, val in extra.items():
         item[key] = val
+    return _tidy(item)
+
+
+_DISPLAY = re.compile(r"\$\$.*?\$\$", re.S)
+
+
+def _tidy(item: dict) -> dict:
+    """Use the display fraction inside $$...$$ in every text of an exercise."""
+    bs = chr(92)
+
+    def fix(text: str) -> str:
+        return _DISPLAY.sub(lambda m: re.sub(re.escape(bs + "frac") + r"(?![a-z])", lambda _m: bs + "dfrac", m.group(0)), text)
+
+    for key in ("statement", "solution", "note"):
+        if isinstance(item.get(key), str):
+            item[key] = fix(item[key])
+    item["hints"] = [fix(h) for h in item.get("hints", [])]
     return item
 
 
