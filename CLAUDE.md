@@ -48,8 +48,16 @@ write original content (spec section 12.2).
 - Never write LaTeX through a shell heredoc (``, `	`, `
 ` become control characters); use the editor tools.
 - A format hint of an exercise set must not contain the answer of one of its exercises (verify-content checks this).
+- Notation in lessons: a vector value is written as a column and a point as a row (the renderer turns `\overrightarrow{AB}=(3,4)` into a column
+  automatically); a length is `\norm{\overrightarrow{BC}}`, never `BC` alone (`a=\norm{\overrightarrow{BC}}`); the area of a triangle is `S`.
+  Parametric equations use `\begin{cases}`; the vector equation of a line is a point plus lambda times a column vector.
+- Units: lengths in lu, areas in squ, volumes in cu. Geometry builders switch this on with `@with_units`.
+- Figures: a `visual` section with `kind: figure` and a `figure:` block (2D or rotatable 3D, exact coordinates, see `packages/core/src/figure.ts`).
+  Plot legends (`l1`..`l5`) are LaTeX. Put the key formula of a lesson before its first question (questions lock what follows).
+- Resources (downloadable documents) are listed in `resources/resources.yaml`; only `permission: granted` files can be downloaded.
 - Commits: small, plain messages, authored by the repository owner only (no co-author lines).
 
 ## Current phase
-Phase 1 foundation done. Content written and verified (92 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression). Next: Phase 2 (problem generator, quizzes, mastery, dashboard), more `more`/`why` explanations, stat inference module.
+Phase 1 foundation done. Content written and verified (92 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression). Also built: resources page (signed-in only), formula sheet (save formulas and theorems from lessons), stacked-fraction answer field, figures in many geometry lessons.
+Next: Phase 2 (problem generator, quizzes, mastery, dashboard), figures for the remaining lessons, more `more`/`why` explanations, stat inference module.
 Spec version 1.2 (hierarchy: Course > Module > Unit > Lesson).

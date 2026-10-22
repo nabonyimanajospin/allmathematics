@@ -36,4 +36,7 @@ scripts/            verify-content, seed
 - 92 lessons with several hundred exercises, each with hints and a worked solution. Every answer key is recomputed by the math
   engine in `pnpm verify-content`.
 
+The platform also has: a Resources page with downloadable course documents, a personal formula sheet, an answer field that writes
+fractions stacked as in print, and 2D and rotatable 3D figures drawn from exact coordinates.
+
 Next: Phase 2, assessment and tracking (problem generator, quizzes, mastery, dashboard).
