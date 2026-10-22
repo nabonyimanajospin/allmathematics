@@ -98,6 +98,20 @@ def _convert_one(tokens: list[str], i: int) -> tuple[str, int]:
         if j < n and tokens[j] == "{" and j + 1 < n and tokens[j + 1] == "\\circ":
             if j + 2 < n and tokens[j + 2] == "}":
                 return "*(pi/180)", j + 3
+        # derivative marks: y^{\prime}, y^{\prime\prime}, y^\prime
+        k = i + 1
+        while k < n and tokens[k].isspace():
+            k += 1
+        if k < n and tokens[k] == "\\prime":
+            return "'", k + 1
+        if k < n and tokens[k] == "{":
+            m = k + 1
+            marks = 0
+            while m < n and tokens[m] in {"\\prime", " "}:
+                marks += tokens[m] == "\\prime"
+                m += 1
+            if marks and m < n and tokens[m] == "}":
+                return "'" * marks, m + 1
         arg, j = _read_group(tokens, i + 1)
         if not arg.startswith("("):
             arg = "(" + arg + ")"
@@ -171,7 +185,11 @@ def _convert_one(tokens: list[str], i: int) -> tuple[str, int]:
             return " ", i + 1
         if cmd == "\\":
             return " ", i + 1
-        if cmd in {"le", "ge", "neq", "infty", "sum", "int", "lim", "partial", "nabla"}:
+        relations = {"le": "<=", "leq": "<=", "ge": ">=", "geq": ">=", "ne": "!=", "neq": "!=",
+                     "land": " and ", "wedge": " and ", "lor": " or ", "vee": " or ", "lt": "<", "gt": ">"}
+        if cmd in relations:
+            return relations[cmd], i + 1
+        if cmd in {"infty", "sum", "int", "lim", "partial", "nabla"}:
             raise ParseError(f"The symbol \\{cmd} cannot be used in this kind of answer.", "unsupported")
         raise ParseError(f"I do not understand \\{cmd} in the answer.", "unsupported")
     if t in "[]":

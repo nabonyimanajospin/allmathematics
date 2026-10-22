@@ -13,6 +13,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 from pydantic import BaseModel, Field
 
 from . import checker
+from . import ode as ode_mod
 from .errors import EngineError
 
 MAX_TEXT = 500
@@ -40,8 +41,32 @@ class MistakeIn(BaseModel):
     hint: str = Field(max_length=300)
 
 
+class ConstraintIn(BaseModel):
+    equation: str = Field(max_length=MAX_TEXT)
+    solve_for: str = Field(pattern=r"^[A-Za-z]$")
+    ranges: dict[str, tuple[float, float]] = Field(default_factory=dict, max_length=4)
+
+
+class ConditionIn(BaseModel):
+    at: str = Field(max_length=60)
+    value: str = Field(max_length=60)
+    derivative: int = Field(default=0, ge=0, le=2)
+
+
+class OdeIn(BaseModel):
+    order: int = Field(ge=1, le=3)
+    equation: str | None = Field(default=None, max_length=MAX_TEXT)
+    family: str | None = Field(default=None, max_length=MAX_TEXT)
+    constants: list[str] = Field(default_factory=list, max_length=4)
+    conditions: list[ConditionIn] = Field(default_factory=list, max_length=3)
+    sample: tuple[float, float] = (0.6, 1.9)
+
+
 class CheckRequest(BaseModel):
-    answer_type: Literal["number", "expression", "vector", "point", "multiple_choice", "auto"]
+    answer_type: Literal[
+        "number", "expression", "vector", "point", "multiple_choice", "auto",
+        "region", "equation", "direction", "points", "ode_solution", "ode_family",
+    ]
     student: str = Field(max_length=MAX_TEXT)
     correct: str = Field(max_length=MAX_TEXT)
     input_format: Literal["auto", "latex", "text"] = "auto"
@@ -49,6 +74,9 @@ class CheckRequest(BaseModel):
     allow_decimal: bool = False
     sig_figs: int | None = Field(default=None, ge=1, le=10)
     mistakes: list[MistakeIn] = Field(default_factory=list, max_length=10)
+    coordinates: list[str] | None = Field(default=None, max_length=4)
+    constraint: ConstraintIn | None = None
+    ode: OdeIn | None = None
 
 
 class CheckResponse(BaseModel):
@@ -101,6 +129,24 @@ def check(req: CheckRequest) -> CheckResponse:
         allow_decimal=req.allow_decimal,
         sig_figs=req.sig_figs,
         mistakes=[checker.Mistake(m.expr, m.hint) for m in req.mistakes],
+        coordinates=req.coordinates,
+        constraint=(
+            checker.Constraint(req.constraint.equation, req.constraint.solve_for, dict(req.constraint.ranges))
+            if req.constraint
+            else None
+        ),
+        ode=(
+            ode_mod.OdeSpec(
+                order=req.ode.order,
+                equation=req.ode.equation,
+                family=req.ode.family,
+                constants=req.ode.constants,
+                conditions=[ode_mod.Condition(c.at, c.value, c.derivative) for c in req.ode.conditions],
+                sample=req.ode.sample,
+            )
+            if req.ode
+            else None
+        ),
     )
     return CheckResponse(
         status=result.status,

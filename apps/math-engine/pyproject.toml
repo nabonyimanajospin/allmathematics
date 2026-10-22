@@ -14,3 +14,5 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
+# user-facing messages are long strings; they stay readable on one line
+ignore = ["E501"]

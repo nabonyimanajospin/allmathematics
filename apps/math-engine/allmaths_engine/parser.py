@@ -65,8 +65,9 @@ _WORDS = sorted(
 _TOKEN_RE = re.compile(
     r"""
     (?P<num>\d+\.\d*|\.\d+|\d+)
+  | (?P<sym>[A-Za-z](?:\d+|'+))
   | (?P<name>[A-Za-z]+(?:_[A-Za-z0-9]+)?)
-  | (?P<op>[-+*/^(),])
+  | (?P<op>[-+*/^(),|])
   | (?P<ws>\s+)
     """,
     re.VERBOSE,
@@ -89,7 +90,7 @@ class Parsed:
 
 
 def normalize(text: str) -> str:
-    text = text.translate(_SUPERSCRIPTS)
+    text = text.replace("**", "^").translate(_SUPERSCRIPTS)
     for k, v in _UNICODE.items():
         text = text.replace(k, v if v.isalpha() is False else f" {v} ")
     return text
@@ -110,6 +111,10 @@ def tokenize(text: str) -> tuple[list[Token], bool]:
             if "." in m.group():
                 has_decimal = True
             tokens.append(Token("num", m.group()))
+        elif m.lastgroup == "sym":
+            # x0, C1, y2 are one symbol; y' and y'' are the first and second derivative symbols y1 and y2
+            word = m.group()
+            tokens.append(Token("name", word[0] + str(word.count("'")) if "'" in word else word))
         elif m.lastgroup == "name":
             tokens.extend(_split_name(m.group()))
         else:
@@ -141,6 +146,7 @@ class _Parser:
         self.t = tokens
         self.i = 0
         self.depth = 0
+        self.bars = 0  # number of |...| absolute-value bars currently open
         self.variables = variables
         self.names: set[str] = set()
 
@@ -166,6 +172,8 @@ class _Parser:
 
     def starts_atom(self) -> bool:
         c = self.cur
+        if c.kind == "op" and c.text == "|":
+            return self.bars == 0  # inside |...| a bar after an operand closes it
         return c.kind in {"num", "name"} or (c.kind == "op" and c.text == "(")
 
     def enter(self) -> None:
@@ -283,6 +291,18 @@ class _Parser:
             self.leave()
             self.expect(")")
             return inner
+        if tok.kind == "op" and tok.text == "|":
+            self.eat()
+            self.enter()
+            self.bars += 1
+            inner = self.expr()
+            self.bars -= 1
+            self.leave()
+            self.expect("|")
+            if isinstance(inner, sp.Tuple):
+                raise ParseError("Use norm(...) for the length of a vector.", "vector_in_bars")
+            assert isinstance(inner, sp.Expr)
+            return sp.Abs(inner)
         if tok.kind == "end":
             raise ParseError("The answer ends unexpectedly.", "unexpected_end")
         raise ParseError(f"Unexpected “{tok.text}” in the answer.", "unexpected_symbol")

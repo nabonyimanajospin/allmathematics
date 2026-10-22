@@ -23,7 +23,11 @@ from .errors import ComplexityError, EngineError
 from .parser import Parsed, parse
 from .render import value_to_latex
 
-AnswerType = Literal["number", "expression", "vector", "point", "multiple_choice", "auto"]
+AnswerType = Literal[
+    "number", "expression", "vector", "point", "multiple_choice", "auto",
+    "region", "equation", "direction", "points", "ode_solution", "ode_family",
+]
+EXTRA_TYPES = {"region", "equation", "direction", "points", "ode_solution", "ode_family"}
 Status = Literal["correct", "incorrect", "invalid"]
 
 CHECK_TIMEOUT_SECONDS = 8.0
@@ -40,6 +44,15 @@ DECIMAL_MESSAGE = (
 class Mistake:
     expr: str
     hint: str
+
+
+@dataclass
+class Constraint:
+    """Expressions are compared on the curve or surface `equation` = 0, solving for `dependent`."""
+
+    equation: str
+    dependent: str
+    ranges: dict[str, tuple[float, float]] = field(default_factory=dict)
 
 
 @dataclass
@@ -179,11 +192,15 @@ def check_answer(
     allow_decimal: bool = False,
     sig_figs: int | None = None,
     mistakes: list[Mistake] | None = None,
+    coordinates: list[str] | None = None,
+    constraint: Constraint | None = None,
+    ode: object | None = None,
 ) -> CheckResult:
     try:
         return run_limited(
             lambda: _check(
-                answer_type, student, correct, input_format, variables, allow_decimal, sig_figs, mistakes or []
+                answer_type, student, correct, input_format, variables, allow_decimal, sig_figs, mistakes or [],
+                coordinates, constraint, ode,
             )
         )
     except EngineError as exc:
@@ -199,9 +216,20 @@ def _check(
     allow_decimal: bool,
     sig_figs: int | None,
     mistakes: list[Mistake],
+    coordinates: list[str] | None = None,
+    constraint: Constraint | None = None,
+    ode: object | None = None,
 ) -> CheckResult:
     if answer_type == "multiple_choice":
         return _check_choice(student_raw, correct_raw)
+    if answer_type in EXTRA_TYPES:
+        from . import extra_types  # local import: extra_types builds on this module
+
+        return extra_types.check_extra(
+            answer_type, student_raw, correct_raw, fmt, variables, coordinates, mistakes, allow_decimal, ode
+        )
+    if correct_raw.strip() == "@dne":
+        return _check_nonexistent(student_raw, answer_type)
 
     key = parse(correct_raw, fmt="text")  # the key is trusted text written by authors
     if key.has_decimal:
@@ -236,7 +264,7 @@ def _check(
             return CheckResult(
                 "invalid", "wrong_dimension", f"A vector with {len(key.value)} components is expected here."
             )
-        return _check_vector(value, key.value, stu, mistakes, variables, allow_decimal, sig_figs)
+        return _check_vector(value, key.value, stu, mistakes, variables, allow_decimal, sig_figs, constraint)
 
     if isinstance(value, sp.Tuple):
         return CheckResult("invalid", "expected_scalar", "A single value is expected here, not a vector.")
@@ -248,17 +276,32 @@ def _check(
         return CheckResult("invalid", "expected_number", msg)
 
     latex = value_to_latex(value)
-    ok, method = _scalar_equal(value, key.value, stu.has_decimal, sig_figs)
+    ok, method = _scalar_equal(value, key.value, stu.has_decimal, sig_figs, constraint)
     if ok:
         return CheckResult("correct", "ok", "Correct.", latex, method)
     return _incorrect_scalar(value, key.value, latex, mistakes, allowed)
 
 
-def _scalar_equal(value: sp.Expr, key: sp.Expr, decimal_used: bool, sig_figs: int | None) -> tuple[bool, str]:
+def _scalar_equal(
+    value: sp.Expr,
+    key: sp.Expr,
+    decimal_used: bool,
+    sig_figs: int | None,
+    constraint: Constraint | None = None,
+) -> tuple[bool, str]:
     if decimal_used:
         sf = sig_figs or 3
         return _approx_equal(value, key, sf), "approximation"
-    return exprs_equivalent(value, key)
+    ok, method = exprs_equivalent(value, key)
+    if ok or constraint is None:
+        return ok, method
+    from .curves import equal_on_curve  # local import keeps the module light
+    from .equations import equation_poly
+
+    on_curve = equal_on_curve(
+        value, key, equation_poly(constraint.equation, "text"), constraint.dependent, constraint.ranges
+    )
+    return (True, "on-curve") if on_curve else (False, method)
 
 
 def _incorrect_scalar(
@@ -284,12 +327,13 @@ def _check_vector(
     variables: list[str] | None,
     allow_decimal: bool,
     sig_figs: int | None,
+    constraint: Constraint | None = None,
 ) -> CheckResult:
     latex = value_to_latex(value)
     parts: list[bool] = []
     method = "exact"
     for sv, kv in zip(value, key, strict=False):
-        ok, m = _scalar_equal(sv, kv, stu.has_decimal, sig_figs)
+        ok, m = _scalar_equal(sv, kv, stu.has_decimal, sig_figs, constraint)
         parts.append(ok)
         if ok and m in ("numeric", "approximation"):
             method = m
@@ -310,6 +354,34 @@ def _check_vector(
             hint="Check the direction (sign) of your vector.",
         )
     return CheckResult("incorrect", "wrong", "Not correct yet.", latex, parts=parts)
+
+
+_NONEXISTENT = {
+    "dne", "d.n.e.", "d.n.e", "does not exist", "doesnt exist", "doesn't exist", "no limit", "does not converge",
+    "diverges", "divergent", "diverge", "the integral diverges", "limit does not exist", "infinite", "infinity",
+    "oo", "∞", "none", "undefined", "not exist", "nonexistent", "non-existent",
+}
+
+
+_NONEXISTENT_PHRASES = (
+    "dne", "d.n.e", "does not exist", "doesnt exist", "doesn't exist", "no limit", "not exist", "does not converge",
+    "diverge", "undefined", "nonexistent", "non-existent", "infinite", "infinity",
+)
+
+
+def _check_nonexistent(student: str, answer_type: str) -> CheckResult:
+    """The key is “does not exist” (a limit that fails, an integral that diverges). Written words are accepted."""
+    cleaned = " ".join(student.strip().lower().replace("’", "'").split())
+    if not cleaned:
+        return CheckResult("invalid", "empty", "The answer is empty.")
+    exact = cleaned in _NONEXISTENT
+    phrase = not any(ch.isdigit() for ch in cleaned) and any(p in cleaned for p in _NONEXISTENT_PHRASES)
+    if exact or phrase:
+        return CheckResult("correct", "ok", "Correct.", method="keyword")
+    return CheckResult(
+        "incorrect", "wrong", "Not correct yet.",
+        hint="Check whether a finite value is really reached, whatever way you approach.",
+    )
 
 
 def _check_choice(student: str, correct: str) -> CheckResult:
