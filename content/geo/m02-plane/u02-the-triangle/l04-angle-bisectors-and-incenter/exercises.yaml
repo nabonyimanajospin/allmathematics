@@ -17,7 +17,7 @@
         The foot on the opposite side is $D=\dfrac{bQ+cR}{b+c}=\left(\frac{31}{3},\,\frac{74}{9}\right)$ and the bisector is the line $AD$: $2 x - 3 y + 4=0$.
     - id: tl4-l1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the angle bisector from $A$.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the angle bisector from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "28*sqrt(13)/9"
       hints:
@@ -47,7 +47,7 @@
         The foot on the opposite side is $D=\dfrac{bQ+cR}{b+c}=\left(\frac{24}{7},\,\frac{24}{7}\right)$ and the bisector is the line $AD$: $x - y=0$.
     - id: tl4-l2
       statement: |-
-        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the angle bisector from $A$.
+        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the angle bisector from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "24*sqrt(2)/7"
       hints:
@@ -77,7 +77,7 @@
         The foot on the opposite side is $D=\dfrac{bQ+cR}{b+c}=\left(\frac{7}{11},\,\frac{24}{11}\right)$ and the bisector is the line $BD$: $x + 2 y - 5=0$.
     - id: tl4-l3
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the angle bisector from $B$.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the angle bisector from $B$. The unit is lu: give the number only.
       answerType: expression
       answer: "24*sqrt(5)/11"
       hints:
@@ -107,7 +107,7 @@
         The foot on the opposite side is $D=\dfrac{bQ+cR}{b+c}=\left(\frac{34}{7},\,\frac{41}{7}\right)$ and the bisector is the line $AD$: $x - y + 1=0$.
     - id: tl4-l4
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the angle bisector from $A$.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the angle bisector from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "48*sqrt(2)/7"
       hints:
@@ -125,19 +125,21 @@
       solution: |-
         $I=\dfrac{aA+bB+cC}{a+b+c}$ with $a=20$, $b=16$, $c=12$: $I=\left(2,\,3\right)$.
     - id: tl4-r1
-      statement: "Find the inradius $r$ of the triangle with sides $13$, $14$, $15$."
+      statement: |-
+        Find the inradius $r$ of the triangle with sides $13$, $14$, $15$. The unit is lu: give the number only.
       answerType: expression
       answer: "4"
       hints:
         - |-
-          $r=\dfrac{K}{s}$.
+          $r=\dfrac{S}{s}$.
       solution: |-
-        $s=21$, $K=\sqrt{21\cdot8\cdot7\cdot6}=84$, so $r=\dfrac Ks=4$.
+        $s=21$, $S=\sqrt{21\cdot8\cdot7\cdot6}=84$, so $r=\dfrac Ss=4$.
     - id: tl4-r2
-      statement: "Find the inradius of the triangle $A(0,0)$, $B(4,0)$, $C(0,3)$."
+      statement: |-
+        Find the inradius of the triangle $A(0,0)$, $B(4,0)$, $C(0,3)$. The unit is lu: give the number only.
       answerType: expression
       answer: "1"
       hints:
         - |-
-          $r=\dfrac{K}{s}$.
-      solution: "$K=6$ and $s=6$, so $r=1$."
+          $r=\dfrac{S}{s}$.
+      solution: "$S=6$ and $s=6$, so $r=1$."

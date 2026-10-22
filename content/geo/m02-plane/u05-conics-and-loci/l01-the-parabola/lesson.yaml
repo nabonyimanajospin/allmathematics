@@ -41,7 +41,7 @@ sections:
       mode: parametric
       x: "t^2/8"
       y: "t"
-      l1: "y² = 8x"
+      l1: "y^2=8x"
       x2: "-2"
       y2: "t"
       l2: "directrix"

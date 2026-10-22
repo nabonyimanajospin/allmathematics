@@ -6,44 +6,44 @@
   items:
     - id: dd-01
       statement: |-
-        The distance between $A\left(3,\,-1\right)$ and $B\left(-3,\,7\right)$.
+        The distance between $A\left(3,\,-1\right)$ and $B\left(-3,\,7\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "10"
       hints:
         - |-
           Subtract the coordinates to get $\overrightarrow{AB}$, then use Pythagoras.
       solution: |-
-        $\overrightarrow{AB}=\left(-6,\,8\right)$, so $AB=\sqrt{36+64}=10$.
+        $\overrightarrow{AB}=\left(-6,\,8\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{36+64}=10$.
     - id: dd-02
       statement: |-
-        The distance between $A\left(1,\,2\right)$ and $B\left(-4,\,-10\right)$.
+        The distance between $A\left(1,\,2\right)$ and $B\left(-4,\,-10\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "13"
       hints:
         - |-
           Subtract the coordinates to get $\overrightarrow{AB}$, then use Pythagoras.
       solution: |-
-        $\overrightarrow{AB}=\left(-5,\,-12\right)$, so $AB=\sqrt{25+144}=13$.
+        $\overrightarrow{AB}=\left(-5,\,-12\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{25+144}=13$.
     - id: dd-03
       statement: |-
-        The distance between $A\left(1,\,1\right)$ and $B\left(4,\,7\right)$.
+        The distance between $A\left(1,\,1\right)$ and $B\left(4,\,7\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "3*sqrt(5)"
       hints:
         - |-
           Subtract the coordinates to get $\overrightarrow{AB}$, then use Pythagoras.
       solution: |-
-        $\overrightarrow{AB}=\left(3,\,6\right)$, so $AB=\sqrt{9+36}=3 \sqrt{5}$.
+        $\overrightarrow{AB}=\left(3,\,6\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{9+36}=3 \sqrt{5}$.
     - id: dd-04
       statement: |-
-        The distance between $A\left(-5,\,2\right)$ and $B\left(7,\,-3\right)$.
+        The distance between $A\left(-5,\,2\right)$ and $B\left(7,\,-3\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "13"
       hints:
         - |-
           Subtract the coordinates to get $\overrightarrow{AB}$, then use Pythagoras.
       solution: |-
-        $\overrightarrow{AB}=\left(12,\,-5\right)$, so $AB=\sqrt{144+25}=13$.
+        $\overrightarrow{AB}=\left(12,\,-5\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{144+25}=13$.
     - id: dd-05
       statement: |-
         The midpoint of the segment with ends $A\left(-6,\,3\right)$ and $B\left(2,\,9\right)$.

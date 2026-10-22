@@ -83,7 +83,7 @@
         $3\left(1-\dfrac12\right)=\dfrac32$.
     - id: pk-09
       statement: |-
-        The area enclosed by the cardioid $r=2(1+\cos\theta)$.
+        The area enclosed by the cardioid $r=2(1+\cos\theta)$. The unit is squ: give the number only.
       answerType: expression
       answer: "6*pi"
       hints:
@@ -93,7 +93,7 @@
         $A=\dfrac12\int_0^{2\pi}4(1+\cos\theta)^2\,d\theta=4\cdot\dfrac{3\pi}{2}=6 \pi$.
     - id: pk-10
       statement: |-
-        The area enclosed by the cardioid $r=4(1+\cos\theta)$.
+        The area enclosed by the cardioid $r=4(1+\cos\theta)$. The unit is squ: give the number only.
       answerType: expression
       answer: "24*pi"
       hints:
@@ -103,7 +103,7 @@
         $A=\dfrac12\int_0^{2\pi}16(1+\cos\theta)^2\,d\theta=16\cdot\dfrac{3\pi}{2}=24 \pi$.
     - id: pk-11
       statement: |-
-        The area enclosed by the rose $r=5\sin2\theta$.
+        The area enclosed by the rose $r=5\sin2\theta$. The unit is squ: give the number only.
       answerType: expression
       answer: "25*pi/2"
       hints:
@@ -113,7 +113,7 @@
         $A=\dfrac12\int_0^{2\pi}25\sin^22\theta\,d\theta=\dfrac{25}2\cdot\pi=\dfrac{25\pi}2$.
     - id: pk-12
       statement: |-
-        The area enclosed by the three-petal rose $r=4\cos3\theta$.
+        The area enclosed by the three-petal rose $r=4\cos3\theta$. The unit is squ: give the number only.
       answerType: expression
       answer: "8*pi"
       hints:
@@ -123,7 +123,7 @@
         $A=\dfrac12\cdot16\cdot\pi=8\pi$.
     - id: pk-13
       statement: |-
-        The area enclosed by both loops of the lemniscate $r^2=16\cos2\theta$.
+        The area enclosed by both loops of the lemniscate $r^2=16\cos2\theta$. The unit is squ: give the number only.
       answerType: number
       answer: "16"
       hints:
@@ -133,7 +133,7 @@
         One loop: $\dfrac12\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}16\cos2\theta\,d\theta=8\cdot1=8$. Two loops: $16$.
     - id: pk-14
       statement: |-
-        The area swept by the spiral $r=\dfrac\theta8$ for $0\le\theta\le2\pi$.
+        The area swept by the spiral $r=\dfrac\theta8$ for $0\le\theta\le2\pi$. The unit is squ: give the number only.
       answerType: expression
       answer: "pi^3/48"
       hints:

@@ -13,7 +13,7 @@
         [x, y]
       hints:
         - |-
-          Center $I$ and radius $r=\dfrac Ks$.
+          Center $I$ and radius $r=\dfrac Ss$.
       solution: |-
         $I=\left(7,\,6\right)$ and $r=4$, so $(x-7)^2+(y-6)^2=16$.
     - id: tl6-c1
@@ -25,12 +25,12 @@
         [x, y]
       hints:
         - |-
-          Center $O$ and radius $R=\dfrac{abc}{4K}$.
+          Center $O$ and radius $R=\dfrac{abc}{4S}$.
       solution: |-
         $O=\left(8,\,\frac{49}{8}\right)$ and $R=\frac{65}{8}$, so $(x-8)^2+(y-\frac{49}{8})^2=\frac{4225}{64}$.
     - id: tl6-p1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the perimeter of the incircle.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the perimeter of the incircle. The unit is lu: give the number only.
       answerType: expression
       answer: "8*pi"
       hints:
@@ -40,7 +40,7 @@
         $2\pi r=2\pi\cdot4=8 \pi$.
     - id: tl6-a1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the area of the circumcircle.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the area of the circumcircle. The unit is squ: give the number only.
       answerType: expression
       answer: "4225*pi/64"
       hints:
@@ -57,7 +57,7 @@
         [x, y]
       hints:
         - |-
-          Center $I$ and radius $r=\dfrac Ks$.
+          Center $I$ and radius $r=\dfrac Ss$.
       solution: |-
         $I=\left(2,\,\frac{3}{2}\right)$ and $r=\frac{3}{2}$, so $(x-2)^2+(y-\frac{3}{2})^2=\frac{9}{4}$.
     - id: tl6-c2
@@ -69,12 +69,12 @@
         [x, y]
       hints:
         - |-
-          Center $O$ and radius $R=\dfrac{abc}{4K}$.
+          Center $O$ and radius $R=\dfrac{abc}{4S}$.
       solution: |-
         $O=\left(2,\,\frac{7}{8}\right)$ and $R=\frac{25}{8}$, so $(x-2)^2+(y-\frac{7}{8})^2=\frac{625}{64}$.
     - id: tl6-p2
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the perimeter of the incircle.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the perimeter of the incircle. The unit is lu: give the number only.
       answerType: expression
       answer: "3*pi"
       hints:
@@ -84,7 +84,7 @@
         $2\pi r=2\pi\cdot\frac{3}{2}=3 \pi$.
     - id: tl6-a2
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the area of the circumcircle.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the area of the circumcircle. The unit is squ: give the number only.
       answerType: expression
       answer: "625*pi/64"
       hints:
@@ -101,7 +101,7 @@
         [x, y]
       hints:
         - |-
-          Center $I$ and radius $r=\dfrac Ks$.
+          Center $I$ and radius $r=\dfrac Ss$.
       solution: |-
         $I=\left(2,\,3\right)$ and $r=4$, so $(x-2)^2+(y-3)^2=16$.
     - id: tl6-c3
@@ -113,12 +113,12 @@
         [x, y]
       hints:
         - |-
-          Center $O$ and radius $R=\dfrac{abc}{4K}$.
+          Center $O$ and radius $R=\dfrac{abc}{4S}$.
       solution: |-
         $O=\left(4,\,7\right)$ and $R=10$, so $(x-4)^2+(y-7)^2=100$.
     - id: tl6-p3
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the perimeter of the incircle.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the perimeter of the incircle. The unit is lu: give the number only.
       answerType: expression
       answer: "8*pi"
       hints:
@@ -128,7 +128,7 @@
         $2\pi r=2\pi\cdot4=8 \pi$.
     - id: tl6-a3
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the area of the circumcircle.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the area of the circumcircle. The unit is squ: give the number only.
       answerType: expression
       answer: "100*pi"
       hints:
@@ -145,13 +145,13 @@
         [x, y]
       hints:
         - |-
-          Center $O$ and radius $R=\dfrac{abc}{4K}$.
+          Center $O$ and radius $R=\dfrac{abc}{4S}$.
       solution: |-
         $O=\left(\frac{5}{2},\,- \frac{7}{6}\right)$ and $R=\frac{5 \sqrt{58}}{6}$, so $(x-\frac{5}{2})^2+(y-\left(- \frac{7}{6}\right))^2=\frac{725}{18}$.
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl6-a4
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the area of the circumcircle.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the area of the circumcircle. The unit is squ: give the number only.
       answerType: expression
       answer: "725*pi/18"
       hints:
@@ -176,9 +176,9 @@
       answer: "14"
       hints:
         - |-
-          $r_a=\dfrac{K}{s-a}$.
+          $r_a=\dfrac{S}{s-a}$.
       solution: |-
-        $r_a=\dfrac{K}{s-a}=14$.
+        $r_a=\dfrac{S}{s-a}=14$.
     - id: tl6-x3
       statement: |-
         A circle has center $(2,-3)$ and radius $5$. Give the point of its parametric equation for $t=\dfrac\pi2$.

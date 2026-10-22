@@ -41,11 +41,11 @@ sections:
     config:
       mode: polar
       r: "t/2"
-      l1: "r = θ/2"
+      l1: "r=\\dfrac{\\theta}{2}"
       r2: "(5/4)^t"
-      l2: "r = (5/4)^θ"
+      l2: "r=\\left(\\dfrac54\\right)^{\\theta}"
       r3: "(4/5)^t"
-      l3: "r = (4/5)^θ"
+      l3: "r=\\left(\\dfrac45\\right)^{\\theta}"
       tmin: "0"
       tmax: "3*pi"
       range: 6
@@ -68,9 +68,9 @@ sections:
     config:
       mode: polar
       r: "3*(1+cos(t))"
-      l1: "r = 3(1 + cos θ)"
+      l1: "r=3(1+\\cos\\theta)"
       r2: "3*(1-cos(t))"
-      l2: "r = 3(1 − cos θ)"
+      l2: "r=3(1-\\cos\\theta)"
       range: 7
       alt: "Two heart-shaped curves with cusps at the origin, one opening to the left and one to the right."
 
@@ -96,9 +96,9 @@ sections:
     config:
       mode: polar
       r: "6*cos(2*t)"
-      l1: "r = 6 cos 2θ"
+      l1: "r=6\\cos2\\theta"
       r2: "6*sin(2*t)"
-      l2: "r = 6 sin 2θ"
+      l2: "r=6\\sin2\\theta"
       range: 7
       alt: "Two flowers with four petals each, one with petals along the axes and one with petals along the diagonals."
 
@@ -118,9 +118,9 @@ sections:
     config:
       mode: polar
       r: "4*sqrt(cos(2*t))"
-      l1: "r = 4 √(cos 2θ)"
+      l1: "r=4\\sqrt{\\cos2\\theta}"
       r2: "4*sqrt(sin(2*t))"
-      l2: "r = 4 √(sin 2θ)"
+      l2: "r=4\\sqrt{\\sin2\\theta}"
       range: 5
       alt: "Two figure-eight curves crossing at the origin, one along the horizontal axis and one along the diagonal."
 
@@ -193,7 +193,7 @@ sections:
         why: |
           $\cos^2\theta=\dfrac{1+\cos2\theta}{2}$, so $\displaystyle\int_0^{2\pi}\cos^2\theta\,d\theta=\dfrac12\cdot2\pi+\dfrac12\int_0^{2\pi}\cos2\theta\,d\theta=\pi+0$.
     answer: |
-      $A=\dfrac{27\pi}{2}$.
+      $A=\dfrac{27\pi}{2}\ \text{squ}$.
     verify:
       - expr: "integrate(1/2*9*(1+cos(t))^2, t, 0, 2*pi)"
         equals: "27*pi/2"

@@ -24,7 +24,7 @@
         $r=\dfrac{4}{1-2\cos\varphi}$, so $e=2$: a hyperbola.
     - id: po-03
       statement: |-
-        The distance from the focus to the directrix of $r=\dfrac{12}{4-4\cos\varphi}$.
+        The distance from the focus to the directrix of $r=\dfrac{12}{4-4\cos\varphi}$. The unit is lu: give the number only.
       answerType: number
       answer: "3"
       hints:

@@ -18,14 +18,14 @@
         The normal vector of the altitude is the vector of the opposite side, $\left(-9,\,12\right)$. Through $A$: $3 x - 4 y + 5=0$.
     - id: tl3-l1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the altitude from $A$.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the altitude from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "56/5"
       hints:
         - |-
-          $h_a=\dfrac{2K}{a}$.
+          $h_a=\dfrac{2S}{a}$.
       solution: |-
-        $K=84$ and the opposite side is $a=15$, so $h=\dfrac{2K}{a}=\frac{56}{5}$.
+        $S=84$ and the opposite side is $a=15$, so $h=\dfrac{2S}{a}=\frac{56}{5}$.
     - id: tl3-h1
       statement: |-
         In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the orthocenter $H$.
@@ -49,14 +49,14 @@
         The normal vector of the altitude is the vector of the opposite side, $\left(0,\,-6\right)$. Through $B$: $y=0$.
     - id: tl3-l2
       statement: |-
-        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the altitude from $B$.
+        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the altitude from $B$. The unit is lu: give the number only.
       answerType: expression
       answer: "8"
       hints:
         - |-
-          $h_a=\dfrac{2K}{a}$.
+          $h_a=\dfrac{2S}{a}$.
       solution: |-
-        $K=24$ and the opposite side is $a=6$, so $h=\dfrac{2K}{a}=8$.
+        $S=24$ and the opposite side is $a=6$, so $h=\dfrac{2S}{a}=8$.
     - id: tl3-h2
       statement: |-
         In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the orthocenter $H$.
@@ -81,14 +81,14 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl3-l3
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the altitude from $A$.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the altitude from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "3*sqrt(10)/2"
       hints:
         - |-
-          $h_a=\dfrac{2K}{a}$.
+          $h_a=\dfrac{2S}{a}$.
       solution: |-
-        $K=30$ and the opposite side is $a=4 \sqrt{10}$, so $h=\dfrac{2K}{a}=\frac{3 \sqrt{10}}{2}$.
+        $S=30$ and the opposite side is $a=4 \sqrt{10}$, so $h=\dfrac{2S}{a}=\frac{3 \sqrt{10}}{2}$.
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl3-h3
       statement: |-
@@ -114,14 +114,14 @@
         The normal vector of the altitude is the vector of the opposite side, $\left(-3,\,4\right)$. Through $A$: $3 x - 4 y + 3=0$.
     - id: tl3-l4
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the altitude from $A$.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the altitude from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "24/5"
       hints:
         - |-
-          $h_a=\dfrac{2K}{a}$.
+          $h_a=\dfrac{2S}{a}$.
       solution: |-
-        $K=12$ and the opposite side is $a=5$, so $h=\dfrac{2K}{a}=\frac{24}{5}$.
+        $S=12$ and the opposite side is $a=5$, so $h=\dfrac{2S}{a}=\frac{24}{5}$.
     - id: tl3-h4
       statement: |-
         In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the orthocenter $H$.

@@ -122,7 +122,7 @@ sections:
       - |
         The tangent length is $\sqrt{12}=2\sqrt3$. Check: $CP=4$ and $r=2$, so $\sqrt{16-4}=2\sqrt3$.
     answer: |
-      $2\sqrt3$.
+      $2\sqrt3\ \text{lu}$.
     verify:
       - expr: "sqrt(4^2+0^2-4)"
         equals: "2*sqrt(3)"

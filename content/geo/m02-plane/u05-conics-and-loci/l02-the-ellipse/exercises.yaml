@@ -6,7 +6,7 @@
   items:
     - id: el-01
       statement: |-
-        The distance between the foci of $\dfrac{x^2}{100}+\dfrac{y^2}{36}=1$.
+        The distance between the foci of $\dfrac{x^2}{100}+\dfrac{y^2}{36}=1$. The unit is lu: give the number only.
       answerType: number
       answer: "16"
       hints:
@@ -31,7 +31,7 @@
         $\dfrac{x^2}{4}+\dfrac{y^2}{16}=1$, so $a=4$, $b=2$, $c^2=16-4=12$, $c=2\sqrt3$ and $e=\dfrac{2\sqrt3}{4}=\dfrac{\sqrt3}2$.
     - id: el-04
       statement: |-
-        The length of the latus rectum of $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$.
+        The length of the latus rectum of $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$. The unit is lu: give the number only.
       answerType: expression
       answer: "18/5"
       hints:

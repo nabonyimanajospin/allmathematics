@@ -28,6 +28,23 @@ sections:
 
       The reason is the triangle inequality: the circles meet only if the three lengths $d$, $r_1$, $r_2$ can form a triangle.
 
+  - id: fig-two-circles-touch
+    type: visual
+    kind: figure
+    title: Two circles that touch
+    caption: |
+      The circles $x^2+y^2=1$ and $(x-3)^2+y^2=4$ have centers $3$ lu apart, and $1+2=3$: they touch from outside at $T(1,0)$.
+    figure:
+      dim: 2
+      alt: "Two circles outside each other that touch at one point T on the x axis, with centers C1 at the origin and C2 at (3, 0)."
+      view: [-3, 6, -4, 4]
+      items:
+        - {t: point, id: C_1, at: [0, 0], color: accent}
+        - {t: point, id: C_2, at: [3, 0], color: warning}
+        - {t: point, id: T, at: [1, 0], color: success}
+        - {t: circle, center: C_1, r: 1, color: accent}
+        - {t: circle, center: C_2, r: 2, color: warning}
+
   - id: chk-position
     type: check
     prompt: |

@@ -17,7 +17,7 @@
         The midpoint is $M=\left(\frac{21}{2},\,8\right)$ and the normal vector is the vector of the side, $\left(-9,\,12\right)$: $6 x - 8 y + 1=0$.
     - id: tl5-l1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "10"
       hints:
@@ -35,14 +35,14 @@
         The perpendicular bisectors meet at $O=\left(8,\,\frac{49}{8}\right)$.
     - id: tl5-r1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the circumradius $R$.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the circumradius $R$. The unit is lu: give the number only.
       answerType: expression
       answer: "65/8"
       hints:
         - |-
-          $R=\dfrac{abc}{4K}$.
+          $R=\dfrac{abc}{4S}$.
       solution: |-
-        $R=\dfrac{abc}{4K}=\dfrac{2730}{4\cdot84}=\frac{65}{8}$.
+        $R=\dfrac{abc}{4S}=\dfrac{2730}{4\cdot84}=\frac{65}{8}$.
     - id: tl5-e2
       statement: |-
         In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find an equation of the perpendicular bisector of the side opposite $B$.
@@ -56,7 +56,7 @@
         The midpoint is $M=\left(\frac{1}{2},\,2\right)$ and the normal vector is the vector of the side, $\left(-3,\,-4\right)$: $6 x + 8 y - 19=0$.
     - id: tl5-l2
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $B$.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $B$. The unit is lu: give the number only.
       answerType: expression
       answer: "10/3"
       hints:
@@ -75,14 +75,14 @@
         The perpendicular bisectors meet at $O=\left(2,\,\frac{7}{8}\right)$.
     - id: tl5-r2
       statement: |-
-        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the circumradius $R$.
+        In the triangle $A\left(-1,\,0\right)$, $B\left(5,\,0\right)$, $C\left(2,\,4\right)$, find the circumradius $R$. The unit is lu: give the number only.
       answerType: expression
       answer: "25/8"
       hints:
         - |-
-          $R=\dfrac{abc}{4K}$.
+          $R=\dfrac{abc}{4S}$.
       solution: |-
-        $R=\dfrac{abc}{4K}=\dfrac{150}{4\cdot12}=\frac{25}{8}$.
+        $R=\dfrac{abc}{4S}=\dfrac{150}{4\cdot12}=\frac{25}{8}$.
     - id: tl5-e3
       statement: |-
         In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find an equation of the perpendicular bisector of the side opposite $A$.
@@ -97,7 +97,7 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl5-l3
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "6*sqrt(10)/7"
       hints:
@@ -118,14 +118,14 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl5-r3
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the circumradius $R$.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the circumradius $R$. The unit is lu: give the number only.
       answerType: expression
       answer: "5*sqrt(58)/6"
       hints:
         - |-
-          $R=\dfrac{abc}{4K}$.
+          $R=\dfrac{abc}{4S}$.
       solution: |-
-        $R=\dfrac{abc}{4K}=\dfrac{100 \sqrt{58}}{4\cdot30}=\frac{5 \sqrt{58}}{6}$.
+        $R=\dfrac{abc}{4S}=\dfrac{100 \sqrt{58}}{4\cdot30}=\frac{5 \sqrt{58}}{6}$.
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl5-e4
       statement: |-
@@ -140,7 +140,7 @@
         The midpoint is $M=\left(4,\,7\right)$ and the normal vector is the vector of the side, $\left(-12,\,16\right)$: $3 x - 4 y + 16=0$.
     - id: tl5-l4
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the part inside the triangle of the perpendicular bisector of the side opposite $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "15/2"
       hints:
@@ -159,11 +159,11 @@
         The perpendicular bisectors meet at $O=\left(4,\,7\right)$.
     - id: tl5-r4
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the circumradius $R$.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the circumradius $R$. The unit is lu: give the number only.
       answerType: expression
       answer: "10"
       hints:
         - |-
-          $R=\dfrac{abc}{4K}$.
+          $R=\dfrac{abc}{4S}$.
       solution: |-
-        $R=\dfrac{abc}{4K}=\dfrac{3840}{4\cdot96}=10$.
+        $R=\dfrac{abc}{4S}=\dfrac{3840}{4\cdot96}=10$.

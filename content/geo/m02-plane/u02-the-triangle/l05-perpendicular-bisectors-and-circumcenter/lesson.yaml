@@ -24,6 +24,30 @@ sections:
 
       Equivalent form: $PB^2=PC^2$ with $P(x,y)$. Its direction vector is $\overrightarrow{BC}$ turned by a right angle.
 
+  - id: fig-circumcenter
+    type: visual
+    kind: figure
+    title: The perpendicular bisectors and the circumcircle
+    caption: |
+      The perpendicular bisectors of the sides meet at the circumcenter $O\left(7,\dfrac{33}{8}\right)$, the center of the circle through $A$, $B$, $C$, whose radius is $R=\dfrac{65}{8}$ lu.
+    figure:
+      dim: 2
+      alt: "The triangle ABC with the perpendicular bisectors of its sides meeting at the circumcenter O, and the circumscribed circle through the three vertices."
+      view: [-3, 17, -5, 14]
+      items:
+        - {t: point, id: A, at: [0, 0]}
+        - {t: point, id: B, at: [14, 0]}
+        - {t: point, id: C, at: [5, 12]}
+        - {t: point, id: M_a, at: [19/2, 6], color: success}
+        - {t: point, id: M_b, at: [5/2, 6], color: success}
+        - {t: point, id: M_c, at: [7, 0], color: success}
+        - {t: point, id: O, at: [7, 33/8], color: warning}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: line, through: [M_a, O], color: success, dashed: true}
+        - {t: line, through: [M_b, O], color: success, dashed: true}
+        - {t: line, through: [M_c, O], color: success, dashed: true}
+        - {t: circle, center: O, r: 65/8, color: warning}
+
   - id: ex-perp-bisector
     type: example
     title: The perpendicular bisector of $BC$
@@ -94,7 +118,7 @@ sections:
   - id: chk-perp-length
     type: check
     prompt: |
-      A triangle has a side $BC=6$ with $\hat B=\dfrac\pi4$ and $c>b$ (so the perpendicular bisector of $BC$ leaves through $AB$). Find its length inside the triangle.
+      A triangle has a side $\norm{\overrightarrow{BC}}=6$ with $\hat B=\dfrac\pi4$ and $c>b$ (so the perpendicular bisector of $BC$ leaves through $AB$). Find its length inside the triangle.
     answerType: number
     answer: "3"
     hints:
@@ -111,12 +135,12 @@ sections:
       $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$,
 
       $$x_O=\dfrac{1}{4S}\begin{vmatrix}x_1^2+y_1^2&y_1&1\\x_2^2+y_2^2&y_2&1\\x_3^2+y_3^2&y_3&1\end{vmatrix},\qquad
-      y_O=\dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix},\qquad R=\dfrac{abc}{4K}=\dfrac{a}{2\sin\hat A}.$$
+      y_O=\dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix},\qquad R=\dfrac{abc}{4S}=\dfrac{a}{2\sin\hat A}.$$
 
       In a right triangle $O$ is the midpoint of the hypotenuse and $R$ is half of it.
     proof: |
       $O$ satisfies $OA^2=OB^2=OC^2$. Subtracting the equations of $OA^2=OB^2$ and $OA^2=OC^2$ gives two linear equations in $x_O$ and $y_O$, which Cramer's rule solves with the determinants above.
-      By the law of sines $a=2R\sin\hat A$, and $K=\dfrac12bc\sin\hat A=\dfrac{abc}{4R}$, so $R=\dfrac{abc}{4K}$.
+      By the law of sines $a=2R\sin\hat A$, and $S=\dfrac12bc\sin\hat A=\dfrac{abc}{4R}$, so $R=\dfrac{abc}{4S}$.
     more: |
       **Why $a=2R\sin\hat A$ (the law of sines).** Draw the circumcircle and the diameter $BA'$ through $B$. The angle $\hat{BCA'}$ is a right angle (it is inscribed in a semicircle), and the angle at $A'$ equals $\hat A$ (both are inscribed angles on the arc $BC$).
       In the right triangle $BCA'$ the hypotenuse is $2R$ and the side opposite $\hat A$ is $a$, so $\sin\hat A=\dfrac{a}{2R}$, that is $a=2R\sin\hat A$.
@@ -133,7 +157,7 @@ sections:
           $AB$ lies on the $x$-axis from $0$ to $14$, so its midpoint is $(7,0)$ and the perpendicular bisector is the vertical line $x=7$.
           For the point $O=(7,y)$ the condition $OA^2=OC^2$ reads $(7-0)^2+(y-0)^2=(7-5)^2+(y-12)^2$, that is $49+y^2=4+y^2-24y+144$. The terms $y^2$ cancel, leaving $24y=99$, so $y=\dfrac{33}8$.
       - |
-        $R=\dfrac{abc}{4K}=\dfrac{15\cdot13\cdot14}{4\cdot84}=\dfrac{2730}{336}=\dfrac{65}8$. Check: $OA^2=49+\dfrac{1089}{64}=\dfrac{4225}{64}=\left(\dfrac{65}8\right)^2$.
+        $R=\dfrac{abc}{4S}=\dfrac{15\cdot13\cdot14}{4\cdot84}=\dfrac{2730}{336}=\dfrac{65}8$. Check: $OA^2=49+\dfrac{1089}{64}=\dfrac{4225}{64}=\left(\dfrac{65}8\right)^2$.
       - |
         Check with the determinants: $S=84$ and $4S=336$; the first determinant is $2352$, so $x_O=\dfrac{2352}{336}=7$.
     answer: |
@@ -166,7 +190,7 @@ sections:
     answer: "5/2"
     hints:
       - |
-        $K=6$. Use $R=\dfrac{abc}{4K}$.
+        $S=6$. Use $R=\dfrac{abc}{4S}$.
     explanation: |
       $R=\dfrac{3\cdot4\cdot5}{4\cdot6}=\dfrac{60}{24}=\dfrac52$, half of the hypotenuse.
 
@@ -178,4 +202,4 @@ sections:
       - |
         Its length inside the triangle is $\dfrac a2\tan\hat C$ if $b>c$, $\dfrac a2\tan\hat B$ if $c>b$, and $h_a$ if $b=c$.
       - |
-        The circumcenter $O$ is where the perpendicular bisectors meet; $R=\dfrac{abc}{4K}$.
+        The circumcenter $O$ is where the perpendicular bisectors meet; $R=\dfrac{abc}{4S}$.

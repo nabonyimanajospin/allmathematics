@@ -22,6 +22,42 @@ sections:
 
       Its length is written $m_a$ (and $m_b$, $m_c$ for the other two medians). The median is a line through two known points $A$ and $M_a$, so its equation is found as in the lesson on the eight equations of a line, with the direction vector $\overrightarrow{AM_a}$.
 
+  - id: centroid-theorem
+    type: theorem
+    name: The centroid (barycenter) and its formula
+    statement: |
+      The three medians meet at one point, the **centroid** $G$ (also called the **barycenter**): it is the intersection point of the medians. For the vertices $A(x_1,y_1)$, $B(x_2,y_2)$, $C(x_3,y_3)$ its coordinates are
+
+      $$G=\dfrac{A+B+C}{3}=\left(\dfrac{x_1+x_2+x_3}{3},\ \dfrac{y_1+y_2+y_3}{3}\right).$$
+
+      $G$ divides each median in the ratio $2:1$ counted from the vertex: $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$, that is $AG=\dfrac23\,m_a$.
+    proof: |
+      The point of $AM_a$ with $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$ has the coordinates $\dfrac{A+2M_a}{1+2}=\dfrac{A+B+C}{3}$ by the section formula with $k=2$.
+      This expression is symmetric in $A$, $B$, $C$, so the same point is found on the other two medians.
+
+  - id: fig-medians
+    type: visual
+    kind: figure
+    title: The medians and the centroid
+    caption: |
+      The three medians join each vertex to the midpoint of the opposite side. They meet at the centroid $G\left(\dfrac{19}{3},4\right)$.
+    figure:
+      dim: 2
+      alt: "The triangle ABC with its three medians drawn to the midpoints Ma, Mb, Mc of the opposite sides, meeting at the centroid G."
+      view: [-2, 16, -2, 14]
+      items:
+        - {t: point, id: A, at: [0, 0]}
+        - {t: point, id: B, at: [14, 0]}
+        - {t: point, id: C, at: [5, 12]}
+        - {t: point, id: M_a, at: [19/2, 6], color: success}
+        - {t: point, id: M_b, at: [5/2, 6], color: success}
+        - {t: point, id: M_c, at: [7, 0], color: success}
+        - {t: point, id: G, at: [19/3, 4], color: warning}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: segment, from: A, to: M_a, color: success}
+        - {t: segment, from: B, to: M_b, color: success}
+        - {t: segment, from: C, to: M_c, color: success}
+
   - id: ex-median-equation
     type: example
     title: The median from $A$
@@ -106,19 +142,6 @@ sections:
         $2b^2+2c^2-a^2=98+50-36$.
     explanation: |
       $m_a=\dfrac12\sqrt{112}=\dfrac12\cdot4\sqrt7=2\sqrt7$.
-
-  - id: centroid-theorem
-    type: theorem
-    name: The centroid (barycenter)
-    statement: |
-      The three medians meet at one point, the **centroid** $G$ (also called the **barycenter**), with coordinates
-
-      $$G=\dfrac{A+B+C}{3}=\left(\dfrac{x_1+x_2+x_3}{3},\ \dfrac{y_1+y_2+y_3}{3}\right).$$
-
-      $G$ divides each median in the ratio $2:1$ counted from the vertex: $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$, that is $AG=\dfrac23\,m_a$.
-    proof: |
-      The point of $AM_a$ with $\overrightarrow{AG}=2\,\overrightarrow{GM_a}$ has the coordinates $\dfrac{A+2M_a}{1+2}=\dfrac{A+B+C}{3}$ by the section formula with $k=2$.
-      This expression is symmetric in $A$, $B$, $C$, so the same point is found on the other two medians.
 
   - id: ex-centroid
     type: example

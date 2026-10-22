@@ -9,7 +9,7 @@ skills:
   - orthocenter
 objectives:
   - Find the equations of an altitude, in all forms.
-  - Compute the length of an altitude with $h_a=\dfrac{2K}{a}$.
+  - Compute the length of an altitude with $h_a=\dfrac{2S}{a}$.
   - Find the orthocenter by two altitudes, and by a determinant formula.
 sections:
   - id: altitude-def
@@ -20,6 +20,45 @@ sections:
 
       The altitude from $A$ is the line through $A$ whose **normal vector is $\overrightarrow{BC}$**: it is perpendicular to $BC$. So its implicit equation is
       $(x_C-x_B)(x-x_A)+(y_C-y_B)(y-y_A)=0$, and its direction vector is $\overrightarrow{BC}$ turned by a right angle.
+
+  - id: orthocenter-theorem
+    type: theorem
+    name: The orthocenter and its formula
+    statement: |
+      The three altitudes meet at one point, the **orthocenter** $H$: it is the intersection point of the altitudes. It is found by solving the equations of two altitudes together. For the vertices $A(x_1,y_1)$, $B(x_2,y_2)$, $C(x_3,y_3)$ and the signed area
+      $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ (positive when $A,B,C$ are in counterclockwise order),
+
+      $$x_H=-\dfrac{1}{2S}\begin{vmatrix}y_1^2+x_2x_3&y_1&1\\y_2^2+x_1x_3&y_2&1\\y_3^2+x_1x_2&y_3&1\end{vmatrix},\qquad
+      y_H=-\dfrac{1}{2S}\begin{vmatrix}x_1&x_1^2+y_2y_3&1\\x_2&x_2^2+y_1y_3&1\\x_3&x_3^2+y_1y_2&1\end{vmatrix}.$$
+
+      In a right triangle $H$ is the vertex of the right angle. Also $H=A+B+C-2O$, where $O$ is the circumcenter.
+    proof: |
+      The altitude from $A$ is $(x_3-x_2)(x-x_1)+(y_3-y_2)(y-y_1)=0$ and the altitude from $B$ is $(x_3-x_1)(x-x_2)+(y_3-y_1)(y-y_2)=0$. Solving this pair of linear equations by Cramer's rule and simplifying gives the determinants above.
+      The third altitude passes through the same point because $H=A+B+C-2O$ is symmetric in the vertices (see the lesson on the Euler line).
+
+  - id: fig-altitudes
+    type: visual
+    kind: figure
+    title: The altitudes and the orthocenter
+    caption: |
+      Each altitude is perpendicular to the opposite side. They meet at the orthocenter $H\left(5,\dfrac{15}{4}\right)$.
+    figure:
+      dim: 2
+      alt: "The triangle ABC with its three altitudes drawn from each vertex perpendicular to the opposite side, meeting at the orthocenter H."
+      view: [-2, 16, -2, 14]
+      items:
+        - {t: point, id: A, at: [0, 0]}
+        - {t: point, id: B, at: [14, 0]}
+        - {t: point, id: C, at: [5, 12]}
+        - {t: point, id: H_a, at: [224/25, 168/25], color: success}
+        - {t: point, id: H_b, at: [350/169, 840/169], color: success}
+        - {t: point, id: H_c, at: [5, 0], color: success}
+        - {t: point, id: H, at: [5, 15/4], color: warning}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: segment, from: A, to: H_a, color: success}
+        - {t: segment, from: B, to: H_b, color: success}
+        - {t: segment, from: C, to: H_c, color: success}
+        - {t: right, at: H_c, a: B, b: C}
 
   - id: ex-altitude-equation
     type: example
@@ -38,7 +77,7 @@ sections:
           The foot $H_a$ is the intersection with $BC:\ 4x+3y-56=0$. With $y=\dfrac34x$: $4x+\dfrac94x=56$, so $x=\dfrac{224}{25}$ and $y=\dfrac{168}{25}$.
         why: |
           The foot is the point that lies on both lines. Put $y=\dfrac34x$ in $4x+3y-56=0$: $4x+\dfrac94x=56$, so $\dfrac{25}{4}x=56$ and $x=\dfrac{224}{25}$. Then $y=\dfrac34\cdot\dfrac{224}{25}=\dfrac{168}{25}$.
-          As a check, the distance $AH_a$ must equal the altitude: $\sqrt{\left(\dfrac{224}{25}\right)^2+\left(\dfrac{168}{25}\right)^2}=\dfrac{56\cdot5}{25}=\dfrac{56}{5}$, the value found below with $h_a=\dfrac{2K}{a}$.
+          As a check, the distance $AH_a$ must equal the altitude: $\sqrt{\left(\dfrac{224}{25}\right)^2+\left(\dfrac{168}{25}\right)^2}=\dfrac{56\cdot5}{25}=\dfrac{56}{5}$, the value found below with $h_a=\dfrac{2S}{a}$.
     answer: |
       $h_a:\ 3x-4y=0$, with foot $H_a\left(\dfrac{224}{25},\dfrac{168}{25}\right)$.
     verify:
@@ -64,17 +103,17 @@ sections:
     type: theorem
     name: Length of an altitude
     statement: |
-      $$h_a=\dfrac{2K}{a},\qquad h_b=\dfrac{2K}{b},\qquad h_c=\dfrac{2K}{c}.$$
+      $$h_a=\dfrac{2S}{a},\qquad h_b=\dfrac{2S}{b},\qquad h_c=\dfrac{2S}{c}.$$
 
       Equivalently $h_a$ is the distance from $A$ to the line $BC$: $h_a=\dfrac{|a_1x_A+b_1y_A+c_1|}{\sqrt{a_1^2+b_1^2}}$ for $BC:\ a_1x+b_1y+c_1=0$. Also $h_a=c\sin\hat B=b\sin\hat C$.
     proof: |
-      The area of the triangle with base $BC$ and height $h_a$ is $K=\dfrac12\,a\,h_a$; solve for $h_a$. The distance formula is the one for a point and a line. In the right triangle $ABH_a$ the height is $h_a=c\sin\hat B$.
+      The area of the triangle with base $BC$ and height $h_a$ is $S=\dfrac12\,a\,h_a$; solve for $h_a$. The distance formula is the one for a point and a line. In the right triangle $ABH_a$ the height is $h_a=c\sin\hat B$.
 
   - id: ex-altitude-length
     type: example
     title: Length of the altitude from $A$
     problem: |
-      Find $h_a$ for $A(0,0)$, $B(14,0)$, $C(5,12)$ (where $K=84$ and $a=15$).
+      Find $h_a$ for $A(0,0)$, $B(14,0)$, $C(5,12)$ (where $S=84$ and $a=15$).
     steps:
       - |
         $h_a=\dfrac{2\cdot84}{15}=\dfrac{56}5$.
@@ -96,24 +135,9 @@ sections:
     answer: "12"
     hints:
       - |
-        $h_c=\dfrac{2K}{c}$ with $K=84$ and $c=14$.
+        $h_c=\dfrac{2S}{c}$ with $S=84$ and $c=14$.
     explanation: |
       $h_c=\dfrac{168}{14}=12$, which is the $y$-coordinate of $C$, as expected since $AB$ lies on the $x$-axis.
-
-  - id: orthocenter-theorem
-    type: theorem
-    name: The orthocenter
-    statement: |
-      The three altitudes meet at one point, the **orthocenter** $H$. It is found by solving the equations of two altitudes together. With the signed area
-      $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ (positive when $A,B,C$ are in counterclockwise order),
-
-      $$x_H=-\dfrac{1}{2S}\begin{vmatrix}y_1^2+x_2x_3&y_1&1\\y_2^2+x_1x_3&y_2&1\\y_3^2+x_1x_2&y_3&1\end{vmatrix},\qquad
-      y_H=-\dfrac{1}{2S}\begin{vmatrix}x_1&x_1^2+y_2y_3&1\\x_2&x_2^2+y_1y_3&1\\x_3&x_3^2+y_1y_2&1\end{vmatrix}.$$
-
-      In a right triangle $H$ is the vertex of the right angle. Also $H=A+B+C-2O$, where $O$ is the circumcenter.
-    proof: |
-      The altitude from $A$ is $(x_3-x_2)(x-x_1)+(y_3-y_2)(y-y_1)=0$ and the altitude from $B$ is $(x_3-x_1)(x-x_2)+(y_3-y_1)(y-y_2)=0$. Solving this pair of linear equations by Cramer's rule and simplifying gives the determinants above.
-      The third altitude passes through the same point because $H=A+B+C-2O$ is symmetric in the vertices (see the lesson on the Euler line).
 
   - id: ex-orthocenter
     type: example
@@ -153,6 +177,6 @@ sections:
       - |
         The altitude from $A$ is the line through $A$ with normal vector $\overrightarrow{BC}$.
       - |
-        $h_a=\dfrac{2K}{a}$.
+        $h_a=\dfrac{2S}{a}$.
       - |
         The orthocenter is the intersection of two altitudes; in a right triangle it is the vertex of the right angle.

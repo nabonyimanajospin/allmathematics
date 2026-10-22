@@ -21,16 +21,35 @@ sections:
 
       $$a=BC,\qquad b=CA,\qquad c=AB.$$
 
-      The angle at the vertex $A$ is written $\hat A$ (the angle between the sides $AB$ and $AC$), and similarly $\hat B$ and $\hat C$. The **perimeter** is $a+b+c=2s$, where $s$ is the **semi-perimeter**, and $K$ is the **area**.
+      The angle at the vertex $A$ is written $\hat A$ (the angle between the sides $AB$ and $AC$), and similarly $\hat B$ and $\hat C$. The **perimeter** is $a+b+c=2s$, where $s$ is the **semi-perimeter**, and $S$ is the **area**.
 
       The vertices are non-collinear exactly when $\overrightarrow{AB}$ and $\overrightarrow{AC}$ are not collinear, that is when $\det(\overrightarrow{AB},\overrightarrow{AC})\neq0$. All the lessons of this unit use the triangle
       $A(0,0)$, $B(14,0)$, $C(5,12)$ as running example.
+
+  - id: fig-triangle
+    type: visual
+    kind: figure
+    title: The triangle $ABC$ with its sides
+    caption: |
+      The triangle with $A(0,0)$, $B(14,0)$, $C(5,12)$. The sides are $a=\norm{\overrightarrow{BC}}=15$ lu, $b=\norm{\overrightarrow{CA}}=13$ lu and $c=\norm{\overrightarrow{AB}}=14$ lu.
+    figure:
+      dim: 2
+      alt: "The triangle with vertices A at the origin, B at 14 on the x axis and C at (5, 12), with its three sides labelled a, b, c."
+      view: [-2, 16, -2, 14]
+      items:
+        - {t: point, id: A, at: [0, 0]}
+        - {t: point, id: B, at: [14, 0]}
+        - {t: point, id: C, at: [5, 12]}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: segment, from: B, to: C, label: a, color: accent}
+        - {t: segment, from: C, to: A, label: b, color: accent}
+        - {t: segment, from: A, to: B, label: c, color: accent}
 
   - id: sides-theorem
     type: theorem
     name: Sides and perimeter
     statement: |
-      The vectors of the sides are $\overrightarrow{AB}=B-A$, $\overrightarrow{BC}=C-B$, $\overrightarrow{CA}=A-C$, and the lengths are their norms:
+      The vectors of the sides are $\overrightarrow{AB}=\overrightarrow{OB}-\overrightarrow{OA}$, $\overrightarrow{BC}=\overrightarrow{OC}-\overrightarrow{OB}$, $\overrightarrow{CA}=\overrightarrow{OA}-\overrightarrow{OC}$, and the lengths are their norms:
 
       $$a=\norm{\overrightarrow{BC}},\qquad b=\norm{\overrightarrow{CA}},\qquad c=\norm{\overrightarrow{AB}},\qquad\text{perimeter }=a+b+c.$$
     proof: |
@@ -64,9 +83,9 @@ sections:
     answer: "12"
     hints:
       - |
-        The sides are $AB=3$, $AC=4$ and $BC=\sqrt{9+16}$.
+        The sides are $\norm{\overrightarrow{AB}}=3$, $\norm{\overrightarrow{AC}}=4$ and $\norm{\overrightarrow{BC}}=\sqrt{9+16}$.
     explanation: |
-      $BC=5$, so the perimeter is $3+4+5=12$.
+      $\norm{\overrightarrow{BC}}=5$, so the perimeter is $3+4+5=12$.
 
   - id: angles-theorem
     type: theorem
@@ -134,15 +153,15 @@ sections:
     type: theorem
     name: Area of a triangle
     statement: |
-      For $A(x_1,y_1)$, $B(x_2,y_2)$, $C(x_3,y_3)$,
+      Let $S$ be the area of the triangle $ABC$. For $A(x_1,y_1)$, $B(x_2,y_2)$, $C(x_3,y_3)$,
 
-      $$K=\dfrac12\left|\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}\right|=\dfrac12\left|(x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)\right|.$$
+      $$S=\dfrac12\left|\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}\right|=\dfrac12\left|(x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)\right|.$$
 
-      **Heron's formula:** $K=\sqrt{s(s-a)(s-b)(s-c)}$. Other forms: $K=\dfrac12bc\sin\hat A=r\,s=\dfrac{abc}{4R}=\dfrac12\,a\,h_a$, where $r$ and $R$ are the radii of the incircle and circumcircle and $h_a$ is the altitude on $BC$.
+      **Heron's formula:** $S=\sqrt{s(s-a)(s-b)(s-c)}$. Other forms: $S=\dfrac12bc\sin\hat A=r\,s=\dfrac{abc}{4R}=\dfrac12\,a\,h_a$, where $r$ and $R$ are the radii of the incircle and circumcircle and $h_a$ is the altitude on $BC$.
     proof: |
       The first formula is half of the area of the parallelogram built on $\overrightarrow{AB}$ and $\overrightarrow{AC}$, which is the absolute value of their determinant.
-      For Heron's formula write $K=\dfrac12bc\sin\hat A$ and $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$. Then $16K^2=4b^2c^2-(b^2+c^2-a^2)^2$, and factoring the difference of squares gives
-      $16K^2=(a+b+c)(-a+b+c)(a-b+c)(a+b-c)=16\,s(s-a)(s-b)(s-c)$. The other forms are shown in the following lessons.
+      For Heron's formula write $S=\dfrac12bc\sin\hat A$ and $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$. Then $16S^2=4b^2c^2-(b^2+c^2-a^2)^2$, and factoring the difference of squares gives
+      $16S^2=(a+b+c)(-a+b+c)(a-b+c)(a+b-c)=16\,s(s-a)(s-b)(s-c)$. The other forms are shown in the following lessons.
     more: |
       **Where the determinant comes from.** Place the triangle so that $A$ is the origin. The vectors $\overrightarrow{AB}=(p,q)$ and $\overrightarrow{AC}=(r,s)$ span a parallelogram. Its area is the base times the height; computing it with the cross product of two plane vectors gives $|ps-qr|$, which is the absolute value of the determinant $\begin{vmatrix}p&q\\r&s\end{vmatrix}$.
       The diagonal $BC$ cuts the parallelogram into two equal triangles, so the triangle has half of this area. The $3\times3$ determinant with a column of ones gives the same number: subtracting the first row from the other two leaves exactly the $2\times2$ determinant above.
@@ -156,11 +175,11 @@ sections:
       Find the area of $A(0,0)$, $B(14,0)$, $C(5,12)$.
     steps:
       - |
-        Determinant: $\overrightarrow{AB}=(14,0)$ and $\overrightarrow{AC}=(5,12)$, so $K=\dfrac12|14\cdot12-0\cdot5|=84$.
+        Determinant: $\overrightarrow{AB}=(14,0)$ and $\overrightarrow{AC}=(5,12)$, so $S=\dfrac12|14\cdot12-0\cdot5|=84$.
       - |
-        Heron: $s=21$, so $K=\sqrt{21\cdot6\cdot7\cdot8}=\sqrt{7056}=84$.
+        Heron: $s=21$, so $S=\sqrt{21\cdot6\cdot7\cdot8}=\sqrt{7056}=84$.
     answer: |
-      $K=84$.
+      $S=84\ \text{squ}$.
     verify:
       - expr: "abs(14*12-0*5)/2"
         equals: "84"
@@ -177,7 +196,7 @@ sections:
       - |
         Take $A=(0,0)$: the vectors from $A$ are $(4,1)$ and $(1,3)$.
     explanation: |
-      $K=\dfrac12|4\cdot3-1\cdot1|=\dfrac{11}2$.
+      $S=\dfrac12|4\cdot3-1\cdot1|=\dfrac{11}2$.
     mistakes:
       - expr: "11"
         hint: "The determinant gives the area of the parallelogram; the triangle is half of it."
@@ -223,10 +242,10 @@ sections:
     type: summary
     points:
       - |
-        A triangle has three non-collinear vertices; the side opposite $A$ is $a=BC$.
+        A triangle has three non-collinear vertices; the side opposite $A$ is $a=\norm{\overrightarrow{BC}}$.
       - |
         The sides are norms of $\overrightarrow{AB}$, $\overrightarrow{BC}$, $\overrightarrow{CA}$; the angles come from the dot product or the law of cosines: $\cos\hat A=\dfrac{b^2+c^2-a^2}{2bc}$.
       - |
-        $K=\dfrac12|\det(\overrightarrow{AB},\overrightarrow{AC})|=\sqrt{s(s-a)(s-b)(s-c)}$.
+        $S=\dfrac12|\det(\overrightarrow{AB},\overrightarrow{AC})|=\sqrt{s(s-a)(s-b)(s-c)}$.
       - |
         Every side has eight equations.

@@ -29,15 +29,37 @@ sections:
     body: |
       **1. Vector equation.** The line through $A$ with direction $\vec d$ is the set of points $P$ with
 
-      $$\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d,\qquad\lambda\in\mathbb R.$$
+      $$\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d,\qquad\lambda\in\mathbb R,$$
+
+      that is, with $P(x,y)$, $A(x_0,y_0)$ and $\vec d=(d_1,d_2)$ written as columns,
+
+      $$\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x_0\\y_0\end{pmatrix}+\lambda\begin{pmatrix}d_1\\d_2\end{pmatrix},\qquad\lambda\in\mathbb R.$$
 
       For the line through two points use $\vec d=\overrightarrow{AB}$.
 
       **2. Parametric equations.** Write the vector equation coordinate by coordinate. For $A(x_0,y_0)$ and $\vec d=(d_1,d_2)$:
 
-      $$x=x_0+\lambda\,d_1,\qquad y=y_0+\lambda\,d_2.$$
+      $$\begin{cases}x=x_0+\lambda\,d_1\\[0.5ex] y=y_0+\lambda\,d_2\end{cases}\qquad\lambda\in\mathbb R.$$
 
       Each value of the **parameter** $\lambda$ gives one point of the line; $\lambda=0$ gives $A$ and, for $\vec d=\overrightarrow{AB}$, $\lambda=1$ gives $B$.
+
+  - id: fig-line
+    type: visual
+    kind: figure
+    title: The line through $A(-3,2)$ and $B(1,5)$
+    caption: |
+      The line $3x-4y+17=0$ has direction vector $\overrightarrow{AB}=(4,3)$. It meets the axes at $\left(-\dfrac{17}{3},0\right)$ and $\left(0,\dfrac{17}{4}\right)$.
+    figure:
+      dim: 2
+      alt: "The straight line through the points A(-3, 2) and B(1, 5) with its intercepts on the two axes."
+      view: [-8, 4, -3, 8]
+      items:
+        - {t: point, id: A, at: [-3, 2], color: accent}
+        - {t: point, id: B, at: [1, 5], color: accent}
+        - {t: point, id: X, at: [-17/3, 0], color: warning}
+        - {t: point, id: Y, at: [0, 17/4], color: warning}
+        - {t: line, through: [A, B], color: accent}
+        - {t: segment, from: A, to: B, color: success, arrow: true}
 
   - id: canonical
     type: definition
@@ -113,9 +135,9 @@ sections:
       - |
         Direction vector: $\overrightarrow{AB}=(1-(-3),\,5-2)=(4,3)$.
       - |
-        **Vector:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\overrightarrow{AB}$, that is $(x,y)=(-3,2)+\lambda(4,3)$.
+        **Vector:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\overrightarrow{AB}$, that is $\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}-3\\2\end{pmatrix}+\lambda\begin{pmatrix}4\\3\end{pmatrix}$.
       - |
-        **Parametric:** $x=-3+4\lambda$, $y=2+3\lambda$.
+        **Parametric:** $\begin{cases}x=-3+4\lambda\\ y=2+3\lambda\end{cases}$
       - |
         **Canonical:** $\dfrac{x+3}{4}=\dfrac{y-2}{3}$.
       - |
@@ -199,7 +221,7 @@ sections:
     type: summary
     points:
       - |
-        With a point $A(x_0,y_0)$ and a direction $(d_1,d_2)$: vector $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\vec d$; parametric $x=x_0+\lambda d_1$, $y=y_0+\lambda d_2$; canonical $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}$.
+        With a point $A(x_0,y_0)$ and a direction $(d_1,d_2)$: vector $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\vec d$; parametric $\begin{cases}x=x_0+\lambda d_1\\ y=y_0+\lambda d_2\end{cases}$; canonical $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}$.
       - |
         Implicit $ax+by+c=0$ (normal $(a,b)$, direction $(-b,a)$); explicit $y=mx+p$ with $m=-\dfrac ab$.
       - |

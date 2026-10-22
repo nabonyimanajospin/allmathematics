@@ -14,7 +14,8 @@
         - Square the distances and expand.
       solution: "$(x-2)^2+y^2=x^2+(y-4)^2$ gives $-4x+4=-8y+16$, so $x-2y=-3$."
     - id: lo-02
-      statement: "The radius of the locus of the points $M$ with $MA^2+MB^2=50$, where $A(-3,0)$ and $B(3,0)$."
+      statement: |-
+        The radius of the locus of the points $M$ with $MA^2+MB^2=50$, where $A(-3,0)$ and $B(3,0)$. The unit is lu: give the number only.
       answerType: number
       answer: "4"
       hints:

@@ -22,6 +22,25 @@ sections:
 
       Expanding the squares gives the **general equation** $x^2+y^2+Dx+Ey+F=0$, with $D=-2p$, $E=-2q$ and $F=p^2+q^2-r^2$.
 
+  - id: fig-circle
+    type: visual
+    kind: figure
+    title: A circle and its tangent
+    caption: |
+      The circle $(x-3)^2+(y+2)^2=25$ has center $C(3,-2)$ and radius $5$ lu. The tangent at $T(6,2)$ is perpendicular to the radius $CT$: its equation is $3x+4y=26$.
+    figure:
+      dim: 2
+      alt: "A circle with center C(3, -2) and radius 5, with the radius CT drawn to the point T(6, 2) and the tangent line at T."
+      view: [-4, 10, -8, 8]
+      items:
+        - {t: point, id: C, at: [3, -2], color: accent}
+        - {t: point, id: T, at: [6, 2], color: warning}
+        - {t: point, id: S, at: [2, 5], color: ink, label: ""}
+        - {t: circle, center: C, r: 5, color: accent}
+        - {t: segment, from: C, to: T, color: success, label: r}
+        - {t: line, through: [T, S], color: warning}
+        - {t: right, at: T, a: C, b: S}
+
   - id: from-general
     type: theorem
     name: Center and radius from the general equation

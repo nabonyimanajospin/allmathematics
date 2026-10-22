@@ -6,7 +6,7 @@
   items:
     - id: ds-01
       statement: |-
-        The distance from $P\left(2,\,3\right)$ to the line $3 x - 4 y + 5=0$.
+        The distance from $P\left(2,\,3\right)$ to the line $3 x - 4 y + 5=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "1/5"
       hints:
@@ -16,7 +16,7 @@
         The numerator is $|3\cdot2+\left(-4\right)\cdot3+5|=1$ and the length of the normal is $\sqrt{a^2+b^2}=5$, so $d=\frac{1}{5}$.
     - id: ds-02
       statement: |-
-        The distance from $P\left(1,\,-2\right)$ to the line $5 x + 12 y - 3=0$.
+        The distance from $P\left(1,\,-2\right)$ to the line $5 x + 12 y - 3=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "22/13"
       hints:
@@ -26,7 +26,7 @@
         The numerator is $|5\cdot1+12\cdot\left(-2\right)+\left(-3\right)|=22$ and the length of the normal is $\sqrt{a^2+b^2}=13$, so $d=\frac{22}{13}$.
     - id: ds-03
       statement: |-
-        The distance from $P\left(0,\,0\right)$ to the line $x + y - 4=0$.
+        The distance from $P\left(0,\,0\right)$ to the line $x + y - 4=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "2*sqrt(2)"
       hints:
@@ -36,7 +36,7 @@
         The numerator is $|1\cdot0+1\cdot0+\left(-4\right)|=4$ and the length of the normal is $\sqrt{a^2+b^2}=\sqrt{2}$, so $d=2 \sqrt{2}$.
     - id: ds-04
       statement: |-
-        The distance from $P\left(-3,\,4\right)$ to the line $2 x - y + 7=0$.
+        The distance from $P\left(-3,\,4\right)$ to the line $2 x - y + 7=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "3*sqrt(5)/5"
       hints:
@@ -65,7 +65,8 @@
       solution: |-
         $t=\dfrac{ax_0+by_0+c}{a^2+b^2}=- \frac{1}{2}$ and $H=P-t\,(a,b)=\left(\frac{9}{2},\,\frac{9}{2}\right)$.
     - id: ds-07
-      statement: "The distance between the parallel lines $3 x + 4 y + 1=0$ and $3 x + 4 y - 9=0$."
+      statement: |-
+        The distance between the parallel lines $3 x + 4 y + 1=0$ and $3 x + 4 y - 9=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "2"
       hints:
@@ -73,7 +74,8 @@
       solution: |-
         Divide the second equation by $1$ so that the coefficients of $x$ and $y$ are the same as in the first: its constant term becomes $-9$. Then $d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}=2$.
     - id: ds-08
-      statement: "The distance between the parallel lines $2 x - y + 3=0$ and $4 x - 2 y - 7=0$."
+      statement: |-
+        The distance between the parallel lines $2 x - y + 3=0$ and $4 x - 2 y - 7=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "13*sqrt(5)/10"
       hints:
@@ -81,7 +83,8 @@
       solution: |-
         Divide the second equation by $2$ so that the coefficients of $x$ and $y$ are the same as in the first: its constant term becomes $- \frac{7}{2}$. Then $d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}=\frac{13 \sqrt{5}}{10}$.
     - id: ds-09
-      statement: "The distance between the parallel lines $x + 2 y + 5=0$ and $3 x + 6 y + 1=0$."
+      statement: |-
+        The distance between the parallel lines $x + 2 y + 5=0$ and $3 x + 6 y + 1=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "14*sqrt(5)/15"
       hints:
@@ -89,7 +92,8 @@
       solution: |-
         Divide the second equation by $3$ so that the coefficients of $x$ and $y$ are the same as in the first: its constant term becomes $\frac{1}{3}$. Then $d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}=\frac{14 \sqrt{5}}{15}$.
     - id: ds-10
-      statement: "The distance from $A(0,0)$ to the line through $B(14,0)$ and $C(5,12)$."
+      statement: |-
+        The distance from $A(0,0)$ to the line through $B(14,0)$ and $C(5,12)$. The unit is lu: give the number only.
       answerType: expression
       answer: "56/5"
       hints:

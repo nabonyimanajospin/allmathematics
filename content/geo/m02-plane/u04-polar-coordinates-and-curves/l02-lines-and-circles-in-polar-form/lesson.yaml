@@ -67,9 +67,9 @@ sections:
     config:
       mode: polar
       r: "4*cos(t)"
-      l1: "r = 4 cos θ"
+      l1: "r=4\\cos\\theta"
       r2: "4*sin(t)"
-      l2: "r = 4 sin θ"
+      l2: "r=4\\sin\\theta"
       tmin: "0"
       tmax: "pi"
       range: 5

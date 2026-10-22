@@ -116,7 +116,8 @@
       solution: |-
         The three equations give $D=-8$, $E=-4$, $F=15$: $x^{2} - 8 x + y^{2} - 4 y + 15=0$.
     - id: ci-a1
-      statement: "The area enclosed by the circle $x^2+y^2-6x-8y=0$."
+      statement: |-
+        The area enclosed by the circle $x^2+y^2-6x-8y=0$. The unit is squ: give the number only.
       answerType: expression
       answer: "25*pi"
       hints:
@@ -124,7 +125,8 @@
       solution: |-
         The center is $(3,4)$ and $r^2=9+16=25$, so the area is $\pi r^2=25\pi$.
     - id: ci-a2
-      statement: "The circumference of the circle $x^2+y^2+2x-4y-4=0$."
+      statement: |-
+        The circumference of the circle $x^2+y^2+2x-4y-4=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "6*pi"
       hints:

@@ -20,6 +20,26 @@ sections:
       Three of them, $O$, $G$ and $H$, are always on one line with a fixed ratio. This gives a check on a long computation: after finding the three centers from their own formulas, we test the relation between them.
       The fourth center $I$ is not on this line, except for isosceles triangles.
 
+  - id: fig-euler
+    type: visual
+    kind: figure
+    title: The Euler line
+    caption: |
+      The centroid $G\left(\dfrac{19}{3},4\right)$, the orthocenter $H\left(5,\dfrac{15}{4}\right)$ and the circumcenter $O\left(7,\dfrac{33}{8}\right)$ lie on one line, the Euler line, and $G$ is between $H$ and $O$ with $HG=2\,GO$.
+    figure:
+      dim: 2
+      alt: "The triangle ABC with its centroid G, orthocenter H and circumcenter O lying on one straight line, the Euler line."
+      view: [-3, 17, -5, 14]
+      items:
+        - {t: point, id: A, at: [0, 0]}
+        - {t: point, id: B, at: [14, 0]}
+        - {t: point, id: C, at: [5, 12]}
+        - {t: point, id: G, at: [19/3, 4], color: success}
+        - {t: point, id: H, at: [5, 15/4], color: danger}
+        - {t: point, id: O, at: [7, 33/8], color: warning}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: line, through: [H, O], color: ink, dashed: true, label: Euler}
+
   - id: euler-theorem
     type: theorem
     name: The Euler line
@@ -73,7 +93,7 @@ sections:
       1. **The sides:** the vectors, the lengths, and the eight equations of one side.
       2. **Perimeter, area, angles** (by the dot product), and the four centers: **centroid** $G$, **orthocenter** $H$, **incenter** $I$, **circumcenter** $O$. Check with $\overrightarrow{HG}=2\overrightarrow{GO}$.
       3. **From one vertex:** the equations of the median, the altitude and the angle bisector.
-      4. **From the same vertex:** the lengths $m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}$, $h_a=\dfrac{2K}{a}$, $l_a=\dfrac1{b+c}\sqrt{bc\left[(b+c)^2-a^2\right]}$.
+      4. **From the same vertex:** the lengths $m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}$, $h_a=\dfrac{2S}{a}$, $l_a=\dfrac1{b+c}\sqrt{bc\left[(b+c)^2-a^2\right]}$.
       5. **The circles:** analytic and parametric equations of the incircle and of the circumcircle, and their perimeters and areas.
       6. **The figure:** plot the triangle with its two circles (a drawing tool such as GeoGebra is useful to check the result).
 
@@ -94,7 +114,7 @@ sections:
       - |
         **Circles:** incircle $(x-6)^2+(y-4)^2=16$ with perimeter $8\pi$ and area $16\pi$; circumcircle $(x-7)^2+\left(y-\dfrac{33}8\right)^2=\dfrac{4225}{64}$ with perimeter $\dfrac{65\pi}4$ and area $\dfrac{4225\pi}{64}$.
       - |
-        **Consistency checks:** $r=\dfrac Ks=4$ equals the $y$-coordinate of $I$ (the side $AB$ is on the $x$-axis); $\overrightarrow{HG}=2\overrightarrow{GO}$; the three lines from $A$ are different, because the triangle is scalene.
+        **Consistency checks:** $r=\dfrac Ss=4$ equals the $y$-coordinate of $I$ (the side $AB$ is on the $x$-axis); $\overrightarrow{HG}=2\overrightarrow{GO}$; the three lines from $A$ are different, because the triangle is scalene.
     answer: |
       $G\left(\dfrac{19}3,4\right)$, $H\left(5,\dfrac{15}4\right)$, $I(6,4)$, $O\left(7,\dfrac{33}8\right)$, $m_a=\dfrac{\sqrt{505}}2$, $h_a=\dfrac{56}5$, $l_a=\dfrac{28\sqrt{13}}9$.
     verify:
@@ -111,7 +131,7 @@ sections:
       - |
         This is a right triangle with sides $3,4,5$ and area $6$.
     explanation: |
-      $r=\dfrac Ks=\dfrac66=1$.
+      $r=\dfrac Ss=\dfrac66=1$.
 
   - id: summary
     type: summary

@@ -38,14 +38,14 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: st-04
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find $h_a\cdot a$ (the double area $2K$).
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find $h_a\cdot a$ (the double area $2S$). The unit is squ: give the number only.
       answerType: expression
       answer: "60"
       hints:
         - |-
-          $h_a=\dfrac{2K}{a}$.
+          $h_a=\dfrac{2S}{a}$.
       solution: |-
-        $h_a\cdot a=2K=60$.
+        $h_a\cdot a=2S=60$.
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: st-05
       statement: |-
@@ -61,7 +61,7 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: st-06
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, check that the incenter is at distance $r$ from the side $AB$: find this distance.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, check that the incenter is at distance $r$ from the side $AB$: find this distance. The unit is lu: give the number only.
       answerType: expression
       answer: "4"
       hints:
@@ -84,7 +84,7 @@
       answer: "((-12*sqrt(10)+sqrt(145)+25)/(5+sqrt(145)+4*sqrt(10)), (8*sqrt(10)+5*sqrt(145)-35)/(5+sqrt(145)+4*sqrt(10)))"
       hints:
         - |-
-          $I=\dfrac{aA+bB+cC}{a+b+c}$ with $a=BC=4\sqrt{10}$, $b=CA=\sqrt{145}$, $c=AB=5$.
+          $I=\dfrac{aA+bB+cC}{a+b+c}$ with $a=\norm{\overrightarrow{BC}}=4\sqrt{10}$, $b=\norm{\overrightarrow{CA}}=\sqrt{145}$, $c=\norm{\overrightarrow{AB}}=5$.
       solution: |-
         The sides are $a=4\sqrt{10}$, $b=\sqrt{145}$, $c=5$, so $a+b+c=5+\sqrt{145}+4\sqrt{10}$. $x_I=\dfrac{a\cdot(-3)+b\cdot1+c\cdot5}{a+b+c}=\dfrac{-12\sqrt{10}+\sqrt{145}+25}{5+\sqrt{145}+4\sqrt{10}}$ and $y_I=\dfrac{a\cdot2+b\cdot5+c\cdot(-7)}{a+b+c}=\dfrac{8\sqrt{10}+5\sqrt{145}-35}{5+\sqrt{145}+4\sqrt{10}}$.
       lintIgnore:
@@ -92,7 +92,7 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: st-09
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the angle bisector from $A$ (leave the denominator as it is).
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the angle bisector from $A$ (leave the denominator as it is). The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(7250+50*sqrt(145))/(5+sqrt(145))"
       hints:

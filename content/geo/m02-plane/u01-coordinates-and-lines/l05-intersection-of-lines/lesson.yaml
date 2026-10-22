@@ -64,7 +64,7 @@ sections:
       - |
         From the first equation $y=3x-5$. Substitute in the second.
     explanation: |
-      $x+2(3x-5)-4=0$ gives $7x=14$, so $x=2$ and $y=1$.
+      $x+2(3x-5)-4=0$ gives $7x=14$, so $x=2$ and $y=3\cdot2-5=1$. The two lines meet at the point $P(2,1)$.
 
   - id: concurrent
     type: theorem

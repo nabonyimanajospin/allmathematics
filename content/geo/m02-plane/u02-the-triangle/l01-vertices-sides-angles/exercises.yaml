@@ -6,22 +6,23 @@
   items:
     - id: tl1-p1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the perimeter.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the perimeter. The unit is lu: give the number only.
       answerType: expression
       answer: "42"
       hints:
         - Find the three side lengths with the distance formula.
-      solution: "$a=BC=15$, $b=CA=13$, $c=AB=14$. The perimeter is $a+b+c=42$."
+      solution: |-
+        $a=\norm{\overrightarrow{BC}}=15$, $b=\norm{\overrightarrow{CA}}=13$, $c=\norm{\overrightarrow{AB}}=14$. The perimeter is $a+b+c=42$.
     - id: tl1-k1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the area.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the area. The unit is squ: give the number only.
       answerType: expression
       answer: "84"
       hints:
         - |-
           Half of the absolute value of the determinant of $\overrightarrow{AB}$ and $\overrightarrow{AC}$.
       solution: |-
-        $\overrightarrow{AB}=\left(14,\,0\right)$, $\overrightarrow{AC}=\left(5,\,12\right)$, so $K=\dfrac12\left|14\cdot12-5\cdot0\right|=84$.
+        $\overrightarrow{AB}=\left(14,\,0\right)$, $\overrightarrow{AC}=\left(5,\,12\right)$, so $S=\dfrac12\left|14\cdot12-5\cdot0\right|=84$.
     - id: tl1-ca1
       statement: |-
         In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find $\cos\hat A$.
@@ -51,24 +52,24 @@
         $\overrightarrow{CA}=\left(-5,\,-12\right)$, $\overrightarrow{CB}=\left(9,\,-12\right)$. The dot product is $99$ and the norms are $13$ and $15$, so $\cos\hat C=\frac{33}{65}$.
     - id: tl1-p2
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the perimeter.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the perimeter. The unit is lu: give the number only.
       answerType: expression
       answer: "5 + sqrt(145) + 4*sqrt(10)"
       hints:
         - Find the three side lengths with the distance formula.
       solution: |-
-        $a=BC=4 \sqrt{10}$, $b=CA=\sqrt{145}$, $c=AB=5$. The perimeter is $a+b+c=5 + \sqrt{145} + 4 \sqrt{10}$.
+        $a=\norm{\overrightarrow{BC}}=4 \sqrt{10}$, $b=\norm{\overrightarrow{CA}}=\sqrt{145}$, $c=\norm{\overrightarrow{AB}}=5$. The perimeter is $a+b+c=5 + \sqrt{145} + 4 \sqrt{10}$.
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl1-k2
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the area.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the area. The unit is squ: give the number only.
       answerType: expression
       answer: "30"
       hints:
         - |-
           Half of the absolute value of the determinant of $\overrightarrow{AB}$ and $\overrightarrow{AC}$.
       solution: |-
-        $\overrightarrow{AB}=\left(4,\,3\right)$, $\overrightarrow{AC}=\left(8,\,-9\right)$, so $K=\dfrac12\left|4\cdot\left(-9\right)-8\cdot3\right|=30$.
+        $\overrightarrow{AB}=\left(4,\,3\right)$, $\overrightarrow{AC}=\left(8,\,-9\right)$, so $S=\dfrac12\left|4\cdot\left(-9\right)-8\cdot3\right|=30$.
     - id: tl1-ca2
       statement: |-
         In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find $\cos\hat A$.
@@ -98,22 +99,23 @@
         $\overrightarrow{CA}=\left(-8,\,9\right)$, $\overrightarrow{CB}=\left(-4,\,12\right)$. The dot product is $140$ and the norms are $\sqrt{145}$ and $4 \sqrt{10}$, so $\cos\hat C=\frac{7 \sqrt{58}}{58}$.
     - id: tl1-p3
       statement: |-
-        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the perimeter.
+        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the perimeter. The unit is lu: give the number only.
       answerType: expression
       answer: "24"
       hints:
         - Find the three side lengths with the distance formula.
-      solution: "$a=BC=10$, $b=CA=6$, $c=AB=8$. The perimeter is $a+b+c=24$."
+      solution: |-
+        $a=\norm{\overrightarrow{BC}}=10$, $b=\norm{\overrightarrow{CA}}=6$, $c=\norm{\overrightarrow{AB}}=8$. The perimeter is $a+b+c=24$.
     - id: tl1-k3
       statement: |-
-        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the area.
+        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the area. The unit is squ: give the number only.
       answerType: expression
       answer: "24"
       hints:
         - |-
           Half of the absolute value of the determinant of $\overrightarrow{AB}$ and $\overrightarrow{AC}$.
       solution: |-
-        $\overrightarrow{AB}=\left(8,\,0\right)$, $\overrightarrow{AC}=\left(0,\,6\right)$, so $K=\dfrac12\left|8\cdot6-0\cdot0\right|=24$.
+        $\overrightarrow{AB}=\left(8,\,0\right)$, $\overrightarrow{AC}=\left(0,\,6\right)$, so $S=\dfrac12\left|8\cdot6-0\cdot0\right|=24$.
     - id: tl1-ca3
       statement: |-
         In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find $\cos\hat A$.

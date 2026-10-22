@@ -53,9 +53,9 @@ sections:
     config:
       mode: polar
       r: "9/(5-4*cos(t))"
-      l1: "e = 4/5"
+      l1: "e=\\dfrac45"
       r2: "4/(1-cos(t))"
-      l2: "e = 1"
+      l2: "e=1"
       tmin: "0.6"
       tmax: "2*pi-0.6"
       range: 8

@@ -21,15 +21,17 @@ sections:
       Draw the horizontal line through $A$ and the vertical line through $B$. They meet at the point $C(x_2,y_1)$, and the triangle $ACB$ has a right angle at $C$.
       Its legs have lengths $|x_2-x_1|$ and $|y_2-y_1|$, and the segment $AB$ is the hypotenuse. Pythagoras' theorem gives the length of $AB$ at once.
 
+      **Units.** On a coordinate plane the unit is the length of one step on an axis. We write lengths in **lu** (length units), areas in **squ** (square units) and volumes in **cu** (cubic units). For example, $\norm{\overrightarrow{AB}}=5$ lu.
+
   - id: distance-formula
     type: theorem
     name: Distance formula
     statement: |
       The distance between $A(x_1,y_1)$ and $B(x_2,y_2)$ is
 
-      $$AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}=\norm{\overrightarrow{AB}}.$$
+      $$\norm{\overrightarrow{AB}}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}=\norm{\overrightarrow{AB}}.$$
     proof: |
-      In the right triangle $ACB$ the legs are $|x_2-x_1|$ and $|y_2-y_1|$. By Pythagoras, $AB^2=|x_2-x_1|^2+|y_2-y_1|^2$, and squares do not need the absolute values.
+      In the right triangle $ACB$ the legs are $|x_2-x_1|$ and $|y_2-y_1|$. By Pythagoras, $\norm{\overrightarrow{AB}}^2=|x_2-x_1|^2+|y_2-y_1|^2$, and squares do not need the absolute values.
       The same number is the norm of $\overrightarrow{AB}=(x_2-x_1,\,y_2-y_1)$.
 
   - id: ex-distance
@@ -41,27 +43,12 @@ sections:
       - |
         $\overrightarrow{AB}=(7-1,\,5-2)=(6,3)$.
       - |
-        $AB=\sqrt{6^2+3^2}=\sqrt{45}=3\sqrt5$.
+        $\norm{\overrightarrow{AB}}=\sqrt{6^2+3^2}=\sqrt{45}=3\sqrt5$.
     answer: |
-      $AB=3\sqrt5$.
+      $\norm{\overrightarrow{AB}}=3\sqrt5\ \text{lu}$.
     verify:
       - expr: "sqrt((7-1)^2+(5-2)^2)"
         equals: "3*sqrt(5)"
-
-  - id: chk-distance
-    type: check
-    prompt: |
-      Find the distance between $A(-2,1)$ and $B(1,5)$.
-    answerType: number
-    answer: "5"
-    hints:
-      - |
-        $\overrightarrow{AB}=(1-(-2),\,5-1)$.
-    explanation: |
-      $\overrightarrow{AB}=(3,4)$, so $AB=\sqrt{9+16}=5$.
-    mistakes:
-      - expr: "1"
-        hint: "That is the distance of the horizontal leg only: add the vertical difference with Pythagoras."
 
   - id: section
     type: theorem
@@ -127,6 +114,21 @@ sections:
       - expr: "(2-3*5)/(1-3)"
         equals: "13/2"
 
+  - id: chk-distance
+    type: check
+    prompt: |
+      Find the distance between $A(-2,1)$ and $B(1,5)$.
+    answerType: number
+    answer: "5"
+    hints:
+      - |
+        $\overrightarrow{AB}=(1-(-2),\,5-1)$.
+    explanation: |
+      $\overrightarrow{AB}=(3,4)$, so $\norm{\overrightarrow{AB}}=\sqrt{9+16}=5$.
+    mistakes:
+      - expr: "1"
+        hint: "That is the distance of the horizontal leg only: add the vertical difference with Pythagoras."
+
   - id: chk-midpoint
     type: check
     prompt: |
@@ -158,7 +160,7 @@ sections:
     type: summary
     points:
       - |
-        $AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+        $\norm{\overrightarrow{AB}}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
       - |
         The midpoint of $AB$ has coordinates $\left(\dfrac{x_1+x_2}2,\dfrac{y_1+y_2}2\right)$.
       - |

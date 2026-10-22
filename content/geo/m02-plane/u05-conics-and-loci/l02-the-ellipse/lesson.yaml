@@ -45,7 +45,7 @@ sections:
       mode: parametric
       x: "5*cos(t)"
       y: "3*sin(t)"
-      l1: "x²/25 + y²/9 = 1"
+      l1: "\\dfrac{x^2}{25}+\\dfrac{y^2}{9}=1"
       x2: "25/4"
       y2: "t"
       dash2: true

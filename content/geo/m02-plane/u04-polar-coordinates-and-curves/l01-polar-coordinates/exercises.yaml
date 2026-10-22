@@ -116,14 +116,14 @@
         $r=\sqrt{3+1}=2$. The point is in the first quadrant, so $\\theta=\frac{\pi}{6}$.
     - id: pc-12
       statement: |-
-        The length of the segment $AB$ with $A\left(8,-\dfrac{2\pi}3\right)$ and $B\left(6,\dfrac\pi3\right)$.
+        The length of the segment $AB$ with $A\left(8,-\dfrac{2\pi}3\right)$ and $B\left(6,\dfrac\pi3\right)$. The unit is lu: give the number only.
       answerType: number
       answer: "14"
       hints:
         - |-
           $\theta_2-\theta_1=\pi$: the points are on opposite sides of the pole.
       solution: |-
-        $AB^2=64+36-2\cdot8\cdot6\cos\pi=196$, so $AB=14$.
+        $\norm{\overrightarrow{AB}}^2=64+36-2\cdot8\cdot6\cos\pi=196$, so $\norm{\overrightarrow{AB}}=14$.
     - id: pc-13
       statement: |-
         The polar coordinates of the midpoint of $AB$, with $A\left(8,-\dfrac{2\pi}3\right)$ and $B\left(6,\dfrac\pi3\right)$ (with $r>0$).
@@ -135,7 +135,7 @@
         The midpoint is $7$ from $A$ on the line $AB$, which passes through $O$, so it is at distance $8-7=1$ from $O$ on the side of $A$: $\left(1,-\dfrac{2\pi}3\right)$.
     - id: pc-14
       statement: |-
-        The length of the segment $AB$ with $A\left(12,\dfrac{4\pi}9\right)$ and $B\left(12,\dfrac{4\pi}9\right)$ (as printed on the assignment).
+        The length of the segment $AB$ with $A\left(12,\dfrac{4\pi}9\right)$ and $B\left(12,\dfrac{4\pi}9\right)$ (as printed on the assignment). The unit is lu: give the number only.
       answerType: number
       answer: "0"
       hints:
@@ -146,7 +146,7 @@
         On the printed assignment the two endpoints of the second segment are written with the same coordinates; the exercise is solved as printed (the length is $0$). If one of the angles was meant to be different, use the formula $\sqrt{r_1^2+r_2^2-2r_1r_2\cos(\theta_2-\theta_1)}$ with the intended values.
     - id: pc-15
       statement: |-
-        The distance between $P\left(2,\dfrac\pi2\right)$ and $Q\left(2,\dfrac{\pi}{6}\right)$.
+        The distance between $P\left(2,\dfrac\pi2\right)$ and $Q\left(2,\dfrac{\pi}{6}\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "2"
       hints:

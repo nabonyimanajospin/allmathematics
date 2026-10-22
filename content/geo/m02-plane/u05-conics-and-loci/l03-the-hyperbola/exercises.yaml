@@ -72,7 +72,8 @@
       solution: |-
         $\dfrac{3x}4-\dfrac{\frac52y}5=\dfrac{3x}4-\dfrac y2=1$, so $3x-2y=4$.
     - id: hy-08
-      statement: "The distance between the vertices of the rectangular hyperbola $xy=8$."
+      statement: |-
+        The distance between the vertices of the rectangular hyperbola $xy=8$. The unit is lu: give the number only.
       answerType: number
       answer: "8"
       hints:

@@ -17,7 +17,7 @@
         The midpoint of the opposite side is $M=\left(\frac{21}{2},\,8\right)$ and $\overrightarrow{AM}=\left(\frac{19}{2},\,6\right)$. A normal vector gives the equation $12 x - 19 y + 26=0$.
     - id: tl2-l1
       statement: |-
-        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the median from $A$.
+        In the triangle $A\left(1,\,2\right)$, $B\left(15,\,2\right)$, $C\left(6,\,14\right)$, find the length of the median from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(505)/2"
       hints:
@@ -47,7 +47,7 @@
         The midpoint of the opposite side is $M=\left(0,\,3\right)$ and $\overrightarrow{BM}=\left(-8,\,3\right)$. A normal vector gives the equation $3 x + 8 y - 24=0$.
     - id: tl2-l2
       statement: |-
-        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the median from $B$.
+        In the triangle $A\left(0,\,0\right)$, $B\left(8,\,0\right)$, $C\left(0,\,6\right)$, find the length of the median from $B$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(73)"
       hints:
@@ -78,7 +78,7 @@
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
     - id: tl2-l3
       statement: |-
-        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the median from $A$.
+        In the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$, find the length of the median from $A$. The unit is lu: give the number only.
       answerType: expression
       answer: "3*sqrt(5)"
       hints:
@@ -110,7 +110,7 @@
         The midpoint of the opposite side is $M=\left(4,\,-1\right)$ and $\overrightarrow{CM}=\left(6,\,-16\right)$. A normal vector gives the equation $8 x + 3 y - 29=0$.
     - id: tl2-l4
       statement: |-
-        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the median from $C$.
+        In the triangle $A\left(-2,\,-1\right)$, $B\left(10,\,-1\right)$, $C\left(-2,\,15\right)$, find the length of the median from $C$. The unit is lu: give the number only.
       answerType: expression
       answer: "2*sqrt(73)"
       hints:

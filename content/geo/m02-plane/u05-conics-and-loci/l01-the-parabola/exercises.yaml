@@ -78,7 +78,8 @@
           $\dfrac p2=3$.
       solution: "$p=6$, so $y^2=2px=12x$."
     - id: pa-09
-      statement: "The distance from the point $(3,6)$ of $y^2=12x$ to the focus."
+      statement: |-
+        The distance from the point $(3,6)$ of $y^2=12x$ to the focus. The unit is lu: give the number only.
       answerType: number
       answer: "6"
       hints:

@@ -47,7 +47,7 @@ sections:
       mode: parametric
       x: "3*cosh(t)"
       y: "4*sinh(t)"
-      l1: "x²/9 − y²/16 = 1"
+      l1: "\\dfrac{x^2}{9}-\\dfrac{y^2}{16}=1"
       x2: "-3*cosh(t)"
       y2: "4*sinh(t)"
       x3: "t"

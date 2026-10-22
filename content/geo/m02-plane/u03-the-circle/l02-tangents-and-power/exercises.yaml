@@ -47,7 +47,7 @@
       solution: "The radius vector is $(4,3)$, so the tangent is $(4)(x-2)+(3)(y-1)=25$, that is $4 x + 3 y - 36=0$."
     - id: tg-05
       statement: |-
-        The length of a tangent segment from $P\left(5,\,12\right)$ to the circle with center $(0,0)$ and radius $5$.
+        The length of a tangent segment from $P\left(5,\,12\right)$ to the circle with center $(0,0)$ and radius $5$. The unit is lu: give the number only.
       answerType: expression
       answer: "12"
       hints:
@@ -57,7 +57,7 @@
         $\text{pow}(P)=CP^2-r^2=144$, so the length is $\sqrt{144}=12$.
     - id: tg-06
       statement: |-
-        The length of a tangent segment from $P\left(6,\,14\right)$ to the circle with center $(1,2)$ and radius $3$.
+        The length of a tangent segment from $P\left(6,\,14\right)$ to the circle with center $(1,2)$ and radius $3$. The unit is lu: give the number only.
       answerType: expression
       answer: "4*sqrt(10)"
       hints:
@@ -67,7 +67,7 @@
         $\text{pow}(P)=CP^2-r^2=160$, so the length is $\sqrt{160}=4 \sqrt{10}$.
     - id: tg-07
       statement: |-
-        The length of a tangent segment from $P\left(4,\,0\right)$ to the circle with center $(0,0)$ and radius $2$.
+        The length of a tangent segment from $P\left(4,\,0\right)$ to the circle with center $(0,0)$ and radius $2$. The unit is lu: give the number only.
       answerType: expression
       answer: "2*sqrt(3)"
       hints:

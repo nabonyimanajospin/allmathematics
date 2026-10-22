@@ -57,7 +57,8 @@
         - "$d=5$, $r_1=3$, $r_2=4$."
       solution: "$25-9-16=0$, so the circles are orthogonal."
     - id: tc-07
-      statement: "For which value of $d>0$ are two circles of radii $5$ and $12$ orthogonal? ($d$ = distance between the centers.)"
+      statement: |-
+        For which value of $d>0$ are two circles of radii $5$ and $12$ orthogonal? ($d$ = distance between the centers.) The unit is lu: give the number only.
       answerType: number
       answer: "13"
       hints:

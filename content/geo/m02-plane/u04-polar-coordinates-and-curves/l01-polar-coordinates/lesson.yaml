@@ -36,6 +36,23 @@ sections:
     more: |
       **Why allow $r<0$?** Many curves, such as the rose $r=\cos 2\theta$, are described by a formula where $r$ becomes negative for some angles. With the rule above these points are still points of the plane: $(-2,\frac\pi6)$ is the point at distance $2$ in the direction $\frac\pi6+\pi=\frac{7\pi}6$.
 
+  - id: fig-polar-point
+    type: visual
+    kind: figure
+    title: A point in polar and in Cartesian coordinates
+    caption: |
+      The point $P$ with polar coordinates $\left(4,\dfrac{5\pi}{6}\right)$ is at distance $r=4$ lu from the pole in the direction $\theta=\dfrac{5\pi}6$ from the polar axis. Its Cartesian coordinates are $\left(-2\sqrt3,2\right)$.
+    figure:
+      dim: 2
+      alt: "A point P at distance 4 from the origin in the direction of 150 degrees, with the segment from the pole and the polar axis along the positive x axis."
+      view: [-6, 6, -2, 6]
+      items:
+        - {t: point, id: O, at: [0, 0], label: O}
+        - {t: point, id: P, at: ["-2*sqrt(3)", 2], color: warning}
+        - {t: point, id: Q, at: [4, 0], color: muted, label: ""}
+        - {t: segment, from: O, to: P, color: accent, label: r}
+        - {t: segment, from: O, to: Q, color: muted, dashed: true}
+
   - id: exact-values
     type: concept
     title: Exact values to know by heart
@@ -159,13 +176,13 @@ sections:
       - |
         $\theta_2-\theta_1=\dfrac\pi3+\dfrac{2\pi}3=\pi$, and $\cos\pi=-1$.
       - |
-        $AB^2=64+36+2\cdot8\cdot6=196$, so $AB=14$. The points are on opposite sides of the pole, on one line through $O$.
+        $\norm{\overrightarrow{AB}}^2=64+36+2\cdot8\cdot6=196$, so $\norm{\overrightarrow{AB}}=14$. The points are on opposite sides of the pole, on one line through $O$.
       - text: |
           The midpoint is at distance $\dfrac{14}{2}=7$ from $A$ on this line, so at distance $8-7=1$ from $O$, on the side of $A$. Its polar coordinates are $\left(1,-\dfrac{2\pi}3\right)$.
         why: |
           Check with Cartesian coordinates: $A=\left(8\cos\dfrac{2\pi}3,\,-8\sin\dfrac{2\pi}3\right)=(-4,-4\sqrt3)$ and $B=\left(6\cos\dfrac\pi3,\,6\sin\dfrac\pi3\right)=(3,3\sqrt3)$. The midpoint is $\left(-\dfrac12,-\dfrac{\sqrt3}2\right)$, with $r=1$ and the angle of the third quadrant whose tangent is $\sqrt3$, that is $-\dfrac{2\pi}3$.
     answer: |
-      $AB=14$; the midpoint is $\left(1,-\dfrac{2\pi}3\right)$.
+      $\norm{\overrightarrow{AB}}=14$; the midpoint is $\left(1,-\dfrac{2\pi}3\right)$.
     verify:
       - expr: "8^2+6^2-2*8*6*cos(pi)"
         equals: "196"

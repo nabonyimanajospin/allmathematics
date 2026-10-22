@@ -11,7 +11,7 @@
       hints:
         - "Eliminate one variable, or use $D=a_1b_2-a_2b_1$."
       solution: |-
-        $D=7\neq0$, and solving gives $x=2$, $y=1$.
+        $D=7\neq0$, and solving gives $x=2$, $y=1$. The two lines meet at the point $P\left(2,\,1\right)$.
     - id: in-02
       statement: "The intersection of $2 x + 3 y - 7=0$ and $x - y - 1=0$."
       answerType: vector
@@ -19,7 +19,7 @@
       hints:
         - "Eliminate one variable, or use $D=a_1b_2-a_2b_1$."
       solution: |-
-        $D=-5\neq0$, and solving gives $x=2$, $y=1$.
+        $D=-5\neq0$, and solving gives $x=2$, $y=1$. The two lines meet at the point $P\left(2,\,1\right)$.
     - id: in-03
       statement: "The intersection of $x - 2 y + 3=0$ and $3 x + y - 5=0$."
       answerType: vector
@@ -27,7 +27,7 @@
       hints:
         - "Eliminate one variable, or use $D=a_1b_2-a_2b_1$."
       solution: |-
-        $D=7\neq0$, and solving gives $x=1$, $y=2$.
+        $D=7\neq0$, and solving gives $x=1$, $y=2$. The two lines meet at the point $P\left(1,\,2\right)$.
     - id: in-04
       statement: "The intersection of $5 x + 2 y + 1=0$ and $x + 3 y - 10=0$."
       answerType: vector
@@ -35,7 +35,7 @@
       hints:
         - "Eliminate one variable, or use $D=a_1b_2-a_2b_1$."
       solution: |-
-        $D=13\neq0$, and solving gives $x=- \frac{23}{13}$, $y=\frac{51}{13}$.
+        $D=13\neq0$, and solving gives $x=- \frac{23}{13}$, $y=\frac{51}{13}$. The two lines meet at the point $P\left(- \frac{23}{13},\,\frac{51}{13}\right)$.
     - id: in-05
       statement: "For which value of $k$ are the lines $x+y-3=0$, $2x-y=0$ and $x+ky-9=0$ concurrent?"
       answerType: number

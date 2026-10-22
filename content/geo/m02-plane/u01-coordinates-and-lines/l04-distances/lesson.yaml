@@ -90,7 +90,7 @@ sections:
       - |
         The length of the normal $(2,-1)$ is $\sqrt5$, and $\left|3-\left(-\dfrac72\right)\right|=\dfrac{13}2$. So $d=\dfrac{13}{2}\cdot\dfrac{\sqrt5}{5}=\dfrac{13\sqrt5}{10}$.
     answer: |
-      $d=\dfrac{13\sqrt5}{10}$.
+      $d=\dfrac{13\sqrt5}{10}\ \text{lu}$.
     verify:
       - expr: "(3+7/2)/sqrt(5)"
         equals: "13*sqrt(5)/10"
