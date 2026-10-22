@@ -1,0 +1,150 @@
+id: mvc-m01-u02-l01
+title: Partial derivatives and the total differential
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - partial-derivatives
+  - total-differential
+objectives:
+  - Compute the first-order partial derivatives of a function of two or three variables.
+  - Interpret a partial derivative as the slope of the surface in the direction of one axis.
+  - Write the total differential and use it to estimate a small change of a function.
+sections:
+  - id: one-at-a-time
+    type: concept
+    title: Change one variable at a time
+    body: |
+      Take $f(x,y)=x^2y$. If we freeze $y$ at the value $3$, the function becomes $3x^2$, a function of one
+      variable, with ordinary derivative $6x$. If instead we freeze $x$ at $2$, we get $4y$, with derivative $4$.
+
+      A **partial derivative** does exactly this, for every position at once: it measures how fast $f$ changes
+      when **one** variable moves and all the others stay fixed.
+
+      Geometrically, the graph of $z=f(x,y)$ is a surface. Cutting it with the plane $y=y_0$ gives a curve in the
+      $xz$-plane. The partial derivative with respect to $x$ at $(x_0,y_0)$ is the slope of that curve at $x_0$.
+
+  - id: partial-definition
+    type: definition
+    term: Partial derivatives
+    body: |
+      The partial derivatives of $f(x,y)$ are the limits
+
+      $$\pd{f}{x}=\lim_{h\to0}\dfrac{f(x+h,y)-f(x,y)}{h},\qquad
+      \pd{f}{y}=\lim_{h\to0}\dfrac{f(x,y+h)-f(x,y)}{h},$$
+
+      when they exist. They are also written $f_x$ and $f_y$, or $z_x$ and $z_y$ when $z=f(x,y)$.
+      For a function of three variables there is a third one, $f_z$, defined in the same way.
+
+  - id: partial-rule
+    type: formula
+    title: How to compute a partial derivative
+    formula: |
+      \pd{f}{x}:\ \text{differentiate with respect to }x,\ \text{treating }y\ (\text{and }z)\text{ as constants.}
+    note: |
+      All the usual rules apply: sum, product, quotient and chain rules. Only the choice of the variable changes.
+
+  - id: ex-partials
+    type: example
+    title: Two partial derivatives
+    problem: |
+      Compute $f_x$ and $f_y$ for $f(x,y)=x^3y^2+e^{xy}$.
+    steps:
+      - |
+        With respect to $x$, treat $y$ as a constant. The term $x^3y^2$ gives $3x^2y^2$. For $e^{xy}$ the chain rule
+        gives $e^{xy}\cdot y$, because the derivative of $xy$ with respect to $x$ is $y$.
+      - |
+        So $f_x=3x^2y^2+ye^{xy}$.
+      - |
+        With respect to $y$, treat $x$ as a constant: $x^3y^2$ gives $2x^3y$, and $e^{xy}$ gives $xe^{xy}$.
+      - |
+        So $f_y=2x^3y+xe^{xy}$.
+    answer: |
+      $f_x=3x^2y^2+ye^{xy}$ and $f_y=2x^3y+xe^{xy}$.
+    verify:
+      - expr: "diff(x^3*y^2+e^(x*y), x)"
+        equals: "3*x^2*y^2+y*e^(x*y)"
+      - expr: "diff(x^3*y^2+e^(x*y), y)"
+        equals: "2*x^3*y+x*e^(x*y)"
+
+  - id: chk-partials
+    type: check
+    prompt: |
+      For $f(x,y)=x^2y+y^3$, find $(f_x,\,f_y)$.
+    answerType: vector
+    variables: [x, y]
+    answer: "(2*x*y, x^2+3*y^2)"
+    hints:
+      - |
+        In $f_x$, the term $y^3$ is a constant.
+    explanation: |
+      $f_x=2xy$ (the term $y^3$ does not contain $x$) and $f_y=x^2+3y^2$.
+
+  - id: slope-meaning
+    type: concept
+    title: What a partial derivative tells you
+    body: |
+      Suppose $T(x,y)$ is the temperature of a metal plate at the point $(x,y)$. Then $T_x(2,1)=5$ means that,
+      standing at $(2,1)$ and walking in the direction of increasing $x$, the temperature rises by about $5$ degrees
+      per unit of length. It says nothing yet about other directions: $T_y(2,1)$ is the rate in the $y$ direction.
+
+      The sign matters. If $f_x>0$, $f$ increases when $x$ increases; if $f_x<0$, it decreases; if $f_x=0$,
+      the surface is flat in that direction at that point. This is the first step towards finding maxima and minima.
+
+  - id: total-differential
+    type: definition
+    term: The total differential
+    body: |
+      When $x$ changes by a small amount $dx$ and $y$ by a small amount $dy$, the change of $z=f(x,y)$ is
+      approximately
+
+      $$dz=\pd{f}{x}\,dx+\pd{f}{y}\,dy.$$
+
+      This expression is the **total differential** of $f$. If $f_x$ and $f_y$ are continuous near the point, the
+      error $\Delta z-dz$ is much smaller than the changes $dx$ and $dy$ themselves. The same idea gives, for three
+      variables, $du=u_x\,dx+u_y\,dy+u_z\,dz$.
+
+  - id: ex-differential
+    type: example
+    title: Estimating a change
+    problem: |
+      Let $f(x,y)=\sqrt{x^2+y^2}$. Estimate the change of $f$ when $(x,y)$ moves from $(3,4)$ by
+      $dx=\tfrac1{25}$ and $dy=-\tfrac1{50}$.
+    steps:
+      - |
+        First, $f_x=\dfrac{x}{\sqrt{x^2+y^2}}$ and $f_y=\dfrac{y}{\sqrt{x^2+y^2}}$. At $(3,4)$ we have
+        $\sqrt{9+16}=5$, so $f_x=\dfrac35$ and $f_y=\dfrac45$.
+      - |
+        Then $dz=\dfrac35\cdot\dfrac1{25}+\dfrac45\cdot\left(-\dfrac1{50}\right)=\dfrac{3}{125}-\dfrac{2}{125}=\dfrac1{125}$.
+      - |
+        So $f$ increases by about $\dfrac1{125}$, from $5$ to approximately $5+\dfrac1{125}$.
+    answer: |
+      $dz=\dfrac1{125}$.
+    verify:
+      - expr: "diff(sqrt(x^2+y^2), x)"
+        equals: "x/sqrt(x^2+y^2)"
+      - expr: "3/5*(1/25)+4/5*(-1/50)"
+        equals: "1/125"
+
+  - id: chk-differential
+    type: check
+    prompt: |
+      Write the total differential of $z=x^2y$ as $dz=A\,dx+B\,dy$ and enter $(A,\,B)$.
+    answerType: vector
+    variables: [x, y]
+    answer: "(2*x*y, x^2)"
+    hints:
+      - |
+        $A=z_x$ and $B=z_y$.
+    explanation: |
+      $z_x=2xy$ and $z_y=x^2$, so $dz=2xy\,dx+x^2\,dy$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\pd fx$ is the derivative of $f$ with respect to $x$ with all the other variables held constant; the usual differentiation rules apply.
+      - |
+        $f_x(x_0,y_0)$ is the slope of the surface $z=f(x,y)$ in the $x$ direction at $(x_0,y_0)$.
+      - |
+        The total differential $dz=f_x\,dx+f_y\,dy$ estimates the change of $f$ for small changes $dx$ and $dy$.
