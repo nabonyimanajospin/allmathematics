@@ -26,6 +26,11 @@ async function unlockExercises(page: Page): Promise<void> {
 }
 
 test.describe("exercises (the printed sheet inside the lesson)", () => {
+  test.beforeEach(async ({ page }) => {
+    // these tests check the server, so they type into the plain-text answer box
+    await page.addInitScript(() => window.localStorage.setItem("answer-mode", "text"));
+  });
+
   test("an exercise accepts an equivalent exact answer and then shows the worked solution", async ({ page }) => {
     await signUp(page, "Exercise Tester");
     await unlockExercises(page);

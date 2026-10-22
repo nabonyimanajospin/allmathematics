@@ -19,6 +19,11 @@ const lessonBar = (page: Page) => page.getByRole("progressbar", { name: "Lesson 
 const percent = async (page: Page) => Number(await lessonBar(page).getAttribute("aria-valuenow"));
 
 test.describe("student journey (spec Phase 1 acceptance)", () => {
+  test.beforeEach(async ({ page }) => {
+    // these tests check the server, so they type into the plain-text answer box
+    await page.addInitScript(() => window.localStorage.setItem("answer-mode", "text"));
+  });
+
   test("sign up, read, answer: progress moves per section and survives a refresh", async ({ page }) => {
     await signUp(page, "Ada Lovelace");
     await expect(page.getByRole("heading", { name: /Hello, Ada/ })).toBeVisible();

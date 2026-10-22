@@ -146,3 +146,28 @@ body {
 summary {
   cursor: pointer;
 }
+
+/* The answer field: mathematics as printed, with stacked fractions. */
+math-field.math-answer {
+  display: block;
+  width: 100%;
+  min-height: 3.25rem;
+  box-sizing: border-box;
+  padding: 0.35rem 0.75rem;
+  font-size: 1.35rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  --caret-color: var(--accent);
+  --selection-background-color: var(--accent-soft);
+  --selection-color: var(--ink);
+}
+math-field.math-answer:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+math-field.math-answer::part(virtual-keyboard-toggle),
+math-field.math-answer::part(menu-toggle) {
+  display: none;
+}

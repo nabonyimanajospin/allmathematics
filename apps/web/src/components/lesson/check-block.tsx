@@ -1,10 +1,11 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Button } from "@allmaths/ui";
 import type { AnswerKind, CheckResponseDto, LessonStateDto } from "@/lib/lesson-types";
 import { t } from "@/i18n";
 import { Rich, RichInline } from "./rich";
+import { MathField, type MathFieldHandle } from "./math-field";
 
 /** What the block needs of a question: the same for a check inside a lesson and for an exercise. */
 export interface Question {
@@ -49,6 +50,25 @@ type Feedback =
 export function CheckBlock({ lessonId, section, heading, compact = false, explanationLabel, completed, hintsUsed, onCorrect }: Props) {
   const uid = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const mathRef = useRef<MathFieldHandle>(null);
+  // The student writes mathematics as printed (fractions stacked); plain text stays available.
+  const [textMode, setTextMode] = useState(false);
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem("answer-mode") === "text") setTextMode(true);
+    } catch {
+      // storage can be unavailable: the math field is the default
+    }
+  }, []);
+  function switchMode(text: boolean) {
+    setTextMode(text);
+    setValue("");
+    try {
+      window.localStorage.setItem("answer-mode", text ? "text" : "math");
+    } catch {
+      // ignore
+    }
+  }
   const [value, setValue] = useState("");
   const [choice, setChoice] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
@@ -106,7 +126,11 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
     if (r.ok && r.data) setExplanation(r.data.explanationHtml);
   }
 
-  function insert(text: string, caret?: number) {
+  function insert(text: string, caret?: number, latex?: string) {
+    if (!textMode) {
+      mathRef.current?.insert(latex ?? text);
+      return;
+    }
     const el = inputRef.current;
     if (!el) return;
     const start = el.selectionStart ?? value.length;
@@ -136,36 +160,36 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
 
   // The symbol bar offers what the answer type needs, so a phone keyboard is never the obstacle.
   const commonSymbols = [
-    { label: "√", title: t("check.insertRoot"), text: "sqrt()", caret: 5 },
-    { label: "a/b", title: t("check.insertFraction"), text: "()/()", caret: 1 },
-    { label: "π", title: t("check.insertPi"), text: "pi" },
-    { label: "( )", title: "( )", text: "()", caret: 1 },
-    { label: "xⁿ", title: "^", text: "^()", caret: 2 },
+    { label: "√", title: t("check.insertRoot"), text: "sqrt()", caret: 5, latex: "\\sqrt{#?}" },
+    { label: "a/b", title: t("check.insertFraction"), text: "()/()", caret: 1, latex: "\\frac{#?}{#?}" },
+    { label: "π", title: t("check.insertPi"), text: "pi", latex: "\\pi" },
+    { label: "( )", title: "( )", text: "()", caret: 1, latex: "\\left(#?\\right)" },
+    { label: "xⁿ", title: "^", text: "^()", caret: 2, latex: "^{#?}" },
     { label: ",", title: ",", text: ", " },
     { label: "−", title: "−", text: "-" },
   ];
-  const extra: Record<string, { label: string; title: string; text: string; caret?: number }[]> = {
+  const extra: Record<string, { label: string; title: string; text: string; caret?: number; latex?: string }[]> = {
     region: [
-      { label: "≤", title: "<=", text: "<=" },
-      { label: "≥", title: ">=", text: ">=" },
+      { label: "≤", title: "<=", text: "<=", latex: "\\le" },
+      { label: "≥", title: ">=", text: ">=", latex: "\\ge" },
       { label: "<", title: "<", text: "<" },
       { label: ">", title: ">", text: ">" },
       { label: "=", title: t("check.symbolEquals"), text: "=" },
-      { label: "≠", title: "!=", text: "!=" },
-      { label: t("check.symbolAnd"), title: t("check.symbolAnd"), text: " and " },
-      { label: t("check.symbolOr"), title: t("check.symbolOr"), text: " or " },
+      { label: "≠", title: "!=", text: "!=", latex: "\\ne" },
+      { label: t("check.symbolAnd"), title: t("check.symbolAnd"), text: " and ", latex: "\\text{ and }" },
+      { label: t("check.symbolOr"), title: t("check.symbolOr"), text: " or ", latex: "\\text{ or }" },
     ],
     equation: [{ label: "=", title: t("check.symbolEquals"), text: " = " }],
     ode_solution: [
       { label: "=", title: t("check.symbolEquals"), text: " = " },
-      { label: "e^", title: "e^()", text: "e^()", caret: 3 },
-      { label: "ln", title: "ln()", text: "ln()", caret: 3 },
+      { label: "e^", title: "e^()", text: "e^()", caret: 3, latex: "e^{#?}" },
+      { label: "ln", title: "ln()", text: "ln()", caret: 3, latex: "\\ln\\left(#?\\right)" },
       { label: "C", title: t("check.symbolConstant"), text: "C" },
     ],
     ode_family: [
       { label: "=", title: t("check.symbolEquals"), text: " = " },
-      { label: "y′", title: t("check.symbolPrime"), text: "y'" },
-      { label: "y″", title: t("check.symbolPrime2"), text: "y''" },
+      { label: "y′", title: t("check.symbolPrime"), text: "y'", latex: "y'" },
+      { label: "y″", title: t("check.symbolPrime2"), text: "y''", latex: "y''" },
     ],
   };
   const exactNote = (["number", "expression", "vector", "point", "direction"] as AnswerKind[]).includes(section.answerType);
@@ -211,22 +235,39 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
             <label htmlFor={`${uid}-answer`} className="text-sm font-semibold">
               {t("check.yourAnswer")}
             </label>
-            <input
-              id={`${uid}-answer`}
-              ref={inputRef}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              disabled={done}
-              inputMode="text"
-              autoComplete="off"
-              autoCapitalize="off"
-              autoCorrect="off"
-              spellCheck={false}
-              maxLength={200}
-              placeholder={placeholder}
-              aria-describedby={`${uid}-note`}
-              className="min-h-12 w-full rounded-[var(--radius-sm)] border border-line bg-bg px-3 py-2 font-mono text-lg text-ink placeholder:font-sans placeholder:text-base placeholder:text-muted"
-            />
+            {textMode ? (
+              <input
+                id={`${uid}-answer`}
+                ref={inputRef}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                disabled={done}
+                inputMode="text"
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                spellCheck={false}
+                maxLength={200}
+                placeholder={placeholder}
+                aria-describedby={`${uid}-note`}
+                className="min-h-12 w-full rounded-[var(--radius-sm)] border border-line bg-bg px-3 py-2 font-mono text-lg text-ink placeholder:font-sans placeholder:text-base placeholder:text-muted"
+              />
+            ) : (
+              <MathField
+                ref={mathRef}
+                id={`${uid}-answer`}
+                label={t("check.yourAnswer")}
+                disabled={done}
+                describedBy={`${uid}-note`}
+                onChange={setValue}
+                onEnter={() => document.getElementById(`${uid}-submit`)?.click()}
+              />
+            )}
+            {done ? null : (
+              <button type="button" onClick={() => switchMode(!textMode)} className="w-fit text-sm font-medium text-accent underline underline-offset-2">
+                {textMode ? t("check.modeMath") : t("check.modeText")}
+              </button>
+            )}
             {done ? null : (
             <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t("check.symbols")}>
               {symbols.map((b) => (
@@ -235,8 +276,8 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
                   type="button"
                   disabled={done}
                   title={b.title}
-                  aria-label={b.title}
-                  onClick={() => insert(b.text, b.caret)}
+                  aria-label={`${b.label} ${b.title}`}
+                  onClick={() => insert(b.text, b.caret, b.latex)}
                   className="min-h-10 min-w-10 rounded-[var(--radius-sm)] border border-line bg-surface-2 px-3 font-mono text-base font-semibold hover:bg-accent-soft disabled:opacity-50"
                 >
                   {b.label}
@@ -258,7 +299,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
 
         <div className="flex flex-wrap items-center gap-2">
           {!done ? (
-            <Button type="submit" disabled={busy || (isChoice ? choice === null : value.trim() === "")}>
+            <Button id={`${uid}-submit`} type="submit" disabled={busy || (isChoice ? choice === null : value.trim() === "")}>
               {busy ? t("check.checking") : t("check.submit")}
             </Button>
           ) : null}

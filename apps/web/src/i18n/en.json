@@ -53,7 +53,7 @@
     "lessonDone": "Lesson complete. Well done.", "next": "Next lesson", "keepGoing": "Keep going"
   },
   "check": {
-    "yourAnswer": "Your answer", "submit": "Check", "checking": "Checking…",
+    "yourAnswer": "Your answer", "modeMath": "Write as a math formula (fractions stacked)", "modeText": "Type as plain text instead", "submit": "Check", "checking": "Checking…",
     "hint": "Show a hint ({used} of {total})", "noMoreHints": "No more hints",
     "showSolution": "Show the solution", "correct": "Correct.", "incorrect": "Not correct yet. Try again.",
     "invalid": "We could not read that answer.", "explanation": "Explanation", "solution": "Worked solution",
