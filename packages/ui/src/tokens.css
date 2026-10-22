@@ -1,0 +1,155 @@
+/*
+ * Design tokens (spec section 10). The single place where colours, type and motion are defined.
+ * Light and dark themes; `data-theme="light|dark"` on <html> overrides the system preference.
+ * Contrast: text/background and accent/background pairs meet WCAG 2.1 AA (4.5:1) in both themes.
+ */
+
+:root {
+  color-scheme: light;
+
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --surface-2: #f2f4f0;
+  --ink: #1b2330;
+  --muted: #566274;
+  --line: #dfe3da;
+  --accent: #2c5a87;
+  --accent-strong: #1f4568;
+  --accent-soft: #e6eef6;
+  --on-accent: #ffffff;
+  --success: #1c7248;
+  --success-soft: #e3f3ea;
+  --danger: #b0261d;
+  --danger-soft: #fbe9e7;
+  --warning: #8a5a00;
+  --warning-soft: #fdf3dc;
+  --focus: #2c5a87;
+
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-sm: 0.5rem;
+  --radius: 0.875rem;
+  --radius-lg: 1.25rem;
+  --shadow-sm: 0 1px 2px rgb(27 35 48 / 0.06);
+  --shadow: 0 4px 16px rgb(27 35 48 / 0.08);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 450ms;
+
+  --measure: 42rem;
+  --header-h: 4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #10151c;
+    --surface: #171f29;
+    --surface-2: #1e2834;
+    --ink: #e8ecf1;
+    --muted: #a3b0c1;
+    --line: #2b3745;
+    --accent: #86b6e8;
+    --accent-strong: #a5c9f0;
+    --accent-soft: #1c2c3d;
+    --on-accent: #0b1520;
+    --success: #62d29b;
+    --success-soft: #153324;
+    --danger: #ff8f86;
+    --danger-soft: #3b1a18;
+    --warning: #f0c36a;
+    --warning-soft: #36290e;
+    --focus: #86b6e8;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 4px 16px rgb(0 0 0 / 0.45);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #10151c;
+  --surface: #171f29;
+  --surface-2: #1e2834;
+  --ink: #e8ecf1;
+  --muted: #a3b0c1;
+  --line: #2b3745;
+  --accent: #86b6e8;
+  --accent-strong: #a5c9f0;
+  --accent-soft: #1c2c3d;
+  --on-accent: #0b1520;
+  --success: #62d29b;
+  --success-soft: #153324;
+  --danger: #ff8f86;
+  --danger-soft: #3b1a18;
+  --warning: #f0c36a;
+  --warning-soft: #36290e;
+  --focus: #86b6e8;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow: 0 4px 16px rgb(0 0 0 / 0.45);
+}
+
+/* All motion off for people who ask for it (spec 10.2). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur: 0.01ms;
+    --dur-slow: 0.01ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes am-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes am-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+@keyframes am-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes am-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
