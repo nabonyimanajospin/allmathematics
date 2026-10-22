@@ -1,0 +1,81 @@
+id: mvc-m04-u02-l03
+title: "Non-homogeneous equations: variation of parameters"
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - variation-of-parameters
+objectives:
+  - Explain why undetermined coefficients is not enough for a right-hand side such as $\tan x$.
+  - Use the formulas of variation of parameters with the Wronskian.
+  - Solve $y''+py'+qy=f(x)$ for a continuous $f$.
+sections:
+  - id: limits
+    type: concept
+    title: When guessing fails
+    body: |
+      Undetermined coefficients works only for special right-hand sides. For $y''+y=\tan x$ there is no finite shape to guess, because every derivative of $\tan x$
+      produces a new function.
+
+      **Variation of parameters** works for any continuous right-hand side $f$. If $y_1$ and $y_2$ are independent solutions of the homogeneous equation, the
+      idea is to look for a particular solution of the form $y_p=u_1(x)\,y_1+u_2(x)\,y_2$: the constants $C_1$, $C_2$ of $y_h$ are replaced by unknown **functions**.
+
+  - id: formulas
+    type: theorem
+    name: Variation of parameters
+    statement: |
+      Let $y_1$, $y_2$ be independent solutions of $y''+py'+qy=0$, and let $W=y_1y_2'-y_2y_1'$ be their **Wronskian** (never $0$). A particular solution of
+      $y''+py'+qy=f(x)$ is $y_p=u_1y_1+u_2y_2$ with
+
+      $$u_1'=-\dfrac{y_2\,f}{W},\qquad u_2'=\dfrac{y_1\,f}{W}.$$
+    proof: |
+      Require $u_1'y_1+u_2'y_2=0$ (a free choice). Then $y_p'=u_1y_1'+u_2y_2'$ and $y_p''=u_1y_1''+u_2y_2''+u_1'y_1'+u_2'y_2'$. Substituting in the equation, and using that $y_1,y_2$ solve the
+      homogeneous equation, leaves $u_1'y_1'+u_2'y_2'=f$. The two equations $u_1'y_1+u_2'y_2=0$ and $u_1'y_1'+u_2'y_2'=f$ form a system whose solution (by Cramer's rule) is the formulas above.
+
+  - id: ex-tan
+    type: example
+    title: The right-hand side $\tan x$
+    problem: |
+      Solve $y''+y=\tan x$ on $\left(-\dfrac\pi2,\dfrac\pi2\right)$.
+    steps:
+      - |
+        Homogeneous solutions: $y_1=\cos x$ and $y_2=\sin x$. Wronskian: $W=\cos x\cdot\cos x-\sin x\cdot(-\sin x)=1$.
+      - |
+        $u_1'=-\sin x\tan x=-\dfrac{\sin^2x}{\cos x}=\cos x-\sec x$, so $u_1=\sin x-\ln|\sec x+\tan x|$.
+      - |
+        $u_2'=\cos x\tan x=\sin x$, so $u_2=-\cos x$.
+      - |
+        $y_p=u_1\cos x+u_2\sin x=\sin x\cos x-\cos x\ln|\sec x+\tan x|-\cos x\sin x=-\cos x\ln|\sec x+\tan x|$.
+      - |
+        General solution: $y=C_1\cos x+C_2\sin x-\cos x\,\ln|\sec x+\tan x|$.
+    answer: |
+      $y=C_1\cos x+C_2\sin x-\cos x\,\ln|\sec x+\tan x|$.
+    verify:
+      - expr: "diff(-cos(x)*ln(sec(x)+tan(x)), x, 2)+(-cos(x)*ln(sec(x)+tan(x)))"
+        equals: "tan(x)"
+
+  - id: chk-vp
+    type: check
+    prompt: |
+      Solve $y''+4y=\sec2x$ on $\left(-\dfrac\pi4,\dfrac\pi4\right)$.
+    answerType: ode_solution
+    ode:
+      order: 2
+      equation: "y2 + 4*y - sec(2*x)"
+      sample: [0.1, 0.7]
+    answer: "y = C1*cos(2*x) + C2*sin(2*x) + cos(2*x)*ln(cos(2*x))/4 + x*sin(2*x)/2"
+    hints:
+      - |
+        With $y_1=\cos2x$, $y_2=\sin2x$ the Wronskian is $W=2$. Then $u_1'=-\dfrac{\sin2x\sec2x}{2}=-\dfrac{\tan2x}2$ and $u_2'=\dfrac{\cos2x\sec2x}{2}=\dfrac12$.
+    explanation: |
+      $u_1'=-\dfrac{\tan2x}2$ gives $u_1=\dfrac14\ln\cos2x$, and $u_2'=\dfrac12$ gives $u_2=\dfrac x2$. So $y_p=\dfrac14\cos2x\ln\cos2x+\dfrac x2\sin2x$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Find independent homogeneous solutions $y_1$, $y_2$ and the Wronskian $W=y_1y_2'-y_2y_1'$.
+      - |
+        $u_1'=-\dfrac{y_2f}{W}$ and $u_2'=\dfrac{y_1f}{W}$; integrate to get $u_1$, $u_2$ (constants of integration are not needed).
+      - |
+        $y=C_1y_1+C_2y_2+u_1y_1+u_2y_2$.

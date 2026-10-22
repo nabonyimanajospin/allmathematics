@@ -1,0 +1,129 @@
+id: mvc-m04-u02-l02
+title: "Non-homogeneous equations: undetermined coefficients"
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - undetermined-coefficients
+  - resonance
+objectives:
+  - Write the general solution as the sum of the homogeneous solution and one particular solution.
+  - Choose the form of a particular solution for a right-hand side made of polynomials, exponentials, sines and cosines.
+  - Recognize resonance and multiply the guess by $x$.
+sections:
+  - id: forced
+    type: concept
+    title: A forcing term on the right
+    body: |
+      So far the right-hand side was $0$. Many models have an outside influence: a motor pushing a spring, a voltage driving a circuit.
+      This adds a function $f(x)$ to the right-hand side: $y''+py'+qy=f(x)$. The equation is **non-homogeneous**, and the term $f$ is called the **forcing term**.
+      The question is how the solutions of this equation are related to those of the homogeneous equation $y''+py'+qy=0$, which we can already solve.
+
+  - id: structure
+    type: theorem
+    name: Structure of the solution
+    statement: |
+      The general solution of $y''+py'+qy=f(x)$ is
+
+      $$y=y_h+y_p,$$
+
+      where $y_h$ is the general solution of the **homogeneous** equation $y''+py'+qy=0$ and $y_p$ is **any one** particular solution of the full equation.
+    proof: |
+      If $y_p$ and $y$ are both solutions, their difference satisfies the homogeneous equation, because the right-hand sides $f$ cancel. So $y=y_p+y_h$ for some solution $y_h$ of the homogeneous equation.
+
+  - id: method
+    type: concept
+    title: Guess a solution of the same shape
+    body: |
+      When $f$ is a polynomial, an exponential, a sine or a cosine, or a sum or product of these, a particular solution has **the same shape as $f$**, with unknown coefficients that you find by substituting.
+
+      | If $f(x)$ contains | Try $y_p=$ |
+      |---|---|
+      | a polynomial of degree $k$ | a polynomial of degree $k$ with all its terms |
+      | $e^{ax}$ | $Ae^{ax}$ |
+      | $\sin bx$ or $\cos bx$ | $A\cos bx+B\sin bx$ (both, always) |
+
+      For a sum, treat each term separately and add the particular solutions.
+
+  - id: ex-polynomial
+    type: example
+    title: A polynomial on the right
+    problem: |
+      Solve $y''-y=x$.
+    steps:
+      - |
+        Homogeneous: $r^2-1=0$ gives $y_h=C_1e^x+C_2e^{-x}$.
+      - |
+        Try $y_p=Ax+B$. Then $y_p''=0$, and $y_p''-y_p=-Ax-B=x$ gives $A=-1$ and $B=0$: $y_p=-x$.
+      - |
+        General solution: $y=C_1e^x+C_2e^{-x}-x$.
+    answer: |
+      $y=C_1e^x+C_2e^{-x}-x$.
+    verify:
+      - expr: "diff(-x, x, 2)-(-x)"
+        equals: "x"
+
+  - id: resonance
+    type: concept
+    title: "Resonance: when the guess is already a solution"
+    body: |
+      If a term of the guess is a solution of the homogeneous equation, substituting it gives $0$ and no coefficient can be found. This happens when
+      $f$ contains $e^{rx}$ with $r$ a root of the characteristic equation (**resonance**). Then **multiply the guess by $x$**; if $r$ is a double root, multiply by $x^2$.
+
+      For $y''+4y=\sin2x$: the characteristic roots are $\pm2i$, so $\sin2x$ and $\cos2x$ solve the homogeneous equation. The guess is $y_p=x(A\cos2x+B\sin2x)$. Physically,
+      pushing a swing at its natural frequency makes the amplitude grow, which is why $x$ appears.
+
+  - id: ex-resonance
+    type: example
+    title: Resonance
+    problem: |
+      Solve $y''-3y'+2y=e^{x}$.
+    steps:
+      - |
+        $r^2-3r+2=0$ gives $r=1,2$: $y_h=C_1e^x+C_2e^{2x}$. The right side $e^x$ is a homogeneous solution (since $1$ is a root).
+      - |
+        So try $y_p=Axe^x$. Then $y_p'=A(1+x)e^x$ and $y_p''=A(2+x)e^x$, and
+        $y_p''-3y_p'+2y_p=Ae^x\big((2+x)-3(1+x)+2x\big)=-Ae^x$.
+      - |
+        This equals $e^x$ for $A=-1$: $y_p=-xe^x$.
+      - |
+        General solution: $y=C_1e^x+C_2e^{2x}-xe^x$.
+    answer: |
+      $y=C_1e^x+C_2e^{2x}-xe^x$.
+    verify:
+      - expr: "diff(-x*e^x, x, 2)-3*diff(-x*e^x, x)+2*(-x*e^x)"
+        equals: "e^x"
+
+  - id: chk-uc
+    type: check
+    prompt: |
+      Solve $y''+y=x$.
+    answerType: ode_solution
+    ode:
+      order: 2
+      equation: "y2 + y - x"
+    answer: "y = C1*cos(x) + C2*sin(x) + x"
+    hints:
+      - |
+        The roots of $r^2+1=0$ are $\pm i$. Try $y_p=Ax+B$.
+    explanation: |
+      $y_h=C_1\cos x+C_2\sin x$. With $y_p=Ax+B$: $y_p''+y_p=Ax+B=x$, so $A=1$ and $B=0$. Hence $y=C_1\cos x+C_2\sin x+x$.
+
+  - id: initial
+    type: concept
+    title: Apply the initial conditions last
+    body: |
+      With initial conditions, first find the **complete** general solution $y=y_h+y_p$, **then** use $y(x_0)$ and $y'(x_0)$ to find $C_1$ and $C_2$.
+      Applying the conditions to $y_h$ alone is a common error: the particular solution also contributes to $y(x_0)$ and $y'(x_0)$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The general solution of $y''+py'+qy=f$ is $y_h+y_p$.
+      - |
+        Guess $y_p$ with the same shape as $f$ (a complete polynomial, $Ae^{ax}$, or $A\cos bx+B\sin bx$) and find the coefficients by substitution.
+      - |
+        If the guess is a homogeneous solution, multiply it by $x$ (by $x^2$ for a double root).
+      - |
+        Use the initial conditions on the complete solution.

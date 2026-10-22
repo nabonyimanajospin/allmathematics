@@ -1,0 +1,125 @@
+id: mvc-m04-u02-l01
+title: Second-order linear equations with constant coefficients
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - characteristic-equation
+objectives:
+  - Write the characteristic equation of $y''+py'+qy=0$.
+  - Write the general solution in each of the three cases for its roots.
+  - Solve initial-value and boundary-value problems.
+sections:
+  - id: homogeneous-second
+    type: concept
+    title: The equation $y''+py'+qy=0$
+    body: |
+      The equation $y''+py'+qy=0$, with constants $p$ and $q$, is a **linear homogeneous equation of the second order**. Its solutions have a
+      useful property: if $y_1$ and $y_2$ are solutions, then so is every combination $C_1y_1+C_2y_2$. If $y_1$ and $y_2$ are **linearly
+      independent** (neither is a constant multiple of the other), this combination is the general solution.
+
+      To find solutions, try $y=e^{rx}$. Then $y'=re^{rx}$ and $y''=r^2e^{rx}$, so
+      $y''+py'+qy=e^{rx}(r^2+pr+q)$. This is zero exactly when $r$ solves the **characteristic equation**
+      $r^2+pr+q=0$.
+
+  - id: three-cases
+    type: theorem
+    name: The three cases
+    statement: |
+      Let $r_1$, $r_2$ be the roots of $r^2+pr+q=0$.
+
+      1. **Two distinct real roots:** $y=C_1e^{r_1x}+C_2e^{r_2x}$.
+      2. **One double root** $r$: $y=(C_1+C_2x)e^{rx}$.
+      3. **Complex roots** $r=\alpha\pm i\beta$ with $\beta>0$: $y=e^{\alpha x}\left(C_1\cos\beta x+C_2\sin\beta x\right)$.
+    proof: |
+      Case 1: $e^{r_1x}$ and $e^{r_2x}$ are independent solutions. Case 2: $e^{rx}$ is a solution; substituting $xe^{rx}$ gives $e^{rx}\big((2r+p)+(r^2+pr+q)x\big)$, which is $0$ because
+      $r$ is a double root, so $2r+p=0$. Case 3: the real and imaginary parts of $e^{(\alpha+i\beta)x}=e^{\alpha x}(\cos\beta x+i\sin\beta x)$ are two real independent solutions.
+
+  - id: ex-distinct
+    type: example
+    title: Two real roots
+    problem: |
+      Solve $y''-4y'+3y=0$.
+    steps:
+      - |
+        The characteristic equation is $r^2-4r+3=0$, which factors as $(r-1)(r-3)=0$: $r=1$ or $r=3$.
+      - |
+        The general solution is $y=C_1e^{x}+C_2e^{3x}$.
+    answer: |
+      $y=C_1e^x+C_2e^{3x}$.
+    verify:
+      - expr: "diff(C1*e^x+C2*e^(3*x), x, 2)-4*diff(C1*e^x+C2*e^(3*x), x)+3*(C1*e^x+C2*e^(3*x))"
+        equals: "0"
+
+  - id: ex-complex
+    type: example
+    title: Complex roots
+    problem: |
+      Solve $y''+2y'+5y=0$.
+    steps:
+      - |
+        $r^2+2r+5=0$ gives $r=\dfrac{-2\pm\sqrt{4-20}}{2}=-1\pm2i$, so $\alpha=-1$ and $\beta=2$.
+      - |
+        $y=e^{-x}\left(C_1\cos2x+C_2\sin2x\right)$.
+    answer: |
+      $y=e^{-x}\left(C_1\cos2x+C_2\sin2x\right)$.
+    verify:
+      - expr: "diff(e^(-x)*(C1*cos(2*x)+C2*sin(2*x)), x, 2)+2*diff(e^(-x)*(C1*cos(2*x)+C2*sin(2*x)), x)+5*e^(-x)*(C1*cos(2*x)+C2*sin(2*x))"
+        equals: "0"
+
+  - id: chk-double
+    type: check
+    prompt: |
+      Solve $y''-6y'+9y=0$.
+    answerType: ode_solution
+    ode:
+      order: 2
+      equation: "y2 - 6*y1 + 9*y"
+    answer: "y = (C1 + C2*x)*e^(3*x)"
+    hints:
+      - |
+        $r^2-6r+9=(r-3)^2$: a double root.
+    explanation: |
+      The characteristic equation has the double root $r=3$, so $y=(C_1+C_2x)e^{3x}$.
+
+  - id: initial-boundary
+    type: concept
+    title: Initial and boundary conditions
+    body: |
+      Two constants need two conditions. In an **initial-value problem** both are given at the same point: $y(x_0)=a$ and $y'(x_0)=b$.
+      In a **boundary-value problem** they are given at two points: $y(x_0)=a$ and $y(x_1)=b$.
+
+      An initial-value problem always has exactly one solution. A boundary-value problem may have no solution, one, or infinitely many. For
+      instance, $y''+y=0$ with $y(0)=0$ and $y(\pi)=1$ has no solution, because $y=C_2\sin x$ gives $y(\pi)=0$.
+
+  - id: ex-ivp
+    type: example
+    title: An initial-value problem
+    problem: |
+      Solve $y''-3y'+2y=0$ with $y(0)=1$ and $y'(0)=0$.
+    steps:
+      - |
+        $r^2-3r+2=0$ gives $r=1,2$: $y=C_1e^x+C_2e^{2x}$, and $y'=C_1e^x+2C_2e^{2x}$.
+      - |
+        $y(0)=C_1+C_2=1$ and $y'(0)=C_1+2C_2=0$. Subtracting, $C_2=-1$ and $C_1=2$.
+      - |
+        The solution is $y=2e^x-e^{2x}$.
+    answer: |
+      $y=2e^x-e^{2x}$.
+    verify:
+      - expr: "diff(2*e^x-e^(2*x), x, 2)-3*diff(2*e^x-e^(2*x), x)+2*(2*e^x-e^(2*x))"
+        equals: "0"
+      - expr: "2*e^0-e^(2*0)"
+        equals: "1"
+      - expr: "2*e^0-2*e^(2*0)"
+        equals: "0"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        For $y''+py'+qy=0$, solve $r^2+pr+q=0$.
+      - |
+        Distinct real roots: $C_1e^{r_1x}+C_2e^{r_2x}$. Double root: $(C_1+C_2x)e^{rx}$. Roots $\alpha\pm i\beta$: $e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)$.
+      - |
+        Two conditions at the same point give a unique solution; conditions at two points may give none, one or infinitely many.
