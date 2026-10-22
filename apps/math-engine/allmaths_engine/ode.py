@@ -54,6 +54,8 @@ class OdeSpec:
     constants: list[str] = field(default_factory=list)
     conditions: list[Condition] = field(default_factory=list)
     sample: tuple[float, float] = (0.6, 1.9)
+    #: letters that are given in the problem (like n in y' - n y/x = e^x x^n); they are not arbitrary constants
+    parameters: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -94,8 +96,17 @@ def _parse_equation(text: str, fmt: str) -> tuple[sp.Expr, sp.Expr]:
     return split_equation(_prepare(text, fmt), "text", None)
 
 
-def _constants_of(expr: sp.Expr) -> list[sp.Symbol]:
-    return sorted((s for s in expr.free_symbols if s.name not in _RESERVED), key=lambda s: s.name)
+def _constants_of(expr: sp.Expr, parameters: list[str] | None = None) -> list[sp.Symbol]:
+    skip = _RESERVED | set(parameters or [])
+    return sorted((s for s in expr.free_symbols if s.name not in skip), key=lambda s: s.name)
+
+
+def _parameter_values(expr: sp.Expr, spec: OdeSpec) -> dict[sp.Symbol, object]:
+    """Fixed positive values for the given parameters, the same at every sample point."""
+    values = {}
+    for i, name in enumerate(spec.parameters):
+        values[sp.Symbol(name, real=True)] = sp.Rational(3 + i, 2)
+    return values
 
 
 def _order_of(expr: sp.Expr) -> int:
@@ -161,14 +172,23 @@ def _implicit_points(
     tries = 0
     if len(consts) == 1:
         c = consts[0]
+        g1 = sp.diff(g, c)
+        linear = sp.diff(g1, c) == 0  # most families are linear in the constant: solve it directly (fast)
         while len(out) < count and tries < count * 25:
             tries += 1
             x0 = _sample_xs(spec, 1, rng)[0]
             y0 = sp.Rational(rng.randint(30, 250), 100)
-            try:
-                roots = sp.solve(g.subs({X: x0, Y: y0}), c)
-            except (NotImplementedError, ValueError, TypeError):
-                continue
+            point = {X: x0, Y: y0}
+            if linear:
+                slope = sp.N(g1.subs(point), 40)
+                if not slope.is_number or slope == 0 or slope.has(sp.nan, sp.zoo, sp.oo):
+                    continue
+                roots = [-sp.N(g.subs({**point, c: 0}), 40) / slope]
+            else:
+                try:
+                    roots = sp.solve(g.subs(point), c)
+                except (NotImplementedError, ValueError, TypeError):
+                    continue
             for root in roots:
                 val = sp.N(root, 40)
                 if val.is_number and val.is_real and not val.has(sp.nan, sp.zoo, sp.oo):
@@ -202,31 +222,32 @@ def _residual_points(spec: OdeSpec, ode: sp.Expr, left: sp.Expr, right: sp.Expr,
     """Yield (sub, residual, scale) at sample points of the student's solution."""
     explicit = _explicit_form(left, right)
     order = spec.order
+    pvals = _parameter_values(left, spec)
     if explicit is not None:
         f = explicit
-        consts = _constants_of(f)
+        consts = _constants_of(f, spec.parameters)
         derivs = _derivatives(f, order)
         for _ in range(30):
-            sub = _random_constants(consts, rng)
+            sub = {**_random_constants(consts, rng), **pvals}
             sub[X] = _sample_xs(spec, 1, rng)[0]
             vals = [_numeric(d, sub) for d in derivs]
             if any(v is None for v in vals):
                 continue
             mapping = {DERIVS[k]: vals[k] for k in range(order + 1)}
-            res = _numeric(ode.subs(mapping), {X: sub[X]})
+            res = _numeric(ode.subs(mapping), {X: sub[X], **pvals})
             if res is None:
                 continue
             yield sub, res, sum(abs(v) for v in vals)
         return
-    g = left - right
-    consts = _constants_of(g)
+    g = (left - right).subs(pvals)
+    consts = _constants_of(g, spec.parameters)
     ders = _implicit_derivatives(g, order)
     for sub, y0 in _implicit_points(g, consts, spec, rng, 16):
         vals = [_numeric(d, sub) for d in ders]
         if any(v is None for v in vals):
             continue
         mapping = {DERIVS[0]: y0, **{DERIVS[k + 1]: vals[k] for k in range(order)}}
-        res = _numeric(ode.subs(mapping), {X: sub[X]})
+        res = _numeric(ode.subs(mapping), {X: sub[X], **pvals})
         if res is None:
             continue
         yield sub, res, sum(abs(v) for v in vals) + abs(y0)
@@ -275,7 +296,7 @@ def check_solution(student: str, spec: OdeSpec, fmt: str = "auto") -> OdeResult:
         return _invalid("derivative_in_solution", "A solution must not contain y′ or y″. Solve the equation first.")
     explicit = _explicit_form(left, right)
     g = left - right
-    consts = _constants_of(explicit if explicit is not None else g)
+    consts = _constants_of(explicit if explicit is not None else g, spec.parameters)
     particular = bool(spec.conditions)
 
     if explicit is None and spec.order > 1 and not particular and Y not in g.free_symbols:
@@ -301,7 +322,11 @@ def check_solution(student: str, spec: OdeSpec, fmt: str = "auto") -> OdeResult:
             return _bad("not_a_solution", "Substitute your answer into the equation: it does not satisfy it.")
 
     if not particular and consts:
-        rank = _jacobian_rank(explicit, consts, spec, rng) if explicit is not None else len(consts)
+        rank = (
+            _jacobian_rank(explicit.subs(_parameter_values(explicit, spec)), consts, spec, rng)
+            if explicit is not None
+            else len(consts)
+        )
         if rank < spec.order:
             if len(consts) < spec.order:
                 return _bad("not_general", f"This is a solution, but not the general one: it needs {spec.order} independent arbitrary constants.")

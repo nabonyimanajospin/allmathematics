@@ -109,6 +109,7 @@ export interface EngineRequestBody {
     constants?: string[];
     conditions?: { at: string; value: string; derivative?: number }[];
     sample?: [number, number];
+    parameters?: string[];
   };
 }
 
@@ -143,6 +144,7 @@ export function toEngineRequest(q: CheckSpec & { allowDecimal?: boolean | undefi
         ? { conditions: q.ode.conditions.map((c) => ({ at: c.at, value: c.value, ...(c.derivative ? { derivative: c.derivative } : {}) })) }
         : {}),
       ...(q.ode.sample ? { sample: q.ode.sample } : {}),
+      ...(q.ode.parameters ? { parameters: q.ode.parameters } : {}),
     };
   }
   return body;

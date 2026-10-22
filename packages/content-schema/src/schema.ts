@@ -143,6 +143,8 @@ const odeSchema = z.strictObject({
   conditions: z.array(conditionSchema).max(3).optional(),
   /** Interval of x where the answer is tested numerically. */
   sample: z.tuple([z.number(), z.number()]).optional(),
+  /** Letters given in the problem (not arbitrary constants), e.g. n in y' - (n/x) y = e^x x^n. */
+  parameters: z.array(z.string().regex(/^[A-Za-z]$/)).max(3).optional(),
 });
 
 const answerSpec = {

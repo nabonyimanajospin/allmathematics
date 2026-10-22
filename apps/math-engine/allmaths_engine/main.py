@@ -61,6 +61,7 @@ class OdeIn(BaseModel):
     constants: list[str] = Field(default_factory=list, max_length=4)
     conditions: list[ConditionIn] = Field(default_factory=list, max_length=3)
     sample: tuple[float, float] = (0.6, 1.9)
+    parameters: list[str] = Field(default_factory=list, max_length=3)
 
 
 class CheckRequest(BaseModel):
@@ -146,6 +147,7 @@ def check(req: CheckRequest) -> CheckResponse:
                 constants=req.ode.constants,
                 conditions=[ode_mod.Condition(c.at, c.value, c.derivative) for c in req.ode.conditions],
                 sample=req.ode.sample,
+                parameters=req.ode.parameters,
             )
             if req.ode
             else None

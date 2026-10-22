@@ -280,3 +280,10 @@ def test_initial_condition_at_a_singular_point_uses_the_limit():
     s = spec(1, "x*y1 + y - e^x", [Condition("0", "1")])
     assert ode_sol("y = (e^x - 1)/x", s).status == "correct"
     assert ode_sol("y = (e^x + 1)/x", s).code == "condition_not_met"
+
+
+def test_given_parameter_is_not_an_arbitrary_constant():
+    # y' - (n/x) y = e^x x^n  has the general solution  y = x^n (e^x + C), with n given in the problem
+    s = OdeSpec(order=1, equation="y1 - n*y/x - e^x*x^n", parameters=["n"], sample=(0.6, 1.9))
+    assert ode_sol("y = x^n (e^x + C)", s).status == "correct"
+    assert ode_sol("y = x^n e^x", s).code == "no_constant"

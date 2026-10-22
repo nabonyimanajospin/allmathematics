@@ -58,6 +58,7 @@ export interface EngineCheckRequest {
     constants?: string[];
     conditions?: { at: string; value: string; derivative?: number }[];
     sample?: [number, number];
+    parameters?: string[];
   };
 }
 
