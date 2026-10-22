@@ -1,0 +1,13 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { AuthForm } from "@/components/auth-form";
+import { t } from "@/i18n";
+import { getCurrentUser, safeNext } from "@/server/session";
+
+export const metadata: Metadata = { title: t("nav.signIn") };
+
+export default async function SignInPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
+  const next = safeNext((await searchParams).next);
+  if (await getCurrentUser()) redirect(next);
+  return <AuthForm mode="signin" next={next} />;
+}
