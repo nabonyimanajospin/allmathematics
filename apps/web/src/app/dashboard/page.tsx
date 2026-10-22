@@ -51,6 +51,15 @@ export default async function DashboardPage() {
         </Card>
       </section>
 
+      <nav aria-label={t("dashboard.more")} className="mt-4 flex flex-wrap gap-2">
+        <Link href="/formulas" className={buttonClass("secondary")}>
+          {t("nav.formulas")}
+        </Link>
+        <Link href="/resources" className={buttonClass("secondary")}>
+          {t("nav.resources")}
+        </Link>
+      </nav>
+
       {dash.courses.map((course) => (
         <section key={course.id} aria-labelledby={`course-${course.id}`} className="mt-10">
           <div className="flex items-end justify-between gap-4">

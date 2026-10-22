@@ -21,13 +21,16 @@ test.describe("formula sheet", () => {
     await page.goto("/learn/geo-m02-u02-l02");
     const save = page.getByRole("button", { name: /Save to my formula sheet/ }).first();
     await save.scrollIntoViewIfNeeded();
+    const saving = page.waitForResponse((r) => r.url().includes("/api/formulas") && r.request().method() === "POST");
     await save.click();
+    expect((await saving).ok()).toBe(true);
     await expect(page.getByRole("button", { name: /Saved to my formula sheet/ }).first()).toBeVisible();
 
     await page.reload();
     await expect(page.getByRole("button", { name: /Saved to my formula sheet/ }).first()).toBeVisible();
 
-    await page.getByRole("link", { name: "Formula sheet" }).click();
+    await page.goto("/dashboard");
+    await page.getByRole("link", { name: "Formula sheet" }).first().click();
     await expect(page.getByRole("heading", { name: "My formula sheet", level: 1 })).toBeVisible();
     await expect(page.getByText("Medians and the centroid").first()).toBeVisible();
     const results = await new AxeBuilder({ page }).analyze();

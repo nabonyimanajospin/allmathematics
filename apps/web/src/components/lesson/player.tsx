@@ -291,6 +291,7 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next }: P
     });
     void fetch("/api/formulas", {
       method: "POST",
+      keepalive: true,
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ lessonId: lesson.id, sectionId, saved }),
     }).then((r) => {

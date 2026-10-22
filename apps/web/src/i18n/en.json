@@ -28,7 +28,7 @@
     "errorGeneric": "Something went wrong. Please try again.",
     "errorNetwork": "Could not reach the server. Check your connection."
   },
-  "dashboard": {
+  "dashboard": { "more": "Study tools",
     "title": "My learning", "hello": "Hello, {name}",
     "continue": "Continue", "continueFrom": "Pick up where you left off",
     "startLesson": "Start", "resume": "Resume", "review": "Review",
