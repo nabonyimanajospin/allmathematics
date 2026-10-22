@@ -1,0 +1,107 @@
+id: mvc-m02-u02-l02
+title: Change of variables and the Jacobian
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - jacobian
+  - change-of-variables
+objectives:
+  - Compute the Jacobian of a change of variables $(x,y)=(x(u,v),y(u,v))$.
+  - Transform a double integral and its region with a change of variables.
+  - Choose a change of variables that straightens the boundary of a region.
+sections:
+  - id: new-coordinates
+    type: concept
+    title: Choosing better coordinates
+    body: |
+      Polar coordinates are one choice of new coordinates. Often a region is bounded by lines such as $x+y=1$ and
+      $x-y=3$; then the variables $u=x+y$ and $v=x-y$ turn it into a rectangle in the $uv$-plane, and the integral becomes simple.
+
+      A **change of variables** replaces $(x,y)$ by $(u,v)$ through $x=x(u,v)$, $y=y(u,v)$. Two things must be converted:
+      the **region** and the **area element**. The area element changes by a factor called the Jacobian.
+
+  - id: jacobian-definition
+    type: definition
+    term: The Jacobian
+    body: |
+      For $x=x(u,v)$ and $y=y(u,v)$, the **Jacobian** is the determinant
+
+      $$\jac{x,y}{u,v}=\begin{vmatrix}\pd xu&\pd xv\\[4pt]\pd yu&\pd yv\end{vmatrix}=\pd xu\,\pd yv-\pd xv\,\pd yu.$$
+
+      It measures how much the change of variables stretches areas near each point: a small rectangle of area $du\,dv$ in
+      the $uv$-plane becomes a region of area about $\left|\jac{x,y}{u,v}\right|\,du\,dv$ in the $xy$-plane.
+
+  - id: change-theorem
+    type: theorem
+    name: Change of variables in a double integral
+    statement: |
+      If the change of variables maps the region $D'$ of the $uv$-plane one-to-one onto the region $D$ of the $xy$-plane, then
+
+      $$\iint_Df(x,y)\,dx\,dy=\iint_{D'}f\big(x(u,v),y(u,v)\big)\left|\jac{x,y}{u,v}\right|du\,dv.$$
+
+      For polar coordinates, $x=r\cos\theta$ and $y=r\sin\theta$ give $\jac{x,y}{r,\theta}=r$.
+    proof: |
+      Polar check. $\pd xr=\cos\theta$, $\pd x\theta=-r\sin\theta$, $\pd yr=\sin\theta$, $\pd y\theta=r\cos\theta$, so the determinant is
+      $r\cos^2\theta+r\sin^2\theta=r$. This is the factor $r$ of the previous lesson.
+
+  - id: ex-jacobian
+    type: example
+    title: A linear change of variables
+    problem: |
+      For $u=x+y$ and $v=x-y$, find $\jac{x,y}{u,v}$.
+    steps:
+      - |
+        Solve for $x$ and $y$: $x=\dfrac{u+v}2$ and $y=\dfrac{u-v}2$.
+      - |
+        $\pd xu=\dfrac12$, $\pd xv=\dfrac12$, $\pd yu=\dfrac12$, $\pd yv=-\dfrac12$.
+      - |
+        $\jac{x,y}{u,v}=\dfrac12\cdot\left(-\dfrac12\right)-\dfrac12\cdot\dfrac12=-\dfrac12$. The area element is
+        $dx\,dy=\dfrac12\,du\,dv$ (we use the absolute value $\left|-\tfrac12\right|$).
+    answer: |
+      $\jac{x,y}{u,v}=-\dfrac12$, so $dx\,dy=\dfrac12\,du\,dv$.
+    verify:
+      - expr: "diff((u+v)/2, u)*diff((u-v)/2, v)-diff((u+v)/2, v)*diff((u-v)/2, u)"
+        equals: "-1/2"
+
+  - id: ex-integral
+    type: example
+    title: A region made of lines
+    problem: |
+      Evaluate $\displaystyle\iint_D e^{(x-y)/(x+y)}\,dA$, where $D$ is the triangle $x\ge0$, $y\ge0$, $x+y\le1$.
+    steps:
+      - |
+        Put $u=x-y$ and $v=x+y$. Then $x=\dfrac{u+v}2$, $y=\dfrac{v-u}2$ and $\left|\jac{x,y}{u,v}\right|=\dfrac12$.
+      - |
+        The conditions $x\ge0$, $y\ge0$, $x+y\le1$ become $-v\le u\le v$ and $0\le v\le1$.
+      - |
+        $\displaystyle\iint=\int_0^1\int_{-v}^{v}e^{u/v}\cdot\frac12\,du\,dv=\int_0^1\frac v2\left(e-\frac1e\right)dv=\frac14\left(e-\frac1e\right)$.
+    answer: |
+      $\dfrac14\left(e-\dfrac1e\right)$.
+    verify:
+      - expr: "integrate(integrate(e^(u/v)/2, u, -v, v), v, 0, 1)"
+        equals: "(e-1/e)/4"
+
+  - id: chk-jacobian
+    type: check
+    prompt: |
+      For $x=2u+v$ and $y=u-v$, compute $\jac{x,y}{u,v}$.
+    answerType: number
+    answer: "-3"
+    hints:
+      - |
+        $\pd xu=2$, $\pd xv=1$, $\pd yu=1$, $\pd yv=-1$.
+    explanation: |
+      $\jac{x,y}{u,v}=2\cdot(-1)-1\cdot1=-3$. The areas are multiplied by $|-3|=3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\jac{x,y}{u,v}=\pd xu\,\pd yv-\pd xv\,\pd yu$, and $dx\,dy=\left|\jac{x,y}{u,v}\right|du\,dv$.
+      - |
+        Convert both the integrand and the region; the absolute value of the Jacobian multiplies the new integrand.
+      - |
+        Polar coordinates are the special case $\jac{x,y}{r,\theta}=r$.
+      - |
+        Choose $u$ and $v$ so that the boundary of the region becomes lines $u=\text{const}$ and $v=\text{const}$.
