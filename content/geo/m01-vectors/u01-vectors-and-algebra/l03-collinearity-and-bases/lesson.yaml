@@ -1,0 +1,283 @@
+id: geo-m01-u01-l03
+title: Collinear vectors, linear independence and bases
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - collinearity-test
+  - linear-independence
+  - basis-and-coordinates
+objectives:
+  - Decide whether two vectors are collinear.
+  - Define linear dependence and independence and test them in the plane and in space.
+  - Use a basis to write a vector with unique coordinates.
+sections:
+  - id: collinear
+    type: concept
+    title: Collinear vectors
+    body: |
+      Two vectors are **collinear** when they lie on parallel lines, or equivalently when one is a
+      scalar multiple of the other: $\vec v=\lambda\vec u$ for some number $\lambda$ (taking
+      $\vec u\neq\vec 0$). Collinear vectors have the same direction or opposite directions.
+
+      Points are collinear (lie on one line) exactly when the vectors between them are collinear:
+      $A$, $B$, $C$ are on one line if and only if $\overrightarrow{AB}$ and $\overrightarrow{AC}$ are collinear.
+
+      How do we test it with numbers? Two plane vectors $\vec u=(u_1,u_2)$ and $\vec v=(v_1,v_2)$ are
+      proportional exactly when the **cross-products of their components** are equal:
+      $u_1v_2=u_2v_1$. This is the idea of the next theorem.
+
+  - id: collinear-test
+    type: theorem
+    name: Collinearity test in the plane
+    statement: |
+      The vectors $\vec u=(u_1,u_2)$ and $\vec v=(v_1,v_2)$ are collinear if and only if
+      $$\begin{vmatrix}u_1&u_2\\v_1&v_2\end{vmatrix}=u_1v_2-u_2v_1=0.$$
+    proof: |
+      If $\vec v=\lambda\vec u$, then $u_1v_2-u_2v_1=u_1(\lambda u_2)-u_2(\lambda u_1)=0$.
+
+      Conversely, suppose $u_1v_2-u_2v_1=0$ and $\vec u\neq\vec 0$, say $u_1\neq 0$ (if $u_1=0$ then
+      $u_2\neq0$ and the argument is the same with the roles of the coordinates exchanged). Put
+      $\lambda=v_1/u_1$. Then $v_1=\lambda u_1$, and from $u_1v_2=u_2v_1$ we get $v_2=\lambda u_2$.
+      Hence $\vec v=\lambda\vec u$.
+
+  - id: ex-collinear-plane
+    type: example
+    title: Testing collinearity
+    problem: |
+      Are $\vec u=(2,-3)$ and $\vec v=(-6,9)$ collinear?
+    steps:
+      - |
+        Compute $u_1v_2-u_2v_1=2\cdot9-(-3)\cdot(-6)=18-18=0$.
+      - |
+        The result is $0$, so the vectors are collinear. Indeed $\vec v=-3\vec u$: they point in
+        opposite directions and $\vec v$ is three times as long.
+    answer: |
+      Yes, $\vec u$ and $\vec v$ are collinear, with $\vec v=-3\vec u$.
+    verify:
+      - expr: "cross((2,-3),(-6,9))"
+        equals: "0"
+      - expr: "-3*(2,-3)"
+        equals: "(-6,9)"
+
+  - id: chk-collinear-k
+    type: check
+    prompt: |
+      For which value of $k$ are $\vec u=(3,6)$ and $\vec v=(2,k)$ collinear?
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        Collinear means $u_1v_2-u_2v_1=0$.
+      - |
+        Here $3k-6\cdot2=0$.
+    explanation: |
+      $3k-12=0$ gives $k=4$. Check: $\vec u=(3,6)=\tfrac32(2,4)$, so $\vec v=(2,4)$ is proportional to $\vec u$.
+    mistakes:
+      - expr: "1"
+        hint: "Compare $u_1v_2$ with $u_2v_1$: the equation is $3k=6\\cdot2$."
+
+  - id: dependence
+    type: concept
+    title: Linear dependence
+    body: |
+      Collinearity says that *one* vector can be built from another. Linear dependence extends this to
+      any number of vectors: some vector of the family can be built from the others.
+
+      Look at the plane. Two vectors that are not collinear point in genuinely different directions;
+      each one adds something new. A third vector adds nothing: any vector of the plane can be
+      reached by combining the two. So three vectors in the plane are always dependent.
+
+      In space the same happens with four vectors. The number of independent directions is the
+      **dimension**: $2$ for the plane and $3$ for space.
+
+  - id: independence-def
+    type: definition
+    term: Linearly dependent and independent vectors
+    body: |
+      The vectors $\vec u_1,\dots,\vec u_n$ are **linearly dependent** if there are scalars
+      $\lambda_1,\dots,\lambda_n$, *not all zero*, such that
+
+      $$\lambda_1\vec u_1+\dots+\lambda_n\vec u_n=\vec 0.$$
+
+      They are **linearly independent** if the only way to get $\vec 0$ is with
+      $\lambda_1=\dots=\lambda_n=0$.
+
+      Two vectors are dependent exactly when they are collinear.
+
+  - id: ex-dependence-space
+    type: example
+    title: Three dependent vectors in space
+    problem: |
+      Show that $\vec u=(1,2,3)$, $\vec v=(2,-1,0)$ and $\vec w=(3,1,3)$ are linearly dependent.
+    steps:
+      - |
+        Look for a relation. Add the first two: $\vec u+\vec v=(1+2,\,2+(-1),\,3+0)=(3,1,3)$.
+      - |
+        This equals $\vec w$. So $\vec u+\vec v-\vec w=\vec 0$, a relation with coefficients $1,1,-1$,
+        not all zero.
+    answer: |
+      The vectors are linearly dependent: $\vec u+\vec v-\vec w=\vec 0$.
+    verify:
+      - expr: "(1,2,3)+(2,-1,0)-(3,1,3)"
+        equals: "(0,0,0)"
+
+  - id: basis-def
+    type: definition
+    term: Basis and coordinates
+    body: |
+      A **basis** of the plane is a pair of linearly independent vectors; a **basis** of space is a
+      triple of linearly independent vectors. If $(\vec e_1,\vec e_2,\vec e_3)$ is a basis, then every
+      vector can be written in exactly one way
+
+      $$\vec u=a\,\vec e_1+b\,\vec e_2+c\,\vec e_3,$$
+
+      and $(a,b,c)$ are the **coordinates** of $\vec u$ in that basis.
+
+      The **standard basis** is made of the unit vectors along the axes:
+      $\vec i=(1,0,0)$, $\vec j=(0,1,0)$, $\vec k=(0,0,1)$ (only $\vec i,\vec j$ in the plane). The components of a
+      vector are its coordinates in this basis: $\vec u=u_1\vec i+u_2\vec j+u_3\vec k$.
+
+  - id: unique-coordinates
+    type: theorem
+    name: Coordinates in a basis are unique
+    statement: |
+      If $(\vec e_1,\vec e_2)$ is a basis of the plane and
+      $a\vec e_1+b\vec e_2=a'\vec e_1+b'\vec e_2$, then $a=a'$ and $b=b'$.
+    proof: |
+      Subtract: $(a-a')\vec e_1+(b-b')\vec e_2=\vec 0$. Because $\vec e_1$ and $\vec e_2$ are linearly
+      independent, both coefficients are $0$, so $a=a'$ and $b=b'$. The same argument works in space.
+
+  - id: chk-basis-size
+    type: check
+    prompt: |
+      How many vectors does a basis of space contain?
+    answerType: multiple_choice
+    answer: "3"
+    choices:
+      - text: "$2$"
+        value: "2"
+      - text: "$3$"
+        value: "3"
+      - text: "$4$"
+        value: "4"
+      - text: "$1$"
+        value: "1"
+    correctIndex: 1
+    hints:
+      - |
+        The number of independent directions in space is the dimension.
+    explanation: |
+      Space has dimension $3$, so a basis has exactly $3$ vectors: fewer cannot reach every vector,
+      and more would be linearly dependent.
+
+  - id: ex-coordinates
+    type: example
+    title: Coordinates in a new basis
+    problem: |
+      Show that $\vec e_1=(1,1)$ and $\vec e_2=(1,-1)$ form a basis of the plane, and find the
+      coordinates of $\vec w=(5,1)$ in this basis.
+    steps:
+      - |
+        Test collinearity: $1\cdot(-1)-1\cdot1=-2\neq0$. The vectors are not collinear, so they are
+        independent and form a basis.
+      - |
+        We look for $a$ and $b$ with $a\vec e_1+b\vec e_2=\vec w$, that is $(a+b,\;a-b)=(5,1)$.
+      - |
+        Adding the equations gives $2a=6$, so $a=3$. Then $b=5-a=2$.
+      - |
+        Check: $3(1,1)+2(1,-1)=(5,1)$. ✓
+    answer: |
+      The coordinates of $\vec w$ are $(3,2)$ in the basis $(\vec e_1,\vec e_2)$.
+    verify:
+      - expr: "cross((1,1),(1,-1))"
+        equals: "-2"
+      - expr: "3*(1,1)+2*(1,-1)"
+        equals: "(5,1)"
+
+  - id: visual-basis
+    type: visual
+    kind: vector2d
+    title: Coordinates in a basis
+    caption: |
+      The same vector $\vec w$ has different coordinates in different bases. Drag the tip of $\vec w$
+      and read its coordinates in the basis $(\vec e_1,\vec e_2)$.
+    config:
+      mode: basis
+
+  - id: chk-coordinates
+    type: check
+    prompt: |
+      Let $\vec e_1=(2,1)$ and $\vec e_2=(1,3)$, which form a basis of the plane. Find the coordinates
+      $(a,b)$ of $\vec w=(7,9)$ in this basis, so that $\vec w=a\vec e_1+b\vec e_2$.
+    answerType: vector
+    answer: "(18/5, 11/5)"
+    hints:
+      - |
+        Write $(2a+b,\;a+3b)=(7,9)$.
+      - |
+        Eliminate $b$: multiply the first equation by $3$ and subtract the second: $5a=12$.
+    explanation: |
+      From $2a+b=7$ and $a+3b=9$: multiplying the first by $3$ gives $6a+3b=21$; subtracting the second
+      gives $5a=12$, so $a=\tfrac{12}{5}$ and $b=7-2a=\tfrac{11}{5}$. Check: $\tfrac{12}{5}(2,1)+\tfrac{11}{5}(1,3)=(7,9)$.
+    mistakes:
+      - expr: "(7, 9)"
+        hint: "Those are the components of $\\vec w$ in the standard basis, not its coordinates in $(\\vec e_1,\\vec e_2)$."
+
+  - id: basis-test-3d
+    type: theorem
+    name: Basis test in space
+    statement: |
+      Three vectors $\vec u,\vec v,\vec w$ of space form a basis if and only if the determinant of their components is non-zero:
+      $$\begin{vmatrix}u_1&u_2&u_3\\v_1&v_2&v_3\\w_1&w_2&w_3\end{vmatrix}\neq0.$$
+      This number is the box product $\boxp{\vec u}{\vec v}{\vec w}$, which you will meet in the next unit,
+      where it also gives the volume of a parallelepiped.
+
+  - id: ex-basis-3d
+    type: example
+    title: A basis of space
+    problem: |
+      Show that $\vec u=(1,0,1)$, $\vec v=(0,1,1)$ and $\vec w=(1,1,0)$ form a basis of space.
+    steps:
+      - |
+        Expand the determinant along the first row:
+        $1\cdot(1\cdot0-1\cdot1)-0\cdot(0\cdot0-1\cdot1)+1\cdot(0\cdot1-1\cdot1)$.
+      - |
+        This is $1\cdot(-1)-0+1\cdot(-1)=-2$.
+      - |
+        Since $-2\neq0$, the three vectors are independent and form a basis.
+    answer: |
+      The determinant is $-2\neq0$, so $(\vec u,\vec v,\vec w)$ is a basis of space.
+    verify:
+      - expr: "box((1,0,1),(0,1,1),(1,1,0))"
+        equals: "-2"
+
+  - id: chk-basis-3d
+    type: check
+    prompt: |
+      Compute the determinant of the components of $\vec u=(1,2,0)$, $\vec v=(0,1,3)$ and
+      $\vec w=(2,0,1)$. (If it is non-zero, they form a basis.)
+    answerType: number
+    answer: "13"
+    hints:
+      - |
+        Expand along the first row: $1\cdot\begin{vmatrix}1&3\\0&1\end{vmatrix}-2\cdot\begin{vmatrix}0&3\\2&1\end{vmatrix}+0$.
+      - |
+        The first small determinant is $1\cdot1-3\cdot0=1$ and the second is $0\cdot1-3\cdot2=-6$.
+    explanation: |
+      $1\cdot1-2\cdot(-6)+0=13$. Since $13\neq0$, the vectors form a basis.
+    mistakes:
+      - expr: "-11"
+        hint: "Be careful with the sign of the middle term in the expansion: it is $-u_2$ times its small determinant."
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\vec u$ and $\vec v$ in the plane are collinear if and only if $u_1v_2-u_2v_1=0$.
+      - |
+        Vectors are linearly dependent when a non-trivial combination equals $\vec 0$; two vectors are dependent exactly when they are collinear.
+      - |
+        A basis of the plane has $2$ vectors and a basis of space has $3$; every vector has unique coordinates in a basis.
+      - |
+        Three vectors of space form a basis exactly when the determinant of their components is not $0$.
