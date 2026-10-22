@@ -274,7 +274,7 @@ describe("progress formulas applied end to end", () => {
   });
 
   it("the dashboard matches the stored progress and points to the next lesson", async () => {
-    const h = await makeFixture();
+    const h = await makeFixture({ geometryModule1Only: true });
     try {
       await completeLesson(h, L1);
       const d = await getDashboard(h.h.db, h.store, h.userId);

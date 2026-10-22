@@ -16,7 +16,7 @@ describe("course outline", () => {
   it("lists every module, unit and lesson of the course of the lesson, and marks the current one", async () => {
     const o = (await getCourseOutline(f.h.db, f.store, f.userId, L))!;
     expect(o.courseId).toBe("mvc");
-    expect(o.modules.map((m) => m.id)).toEqual(["mvc-m01", "mvc-m02", "mvc-m03", "mvc-m04"]);
+    expect(o.modules.map((m) => m.id)).toEqual(["mvc-m01", "mvc-m02", "mvc-m03", "mvc-m04", "mvc-m05"]);
     const lessons = o.modules.flatMap((m) => m.units.flatMap((u) => u.lessons));
     expect(lessons.filter((l) => l.current).map((l) => l.id)).toEqual([L]);
     expect(o.modules.filter((m) => m.current).map((m) => m.id)).toEqual(["mvc-m04"]);

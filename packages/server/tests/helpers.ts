@@ -13,11 +13,19 @@ export interface Fixture {
   userId: string;
 }
 
-/** The progress formulas are tested on the first module of Geometry only, so that its numbers stay fixed as content grows. */
+/** The progress formulas are tested on the first three lessons of Geometry only, so that its numbers stay fixed as content grows. */
 export function geometryModule1Store(): ContentStore {
   const full = loadStore(contentDir);
   const geo = full.courses.find((c) => c.meta.id === "geo")!;
-  return buildStore([{ ...geo, modules: geo.modules.filter((m) => m.meta.id === "geo-m01") }]);
+  const first = geo.modules
+    .filter((m) => m.meta.id === "geo-m01")
+    .map((m) => ({
+      ...m,
+      units: m.units
+        .filter((u) => u.meta.id === "geo-m01-u01")
+        .map((u) => ({ ...u, lessons: u.lessons.filter((l) => ["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"].includes(l.meta.id)) })),
+    }));
+  return buildStore([{ ...geo, modules: first }]);
 }
 
 export async function makeFixture(options: { geometryModule1Only?: boolean } = {}): Promise<Fixture> {

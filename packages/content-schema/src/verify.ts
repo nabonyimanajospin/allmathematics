@@ -145,10 +145,12 @@ export function verifyLessonStatic(lesson: Lesson, file: string): ContentIssue[]
   if (types[0] !== "concept" && types[0] !== "definition") err("A lesson starts with a concept or definition.");
 
   for (const f of lessonTextFields(lesson)) {
+    /* eslint-disable no-control-regex -- the point of this check is to find control characters */
     // A stray control character (for example a form feed made from "\f" in a script) silently breaks a formula.
     if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(f.text) || (f.displayMath !== undefined && /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(f.displayMath))) {
       err(`${f.path}: the text contains a control character (check backslashes such as \\frac or \\text)`);
     }
+    /* eslint-enable no-control-regex */
     const sources: { latex: string; display: boolean }[] = [];
     const { segments, unbalanced } = extractMath(f.text);
     if (unbalanced) err(`${f.path}: unbalanced $ in math. Write a literal dollar sign as \\$.`);
