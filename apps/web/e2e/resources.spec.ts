@@ -9,6 +9,11 @@ test.describe("resources", () => {
     await expect(page.getByText("Advanced Engineering Mathematics")).toBeVisible();
     await expect(page.getByText("Not available for download yet.").first()).toBeVisible();
 
+    await expect(page.getByText(/PDF · \d/).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Preview" }).first()).toBeVisible();
+    const prev = await request.get("/resources/download/integral-table?inline=1");
+    expect(prev.headers()["content-disposition"]).toContain("inline");
+
     const ok = await request.get("/resources/download/integral-table");
     expect(ok.status()).toBe(200);
     expect(ok.headers()["content-type"]).toContain("application/pdf");

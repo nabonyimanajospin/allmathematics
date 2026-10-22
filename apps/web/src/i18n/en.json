@@ -75,7 +75,7 @@
     "title": "Resources",
     "lead": "Books, lecture notes and exercise sheets that go with the courses. Download them for free.",
     "empty": "No documents yet.",
-    "download": "Download",
+    "download": "Download", "preview": "Preview",
     "unavailable": "Not available for download yet.",
     "course": { "geo": "Geometry", "mvc": "Multivariable Calculus and Differential Equations", "stat": "Probability and Statistics" },
     "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" }
