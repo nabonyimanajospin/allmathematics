@@ -1,0 +1,141 @@
+id: mvc-m01-u02-l04
+title: Implicit differentiation
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - implicit-differentiation
+objectives:
+  - Find $\dfrac{dy}{dx}$ from an equation $F(x,y)=0$ without solving for $y$.
+  - Find $\pd zx$ and $\pd zy$ when $z$ is defined implicitly by $F(x,y,z)=0$.
+  - Compute a second derivative of an implicitly defined function.
+sections:
+  - id: implicit-idea
+    type: concept
+    title: A curve that is not a graph
+    body: |
+      The circle $x^2+y^2=25$ is not the graph of one function, but near the point $(3,4)$ it behaves like one: the
+      upper half, $y=\sqrt{25-x^2}$. We say that the equation **defines $y$ implicitly** as a function of $x$ near that
+      point.
+
+      We can find the slope of the curve **without solving** for $y$, which is essential when solving is impossible,
+      as in $x^3+y^3=6xy$.
+
+  - id: implicit-rule
+    type: theorem
+    name: Implicit differentiation
+    statement: |
+      If $F(x,y)=0$ defines $y$ as a differentiable function of $x$ and $F_y\neq0$, then
+
+      $$\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}.$$
+
+      If $F(x,y,z)=0$ defines $z$ as a function of $x$ and $y$, and $F_z\neq0$, then
+
+      $$\pd zx=-\dfrac{F_x}{F_z},\qquad \pd zy=-\dfrac{F_y}{F_z}.$$
+    proof: |
+      Replace $y$ by $y(x)$: the identity $F(x,y(x))=0$ holds for every $x$, so its derivative is $0$. By the chain rule,
+      $F_x+F_y\,y'=0$, and solving for $y'$ gives the formula. For $z$, differentiate $F(x,y,z(x,y))=0$ with respect to $x$
+      (keeping $y$ fixed): $F_x+F_z\,z_x=0$.
+
+  - id: ex-circle
+    type: example
+    title: The circle, twice
+    problem: |
+      For $x^2+y^2=25$, find $y'$ and $y''$ at the point $(3,4)$.
+    steps:
+      - |
+        With $F=x^2+y^2-25$: $F_x=2x$, $F_y=2y$, so $y'=-\dfrac xy$. At $(3,4)$, $y'=-\dfrac34$.
+      - |
+        Differentiate $y'=-\dfrac xy$ again, remembering that $y$ depends on $x$:
+        $y''=-\dfrac{y-x\,y'}{y^2}$.
+      - |
+        Substitute $y'=-\dfrac xy$: $y''=-\dfrac{y+\dfrac{x^2}{y}}{y^2}=-\dfrac{x^2+y^2}{y^3}=-\dfrac{25}{y^3}$.
+      - |
+        At $(3,4)$: $y''=-\dfrac{25}{64}$.
+    answer: |
+      $y'=-\dfrac34$ and $y''=-\dfrac{25}{64}$ at $(3,4)$.
+    verify:
+      - expr: "diff(sqrt(25-x^2), x)"
+        equals: "-x/sqrt(25-x^2)"
+      - expr: "diff(sqrt(25-x^2), x, 2)"
+        equals: "-25/(25-x^2)^(3/2)"
+      - expr: "-25/(25-3^2)^(3/2)"
+        equals: "-25/64"
+
+  - id: chk-implicit
+    type: check
+    prompt: |
+      The equation $x^3+y^3=6xy$ defines $y$ implicitly. Find $\dfrac{dy}{dx}$ in terms of $x$ and $y$.
+    answerType: expression
+    variables: [x, y]
+    answer: "(2*y-x^2)/(y^2-2*x)"
+    constraint:
+      equation: "x^3+y^3-6*x*y"
+      solveFor: y
+      ranges:
+        x: [0.4, 1.4]
+    hints:
+      - |
+        Take $F=x^3+y^3-6xy$ and compute $-\dfrac{F_x}{F_y}$.
+    explanation: |
+      $F_x=3x^2-6y$ and $F_y=3y^2-6x$, so $\dfrac{dy}{dx}=-\dfrac{3x^2-6y}{3y^2-6x}=\dfrac{2y-x^2}{y^2-2x}$.
+
+  - id: second-implicit
+    type: concept
+    title: A second derivative
+    body: |
+      To find $y''$, differentiate the formula for $y'$ with respect to $x$, remembering that $y$ is a function of $x$ and
+      that its derivative is $y'$. Then replace $y'$ by its formula. The result is an expression in $x$ and $y$.
+
+      Such an expression is not unique: on the curve, $x$ and $y$ are linked by $F(x,y)=0$, so two formulas may look
+      different but give the same value at every point of the curve. In the circle example, $y''=-\dfrac{x^2+y^2}{y^3}$
+      and $y''=-\dfrac{25}{y^3}$ are the same on $x^2+y^2=25$.
+
+  - id: ex-surface
+    type: example
+    title: A surface defined implicitly
+    problem: |
+      The equation $x^2+y^2+z^2=9$ defines $z$ near $(1,2,2)$. Find $\pd zx$ and $\pd zy$ at that point.
+    steps:
+      - |
+        With $F=x^2+y^2+z^2-9$: $F_x=2x$, $F_y=2y$, $F_z=2z$.
+      - |
+        So $\pd zx=-\dfrac xz$ and $\pd zy=-\dfrac yz$.
+      - |
+        At $(1,2,2)$: $\pd zx=-\dfrac12$ and $\pd zy=-1$.
+    answer: |
+      $\pd zx=-\dfrac12$ and $\pd zy=-1$ at $(1,2,2)$.
+    verify:
+      - expr: "diff(sqrt(9-x^2-y^2), x)"
+        equals: "-x/sqrt(9-x^2-y^2)"
+      - expr: "-1/sqrt(9-1^2-2^2)"
+        equals: "-1/2"
+
+  - id: chk-surface
+    type: check
+    prompt: |
+      The equation $xz+yz^2=1$ defines $z$ as a function of $x$ and $y$. Enter $\left(\pd zx,\ \pd zy\right)$ in terms of $x$, $y$, $z$.
+    answerType: vector
+    variables: [x, y, z]
+    answer: "(-z/(x+2*y*z), -z^2/(x+2*y*z))"
+    constraint:
+      equation: "x*z+y*z^2-1"
+      solveFor: z
+      ranges:
+        x: [0.5, 2.0]
+        y: [0.5, 2.0]
+    hints:
+      - |
+        $F=xz+yz^2-1$, so $F_z=x+2yz$.
+    explanation: |
+      $F_x=z$, $F_y=z^2$, $F_z=x+2yz$. Hence $\pd zx=-\dfrac{z}{x+2yz}$ and $\pd zy=-\dfrac{z^2}{x+2yz}$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        If $F(x,y)=0$, then $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$ (when $F_y\neq0$).
+      - |
+        If $F(x,y,z)=0$, then $\pd zx=-\dfrac{F_x}{F_z}$ and $\pd zy=-\dfrac{F_y}{F_z}$ (when $F_z\neq0$).
+      - |
+        For $y''$, differentiate $y'$ again, remembering that $y$ depends on $x$, then substitute $y'$. Answers may differ in form but agree on the curve.
