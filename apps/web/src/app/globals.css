@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@import "../../../../packages/ui/src/tokens.css";
+@source "../../../../packages/ui/src";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---- rendered lesson text (Markdown + KaTeX produced on the server) ---- */
+.rich {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.rich > * + * {
+  margin-top: 0.85em;
+}
+.rich p {
+  max-width: var(--measure);
+}
+.rich ul,
+.rich ol {
+  padding-left: 1.4rem;
+}
+.rich ul {
+  list-style: disc;
+}
+.rich ol {
+  list-style: decimal;
+}
+.rich li + li {
+  margin-top: 0.35em;
+}
+.rich strong {
+  font-weight: 700;
+}
+.rich .katex {
+  font-size: 1.12em;
+}
+.math-scroll {
+  display: block;
+  max-width: 100%;
+  margin: 1em 0;
+  padding: 0.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.math-scroll .katex-display {
+  margin: 0;
+}
+.rich a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.rich table {
+  border-collapse: collapse;
+}
+.rich th,
+.rich td {
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.6rem;
+}
+
+.fade-up {
+  animation: am-fade-up var(--dur) var(--ease) both;
+}
+.shake {
+  animation: am-shake 0.4s var(--ease);
+}
+.pop {
+  animation: am-pop 0.35s var(--ease) both;
+}
+
+.vecsym {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+  padding-top: 0.05em;
+}
+.vecsym::before {
+  content: "→";
+  position: absolute;
+  left: 50%;
+  top: -0.62em;
+  transform: translateX(-50%) scale(0.7);
+  font-style: normal;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+summary {
+  cursor: pointer;
+}
