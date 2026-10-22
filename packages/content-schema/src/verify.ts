@@ -8,7 +8,8 @@
 import katex from "katex";
 import { extractMath, getMacros, lintAnswerExpression, lintMath, type LintIssue } from "@allmaths/notation";
 import type { ContentIssue } from "./loader";
-import type { Lesson, Section } from "./schema";
+import { toEngineRequest, type EngineRequestBody } from "./client";
+import type { CheckSpec, Exercise, Lesson, Section } from "./schema";
 
 export interface TextField {
   path: string;
@@ -67,12 +68,37 @@ export function sectionTextFields(s: Section, index: number): TextField[] {
   }
 }
 
+export function exerciseTextFields(lesson: Lesson): TextField[] {
+  const out: TextField[] = [];
+  lesson.exerciseSets.forEach((set, si) => {
+    const base = `exerciseSets[${si}](${set.id})`;
+    out.push({ path: `${base}.task`, text: set.task, allowDecimal: false, lintIgnore: [] });
+    if (set.format) out.push({ path: `${base}.format`, text: set.format, allowDecimal: false, lintIgnore: [] });
+    set.items.forEach((item, ii) => {
+      const p = (k: string) => `${base}.items[${ii}](${item.id}).${k}`;
+      const f = (k: string, text: string): TextField => ({
+        path: p(k),
+        text,
+        allowDecimal: item.allowDecimal ?? false,
+        lintIgnore: item.lintIgnore ?? [],
+      });
+      out.push(f("statement", item.statement), f("solution", item.solution));
+      if (item.note) out.push(f("note", item.note));
+      item.hints.forEach((h, i) => out.push(f(`hints[${i}]`, h)));
+      (item.choices ?? []).forEach((c, i) => out.push(f(`choices[${i}]`, c.text)));
+      (item.mistakes ?? []).forEach((m, i) => out.push(f(`mistakes[${i}].hint`, m.hint)));
+    });
+  });
+  return out;
+}
+
 export function lessonTextFields(lesson: Lesson): TextField[] {
   const out: TextField[] = [
     { path: "title", text: lesson.title, allowDecimal: false, lintIgnore: [] },
     ...lesson.objectives.map((o, i) => ({ path: `objectives[${i}]`, text: o, allowDecimal: false, lintIgnore: [] })),
   ];
   lesson.sections.forEach((s, i) => out.push(...sectionTextFields(s, i)));
+  out.push(...exerciseTextFields(lesson));
   return out;
 }
 
@@ -136,6 +162,19 @@ export function verifyLessonStatic(lesson: Lesson, file: string): ContentIssue[]
     }
   }
 
+  for (const set of lesson.exerciseSets) {
+    for (const item of set.items) {
+      const where = `exercise ${item.id}`;
+      if (item.answerType !== "multiple_choice" && !item.allowDecimal) {
+        for (const li of lintAnswerExpression(item.answer)) {
+          if (item.lintIgnore?.includes(li.rule)) continue;
+          err(`${where}.answer: [${li.rule}] ${li.message} (“${li.excerpt}”)`);
+        }
+      }
+      if (item.hints.length === 0) warn(`${where}: an exercise should have at least one hint.`);
+    }
+  }
+
   lesson.sections.forEach((s, i) => {
     if (s.type === "concept") {
       const words = wordCount(s.body);
@@ -162,13 +201,50 @@ export function verifyLessonStatic(lesson: Lesson, file: string): ContentIssue[]
 // ---------------------------------------------------------------------------------------------------
 export interface EngineClient {
   verify(a: string, b: string): Promise<{ equal: boolean; code?: string | null; message?: string | null }>;
-  check(req: {
-    answer_type: string;
-    student: string;
-    correct: string;
-    input_format?: "text" | "latex" | "auto";
-    variables?: string[];
-  }): Promise<{ status: "correct" | "incorrect" | "invalid"; code: string; message: string }>;
+  check(req: EngineRequestBody): Promise<{ status: "correct" | "incorrect" | "invalid"; code: string; message: string }>;
+}
+
+/** Verify one question (a check or an exercise): the key checks itself, mistakes are wrong, choices are unique. */
+async function verifyQuestion(
+  where: string,
+  q: CheckSpec & { allowDecimal?: boolean | undefined },
+  engine: EngineClient,
+  err: (message: string) => void,
+): Promise<void> {
+  if (q.answerType === "multiple_choice") {
+    const choices = q.choices ?? [];
+    for (const [j, c] of choices.entries()) {
+      const r = await engine.verify(c.value, q.answer);
+      if (r.code) {
+        err(`${where}.choices[${j}]: the engine could not evaluate “${c.value}” (${r.code})`);
+        continue;
+      }
+      if (r.equal !== (j === q.correctIndex)) {
+        err(
+          r.equal
+            ? `${where}.choices[${j}]: this option equals the answer but is not the marked correct option`
+            : `${where}.choices[${j}]: the marked correct option does not equal the answer`,
+        );
+      }
+    }
+    for (let a = 0; a < choices.length; a++) {
+      for (let b = a + 1; b < choices.length; b++) {
+        const ca = choices[a];
+        const cb = choices[b];
+        if (!ca || !cb) continue;
+        const r = await engine.verify(ca.value, cb.value);
+        if (!r.code && r.equal) err(`${where}: options ${a} and ${b} are equal; distractors must all differ`);
+      }
+    }
+    return;
+  }
+  const self = await engine.check(toEngineRequest(q, q.answer, "text"));
+  if (self.status !== "correct") err(`${where}.answer: the key does not check itself (${self.code}: ${self.message})`);
+  for (const [j, m] of (q.mistakes ?? []).entries()) {
+    const r = await engine.check(toEngineRequest({ ...q, mistakes: undefined }, m.expr, "text"));
+    if (r.status === "invalid") err(`${where}.mistakes[${j}]: expression is not valid (${r.code}: ${r.message})`);
+    else if (r.status === "correct") err(`${where}.mistakes[${j}]: this “mistake” equals the correct answer`);
+  }
 }
 
 export async function verifyLessonWithEngine(lesson: Lesson, file: string, engine: EngineClient): Promise<ContentIssue[]> {
@@ -184,44 +260,10 @@ export async function verifyLessonWithEngine(lesson: Lesson, file: string, engin
         else if (!r.equal) err(`${where}.verify[${j}]: ${v.expr} is NOT equal to ${v.equals}`);
       }
     }
-    if (s.type !== "check") continue;
-
-    if (s.answerType === "multiple_choice") {
-      const choices = s.choices ?? [];
-      for (const [j, c] of choices.entries()) {
-        const r = await engine.verify(c.value, s.answer);
-        if (r.code) {
-          err(`${where}.choices[${j}]: the engine could not evaluate “${c.value}” (${r.code})`);
-          continue;
-        }
-        if (r.equal !== (j === s.correctIndex)) {
-          err(
-            r.equal
-              ? `${where}.choices[${j}]: this option equals the answer but is not the marked correct option`
-              : `${where}.choices[${j}]: the marked correct option does not equal the answer`,
-          );
-        }
-      }
-      for (let a = 0; a < choices.length; a++) {
-        for (let b = a + 1; b < choices.length; b++) {
-          const ca = choices[a];
-          const cb = choices[b];
-          if (!ca || !cb) continue;
-          const r = await engine.verify(ca.value, cb.value);
-          if (!r.code && r.equal) err(`${where}: options ${a} and ${b} are equal; distractors must all differ`);
-        }
-      }
-      continue;
-    }
-
-    const base = { answer_type: s.answerType, correct: s.answer, input_format: "text" as const, ...(s.variables ? { variables: s.variables } : {}) };
-    const self = await engine.check({ ...base, student: s.answer });
-    if (self.status !== "correct") err(`${where}.answer: the key does not check itself (${self.code}: ${self.message})`);
-    for (const [j, m] of (s.mistakes ?? []).entries()) {
-      const r = await engine.check({ ...base, student: m.expr });
-      if (r.status === "invalid") err(`${where}.mistakes[${j}]: expression is not valid (${r.code})`);
-      else if (r.status === "correct") err(`${where}.mistakes[${j}]: this “mistake” equals the correct answer`);
-    }
+    if (s.type === "check") await verifyQuestion(where, s, engine, err);
+  }
+  for (const set of lesson.exerciseSets) {
+    for (const item of set.items) await verifyQuestion(`exercise ${item.id}`, item as Exercise, engine, err);
   }
   return issues;
 }

@@ -29,7 +29,19 @@ const blockBase = {
   allowDecimal: z.boolean().optional(),
 };
 
-export const ANSWER_TYPES = ["number", "expression", "vector", "point", "multiple_choice"] as const;
+export const ANSWER_TYPES = [
+  "number",
+  "expression",
+  "vector",
+  "point",
+  "multiple_choice",
+  "region",
+  "equation",
+  "direction",
+  "points",
+  "ode_solution",
+  "ode_family",
+] as const;
 export type AnswerType = (typeof ANSWER_TYPES)[number];
 
 export const mistakeSchema = z.strictObject({
@@ -103,20 +115,55 @@ const choiceSchema = z.strictObject({
   value: z.string().min(1).max(200),
 });
 
+/** Settings for the answer types that need more than a key (spec section 7.2). */
+const rangesSchema = z.record(z.string(), z.tuple([z.number(), z.number()]));
+
+const constraintSchema = z.strictObject({
+  /** The curve or surface F = 0 on which implicit derivatives are compared. */
+  equation: z.string().min(1).max(200),
+  solveFor: z.string().regex(/^[A-Za-z]$/),
+  ranges: rangesSchema.optional(),
+});
+
+const conditionSchema = z.strictObject({
+  at: z.string().min(1).max(40),
+  value: z.string().min(1).max(40),
+  derivative: z.number().int().min(0).max(2).optional(),
+});
+
+const odeSchema = z.strictObject({
+  order: z.number().int().min(1).max(3),
+  /** For `ode_solution`: the equation F(x, y, y1, y2) = 0 that the answer must satisfy (y1 is y', y2 is y''). */
+  equation: z.string().min(1).max(300).optional(),
+  /** For `ode_family`: the general solution, y = f(x, c...) or F(x, y, c) = 0. */
+  family: z.string().min(1).max(300).optional(),
+  constants: z.array(z.string().regex(/^[A-Za-z][0-9]?$/)).max(4).optional(),
+  conditions: z.array(conditionSchema).max(3).optional(),
+  /** Interval of x where the answer is tested numerically. */
+  sample: z.tuple([z.number(), z.number()]).optional(),
+});
+
+const answerSpec = {
+  answerType: z.enum(ANSWER_TYPES),
+  /** The key in the engine language. For ODE and region types it is a model answer that checks itself. Never sent to the browser. */
+  answer: z.string().min(1).max(300),
+  variables: z.array(z.string().regex(/^[A-Za-z](?:_[A-Za-z0-9]+|[0-9])?$/)).max(8).optional(),
+  /** Coordinate variables of a region or an equation, e.g. ["x", "y", "z"]. */
+  coordinates: z.array(z.string().regex(/^[A-Za-z]$/)).min(1).max(4).optional(),
+  constraint: constraintSchema.optional(),
+  ode: odeSchema.optional(),
+  choices: z.array(choiceSchema).min(3).max(6).optional(),
+  correctIndex: z.number().int().min(0).max(5).optional(),
+  hints: z.array(text).max(3).default([]),
+  mistakes: z.array(mistakeSchema).max(6).optional(),
+};
+
 const check = z.strictObject({
   ...blockBase,
   type: z.literal("check"),
   prompt: text,
-  answerType: z.enum(ANSWER_TYPES),
-  /** The key in the engine language. Never sent to the browser. */
-  answer: z.string().min(1).max(300),
-  /** Symbols allowed in the student's answer besides those in the key. */
-  variables: z.array(z.string().regex(/^[A-Za-z](?:_[A-Za-z0-9]+)?$/)).max(6).optional(),
-  choices: z.array(choiceSchema).min(3).max(6).optional(),
-  correctIndex: z.number().int().min(0).max(5).optional(),
-  hints: z.array(text).max(3).default([]),
+  ...answerSpec,
   explanation: text,
-  mistakes: z.array(mistakeSchema).max(6).optional(),
 });
 
 const practice = z.strictObject({
@@ -147,6 +194,61 @@ export type SectionType = Section["type"];
 export type CheckSection = Extract<Section, { type: "check" }>;
 export type ExampleSection = Extract<Section, { type: "example" }>;
 
+
+/** Rules that tie the answer type to the fields it needs. Returns a message, or null when the spec is consistent. */
+function answerSpecProblem(s: {
+  answerType: (typeof ANSWER_TYPES)[number];
+  choices?: unknown[] | undefined;
+  correctIndex?: number | undefined;
+  ode?: z.infer<typeof odeSchema> | undefined;
+}): string | null {
+  if (s.answerType === "multiple_choice") {
+    if (!s.choices || s.correctIndex === undefined) return "A multiple-choice question needs `choices` and `correctIndex`";
+    if (s.correctIndex >= s.choices.length) return "correctIndex is out of range";
+  } else if (s.choices || s.correctIndex !== undefined) {
+    return "`choices` and `correctIndex` are only for multiple-choice questions";
+  }
+  if (s.answerType === "ode_solution" && !s.ode?.equation) return "An ode_solution question needs `ode.equation`";
+  if (s.answerType === "ode_family") {
+    if (!s.ode?.family) return "An ode_family question needs `ode.family`";
+    if ((s.ode.constants?.length ?? 0) !== s.ode.order) return "`ode.constants` must list exactly `ode.order` constants";
+  }
+  if (s.answerType !== "ode_solution" && s.answerType !== "ode_family" && s.ode) return "`ode` is only for differential-equation questions";
+  return null;
+}
+
+export type CheckSpec = Pick<
+  z.infer<typeof check>,
+  "answerType" | "answer" | "variables" | "coordinates" | "constraint" | "ode" | "choices" | "correctIndex" | "hints" | "mistakes"
+>;
+
+/** One exercise: a statement to work on, a key, hints and a worked solution shown after an attempt. */
+export const exerciseSchema = z.strictObject({
+  id: slug,
+  /** The function, equation or region to work on (Markdown with math). The set's `task` says what to do. */
+  statement: text,
+  ...answerSpec,
+  /** Worked solution (Markdown with math). Required: every exercise is explained. */
+  solution: text,
+  /** A remark for the student, e.g. a correction to the printed exercise. */
+  note: text.optional(),
+  allowDecimal: z.boolean().optional(),
+  lintIgnore: z.array(z.string()).max(5).optional(),
+});
+export type Exercise = z.infer<typeof exerciseSchema>;
+
+export const exerciseSetSchema = z.strictObject({
+  id: slug,
+  /** Instruction shared by the items, e.g. "Find the domain of definition of each function." */
+  task: text,
+  /** How to type the answer, e.g. "Write the conditions, like x^2 + y^2 <= 4". */
+  format: text.optional(),
+  /** Where the exercises come from (kept for the permission record, spec section 12.2). */
+  source: shortText.optional(),
+  items: z.array(exerciseSchema).min(1).max(20),
+});
+export type ExerciseSet = z.infer<typeof exerciseSetSchema>;
+
 export const lessonIdPattern = /^[a-z]{3,5}-m\d{2}-u\d{2}-l\d{2}$/;
 export const unitIdPattern = /^[a-z]{3,5}-m\d{2}-u\d{2}$/;
 export const moduleIdPattern = /^[a-z]{3,5}-m\d{2}$/;
@@ -163,6 +265,7 @@ export const lessonSchema = z
     skills: z.array(slug).min(1).max(6),
     objectives: z.array(shortText).min(1).max(6),
     sections: z.array(sectionSchema).min(3).max(40),
+    exerciseSets: z.array(exerciseSetSchema).max(8).default([]),
   })
   .superRefine((lesson, ctx) => {
     const seen = new Set<string>();
@@ -172,24 +275,22 @@ export const lessonSchema = z
       }
       seen.add(s.id);
     });
-    lesson.sections.forEach((s, i) => {
-      if (s.type !== "check") return;
-      if (s.answerType === "multiple_choice") {
-        if (!s.choices || s.correctIndex === undefined) {
-          ctx.addIssue({
-            code: "custom",
-            path: ["sections", i],
-            message: "A multiple-choice check needs `choices` and `correctIndex`",
-          });
-        } else if (s.correctIndex >= s.choices.length) {
-          ctx.addIssue({ code: "custom", path: ["sections", i, "correctIndex"], message: "correctIndex is out of range" });
+    const exerciseIds = new Set<string>();
+    lesson.exerciseSets.forEach((set, si) => {
+      set.items.forEach((item, ii) => {
+        const path = ["exerciseSets", si, "items", ii];
+        if (exerciseIds.has(item.id) || seen.has(item.id)) {
+          ctx.addIssue({ code: "custom", path: [...path, "id"], message: `Duplicate id “${item.id}”` });
         }
-      } else if (s.choices || s.correctIndex !== undefined) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["sections", i],
-          message: "`choices` and `correctIndex` are only for multiple-choice checks",
-        });
+        exerciseIds.add(item.id);
+        const problem = answerSpecProblem(item);
+        if (problem) ctx.addIssue({ code: "custom", path, message: problem });
+      });
+    });
+    lesson.sections.forEach((s, i) => {
+      if (s.type === "check") {
+        const problem = answerSpecProblem(s);
+        if (problem) ctx.addIssue({ code: "custom", path: ["sections", i], message: problem });
       }
     });
   });
