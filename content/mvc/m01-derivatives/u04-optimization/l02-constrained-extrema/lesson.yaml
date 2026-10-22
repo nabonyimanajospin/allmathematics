@@ -1,0 +1,129 @@
+id: mvc-m01-u04-l02
+title: Extrema under a constraint
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - lagrange-multipliers
+  - constrained-extrema
+objectives:
+  - Recognize an optimization problem with a constraint.
+  - Solve it by substitution when the constraint can be solved for one variable.
+  - Solve it with Lagrange multipliers and compare the candidate points.
+sections:
+  - id: constraint-problem
+    type: concept
+    title: Optimizing along a curve
+    body: |
+      Often we do not look for the highest value of $f$ everywhere, but only **on a curve**. For example: which point of
+      a circular fence is closest to a well? Which rectangle of fixed perimeter has the largest area?
+
+      The curve is given by an equation $g(x,y)=0$, the **constraint**. We look for the largest and smallest values that
+      $f(x,y)$ takes at points that satisfy $g(x,y)=0$.
+
+      Two methods are used. If the constraint can be solved for one variable, **substitute** it into $f$ and get a
+      one-variable problem. Otherwise, use **Lagrange multipliers**.
+
+  - id: ex-substitution
+    type: example
+    title: Substitution
+    problem: |
+      Find the maximum of $f(x,y)=xy$ on the line $x+y=1$.
+    steps:
+      - |
+        From the constraint, $y=1-x$. Then $f=x(1-x)=x-x^2$, a function of one variable.
+      - |
+        $\dfrac{df}{dx}=1-2x=0$ gives $x=\dfrac12$, and then $y=\dfrac12$. Since $\dfrac{d^2f}{dx^2}=-2<0$, this is a maximum.
+      - |
+        The maximum value is $f\left(\dfrac12,\dfrac12\right)=\dfrac14$. (There is no minimum: $f=x-x^2\to-\infty$ when $x\to\infty$.)
+    answer: |
+      The maximum is $\dfrac14$, at $\left(\dfrac12,\dfrac12\right)$.
+    verify:
+      - expr: "1/2*(1-1/2)"
+        equals: "1/4"
+      - expr: "diff(x-x^2, x, 2)"
+        equals: "-2"
+
+  - id: lagrange
+    type: theorem
+    name: Lagrange multipliers
+    statement: |
+      Let $f$ and $g$ have continuous partial derivatives. If $f$ restricted to the curve $g(x,y)=0$ has a local extremum at $P$,
+      and $(g_x,g_y)\neq(0,0)$ at $P$, then there is a number $\lambda$ with
+
+      $$f_x(P)=\lambda\,g_x(P),\qquad f_y(P)=\lambda\,g_y(P).$$
+
+      For three variables, add $f_z=\lambda\,g_z$.
+    proof: |
+      Geometric idea. At a constrained extremum the level curve of $f$ through $P$ is tangent to the constraint curve (if it crossed it,
+      $f$ would increase on one side). Two curves that are tangent have parallel normal vectors, and the normal vectors are
+      $(f_x,f_y)$ and $(g_x,g_y)$. Parallel means that one is a multiple of the other.
+
+  - id: method
+    type: concept
+    title: The method in three steps
+    body: |
+      1. Write the **system**: $f_x=\lambda g_x$, $f_y=\lambda g_y$, $g=0$. These are three equations in $x$, $y$, $\lambda$.
+      2. **Solve** it. Often you can eliminate $\lambda$ by dividing the first two equations, or by solving each for $\lambda$.
+      3. **Compare** the values of $f$ at all the solutions. When the curve is closed and bounded, such as a circle, the largest
+         value is the maximum and the smallest value is the minimum.
+
+      The number $\lambda$ itself is only a tool; it is not part of the answer.
+
+  - id: ex-lagrange
+    type: example
+    title: Lagrange multipliers on a circle
+    problem: |
+      Find the extreme values of $f(x,y)=x+2y$ on the circle $x^2+y^2=5$.
+    steps:
+      - |
+        Take $g=x^2+y^2-5$. The system is $1=\lambda\cdot2x$, $2=\lambda\cdot2y$, $x^2+y^2=5$.
+      - |
+        The first two equations give $x=\dfrac{1}{2\lambda}$ and $y=\dfrac1\lambda$, so $y=2x$.
+      - |
+        Substitute in the constraint: $x^2+4x^2=5$, so $x=\pm1$. The candidate points are $(1,2)$ and $(-1,-2)$.
+      - |
+        $f(1,2)=5$ and $f(-1,-2)=-5$. The circle is closed and bounded, so the maximum is $5$ and the minimum is $-5$.
+    answer: |
+      Maximum $5$ at $(1,2)$; minimum $-5$ at $(-1,-2)$.
+    verify:
+      - expr: "1+2*2"
+        equals: "5"
+      - expr: "1^2+2^2"
+        equals: "5"
+
+  - id: chk-lagrange
+    type: check
+    prompt: |
+      Find the maximum value of $f(x,y)=xy$ on the circle $x^2+y^2=2$.
+    answerType: number
+    answer: "1"
+    hints:
+      - |
+        The system is $y=2\lambda x$, $x=2\lambda y$. Multiply the two equations to compare $x^2$ and $y^2$.
+    explanation: |
+      From $y=2\lambda x$ and $x=2\lambda y$ we get $x^2=y^2$, so $y=\pm x$. With $x^2+y^2=2$ we get $x^2=1$. For $y=x$ the points
+      $(1,1)$ and $(-1,-1)$ give $f=1$; for $y=-x$ the points $(1,-1)$ and $(-1,1)$ give $f=-1$. The maximum is $1$.
+
+  - id: chk-minimum
+    type: check
+    prompt: |
+      Find the minimum value of $f(x,y)=x^2+y^2$ on the line $x+y=2$.
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        Substitute $y=2-x$ and minimize the resulting function of $x$.
+    explanation: |
+      With $y=2-x$: $f=x^2+(2-x)^2=2x^2-4x+4$, whose derivative $4x-4$ vanishes at $x=1$. Then $y=1$ and $f=2$. It is a minimum
+      because the parabola opens upward. (The point of the line closest to the origin is $(1,1)$, at distance $\sqrt2$.)
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        To optimize $f$ on a constraint $g=0$, either substitute (if you can solve $g=0$ for one variable) or solve $f_x=\lambda g_x$, $f_y=\lambda g_y$, $g=0$.
+      - |
+        Compare $f$ at every candidate point. On a closed, bounded curve the largest value is the maximum and the smallest is the minimum.
+      - |
+        On an unbounded curve, such as a line, an extremum may not exist: $f=xy$ on $x+y=1$ has a maximum but no minimum.
