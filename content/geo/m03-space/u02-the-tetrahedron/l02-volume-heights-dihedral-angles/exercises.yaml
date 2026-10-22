@@ -6,7 +6,7 @@
   items:
     - id: tv-v1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the volume.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the volume. The unit is cu: give the number only.
       answerType: expression
       answer: "10"
       hints:
@@ -16,7 +16,7 @@
         The box product of $\overrightarrow{AB}$, $\overrightarrow{AC}$, $\overrightarrow{AD}$ is $60$, so $V=\dfrac{|60|}{6}=10$.
     - id: tv-h1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the height from $D$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the height from $D$. The unit is lu: give the number only.
       answerType: expression
       answer: "5"
       hints:
@@ -46,7 +46,7 @@
         The normals are the cross products of $\overrightarrow{AB}$ with $\overrightarrow{AC}$ and $\overrightarrow{AD}$; $\cos\varphi=\frac{\sqrt{26}}{26}$.
     - id: tv-v2
       statement: |-
-        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the volume.
+        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the volume. The unit is cu: give the number only.
       answerType: expression
       answer: "3"
       hints:
@@ -56,7 +56,7 @@
         The box product of $\overrightarrow{AB}$, $\overrightarrow{AC}$, $\overrightarrow{AD}$ is $-18$, so $V=\dfrac{|-18|}{6}=3$.
     - id: tv-h2
       statement: |-
-        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the height from $D$.
+        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the height from $D$. The unit is lu: give the number only.
       answerType: expression
       answer: "6*sqrt(59)/59"
       hints:
@@ -86,7 +86,7 @@
         The normals are the cross products of $\overrightarrow{AB}$ with $\overrightarrow{AC}$ and $\overrightarrow{AD}$; $\cos\varphi=- \frac{4 \sqrt{118}}{59}$.
     - id: tv-v3
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the volume.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the volume. The unit is cu: give the number only.
       answerType: expression
       answer: "8"
       hints:
@@ -96,7 +96,7 @@
         The box product of $\overrightarrow{AB}$, $\overrightarrow{AC}$, $\overrightarrow{AD}$ is $48$, so $V=\dfrac{|48|}{6}=8$.
     - id: tv-h3
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the height from $D$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the height from $D$. The unit is lu: give the number only.
       answerType: expression
       answer: "6"
       hints:
@@ -125,7 +125,8 @@
       solution: |-
         The normals are the cross products of $\overrightarrow{AB}$ with $\overrightarrow{AC}$ and $\overrightarrow{AD}$; $\cos\varphi=0$.
     - id: tv-x1
-      statement: "A tetrahedron has volume $V=15$ and the face $ABC$ has area $9$. Find the height from $D$."
+      statement: |-
+        A tetrahedron has volume $V=15$ and the face $ABC$ has area $9$. Find the height from $D$. The unit is cu: give the number only.
       answerType: number
       answer: "5"
       hints:

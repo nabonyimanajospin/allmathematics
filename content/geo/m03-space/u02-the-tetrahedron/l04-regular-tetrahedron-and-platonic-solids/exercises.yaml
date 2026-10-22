@@ -5,7 +5,8 @@
   format: "Type a point as `(x, y, z)`, an equation with `=`, or an exact value."
   items:
     - id: rg-v1
-      statement: "The volume of the regular tetrahedron of edge $a=2$."
+      statement: |-
+        The volume of the regular tetrahedron of edge $a=2$. The unit is cu: give the number only.
       answerType: expression
       answer: "2*sqrt(2)/3"
       hints:
@@ -14,7 +15,8 @@
       solution: |-
         $V=\dfrac{\sqrt2}{12}a^3=\frac{2 \sqrt{2}}{3}$.
     - id: rg-v2
-      statement: "The volume of the regular tetrahedron of edge $a=6$."
+      statement: |-
+        The volume of the regular tetrahedron of edge $a=6$. The unit is cu: give the number only.
       answerType: expression
       answer: "18*sqrt(2)"
       hints:
@@ -23,7 +25,8 @@
       solution: |-
         $V=\dfrac{\sqrt2}{12}a^3=18 \sqrt{2}$.
     - id: rg-v3
-      statement: "The volume of the regular tetrahedron of edge $a=3$."
+      statement: |-
+        The volume of the regular tetrahedron of edge $a=3$. The unit is cu: give the number only.
       answerType: expression
       answer: "9*sqrt(2)/4"
       hints:
@@ -32,7 +35,8 @@
       solution: |-
         $V=\dfrac{\sqrt2}{12}a^3=\frac{9 \sqrt{2}}{4}$.
     - id: rg-v4
-      statement: "The volume of the regular tetrahedron of edge $a=12$."
+      statement: |-
+        The volume of the regular tetrahedron of edge $a=12$. The unit is cu: give the number only.
       answerType: expression
       answer: "144*sqrt(2)"
       hints:
@@ -41,7 +45,8 @@
       solution: |-
         $V=\dfrac{\sqrt2}{12}a^3=144 \sqrt{2}$.
     - id: rg-h1
-      statement: "The height of the regular tetrahedron of edge $a=6$."
+      statement: |-
+        The height of the regular tetrahedron of edge $a=6$. The unit is lu: give the number only.
       answerType: expression
       answer: "2*sqrt(6)"
       hints:
@@ -50,7 +55,8 @@
       solution: |-
         $h=\dfrac{\sqrt6}{3}a=2 \sqrt{6}$.
     - id: rg-r1
-      statement: "The circumradius of the regular tetrahedron of edge $a=6$."
+      statement: |-
+        The circumradius of the regular tetrahedron of edge $a=6$. The unit is lu: give the number only.
       answerType: expression
       answer: "3*sqrt(6)/2"
       hints:
@@ -59,7 +65,8 @@
       solution: |-
         $R=\dfrac{\sqrt6}{4}a=\frac{3 \sqrt{6}}{2}$.
     - id: rg-h2
-      statement: "The height of the regular tetrahedron of edge $a=4$."
+      statement: |-
+        The height of the regular tetrahedron of edge $a=4$. The unit is lu: give the number only.
       answerType: expression
       answer: "4*sqrt(6)/3"
       hints:
@@ -68,7 +75,8 @@
       solution: |-
         $h=\dfrac{\sqrt6}{3}a=\frac{4 \sqrt{6}}{3}$.
     - id: rg-r2
-      statement: "The circumradius of the regular tetrahedron of edge $a=4$."
+      statement: |-
+        The circumradius of the regular tetrahedron of edge $a=4$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(6)"
       hints:
@@ -77,7 +85,8 @@
       solution: |-
         $R=\dfrac{\sqrt6}{4}a=\sqrt{6}$.
     - id: rg-s1
-      statement: "The total surface area of the regular tetrahedron of edge $a=5$."
+      statement: |-
+        The total surface area of the regular tetrahedron of edge $a=5$. The unit is squ: give the number only.
       answerType: expression
       answer: "25*sqrt(3)"
       hints:

@@ -24,7 +24,7 @@ sections:
     type: theorem
     name: Distance and direction cosines
     statement: |
-      $$AB=\norm{\overrightarrow{AB}}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.$$
+      $$\norm{\overrightarrow{AB}}=\norm{\overrightarrow{AB}}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.$$
 
       The **direction cosines** of $\overrightarrow{AB}=(u_1,u_2,u_3)$ are the cosines of the angles $\alpha,\beta,\gamma$ that it makes with the axes:
 
@@ -42,11 +42,11 @@ sections:
       - |
         $\overrightarrow{AB}=(3,4,12)$.
       - |
-        $AB=\sqrt{9+16+144}=\sqrt{169}=13$.
+        $\norm{\overrightarrow{AB}}=\sqrt{9+16+144}=\sqrt{169}=13$.
       - |
         The direction cosines are $\dfrac3{13}$, $\dfrac4{13}$, $\dfrac{12}{13}$; indeed $\dfrac{9+16+144}{169}=1$.
     answer: |
-      $AB=13$, with direction cosines $\dfrac3{13},\dfrac4{13},\dfrac{12}{13}$.
+      $\norm{\overrightarrow{AB}}=13$, with direction cosines $\dfrac3{13},\dfrac4{13},\dfrac{12}{13}$.
     verify:
       - expr: "sqrt(3^2+4^2+12^2)"
         equals: "13"
@@ -63,7 +63,7 @@ sections:
       - |
         $\overrightarrow{AB}=(4,-4,2)$.
     explanation: |
-      $AB=\sqrt{16+16+4}=\sqrt{36}=6$.
+      $\norm{\overrightarrow{AB}}=\sqrt{16+16+4}=\sqrt{36}=6$.
 
   - id: section-theorem
     type: theorem
@@ -129,6 +129,6 @@ sections:
     type: summary
     points:
       - |
-        $AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$, and the direction cosines satisfy $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$.
+        $\norm{\overrightarrow{AB}}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$, and the direction cosines satisfy $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$.
       - |
         $P=\dfrac{A+kB}{1+k}$ with $\overrightarrow{AP}=k\overrightarrow{PB}$; the midpoint has $k=1$.

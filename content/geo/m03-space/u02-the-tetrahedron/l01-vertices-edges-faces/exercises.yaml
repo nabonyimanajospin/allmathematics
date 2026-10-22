@@ -12,7 +12,7 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{AB}=\left(4,\,0,\,0\right)$, so $AB=4$.
+        $\overrightarrow{AB}=\left(4,\,0,\,0\right)$, so $\norm{\overrightarrow{AB}}=4$.
     - id: te-ecd1
       statement: |-
         For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the edge $CD$.
@@ -21,10 +21,10 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{CD}=\left(1,\,-2,\,5\right)$, so $CD=\sqrt{30}$.
+        $\overrightarrow{CD}=\left(1,\,-2,\,5\right)$, so $\norm{\overrightarrow{CD}}=\sqrt{30}$.
     - id: te-sabc1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the area of the face $ABC$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the area of the face $ABC$. The unit is squ: give the number only.
       answerType: expression
       answer: "6"
       hints:
@@ -33,7 +33,7 @@
         The cross product of two edges is $\left(0,\,0,\,12\right)$, with norm $12$; the area is half of it: $6$.
     - id: te-sbcd1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the area of the face $BCD$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the area of the face $BCD$. The unit is squ: give the number only.
       answerType: expression
       answer: "3*sqrt(51)/2"
       hints:
@@ -58,7 +58,7 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{AB}=\left(3,\,6,\,3\right)$, so $AB=3 \sqrt{6}$.
+        $\overrightarrow{AB}=\left(3,\,6,\,3\right)$, so $\norm{\overrightarrow{AB}}=3 \sqrt{6}$.
     - id: te-ecd2
       statement: |-
         For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the edge $CD$.
@@ -67,10 +67,10 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{CD}=\left(1,\,-1,\,4\right)$, so $CD=3 \sqrt{2}$.
+        $\overrightarrow{CD}=\left(1,\,-1,\,4\right)$, so $\norm{\overrightarrow{CD}}=3 \sqrt{2}$.
     - id: te-sabc2
       statement: |-
-        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the area of the face $ABC$.
+        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the area of the face $ABC$. The unit is squ: give the number only.
       answerType: expression
       answer: "3*sqrt(59)/2"
       hints:
@@ -79,7 +79,7 @@
         The cross product of two edges is $\left(-21,\,9,\,3\right)$, with norm $3 \sqrt{59}$; the area is half of it: $\frac{3 \sqrt{59}}{2}$.
     - id: te-sbcd2
       statement: |-
-        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the area of the face $BCD$.
+        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the area of the face $BCD$. The unit is squ: give the number only.
       answerType: expression
       answer: "sqrt(323)/2"
       hints:
@@ -104,7 +104,7 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{AB}=\left(2,\,0,\,0\right)$, so $AB=2$.
+        $\overrightarrow{AB}=\left(2,\,0,\,0\right)$, so $\norm{\overrightarrow{AB}}=2$.
     - id: te-ecd3
       statement: |-
         For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the edge $CD$.
@@ -113,10 +113,10 @@
       hints:
         - The norm of the vector between the two vertices.
       solution: |-
-        $\overrightarrow{CD}=\left(0,\,-4,\,6\right)$, so $CD=2 \sqrt{13}$.
+        $\overrightarrow{CD}=\left(0,\,-4,\,6\right)$, so $\norm{\overrightarrow{CD}}=2 \sqrt{13}$.
     - id: te-sabc3
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the area of the face $ABC$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the area of the face $ABC$. The unit is squ: give the number only.
       answerType: expression
       answer: "4"
       hints:
@@ -125,7 +125,7 @@
         The cross product of two edges is $\left(0,\,0,\,8\right)$, with norm $8$; the area is half of it: $4$.
     - id: te-sbcd3
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the area of the face $BCD$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the area of the face $BCD$. The unit is squ: give the number only.
       answerType: expression
       answer: "14"
       hints:
@@ -144,16 +144,16 @@
         $\dotp{\overrightarrow{AB}}{\overrightarrow{AC}}=0$ and the product of the norms is $8$, so $\cos\hat A=0$.
     - id: te-p1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the perimeter of the face $ABC$.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the perimeter of the face $ABC$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(10) + 4 + 3*sqrt(2)"
       hints:
         - Add the three edges of the face.
       solution: |-
-        $AB+AC+BC=4+\sqrt{10}+3 \sqrt{2}$.
+        $AB+AC+\norm{\overrightarrow{BC}}=4+\sqrt{10}+3 \sqrt{2}$.
     - id: te-t1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the total surface area.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the total surface area. The unit is squ: give the number only.
       answerType: expression
       answer: "36"
       hints:

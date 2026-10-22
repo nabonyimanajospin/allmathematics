@@ -84,7 +84,8 @@
       solution: |-
         The four linear equations give $D=0$, $E=0$, $F=0$, $G=-1$: $x^{2} + y^{2} + z^{2} - 1=0$.
     - id: sp-09
-      statement: "The surface area of the sphere $x^2+y^2+z^2-2x+4y-6z-11=0$."
+      statement: |-
+        The surface area of the sphere $x^2+y^2+z^2-2x+4y-6z-11=0$. The unit is squ: give the number only.
       answerType: expression
       answer: "100*pi"
       hints:
@@ -92,7 +93,8 @@
       solution: |-
         The radius is $5$, so $S=4\pi\cdot25=100\pi$.
     - id: sp-10
-      statement: "The volume of the sphere $x^2+y^2+z^2-6x-8y=0$."
+      statement: |-
+        The volume of the sphere $x^2+y^2+z^2-6x-8y=0$. The unit is cu: give the number only.
       answerType: expression
       answer: "500*pi/3"
       hints:

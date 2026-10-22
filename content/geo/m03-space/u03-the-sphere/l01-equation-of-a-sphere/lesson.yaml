@@ -21,6 +21,22 @@ sections:
 
       Expanding gives the **general equation** $x^2+y^2+z^2+Dx+Ey+Fz+G=0$, with $D=-2p$, $E=-2q$, $F=-2r_0$ and $G=p^2+q^2+r_0^2-\rho^2$.
 
+  - id: fig-sphere
+    type: visual
+    kind: figure
+    title: The sphere $x^2+y^2+z^2-2x+4y-6z-11=0$
+    caption: |
+      The sphere has center $C(1,-2,3)$ and radius $5$ lu. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A sphere with center C(1, -2, 3) and radius 5 drawn in three dimensions with the coordinate axes."
+      view: [7]
+      items:
+        - {t: point, id: C, at: [1, -2, 3], color: warning}
+        - {t: point, id: T, at: [4, 2, 3], color: accent}
+        - {t: circle, center: C, r: 5, color: accent}
+        - {t: segment, from: C, to: T, color: success, label: r}
+
   - id: from-general
     type: theorem
     name: Center and radius from the general equation

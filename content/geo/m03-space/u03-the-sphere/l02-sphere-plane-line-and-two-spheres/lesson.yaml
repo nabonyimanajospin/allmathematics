@@ -24,6 +24,23 @@ sections:
 
       When the plane cuts the sphere, the circle has its center at the **foot of the perpendicular** from the center of the sphere to the plane, and its radius is $\sqrt{\rho^2-\delta^2}$ (by Pythagoras in the right triangle formed by the center of the sphere, the center of the circle, and a point of the circle).
 
+  - id: fig-tangent-plane
+    type: visual
+    kind: figure
+    title: A sphere and a tangent plane
+    caption: |
+      The sphere with center $C(1,-2,3)$ and radius $5$ lu touches the plane $x=6$ at the point $T(6,-2,3)$: the distance from $C$ to the plane is $5$ lu, equal to the radius. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A sphere with its center C and a flat plane touching it at one point T, drawn in three dimensions."
+      view: [8]
+      items:
+        - {t: point, id: C, at: [1, -2, 3], color: warning}
+        - {t: point, id: T, at: [6, -2, 3], color: accent}
+        - {t: circle, center: C, r: 5, color: accent}
+        - {t: polygon, pts: [[6, -6, -1], [6, 2, -1], [6, 2, 7], [6, -6, 7]], fill: success, color: success}
+        - {t: segment, from: C, to: T, color: warning, label: r}
+
   - id: ex-section
     type: example
     title: A circle of intersection

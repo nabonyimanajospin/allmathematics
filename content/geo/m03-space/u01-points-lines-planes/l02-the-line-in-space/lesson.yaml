@@ -19,14 +19,32 @@ sections:
 
       There is a difference with the plane: a line of space has no equation $ax+by+c=0$ of its own, because one linear equation in three unknowns is a **plane**. A line is the intersection of two planes, so its implicit form needs two equations.
 
+  - id: fig-space-line
+    type: visual
+    kind: figure
+    title: "A line in space: a point and a direction"
+    caption: |
+      The line through $A(1,2,3)$ with direction vector $\vec d=(3,4,12)$ passes through $B(4,6,15)$. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A line in space through the point A with direction vector d, drawn with the three coordinate axes in three dimensions."
+      view: [8]
+      items:
+        - {t: point, id: A, at: [1, 2, 3], color: accent}
+        - {t: point, id: B, at: [4, 6, 15], color: warning}
+        - {t: segment, from: A, to: B, arrow: true, color: success, label: d}
+        - {t: segment, from: [0, 0, 0], to: A, dashed: true, color: muted}
+
   - id: forms
     type: definition
     term: Equations of a line in space
     body: |
       Let the line pass through $A(x_0,y_0,z_0)$ with direction vector $\vec d=(d_1,d_2,d_3)$.
 
-      1. **Vector equation:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d$, $\lambda\in\mathbb R$.
-      2. **Parametric equations:** $x=x_0+\lambda d_1$, $y=y_0+\lambda d_2$, $z=z_0+\lambda d_3$.
+      1. **Vector equation:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d$, $\lambda\in\mathbb R$, that is
+         $$\begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}x_0\\y_0\\z_0\end{pmatrix}+\lambda\begin{pmatrix}d_1\\d_2\\d_3\end{pmatrix}.$$
+      2. **Parametric equations:**
+         $$\begin{cases}x=x_0+\lambda d_1\\ y=y_0+\lambda d_2\\ z=z_0+\lambda d_3\end{cases}\qquad\lambda\in\mathbb R.$$
       3. **Symmetric (canonical) equations:** if $d_1,d_2,d_3\neq0$, $\ \dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}=\dfrac{z-z_0}{d_3}$.
       4. **Implicit equations:** two independent planes, $a_1x+b_1y+c_1z+e_1=0$ and $a_2x+b_2y+c_2z+e_2=0$. The direction vector is $\crossp{\vec n_1}{\vec n_2}$, the cross product of the two normal vectors.
 
@@ -41,7 +59,7 @@ sections:
       - |
         $\vec d=\overrightarrow{AB}=(3,4,12)$.
       - |
-        Vector: $\overrightarrow{OP}=(1,2,3)+\lambda(3,4,12)$. Parametric: $x=1+3\lambda$, $y=2+4\lambda$, $z=3+12\lambda$.
+        Vector: $\begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}1\\2\\3\end{pmatrix}+\lambda\begin{pmatrix}3\\4\\12\end{pmatrix}$. Parametric: $\begin{cases}x=1+3\lambda\\ y=2+4\lambda\\ z=3+12\lambda\end{cases}$
       - |
         Symmetric: $\dfrac{x-1}{3}=\dfrac{y-2}{4}=\dfrac{z-3}{12}$.
       - |
@@ -104,6 +122,6 @@ sections:
       - |
         A line is a point and a direction: $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\vec d$.
       - |
-        Parametric: $x=x_0+\lambda d_1$ and so on. Symmetric: $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}=\dfrac{z-z_0}{d_3}$.
+        Parametric: $\begin{cases}x=x_0+\lambda d_1\\ y=y_0+\lambda d_2\\ z=z_0+\lambda d_3\end{cases}$. Symmetric: $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}=\dfrac{z-z_0}{d_3}$.
       - |
         Implicit: two planes; the direction vector is the cross product of their normals.

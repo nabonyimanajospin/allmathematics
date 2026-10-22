@@ -6,7 +6,7 @@
   items:
     - id: dt-01
       statement: |-
-        The distance from $P\left(1,\,2,\,3\right)$ to the plane $2 x - y + 2 z - 1=0$.
+        The distance from $P\left(1,\,2,\,3\right)$ to the plane $2 x - y + 2 z - 1=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "5/3"
       hints:
@@ -16,7 +16,7 @@
         The numerator is $|5|$ and the length of the normal is $3$, so $d=\frac{5}{3}$.
     - id: dt-02
       statement: |-
-        The distance from $P\left(2,\,1,\,-1\right)$ to the plane $x + 2 y - 2 z - 3=0$.
+        The distance from $P\left(2,\,1,\,-1\right)$ to the plane $x + 2 y - 2 z - 3=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "1"
       hints:
@@ -25,7 +25,7 @@
       solution: "The numerator is $|3|$ and the length of the normal is $3$, so $d=1$."
     - id: dt-03
       statement: |-
-        The distance from $P\left(0,\,0,\,0\right)$ to the plane $3 x + 4 y + 12 z - 26=0$.
+        The distance from $P\left(0,\,0,\,0\right)$ to the plane $3 x + 4 y + 12 z - 26=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "2"
       hints:
@@ -34,7 +34,7 @@
       solution: "The numerator is $|-26|$ and the length of the normal is $13$, so $d=2$."
     - id: dt-04
       statement: |-
-        The distance from $P\left(4,\,-1,\,2\right)$ to the plane $x + y + z + 2=0$.
+        The distance from $P\left(4,\,-1,\,2\right)$ to the plane $x + y + z + 2=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "7*sqrt(3)/3"
       hints:
@@ -82,7 +82,7 @@
         $P'=P-2t\,(a,b,c)=\left(\frac{13}{3},\,\frac{8}{3},\,\frac{2}{3}\right)$ with $t=- \frac{2}{3}$.
     - id: dt-09
       statement: |-
-        The distance from $P\left(1,\,2,\,3\right)$ to the line through the origin with direction $\left(1,\,2,\,2\right)$.
+        The distance from $P\left(1,\,2,\,3\right)$ to the line through the origin with direction $\left(1,\,2,\,2\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(5)/3"
       hints:
@@ -92,7 +92,7 @@
         The cross product of $\overrightarrow{AP}$ and $\vec d$ is $\left(-2,\,1,\,0\right)$, with norm $\sqrt{5}$; $\norm{\vec d}=3$, so $\delta=\frac{\sqrt{5}}{3}$.
     - id: dt-10
       statement: |-
-        The distance between the skew lines through $A\left(0,\,0,\,0\right)$ (direction $\left(1,\,1,\,0\right)$) and $B\left(0,\,0,\,1\right)$ (direction $\left(1,\,-1,\,0\right)$).
+        The distance between the skew lines through $A\left(0,\,0,\,0\right)$ (direction $\left(1,\,1,\,0\right)$) and $B\left(0,\,0,\,1\right)$ (direction $\left(1,\,-1,\,0\right)$). The unit is lu: give the number only.
       answerType: expression
       answer: "1"
       hints:
@@ -102,7 +102,7 @@
         The box product is $-2$ and the cross product of the directions is $\left(0,\,0,\,-2\right)$, with norm $2$, so $\delta=1$.
     - id: dt-11
       statement: |-
-        The distance between the skew lines through $A\left(0,\,0,\,0\right)$ (direction $\left(1,\,0,\,0\right)$) and $B\left(0,\,0,\,5\right)$ (direction $\left(0,\,1,\,0\right)$).
+        The distance between the skew lines through $A\left(0,\,0,\,0\right)$ (direction $\left(1,\,0,\,0\right)$) and $B\left(0,\,0,\,5\right)$ (direction $\left(0,\,1,\,0\right)$). The unit is lu: give the number only.
       answerType: expression
       answer: "5"
       hints:
@@ -112,7 +112,7 @@
         The box product is $5$ and the cross product of the directions is $\left(0,\,0,\,1\right)$, with norm $1$, so $\delta=5$.
     - id: dt-12
       statement: |-
-        The distance between the skew lines through $A\left(1,\,0,\,0\right)$ (direction $\left(0,\,1,\,1\right)$) and $B\left(0,\,2,\,1\right)$ (direction $\left(1,\,0,\,2\right)$).
+        The distance between the skew lines through $A\left(1,\,0,\,0\right)$ (direction $\left(0,\,1,\,1\right)$) and $B\left(0,\,2,\,1\right)$ (direction $\left(1,\,0,\,2\right)$). The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(6)/6"
       hints:
@@ -121,7 +121,8 @@
       solution: |-
         The box product is $-1$ and the cross product of the directions is $\left(2,\,1,\,-1\right)$, with norm $\sqrt{6}$, so $\delta=\frac{\sqrt{6}}{6}$.
     - id: dt-13
-      statement: "The distance between the parallel planes $2 x - y + 2 z + 3=0$ and $2 x - y + 2 z - 6=0$."
+      statement: |-
+        The distance between the parallel planes $2 x - y + 2 z + 3=0$ and $2 x - y + 2 z - 6=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "3"
       hints:

@@ -62,7 +62,7 @@
         Substitute $\lambda=3$: $\left(6,\,2,\,11\right)$.
     - id: ln-07
       statement: |-
-        For which value of $\lambda$ does the line $x=1+2\lambda$, $y=-3+\lambda$, $z=4-3\lambda$ pass through $(7,0,-5)$?
+        For which value of $\lambda$ does the line $\begin{cases}x=1+2\lambda\\ y=-3+\lambda\\ z=4-3\lambda\end{cases}$ pass through $(7,0,-5)$?
       answerType: number
       answer: "3"
       hints:

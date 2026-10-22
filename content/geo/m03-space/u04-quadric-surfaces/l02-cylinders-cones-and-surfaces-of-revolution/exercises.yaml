@@ -50,14 +50,16 @@
       solution: |-
         $z^2=4x^2$ becomes $z^2=4\left(x^2+y^2\right)$.
     - id: cy-06
-      statement: "The radius of the circular cylinder $y^2+z^2=25$."
+      statement: |-
+        The radius of the circular cylinder $y^2+z^2=25$. The unit is lu: give the number only.
       answerType: number
       answer: "5"
       hints:
         - "The variable $x$ is missing."
       solution: "The sections $x=k$ are circles of radius $5$."
     - id: cy-07
-      statement: "The radius of the circle in which the cone $x^2+y^2=z^2$ meets the plane $z=3$."
+      statement: |-
+        The radius of the circle in which the cone $x^2+y^2=z^2$ meets the plane $z=3$. The unit is lu: give the number only.
       answerType: number
       answer: "3"
       hints:

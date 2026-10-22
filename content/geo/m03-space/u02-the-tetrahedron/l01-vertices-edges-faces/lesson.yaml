@@ -22,6 +22,26 @@ sections:
 
       The vertices are not coplanar exactly when the box product $\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\neq0$. In this unit the running example is $A(0,0,0)$, $B(4,0,0)$, $C(1,3,0)$, $D(2,1,5)$.
 
+  - id: fig-tetrahedron
+    type: visual
+    kind: figure
+    title: The tetrahedron $ABCD$
+    caption: |
+      The tetrahedron with $A(0,0,0)$, $B(4,0,0)$, $C(1,3,0)$, $D(2,1,5)$: four vertices, six edges and four triangular faces. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A tetrahedron in space with base triangle ABC in the horizontal plane and the apex D above it, drawn in three dimensions and rotatable."
+      view: [5]
+      items:
+        - {t: point, id: A, at: [0, 0, 0]}
+        - {t: point, id: B, at: [4, 0, 0]}
+        - {t: point, id: C, at: [1, 3, 0]}
+        - {t: point, id: D, at: [2, 1, 5], color: warning}
+        - {t: polygon, pts: [A, B, C], fill: accent}
+        - {t: segment, from: A, to: D, color: accent}
+        - {t: segment, from: B, to: D, color: accent}
+        - {t: segment, from: C, to: D, color: accent}
+
   - id: ex-edges
     type: example
     title: The six edges
@@ -29,11 +49,11 @@ sections:
       Find the lengths of the edges of the tetrahedron $A(0,0,0)$, $B(4,0,0)$, $C(1,3,0)$, $D(2,1,5)$.
     steps:
       - |
-        $AB=\sqrt{16}=4$, $AC=\sqrt{1+9}=\sqrt{10}$, $AD=\sqrt{4+1+25}=\sqrt{30}$.
+        $\norm{\overrightarrow{AB}}=\sqrt{16}=4$, $\norm{\overrightarrow{AC}}=\sqrt{1+9}=\sqrt{10}$, $\norm{\overrightarrow{AD}}=\sqrt{4+1+25}=\sqrt{30}$.
       - |
-        $\overrightarrow{BC}=(-3,3,0)$, so $BC=\sqrt{18}=3\sqrt2$. $\overrightarrow{BD}=(-2,1,5)$, so $BD=\sqrt{30}$. $\overrightarrow{CD}=(1,-2,5)$, so $CD=\sqrt{30}$.
+        $\overrightarrow{BC}=(-3,3,0)$, so $\norm{\overrightarrow{BC}}=\sqrt{18}=3\sqrt2$. $\overrightarrow{BD}=(-2,1,5)$, so $\norm{\overrightarrow{BD}}=\sqrt{30}$. $\overrightarrow{CD}=(1,-2,5)$, so $\norm{\overrightarrow{CD}}=\sqrt{30}$.
     answer: |
-      $AB=4$, $AC=\sqrt{10}$, $AD=BD=CD=\sqrt{30}$, $BC=3\sqrt2$.
+      $\norm{\overrightarrow{AB}}=4$, $\norm{\overrightarrow{AC}}=\sqrt{10}$, $\norm{\overrightarrow{AD}}=\norm{\overrightarrow{BD}}=\norm{\overrightarrow{CD}}=\sqrt{30}$, $\norm{\overrightarrow{BC}}=3\sqrt2$.
     verify:
       - expr: "sqrt(1+9)"
         equals: "sqrt(10)"
@@ -52,7 +72,7 @@ sections:
       - |
         $\overrightarrow{CD}=(4,-3,12)$.
     explanation: |
-      $CD=\sqrt{16+9+144}=\sqrt{169}=13$.
+      $\norm{\overrightarrow{CD}}=\sqrt{16+9+144}=\sqrt{169}=13$.
 
   - id: face-theorem
     type: theorem
@@ -73,7 +93,7 @@ sections:
       For the face $ABC$ of the running tetrahedron find the perimeter, the angles and the area.
     steps:
       - |
-        $AB=4$, $AC=\sqrt{10}$, $BC=3\sqrt2$: the perimeter is $4+\sqrt{10}+3\sqrt2$.
+        $\norm{\overrightarrow{AB}}=4$, $\norm{\overrightarrow{AC}}=\sqrt{10}$, $\norm{\overrightarrow{BC}}=3\sqrt2$: the perimeter is $4+\sqrt{10}+3\sqrt2$.
       - |
         At $A$: $\overrightarrow{AB}=(4,0,0)$, $\overrightarrow{AC}=(1,3,0)$, so the dot product is $4$, the product of the norms is $4\sqrt{10}$, and $\cos\hat A=\dfrac{\sqrt{10}}{10}$.
       - |

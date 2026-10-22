@@ -15,7 +15,7 @@
         $G=\dfrac{A+B+C+D}{4}=\left(\frac{7}{4},\,1,\,\frac{5}{4}\right)$.
     - id: tc-m1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the length of the median from $A$ (to the centroid of $BCD$).
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the length of the median from $A$ (to the centroid of $BCD$). The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(10)"
       hints:
@@ -33,7 +33,7 @@
         $G=\dfrac{A+B+C+D}{4}=\left(\frac{7}{2},\,\frac{7}{4},\,\frac{7}{4}\right)$.
     - id: tc-m2
       statement: |-
-        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the length of the median from $A$ (to the centroid of $BCD$).
+        For the tetrahedron $A\left(2,\,-1,\,1\right)$, $B\left(5,\,5,\,4\right)$, $C\left(3,\,2,\,-1\right)$, $D\left(4,\,1,\,3\right)$: find the length of the median from $A$ (to the centroid of $BCD$). The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(166)/3"
       hints:
@@ -51,7 +51,7 @@
         $G=\dfrac{A+B+C+D}{4}=\left(\frac{1}{2},\,1,\,\frac{3}{2}\right)$.
     - id: tc-m3
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the length of the median from $A$ (to the centroid of $BCD$).
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the length of the median from $A$ (to the centroid of $BCD$). The unit is lu: give the number only.
       answerType: expression
       answer: "2*sqrt(14)/3"
       hints:
@@ -70,7 +70,7 @@
         The center is equidistant from the four vertices; solving gives $\left(2,\,1,\,2\right)$.
     - id: tc-r1
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the radius of the circumsphere.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$: find the radius of the circumsphere. The unit is lu: give the number only.
       answerType: expression
       answer: "3"
       hints:
@@ -97,7 +97,7 @@
         The center is $\left(- \frac{11}{3},\,5,\,\frac{11}{3}\right)$.
     - id: tc-r2
       statement: |-
-        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the radius $r$ of the insphere.
+        For the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,6\right)$: find the radius $r$ of the insphere. The unit is lu: give the number only.
       answerType: expression
       answer: "2/3"
       hints:

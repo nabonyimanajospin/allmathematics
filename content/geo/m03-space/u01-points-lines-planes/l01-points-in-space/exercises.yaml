@@ -6,40 +6,40 @@
   items:
     - id: ps-01
       statement: |-
-        The distance between $A\left(1,\,2,\,3\right)$ and $B\left(4,\,6,\,15\right)$.
+        The distance between $A\left(1,\,2,\,3\right)$ and $B\left(4,\,6,\,15\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "13"
       hints:
         - Subtract the coordinates and use Pythagoras with three terms.
       solution: |-
-        $\overrightarrow{AB}=\left(3,\,4,\,12\right)$, so $AB=\sqrt{9+16+144}=13$.
+        $\overrightarrow{AB}=\left(3,\,4,\,12\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{9+16+144}=13$.
     - id: ps-02
       statement: |-
-        The distance between $A\left(-1,\,2,\,0\right)$ and $B\left(3,\,-2,\,2\right)$.
+        The distance between $A\left(-1,\,2,\,0\right)$ and $B\left(3,\,-2,\,2\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "6"
       hints:
         - Subtract the coordinates and use Pythagoras with three terms.
       solution: |-
-        $\overrightarrow{AB}=\left(4,\,-4,\,2\right)$, so $AB=\sqrt{16+16+4}=6$.
+        $\overrightarrow{AB}=\left(4,\,-4,\,2\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{16+16+4}=6$.
     - id: ps-03
       statement: |-
-        The distance between $A\left(2,\,-3,\,5\right)$ and $B\left(-4,\,1,\,8\right)$.
+        The distance between $A\left(2,\,-3,\,5\right)$ and $B\left(-4,\,1,\,8\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(61)"
       hints:
         - Subtract the coordinates and use Pythagoras with three terms.
       solution: |-
-        $\overrightarrow{AB}=\left(-6,\,4,\,3\right)$, so $AB=\sqrt{36+16+9}=\sqrt{61}$.
+        $\overrightarrow{AB}=\left(-6,\,4,\,3\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{36+16+9}=\sqrt{61}$.
     - id: ps-04
       statement: |-
-        The distance between $A\left(0,\,0,\,0\right)$ and $B\left(1,\,1,\,1\right)$.
+        The distance between $A\left(0,\,0,\,0\right)$ and $B\left(1,\,1,\,1\right)$. The unit is lu: give the number only.
       answerType: expression
       answer: "sqrt(3)"
       hints:
         - Subtract the coordinates and use Pythagoras with three terms.
       solution: |-
-        $\overrightarrow{AB}=\left(1,\,1,\,1\right)$, so $AB=\sqrt{1+1+1}=\sqrt{3}$.
+        $\overrightarrow{AB}=\left(1,\,1,\,1\right)$, so $\norm{\overrightarrow{AB}}=\sqrt{1+1+1}=\sqrt{3}$.
     - id: ps-05
       statement: |-
         The direction cosines $(\cos\alpha,\cos\beta,\cos\gamma)$ of the vector $\overrightarrow{OA}$ with $A(3,4,12)$.

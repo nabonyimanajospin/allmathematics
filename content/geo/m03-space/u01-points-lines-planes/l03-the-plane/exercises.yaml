@@ -82,7 +82,8 @@
       solution: |-
         $y=z=0$: $x=2$; $x=z=0$: $y=3$; $x=y=0$: $z=6$.
     - id: pl-08
-      statement: "The distance $p$ from the origin to the plane $2 x - 2 y + z - 9=0$."
+      statement: |-
+        The distance $p$ from the origin to the plane $2 x - 2 y + z - 9=0$. The unit is lu: give the number only.
       answerType: expression
       answer: "3"
       hints:
