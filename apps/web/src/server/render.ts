@@ -5,7 +5,7 @@
 
 import katex from "katex";
 import { Marked } from "marked";
-import { getMacros } from "@allmaths/notation";
+import { columnVectors, getMacros } from "@allmaths/notation";
 import { DEFAULT_MIN_SECONDS, requiredSeconds } from "@allmaths/core";
 import type { ClientSection, ClientLesson, ClientExerciseSet } from "@allmaths/content-schema";
 import type { RExerciseSet, RLesson, RSection } from "@/lib/lesson-types";
@@ -24,7 +24,7 @@ const marked = new Marked({
 });
 
 export function renderMath(latex: string, display: boolean): string {
-  const html = katex.renderToString(latex, {
+  const html = katex.renderToString(columnVectors(latex), {
     displayMode: display,
     throwOnError: false,
     output: "htmlAndMathml",
@@ -182,8 +182,14 @@ export function renderSection(s: ClientSection): RSection | null {
         kind: s.kind,
         mode: String(s.config?.mode ?? "components"),
         config: s.config ?? {},
+        ...(s.figure ? { figure: s.figure } : {}),
         titleHtml: renderInline(s.title),
         captionHtml: renderRich(s.caption),
+        labelsHtml: Object.fromEntries(
+          Object.entries(s.config ?? {})
+            .filter(([k, v]) => /^l[1-5]$/.test(k) && typeof v === "string")
+            .map(([k, v]) => [k, renderMath(String(v), false)]),
+        ),
       };
     case "check":
       return {

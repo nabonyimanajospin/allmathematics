@@ -5,6 +5,7 @@ import { Button } from "@allmaths/ui";
 import type { RSection } from "@/lib/lesson-types";
 import { t } from "@/i18n";
 import { Rich, RichInline } from "./rich";
+import { FigureExplorer } from "./figure-explorer";
 import { PlotExplorer } from "./plot-explorer";
 import { VectorExplorer } from "./vector-explorer";
 
@@ -46,7 +47,15 @@ export function DefinitionBlock({ s }: { s: Of<"definition"> }) {
   );
 }
 
-export function TheoremBlock({ s }: { s: Of<"theorem"> }) {
+export function SaveButton({ saved, onToggle }: { saved: boolean; onToggle: () => void }) {
+  return (
+    <Button variant="secondary" className="mt-3" onClick={onToggle} aria-pressed={saved}>
+      {saved ? `✓ ${t("lesson.bookmarked")}` : t("lesson.bookmark")}
+    </Button>
+  );
+}
+
+export function TheoremBlock({ s, saved, onToggleSaved }: { s: Of<"theorem">; saved: boolean; onToggleSaved: () => void }) {
   return (
     <div className="rounded-[var(--radius)] border border-line border-l-4 border-l-warning bg-warning-soft p-5">
       <p className={`${label} text-warning`}>
@@ -63,19 +72,12 @@ export function TheoremBlock({ s }: { s: Of<"theorem"> }) {
         </details>
       ) : null}
       <More html={s.moreHtml} />
+      <SaveButton saved={saved} onToggle={onToggleSaved} />
     </div>
   );
 }
 
-export function FormulaBlock({
-  s,
-  bookmarked,
-  onBookmark,
-}: {
-  s: Of<"formula">;
-  bookmarked: boolean;
-  onBookmark: () => void;
-}) {
+export function FormulaBlock({ s, saved, onToggleSaved }: { s: Of<"formula">; saved: boolean; onToggleSaved: () => void }) {
   return (
     <div className="rounded-[var(--radius)] border-2 border-accent bg-surface p-5">
       <p className={`${label} text-accent`}>
@@ -83,9 +85,7 @@ export function FormulaBlock({
       </p>
       <div className="text-center text-lg" dangerouslySetInnerHTML={{ __html: s.formulaHtml }} />
       {s.noteHtml ? <Rich html={s.noteHtml} className="text-muted" /> : null}
-      <Button variant="secondary" className="mt-3" onClick={onBookmark} disabled={bookmarked} aria-pressed={bookmarked}>
-        {bookmarked ? `✓ ${t("lesson.bookmarked")}` : t("lesson.bookmark")}
-      </Button>
+      <SaveButton saved={saved} onToggle={onToggleSaved} />
     </div>
   );
 }
@@ -136,7 +136,13 @@ export function VisualBlock({ s }: { s: Of<"visual"> }) {
       <h2 className="mb-3 text-lg font-bold">
         <RichInline html={s.titleHtml} />
       </h2>
-      {s.kind === "plot" ? <PlotExplorer config={s.config}  title={s.titleHtml.replace(/<[^>]+>/g, "")} /> : <VectorExplorer mode={s.mode} />}
+      {s.kind === "plot" ? (
+        <PlotExplorer config={s.config} labelsHtml={s.labelsHtml ?? {}} title={s.titleHtml.replace(/<[^>]+>/g, "")} />
+      ) : s.kind === "figure" && s.figure ? (
+        <FigureExplorer figure={s.figure} />
+      ) : (
+        <VectorExplorer mode={s.mode} />
+      )}
       <Rich html={s.captionHtml} className="mt-3 text-muted" />
     </div>
   );

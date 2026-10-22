@@ -40,6 +40,7 @@ export function ExerciseSets({ lessonId, sets, solved, hintsUsed, onSolved }: Pr
             {set.formatHtml ? (
               <details className="mt-2 text-sm">
                 <summary className="inline-flex min-h-10 items-center font-semibold text-accent">{t("lesson.howToType")}</summary>
+                <p className="mt-1 text-muted">{t("lesson.mathFieldNote")}</p>
                 <Rich html={set.formatHtml} className="mt-1 text-muted" />
               </details>
             ) : null}

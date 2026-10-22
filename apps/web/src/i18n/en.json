@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -46,10 +46,10 @@
     "definition": "Definition", "theorem": "Theorem", "formula": "Key formula", "example": "Worked example",
     "proof": "Show proof", "more": "Explain this in more detail", "why": "How was this step found?", "nextStep": "Show next step", "showAll": "Show all steps", "answerLabel": "Answer",
     "visual": "Explore", "equation": "Equation (scroll sideways if it is wide)", "summary": "Summary", "check": "Quick check",
-    "bookmark": "Save to formula sheet", "bookmarked": "Saved",
+    "bookmark": "Save to my formula sheet", "bookmarked": "Saved to my formula sheet (click to remove)",
     "locked": "Answer the question above to continue.",
     "sectionDone": "Section completed", "reading": "Reading",
-    "exercises": "Exercises", "exercisesLead": "Practise what you learned. Every exercise has hints and a worked solution.", "exercisesSolved": "{solved} of {total} solved", "exerciseNumber": "Exercise {n}", "howToType": "How to type your answer", "source": "Source: {source}", "practiceNote": "Note",
+    "exercises": "Exercises", "exercisesLead": "Practise what you learned. Every exercise has hints and a worked solution.", "exercisesSolved": "{solved} of {total} solved", "exerciseNumber": "Exercise {n}", "howToType": "How to type your answer", "mathFieldNote": "In the answer field, press the fraction button or type a slash to get a numerator over a denominator, and the power button to get an exponent: they appear as in print. The notes below are for the plain-text box.", "source": "Source: {source}", "practiceNote": "Note",
     "lessonDone": "Lesson complete. Well done.", "next": "Next lesson", "keepGoing": "Keep going"
   },
   "check": {
@@ -59,23 +59,31 @@
     "invalid": "We could not read that answer.", "explanation": "Explanation", "solution": "Worked solution",
     "placeholderNumber": "e.g. 7/2 or 2*sqrt(3)", "placeholderVector": "e.g. (1, -2, 3)",
     "placeholderExpression": "e.g. 2x + 1",
-    "exactNote": "Give exact values: fractions, radicals, π. No decimals.",
-    "symbols": "Symbols", "insertFraction": "Fraction", "insertRoot": "Square root", "insertPi": "π",
+    "exactNote": "Give exact values: fractions, radicals, π. No decimals. Angles: a multiple of π (5π over 6) or whole degrees (150°).",
+    "symbols": "Symbols", "insertFraction": "Fraction", "insertRoot": "Square root", "insertPi": "π", "insertDegree": "Degrees",
     "chooseOne": "Choose one answer", "symbolAnd": "and", "symbolOr": "or", "symbolEquals": "=", "symbolPrime": "y′", "symbolPrime2": "y″", "symbolConstant": "C",
     "placeholderRegion": "e.g. x^2 + y^2 <= 4", "placeholderEquation": "e.g. x + 2y - z = 0", "placeholderPoints": "e.g. (0, 0), (1, -1)", "placeholderOde": "e.g. y = C1 e^x + C2 e^(2x)", "placeholderFamily": "e.g. x y' - 2y = x", "unavailable": "Answer checking is unavailable right now. Please try again in a moment."
   },
   "visual": {
-    "dragHint": "Drag the dots. Points snap to whole numbers.",
+    "dragHint": "Drag the dots. Points snap to whole numbers.", "rotateHint": "Drag the figure to turn it, or use the arrow keys.", "resetView": "Reset the view",
     "components": "Components", "sum": "Sum", "coordinates": "Coordinates in the basis",
     "start": "start", "end": "end"
   },
   "errors": { "notFound": "We could not find that page.", "notFoundTitle": "Page not found", "signInRequired": "Please sign in to continue.", "back": "Go back home", "serverTitle": "Something went wrong", "retry": "Try again" },
   "footer": { "rights": "© {year} Allmaths. All rights reserved." },
+  "formulas": {
+    "title": "My formula sheet",
+    "lead": "The formulas and theorems you saved from the lessons, in one place. Print the page to keep a copy.",
+    "empty": "Nothing saved yet. In a lesson, press \"Save to my formula sheet\" under a formula or a theorem, and it will appear here.",
+    "print": "Print",
+    "remove": "Remove",
+    "openLesson": "Open the lesson: {title}"
+  },
   "resources": {
     "title": "Resources",
     "lead": "Books, lecture notes and exercise sheets that go with the courses. Sign in to preview and download them.",
     "empty": "No documents yet.",
-    "download": "Download", "jump": "Courses", "preview": "Preview",
+    "download": "Download", "back": "Back to resources", "noPreview": "This file type cannot be previewed in the browser. Download it to open it.", "jump": "Courses", "preview": "Preview",
     "unavailable": "Not available for download yet.",
     "course": { "geo": "Geometry", "mvc": "Multivariable Calculus and Differential Equations", "stat": "Probability and Statistics" },
     "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" }

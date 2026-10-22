@@ -22,6 +22,11 @@ export async function SiteHeader() {
                   {t("nav.dashboard")}
                 </Link>
               </span>
+              <span className="hidden sm:block">
+                <Link href="/formulas" className={buttonClass("ghost")}>
+                  {t("nav.formulas")}
+                </Link>
+              </span>
               <Link href="/resources" className={buttonClass("ghost")}>
                 {t("nav.resources")}
               </Link>

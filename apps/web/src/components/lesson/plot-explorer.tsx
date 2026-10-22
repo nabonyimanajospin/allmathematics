@@ -26,7 +26,7 @@ function ticks(min: number, max: number, step: number): number[] {
  * A curve drawn from its equation: polar, parametric or Cartesian. The axes are marked with whole numbers only.
  * The picture is a help for the eye: the lesson text always states the exact facts in words and formulas.
  */
-export function PlotExplorer({ config, title }: { config: PlotConfig; title: string }) {
+export function PlotExplorer({ config, title, labelsHtml = {} }: { config: PlotConfig; title: string; labelsHtml?: Record<string, string> }) {
   const result = useMemo(() => {
     try {
       return { plot: buildPlot(config) };
@@ -104,7 +104,7 @@ export function PlotExplorer({ config, title }: { config: PlotConfig; title: str
             c.label && !c.dashed ? (
               <li key={i} className="flex items-center gap-2">
                 <span className={`inline-block h-1 w-6 rounded-full ${SWATCH[i % SWATCH.length]}`} aria-hidden="true" />
-                <span>{c.label}</span>
+                {labelsHtml[`l${i + 1}`] ? <span dangerouslySetInnerHTML={{ __html: labelsHtml[`l${i + 1}`]! }} /> : <span>{c.label}</span>}
               </li>
             ) : null,
           )}

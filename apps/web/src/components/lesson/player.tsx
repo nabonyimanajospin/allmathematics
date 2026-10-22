@@ -24,6 +24,8 @@ interface Props {
   lesson: RLesson;
   initial: LessonStateDto;
   userId: string;
+  /** Formulas and theorems of this lesson that the student saved. */
+  savedFormulas: string[];
   next: { id: string; title: string } | null;
 }
 
@@ -50,7 +52,7 @@ function localPercent(done: number, total: number, solved: number, hasPractice: 
   );
 }
 
-export function LessonPlayer({ lesson, initial, userId, next }: Props) {
+export function LessonPlayer({ lesson, initial, userId, savedFormulas, next }: Props) {
   const total = lesson.sections.length;
   const ids = useMemo(() => new Set(lesson.sections.map((s) => s.id)), [lesson]);
 
@@ -58,7 +60,7 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
   const [solved, setSolved] = useState<Set<string>>(() => new Set(initial.solvedExerciseIds));
   const [optimistic, setOptimistic] = useState<Set<string>>(() => new Set());
   const [serverProgress, setServerProgress] = useState(initial.progress);
-  const [bookmarked, setBookmarked] = useState<Set<string>>(() => new Set());
+  const [bookmarked, setBookmarked] = useState<Set<string>>(() => new Set(savedFormulas));
   const [sessionExpired, setSessionExpired] = useState(false);
   const [showResume, setShowResume] = useState(
     initial.progress.lesson.percent > 0 && initial.progress.lesson.percent < 100,
@@ -278,16 +280,27 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
   }
   const unlocked = lastVisible === total - 1;
 
-  const bookmark = (sectionId: string) => {
-    setBookmarked((p) => new Set(p).add(sectionId));
-    queueRef.current?.push({
-      eventId: uuid(),
-      verb: "bookmarked",
-      lessonId: lesson.id,
-      sectionId,
-      clientTimestamp: Date.now(),
+  /** Save a formula or a theorem to the formula sheet, or take it off again. */
+  const toggleSaved = (sectionId: string) => {
+    const saved = !bookmarked.has(sectionId);
+    setBookmarked((p) => {
+      const n = new Set(p);
+      if (saved) n.add(sectionId);
+      else n.delete(sectionId);
+      return n;
     });
-    void queueRef.current?.flush();
+    void fetch("/api/formulas", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ lessonId: lesson.id, sectionId, saved }),
+    }).then((r) => {
+      if (!r.ok) setBookmarked((p) => {
+        const n = new Set(p);
+        if (saved) n.delete(sectionId);
+        else n.add(sectionId);
+        return n;
+      });
+    });
   };
 
   return (
@@ -351,9 +364,9 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
                 />
                 {s.type === "concept" ? <ConceptBlock s={s} /> : null}
                 {s.type === "definition" ? <DefinitionBlock s={s} /> : null}
-                {s.type === "theorem" ? <TheoremBlock s={s} /> : null}
+                {s.type === "theorem" ? <TheoremBlock s={s} saved={bookmarked.has(s.id)} onToggleSaved={() => toggleSaved(s.id)} /> : null}
                 {s.type === "formula" ? (
-                  <FormulaBlock s={s} bookmarked={bookmarked.has(s.id)} onBookmark={() => bookmark(s.id)} />
+                  <FormulaBlock s={s} saved={bookmarked.has(s.id)} onToggleSaved={() => toggleSaved(s.id)} />
                 ) : null}
                 {s.type === "example" ? <ExampleBlock s={s} /> : null}
                 {s.type === "visual" ? <VisualBlock s={s} /> : null}

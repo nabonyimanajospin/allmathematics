@@ -1,3 +1,4 @@
+import type { Figure } from "@allmaths/core";
 /** Lesson as delivered to the browser: every text is pre-rendered HTML, no answer keys. */
 
 /** A step of a worked example, with the optional explanation of how it was found. */
@@ -18,7 +19,7 @@ export type RSection =
   | (RBase & { type: "theorem"; nameHtml?: string; statementHtml: string; proofHtml?: string; moreHtml?: string })
   | (RBase & { type: "formula"; titleHtml: string; formulaHtml: string; noteHtml?: string })
   | (RBase & { type: "example"; titleHtml?: string; problemHtml: string; steps: RStep[]; answerHtml: string; moreHtml?: string })
-  | (RBase & { type: "visual"; kind: "vector2d" | "plot"; mode: string; config: Record<string, number | string | boolean>; titleHtml: string; captionHtml: string })
+  | (RBase & { type: "visual"; kind: "vector2d" | "plot" | "figure"; figure?: Figure; mode: string; config: Record<string, number | string | boolean>; titleHtml: string; captionHtml: string; labelsHtml?: Record<string, string> })
   | (RBase & {
       type: "check";
       promptHtml: string;

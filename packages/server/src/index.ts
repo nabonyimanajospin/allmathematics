@@ -10,3 +10,4 @@ export * from "./learning/events";
 export * from "./learning/checks";
 export * from "./learning/outline";
 export * from "./learning/state";
+export * from "./learning/formulas";

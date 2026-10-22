@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { toClientLesson } from "@allmaths/content-schema";
-import { getCourseOutline, getLessonState } from "@allmaths/server";
+import { getCourseOutline, getLessonState, savedSectionIds } from "@allmaths/server";
 import { CourseOutlinePanel } from "@/components/course-outline";
 import { t } from "@/i18n";
 import { LessonPlayer } from "@/components/lesson/player";
@@ -36,6 +36,7 @@ export default async function LessonPage({ params }: Params) {
   const nextMeta = idx >= 0 ? order[idx + 1] : undefined;
 
   const outline = await getCourseOutline(db, store, user.id, lessonId);
+  const savedFormulas = await savedSectionIds(db, store, user.id, lessonId);
 
   const player = (
     <LessonPlayer
@@ -48,6 +49,7 @@ export default async function LessonPage({ params }: Params) {
         progress: state.progress,
       }}
       userId={user.id}
+      savedFormulas={savedFormulas}
       next={nextMeta ? { id: nextMeta.id, title: nextMeta.title } : null}
     />
   );
