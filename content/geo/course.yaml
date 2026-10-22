@@ -1,0 +1,7 @@
+id: geo
+title: Geometry
+description: >-
+  Vectors and analytic geometry of the plane and of space, from the first idea of a vector to
+  university exam level. The foundation for multivariable calculus.
+status: draft
+order: 1

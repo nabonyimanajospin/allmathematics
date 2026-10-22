@@ -1,0 +1,6 @@
+id: geo-m01
+title: Vectors
+description: >-
+  Points, vectors and their algebra; the dot, cross and box products; areas, volumes and projections.
+order: 1
+free: true
