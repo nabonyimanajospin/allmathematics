@@ -32,7 +32,8 @@ export default defineConfig({
       url: `http://localhost:${PORT}`,
       reuseExistingServer: true,
       env: { MATH_ENGINE_TOKEN: engineToken, MATH_ENGINE_URL: `http://127.0.0.1:${ENGINE_PORT}`, RATE_LIMIT_MULTIPLIER: "100" },
-      timeout: 120_000,
+      // the first request compiles the app and loads all the lessons, which takes a while on a cold start
+      timeout: 300_000,
     },
   ],
 });
