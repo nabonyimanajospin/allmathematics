@@ -25,7 +25,11 @@ test.describe("resources", () => {
     await page.getByRole("link", { name: "Resources" }).click();
     await expect(page.getByRole("heading", { name: "Resources", level: 1 })).toBeVisible();
     await expect(page.getByRole("link", { name: "Download" }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "Preview" }).first()).toBeVisible();
+    await page.getByRole("link", { name: "Preview" }).first().click();
+    await expect(page.locator("iframe")).toBeVisible();
+    await page.getByRole("link", { name: /Back to resources/ }).click();
+    await page.waitForURL("**/resources");
+    await expect(page.getByRole("heading", { name: "Resources", level: 1 })).toBeVisible();
     await expect(page.getByText(/PDF · \d/).first()).toBeVisible();
     await expect(page.getByText("Advanced Engineering Mathematics")).toBeVisible();
     await expect(page.getByText("Not available for download yet.").first()).toBeVisible();

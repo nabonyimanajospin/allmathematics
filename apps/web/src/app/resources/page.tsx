@@ -64,7 +64,7 @@ export default async function ResourcesPage() {
                       {ok ? (
                         <>
                           {ext === "PDF" ? (
-                            <a href={`/resources/download/${r.id}?inline=1`} target="_blank" rel="noopener" className={buttonClass("secondary")}>
+                            <a href={`/resources/view/${r.id}`} className={buttonClass("secondary")}>
                               {t("resources.preview")}
                             </a>
                           ) : null}
