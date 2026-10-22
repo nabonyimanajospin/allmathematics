@@ -22,6 +22,8 @@ interface Props {
   heading?: string;
   /** Hide the heading and use a lighter frame (exercise lists). */
   compact?: boolean;
+  /** Label above the explanation shown after a correct answer ("Explanation" or "Worked solution"). */
+  explanationLabel?: string;
   completed: boolean;
   hintsUsed: number;
   onCorrect: (progress: LessonStateDto["progress"] | undefined) => void;
@@ -44,7 +46,7 @@ type Feedback =
   | { kind: "invalid"; message: string }
   | { kind: "error"; message: string };
 
-export function CheckBlock({ lessonId, section, heading, compact = false, completed, hintsUsed, onCorrect }: Props) {
+export function CheckBlock({ lessonId, section, heading, compact = false, explanationLabel, completed, hintsUsed, onCorrect }: Props) {
   const uid = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
@@ -166,6 +168,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, comple
       { label: "y″", title: t("check.symbolPrime2"), text: "y''" },
     ],
   };
+  const exactNote = (["number", "expression", "vector", "point", "direction"] as AnswerKind[]).includes(section.answerType);
   const symbols = [...(section.answerType === "multiple_choice" ? [] : commonSymbols), ...(extra[section.answerType] ?? [])];
 
   const tone =
@@ -224,6 +227,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, comple
               aria-describedby={`${uid}-note`}
               className="min-h-12 w-full rounded-[var(--radius-sm)] border border-line bg-bg px-3 py-2 font-mono text-lg text-ink placeholder:font-sans placeholder:text-base placeholder:text-muted"
             />
+            {done ? null : (
             <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t("check.symbols")}>
               {symbols.map((b) => (
                 <button
@@ -239,9 +243,16 @@ export function CheckBlock({ lessonId, section, heading, compact = false, comple
                 </button>
               ))}
             </div>
-            <p id={`${uid}-note`} className="text-sm text-muted">
-              {t("check.exactNote")}
-            </p>
+            )}
+            {exactNote && !done ? (
+              <p id={`${uid}-note`} className="text-sm text-muted">
+                {t("check.exactNote")}
+              </p>
+            ) : (
+              <span id={`${uid}-note`} className="sr-only">
+                {placeholder}
+              </span>
+            )}
           </>
         )}
 
@@ -310,7 +321,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, comple
 
       {explanation ? (
         <div className="fade-up mt-4 rounded-[var(--radius-sm)] border border-line bg-surface-2 p-4">
-          <p className="mb-1 text-sm font-bold uppercase tracking-wide text-muted">{t("check.explanation")}</p>
+          <p className="mb-1 text-sm font-bold uppercase tracking-wide text-muted">{explanationLabel ?? t("check.explanation")}</p>
           <Rich html={explanation} />
         </div>
       ) : null}

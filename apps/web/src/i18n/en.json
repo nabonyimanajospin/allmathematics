@@ -52,7 +52,7 @@
     "yourAnswer": "Your answer", "submit": "Check", "checking": "Checking…",
     "hint": "Show a hint ({used} of {total})", "noMoreHints": "No more hints",
     "showSolution": "Show the solution", "correct": "Correct.", "incorrect": "Not correct yet. Try again.",
-    "invalid": "We could not read that answer.", "explanation": "Explanation",
+    "invalid": "We could not read that answer.", "explanation": "Explanation", "solution": "Worked solution",
     "placeholderNumber": "e.g. 7/2 or 2*sqrt(3)", "placeholderVector": "e.g. (1, -2, 3)",
     "placeholderExpression": "e.g. 2x + 1",
     "exactNote": "Give exact values: fractions, radicals, π. No decimals.",

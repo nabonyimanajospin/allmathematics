@@ -60,6 +60,7 @@ export function ExerciseSets({ lessonId, sets, solved, hintsUsed, onSolved }: Pr
                     <CheckBlock
                       lessonId={lessonId}
                       compact
+                      explanationLabel={t("check.solution")}
                       section={{
                         id: item.id,
                         promptHtml: item.statementHtml,
