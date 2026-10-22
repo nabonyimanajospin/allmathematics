@@ -39,6 +39,17 @@ write original content (spec section 12.2).
 - UI strings through i18n.
 - Respect prefers-reduced-motion.
 
+## Authoring content
+- Lessons are `lesson.yaml`; exercises of a lesson are in a sibling `exercises.yaml` (generated, do not edit by hand).
+- Exercise keys are computed with SymPy by the builders in `scripts/authoring/` (run `build_all.py [module]` with the
+  engine's Python, then `fix_dfrac.py`, then `pnpm verify-content` with the engine running).
+- The printed exercise sheet (MATH126, T. Hakizimana) is fully inside course mvc; printed errors are corrected and shown
+  in the exercise `note`.
+- Never write LaTeX through a shell heredoc (``, `	`, `
+` become control characters); use the editor tools.
+- A format hint of an exercise set must not contain the answer of one of its exercises (verify-content checks this).
+- Commits: small, plain messages, authored by the repository owner only (no co-author lines).
+
 ## Current phase
-Phase 1 (update this line at the start of each phase)
-Spec version 1.1 (hierarchy: Course > Module > Unit > Lesson).
+Phase 1 foundation done; Course 2 (mvc) Modules 1 to 4 written (PDE module still to write).
+Spec version 1.2 (hierarchy: Course > Module > Unit > Lesson).

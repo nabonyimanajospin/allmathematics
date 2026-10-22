@@ -25,5 +25,11 @@ scripts/            verify-content, seed
 
 ## Status
 
-**Phase 1 (foundation) is complete.** Geometry, Module 1 (Vectors), Unit 1, Lessons 1–3 are live.
-Next: Phase 2, assessment and tracking (problem generator, quizzes, mastery, dashboard).
+**Phase 1 (foundation) is complete.** Content so far:
+
+- Geometry, Module 1 (Vectors), Unit 1, Lessons 1–3.
+- Multivariable Calculus and Differential Equations: Module 1 (derivatives), Module 2 (double integrals),
+  Module 3 (triple integrals), Module 4 (ordinary differential equations), 25 lessons with about 190 exercises,
+  each with hints and a worked solution. Every answer key is recomputed by the math engine in `pnpm verify-content`.
+
+Next: the PDE module, then Phase 2, assessment and tracking (problem generator, quizzes, mastery, dashboard).
