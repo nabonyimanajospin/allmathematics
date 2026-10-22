@@ -1,0 +1,135 @@
+id: geo-m03-u04-l01
+title: The canonical quadric surfaces
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - quadric-surfaces
+  - traces
+objectives:
+  - Name a quadric surface from its canonical equation.
+  - Describe a surface by its traces (sections by planes parallel to the coordinate planes).
+  - Compute the volume of an ellipsoid.
+sections:
+  - id: definition
+    type: definition
+    term: Quadric surface
+    body: |
+      A **quadric surface** is the set of points of space whose coordinates satisfy an equation of the second degree in $x$, $y$, $z$. The sphere is the first example. With suitable axes, every quadric is one of the surfaces of the table below (or a cylinder, studied in the next lesson).
+
+      The tool to understand a surface is its **traces**: the curves in which it meets the planes $x=k$, $y=k$ or $z=k$. Looking at how the trace changes with $k$ builds the picture of the surface.
+
+  - id: table
+    type: theorem
+    name: The canonical quadrics
+    statement: |
+      Let $a$, $b$, $c$ be positive numbers.
+
+      | Surface | Equation | Traces $z=k$ |
+      |---|---|---|
+      | Ellipsoid | $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}=1$ | ellipses, for $\lvert k\rvert<c$ |
+      | Hyperboloid of one sheet | $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}-\dfrac{z^2}{c^2}=1$ | ellipses, for every $k$ |
+      | Hyperboloid of two sheets | $\dfrac{z^2}{c^2}-\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ | ellipses, for $\lvert k\rvert>c$ |
+      | Elliptic paraboloid | $z=\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}$ | ellipses, for $k>0$ |
+      | Hyperbolic paraboloid | $z=\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}$ | hyperbolas |
+      | Elliptic cone | $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=\dfrac{z^2}{c^2}$ | ellipses, for $k\ne0$ |
+
+      The ellipsoid has the **semi-axes** $a$, $b$, $c$; if $a=b=c$ it is a sphere. The word "one sheet" or "two sheets" counts the connected pieces of the surface.
+    proof: |
+      The classification comes from the sign pattern of the terms: three positive squares equal to $1$ (ellipsoid), two positive and one negative equal to $1$ (one sheet), one positive and two negative equal to $1$ (two sheets), a square equal to a linear term (paraboloids), and a homogeneous equation (cone). In each case the traces are obtained by putting $z=k$ in the equation.
+    more: |
+      **Reading the traces.** For the hyperboloid of one sheet, $z=k$ gives $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1+\dfrac{k^2}{c^2}$, an ellipse that gets larger with $|k|$ and is smallest, with semi-axes $a$ and $b$, at $k=0$ (the "waist"). For two sheets, $z=k$ gives $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=\dfrac{k^2}{c^2}-1$, which has points only if $k^2\ge c^2$: there is nothing between the planes $z=\pm c$, hence two separate pieces.
+
+  - id: ex-ellipsoid
+    type: example
+    title: Recognize an ellipsoid
+    problem: |
+      Show that $4x^2+9y^2+36z^2=36$ is an ellipsoid, find its semi-axes and describe the trace $z=0$.
+    steps:
+      - text: |
+          Divide by $36$: $\dfrac{x^2}{9}+\dfrac{y^2}{4}+\dfrac{z^2}{1}=1$.
+        why: |
+          The canonical form has $1$ on the right side. $\dfrac{4x^2}{36}=\dfrac{x^2}{9}$, $\dfrac{9y^2}{36}=\dfrac{y^2}{4}$ and $\dfrac{36z^2}{36}=z^2$.
+      - |
+        Three positive squares equal to $1$: an ellipsoid with semi-axes $a=3$, $b=2$, $c=1$.
+      - |
+        The trace $z=0$ is $\dfrac{x^2}9+\dfrac{y^2}4=1$, an ellipse with semi-axes $3$ and $2$.
+    answer: |
+      An ellipsoid with semi-axes $3$, $2$, $1$; the trace $z=0$ is an ellipse.
+    verify:
+      - expr: "4/36"
+        equals: "1/9"
+
+  - id: volume
+    type: theorem
+    name: Volume of an ellipsoid
+    statement: |
+      The solid bounded by the ellipsoid of semi-axes $a$, $b$, $c$ has volume
+
+      $$V=\dfrac43\pi abc.$$
+    proof: |
+      The section by the plane $z=k$ is the ellipse $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1-\dfrac{k^2}{c^2}$, whose semi-axes are $a\sqrt{1-\dfrac{k^2}{c^2}}$ and $b\sqrt{1-\dfrac{k^2}{c^2}}$, so its area is $\pi ab\left(1-\dfrac{k^2}{c^2}\right)$. Adding the slices, $V=\pi ab\int_{-c}^{c}\left(1-\dfrac{k^2}{c^2}\right)dk=\pi ab\left(2c-\dfrac{2c}{3}\right)=\dfrac43\pi abc$.
+    more: |
+      **A check.** For $a=b=c=R$ we get $\dfrac43\pi R^3$, the volume of a ball.
+
+  - id: ex-hyperboloids
+    type: example
+    title: One sheet or two sheets
+    problem: |
+      For the surfaces $x^2+y^2-z^2=1$ and $z^2-x^2-y^2=1$, find the radius of the trace $z=2$ when it exists, and say what happens for $z=0$.
+    steps:
+      - |
+        $x^2+y^2-z^2=1$ with $z=2$: $x^2+y^2=5$, a circle of radius $\sqrt5$. For $z=0$: $x^2+y^2=1$, the smallest circle.
+      - text: |
+          $z^2-x^2-y^2=1$ with $z=2$: $x^2+y^2=3$, a circle of radius $\sqrt3$. For $z=0$: $x^2+y^2=-1$, which has no solution.
+        why: |
+          A sum of squares cannot be negative, so there is no point of the surface in the plane $z=0$, and in fact none with $|z|<1$. The surface lies in two pieces, $z\ge1$ and $z\le-1$.
+    answer: |
+      First surface (one sheet): radius $\sqrt5$, smallest circle of radius $1$ at $z=0$. Second (two sheets): radius $\sqrt3$, and no point at $z=0$.
+    verify:
+      - expr: "4+1"
+        equals: "5"
+      - expr: "4-1"
+        equals: "3"
+
+  - id: chk-type
+    type: check
+    prompt: |
+      Which surface is $z=x^2-y^2$?
+    answerType: multiple_choice
+    choices:
+      - text: "An elliptic paraboloid"
+        value: "1"
+      - text: "A hyperbolic paraboloid (a saddle)"
+        value: "2"
+      - text: "A cone"
+        value: "3"
+    correctIndex: 1
+    answer: "2"
+    hints:
+      - |
+        Look at the trace $z=1$: $x^2-y^2=1$.
+    explanation: |
+      The traces $z=k$ are hyperbolas, and the trace $y=0$ is the parabola $z=x^2$ while $x=0$ gives $z=-y^2$: a saddle.
+
+  - id: chk-volume
+    type: check
+    prompt: |
+      Find the volume of the solid bounded by $\dfrac{x^2}{4}+\dfrac{y^2}{9}+\dfrac{z^2}{25}=1$.
+    answerType: expression
+    answer: "40*pi"
+    hints:
+      - |
+        $V=\dfrac43\pi abc$ with $a=2$, $b=3$, $c=5$.
+    explanation: |
+      $V=\dfrac43\pi\cdot2\cdot3\cdot5=40\pi$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Ellipsoid (three $+$), hyperboloid of one sheet (two $+$, one $-$), of two sheets (one $+$, two $-$), paraboloids ($z=\dots$), cone (homogeneous).
+      - |
+        To understand a surface, put $z=k$ (or $x=k$, $y=k$) and look at the trace.
+      - |
+        Volume of the ellipsoid: $\dfrac43\pi abc$.
