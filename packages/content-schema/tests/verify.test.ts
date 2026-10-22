@@ -217,7 +217,10 @@ describe("client lesson never leaks secrets (spec section 13)", () => {
         for (const h of s.hints) expect(json).not.toContain(h.trim());
         for (const m of s.mistakes ?? []) expect(json).not.toContain(m.hint);
       }
-      expect(json).not.toContain('"answer":"(');
+      // A worked example shows its answer on purpose; a check question and an exercise never carry a key.
+      const client = toClientLesson(l.meta);
+      for (const s of client.sections) if (s.type === "check") expect(s).not.toHaveProperty("answer");
+      for (const set of client.exerciseSets) for (const item of set.items) expect(item).not.toHaveProperty("answer");
       expect(json).not.toContain("correctIndex");
       expect(json).not.toContain('"value"');
       expect(json).not.toContain("explanation");
