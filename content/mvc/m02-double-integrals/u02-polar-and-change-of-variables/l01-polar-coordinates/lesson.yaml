@@ -1,0 +1,102 @@
+id: mvc-m02-u02-l01
+title: Double integrals in polar coordinates
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - polar-double-integral
+objectives:
+  - Convert a region and an integrand from Cartesian to polar coordinates.
+  - Explain why the area element in polar coordinates is $r\,dr\,d\theta$.
+  - Evaluate a double integral over a disc, a sector or a region bounded by a circle.
+sections:
+  - id: why-polar
+    type: concept
+    title: When circles are involved
+    body: |
+      The region $x^2+y^2\le4$ is a disc. In Cartesian coordinates its description needs a square root,
+      $-\sqrt{4-x^2}\le y\le\sqrt{4-x^2}$, and the integrals become awkward. In **polar coordinates**, where a point is
+      described by its distance $r$ from the origin and its angle $\theta$, the same disc is simply $0\le r\le2$ and
+      $0\le\theta\le2\pi$.
+
+      The conversion is $x=r\cos\theta$, $y=r\sin\theta$, and $x^2+y^2=r^2$. Regions bounded by circles, and integrands
+      containing $x^2+y^2$, are the typical cases where polar coordinates help.
+
+  - id: area-element
+    type: theorem
+    name: The area element in polar coordinates
+    statement: |
+      If $D$ is described in polar coordinates by $\alpha\le\theta\le\beta$ and $r_1(\theta)\le r\le r_2(\theta)$, then
+
+      $$\iint_Df(x,y)\,dA=\int_\alpha^\beta\int_{r_1(\theta)}^{r_2(\theta)}f(r\cos\theta,\ r\sin\theta)\;r\,dr\,d\theta.$$
+    proof: |
+      A small "polar rectangle" between radii $r$ and $r+\Delta r$ and angles $\theta$ and $\theta+\Delta\theta$ is almost a rectangle with
+      sides $\Delta r$ and $r\,\Delta\theta$ (an arc of length $r\Delta\theta$). Its area is therefore about $r\,\Delta r\,\Delta\theta$.
+      The extra factor $r$ appears because arcs are longer farther from the origin.
+
+  - id: ex-disc
+    type: example
+    title: A disc
+    problem: |
+      Evaluate $\displaystyle\iint_D(x^2+y^2)\,dA$ where $D$ is the disc $x^2+y^2\le4$.
+    steps:
+      - |
+        In polar coordinates $D$ is $0\le r\le2$, $0\le\theta\le2\pi$, and $x^2+y^2=r^2$.
+      - |
+        The integral is $\displaystyle\int_0^{2\pi}\int_0^2r^2\cdot r\,dr\,d\theta=\int_0^{2\pi}\left[\frac{r^4}{4}\right]_0^2d\theta=\int_0^{2\pi}4\,d\theta=8\pi$.
+    answer: |
+      $8\pi$.
+    verify:
+      - expr: "integrate(integrate(r^2*r, r, 0, 2), t, 0, 2*pi)"
+        equals: "8*pi"
+
+  - id: chk-polar
+    type: check
+    prompt: |
+      Evaluate $\displaystyle\iint_D\sqrt{x^2+y^2}\,dA$ where $D$ is the disc $x^2+y^2\le1$.
+    answerType: expression
+    answer: "2*pi/3"
+    hints:
+      - |
+        In polar coordinates $\sqrt{x^2+y^2}=r$ and $dA=r\,dr\,d\theta$.
+    explanation: |
+      $\displaystyle\int_0^{2\pi}\int_0^1r\cdot r\,dr\,d\theta=2\pi\cdot\frac13=\frac{2\pi}{3}$.
+
+  - id: shifted-circles
+    type: concept
+    title: Circles through the origin
+    body: |
+      The circle $x^2+y^2=2ax$ passes through the origin. In polar coordinates, $r^2=2ar\cos\theta$, so $r=2a\cos\theta$.
+      The same circle in a different position gives a different angle range. For instance, $r=a\sin\theta$ is the circle of diameter
+      $a$ above the $x$-axis, traced for $0\le\theta\le\pi$.
+
+      For regions of this type, the limits of $r$ depend on $\theta$: for each direction $\theta$, $r$ runs from the origin to the circle.
+      Always check which values of $\theta$ give $r\ge0$.
+
+  - id: ex-circle-through-origin
+    type: example
+    title: A disc that touches the origin
+    problem: |
+      Find the area of the disc $x^2+y^2\le2x$.
+    steps:
+      - |
+        In polar coordinates the boundary is $r=2\cos\theta$, and $r\ge0$ requires $-\dfrac\pi2\le\theta\le\dfrac\pi2$.
+      - |
+        Area $=\displaystyle\int_{-\pi/2}^{\pi/2}\int_0^{2\cos\theta}r\,dr\,d\theta=\int_{-\pi/2}^{\pi/2}2\cos^2\theta\,d\theta=\pi$.
+      - |
+        Check: the disc has radius $1$ (it is $(x-1)^2+y^2\le1$), so its area is $\pi\cdot1^2=\pi$.
+    answer: |
+      $\pi$.
+    verify:
+      - expr: "integrate(integrate(r, r, 0, 2*cos(t)), t, -pi/2, pi/2)"
+        equals: "pi"
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $x=r\cos\theta$, $y=r\sin\theta$, $x^2+y^2=r^2$, and $dA=r\,dr\,d\theta$; never forget the extra factor $r$.
+      - |
+        Use polar coordinates for discs, sectors and integrands containing $x^2+y^2$.
+      - |
+        For a region bounded by a circle through the origin, $r$ runs from $0$ to a function of $\theta$; check the range of $\theta$ where $r\ge0$.
