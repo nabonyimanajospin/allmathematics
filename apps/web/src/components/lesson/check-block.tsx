@@ -2,15 +2,26 @@
 
 import { useId, useRef, useState, type FormEvent } from "react";
 import { Button } from "@allmaths/ui";
-import type { CheckResponseDto, LessonStateDto, RSection } from "@/lib/lesson-types";
+import type { AnswerKind, CheckResponseDto, LessonStateDto } from "@/lib/lesson-types";
 import { t } from "@/i18n";
 import { Rich, RichInline } from "./rich";
 
-type CheckSection = Extract<RSection, { type: "check" }>;
+/** What the block needs of a question: the same for a check inside a lesson and for an exercise. */
+export interface Question {
+  id: string;
+  promptHtml: string;
+  answerType: AnswerKind;
+  choicesHtml?: string[] | undefined;
+  hintCount: number;
+}
 
 interface Props {
   lessonId: string;
-  section: CheckSection;
+  section: Question;
+  /** Small label above the question; defaults to "Quick check". */
+  heading?: string;
+  /** Hide the heading and use a lighter frame (exercise lists). */
+  compact?: boolean;
   completed: boolean;
   hintsUsed: number;
   onCorrect: (progress: LessonStateDto["progress"] | undefined) => void;
@@ -33,7 +44,7 @@ type Feedback =
   | { kind: "invalid"; message: string }
   | { kind: "error"; message: string };
 
-export function CheckBlock({ lessonId, section, completed, hintsUsed, onCorrect }: Props) {
+export function CheckBlock({ lessonId, section, heading, compact = false, completed, hintsUsed, onCorrect }: Props) {
   const uid = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
@@ -107,12 +118,55 @@ export function CheckBlock({ lessonId, section, completed, hintsUsed, onCorrect 
     });
   }
 
-  const placeholder =
-    section.answerType === "vector" || section.answerType === "point"
-      ? t("check.placeholderVector")
-      : section.answerType === "expression"
-        ? t("check.placeholderExpression")
-        : t("check.placeholderNumber");
+  const placeholder = {
+    number: t("check.placeholderNumber"),
+    expression: t("check.placeholderExpression"),
+    vector: t("check.placeholderVector"),
+    point: t("check.placeholderVector"),
+    multiple_choice: "",
+    region: t("check.placeholderRegion"),
+    equation: t("check.placeholderEquation"),
+    direction: t("check.placeholderVector"),
+    points: t("check.placeholderPoints"),
+    ode_solution: t("check.placeholderOde"),
+    ode_family: t("check.placeholderFamily"),
+  }[section.answerType];
+
+  // The symbol bar offers what the answer type needs, so a phone keyboard is never the obstacle.
+  const commonSymbols = [
+    { label: "√", title: t("check.insertRoot"), text: "sqrt()", caret: 5 },
+    { label: "a/b", title: t("check.insertFraction"), text: "()/()", caret: 1 },
+    { label: "π", title: t("check.insertPi"), text: "pi" },
+    { label: "( )", title: "( )", text: "()", caret: 1 },
+    { label: "xⁿ", title: "^", text: "^()", caret: 2 },
+    { label: ",", title: ",", text: ", " },
+    { label: "−", title: "−", text: "-" },
+  ];
+  const extra: Record<string, { label: string; title: string; text: string; caret?: number }[]> = {
+    region: [
+      { label: "≤", title: "<=", text: "<=" },
+      { label: "≥", title: ">=", text: ">=" },
+      { label: "<", title: "<", text: "<" },
+      { label: ">", title: ">", text: ">" },
+      { label: "=", title: t("check.symbolEquals"), text: "=" },
+      { label: "≠", title: "!=", text: "!=" },
+      { label: t("check.symbolAnd"), title: t("check.symbolAnd"), text: " and " },
+      { label: t("check.symbolOr"), title: t("check.symbolOr"), text: " or " },
+    ],
+    equation: [{ label: "=", title: t("check.symbolEquals"), text: " = " }],
+    ode_solution: [
+      { label: "=", title: t("check.symbolEquals"), text: " = " },
+      { label: "e^", title: "e^()", text: "e^()", caret: 3 },
+      { label: "ln", title: "ln()", text: "ln()", caret: 3 },
+      { label: "C", title: t("check.symbolConstant"), text: "C" },
+    ],
+    ode_family: [
+      { label: "=", title: t("check.symbolEquals"), text: " = " },
+      { label: "y′", title: t("check.symbolPrime"), text: "y'" },
+      { label: "y″", title: t("check.symbolPrime2"), text: "y''" },
+    ],
+  };
+  const symbols = [...(section.answerType === "multiple_choice" ? [] : commonSymbols), ...(extra[section.answerType] ?? [])];
 
   const tone =
     feedback.kind === "correct" || completed
@@ -123,12 +177,14 @@ export function CheckBlock({ lessonId, section, completed, hintsUsed, onCorrect 
 
   return (
     <div
-      className={`rounded-[var(--radius)] border-2 bg-surface p-5 ${tone} ${shaking ? "shake" : ""}`}
+      className={`rounded-[var(--radius)] ${compact ? "border" : "border-2"} bg-surface p-5 ${tone} ${shaking ? "shake" : ""}`}
       onAnimationEnd={(e) => {
         if (e.target === e.currentTarget) setShaking(false);
       }}
     >
-      <p className="mb-2 text-sm font-bold uppercase tracking-wide text-accent">{t("lesson.check")}</p>
+      {compact ? null : (
+        <p className="mb-2 text-sm font-bold uppercase tracking-wide text-accent">{heading ?? t("lesson.check")}</p>
+      )}
       <Rich html={section.promptHtml} />
 
       <form onSubmit={submit} className="mt-4 grid gap-3">
@@ -169,15 +225,7 @@ export function CheckBlock({ lessonId, section, completed, hintsUsed, onCorrect 
               className="min-h-12 w-full rounded-[var(--radius-sm)] border border-line bg-bg px-3 py-2 font-mono text-lg text-ink placeholder:font-sans placeholder:text-base placeholder:text-muted"
             />
             <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t("check.symbols")}>
-              {[
-                { label: "√", title: t("check.insertRoot"), text: "sqrt()", caret: 5 },
-                { label: "a/b", title: t("check.insertFraction"), text: "()/()", caret: 1 },
-                { label: "π", title: t("check.insertPi"), text: "pi" },
-                { label: "( )", title: "( )", text: "()", caret: 1 },
-                { label: "xⁿ", title: "^", text: "^()", caret: 2 },
-                { label: ",", title: ",", text: ", " },
-                { label: "−", title: "−", text: "-" },
-              ].map((b) => (
+              {symbols.map((b) => (
                 <button
                   key={b.label}
                   type="button"

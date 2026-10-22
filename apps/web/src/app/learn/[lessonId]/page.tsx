@@ -38,6 +38,7 @@ export default async function LessonPage({ params }: Params) {
       lesson={renderLesson(toClientLesson(ref.lesson))}
       initial={{
         completedSectionIds: state.completedSectionIds,
+        solvedExerciseIds: state.solvedExerciseIds,
         hintsUsed: state.hintsUsed,
         resumeSectionId: state.resumeSectionId,
         progress: state.progress,

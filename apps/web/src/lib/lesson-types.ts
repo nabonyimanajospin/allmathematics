@@ -16,11 +16,41 @@ export type RSection =
   | (RBase & {
       type: "check";
       promptHtml: string;
-      answerType: "number" | "expression" | "vector" | "point" | "multiple_choice";
+      answerType: AnswerKind;
       choicesHtml?: string[];
       hintCount: number;
     })
   | (RBase & { type: "summary"; pointsHtml: string[] });
+
+export type AnswerKind =
+  | "number"
+  | "expression"
+  | "vector"
+  | "point"
+  | "multiple_choice"
+  | "region"
+  | "equation"
+  | "direction"
+  | "points"
+  | "ode_solution"
+  | "ode_family";
+
+export interface RExercise {
+  id: string;
+  statementHtml: string;
+  answerType: AnswerKind;
+  choicesHtml?: string[];
+  hintCount: number;
+  noteHtml?: string;
+}
+
+export interface RExerciseSet {
+  id: string;
+  taskHtml: string;
+  formatHtml?: string;
+  source?: string;
+  items: RExercise[];
+}
 
 export interface RLesson {
   id: string;
@@ -28,10 +58,12 @@ export interface RLesson {
   estMinutes: number;
   objectivesHtml: string[];
   sections: RSection[];
+  exerciseSets: RExerciseSet[];
 }
 
 export interface LessonStateDto {
   completedSectionIds: string[];
+  solvedExerciseIds: string[];
   hintsUsed: Record<string, number>;
   resumeSectionId: string;
   progress: {

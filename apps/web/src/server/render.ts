@@ -7,8 +7,8 @@ import katex from "katex";
 import { Marked } from "marked";
 import { getMacros } from "@allmaths/notation";
 import { DEFAULT_MIN_SECONDS, requiredSeconds } from "@allmaths/core";
-import type { ClientSection, ClientLesson } from "@allmaths/content-schema";
-import type { RLesson, RSection } from "@/lib/lesson-types";
+import type { ClientSection, ClientLesson, ClientExerciseSet } from "@allmaths/content-schema";
+import type { RExerciseSet, RLesson, RSection } from "@/lib/lesson-types";
 import { t } from "@/i18n";
 
 const escapeHtml = (s: string): string =>
@@ -184,12 +184,30 @@ export function renderSection(s: ClientSection): RSection | null {
   }
 }
 
+export function renderExerciseSet(set: ClientExerciseSet): RExerciseSet {
+  return {
+    id: set.id,
+    taskHtml: renderRich(set.task),
+    ...(set.format ? { formatHtml: renderRich(set.format) } : {}),
+    ...(set.source ? { source: set.source } : {}),
+    items: set.items.map((e) => ({
+      id: e.id,
+      statementHtml: renderRich(e.statement),
+      answerType: e.answerType,
+      ...(e.choices ? { choicesHtml: e.choices.map((c) => renderInline(c.text)) } : {}),
+      hintCount: e.hintCount,
+      ...(e.note ? { noteHtml: renderRich(e.note) } : {}),
+    })),
+  };
+}
+
 export function renderLesson(lesson: ClientLesson): RLesson {
   return {
     id: lesson.id,
     title: lesson.title,
     estMinutes: lesson.estMinutes,
     objectivesHtml: lesson.objectives.map(renderInline),
+    exerciseSets: lesson.exerciseSets.map(renderExerciseSet),
     sections: lesson.sections.flatMap((s) => {
       const r = renderSection(s);
       return r ? [r] : [];

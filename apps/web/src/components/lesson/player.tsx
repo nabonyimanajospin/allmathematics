@@ -17,6 +17,7 @@ import {
   TheoremBlock,
   VisualBlock,
 } from "./blocks";
+import { ExerciseSets } from "./exercises";
 import { Rich, RichInline } from "./rich";
 
 interface Props {
@@ -36,14 +37,14 @@ const uuid = (): string =>
     ? crypto.randomUUID()
     : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/[x]/g, () => Math.floor(Math.random() * 16).toString(16));
 
-function localPercent(done: number, total: number): number {
+function localPercent(done: number, total: number, solved: number, hasPractice: boolean): number {
   return rational.percentFloor(
     lessonProgress({
       sectionsCompleted: Math.min(done, total),
       sectionsTotal: total,
-      practiceSolved: 0,
+      practiceSolved: solved,
       quizPassed: false,
-      hasPractice: false,
+      hasPractice,
       hasQuiz: false,
     }),
   );
@@ -54,6 +55,7 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
   const ids = useMemo(() => new Set(lesson.sections.map((s) => s.id)), [lesson]);
 
   const [completed, setCompleted] = useState<Set<string>>(() => new Set(initial.completedSectionIds));
+  const [solved, setSolved] = useState<Set<string>>(() => new Set(initial.solvedExerciseIds));
   const [optimistic, setOptimistic] = useState<Set<string>>(() => new Set());
   const [serverProgress, setServerProgress] = useState(initial.progress);
   const [bookmarked, setBookmarked] = useState<Set<string>>(() => new Set());
@@ -74,6 +76,7 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
     (state: LessonStateDto) => {
       const done = new Set(state.completedSectionIds.filter((id) => ids.has(id)));
       setCompleted(done);
+      setSolved(new Set(state.solvedExerciseIds));
       setServerProgress(state.progress);
       setOptimistic((prev) => {
         const out = new Set<string>();
@@ -261,7 +264,8 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
 
   // --- derived state ----------------------------------------------------------------------------------
   const doneNow = new Set([...completed, ...optimistic]);
-  const percent = Math.max(serverProgress.lesson.percent, localPercent(doneNow.size, total));
+  const hasPractice = lesson.exerciseSets.length > 0;
+  const percent = Math.max(serverProgress.lesson.percent, localPercent(doneNow.size, total, solved.size, hasPractice));
 
   // sections after the first unanswered check stay hidden until it is answered
   let lastVisible = total - 1;
@@ -272,7 +276,7 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
       break;
     }
   }
-  const finished = completed.size >= total;
+  const unlocked = lastVisible === total - 1;
 
   const bookmark = (sectionId: string) => {
     setBookmarked((p) => new Set(p).add(sectionId));
@@ -375,7 +379,20 @@ export function LessonPlayer({ lesson, initial, userId, next }: Props) {
           <p className="mt-8 rounded-[var(--radius-sm)] border border-dashed border-line px-4 py-3 text-center text-muted">{t("lesson.locked")}</p>
         ) : null}
 
-        {finished || percent >= 100 ? (
+        {unlocked && hasPractice ? (
+          <ExerciseSets
+            lessonId={lesson.id}
+            sets={lesson.exerciseSets}
+            solved={solved}
+            hintsUsed={initial.hintsUsed}
+            onSolved={(id, progress) => {
+              setSolved((p) => new Set(p).add(id));
+              if (progress) setServerProgress(progress);
+            }}
+          />
+        ) : null}
+
+        {percent >= 100 ? (
           <Card className="pop mt-10 border-success text-center">
             <p className="text-xl font-bold text-success">{t("lesson.lessonDone")}</p>
             <div className="mt-4 flex flex-wrap justify-center gap-3">
