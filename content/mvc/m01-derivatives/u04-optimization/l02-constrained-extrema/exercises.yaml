@@ -2,7 +2,7 @@
 # Change the script and run build_all.py instead of editing this file by hand.
 - id: constrained
   task: "Find the extreme values of each function under the given constraint (S/C)."
-  format: "For a list of points type `(a, b), (c, d)`. For a value type a number or an exact expression such as `sqrt(10)`."
+  format: "For a list of points type `(a, b), (c, d)`. For a value type a number or an exact expression such as `sqrt(7)`."
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: con-04a

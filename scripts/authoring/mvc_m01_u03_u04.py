@@ -303,6 +303,6 @@ def build() -> None:
     write_exercises(
         f"{BASE}/u04-optimization/l02-constrained-extrema",
         [exset("constrained", "Find the extreme values of each function under the given constraint (S/C).", constrained_items(),
-               format="For a list of points type `(a, b), (c, d)`. For a value type a number or an exact expression such as `sqrt(10)`.")],
+               format="For a list of points type `(a, b), (c, d)`. For a value type a number or an exact expression such as `sqrt(7)`.")],
         "mvc_m01_u03_u04.py",
     )

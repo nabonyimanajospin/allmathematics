@@ -2,7 +2,7 @@
 # Change the script and run build_all.py instead of editing this file by hand.
 - id: polar
   task: Evaluate the following double integrals in polar coordinates.
-  format: "Type an exact expression such as `pi*a^2/2`."
+  format: "Type an exact expression such as `a^3/6`."
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: pol-01

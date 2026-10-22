@@ -2,7 +2,7 @@
 # Change the script and run build_all.py instead of editing this file by hand.
 - id: domains
   task: Find the domain of definition of each function.
-  format: "Type the conditions on the variables, for example `x^2 + y^2 <= 4`. Use `<=` and `>=` for ≤ and ≥, and the words `and` / `or` to combine conditions. If the function is defined everywhere, type `true`."
+  format: "Type the conditions on the variables, for example `x > 0 and y <= 2`. Use `<=` and `>=` for ≤ and ≥, and the words `and` / `or` to combine conditions. The words true (all points) and false (no point) are accepted."
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: dom-01

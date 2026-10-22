@@ -2,7 +2,7 @@
 # Change the script and run build_all.py instead of editing this file by hand.
 - id: separable
   task: Solve the differential equation. Give the general solution.
-  format: "Type the solution, for example `y = C*sin(x)` or an implicit relation such as `y^2 = x^3 + C`."
+  format: "Type the solution, for example `y = C*x^2` or an implicit relation such as `y^2 = x^3 + C`."
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: sep-a

@@ -143,16 +143,16 @@ def volume_items() -> list[dict]:
 def build() -> None:
     write_exercises(
         f"{BASE}/u01-cartesian/l01-triple-integrals",
-        [exset("triple", "Evaluate the following triple integrals.", cartesian_items(), format="Type an exact value such as `1/20` or `pi/10`.")],
+        [exset("triple", "Evaluate the following triple integrals.", cartesian_items(), format="Type an exact value such as `1/6` or `pi/12`.")],
         "mvc_m03.py",
     )
     write_exercises(
         f"{BASE}/u02-cylindrical-and-spherical/l01-cylindrical-and-spherical",
-        [exset("spherical", "Use spherical coordinates.", spherical_items(), format="Type an exact expression, for example `4*pi*R^5/15`.")],
+        [exset("spherical", "Use spherical coordinates.", spherical_items(), format="Type an exact expression, for example `pi*R^3/3`.")],
         "mvc_m03.py",
     )
     write_exercises(
         f"{BASE}/u03-volumes/l01-volumes",
-        [exset("volumes", "Find the volume bounded by the given surfaces.", volume_items(), format="Type an exact expression, for example `2*a^3*b/3`.")],
+        [exset("volumes", "Find the volume bounded by the given surfaces.", volume_items(), format="Type an exact expression, for example `a^2*b/5`.")],
         "mvc_m03.py",
     )

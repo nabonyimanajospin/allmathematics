@@ -75,7 +75,7 @@
         Because $\left|\sin\dfrac1{xy}\right|\le1$, we have $\left|(x^2+y^2)\sin\dfrac1{xy}\right|\le x^2+y^2$. The bound $x^2+y^2$ tends to $0$, so by the squeeze principle the limit is $0$. (The function is not defined on the axes, but the limit is taken over the points where it is defined.)
 - id: discontinuities
   task: Find the set of points of the plane at which the function is not continuous. Count the points where the formula is not defined.
-  format: "Type the conditions on the variables, for example `x^2 + y^2 <= 4`. Use `<=` and `>=` for ≤ and ≥, and the words `and` / `or` to combine conditions. If the function is defined everywhere, type `true`."
+  format: "Type the conditions on the variables, for example `x > 0 and y <= 2`. Use `<=` and `>=` for ≤ and ≥, and the words `and` / `or` to combine conditions. The words true (all points) and false (no point) are accepted."
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: dis-01

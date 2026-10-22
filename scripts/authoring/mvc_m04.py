@@ -279,7 +279,7 @@ def build_l02() -> None:
         f"{U1}/l02-separable",
         [
             exset("separable", "Solve the differential equation. Give the general solution.", items,
-                  format="Type the solution, for example `y = C*sin(x)` or an implicit relation such as `y^2 = x^3 + C`."),
+                  format="Type the solution, for example `y = C*x^2` or an implicit relation such as `y^2 = x^3 + C`."),
             exset("separable-ivp", "Solve the initial-value problem.", ivp, format="Type $y$ as an explicit function of $x$."),
         ],
         "mvc_m04.py",

@@ -309,13 +309,13 @@ def build() -> None:
     write_exercises(
         f"{BASE}/u01-over-regions/l01-iterated-integrals",
         [exset("double-integrals", "Evaluate the following double integrals.", cartesian_items(),
-               format="Type an exact value such as `3/35` or `pi^2/4`. If the integral does not converge, type `diverges`.")],
+               format="Type an exact value such as `2/9` or `pi/8`. If the integral does not converge, type `diverges`.")],
         "mvc_m02.py",
     )
     write_exercises(
         f"{BASE}/u02-polar-and-change-of-variables/l01-polar-coordinates",
         [exset("polar", "Evaluate the following double integrals in polar coordinates.", polar_items(),
-               format="Type an exact expression such as `pi*a^2/2`.")],
+               format="Type an exact expression such as `a^3/6`.")],
         "mvc_m02.py",
     )
     write_exercises(
@@ -325,6 +325,6 @@ def build() -> None:
     )
     write_exercises(
         f"{BASE}/u03-applications/l01-area",
-        [exset("areas", "Find the area bounded by the given curves.", area_items(), format="Type an exact value such as `16/3` or `pi*a*b`.")],
+        [exset("areas", "Find the area bounded by the given curves.", area_items(), format="Type an exact value such as `5/6` or `pi*r^2`.")],
         "mvc_m02.py",
     )

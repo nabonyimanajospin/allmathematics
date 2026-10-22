@@ -9,8 +9,8 @@ from toolkit import ex, exset, P, defined_real, write_exercises, x, y, z
 from allmaths_engine.region import compile_region, sample_points  # noqa: E402
 
 REGION_FORMAT = (
-    "Type the conditions on the variables, for example `x^2 + y^2 <= 4`. Use `<=` and `>=` for ≤ and ≥, "
-    "and the words `and` / `or` to combine conditions. If the function is defined everywhere, type `true`."
+    "Type the conditions on the variables, for example `x > 0 and y <= 2`. Use `<=` and `>=` for ≤ and ≥, "
+    "and the words `and` / `or` to combine conditions. The words true (all points) and false (no point) are accepted."
 )
 
 
