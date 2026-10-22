@@ -1,0 +1,117 @@
+id: geo-m03-u03-l01
+title: The equation of a sphere
+estMinutes: 35
+version: 1
+status: draft
+skills:
+  - sphere-equation
+  - sphere-through-four-points
+objectives:
+  - Write the equation of a sphere from its center and radius, in standard and general form.
+  - Find the center and the radius from a general equation.
+  - Find the sphere through four points, or with a given diameter, and compute its surface area and volume.
+sections:
+  - id: standard
+    type: definition
+    term: Sphere
+    body: |
+      A **sphere** with center $C(p,q,r_0)$ and radius $\rho>0$ is the set of points $P(x,y,z)$ at distance $\rho$ from $C$. Writing $CP^2=\rho^2$ with the distance formula gives the **standard equation**
+
+      $$(x-p)^2+(y-q)^2+(z-r_0)^2=\rho^2.$$
+
+      Expanding gives the **general equation** $x^2+y^2+z^2+Dx+Ey+Fz+G=0$, with $D=-2p$, $E=-2q$, $F=-2r_0$ and $G=p^2+q^2+r_0^2-\rho^2$.
+
+  - id: from-general
+    type: theorem
+    name: Center and radius from the general equation
+    statement: |
+      The equation $x^2+y^2+z^2+Dx+Ey+Fz+G=0$ is a sphere if and only if $\dfrac{D^2+E^2+F^2}{4}-G>0$. Then
+
+      $$\text{center}\left(-\dfrac D2,-\dfrac E2,-\dfrac F2\right),\qquad\rho^2=\dfrac{D^2+E^2+F^2}{4}-G.$$
+
+      Its **surface area** is $4\pi\rho^2$ and its **volume** is $\dfrac43\pi\rho^3$.
+    proof: |
+      Complete the squares in $x$, $y$ and $z$: $x^2+Dx=\left(x+\dfrac D2\right)^2-\dfrac{D^2}{4}$, and likewise for $y$ and $z$. The equation becomes $\left(x+\dfrac D2\right)^2+\left(y+\dfrac E2\right)^2+\left(z+\dfrac F2\right)^2=\dfrac{D^2+E^2+F^2}{4}-G$, which is a sphere when the right side is positive.
+
+  - id: ex-complete
+    type: example
+    title: Completing the squares
+    problem: |
+      Find the center and the radius of $x^2+y^2+z^2-2x+4y-6z-11=0$.
+    steps:
+      - |
+        $D=-2$, $E=4$, $F=-6$, $G=-11$. The center is $(1,-2,3)$.
+      - |
+        $\rho^2=\dfrac{4+16+36}{4}+11=14+11=25$, so $\rho=5$. The standard form is $(x-1)^2+(y+2)^2+(z-3)^2=25$.
+      - |
+        The surface area is $4\pi\cdot25=100\pi$ and the volume is $\dfrac43\pi\cdot125=\dfrac{500\pi}{3}$.
+    answer: |
+      Center $(1,-2,3)$, radius $5$.
+    verify:
+      - expr: "(4+16+36)/4+11"
+        equals: "25"
+      - expr: "4*pi*25"
+        equals: "100*pi"
+
+  - id: chk-radius
+    type: check
+    prompt: |
+      Find the radius of the sphere $x^2+y^2+z^2-4x+2y+4z+5=0$.
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        The center is $(2,-1,-2)$. Then $\rho^2=4+1+4-5$.
+    explanation: |
+      $\rho^2=\dfrac{16+4+16}{4}-5=9-5=4$, so $\rho=2$.
+
+  - id: four-points
+    type: concept
+    title: Four points and a diameter
+    body: |
+      Four points that are not in one plane lie on exactly one sphere. Substitute each point in $x^2+y^2+z^2+Dx+Ey+Fz+G=0$: this gives four linear equations for $D,E,F,G$.
+
+      A sphere is also determined by the two ends of a **diameter**: the center is the midpoint of the diameter and the radius is half of its length.
+
+  - id: ex-four-points
+    type: example
+    title: The sphere through four points
+    problem: |
+      Find the sphere through $A(0,0,0)$, $B(4,0,0)$, $C(1,3,0)$ and $D(2,1,5)$.
+    steps:
+      - |
+        $A$: $G=0$. $B$: $16+4D=0$, so $D=-4$. $C$: $1+9-4+3E=0$, so $E=-2$. $D$: $4+1+25-8-2+5F=0$, so $F=-4$.
+      - |
+        The sphere is $x^2+y^2+z^2-4x-2y-4z=0$, with center $(2,1,2)$ and $\rho^2=\dfrac{16+4+16}{4}=9$: $(x-2)^2+(y-1)^2+(z-2)^2=9$.
+    answer: |
+      $x^2+y^2+z^2-4x-2y-4z=0$.
+    verify:
+      - expr: "16+0+0-4*4"
+        equals: "0"
+      - expr: "1+9+0-4*1-2*3"
+        equals: "0"
+      - expr: "4+1+25-4*2-2*1-4*5"
+        equals: "0"
+
+  - id: chk-diameter
+    type: check
+    prompt: |
+      Write the sphere that has the segment from $A(1,2,3)$ to $B(5,6,7)$ as a diameter.
+    answerType: equation
+    coordinates: [x, y, z]
+    answer: "(x-3)^2+(y-4)^2+(z-5)^2=12"
+    hints:
+      - |
+        The center is the midpoint of $AB$. The radius is the distance from the center to $A$.
+    explanation: |
+      The center is $(3,4,5)$ and $\rho^2=(3-1)^2+(4-2)^2+(5-3)^2=12$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $(x-p)^2+(y-q)^2+(z-r_0)^2=\rho^2$: center $(p,q,r_0)$, radius $\rho$; surface $4\pi\rho^2$, volume $\dfrac43\pi\rho^3$.
+      - |
+        $x^2+y^2+z^2+Dx+Ey+Fz+G=0$ has center $\left(-\dfrac D2,-\dfrac E2,-\dfrac F2\right)$ and $\rho^2=\dfrac{D^2+E^2+F^2}4-G$.
+      - |
+        Four points give four linear equations for $D,E,F,G$.

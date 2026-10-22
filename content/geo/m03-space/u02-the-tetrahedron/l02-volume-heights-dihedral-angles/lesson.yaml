@@ -1,0 +1,131 @@
+id: geo-m03-u02-l02
+title: Volume, heights and dihedral angles of a tetrahedron
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - tetrahedron-volume
+  - tetrahedron-heights
+  - dihedral-angle
+objectives:
+  - Compute the volume of a tetrahedron with the box product.
+  - Compute a height from the volume and a face area, and write the equation of the plane of a face.
+  - Compute the dihedral angle along an edge.
+sections:
+  - id: volume-idea
+    type: concept
+    title: A tetrahedron is a sixth of a box
+    body: |
+      Three edges from one vertex, $\overrightarrow{AB}$, $\overrightarrow{AC}$, $\overrightarrow{AD}$, span a parallelepiped, and its volume is the absolute value of their box product.
+      The tetrahedron $ABCD$ is one sixth of this box.
+      A second way to the volume uses a face as the base: the volume of a pyramid is one third of base area times height. Putting the two ways together gives the heights.
+
+  - id: volume-theorem
+    type: theorem
+    name: Volume of a tetrahedron
+    statement: |
+      $$V=\dfrac16\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|=\dfrac16\left|\begin{vmatrix}x_B-x_A&y_B-y_A&z_B-z_A\\x_C-x_A&y_C-y_A&z_C-z_A\\x_D-x_A&y_D-y_A&z_D-z_A\end{vmatrix}\right|.$$
+
+      Also $V=\dfrac13\,S_{ABC}\,h_D$, where $h_D$ is the **height** from $D$ to the plane of the face $ABC$, so $\ h_D=\dfrac{3V}{S_{ABC}}$.
+    proof: |
+      The parallelepiped on $\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}$ has volume $|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}|$. It is cut into six tetrahedra of equal volume, one of which is $ABCD$.
+      The second formula is the volume $\dfrac13\times$ base $\times$ height of a pyramid with the base $ABC$.
+
+  - id: ex-volume
+    type: example
+    title: Volume and heights
+    problem: |
+      Find the volume and the heights of the tetrahedron $A(0,0,0)$, $B(4,0,0)$, $C(1,3,0)$, $D(2,1,5)$.
+    steps:
+      - |
+        The vectors are $\overrightarrow{AB}=(4,0,0)$, $\overrightarrow{AC}=(1,3,0)$, $\overrightarrow{AD}=(2,1,5)$. The determinant is $4\cdot(3\cdot5-0\cdot1)=60$, so $V=\dfrac{60}6=10$.
+      - |
+        With the face areas $S_{ABC}=6$, $S_{ABD}=2\sqrt{26}$, $S_{ACD}=\dfrac{5\sqrt{11}}2$, $S_{BCD}=\dfrac{3\sqrt{51}}2$, the heights $h=\dfrac{3V}{S}=\dfrac{30}{S}$ are
+        $h_D=\dfrac{30}{6}=5$, $\ h_C=\dfrac{15\sqrt{26}}{26}$, $\ h_B=\dfrac{12\sqrt{11}}{11}$ and $h_A=\dfrac{20\sqrt{51}}{51}$ (after rationalizing each quotient).
+      - |
+        Check $h_D$: the face $ABC$ is in the plane $z=0$ and $D$ has $z=5$.
+    answer: |
+      $V=10$, $h_D=5$, $h_C=\dfrac{15\sqrt{26}}{26}$, $h_B=\dfrac{12\sqrt{11}}{11}$, $h_A=\dfrac{20\sqrt{51}}{51}$.
+    verify:
+      - expr: "4*(3*5-0*1)/6"
+        equals: "10"
+      - expr: "30/6"
+        equals: "5"
+      - expr: "30/(2*sqrt(26))"
+        equals: "15*sqrt(26)/26"
+      - expr: "30/(5*sqrt(11)/2)"
+        equals: "12*sqrt(11)/11"
+
+  - id: chk-volume
+    type: check
+    prompt: |
+      Find the volume of the tetrahedron with $A(0,0,0)$, $B(2,0,0)$, $C(0,4,0)$ and $D(0,0,6)$.
+    answerType: number
+    answer: "8"
+    hints:
+      - |
+        The box product of $(2,0,0)$, $(0,4,0)$, $(0,0,6)$ is the product of the diagonal.
+    explanation: |
+      The determinant is $2\cdot4\cdot6=48$, so $V=\dfrac{48}6=8$.
+
+  - id: face-plane
+    type: concept
+    title: The plane of a face, and the height as a distance
+    body: |
+      The height $h_D$ is the distance from $D$ to the plane of the face $ABC$. The plane has the normal vector $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}$, so its equation is found as in the lesson on planes, and the distance with the point-plane formula.
+
+      For the running example the cross product is $(0,0,12)$, the plane is $z=0$ and the distance from $D(2,1,5)$ is $5$, as above. Two ways to the same number are a good check of an exercise.
+
+  - id: dihedral-theorem
+    type: theorem
+    name: The dihedral angle
+    statement: |
+      The **dihedral angle** along an edge is the angle between the two faces that contain it. For the faces $ABC$ and $ABD$ along the edge $AB$, with normals $\vec n_1=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}$ and $\vec n_2=\crossp{\overrightarrow{AB}}{\overrightarrow{AD}}$,
+
+      $$\cos\varphi=\dfrac{\dotp{\vec n_1}{\vec n_2}}{\norm{\vec n_1}\,\norm{\vec n_2}},$$
+
+      where $\varphi\in[0,\pi]$ is the angle between the faces **inside** the tetrahedron. (With these two cross products, one normal points into the tetrahedron and the other out of it, which is why the cosine of the angle between the normals is the cosine of the interior angle.) Equivalently $\ \sin\varphi=\dfrac{3V\,AB}{2\,S_{ABC}\,S_{ABD}}$.
+    proof: |
+      The angle between two planes is the angle between their normals; the cross products $\vec n_1$, $\vec n_2$ are perpendicular to the edge $AB$ and to the faces, so they are normals of the two faces. For the second formula, $V=\dfrac{2\,S_{ABC}\,S_{ABD}\sin\varphi}{3\,AB}$ (the volume computed from the two faces and the angle between them).
+
+  - id: ex-dihedral
+    type: example
+    title: A dihedral angle
+    problem: |
+      Find the angle between the faces $ABC$ and $ABD$ of the running tetrahedron.
+    steps:
+      - |
+        $\vec n_1=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=(0,0,12)$ and $\vec n_2=\crossp{\overrightarrow{AB}}{\overrightarrow{AD}}=(0,-20,4)$.
+      - |
+        $\dotp{\vec n_1}{\vec n_2}=48$, $\norm{\vec n_1}=12$ and $\norm{\vec n_2}=4\sqrt{26}$, so the product of the norms is $48\sqrt{26}$ and $\cos\varphi=\dfrac{\sqrt{26}}{26}$ (the quotient of $48$ by $48\sqrt{26}$, rationalized).
+      - |
+        Check with the sine: $\sin\varphi=\dfrac{3V\,AB}{2S_{ABC}S_{ABD}}=\dfrac{5\sqrt{26}}{26}$, and $\dfrac{1}{26}+\dfrac{25}{26}=1$.
+    answer: |
+      $\cos\varphi=\dfrac{\sqrt{26}}{26}$, that is $\varphi=\arccos\dfrac{\sqrt{26}}{26}$.
+    verify:
+      - expr: "48/(12*4*sqrt(26))"
+        equals: "sqrt(26)/26"
+      - expr: "(1/sqrt(26))^2+(5/sqrt(26))^2"
+        equals: "1"
+
+  - id: chk-dihedral
+    type: check
+    prompt: |
+      The faces of a tetrahedron along an edge have the normals $(1,0,0)$ and $(1,1,0)$. What is $\cos\varphi$?
+    answerType: expression
+    answer: "sqrt(2)/2"
+    hints:
+      - |
+        $\dotp{\vec n_1}{\vec n_2}=1$ and $\norm{\vec n_2}=\sqrt2$.
+    explanation: |
+      $\cos\varphi=\dfrac{1}{1\cdot\sqrt2}=\dfrac{\sqrt2}2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $V=\dfrac16|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}|=\dfrac13S\,h$, so $h_D=\dfrac{3V}{S_{ABC}}$.
+      - |
+        The height is the distance from the vertex to the plane of the opposite face.
+      - |
+        The dihedral angle along an edge is computed from the normals $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}$ and $\crossp{\overrightarrow{AB}}{\overrightarrow{AD}}$.

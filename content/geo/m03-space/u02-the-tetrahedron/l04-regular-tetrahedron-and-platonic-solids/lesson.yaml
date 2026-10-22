@@ -1,0 +1,117 @@
+id: geo-m03-u02-l04
+title: The regular tetrahedron and the Platonic solids
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - regular-tetrahedron
+  - euler-formula
+  - platonic-solids
+objectives:
+  - Compute the height, volume, surface area, circumradius and inradius of a regular tetrahedron of edge $a$.
+  - State Euler's formula $V-E+F=2$ and list the five Platonic solids.
+sections:
+  - id: regular
+    type: definition
+    term: Regular tetrahedron
+    body: |
+      A tetrahedron is **regular** when its six edges are equal, to a number $a$. Then all four faces are equilateral triangles of side $a$, with area $\dfrac{\sqrt3}{4}a^2$.
+
+      A convenient position: take four of the eight vertices of a cube of edge $c$ so that no two are adjacent, for example $(0,0,0)$, $(c,c,0)$, $(c,0,c)$, $(0,c,c)$. The six edges are the face diagonals of the cube, all equal to $a=c\sqrt2$.
+
+  - id: regular-theorem
+    type: theorem
+    name: Formulas of the regular tetrahedron
+    statement: |
+      For the regular tetrahedron of edge $a$:
+
+      $$S=\sqrt3\,a^2,\qquad h=\dfrac{\sqrt6}{3}\,a,\qquad V=\dfrac{\sqrt2}{12}\,a^3,\qquad R=\dfrac{\sqrt6}{4}\,a,\qquad r=\dfrac{\sqrt6}{12}\,a,$$
+
+      with $R=3r$. The dihedral angle $\varphi$ satisfies $\cos\varphi=\dfrac13$.
+    proof: |
+      The total surface is four faces of area $\dfrac{\sqrt3}4a^2$. The foot of the height from a vertex is the centroid of the opposite face, at distance $\dfrac{\sqrt3}{3}a$ from each vertex of that face. By Pythagoras
+      $h^2=a^2-\dfrac{a^2}{3}=\dfrac{2a^2}{3}$, so $h=\dfrac{\sqrt6}{3}a$. The volume is $V=\dfrac13S_{face}\,h=\dfrac13\cdot\dfrac{\sqrt3}{4}a^2\cdot\dfrac{\sqrt6}{3}a=\dfrac{\sqrt{18}}{36}a^3=\dfrac{\sqrt2}{12}a^3$.
+      The insphere formula $r=\dfrac{3V}{S}$ with $S=4S_{face}$ and $V=\dfrac13S_{face}h$ gives $r=\dfrac h4$, so $r=\dfrac{\sqrt6}{12}a$. By symmetry the centroid is the circumcenter, at distance $h-r=\dfrac{3h}{4}$ from the vertex, so $R=\dfrac{\sqrt6}{4}a=3r$.
+      The dihedral angle follows from $\sin\varphi=\dfrac{3V\,a}{2S_{face}^2}$.
+
+  - id: ex-regular
+    type: example
+    title: A regular tetrahedron of edge $6$
+    problem: |
+      Find $S$, $h$, $V$, $R$ and $r$ for $a=6$.
+    steps:
+      - |
+        $S=\sqrt3\cdot36=36\sqrt3$. $h=\dfrac{\sqrt6}3\cdot6=2\sqrt6$.
+      - |
+        $V=\dfrac{\sqrt2}{12}\cdot216=18\sqrt2$.
+      - |
+        $R=\dfrac{\sqrt6}{4}\cdot6=\dfrac{3\sqrt6}2$ and $r=\dfrac{\sqrt6}{12}\cdot6=\dfrac{\sqrt6}2$.
+    answer: |
+      $S=36\sqrt3$, $h=2\sqrt6$, $V=18\sqrt2$, $R=\dfrac{3\sqrt6}2$, $r=\dfrac{\sqrt6}2$.
+    verify:
+      - expr: "sqrt(2)/12*6^3"
+        equals: "18*sqrt(2)"
+      - expr: "sqrt(6)/4*6"
+        equals: "3*sqrt(6)/2"
+      - expr: "3*18*sqrt(2)/(36*sqrt(3))"
+        equals: "sqrt(6)/2"
+
+  - id: chk-regular
+    type: check
+    prompt: |
+      Find the volume of the regular tetrahedron of edge $a=2$.
+    answerType: expression
+    answer: "2*sqrt(2)/3"
+    hints:
+      - |
+        $V=\dfrac{\sqrt2}{12}a^3$.
+    explanation: |
+      $V=\dfrac{\sqrt2}{12}\cdot8=\dfrac{2\sqrt2}3$.
+
+  - id: euler
+    type: theorem
+    name: Euler's formula
+    statement: |
+      For a convex polyhedron with $V$ vertices, $E$ edges and $F$ faces,
+
+      $$V-E+F=2.$$
+    proof: |
+      The standard proof removes one face and flattens the rest into a plane graph with $V$ vertices, $E$ edges and $F-1$ regions. For a connected plane graph $V-E+(F-1)=1$: a tree has $V-E=1$, and each added edge closes one new region and keeps $V-E+\text{regions}$ constant. Hence $V-E+F=2$.
+
+  - id: platonic
+    type: concept
+    title: The five Platonic solids
+    body: |
+      A **Platonic solid** is a convex polyhedron whose faces are equal regular polygons and in which the same number of faces meets at every vertex. There are exactly five.
+
+      | Solid | Faces | $V$ | $E$ | $F$ | Volume for edge $a$ |
+      |---|---|---|---|---|---|
+      | tetrahedron | triangles | $4$ | $6$ | $4$ | $\dfrac{\sqrt2}{12}a^3$ |
+      | cube | squares | $8$ | $12$ | $6$ | $a^3$ |
+      | octahedron | triangles | $6$ | $12$ | $8$ | $\dfrac{\sqrt2}{3}a^3$ |
+      | dodecahedron | pentagons | $20$ | $30$ | $12$ | $\dfrac{15+7\sqrt5}{4}a^3$ |
+      | icosahedron | triangles | $12$ | $30$ | $20$ | $\dfrac{5(3+\sqrt5)}{12}a^3$ |
+
+      Every row satisfies $V-E+F=2$. For instance, the cube: $8-12+6=2$.
+
+  - id: chk-euler
+    type: check
+    prompt: |
+      A convex polyhedron has $12$ vertices and $20$ faces. How many edges has it?
+    answerType: number
+    answer: "30"
+    hints:
+      - |
+        $V-E+F=2$.
+    explanation: |
+      $12-E+20=2$, so $E=30$ (this is the icosahedron).
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Regular tetrahedron of edge $a$: $S=\sqrt3a^2$, $h=\dfrac{\sqrt6}3a$, $V=\dfrac{\sqrt2}{12}a^3$, $R=\dfrac{\sqrt6}{4}a$, $r=\dfrac{\sqrt6}{12}a$.
+      - |
+        Euler: $V-E+F=2$ for every convex polyhedron.
+      - |
+        The five Platonic solids: tetrahedron, cube, octahedron, dodecahedron, icosahedron.

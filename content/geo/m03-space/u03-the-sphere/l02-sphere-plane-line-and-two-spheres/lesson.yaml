@@ -1,0 +1,153 @@
+id: geo-m03-u03-l02
+title: "The sphere: tangent planes, sections and two spheres"
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - tangent-plane-sphere
+  - plane-section-of-sphere
+  - two-spheres
+objectives:
+  - Decide whether a plane cuts, touches or misses a sphere, and find the circle of intersection.
+  - Write the tangent plane at a point of a sphere.
+  - Find the radical plane and the circle common to two spheres.
+sections:
+  - id: plane-position
+    type: concept
+    title: A plane and a sphere
+    body: |
+      Let $\delta$ be the distance from the center of a sphere of radius $\rho$ to a plane.
+
+      - $\delta<\rho$: the plane **cuts** the sphere in a circle.
+      - $\delta=\rho$: the plane is **tangent** to the sphere, in one point.
+      - $\delta>\rho$: the plane does not meet the sphere.
+
+      When the plane cuts the sphere, the circle has its center at the **foot of the perpendicular** from the center of the sphere to the plane, and its radius is $\sqrt{\rho^2-\delta^2}$ (by Pythagoras in the right triangle formed by the center of the sphere, the center of the circle, and a point of the circle).
+
+  - id: ex-section
+    type: example
+    title: A circle of intersection
+    problem: |
+      Find the circle in which the plane $2x-2y+z-9=0$ cuts the sphere $x^2+y^2+z^2=25$.
+    steps:
+      - |
+        The center of the sphere is the origin and $\rho=5$. The normal $(2,-2,1)$ has length $\sqrt{4+4+1}=3$, so the distance to the plane is $\delta=\dfrac93=3<5$.
+      - |
+        The radius of the circle is $\sqrt{25-9}=4$.
+      - |
+        The center of the circle is the foot of the perpendicular from the origin: $t=\dfrac{-9}{9}=-1$, so the foot is $0-(-1)(2,-2,1)=(2,-2,1)$. Check: $4+4+1-9=0$.
+    answer: |
+      A circle of radius $4$ with center $(2,-2,1)$.
+    verify:
+      - expr: "sqrt(25-9)"
+        equals: "4"
+      - expr: "2*2-2*(-2)+1-9"
+        equals: "0"
+
+  - id: chk-section
+    type: check
+    prompt: |
+      Find the radius of the circle in which the plane $z=3$ cuts the sphere $x^2+y^2+z^2=25$.
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        The distance from the center to the plane is $3$.
+    explanation: |
+      $\sqrt{25-9}=4$.
+
+  - id: tangent-plane
+    type: theorem
+    name: The tangent plane
+    statement: |
+      The tangent plane to the sphere $(x-p)^2+(y-q)^2+(z-r_0)^2=\rho^2$ at its point $P_0(x_0,y_0,z_0)$ is
+
+      $$(x_0-p)(x-p)+(y_0-q)(y-q)+(z_0-r_0)(z-r_0)=\rho^2.$$
+    proof: |
+      The tangent plane at $P_0$ is perpendicular to the radius $\overrightarrow{CP_0}=(x_0-p,\,y_0-q,\,z_0-r_0)$, so it has this vector as normal and passes through $P_0$: $(x_0-p)(x-x_0)+(y_0-q)(y-y_0)+(z_0-r_0)(z-z_0)=0$.
+      Write $x-x_0=(x-p)-(x_0-p)$, and similarly for $y,z$: the equation becomes the formula above, because $(x_0-p)^2+(y_0-q)^2+(z_0-r_0)^2=\rho^2$.
+
+  - id: ex-tangent
+    type: example
+    title: A tangent plane
+    problem: |
+      Find the tangent plane to $x^2+y^2+z^2=9$ at $P_0(1,2,2)$.
+    steps:
+      - |
+        $P_0$ is on the sphere: $1+4+4=9$.
+      - |
+        The center is the origin, so the plane is $x_0x+y_0y+z_0z=9$, that is $x+2y+2z=9$.
+      - |
+        Check: the normal $(1,2,2)$ has length $3$, so the distance from the origin is $\dfrac93=3=\rho$.
+    answer: |
+      $x+2y+2z-9=0$.
+    verify:
+      - expr: "1+4+4"
+        equals: "9"
+      - expr: "9/sqrt(1+4+4)"
+        equals: "3"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Find the tangent plane to the sphere $(x-1)^2+(y+2)^2+(z-3)^2=49$ at $P_0(3,1,9)$.
+    answerType: equation
+    coordinates: [x, y, z]
+    answer: "2*x+3*y+6*z-63=0"
+    hints:
+      - |
+        The radius vector is $(2,3,6)$.
+    explanation: |
+      $P_0$ is on the sphere, since $4+9+36=49$. The tangent plane is $2(x-1)+3(y+2)+6(z-3)=49$, that is $2x+3y+6z-63=0$.
+
+  - id: two-spheres
+    type: theorem
+    name: Two spheres
+    statement: |
+      Let the spheres have radii $\rho_1\ge\rho_2$ and let $d$ be the distance between the centers. As for circles: $d>\rho_1+\rho_2$ (separate), $d=\rho_1+\rho_2$ (externally tangent), $\rho_1-\rho_2<d<\rho_1+\rho_2$ (they meet in a circle), $d=\rho_1-\rho_2$ (internally tangent), $d<\rho_1-\rho_2$ (one inside the other).
+
+      If $S_1=0$ and $S_2=0$ are the general equations, the **radical plane** $S_1-S_2=0$ is perpendicular to the line of the centers, and when the spheres meet, their common circle lies in it.
+    proof: |
+      The power of a point with respect to a sphere is the value of $S$ at the point. Equal powers give $S_1-S_2=0$; the terms $x^2+y^2+z^2$ cancel, so this is a plane, with normal vector $(D_1-D_2,\,E_1-E_2,\,F_1-F_2)$, parallel to the line of the centers.
+      A common point has power $0$ for both spheres, so it is in this plane.
+
+  - id: ex-two-spheres
+    type: example
+    title: A common circle
+    problem: |
+      Find the common circle of $x^2+y^2+z^2=25$ and $(x-6)^2+y^2+z^2=25$.
+    steps:
+      - |
+        The second sphere is $x^2+y^2+z^2-12x+11=0$. The first is $x^2+y^2+z^2-25=0$. Subtracting: $12x-36=0$, so the radical plane is $x=3$.
+      - |
+        In this plane, $y^2+z^2=25-9=16$: the circle has radius $4$ and center $(3,0,0)$.
+      - |
+        Check: $d=6<10$, so the spheres meet in a circle.
+    answer: |
+      The circle of radius $4$ with center $(3,0,0)$ in the plane $x=3$.
+    verify:
+      - expr: "25-3^2"
+        equals: "16"
+
+  - id: chk-two
+    type: check
+    prompt: |
+      Find the radical plane of $x^2+y^2+z^2=9$ and $x^2+y^2+z^2-4x-6y-12z+9=0$.
+    answerType: equation
+    coordinates: [x, y, z]
+    answer: "2*x+3*y+6*z-9=0"
+    hints:
+      - |
+        Subtract the equations.
+    explanation: |
+      $(x^2+y^2+z^2-9)-(x^2+y^2+z^2-4x-6y-12z+9)=4x+6y+12z-18=0$, which is $2x+3y+6z-9=0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A plane at distance $\delta$ from the center cuts the sphere in a circle of radius $\sqrt{\rho^2-\delta^2}$ if $\delta<\rho$; it is tangent if $\delta=\rho$.
+      - |
+        The tangent plane at $P_0$ is $(x_0-p)(x-p)+(y_0-q)(y-q)+(z_0-r_0)(z-r_0)=\rho^2$.
+      - |
+        The radical plane of two spheres is $S_1-S_2=0$.

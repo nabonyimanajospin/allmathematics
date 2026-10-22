@@ -1,0 +1,109 @@
+id: geo-m03-u01-l02
+title: The line in space
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - space-line-equations
+  - direction-vector
+objectives:
+  - Write a line of space in vector, parametric, symmetric (canonical) and implicit form.
+  - Pass from the implicit form (two planes) to a direction vector and a point.
+  - Handle a zero component of the direction vector.
+sections:
+  - id: determined
+    type: concept
+    title: A point and a direction
+    body: |
+      As in the plane, a line of space is determined by a point $A$ and a **direction vector** $\vec d\neq\vec0$: a point $P$ is on the line when $\overrightarrow{AP}$ is a multiple of $\vec d$. For two points $A$ and $B$ take $\vec d=\overrightarrow{AB}$.
+
+      There is a difference with the plane: a line of space has no equation $ax+by+c=0$ of its own, because one linear equation in three unknowns is a **plane**. A line is the intersection of two planes, so its implicit form needs two equations.
+
+  - id: forms
+    type: definition
+    term: Equations of a line in space
+    body: |
+      Let the line pass through $A(x_0,y_0,z_0)$ with direction vector $\vec d=(d_1,d_2,d_3)$.
+
+      1. **Vector equation:** $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\,\vec d$, $\lambda\in\mathbb R$.
+      2. **Parametric equations:** $x=x_0+\lambda d_1$, $y=y_0+\lambda d_2$, $z=z_0+\lambda d_3$.
+      3. **Symmetric (canonical) equations:** if $d_1,d_2,d_3\neq0$, $\ \dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}=\dfrac{z-z_0}{d_3}$.
+      4. **Implicit equations:** two independent planes, $a_1x+b_1y+c_1z+e_1=0$ and $a_2x+b_2y+c_2z+e_2=0$. The direction vector is $\crossp{\vec n_1}{\vec n_2}$, the cross product of the two normal vectors.
+
+      If a component of $\vec d$ is $0$, the corresponding numerator is $0$: for $d_3=0$ write $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2},\ z=z_0$.
+
+  - id: ex-forms
+    type: example
+    title: The four forms of one line
+    problem: |
+      Write the line through $A(1,2,3)$ and $B(4,6,15)$ in the four forms.
+    steps:
+      - |
+        $\vec d=\overrightarrow{AB}=(3,4,12)$.
+      - |
+        Vector: $\overrightarrow{OP}=(1,2,3)+\lambda(3,4,12)$. Parametric: $x=1+3\lambda$, $y=2+4\lambda$, $z=3+12\lambda$.
+      - |
+        Symmetric: $\dfrac{x-1}{3}=\dfrac{y-2}{4}=\dfrac{z-3}{12}$.
+      - |
+        Implicit: from the first equality $4(x-1)=3(y-2)$, that is $4x-3y+2=0$; from the second $12(y-2)=4(z-3)$, that is $3y-z-3=0$.
+      - |
+        Check with $B$: $16-18+2=0$ and $18-15-3=0$. The direction from the normals: the cross product of $(4,-3,0)$ and $(0,3,-1)$ is $(3,4,12)$.
+    answer: |
+      $\dfrac{x-1}{3}=\dfrac{y-2}{4}=\dfrac{z-3}{12}$, or $\ 4x-3y+2=0$ and $3y-z-3=0$.
+    verify:
+      - expr: "4*4-3*6+2"
+        equals: "0"
+      - expr: "3*6-15-3"
+        equals: "0"
+      - expr: "cross((4,-3,0),(0,3,-1))"
+        equals: "(3,4,12)"
+
+  - id: chk-direction
+    type: check
+    prompt: |
+      Find a direction vector of the line given by the planes $x+y+z-3=0$ and $x-y+2z=0$.
+    answerType: direction
+    answer: "(3, -1, -2)"
+    hints:
+      - |
+        The direction is the cross product of the normal vectors $(1,1,1)$ and $(1,-1,2)$.
+    explanation: |
+      The cross product of $(1,1,1)$ and $(1,-1,2)$ has components $1\cdot2-1\cdot(-1)=3$, $\ 1\cdot1-1\cdot2=-1$ and $1\cdot(-1)-1\cdot1=-2$, so it is $(3,-1,-2)$. Any non-zero multiple is also a direction vector.
+
+  - id: ex-zero
+    type: example
+    title: A zero component
+    problem: |
+      Write the symmetric equations of the line through $A(1,-1,4)$ and $B(3,2,4)$.
+    steps:
+      - |
+        $\overrightarrow{AB}=(2,3,0)$. The third component is $0$, so $z$ does not change: $z=4$.
+      - |
+        The other two coordinates give $\dfrac{x-1}{2}=\dfrac{y+1}{3}$. The line is $\dfrac{x-1}{2}=\dfrac{y+1}{3},\ z=4$.
+    answer: |
+      $\dfrac{x-1}{2}=\dfrac{y+1}{3},\ z=4$.
+    verify:
+      - expr: "(3-1)/2-(2+1)/3"
+        equals: "0"
+
+  - id: chk-point
+    type: check
+    prompt: |
+      The line $x=1+3\lambda$, $y=-2+\lambda$, $z=4-2\lambda$ passes through the point with $\lambda=-2$. Find this point.
+    answerType: vector
+    answer: "(-5, -4, 8)"
+    hints:
+      - |
+        Substitute $\lambda=-2$ in each equation.
+    explanation: |
+      $x=1-6=-5$, $y=-2-2=-4$, $z=4+4=8$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A line is a point and a direction: $\overrightarrow{OP}=\overrightarrow{OA}+\lambda\vec d$.
+      - |
+        Parametric: $x=x_0+\lambda d_1$ and so on. Symmetric: $\dfrac{x-x_0}{d_1}=\dfrac{y-y_0}{d_2}=\dfrac{z-z_0}{d_3}$.
+      - |
+        Implicit: two planes; the direction vector is the cross product of their normals.

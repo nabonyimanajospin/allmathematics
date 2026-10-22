@@ -1,0 +1,135 @@
+id: geo-m03-u01-l05
+title: Distances and projections
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - point-plane-distance
+  - point-line-distance-space
+  - skew-lines-distance
+  - projections
+objectives:
+  - Compute the distance from a point to a plane, and the foot of the perpendicular.
+  - Compute the distance from a point to a line, and between two skew lines.
+  - Find the projection and the symmetric point of a point with respect to a plane.
+sections:
+  - id: shortest
+    type: concept
+    title: Perpendicular distances
+    body: |
+      The distance from a point to a set (a plane, a line) is the length of the shortest segment from the point to the set, and this segment is perpendicular to the set.
+
+      For a plane the perpendicular direction is the normal vector $\vec n$. For a line it is every direction orthogonal to $\vec d$, and the area of a parallelogram helps: the cross product of two vectors gives the area of the parallelogram they span, and area $=$ base $\times$ height.
+
+  - id: point-plane
+    type: theorem
+    name: Distance from a point to a plane
+    statement: |
+      The distance from $P(x_0,y_0,z_0)$ to the plane $ax+by+cz+d=0$ is
+
+      $$\delta=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}.$$
+
+      The foot of the perpendicular (the **orthogonal projection** of $P$ on the plane) is $H=P-t\,(a,b,c)$ with $t=\dfrac{ax_0+by_0+cz_0+d}{a^2+b^2+c^2}$, and the point **symmetric** to $P$ with respect to the plane is $P'=P-2t\,(a,b,c)$.
+    proof: |
+      Let $Q$ be a point of the plane, so $d=-\dotp{\vec n}{\overrightarrow{OQ}}$. The distance is the length of the projection of $\overrightarrow{QP}$ on $\vec n$: $\dfrac{|\dotp{\overrightarrow{QP}}{\vec n}|}{\norm{\vec n}}=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+      For the foot, $H=P-t\vec n$ must be on the plane: $a(x_0-ta)+b(y_0-tb)+c(z_0-tc)+d=0$ gives $t$. The symmetric point goes twice as far.
+
+  - id: ex-point-plane
+    type: example
+    title: Distance, foot and symmetric point
+    problem: |
+      For $P(1,2,3)$ and the plane $2x-y+2z-1=0$ find the distance, the foot of the perpendicular and the symmetric point.
+    steps:
+      - |
+        $ax_0+by_0+cz_0+d=2-2+6-1=5$ and $\sqrt{a^2+b^2+c^2}=3$, so $\delta=\dfrac53$.
+      - |
+        $t=\dfrac{5}{9}$, so $H=(1,2,3)-\dfrac59(2,-1,2)=\left(-\dfrac19,\dfrac{23}9,\dfrac{17}9\right)$.
+      - |
+        $P'=(1,2,3)-\dfrac{10}9(2,-1,2)=\left(-\dfrac{11}9,\dfrac{28}9,\dfrac79\right)$.
+      - |
+        Check that $H$ is on the plane: $2\cdot\left(-\dfrac19\right)-\dfrac{23}9+2\cdot\dfrac{17}9-1=\dfrac{-2-23+34-9}{9}=0$.
+    answer: |
+      $\delta=\dfrac53$, $H\left(-\dfrac19,\dfrac{23}9,\dfrac{17}9\right)$, $P'\left(-\dfrac{11}9,\dfrac{28}9,\dfrac79\right)$.
+    verify:
+      - expr: "abs(2*1-2+2*3-1)/sqrt(2^2+1+2^2)"
+        equals: "5/3"
+      - expr: "2*(-1/9)-23/9+2*(17/9)-1"
+        equals: "0"
+      - expr: "(1,2,3)-10/9*(2,-1,2)"
+        equals: "(-11/9,28/9,7/9)"
+
+  - id: chk-point-plane
+    type: check
+    prompt: |
+      Find the distance from $P(2,1,-1)$ to the plane $x+2y-2z-3=0$.
+    answerType: number
+    answer: "1"
+    hints:
+      - |
+        Substitute the point in the left side of the equation, and divide the absolute value by the length of the normal $(1,2,-2)$.
+    explanation: |
+      $2+2+2-3=3$ and the normal has length $\sqrt{1+4+4}=3$, so the distance is $1$.
+
+  - id: point-line
+    type: theorem
+    name: Distance from a point to a line, and between skew lines
+    statement: |
+      Let the line pass through $A$ with direction $\vec d$. The distance from $P$ to the line is
+
+      $$\delta=\dfrac{\norm{\crossp{\overrightarrow{AP}}{\vec d}}}{\norm{\vec d}}.$$
+
+      For two skew lines through $A$ and $B$ with directions $\vec u$ and $\vec v$, the distance between them is
+
+      $$\delta=\dfrac{\left|\boxp{\overrightarrow{AB}}{\vec u}{\vec v}\right|}{\norm{\crossp{\vec u}{\vec v}}}.$$
+    proof: |
+      The parallelogram on $\overrightarrow{AP}$ and $\vec d$ has area $\norm{\crossp{\overrightarrow{AP}}{\vec d}}$, and also base $\norm{\vec d}$ times height $\delta$. For skew lines, the parallelepiped on $\overrightarrow{AB}$, $\vec u$, $\vec v$ has volume $|\boxp{\overrightarrow{AB}}{\vec u}{\vec v}|$,
+      base area $\norm{\crossp{\vec u}{\vec v}}$ and height $\delta$, which is the distance between the two parallel planes that contain the lines.
+
+  - id: ex-point-line
+    type: example
+    title: Point-line and skew-lines distances
+    problem: |
+      (a) Find the distance from $P(1,2,3)$ to the line through the origin with direction $(1,2,2)$. (b) Find the distance between the skew lines of the previous lesson: $L_1$ through $O$ with direction $(1,1,0)$ and $L_3$ through $C(0,0,1)$ with direction $(1,-1,0)$.
+    steps:
+      - |
+        (a) $\overrightarrow{OP}=(1,2,3)$. The cross product of $(1,2,3)$ and $(1,2,2)$ is $(-2,1,0)$, with norm $\sqrt5$. The norm of $\vec d$ is $3$. So $\delta=\dfrac{\sqrt5}{3}$.
+      - |
+        (b) The box product of $\overrightarrow{OC}=(0,0,1)$, $(1,1,0)$, $(1,-1,0)$ is $-2$ and the cross product of the directions is $(0,0,-2)$, with norm $2$. So $\delta=\dfrac22=1$.
+    answer: |
+      (a) $\dfrac{\sqrt5}3$; (b) $1$.
+    verify:
+      - expr: "sqrt(5)/3"
+        equals: "sqrt((-2)^2+1^2+0^2)/3"
+      - expr: "abs(-2)/2"
+        equals: "1"
+
+  - id: chk-skew
+    type: check
+    prompt: |
+      Find the distance between the skew lines through $O(0,0,0)$ with direction $(1,0,0)$ and through $C(0,0,5)$ with direction $(0,1,0)$.
+    answerType: number
+    answer: "5"
+    hints:
+      - |
+        The cross product of the directions is $(0,0,1)$, and $\overrightarrow{OC}=(0,0,5)$.
+    explanation: |
+      $\boxp{\overrightarrow{OC}}{\vec u}{\vec v}=5$ and $\norm{\crossp{\vec u}{\vec v}}=1$, so the distance is $5$: the lines are in the horizontal planes $z=0$ and $z=5$.
+
+  - id: parallel-planes
+    type: concept
+    title: Parallel planes and projections of a line
+    body: |
+      For the **distance between two parallel planes** $ax+by+cz+d_1=0$ and $ax+by+cz+d_2=0$ (the same $a,b,c$), take any point of the second plane and use the point-plane formula: $\delta=\dfrac{|d_1-d_2|}{\sqrt{a^2+b^2+c^2}}$.
+
+      To project a **line** orthogonally on a plane, project two of its points with the foot formula: the line through the two feet is the projection (if the line is not perpendicular to the plane).
+      The **common perpendicular** of two skew lines is the line that meets both and is perpendicular to both, with direction $\crossp{\vec u}{\vec v}$; its segment between the lines has length equal to the distance $\delta$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Point to plane: $\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$; foot $H=P-t\vec n$; symmetric point $P-2t\vec n$.
+      - |
+        Point to line: $\dfrac{\norm{\crossp{\overrightarrow{AP}}{\vec d}}}{\norm{\vec d}}$. Skew lines: $\dfrac{|\boxp{\overrightarrow{AB}}{\vec u}{\vec v}|}{\norm{\crossp{\vec u}{\vec v}}}$.
+      - |
+        Parallel planes: $\dfrac{|d_1-d_2|}{\sqrt{a^2+b^2+c^2}}$.

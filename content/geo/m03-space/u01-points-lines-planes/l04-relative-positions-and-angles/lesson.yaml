@@ -1,0 +1,133 @@
+id: geo-m03-u01-l04
+title: Relative positions and angles
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - line-line-position
+  - line-plane-position
+  - plane-plane-position
+  - angles-in-space
+objectives:
+  - Decide whether two lines are parallel, intersecting or skew.
+  - Decide the position of a line and a plane, and of two planes.
+  - Compute the angle between two lines, a line and a plane, and two planes.
+sections:
+  - id: two-lines
+    type: concept
+    title: Two lines in space
+    body: |
+      In the plane two lines either meet or are parallel. In space there is a third possibility: two lines that do not meet and are not parallel are **skew**. They lie in no common plane.
+
+      Let the lines pass through $A$ and $B$ with direction vectors $\vec u$ and $\vec v$.
+
+      - **Parallel** (or equal): $\vec u$ and $\vec v$ are collinear, $\crossp{\vec u}{\vec v}=\vec0$.
+      - **Coplanar** (parallel or intersecting): the box product $\boxp{\overrightarrow{AB}}{\vec u}{\vec v}=0$. If also $\vec u,\vec v$ are not collinear, the lines **intersect** in one point.
+      - **Skew**: $\boxp{\overrightarrow{AB}}{\vec u}{\vec v}\neq0$.
+
+      The box product is the volume of the parallelepiped on the three vectors; it vanishes exactly when the three vectors are in one plane.
+
+  - id: ex-lines
+    type: example
+    title: Intersecting and skew lines
+    problem: |
+      Let $L_1$ pass through $O(0,0,0)$ with direction $\vec u=(1,1,0)$. Decide the position of $L_1$ and (a) $L_2$ through $B(2,0,0)$ with direction $(-1,1,0)$, (b) $L_3$ through $C(0,0,1)$ with direction $(1,-1,0)$.
+    steps:
+      - |
+        (a) $\overrightarrow{OB}=(2,0,0)$ and the cross product of the directions $(1,1,0)$ and $(-1,1,0)$ is $(0,0,2)$. The box product is $(2,0,0)\cdot(0,0,2)=0$ and the directions are not collinear: the lines **intersect**, at $(1,1,0)$ (for $\lambda=1$ on $L_1$ and $\mu=1$ on $L_2$).
+      - |
+        (b) $\overrightarrow{OC}=(0,0,1)$ and the cross product of $(1,1,0)$ and $(1,-1,0)$ is $(0,0,-2)$. The box product is $-2\neq0$: the lines are **skew**.
+    answer: |
+      (a) intersecting at $(1,1,0)$; (b) skew.
+    verify:
+      - expr: "dot((2,0,0), cross((1,1,0),(-1,1,0)))"
+        equals: "0"
+      - expr: "dot((0,0,1), cross((1,1,0),(1,-1,0)))"
+        equals: "-2"
+
+  - id: chk-lines
+    type: check
+    prompt: |
+      The line through $O(0,0,0)$ with direction $(1,2,3)$ and the line through $B(1,1,1)$ with direction $(2,4,6)$ are:
+    answerType: multiple_choice
+    answer: "1"
+    choices:
+      - text: "parallel and distinct"
+        value: "1"
+      - text: "intersecting"
+        value: "2"
+      - text: "skew"
+        value: "3"
+      - text: "equal"
+        value: "4"
+    correctIndex: 0
+    hints:
+      - |
+        Compare the directions first: $(2,4,6)=2(1,2,3)$. Then test whether $B$ is on the first line.
+    explanation: |
+      The directions are collinear, so the lines are parallel. $B(1,1,1)$ is not on the first line (it would need $(1,2,3)\lambda=(1,1,1)$), so the lines are distinct.
+
+  - id: line-plane
+    type: theorem
+    name: A line and a plane, two planes
+    statement: |
+      Let the line have direction $\vec d$ and pass through $A$, and let the plane be $ax+by+cz+d_0=0$ with normal $\vec n=(a,b,c)$.
+
+      - If $\dotp{\vec d}{\vec n}\neq0$ the line **meets** the plane in exactly one point.
+      - If $\dotp{\vec d}{\vec n}=0$ the line is parallel to the plane, and it **lies in the plane** when $A$ is on the plane.
+
+      Two planes with normals $\vec n_1,\vec n_2$ are **parallel** if $\crossp{\vec n_1}{\vec n_2}=\vec0$ (equal when the equations are proportional) and otherwise **intersect along a line** with direction $\crossp{\vec n_1}{\vec n_2}$.
+    proof: |
+      The line is $P=A+\lambda\vec d$. Substituting in the equation of the plane gives $\dotp{\vec n}{\overrightarrow{OA}}+d_0+\lambda\dotp{\vec n}{\vec d}=0$. If $\dotp{\vec n}{\vec d}\neq0$ there is one solution $\lambda$. If $\dotp{\vec n}{\vec d}=0$ the equation has no solution, or every $\lambda$ is a solution when $A$ is on the plane.
+      For two planes, the direction of the common line is perpendicular to both normals.
+
+  - id: angles-theorem
+    type: theorem
+    name: Angles
+    statement: |
+      - **Two lines** with directions $\vec u,\vec v$: $\ \cos\theta=\dfrac{|\dotp{\vec u}{\vec v}|}{\norm{\vec u}\,\norm{\vec v}}$, with $\theta\in\left[0,\dfrac\pi2\right]$.
+      - **A line and a plane** (direction $\vec d$, normal $\vec n$): $\ \sin\varphi=\dfrac{|\dotp{\vec d}{\vec n}|}{\norm{\vec d}\,\norm{\vec n}}$.
+      - **Two planes** (normals $\vec n_1,\vec n_2$): $\ \cos\psi=\dfrac{|\dotp{\vec n_1}{\vec n_2}|}{\norm{\vec n_1}\,\norm{\vec n_2}}$.
+    proof: |
+      The first formula is the angle formula of the dot product with an absolute value. The angle between a line and a plane is the complement of the angle between the line and the normal, so the cosine of one is the sine of the other.
+      The angle between two planes is the angle between their normals (or its supplement, which the absolute value removes).
+
+  - id: ex-angles
+    type: example
+    title: Three angles
+    problem: |
+      Find (a) the angle between the line with direction $(1,2,2)$ and the plane $z=0$, (b) the angle between the planes $x+y=0$ and $y+z=0$.
+    steps:
+      - |
+        (a) $\vec n=(0,0,1)$, $\dotp{\vec d}{\vec n}=2$ and $\norm{\vec d}=3$, so $\sin\varphi=\dfrac23$ and $\varphi=\arcsin\dfrac23$.
+      - |
+        (b) $\vec n_1=(1,1,0)$, $\vec n_2=(0,1,1)$: $\dotp{\vec n_1}{\vec n_2}=1$ and the norms are $\sqrt2\cdot\sqrt2=2$, so $\cos\psi=\dfrac12$ and $\psi=\dfrac\pi3$.
+    answer: |
+      (a) $\arcsin\dfrac23$; (b) $\dfrac\pi3$.
+    verify:
+      - expr: "2/(sqrt(1+4+4)*1)"
+        equals: "2/3"
+      - expr: "1/(sqrt(2)*sqrt(2))"
+        equals: "1/2"
+
+  - id: chk-angle
+    type: check
+    prompt: |
+      Find the angle between the planes $x+y+z=1$ and $x-y=0$.
+    answerType: expression
+    answer: "pi/2"
+    hints:
+      - |
+        The normals are $(1,1,1)$ and $(1,-1,0)$.
+    explanation: |
+      $\dotp{\vec n_1}{\vec n_2}=1-1+0=0$, so the normals are perpendicular and the planes are perpendicular: the angle is $\dfrac\pi2$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Lines: parallel if $\crossp{\vec u}{\vec v}=\vec0$; coplanar if $\boxp{\overrightarrow{AB}}{\vec u}{\vec v}=0$; skew otherwise.
+      - |
+        Line and plane: one common point if $\dotp{\vec d}{\vec n}\neq0$. Planes: parallel if the normals are collinear, otherwise they meet along a line of direction $\crossp{\vec n_1}{\vec n_2}$.
+      - |
+        Angles: lines and planes use $\cos$ with absolute value; a line and a plane use $\sin\varphi=\dfrac{|\dotp{\vec d}{\vec n}|}{\norm{\vec d}\norm{\vec n}}$.
