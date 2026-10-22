@@ -21,11 +21,15 @@ test.describe("answer field", () => {
     await field.scrollIntoViewIfNeeded();
     // the field is a web component that loads on demand: wait until it can be written in
     await expect.poll(() => field.evaluate((el) => typeof (el as unknown as { getValue?: unknown }).getValue === "function")).toBe(true);
-    await field.click();
-    await page.keyboard.type("2/3");
-    // a numerator over a denominator, not a slash
+    const latex = () => field.evaluate((el) => (el as unknown as { getValue(f: string): string }).getValue("latex"));
+    // a numerator over a denominator, not a slash (retry: the first keys can arrive before the field takes focus)
+    await expect(async () => {
+      await field.evaluate((el) => (el as unknown as { setValue(v: string): void }).setValue(""));
+      await field.click();
+      await page.keyboard.type("2/3");
+      expect(await latex()).toBe("\\frac23");
+    }).toPass({ timeout: 30000 });
     await expect(field.locator(".ML__mfrac, .ML__frac").first()).toBeVisible();
-    expect(await field.evaluate((el) => (el as unknown as { getValue(f: string): string }).getValue("latex"))).toBe("\\frac23");
     await expect(page.getByRole("button", { name: "Fraction" }).first()).toBeVisible();
   });
 
