@@ -42,7 +42,7 @@ sections:
       - |
         Area $=\displaystyle\int_0^2\int_{x^2}^{2x}dy\,dx=\int_0^2(2x-x^2)\,dx=\left[x^2-\frac{x^3}{3}\right]_0^2=4-\frac83=\frac43$.
     answer: |
-      $\dfrac43$.
+      $\dfrac43\ \text{squ}$.
     verify:
       - expr: "integrate(integrate(1, y, x^2, 2*x), x, 0, 2)"
         equals: "4/3"
@@ -71,7 +71,7 @@ sections:
       - |
         Area $=\displaystyle\int_{-1}^{1}\int_{y^2}^{2-y^2}dx\,dy=\int_{-1}^{1}(2-2y^2)\,dy=2\left(2-\frac23\right)=\frac83$.
     answer: |
-      $\dfrac83$.
+      $\dfrac83\ \text{squ}$.
     verify:
       - expr: "integrate(integrate(1, x, y^2, 2-y^2), y, -1, 1)"
         equals: "8/3"

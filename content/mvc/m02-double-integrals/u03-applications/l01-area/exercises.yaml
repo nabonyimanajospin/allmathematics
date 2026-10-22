@@ -6,7 +6,8 @@
   source: "MATH126 exercise sheet, T. Hakizimana"
   items:
     - id: are-01
-      statement: "The area bounded by $x=4y-y^2$ and $x+y=6$."
+      statement: |-
+        The area bounded by $x=4y-y^2$ and $x+y=6$. The unit is squ: give the number only.
       answerType: number
       answer: "1/6"
       hints:
@@ -20,7 +21,8 @@
         - expr: "integrate(integrate(1, x, 6-y, 4*y-y^2), y, 2, 3)"
           equals: "1/6"
     - id: are-02
-      statement: "The area bounded by $x=y^2-2y$ and $x+y=0$."
+      statement: |-
+        The area bounded by $x=y^2-2y$ and $x+y=0$. The unit is squ: give the number only.
       answerType: number
       answer: "1/6"
       hints:
@@ -33,7 +35,8 @@
         - expr: "integrate(integrate(1, x, y^2-2*y, -y), y, 0, 1)"
           equals: "1/6"
     - id: are-03
-      statement: "The area bounded by $y^2=4x$ and $x^2=4y$."
+      statement: |-
+        The area bounded by $y^2=4x$ and $x^2=4y$. The unit is squ: give the number only.
       answerType: number
       answer: "16/3"
       hints:
@@ -47,7 +50,8 @@
         - expr: "integrate(integrate(1, y, x^2/4, 2*sqrt(x)), x, 0, 4)"
           equals: "16/3"
     - id: are-04
-      statement: "The area bounded by $x=4-y^2$ and $x+2y=4$."
+      statement: |-
+        The area bounded by $x=4-y^2$ and $x+2y=4$. The unit is squ: give the number only.
       answerType: number
       answer: "4/3"
       hints:
@@ -62,7 +66,8 @@
           equals: "4/3"
       note: "On the printed sheet this exercise is numbered 3 a second time; the numbering here continues from the previous exercise."
     - id: are-05
-      statement: "The area bounded by $x^2+y^2=4$."
+      statement: |-
+        The area bounded by $x^2+y^2=4$. The unit is squ: give the number only.
       answerType: expression
       answer: "4*pi"
       hints:
@@ -75,7 +80,7 @@
           equals: "4*pi"
     - id: are-06
       statement: |-
-        The area bounded by the ellipse $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ (with $a,b>0$).
+        The area bounded by the ellipse $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ (with $a,b>0$). The unit is squ: give the number only.
       answerType: expression
       answer: "pi*a*b"
       variables:

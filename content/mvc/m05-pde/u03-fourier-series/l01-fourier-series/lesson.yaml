@@ -64,11 +64,11 @@ sections:
     config:
       mode: cartesian
       f: "x"
-      l1: "f(x) = x"
+      l1: "f(x)=x"
       f2: "2*sin(x)-sin(2*x)"
-      l2: "2 terms"
+      l2: "2\\text{ terms}"
       f3: "2*sin(x)-sin(2*x)+2*sin(3*x)/3-sin(4*x)/2+2*sin(5*x)/5"
-      l3: "5 terms"
+      l3: "5\\text{ terms}"
       xmin: -3.2
       xmax: 3.2
       ymin: -4

@@ -25,7 +25,8 @@
         - expr: "integrate(integrate(integrate((rho*sin(f)*cos(t))^2*rho^2*sin(f), rho, 0, R), f, 0, pi), t, 0, 2*pi)"
           equals: "4*pi*R^5/15"
     - id: sph-02
-      statement: "The volume of the sphere $x^2+y^2+z^2=a^2$ (that is, of the ball it bounds), with $a>0$."
+      statement: |-
+        The volume of the sphere $x^2+y^2+z^2=a^2$ (that is, of the ball it bounds), with $a>0$. The unit is cu: give the number only.
       answerType: expression
       answer: "4*pi*a^3/3"
       variables:

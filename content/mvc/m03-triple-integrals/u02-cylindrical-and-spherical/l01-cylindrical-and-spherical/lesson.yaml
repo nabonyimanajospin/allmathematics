@@ -63,7 +63,7 @@ sections:
       - |
         $V=\displaystyle\int_0^{2\pi}\int_0^a\int_0^h r\,dz\,dr\,d\theta=2\pi\cdot\frac{a^2}{2}\cdot h=\pi a^2h$.
     answer: |
-      $V=\pi a^2h$.
+      $V=\pi a^2h\ \text{cu}$.
     verify:
       - expr: "integrate(integrate(integrate(r, z, 0, h), r, 0, a), t, 0, 2*pi)"
         equals: "pi*a^2*h"
@@ -79,7 +79,7 @@ sections:
       - |
         $V=\displaystyle\int_0^{2\pi}\int_0^{\pi}\int_0^R\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta=2\pi\cdot2\cdot\frac{R^3}{3}=\frac{4\pi R^3}{3}$.
     answer: |
-      $V=\dfrac{4\pi R^3}{3}$.
+      $V=\dfrac{4\pi R^3}{3}\ \text{cu}$.
     verify:
       - expr: "integrate(integrate(integrate(rho^2*sin(f), rho, 0, R), f, 0, pi), t, 0, 2*pi)"
         equals: "4*pi*R^3/3"

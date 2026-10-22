@@ -32,7 +32,7 @@ sections:
       - |
         In polar coordinates, $V=\displaystyle\int_0^{2\pi}\int_0^2(4-r^2)\,r\,dr\,d\theta=2\pi\left[2r^2-\frac{r^4}{4}\right]_0^2=2\pi\cdot4=8\pi$.
     answer: |
-      $V=8\pi$.
+      $V=8\pi\ \text{cu}$.
     verify:
       - expr: "integrate(integrate((4-r^2)*r, r, 0, 2), t, 0, 2*pi)"
         equals: "8*pi"
@@ -50,7 +50,7 @@ sections:
       - |
         Check with geometry: the volume of a pyramid is $\dfrac13\cdot(\text{base area})\cdot\text{height}=\dfrac13\cdot\dfrac{ab}{2}\cdot c=\dfrac{abc}6$.
     answer: |
-      $V=\dfrac{abc}{6}$.
+      $V=\dfrac{abc}{6}\ \text{cu}$.
     verify:
       - expr: "integrate(integrate(c*(1-x/a-y/b), y, 0, b*(1-x/a)), x, 0, a)"
         equals: "a*b*c/6"
