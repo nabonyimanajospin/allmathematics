@@ -97,3 +97,58 @@
           $h=\dfrac{2K}{\text{base}}$.
       solution: |-
         The area is $6$ and $\norm{\overrightarrow{AB}}=4$, so $h=\dfrac{2\cdot6}{4}=3$.
+- id: more-areas
+  task: |-
+    More practice: areas.
+  format: "Type a vector as `(a, b, c)`, a number or an exact expression such as `sqrt(7)/4`."
+  items:
+    - id: mp-ar-1
+      statement: |-
+        The area of the parallelogram built on $\vec u=\left(3,\,0,\,0\right)$ and $\vec v=\left(0,\,4,\,0\right)$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "12"
+      hints:
+        - |-
+          The area is $\norm{\crossp{\vec u}{\vec v}}$.
+      solution: |-
+        $\crossp{\vec u}{\vec v}=\left(0,\,0,\,12\right)$ and its norm is $12$.
+    - id: mp-ar-2
+      statement: |-
+        The area of the parallelogram built on $\vec u=\left(1,\,2,\,2\right)$ and $\vec v=\left(2,\,1,\,-2\right)$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "9"
+      hints:
+        - |-
+          The area is $\norm{\crossp{\vec u}{\vec v}}$.
+      solution: |-
+        $\crossp{\vec u}{\vec v}=\left(-6,\,6,\,-3\right)$ and its norm is $9$.
+    - id: mp-ar-3
+      statement: |-
+        The area of the triangle $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "3"
+      hints:
+        - |-
+          The area is half of $\norm{\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}}$.
+      solution: |-
+        $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=\left(0,\,0,\,6\right)$; half of its norm is $3$.
+    - id: mp-ar-4
+      statement: |-
+        The area of the triangle $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "sqrt(3)/2"
+      hints:
+        - |-
+          The area is half of $\norm{\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}}$.
+      solution: |-
+        $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=\left(1,\,1,\,1\right)$; half of its norm is $\frac{\sqrt{3}}{2}$.
+    - id: mp-ar-5
+      statement: |-
+        The area of the triangle $O(0,0)$, $P(1,2)$, $Q(3,4)$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "1"
+      hints:
+        - |-
+          Use $\dfrac12\left|x_1y_2-x_2y_1\right|$.
+      solution: |-
+        The area is $\dfrac12|x_1y_2-x_2y_1|=\dfrac12|4-6|=1$.

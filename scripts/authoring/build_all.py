@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import sys
 from pathlib import Path
 
@@ -19,6 +20,10 @@ MODULES = [
     "mvc_m03",
     "mvc_m04",
     "mvc_m05",
+    "mvc_new",
+    "mvc_curves",
+    "mvc_extrema",
+    "mvc_double",
     "geo_m02",
     "geo_m03",
     "geo_m01",
@@ -29,11 +34,27 @@ MODULES = [
 ]
 
 
+# Modules that add practice sets to lessons (registered before the lessons are written).
+MORE = [
+    "more_mvc_a",
+    "more_mvc_b",
+    "more_mvc_c",
+    "more_mvc_d",
+    "more_geo_a",
+]
+
+
 def main() -> int:
     wanted = sys.argv[1:] or MODULES
+    for name in MORE:
+        if importlib.util.find_spec(name):
+            importlib.import_module(name).register()
     for name in wanted:
         print(f"building {name} ...")
         importlib.import_module(name).build()
+    import toolkit
+
+    toolkit.write_orphans()
     print("done")
     return 0
 

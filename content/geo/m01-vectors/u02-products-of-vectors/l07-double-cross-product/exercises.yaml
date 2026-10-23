@@ -52,3 +52,111 @@
         - Use the identity.
       solution: |-
         $\vec i\,\dotp{\vec i}{\vec j}-\vec j\,\dotp{\vec i}{\vec i}=-\vec j$.
+- id: more-double
+  task: |-
+    More practice: the double cross product.
+  format: "Type a vector as `(a, b, c)`, a number or an exact expression such as `sqrt(7)/4`."
+  items:
+    - id: mp-dc-1
+      statement: |-
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ for $\vec u=\left(1,\,2,\,0\right)$, $\vec v=\left(0,\,1,\,3\right)$, $\vec w=\left(2,\,0,\,1\right)$.
+      answerType: vector
+      answer: "(-4, 2, 4)"
+      hints:
+        - |-
+          Either compute the two cross products, or use $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+      solution: |-
+        $\crossp{\vec v}{\vec w}=\left(1,\,6,\,-2\right)$ and then $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\left(-4,\,2,\,4\right)$. Check: $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ gives the same vector.
+    - id: mp-dc-2
+      statement: |-
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ for $\vec u=\left(1,\,0,\,1\right)$, $\vec v=\left(2,\,1,\,0\right)$, $\vec w=\left(0,\,3,\,1\right)$.
+      answerType: vector
+      answer: "(2, -5, -2)"
+      hints:
+        - |-
+          Either compute the two cross products, or use $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+      solution: |-
+        $\crossp{\vec v}{\vec w}=\left(1,\,-2,\,6\right)$ and then $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\left(2,\,-5,\,-2\right)$. Check: $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ gives the same vector.
+    - id: mp-dc-3
+      statement: |-
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ for $\vec u=\left(3,\,1,\,0\right)$, $\vec v=\left(1,\,1,\,1\right)$, $\vec w=\left(0,\,2,\,1\right)$.
+      answerType: vector
+      answer: "(2, -6, -2)"
+      hints:
+        - |-
+          Either compute the two cross products, or use $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+      solution: |-
+        $\crossp{\vec v}{\vec w}=\left(-1,\,-1,\,2\right)$ and then $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\left(2,\,-6,\,-2\right)$. Check: $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ gives the same vector.
+    - id: mp-dc-4
+      statement: |-
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ for $\vec u=\left(1,\,1,\,2\right)$, $\vec v=\left(2,\,0,\,1\right)$, $\vec w=\left(1,\,3,\,0\right)$.
+      answerType: vector
+      answer: "(4, -12, 4)"
+      hints:
+        - |-
+          Either compute the two cross products, or use $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+      solution: |-
+        $\crossp{\vec v}{\vec w}=\left(-3,\,1,\,6\right)$ and then $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\left(4,\,-12,\,4\right)$. Check: $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ gives the same vector.
+    - id: mp-dc-5
+      statement: |-
+        $\crossp{\vec u}{\crossp{\vec v}{\vec w}}$ for $\vec u=\left(2,\,0,\,0\right)$, $\vec v=\left(0,\,1,\,1\right)$, $\vec w=\left(1,\,1,\,1\right)$.
+      answerType: vector
+      answer: "(0, 2, 2)"
+      hints:
+        - |-
+          Either compute the two cross products, or use $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$.
+      solution: |-
+        $\crossp{\vec v}{\vec w}=\left(0,\,1,\,-1\right)$ and then $\crossp{\vec u}{\crossp{\vec v}{\vec w}}=\left(0,\,2,\,2\right)$. Check: $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ gives the same vector.
+    - id: mp-dc-6
+      statement: |-
+        For $\vec u=\left(1,\,2,\,0\right)$, $\vec v=\left(0,\,1,\,3\right)$, $\vec w=\left(2,\,0,\,1\right)$, is $\crossp{\crossp{\vec u}{\vec v}}{\vec w}=\crossp{\vec u}{\crossp{\vec v}{\vec w}}$?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 1
+      hints:
+        - Compute both sides.
+      solution: |-
+        The left side is $\left(-3,\,-4,\,6\right)$ and the right side is $\left(-4,\,2,\,4\right)$. They differ: the cross product is not associative.
+    - id: mp-dc-7
+      statement: |-
+        Use Lagrange's identity to compute $\dotp{\crossp{\vec u}{\vec v}}{\crossp{\vec w}{\vec x}}$ for $\vec u=\left(1,\,2,\,0\right)$, $\vec v=\left(0,\,1,\,1\right)$, $\vec w=\left(2,\,0,\,1\right)$, $\vec x=\left(1,\,1,\,1\right)$.
+      answerType: expression
+      answer: "1"
+      hints:
+        - |-
+          $\dotp{\crossp{\vec u}{\vec v}}{\crossp{\vec w}{\vec x}}=\dotp{\vec u}{\vec w}\dotp{\vec v}{\vec x}-\dotp{\vec u}{\vec x}\dotp{\vec v}{\vec w}$.
+      solution: |-
+        $\dotp{\vec u}{\vec w}\dotp{\vec v}{\vec x}-\dotp{\vec u}{\vec x}\dotp{\vec v}{\vec w}=2\cdot2-3\cdot1=1$.
+    - id: mp-dc-8
+      statement: |-
+        Compute $\norm{\crossp{\vec u}{\vec v}}^2$ for $\vec u=\left(1,\,2,\,2\right)$ and $\vec v=\left(2,\,-1,\,2\right)$ using $\norm{\vec u}^2\norm{\vec v}^2-\dotp{\vec u}{\vec v}^2$.
+      answerType: expression
+      answer: "65"
+      hints:
+        - Compute the norms and the dot product.
+      solution: |-
+        $9\cdot9-4^2=65$.
+    - id: mp-dc-9
+      statement: |-
+        Compute $\crossp{\vec u}{\crossp{\vec v}{\vec w}}+\crossp{\vec v}{\crossp{\vec w}{\vec u}}+\crossp{\vec w}{\crossp{\vec u}{\vec v}}$ for $\vec u=\left(1,\,2,\,3\right)$, $\vec v=\left(4,\,5,\,6\right)$, $\vec w=\left(7,\,8,\,10\right)$ (the Jacobi identity).
+      answerType: vector
+      answer: "(0, 0, 0)"
+      hints:
+        - |-
+          Use the identity $\vec v\dotp{\vec u}{\vec w}-\vec w\dotp{\vec u}{\vec v}$ for each term; they cancel.
+      solution: By the Jacobi identity the sum is always the zero vector.
+    - id: mp-dc-10
+      statement: |-
+        Compute $\crossp{\vec i}{\crossp{\vec i}{\vec j}}$.
+      answerType: vector
+      answer: "(0, -1, 0)"
+      hints:
+        - |-
+          First $\crossp{\vec i}{\vec j}=\vec k$.
+      solution: |-
+        $\crossp{\vec i}{\vec j}=\vec k$ and $\crossp{\vec i}{\vec k}=-\vec j$, so the result is $(0,-1,0)$.

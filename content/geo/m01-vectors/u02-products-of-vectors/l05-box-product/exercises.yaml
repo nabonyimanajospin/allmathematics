@@ -61,3 +61,90 @@
         - Compute the sign of the box product.
       solution: |-
         $\boxp{\vec i}{\vec k}{\vec j}=-1<0$: the triple is left-handed.
+- id: more-box
+  task: |-
+    More practice: the box product.
+  format: "Type a vector as `(a, b, c)`, a number or an exact expression such as `sqrt(7)/4`."
+  items:
+    - id: mp-bx-1
+      statement: |-
+        The box product $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=\left(1,\,0,\,0\right)$, $\vec v=\left(0,\,2,\,0\right)$, $\vec w=\left(0,\,0,\,3\right)$.
+      answerType: expression
+      answer: "6"
+      hints:
+        - It is the determinant of the three vectors.
+      solution: |-
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$, which is the determinant of the three vectors: $6$.
+    - id: mp-bx-2
+      statement: |-
+        The box product $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=\left(1,\,2,\,3\right)$, $\vec v=\left(0,\,1,\,4\right)$, $\vec w=\left(5,\,6,\,0\right)$.
+      answerType: expression
+      answer: "1"
+      hints:
+        - It is the determinant of the three vectors.
+      solution: |-
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$, which is the determinant of the three vectors: $1$.
+    - id: mp-bx-3
+      statement: |-
+        The box product $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=\left(2,\,-1,\,0\right)$, $\vec v=\left(1,\,1,\,1\right)$, $\vec w=\left(0,\,3,\,-2\right)$.
+      answerType: expression
+      answer: "-12"
+      hints:
+        - It is the determinant of the three vectors.
+      solution: |-
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$, which is the determinant of the three vectors: $-12$.
+    - id: mp-bx-4
+      statement: |-
+        The box product $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=\left(1,\,1,\,1\right)$, $\vec v=\left(1,\,2,\,3\right)$, $\vec w=\left(1,\,4,\,9\right)$.
+      answerType: expression
+      answer: "2"
+      hints:
+        - It is the determinant of the three vectors.
+      solution: |-
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$, which is the determinant of the three vectors: $2$.
+    - id: mp-bx-5
+      statement: |-
+        The box product $\boxp{\vec u}{\vec v}{\vec w}$ for $\vec u=\left(3,\,0,\,1\right)$, $\vec v=\left(1,\,2,\,0\right)$, $\vec w=\left(2,\,1,\,1\right)$.
+      answerType: expression
+      answer: "3"
+      hints:
+        - It is the determinant of the three vectors.
+      solution: |-
+        $\boxp{\vec u}{\vec v}{\vec w}=\dotp{\vec u}{\crossp{\vec v}{\vec w}}$, which is the determinant of the three vectors: $3$.
+    - id: mp-bx-6
+      statement: |-
+        Are the vectors $\vec u=\left(1,\,2,\,3\right)$, $\vec v=\left(2,\,4,\,6\right)$, $\vec w=\left(1,\,0,\,1\right)$ coplanar?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - Compute the box product.
+      solution: |-
+        $\vec v=2\vec u$, so the box product is $0$ and the vectors are coplanar.
+    - id: mp-bx-7
+      statement: |-
+        Are the vectors $\vec u=\left(1,\,0,\,1\right)$, $\vec v=\left(0,\,1,\,1\right)$, $\vec w=\left(1,\,1,\,0\right)$ coplanar?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 1
+      hints:
+        - Compute the box product.
+      solution: |-
+        The box product is $-2\ne0$: the vectors are not coplanar.
+    - id: mp-bx-8
+      statement: "For which $k$ are $(1,2,3)$, $(0,1,k)$ and $(2,5,7)$ coplanar?"
+      answerType: number
+      answer: "1"
+      hints:
+        - "The determinant must be $0$."
+      solution: "The determinant is $1 - k$, which is $0$ for $k=1$."
