@@ -99,3 +99,101 @@
         Use the centroid: for $f=x$, $\iint_D x\,dA=\text{area}(D)\cdot\bar x$, where $\bar x$ is the $x$-coordinate of the centroid.
 
         Area: $\dfrac12\left|\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}\right|$ with $\overrightarrow{AB}=(5,-1)$ and $\overrightarrow{AC}=(2,2)$ gives $\dfrac12|5\cdot2-(-1)\cdot2|=6$. Centroid: $\bar x=\dfrac{2+7+4}3=\dfrac{13}3$. Therefore $\iint_Dx\,dA=6\cdot\dfrac{13}3=26$.
+- id: more-iterated
+  task: |-
+    More practice: iterated integrals.
+  format: "Type an exact value such as `7/6` or `e-1`."
+  items:
+    - id: mp-it-1
+      statement: |-
+        $\displaystyle\iint_Rxy^2\,dA$ over the rectangle $R:\ 0\le x\le2,\ 1\le y\le3$.
+      answerType: number
+      answer: "52/3"
+      hints:
+        - "Integrate first in $y$ (treat $x$ as a constant), then in $x$."
+      solution: |-
+        $\displaystyle\int_{0}^{2}\int_{1}^{3}xy^2\,dy\,dx=\frac{52}{3}$.
+    - id: mp-it-2
+      statement: |-
+        $\displaystyle\iint_R(2x+3y)\,dA$ over the rectangle $R:\ 0\le x\le1,\ 0\le y\le2$.
+      answerType: number
+      answer: "8"
+      hints:
+        - "Integrate first in $y$ (treat $x$ as a constant), then in $x$."
+      solution: |-
+        $\displaystyle\int_{0}^{1}\int_{0}^{2}(2x+3y)\,dy\,dx=8$.
+    - id: mp-it-3
+      statement: |-
+        $\displaystyle\iint_Rx\cos y\,dA$ over the rectangle $R:\ 0\le x\le2,\ 0\le y\le\dfrac\pi2$.
+      answerType: number
+      answer: "2"
+      hints:
+        - "Integrate first in $y$ (treat $x$ as a constant), then in $x$."
+      solution: |-
+        $\displaystyle\int_{0}^{2}\int_{0}^{\frac{\pi}{2}}x\cos y\,dy\,dx=2$.
+    - id: mp-it-4
+      statement: |-
+        $\displaystyle\iint_Dxy\,dA$, where $D:\ 0\le x\le1,\ x^2\le y\le x$.
+      answerType: number
+      answer: "1/24"
+      hints:
+        - "Integrate in $y$ first, between the lower and the upper curve; the result is a function of $x$."
+      solution: |-
+        Inner integral: $\displaystyle\int_{x^{2}}^{x}xy\,dy=\frac{x^{3} \left(1 - x^{2}\right)}{2}$. Outer integral: $\displaystyle\int_{0}^{1}\left(\frac{x^{3} \left(1 - x^{2}\right)}{2}\right)dx=\frac{1}{24}$.
+    - id: mp-it-5
+      statement: |-
+        $\displaystyle\iint_D(x+y)\,dA$, where $D:\ 0\le x\le2,\ 0\le y\le x$.
+      answerType: number
+      answer: "4"
+      hints:
+        - "Integrate in $y$ first, between the lower and the upper curve; the result is a function of $x$."
+      solution: |-
+        Inner integral: $\displaystyle\int_{0}^{x}(x+y)\,dy=\frac{3 x^{2}}{2}$. Outer integral: $\displaystyle\int_{0}^{2}\left(\frac{3 x^{2}}{2}\right)dx=4$.
+    - id: mp-it-6
+      statement: |-
+        $\displaystyle\iint_D\left(x^2+y\right)\,dA$, where $D:\ 0\le x\le1,\ 0\le y\le\sqrt x$.
+      answerType: number
+      answer: "15/28"
+      hints:
+        - "Integrate in $y$ first, between the lower and the upper curve; the result is a function of $x$."
+      solution: |-
+        Inner integral: $\displaystyle\int_{0}^{\sqrt{x}}\left(x^2+y\right)\,dy=x^{\frac{5}{2}} + \frac{x}{2}$. Outer integral: $\displaystyle\int_{0}^{1}\left(x^{\frac{5}{2}} + \frac{x}{2}\right)dx=\frac{15}{28}$.
+    - id: mp-it-7
+      statement: |-
+        $\displaystyle\iint_De^{y^2}\,dA$, where $D:\ 0\le y\le1,\ 0\le x\le y$.
+      answerType: expression
+      answer: "-1/2 + e/2"
+      hints:
+        - |-
+          The region is described with $y$ as the outer variable: integrate in $x$ first.
+      solution: |-
+        $\displaystyle\int_0^1\!\!\int_0^ye^{y^2}\,dx\,dy=\int_0^1ye^{y^2}\,dy=\left[\dfrac12e^{y^2}\right]_0^1=\dfrac{e-1}{2}$.
+    - id: mp-it-8
+      statement: |-
+        Evaluate $\displaystyle\int_0^1\!\!\int_x^1\sin\left(y^2\right)dy\,dx$ by changing the order of integration.
+      answerType: expression
+      answer: "1/2 - cos(1)/2"
+      hints:
+        - |-
+          The region is $0\le x\le y\le1$. Integrate in $x$ first: $x$ runs from $0$ to $y$.
+      solution: |-
+        $\displaystyle\int_0^1\!\!\int_0^y\sin\left(y^2\right)dx\,dy=\int_0^1y\sin\left(y^2\right)dy=\left[-\dfrac12\cos\left(y^2\right)\right]_0^1=\dfrac{1-\cos1}{2}$.
+    - id: mp-it-9
+      statement: |-
+        The integral $\displaystyle\int_0^1\!\!\int_x^1\sin\left(y^2\right)dy\,dx$ cannot be done in the given order. Why does changing the order help?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: |-
+            The inner integral $\int\sin(y^2)\,dy$ has no elementary antiderivative, but after the swap the inner variable is $x$ and $\sin(y^2)$ is constant in $x$
+          value: "1"
+        - text: Changing the order changes the value of the integral
+          value: "2"
+        - text: The region of integration becomes a rectangle
+          value: "3"
+      correctIndex: 0
+      hints:
+        - |-
+          Sketch the triangle $0\le x\le y\le1$ and describe it in the other order.
+      solution: |-
+        The triangle can be described as $0\le y\le1$, $0\le x\le y$. Then the inner integral is in $x$, and $\sin(y^2)$ is a constant for it. The value of the integral does not change.

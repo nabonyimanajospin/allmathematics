@@ -217,3 +217,70 @@
         $$u_{xz}=2 x + y$$
 
         $$u_{yz}=x + 2 z$$
+- id: more-higher
+  task: |-
+    More practice: derivatives of higher order.
+  format: "Type an exact value such as `5/3`."
+  items:
+    - id: mp-hi-1
+      statement: "Let $f(x,y)=x^3y^2-2xy$. Find $f_{xx}$ at $(1,2)$."
+      answerType: number
+      answer: "24"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: "$f_{xx}=6 x y^{2}$, which at the point equals $24$."
+    - id: mp-hi-2
+      statement: "Let $f(x,y)=x^3y^2-2xy$. Find $f_{xy}$ at $(1,2)$."
+      answerType: number
+      answer: "10"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: "$f_{xy}=6 x^{2} y - 2$, which at the point equals $10$."
+    - id: mp-hi-3
+      statement: "Let $f(x,y)=e^{xy}$. Find $f_{yy}$ at $(1,0)$."
+      answerType: number
+      answer: "1"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: "$f_{yy}=x^{2} e^{x y}$, which at the point equals $1$."
+    - id: mp-hi-4
+      statement: |-
+        Let $f(x,y)=\ln\left(x^2+y^2\right)$. Find $f_{xy}$ at $(1,1)$.
+      answerType: number
+      answer: "-1"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: |-
+        $f_{xy}=- \frac{4 x y}{\left(x^{2} + y^{2}\right)^{2}}$, which at the point equals $-1$.
+    - id: mp-hi-5
+      statement: |-
+        Let $f(x,y)=\dfrac{x}{y}$. Find $f_{yx}$ at $(2,1)$.
+      answerType: number
+      answer: "-1"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: |-
+        $f_{yx}=- \frac{1}{y^{2}}$, which at the point equals $-1$.
+    - id: mp-hi-6
+      statement: "Let $f(x,y)=x^2y^3$. Find $f_{xyy}$ at $(1,1)$."
+      answerType: number
+      answer: "12"
+      hints:
+        - "Differentiate in the order of the subscripts, from left to right."
+      solution: "$f_{xyy}=12 x y$, which at the point equals $12$."
+    - id: mp-hi-7
+      statement: "Which of these functions satisfies Laplace's equation $f_{xx}+f_{yy}=0$ everywhere?"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "$x^2+y^2$"
+          value: "1"
+        - text: "$x^2-y^2$"
+          value: "2"
+        - text: "$x^2y$"
+          value: "3"
+      correctIndex: 1
+      hints:
+        - "Compute $f_{xx}+f_{yy}$ for each one."
+      solution: |-
+        For $x^2-y^2$: $f_{xx}=2$ and $f_{yy}=-2$, so the sum is $0$. For $x^2+y^2$ it is $4$, and for $x^2y$ it is $2y$.

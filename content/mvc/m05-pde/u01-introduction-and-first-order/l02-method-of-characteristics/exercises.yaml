@@ -126,3 +126,52 @@
         - "$u=e^{2x}f(x-y)$."
       solution: |-
         $u=e^{2x}f(x-y)$ and $e^{2x}f(x)=\sin x$ give $f(s)=e^{-2s}\sin s$, so $u=e^{2y}\sin(x-y)$.
+- id: more-characteristics
+  task: |-
+    More practice: characteristics.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-ch-1
+      statement: "The solution of $5u_x+2u_y=0$ with $u(x,0)=x^{2} + 1$ (an expression in $x$ and $y$)."
+      answerType: expression
+      answer: "x^2 - 5*x*y + 25*y^2/4 + 1"
+      variables:
+        [x, y]
+      hints:
+        - "$u=f(2x-5y)$; the condition at $y=0$ gives $f(2x)=x^{2} + 1$."
+      solution: |-
+        $u=f(2x-5y)$ and $f(2x)=x^{2} + 1$, so $f(s)=\frac{s^{2}}{4} + 1$ and $u=x^{2} - 5 x y + \frac{25 y^{2}}{4} + 1$.
+    - id: mp-ch-2
+      statement: |-
+        The solution of $u_t+4u_x=0$ with $u(x,0)=\sin x$ (an expression in $x$ and $t$).
+      answerType: expression
+      answer: "-sin(4*t - x)"
+      variables:
+        [x, t]
+      hints:
+        - "The profile moves to the right at speed $4$."
+      solution: |-
+        $u=f(x-4t)$ with $f=\sin$, so $u=\sin(x-4t)$.
+    - id: mp-ch-3
+      statement: |-
+        The solution of $u_x+3x^2\,u_y=0$ with $u(0,y)=e^{y}$.
+      answerType: expression
+      answer: "exp(-x^3 + y)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          Solve $\dfrac{dy}{dx}=3x^2$: the characteristics are $y-x^3=C$.
+      solution: |-
+        The characteristics are $y-x^3=C$, so $u=f\left(y-x^3\right)$; $u(0,y)=e^y$ gives $f=\exp$. Hence $u=e^{y-x^3}$.
+    - id: mp-ch-4
+      statement: |-
+        The solution of $u_x+u_y=-u$ with $u(x,0)=\cos x$.
+      answerType: expression
+      answer: "exp(-y)*cos(x - y)"
+      variables:
+        [x, y]
+      hints:
+        - "$u=e^{-x}f(x-y)$."
+      solution: |-
+        $u=e^{-x}f(x-y)$ and $e^{-x}f(x)=\cos x$ give $f(s)=e^{s}\cos s$, so $u=e^{-y}\cos(x-y)$.

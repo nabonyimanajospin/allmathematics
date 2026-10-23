@@ -183,3 +183,71 @@
         As in (c), $xy=e^x+C$. At $x=0$ the left side is $0$, so $0=1+C$ and $C=-1$; then $y=\dfrac{e^x-1}x$, and $\lim_{x\to0}\dfrac{e^x-1}x=1=y(0)$, as required. For any other $C$ the solution is unbounded at $x=0$.
       note: |-
         The initial point is the point where the standard form $y'+\dfrac yx=\dfrac{e^x}x$ is undefined, so the usual formula does not apply; only $C=-1$ gives a solution that is finite at $0$.
+- id: more-linear
+  task: |-
+    More practice: linear equations of the first order.
+  format: "Type the solution with an arbitrary constant `C`, for example `y = C*e^x` or `x^2 + y^2 = C`."
+  items:
+    - id: mp-lin-1
+      statement: "$y' + 2 y=e^{- x}$"
+      answerType: ode_solution
+      answer: "y = (C + exp(x))*exp(-2*x)"
+      ode:
+        order: 1
+        equation: "2*y + y1 - exp(-x)"
+        sample:
+          [0.2, 1.9]
+      hints:
+        - |-
+          Find $\mu=e^{\int P\,dx}$ and multiply the equation by it.
+      solution: |-
+        The integrating factor is $\mu=e^{\int P\,dx}=e^{2 x}$. Then $(\mu y)'=\mu Q=e^{x}$, and integrating gives $y=\left(C + e^{x}\right) e^{- 2 x}$.
+    - id: mp-lin-2
+      statement: |-
+        $y' - \frac{y}{x}=x^{2}$
+      answerType: ode_solution
+      answer: "y = x*(C + x^2/2)"
+      ode:
+        order: 1
+        equation: "-x^2 + y1 - y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Find $\mu=e^{\int P\,dx}$ and multiply the equation by it.
+      solution: |-
+        The integrating factor is $\mu=e^{\int P\,dx}=\frac{1}{x}$. Then $(\mu y)'=\mu Q=x$, and integrating gives $y=x \left(C + \frac{x^{2}}{2}\right)$.
+    - id: mp-lin-3
+      statement: |-
+        $y' + \frac{2 y}{x}=x$
+      answerType: ode_solution
+      answer: "y = (C + x^4/4)/x^2"
+      ode:
+        order: 1
+        equation: "-x + y1 + 2*y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Find $\mu=e^{\int P\,dx}$ and multiply the equation by it.
+      solution: |-
+        The integrating factor is $\mu=e^{\int P\,dx}=x^{2}$. Then $(\mu y)'=\mu Q=x^{3}$, and integrating gives $y=\frac{C + \frac{x^{4}}{4}}{x^{2}}$.
+    - id: mp-lin-4
+      statement: |-
+        $y' + y=x$, $\ y(0)=1$
+      answerType: ode_solution
+      answer: "y = x - 1 + 2*exp(-x)"
+      ode:
+        order: 1
+        equation: "-x + y + y1"
+        sample:
+          [0.0, 1.9]
+        conditions:
+          - at: "0"
+            value: "1"
+            derivative: 0
+      hints:
+        - |-
+          Find $\mu=e^{\int P\,dx}$ and multiply the equation by it.
+      solution: |-
+        The integrating factor is $\mu=e^{\int P\,dx}=e^{x}$. Then $(\mu y)'=\mu Q=x e^{x}$, and integrating gives $y=x - 1 + 2 e^{- x}$.

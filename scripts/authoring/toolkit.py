@@ -179,8 +179,30 @@ def emit(value: object, indent: int = 0) -> str:
     return f"{pad}{_scalar(value, indent)}"
 
 
+# Extra practice registered by the `more_*` modules: lesson directory -> exercise sets appended after the base sets.
+EXTRA: dict[str, list[dict]] = {}
+ORPHANS: dict[str, str] = {}  # lessons that have no base builder: directory -> script that registered them
+WRITTEN: set[str] = set()
+
+
+def add_extra(lesson_dir: str, exercise_set: dict, script: str, orphan: bool = False) -> None:
+    """Register a set of extra exercises for a lesson. `orphan` is for a lesson that has no base builder."""
+    EXTRA.setdefault(lesson_dir, []).append(exercise_set)
+    if orphan:
+        ORPHANS[lesson_dir] = script
+
+
+def write_orphans() -> None:
+    """Write the lessons whose exercises come only from the extra sets."""
+    for lesson_dir, script in ORPHANS.items():
+        if lesson_dir not in WRITTEN:
+            write_exercises(lesson_dir, [], script)
+
+
 def write_exercises(lesson_dir: str, sets: list[dict], script: str) -> Path:
-    """Write content/<lesson_dir>/exercises.yaml."""
+    """Write content/<lesson_dir>/exercises.yaml (the base sets followed by the extra practice sets of the lesson)."""
+    WRITTEN.add(lesson_dir)
+    sets = [*sets, *EXTRA.get(lesson_dir, [])]
     path = CONTENT / lesson_dir / "exercises.yaml"
     path.parent.mkdir(parents=True, exist_ok=True)
     header = (

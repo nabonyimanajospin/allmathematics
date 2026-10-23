@@ -104,3 +104,58 @@
           $\omega_n=\dfrac{n\pi c}{L}$.
       solution: |-
         $\omega_3=3$.
+- id: more-sine
+  task: |-
+    More practice: sine series.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-fp-1
+      statement: |-
+        The coefficient $b_1$ of the sine series of $f(x)=x^2$ on $]0,\pi[$.
+      answerType: expression
+      answer: "-8/pi + 2*pi"
+      hints:
+        - |-
+          $b_n=\dfrac2\pi\int_0^\pi f(x)\sin nx\,dx$.
+      solution: |-
+        $b_1=\dfrac{2}{\pi}\int_0^\pi x^2\sin 1x\,dx=- \frac{8}{\pi} + 2 \pi$.
+    - id: mp-fp-2
+      statement: |-
+        The coefficient $b_2$ of the sine series of $f(x)=x^2$ on $]0,\pi[$.
+      answerType: expression
+      answer: "-pi"
+      hints:
+        - |-
+          $b_n=\dfrac2\pi\int_0^\pi f(x)\sin nx\,dx$.
+      solution: |-
+        $b_2=\dfrac{2}{\pi}\int_0^\pi x^2\sin 2x\,dx=- \pi$.
+    - id: mp-fp-3
+      statement: |-
+        The coefficient $b_5$ of the sine series of $f(x)=x(\pi-x)$ on $]0,\pi[$.
+      answerType: expression
+      answer: "8/(125*pi)"
+      hints:
+        - |-
+          $b_n=\dfrac2\pi\int_0^\pi f(x)\sin nx\,dx$.
+      solution: |-
+        $b_5=\dfrac{2}{\pi}\int_0^\pi x(\pi-x)\sin 5x\,dx=\frac{8}{125 \pi}$.
+    - id: mp-fp-4
+      statement: |-
+        The coefficient $b_2$ of the sine series of $f(x)=2$ on $]0,\pi[$.
+      answerType: expression
+      answer: "0"
+      hints:
+        - |-
+          $b_n=\dfrac2\pi\int_0^\pi f(x)\sin nx\,dx$.
+      solution: |-
+        $b_2=\dfrac{2}{\pi}\int_0^\pi 2\sin 2x\,dx=0$.
+    - id: mp-fp-5
+      statement: |-
+        The coefficient $b_1$ of the sine series of $f(x)=\pi-x$ on $]0,\pi[$.
+      answerType: expression
+      answer: "2"
+      hints:
+        - |-
+          $b_n=\dfrac2\pi\int_0^\pi f(x)\sin nx\,dx$.
+      solution: |-
+        $b_1=\dfrac{2}{\pi}\int_0^\pi \pi-x\sin 1x\,dx=2$.

@@ -115,3 +115,87 @@
           Because the right side is $\sin x$ and not $\sin2x$, there is no resonance.
       solution: |-
         $y_h=C_1\cos2x+C_2\sin2x$. Try $y_p=A\sin x$: $(-1+4)A\sin x=\sin x$, so $A=\dfrac13$. $y(0)=C_1=1$. $y'=-2C_1\sin2x+2C_2\cos2x+\dfrac13\cos x$, so $y'(0)=2C_2+\dfrac13=1$ and $C_2=\dfrac13$.
+- id: more-undetermined
+  task: |-
+    More practice: undetermined coefficients.
+  format: "Type the general solution with `C1` and `C2`."
+  items:
+    - id: mp-uc-1
+      statement: "$y'' - 3 y' + 2 y=e^{3 x}$"
+      answerType: ode_solution
+      answer: "y = (C1 + C2*exp(x) + exp(2*x)/2)*exp(x)"
+      ode:
+        order: 2
+        equation: "2*y - 3*y1 + y2 - exp(3*x)"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(-3)r+(2)=0$. For the right-hand side $e^{3 x}$ try $y_p=Ae^{3x}$ ($3$ is not a root). Solving for the coefficients gives $y=\left(C_{1} + C_{2} e^{x} + \frac{e^{2 x}}{2}\right) e^{x}$.
+    - id: mp-uc-2
+      statement: "$y'' + y=x^{2}$"
+      answerType: ode_solution
+      answer: "y = C1*sin(x) + C2*cos(x) + x^2 - 2"
+      ode:
+        order: 2
+        equation: "-x^2 + y + y2"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(0)r+(1)=0$. For the right-hand side $x^{2}$ try $y_p=Ax^2+Bx+D$. Solving for the coefficients gives $y=C_{1} \sin{\left(x \right)} + C_{2} \cos{\left(x \right)} + x^{2} - 2$.
+    - id: mp-uc-3
+      statement: |-
+        $y'' + 4 y=\sin{\left(x \right)}$
+      answerType: ode_solution
+      answer: "y = C1*sin(2*x) + C2*cos(2*x) + sin(x)/3"
+      ode:
+        order: 2
+        equation: "4*y + y2 - sin(x)"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(0)r+(4)=0$. For the right-hand side $\sin{\left(x \right)}$ try $y_p=A\cos x+B\sin x$. Solving for the coefficients gives $y=C_{1} \sin{\left(2 x \right)} + C_{2} \cos{\left(2 x \right)} + \frac{\sin{\left(x \right)}}{3}$.
+    - id: mp-uc-4
+      statement: "$y'' - y=e^{x}$"
+      answerType: ode_solution
+      answer: "y = (C2 + (2*C1 + x)*exp(2*x)/2)*exp(-x)"
+      ode:
+        order: 2
+        equation: "-y + y2 - exp(x)"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(0)r+(-1)=0$. For the right-hand side $e^{x}$ try $y_p=Axe^{x}$ ($1$ is a root, so multiply by $x$). Solving for the coefficients gives $y=\left(C_{2} + \frac{\left(2 C_{1} + x\right) e^{2 x}}{2}\right) e^{- x}$.
+    - id: mp-uc-5
+      statement: "$y'' + 2 y' + y=e^{- x}$"
+      answerType: ode_solution
+      answer: "y = (C1 + x*(2*C2 + x)/2)*exp(-x)"
+      ode:
+        order: 2
+        equation: "y + 2*y1 + y2 - exp(-x)"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(2)r+(1)=0$. For the right-hand side $e^{- x}$ try $y_p=Ax^2e^{-x}$ ($-1$ is a double root, so multiply by $x^2$). Solving for the coefficients gives $y=\left(C_{1} + \frac{x \left(2 C_{2} + x\right)}{2}\right) e^{- x}$.
+    - id: mp-uc-6
+      statement: "$y'' - 2 y'=x$"
+      answerType: ode_solution
+      answer: "y = C1 + C2*exp(2*x) - x^2/4 - x/4"
+      ode:
+        order: 2
+        equation: "-x - 2*y1 + y2"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(-2)r+(0)=0$. For the right-hand side $x$ try $y_p=x(Ax+B)$ ($0$ is a root, so multiply by $x$). Solving for the coefficients gives $y=C_{1} + C_{2} e^{2 x} - \frac{x^{2}}{4} - \frac{x}{4}$.
+    - id: mp-uc-7
+      statement: |-
+        $y'' + 9 y=\cos{\left(3 x \right)}$
+      answerType: ode_solution
+      answer: "y = C2*cos(3*x) + (C1 + x/6)*sin(3*x)"
+      ode:
+        order: 2
+        equation: "9*y + y2 - cos(3*x)"
+      hints:
+        - "General solution $=$ homogeneous solution $+$ a particular solution found with the right guess."
+      solution: |-
+        The homogeneous equation has $r^2+(0)r+(9)=0$. For the right-hand side $\cos{\left(3 x \right)}$ try $y_p=x(A\cos3x+B\sin3x)$ ($\pm3i$ are roots, so multiply by $x$). Solving for the coefficients gives $y=C_{2} \cos{\left(3 x \right)} + \left(C_{1} + \frac{x}{6}\right) \sin{\left(3 x \right)}$.

@@ -129,3 +129,53 @@
         - "Write both conditions with $s=x^2+y^2+z^2$ and see what they say together."
       solution: |-
         The first root needs $x^2+y^2+z^2\ge4$ and the second needs $x^2+y^2+z^2\le4$. Both hold only when $x^2+y^2+z^2=4$. The domain is the sphere of radius $2$ (its surface only, not the inside).
+- id: more-domains
+  task: |-
+    More practice: domains.
+  format: "Type the conditions, for example `x > 1 and y <= 2`, with `<=` and `>=`."
+  items:
+    - id: mp-dom-1
+      statement: |-
+        $z=\sqrt{xy}$
+      answerType: region
+      answer: "x*y>=0"
+      coordinates:
+        [x, y]
+      hints:
+        - A square root needs a non-negative argument.
+      solution: |-
+        The root needs $xy\ge0$: $x$ and $y$ have the same sign, or one of them is $0$. The domain is the first and third quadrants with both axes.
+    - id: mp-dom-2
+      statement: |-
+        $z=\ln\left(4-x^2-y^2\right)$
+      answerType: region
+      answer: "x^2+y^2<4"
+      coordinates:
+        [x, y]
+      hints:
+        - A logarithm needs a positive argument.
+      solution: |-
+        The logarithm needs a positive argument: $4-x^2-y^2>0$, that is $x^2+y^2<4$. The domain is the open disc of radius $2$; the circle is excluded.
+    - id: mp-dom-3
+      statement: |-
+        $z=\dfrac{1}{\sqrt{x-y^2}}$
+      answerType: region
+      answer: "x>y^2"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Two conditions: the root is defined, and the denominator is not zero.
+      solution: |-
+        The root needs $x-y^2\ge0$ and it is in the denominator, so $x-y^2\ne0$: together $x>y^2$. The domain is the region to the right of the parabola $x=y^2$, without the parabola.
+    - id: mp-dom-4
+      statement: |-
+        $z=\sqrt{y-x^2}+\ln x$
+      answerType: region
+      answer: "y>=x^2 and x>0"
+      coordinates:
+        [x, y]
+      hints:
+        - Both terms must be defined at the same time.
+      solution: |-
+        The root needs $y\ge x^2$ and the logarithm needs $x>0$, and both must hold. The domain is the part of the region above the parabola $y=x^2$ with $x>0$.

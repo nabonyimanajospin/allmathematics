@@ -67,3 +67,126 @@
       verify:
         - expr: "integrate(integrate(integrate(x*y*z, z, 0, 1-x-y), y, 0, 1-x), x, 0, 1)"
           equals: "1/720"
+- id: more-triple
+  task: |-
+    More practice: triple integrals.
+  format: "Type an exact value such as `7/8`."
+  items:
+    - id: mp-tr-1
+      statement: |-
+        $\displaystyle\iiint_Dxyz\,dV$ over the box $0\le x\le1,\ 0\le y\le2,\ 0\le z\le3$.
+      answerType: number
+      answer: "9/2"
+      hints:
+        - |-
+          Over a box the limits are constants: integrate one variable at a time.
+      solution: |-
+        $\displaystyle\iiint f\,dV=\int_{0}^{1}\!\int_{0}^{2}\!\int_{0}^{3}f\,dz\,dy\,dx=\frac{9}{2}$.
+    - id: mp-tr-2
+      statement: |-
+        $\displaystyle\iiint_D(x+y+z)\,dV$ over the cube $[0,1]^3$.
+      answerType: number
+      answer: "3/2"
+      hints:
+        - |-
+          Over a box the limits are constants: integrate one variable at a time.
+      solution: |-
+        $\displaystyle\iiint f\,dV=\int_{0}^{1}\!\int_{0}^{1}\!\int_{0}^{1}f\,dz\,dy\,dx=\frac{3}{2}$.
+    - id: mp-tr-3
+      statement: |-
+        $\displaystyle\iiint_De^{x+y+z}\,dV$ over the cube $[0,1]^3$.
+      answerType: expression
+      answer: "-3*exp(2) - 1 + 3*e + exp(3)"
+      hints:
+        - |-
+          Over a box the limits are constants: integrate one variable at a time.
+      solution: |-
+        $\displaystyle\iiint f\,dV=\int_{0}^{1}\!\int_{0}^{1}\!\int_{0}^{1}f\,dz\,dy\,dx=- 3 e^{2} - 1 + 3 e + e^{3}$.
+    - id: mp-tr-4
+      statement: |-
+        $\displaystyle\iiint_D(x+2y)\,dV$, where $D$ is the tetrahedron bounded by the coordinate planes and $x+y+z=1$.
+      answerType: number
+      answer: "1/8"
+      hints:
+        - |-
+          The solid is $0\le x\le1$, $0\le y\le1-x$, $0\le z\le1-x-y$.
+      solution: |-
+        $\displaystyle\int_0^1\!\!\int_0^{1-x}\!\!\int_0^{1-x-y}f\,dz\,dy\,dx=\frac{1}{8}$.
+    - id: mp-tr-5
+      statement: |-
+        $\displaystyle\iiint_D(x+y+z)\,dV$, where $D$ is the tetrahedron bounded by the coordinate planes and $x+y+z=1$.
+      answerType: number
+      answer: "1/8"
+      hints:
+        - |-
+          The solid is $0\le x\le1$, $0\le y\le1-x$, $0\le z\le1-x-y$.
+      solution: |-
+        $\displaystyle\int_0^1\!\!\int_0^{1-x}\!\!\int_0^{1-x-y}f\,dz\,dy\,dx=\frac{1}{8}$.
+    - id: mp-tr-6
+      statement: |-
+        Find the volume of the tetrahedron bounded by the coordinate planes and $\dfrac x2+\dfrac y3+\dfrac z4=1$. The unit is cu: give the number only.
+      answerType: number
+      answer: "4"
+      hints:
+        - |-
+          The volume is $\iiint_D1\,dV$.
+      solution: |-
+        $V=\displaystyle\int_{0}^{2}\!\int_{0}^{3 - \frac{3 x}{2}}\!\int_0^{- 2 x - \frac{4 y}{3} + 4}dz\,dy\,dx=4$.
+    - id: mp-tr-7
+      statement: |-
+        Find the volume of the solid in the first octant bounded by the coordinate planes and $2x+y+z=2$. The unit is cu: give the number only.
+      answerType: number
+      answer: "2/3"
+      hints:
+        - |-
+          The volume is $\iiint_D1\,dV$.
+      solution: |-
+        $V=\displaystyle\int_{0}^{1}\!\int_{0}^{2 - 2 x}\!\int_0^{- 2 x - y + 2}dz\,dy\,dx=\frac{2}{3}$.
+    - id: mp-tr-8
+      statement: |-
+        Find the volume of the solid under the plane $z=4-x-y$ and above the square $0\le x\le1,\ 0\le y\le1$. The unit is cu: give the number only.
+      answerType: number
+      answer: "3"
+      hints:
+        - |-
+          The volume is $\iiint_D1\,dV$.
+      solution: |-
+        $V=\displaystyle\int_{0}^{1}\!\int_{0}^{1}\!\int_0^{- x - y + 4}dz\,dy\,dx=3$.
+    - id: mp-tr-9
+      statement: |-
+        $\displaystyle\iiint_Dy\,dV$, where $D:\ 0\le x\le1,\ 0\le y\le x,\ 0\le z\le xy$.
+      answerType: number
+      answer: "1/15"
+      hints:
+        - |-
+          Integrate in $z$ first: the upper limit $xy$ depends on $x$ and $y$.
+      solution: |-
+        $\displaystyle\int_0^1\!\!\int_0^x\!\!\int_0^{xy}y\,dz\,dy\,dx=\int_0^1\!\!\int_0^xxy^2\,dy\,dx=\int_0^1\dfrac{x^4}{3}\,dx=\dfrac1{15}$.
+    - id: mp-tr-10
+      statement: |-
+        In how many different orders can a triple integral $\iiint f\,dx\,dy\,dz$ over a box be written as an iterated integral?
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: "3"
+          value: "1"
+        - text: "4"
+          value: "2"
+        - text: "6"
+          value: "3"
+        - text: "9"
+          value: "4"
+      correctIndex: 2
+      hints:
+        - Count the ways to order the three variables.
+      solution: "The three variables can be ordered in $3!=6$ ways, and over a box all of them give the same value."
+    - id: mp-tr-11
+      statement: |-
+        A solid tetrahedron $D$ (bounded by the coordinate planes and $x+y+z=1$) has density $\rho(x,y,z)=x+y+z$. Find its mass (give the number only, in kg).
+      answerType: number
+      answer: "1/8"
+      hints:
+        - |-
+          $M=\iiint_D\rho\,dV$.
+      solution: |-
+        $M=\displaystyle\iiint_D(x+y+z)\,dV=\frac{1}{8}$.

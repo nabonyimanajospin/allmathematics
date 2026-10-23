@@ -85,3 +85,62 @@
         - Use the other candidate point.
       solution: |-
         At the point with negative coordinates $z=-\sqrt{10}$. This is the minimum.
+- id: more-constrained
+  task: |-
+    More practice: Lagrange multipliers.
+  format: "Type an exact value such as `sqrt(3)` or `7/2`."
+  items:
+    - id: mp-con-1a
+      statement: "Find the maximum value of $f(x,y)=xy$ on the curve $x^2+y^2-2=0$."
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-2=0$. Solving the system gives the candidate values $-1, 1$. The largest is $1$.
+    - id: mp-con-1b
+      statement: "Find the minimum value of $f(x,y)=xy$ on the curve $x^2+y^2-2=0$."
+      answerType: number
+      answer: "-1"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-2=0$. Solving the system gives the candidate values $-1, 1$. The smallest is $-1$.
+    - id: mp-con-2a
+      statement: "Find the maximum value of $f(x,y)=x+2y$ on the curve $x^2+y^2-5=0$."
+      answerType: number
+      answer: "5"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-5=0$. Solving the system gives the candidate values $-5, 5$. The largest is $5$.
+    - id: mp-con-2b
+      statement: "Find the minimum value of $f(x,y)=x+2y$ on the curve $x^2+y^2-5=0$."
+      answerType: number
+      answer: "-5"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-5=0$. Solving the system gives the candidate values $-5, 5$. The smallest is $-5$.
+    - id: mp-con-3a
+      statement: "Find the maximum value of $f(x,y)=x^2+2y^2$ on the curve $x^2+y^2-1=0$."
+      answerType: number
+      answer: "2"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-1=0$. Solving the system gives the candidate values $1, 2$. The largest is $2$.
+    - id: mp-con-3b
+      statement: "Find the minimum value of $f(x,y)=x^2+2y^2$ on the curve $x^2+y^2-1=0$."
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          Solve $f_x=\lambda g_x$, $f_y=\lambda g_y$ and $g=0$, then compare the values of $f$.
+      solution: |-
+        With the multiplier $\lambda$: $\nabla f=\lambda\nabla g$ and $x^2+y^2-1=0$. Solving the system gives the candidate values $1, 2$. The smallest is $1$.

@@ -94,3 +94,124 @@
         - "Here $2yy'=(y^2)'$, so put $z=y^2$ directly."
       solution: |-
         Put $z=y^2$, $z'=2yy'$: $xz'-z+x=0$, so $z'-\dfrac zx=-1$. With $\mu=\dfrac1x$: $\left(\dfrac zx\right)'=-\dfrac1x$, so $\dfrac zx=C-\ln|x|$ and $y^2=x(C-\ln|x|)$.
+- id: more-bernoulli
+  task: |-
+    More practice: Bernoulli equations.
+  format: "Type the solution with an arbitrary constant `C`, for example `y = C*e^x` or `x^2 + y^2 = C`."
+  items:
+    - id: mp-ber-1
+      statement: |-
+        $y' + \frac{y}{x}=x y^{2}$
+      answerType: ode_solution
+      answer: "1/y = x*(C - x)"
+      ode:
+        order: 1
+        equation: "-x*y^2 + y1 + y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' - \frac{v}{x}=- x$, with integrating factor $\mu=\frac{1}{x}$. Its solution is $v=x \left(C - x\right)$, that is $\frac{1}{y}=x \left(C - x\right)$.
+    - id: mp-ber-2
+      statement: "$y' + 2 y=y^{3}$"
+      answerType: ode_solution
+      answer: "y^-2 = C*exp(4*x) + 1/2"
+      ode:
+        order: 1
+        equation: "-y^3 + 2*y + y1"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Divide by $y^{3}$ and put $v=y^{-2}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-2}$. Dividing the equation by $y^{3}$ and using $v'=(-2)y^{-3}y'$ gives the linear equation $v' - 4 v=-2$, with integrating factor $\mu=e^{- 4 x}$. Its solution is $v=C e^{4 x} + \frac{1}{2}$, that is $\frac{1}{y^{2}}=C e^{4 x} + \frac{1}{2}$.
+    - id: mp-ber-3
+      statement: |-
+        $y' - \frac{y}{x}=\frac{y^{2}}{x}$
+      answerType: ode_solution
+      answer: "1/y = (C - x)/x"
+      ode:
+        order: 1
+        equation: "y1 - y^2/x - y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' + \frac{v}{x}=- \frac{1}{x}$, with integrating factor $\mu=x$. Its solution is $v=\frac{C - x}{x}$, that is $\frac{1}{y}=\frac{C - x}{x}$.
+    - id: mp-ber-4
+      statement: "$y' + y=y^{2} e^{x}$"
+      answerType: ode_solution
+      answer: "1/y = (C - x)*exp(x)"
+      ode:
+        order: 1
+        equation: "-y^2*exp(x) + y + y1"
+        sample:
+          [0.2, 1.4]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' - v=- e^{x}$, with integrating factor $\mu=e^{- x}$. Its solution is $v=\left(C - x\right) e^{x}$, that is $\frac{1}{y}=\left(C - x\right) e^{x}$.
+    - id: mp-ber-5
+      statement: |-
+        $y' + \frac{2 y}{x}=y^{2} x^{2}$
+      answerType: ode_solution
+      answer: "1/y = x^2*(C - x)"
+      ode:
+        order: 1
+        equation: "-x^2*y^2 + y1 + 2*y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' - \frac{2 v}{x}=- x^{2}$, with integrating factor $\mu=\frac{1}{x^{2}}$. Its solution is $v=x^{2} \left(C - x\right)$, that is $\frac{1}{y}=x^{2} \left(C - x\right)$.
+    - id: mp-ber-6
+      statement: "$y' + y=x y^{2}$"
+      answerType: ode_solution
+      answer: "1/y = C*exp(x) + x + 1"
+      ode:
+        order: 1
+        equation: "-x*y^2 + y + y1"
+        sample:
+          [0.2, 1.4]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' - v=- x$, with integrating factor $\mu=e^{- x}$. Its solution is $v=C e^{x} + x + 1$, that is $\frac{1}{y}=C e^{x} + x + 1$.
+    - id: mp-ber-7
+      statement: |-
+        $y' + \frac{y}{x}=y^{3}$
+      answerType: ode_solution
+      answer: "y^-2 = x*(C*x + 2)"
+      ode:
+        order: 1
+        equation: "-y^3 + y1 + y/x"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Divide by $y^{3}$ and put $v=y^{-2}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-2}$. Dividing the equation by $y^{3}$ and using $v'=(-2)y^{-3}y'$ gives the linear equation $v' - \frac{2 v}{x}=-2$, with integrating factor $\mu=\frac{1}{x^{2}}$. Its solution is $v=x \left(C x + 2\right)$, that is $\frac{1}{y^{2}}=x \left(C x + 2\right)$.
+    - id: mp-ber-8
+      statement: "$y' - 2 y x=2 x y^{2}$"
+      answerType: ode_solution
+      answer: "1/y = C*exp(-x^2) - 1"
+      ode:
+        order: 1
+        equation: "-2*x*y^2 - 2*x*y + y1"
+        sample:
+          [0.2, 1.4]
+      hints:
+        - |-
+          Divide by $y^{2}$ and put $v=y^{-1}$: the equation becomes linear in $v$.
+      solution: |-
+        Put $v=y^{-1}$. Dividing the equation by $y^{2}$ and using $v'=(-1)y^{-2}y'$ gives the linear equation $v' + 2 v x=- 2 x$, with integrating factor $\mu=e^{x^{2}}$. Its solution is $v=C e^{- x^{2}} - 1$, that is $\frac{1}{y}=C e^{- x^{2}} - 1$.

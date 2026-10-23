@@ -178,3 +178,88 @@
         $\pd{z}{v}=0$
 
         These nine numbers form the matrix of derivatives of spherical coordinates. Its determinant, $r^2\sin u$ up to sign, is the factor you will meet in triple integrals.
+- id: more-chain
+  task: |-
+    More practice: the chain rule.
+  format: "Type an exact value such as `7/4` or `e^3/10`."
+  items:
+    - id: mp-cha-1
+      statement: |-
+        Let $z=x^2y$ with $x=t^2$ and $y=t^3$. Find $\dfrac{dz}{dt}$ at $t=1$.
+      answerType: number
+      answer: "7"
+      hints:
+        - |-
+          Use $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$.
+      solution: |-
+        The chain rule gives $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$ with $z_x=2 x y, z_y=x^{2}$ and $x'=2 t, y'=3 t^{2}$. At $t=1$ the value is $7$ (it can be checked by substituting first and differentiating in $t$).
+    - id: mp-cha-2
+      statement: |-
+        Let $z=e^{xy}$ with $x=\cos t$ and $y=\sin t$. Find $\dfrac{dz}{dt}$ at $t=0$.
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          Use $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$.
+      solution: |-
+        The chain rule gives $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$ with $z_x=y e^{x y}, z_y=x e^{x y}$ and $x'=- \sin{\left(t \right)}, y'=\cos{\left(t \right)}$. At $t=0$ the value is $1$ (it can be checked by substituting first and differentiating in $t$).
+    - id: mp-cha-3
+      statement: |-
+        Let $z=\dfrac xy$ with $x=e^t$ and $y=1+t^2$. Find $\dfrac{dz}{dt}$ at $t=2$.
+      answerType: expression
+      answer: "exp(2)/25"
+      hints:
+        - |-
+          Use $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$.
+      solution: |-
+        The chain rule gives $\dfrac{dz}{dt}=z_x\,x' + z_y\,y'$ with $z_x=\frac{1}{y}, z_y=- \frac{x}{y^{2}}$ and $x'=e^{t}, y'=2 t$. At $t=2$ the value is $\frac{e^{2}}{25}$ (it can be checked by substituting first and differentiating in $t$).
+    - id: mp-cha-4
+      statement: |-
+        Let $w=xyz$ with $x=t$, $y=t^2$ and $z=t^3$. Find $\dfrac{dw}{dt}$ at $t=1$.
+      answerType: number
+      answer: "6"
+      hints:
+        - |-
+          Use $\dfrac{dw}{dt}=w_x\,x' + w_y\,y' + w_z\,z'$.
+      solution: |-
+        The chain rule gives $\dfrac{dw}{dt}=w_x\,x' + w_y\,y' + w_z\,z'$ with $w_x=y z, w_y=x z, w_z=x y$ and $x'=1, y'=2 t, z'=3 t^{2}$. At $t=1$ the value is $6$ (it can be checked by substituting first and differentiating in $t$).
+    - id: mp-cha-5
+      statement: |-
+        Let $z=x^2+y^2$ with $x=u+v$ and $y=u-v$. Find $\dfrac{\partial z}{\partial u}$ at $u=1,\ v=2$.
+      answerType: number
+      answer: "4"
+      hints:
+        - |-
+          $\dfrac{\partial z}{\partial u}=z_x\,\dfrac{\partial x}{\partial u}+z_y\,\dfrac{\partial y}{\partial u}$.
+      solution: |-
+        By the chain rule, $\dfrac{\partial z}{\partial u}=z_x\,x_u+z_y\,y_u$ with $z_x=2 x$, $z_y=2 y$, $x_u=1$ and $y_u=1$. At the point the result is $4$.
+    - id: mp-cha-6
+      statement: |-
+        Let $z=xy$ with $x=u^2-v$ and $y=u+v^2$. Find $\dfrac{\partial z}{\partial v}$ at $u=2,\ v=1$.
+      answerType: number
+      answer: "3"
+      hints:
+        - |-
+          $\dfrac{\partial z}{\partial v}=z_x\,\dfrac{\partial x}{\partial v}+z_y\,\dfrac{\partial y}{\partial v}$.
+      solution: |-
+        By the chain rule, $\dfrac{\partial z}{\partial v}=z_x\,x_v+z_y\,y_v$ with $z_x=y$, $z_y=x$, $x_v=-1$ and $y_v=2 v$. At the point the result is $3$.
+    - id: mp-cha-7
+      statement: |-
+        Let $z=e^{x-y}$ with $x=uv$ and $y=u^2$. Find $\dfrac{\partial z}{\partial v}$ at $u=1,\ v=1$.
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          $\dfrac{\partial z}{\partial v}=z_x\,\dfrac{\partial x}{\partial v}+z_y\,\dfrac{\partial y}{\partial v}$.
+      solution: |-
+        By the chain rule, $\dfrac{\partial z}{\partial v}=z_x\,x_v+z_y\,y_v$ with $z_x=e^{x - y}$, $z_y=- e^{x - y}$, $x_v=u$ and $y_v=0$. At the point the result is $1$.
+    - id: mp-cha-8
+      statement: |-
+        Let $z=\ln\left(x^2+y^2\right)$ with $x=u\cos v$ and $y=u\sin v$. Find $\dfrac{\partial z}{\partial v}$ at $u=2,\ v=1$.
+      answerType: number
+      answer: "0"
+      hints:
+        - |-
+          $\dfrac{\partial z}{\partial v}=z_x\,\dfrac{\partial x}{\partial v}+z_y\,\dfrac{\partial y}{\partial v}$.
+      solution: |-
+        By the chain rule, $\dfrac{\partial z}{\partial v}=z_x\,x_v+z_y\,y_v$ with $z_x=\frac{2 x}{x^{2} + y^{2}}$, $z_y=\frac{2 y}{x^{2} + y^{2}}$, $x_v=- u \sin{\left(v \right)}$ and $y_v=u \cos{\left(v \right)}$. At the point the result is $0$.

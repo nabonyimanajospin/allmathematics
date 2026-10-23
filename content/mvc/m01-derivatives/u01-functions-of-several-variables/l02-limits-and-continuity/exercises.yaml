@@ -142,3 +142,38 @@
       hints:
         - A formula is continuous wherever it is defined. Find where it is not defined.
       solution: "The denominator is zero when $x^2+y^2=1$. The function is a quotient of polynomials, hence continuous everywhere else. The points of discontinuity form the unit circle."
+- id: more-limits
+  task: |-
+    More practice: limits.
+  format: "Type a number, or `does not exist`."
+  items:
+    - id: mp-lim-1
+      statement: |-
+        $\displaystyle\lim_{(x,y)\to(0,0)}\frac{x^3}{x^2+y^2}$
+      answerType: number
+      answer: "0"
+      hints:
+        - |-
+          Use $x^2\le x^2+y^2$ to bound the fraction by $|x|$ (or use polar coordinates).
+      solution: |-
+        $\left|\dfrac{x^3}{x^2+y^2}\right|=|x|\cdot\dfrac{x^2}{x^2+y^2}\le|x|\to0$, so the limit is $0$ (the squeeze theorem). In polar form it is $r\cos^3\theta\to0$.
+    - id: mp-lim-2
+      statement: |-
+        $\displaystyle\lim_{(x,y)\to(0,0)}\frac{\sin\left(x^2+y^2\right)}{x^2+y^2}$
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          Put $w=x^2+y^2$. When $(x,y)\to(0,0)$, $w\to0^+$.
+      solution: |-
+        With $w=x^2+y^2\to0$ the expression is $\dfrac{\sin w}{w}\to1$.
+    - id: mp-lim-3
+      statement: |-
+        $\displaystyle\lim_{(x,y)\to(0,0)}\frac{x^2-y^2}{x^2+y^2}$
+      answerType: number
+      answer: "@dne"
+      hints:
+        - "Approach the origin along the $x$-axis and along the $y$-axis."
+      solution: |-
+        Along the $x$-axis ($y=0$) the value is $\dfrac{x^2}{x^2}=1$; along the $y$-axis ($x=0$) it is $-1$. The two limits differ, so the limit **does not exist**.
+      note: "Answer with `does not exist` when the limit does not exist."

@@ -159,3 +159,37 @@
         - The direction is the coefficient vector of the tangent plane found in the previous exercise.
       solution: |-
         The normal vector is the coefficient vector of the plane: $\vec n=\left(\dfrac{x_0}{a^2},\,-\dfrac{y_0}{b^2},\,-\dfrac{z_0}{c^2}\right)$. The normal line is the line through $P$ with this direction.
+- id: more-planes
+  task: |-
+    More practice: tangent planes to a graph.
+  format: "Write the plane as an equation; any non-zero multiple is accepted."
+  items:
+    - id: mp-tp-1
+      statement: "Find the tangent plane to the surface $z=x^2+y^2$ at the point $(1,2,5)$."
+      answerType: equation
+      answer: "2*x + 4*y - z - 5=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "$z-z_0=f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)$."
+      solution: "$f_x=2 x$ and $f_y=2 y$ give $f_x=2$, $f_y=4$ at the point. So $z-5=2(x-1)+4(y-2)$, that is $2 x + 4 y - z - 5=0$ (any non-zero multiple describes the same plane)."
+    - id: mp-tp-2
+      statement: "Find the tangent plane to the surface $z=xe^{y}$ at the point $(2,0,2)$."
+      answerType: equation
+      answer: "x + 2*y - z=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "$z-z_0=f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)$."
+      solution: "$f_x=e^{y}$ and $f_y=x e^{y}$ give $f_x=1$, $f_y=2$ at the point. So $z-2=1(x-2)+2(y-0)$, that is $x + 2 y - z=0$ (any non-zero multiple describes the same plane)."
+    - id: mp-tp-3
+      statement: |-
+        Find the tangent plane to the surface $z=\sqrt{x^2+y^2}$ at the point $(3,4,5)$.
+      answerType: equation
+      answer: "3*x + 4*y - 5*z=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "$z-z_0=f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)$."
+      solution: |-
+        $f_x=\frac{x}{\sqrt{x^{2} + y^{2}}}$ and $f_y=\frac{y}{\sqrt{x^{2} + y^{2}}}$ give $f_x=\frac{3}{5}$, $f_y=\frac{4}{5}$ at the point. So $z-5=\frac{3}{5}(x-3)+\frac{4}{5}(y-4)$, that is $3 x + 4 y - 5 z=0$ (any non-zero multiple describes the same plane).

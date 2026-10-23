@@ -88,3 +88,103 @@
       hints:
         - "$u_{xx}=u$ and $u_{yy}=-a^2u$."
       solution: "$1-a^2=0$, so $a=1$."
+- id: more-laplace
+  task: |-
+    More practice: Laplace's equation.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-la-1
+      statement: |-
+        On the rectangle $0\le x\le\pi$, $0\le y\le2$, solve $u_{xx}+u_{yy}=0$ with $u=0$ on three sides and $u(x,2)=3 \sin{\left(x \right)}$.
+      answerType: expression
+      answer: "3*sin(x)*sinh(y)/sinh(2)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          The modes are $\sin\dfrac{n\pi x}{a}\sinh\dfrac{n\pi y}{a}$; divide by the value at the top.
+      solution: |-
+        $u=\frac{3 \sin{\left(x \right)} \sinh{\left(y \right)}}{\sinh{\left(2 \right)}}$.
+    - id: mp-la-2
+      statement: |-
+        On the rectangle $0\le x\le\pi$, $0\le y\le1$, solve $u_{xx}+u_{yy}=0$ with $u=0$ on three sides and $u(x,1)=\sin{\left(x \right)} + 2 \sin{\left(3 x \right)}$.
+      answerType: expression
+      answer: "sin(x)*sinh(y)/sinh(1) + 2*sin(3*x)*sinh(3*y)/sinh(3)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          The modes are $\sin\dfrac{n\pi x}{a}\sinh\dfrac{n\pi y}{a}$; divide by the value at the top.
+      solution: |-
+        $u=\frac{\sin{\left(x \right)} \sinh{\left(y \right)}}{\sinh{\left(1 \right)}} + \frac{2 \sin{\left(3 x \right)} \sinh{\left(3 y \right)}}{\sinh{\left(3 \right)}}$.
+    - id: mp-la-3
+      statement: |-
+        On the rectangle $0\le x\le2$, $0\le y\le1$, solve $u_{xx}+u_{yy}=0$ with $u=0$ on three sides and $u(x,1)=\sin{\left(\pi x \right)}$.
+      answerType: expression
+      answer: "sin(pi*x)*sinh(pi*y)/sinh(pi)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          The modes are $\sin\dfrac{n\pi x}{a}\sinh\dfrac{n\pi y}{a}$; divide by the value at the top.
+      solution: |-
+        $u=\frac{\sin{\left(\pi x \right)} \sinh{\left(\pi y \right)}}{\sinh{\left(\pi \right)}}$.
+    - id: mp-la-4
+      statement: |-
+        On the rectangle $0\le x\le1$, $0\le y\le3$, solve $u_{xx}+u_{yy}=0$ with $u=0$ on three sides and $u(x,3)=5 \sin{\left(\pi x \right)}$.
+      answerType: expression
+      answer: "5*sin(pi*x)*sinh(pi*y)/sinh(3*pi)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          The modes are $\sin\dfrac{n\pi x}{a}\sinh\dfrac{n\pi y}{a}$; divide by the value at the top.
+      solution: |-
+        $u=\frac{5 \sin{\left(\pi x \right)} \sinh{\left(\pi y \right)}}{\sinh{\left(3 \pi \right)}}$.
+    - id: mp-la-5
+      statement: "Does $u=x^2-y^2$ satisfy Laplace's equation $u_{xx}+u_{yy}=0$?"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - "Compute $u_{xx}+u_{yy}$."
+      solution: "$u_{xx}+u_{yy}=0$, so it does."
+    - id: mp-la-6
+      statement: |-
+        Does $u=e^{x}\sin y$ satisfy Laplace's equation $u_{xx}+u_{yy}=0$?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - "Compute $u_{xx}+u_{yy}$."
+      solution: "$u_{xx}+u_{yy}=0$, so it does."
+    - id: mp-la-7
+      statement: "Does $u=x^2+y^2$ satisfy Laplace's equation $u_{xx}+u_{yy}=0$?"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 1
+      hints:
+        - "Compute $u_{xx}+u_{yy}$."
+      solution: "$u_{xx}+u_{yy}=4$, which is not $0$, so it does not."
+    - id: mp-la-8
+      statement: "The number $k$ for which $u=x^3+kxy^2$ satisfies Laplace's equation $u_{xx}+u_{yy}=0$ for all $(x,y)$."
+      answerType: number
+      answer: "-3"
+      hints:
+        - "$u_{xx}=6x$ and $u_{yy}=2kx$."
+      solution: "$6x+2kx=0$ for all $x$ gives $k=-3$."

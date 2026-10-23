@@ -178,3 +178,25 @@
           Read the roots from the exponents: $1$ and $-1$ (double).
       solution: "The roots are $1,-1,-1$, so $(r-1)(r+1)^2=r^3+r^2-r-1=0$ and the equation is $y'''+y''-y'-y=0$."
       note: Printed as exercise 8 on the sheet.
+- id: more-vocabulary
+  task: |-
+    More practice: order and degree.
+  items:
+    - id: mp-voc-1
+      statement: |-
+        What are the order and the degree of $\left(y''\right)^2+3y'-y=x$?
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: "order 1, degree 2"
+          value: "1"
+        - text: "order 1, degree 1"
+          value: "2"
+        - text: "order 2, degree 2"
+          value: "3"
+        - text: "order 2, degree 1"
+          value: "4"
+      correctIndex: 2
+      hints:
+        - "The order is the highest derivative; the degree is the power of that derivative."
+      solution: "The highest derivative is $y''$, so the order is $2$; it appears squared, so the degree is $2$."

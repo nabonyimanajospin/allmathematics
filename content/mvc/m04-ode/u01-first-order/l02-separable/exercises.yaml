@@ -125,3 +125,116 @@
         - "Factor $x$ from the first bracket and $y$ from the second one, then separate."
       solution: |-
         Factor: $x(y^2+1)\,dx+y(x^2-1)\,dy=0$, so $\dfrac{x\,dx}{x^2-1}+\dfrac{y\,dy}{y^2+1}=0$. Integrate: $\tfrac12\ln|x^2-1|+\tfrac12\ln(y^2+1)=c$, so $(1-x^2)(1+y^2)=C$. $y(0)=1$ gives $C=2$, so $y^2=\dfrac2{1-x^2}-1=\dfrac{1+x^2}{1-x^2}$ (positive root, since $y(0)=1$), for $|x|<1$.
+- id: more-separable
+  task: |-
+    More practice: separable equations.
+  format: "Type the solution with an arbitrary constant `C`, for example `y = C*e^x` or `x^2 + y^2 = C`."
+  items:
+    - id: mp-sep-1
+      statement: "$y'=y x$"
+      answerType: ode_solution
+      answer: "y = C*e^(x^2/2)"
+      ode:
+        order: 1
+        equation: "-x*y + y1"
+      hints:
+        - |-
+          Write $y'=\dfrac{dy}{dx}$ and separate: $\dfrac{dy}{y}=x\,dx$.
+      solution: |-
+        $\dfrac{dy}{y}=x\,dx$ gives $\ln|y|=\dfrac{x^2}2+c$, so $y=Ce^{\frac{x^2}{2}}$.
+    - id: mp-sep-2
+      statement: "$y'=x y^{2}$"
+      answerType: ode_solution
+      answer: "y = -2/(x^2 + C)"
+      ode:
+        order: 1
+        equation: "-x*y^2 + y1"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          Separate: $\dfrac{dy}{y^2}=x\,dx$.
+      solution: |-
+        $\dfrac{dy}{y^2}=x\,dx$ gives $-\dfrac1y=\dfrac{x^2}2+c$, so $y=-\dfrac{2}{x^2+C}$ (with $C=2c$).
+    - id: mp-sep-3
+      statement: "$y'=e^{x - y}$"
+      answerType: ode_solution
+      answer: "y = ln(e^x + C)"
+      ode:
+        order: 1
+        equation: "y1 - exp(x - y)"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          $e^{x-y}=e^xe^{-y}$: multiply by $e^y$.
+      solution: |-
+        $e^{y}\,dy=e^{x}\,dx$ gives $e^y=e^x+C$, so $y=\ln(e^x+C)$.
+    - id: mp-sep-4
+      statement: |-
+        $y' x=y \ln{\left(y \right)}$
+      answerType: ode_solution
+      answer: "y = e^(C*x)"
+      ode:
+        order: 1
+        equation: "x*y1 - y*ln(y)"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - |-
+          $\int\dfrac{dy}{y\ln y}=\ln|\ln y|$.
+      solution: |-
+        $\dfrac{dy}{y\ln y}=\dfrac{dx}{x}$ gives $\ln|\ln y|=\ln|x|+c$, so $\ln y=Cx$ and $y=e^{Cx}$.
+    - id: mp-sep-5
+      statement: |-
+        $y'=2 y x$, $\ y(0)=3$
+      answerType: ode_solution
+      answer: "y = 3*e^(x^2)"
+      ode:
+        order: 1
+        equation: "-2*x*y + y1"
+        conditions:
+          - at: "0"
+            value: "3"
+            derivative: 0
+      hints:
+        - "First find the general solution, then use $y(0)=3$."
+      solution: |-
+        $\dfrac{dy}y=2x\,dx$ gives $y=Ce^{x^2}$. $y(0)=3$ gives $C=3$.
+    - id: mp-sep-6
+      statement: |-
+        $y' x=y$, $\ y(1)=2$
+      answerType: ode_solution
+      answer: "y = 2*x"
+      ode:
+        order: 1
+        equation: "x*y1 - y"
+        sample:
+          [0.6, 1.9]
+        conditions:
+          - at: "1"
+            value: "2"
+            derivative: 0
+      hints:
+        - "Separate the variables; then $y(1)=2$ fixes the constant."
+      solution: |-
+        $\dfrac{dy}{y}=\dfrac{dx}{x}$ gives $y=Cx$. $y(1)=2$ gives $C=2$.
+    - id: mp-sep-7
+      statement: |-
+        $y'=- y^{2}$, $\ y(0)=1$
+      answerType: ode_solution
+      answer: "y = 1/(x + 1)"
+      ode:
+        order: 1
+        equation: "y^2 + y1"
+        sample:
+          [0.0, 1.9]
+        conditions:
+          - at: "0"
+            value: "1"
+            derivative: 0
+      hints:
+        - |-
+          $\int y^{-2}dy=-y^{-1}$.
+      solution: |-
+        $\dfrac{dy}{y^2}=-dx$ gives $-\dfrac1y=-x+c$, so $y=\dfrac{1}{x+C}$. $y(0)=1$ gives $C=1$.

@@ -67,3 +67,138 @@
           Integrate $N$ with respect to $y$: $\int x^2\cos xy\,dy=x\sin xy$.
       solution: |-
         $M_y=2x\cos xy-x^2y\sin xy=N_x$. It is easier to integrate $N$ with respect to $y$: $F=\int x^2\cos xy\,dy=x\sin xy+h(x)$. Then $F_x=\sin xy+xy\cos xy+h'=M$ gives $h'=0$. So $x\sin xy=C$.
+- id: more-exact
+  task: |-
+    More practice: exact equations.
+  format: "Type the solution with an arbitrary constant `C`, for example `y = C*e^x` or `x^2 + y^2 = C`."
+  items:
+    - id: mp-exa-1
+      statement: |-
+        $\left(2 y x\right)dx+\left(x^{2} + 3 y^{2}\right)dy=0$
+      answerType: ode_solution
+      answer: "x^2*y + y^3 = C"
+      ode:
+        order: 1
+        equation: "2*x*y + y1*(x^2 + 3*y^2)"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=2 x=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x^{2} y + y^{3}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x^{2} y + y^{3}=C$.
+    - id: mp-exa-2
+      statement: |-
+        $\left(y + e^{x}\right)dx+\left(x\right)dy=0$
+      answerType: ode_solution
+      answer: "x*y + exp(x) = C"
+      ode:
+        order: 1
+        equation: "x*y1 + y + exp(x)"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=1=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x y + e^{x}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x y + e^{x}=C$.
+    - id: mp-exa-3
+      statement: |-
+        $\left(3 y^{2} + 3 x^{2}\right)dx+\left(6 y x\right)dy=0$
+      answerType: ode_solution
+      answer: "x^3 + 3*x*y^2 = C"
+      ode:
+        order: 1
+        equation: "3*x^2 + 6*x*y*y1 + 3*y^2"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=6 y=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x^{3} + 3 x y^{2}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x^{3} + 3 x y^{2}=C$.
+    - id: mp-exa-4
+      statement: |-
+        $\left(y \left(y + 2 x\right)\right)dx+\left(x \left(x + 2 y\right)\right)dy=0$
+      answerType: ode_solution
+      answer: "x^2*y + x*y^2 = C"
+      ode:
+        order: 1
+        equation: "x*y1*(x + 2*y) + y*(2*x + y)"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=2 x + 2 y=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x^{2} y + x y^{2}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x^{2} y + x y^{2}=C$.
+    - id: mp-exa-5
+      statement: |-
+        $\left(y \cos{\left(x \right)}\right)dx+\left(2 y + \sin{\left(x \right)}\right)dy=0$
+      answerType: ode_solution
+      answer: "y^2 + y*sin(x) = C"
+      ode:
+        order: 1
+        equation: "y*cos(x) + y1*(2*y + sin(x))"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=\cos{\left(x \right)}=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=y^{2} + y \sin{\left(x \right)}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $y^{2} + y \sin{\left(x \right)}=C$.
+    - id: mp-exa-6
+      statement: |-
+        $\left(2 x + y e^{x}\right)dx+\left(e^{x}\right)dy=0$
+      answerType: ode_solution
+      answer: "x^2 + y*exp(x) = C"
+      ode:
+        order: 1
+        equation: "2*x + y*exp(x) + y1*exp(x)"
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=e^{x}=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x^{2} + y e^{x}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x^{2} + y e^{x}=C$.
+    - id: mp-exa-7
+      statement: |-
+        $\left(y + 2 x\right)dx+\left(x + 2 y\right)dy=0$, $\ y(1)=1$
+      answerType: ode_solution
+      answer: "x^2 + x*y + y^2 = 3"
+      ode:
+        order: 1
+        equation: "2*x + y + y1*(x + 2*y)"
+        conditions:
+          - at: "1"
+            value: "1"
+            derivative: 0
+      hints:
+        - "Check $M_y=N_x$, then integrate $M$ in $x$ and match $N$."
+      solution: |-
+        $M_y=1=N_x$, so the equation is exact. From $\Phi_x=M$: $\Phi=x^{2} + x y + y^{2}+g(y)$, and $\Phi_y=N$ gives $g'=0$. The solution is $x^{2} + x y + y^{2}=3$.
+    - id: mp-exa-8
+      statement: |-
+        Is the equation $\left(1 + 2 y x\right)dx+\left(3 + x^{2}\right)dy=0$ exact?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes, it is exact"
+          value: "1"
+        - text: "No, it is not exact"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - "Compare $M_y$ and $N_x$."
+      solution: "$M_y=2 x$ and $N_x=2 x$. They are equal, so the equation is exact."
+    - id: mp-exa-9
+      statement: |-
+        Is the equation $\left(y e^{x}\right)dx+\left(x e^{x}\right)dy=0$ exact?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "Yes, it is exact"
+          value: "1"
+        - text: "No, it is not exact"
+          value: "2"
+      correctIndex: 1
+      hints:
+        - "Compare $M_y$ and $N_x$."
+      solution: "$M_y=e^{x}$ and $N_x=x e^{x} + e^{x}$. They are different, so the equation is not exact."
+    - id: mp-exa-10
+      statement: |-
+        Is the equation $\left(y + 2 x\right)dx+\left(x + 3 y\right)dy=0$ exact?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes, it is exact"
+          value: "1"
+        - text: "No, it is not exact"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - "Compare $M_y$ and $N_x$."
+      solution: "$M_y=1$ and $N_x=1$. They are equal, so the equation is exact."

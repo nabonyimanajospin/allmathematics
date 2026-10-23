@@ -122,3 +122,37 @@
           Is $x^2\sin x$ even or odd?
       solution: |-
         $x^2$ is even and $\sin x$ is odd, so $f$ is odd: only sines appear, all $a_n$ vanish.
+- id: more-fourier
+  task: |-
+    More practice: Fourier coefficients.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-fs-1
+      statement: |-
+        The coefficient $a_1$ of the Fourier series of $f(x)=|x|$ on $]-\pi,\pi[$.
+      answerType: expression
+      answer: "-4/pi"
+      hints:
+        - |-
+          The function is even: $a_n=\dfrac2\pi\int_0^\pi x\cos nx\,dx$.
+      solution: |-
+        $a_1=\dfrac2\pi\int_0^\pi x\cos x\,dx=\dfrac{2}{\pi}\cdot(-2)=- \frac{4}{\pi}$.
+    - id: mp-fs-2
+      statement: |-
+        The coefficient $b_1$ of the Fourier series of $f(x)=x^3$ on $]-\pi,\pi[$.
+      answerType: expression
+      answer: "-12 + 2*pi^2"
+      hints:
+        - |-
+          The function is odd: $b_n=\dfrac2\pi\int_0^\pi x^3\sin nx\,dx$. Integrate by parts three times.
+      solution: |-
+        $b_1=\dfrac2\pi\int_0^\pi x^3\sin x\,dx=-12 + 2 \pi^{2}$.
+    - id: mp-fs-3
+      statement: |-
+        The coefficient $a_0=\dfrac1\pi\int_{-\pi}^{\pi}f$ of $f(x)=|x|$ on $]-\pi,\pi[$.
+      answerType: expression
+      answer: pi
+      hints:
+        - The function is even.
+      solution: |-
+        $a_0=\dfrac2\pi\int_0^\pi x\,dx=\pi$.

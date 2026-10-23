@@ -100,3 +100,86 @@
         - "Compute $D=36(x^2-y^2)$ at $(1,2)$."
       solution: |-
         At $(1,2)$: $D=36(1-4)=-108<0$, so $(1,2)$ is a saddle point. The same happens at $(-1,-2)$.
+- id: more-extrema
+  task: |-
+    More practice: critical points and their type.
+  format: "For a list of points type `(a, b), (c, d)`."
+  items:
+    - id: mp-ext-1a
+      statement: "Find all the critical points of $f(x,y)=x^3-3x+y^2$."
+      answerType: points
+      answer: "(-1, 0), (1, 0)"
+      hints:
+        - "Solve $f_x=0$ and $f_y=0$ together."
+      solution: |-
+        $f_x=3 x^{2} - 3$ and $f_y=2 y$. The system $f_x=f_y=0$ has the solutions $(-1,\,0),\ (1,\,0)$.
+    - id: mp-ext-1b
+      statement: "Classify the critical point $(1,0)$ of $f(x,y)=x^3-3x+y^2$."
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: A local minimum
+          value: "1"
+        - text: A local maximum
+          value: "2"
+        - text: A saddle point
+          value: "3"
+        - text: The test is inconclusive
+          value: "4"
+      correctIndex: 0
+      hints:
+        - "Compute $D=f_{xx}f_{yy}-f_{xy}^2$ at the point."
+      solution: |-
+        At the point $f_{xx}=6$, $f_{yy}=2$ and $f_{xy}=0$, so $D=12$. $D>0$ and $f_{xx}>0$: a local minimum.
+    - id: mp-ext-2a
+      statement: "Find all the critical points of $f(x,y)=x^2+xy+y^2-3x$."
+      answerType: points
+      answer: "(2, -1)"
+      hints:
+        - "Solve $f_x=0$ and $f_y=0$ together."
+      solution: |-
+        $f_x=2 x + y - 3$ and $f_y=x + 2 y$. The system $f_x=f_y=0$ has the solutions $(2,\,-1)$.
+    - id: mp-ext-2b
+      statement: "Classify the critical point $(2,-1)$ of $f(x,y)=x^2+xy+y^2-3x$."
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: A local minimum
+          value: "1"
+        - text: A local maximum
+          value: "2"
+        - text: A saddle point
+          value: "3"
+        - text: The test is inconclusive
+          value: "4"
+      correctIndex: 0
+      hints:
+        - "Compute $D=f_{xx}f_{yy}-f_{xy}^2$ at the point."
+      solution: |-
+        At the point $f_{xx}=2$, $f_{yy}=2$ and $f_{xy}=1$, so $D=3$. $D>0$ and $f_{xx}>0$: a local minimum.
+    - id: mp-ext-3a
+      statement: "Find all the critical points of $f(x,y)=2x^3+y^3-6x-3y$."
+      answerType: points
+      answer: "(-1, -1), (-1, 1), (1, -1), (1, 1)"
+      hints:
+        - "Solve $f_x=0$ and $f_y=0$ together."
+      solution: |-
+        $f_x=6 x^{2} - 6$ and $f_y=3 y^{2} - 3$. The system $f_x=f_y=0$ has the solutions $(-1,\,-1),\ (-1,\,1),\ (1,\,-1),\ (1,\,1)$.
+    - id: mp-ext-3b
+      statement: "Classify the critical point $(-1,-1)$ of $f(x,y)=2x^3+y^3-6x-3y$."
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: A local minimum
+          value: "1"
+        - text: A local maximum
+          value: "2"
+        - text: A saddle point
+          value: "3"
+        - text: The test is inconclusive
+          value: "4"
+      correctIndex: 1
+      hints:
+        - "Compute $D=f_{xx}f_{yy}-f_{xy}^2$ at the point."
+      solution: |-
+        At the point $f_{xx}=-12$, $f_{yy}=-6$ and $f_{xy}=0$, so $D=72$. $D>0$ and $f_{xx}<0$: a local maximum.

@@ -53,3 +53,137 @@
       verify:
         - expr: "integrate(integrate(r*r, r, 0, a), t, 0, pi/2)"
           equals: "pi*a^3/6"
+- id: more-polar
+  task: |-
+    More practice: polar coordinates.
+  format: "Type an exact value such as `3*pi/4`."
+  items:
+    - id: mp-po-1
+      statement: |-
+        $\displaystyle\iint_D\left(x^2+y^2\right)dA$, where $D$ is the disc $x^2+y^2\le4$.
+      answerType: expression
+      answer: "8*pi"
+      hints:
+        - "Put $x^2+y^2=r^2$."
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. Here $x^2+y^2=r^2$. $\displaystyle\int_{0}^{2 \pi}\!\int_{0}^{2}r^{2}\,r\,dr\,d\theta=8 \pi$.
+    - id: mp-po-2
+      statement: |-
+        $\displaystyle\iint_De^{-(x^2+y^2)}dA$, where $D$ is the disc $x^2+y^2\le1$.
+      answerType: expression
+      answer: "-pi*exp(-1) + pi"
+      hints:
+        - |-
+          The integrand is $e^{-r^2}$ and $\int re^{-r^2}dr=-\dfrac12e^{-r^2}$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{0}^{2 \pi}\!\int_{0}^{1}e^{- r^{2}}\,r\,dr\,d\theta=- \frac{\pi}{e} + \pi$.
+    - id: mp-po-3
+      statement: |-
+        $\displaystyle\iint_D\sqrt{x^2+y^2}\,dA$, where $D$ is the annulus $1\le x^2+y^2\le4$.
+      answerType: expression
+      answer: "14*pi/3"
+      hints:
+        - |-
+          The annulus is $1\le r\le2$, $0\le\theta\le2\pi$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{0}^{2 \pi}\!\int_{1}^{2}r\,r\,dr\,d\theta=\frac{14 \pi}{3}$.
+    - id: mp-po-4
+      statement: |-
+        $\displaystyle\iint_Dx\,dA$, where $D$ is the half-disc $x^2+y^2\le4,\ x\ge0$.
+      answerType: number
+      answer: "16/3"
+      hints:
+        - |-
+          The half-disc is $0\le r\le2$, $-\dfrac\pi2\le\theta\le\dfrac\pi2$, and $x=r\cos\theta$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{- \frac{\pi}{2}}^{\frac{\pi}{2}}\!\int_{0}^{2}r \cos{\left(\theta \right)}\,r\,dr\,d\theta=\frac{16}{3}$.
+    - id: mp-po-5
+      statement: |-
+        $\displaystyle\iint_Dy\,dA$, where $D$ is the quarter of the disc $x^2+y^2\le9$ in the first quadrant.
+      answerType: number
+      answer: "9"
+      hints:
+        - |-
+          The quarter-disc is $0\le r\le3$, $0\le\theta\le\dfrac\pi2$, and $y=r\sin\theta$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{0}^{\frac{\pi}{2}}\!\int_{0}^{3}r \sin{\left(\theta \right)}\,r\,dr\,d\theta=9$.
+    - id: mp-po-6
+      statement: |-
+        $\displaystyle\iint_D\dfrac{dA}{1+x^2+y^2}$, where $D$ is the disc $x^2+y^2\le1$.
+      answerType: expression
+      answer: "pi*ln(2)"
+      hints:
+        - |-
+          $\int\dfrac{r}{1+r^2}dr=\dfrac12\ln\left(1+r^2\right)$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{0}^{2 \pi}\!\int_{0}^{1}\frac{1}{r^{2} + 1}\,r\,dr\,d\theta=\pi \ln{\left(2 \right)}$.
+    - id: mp-po-7
+      statement: |-
+        Evaluate $\displaystyle\int_0^1\!\!\int_0^{\sqrt{1-x^2}}\left(x^2+y^2\right)dy\,dx$ by changing to polar coordinates.
+      answerType: expression
+      answer: pi/8
+      hints:
+        - |-
+          The region is the quarter-disc $x\ge0$, $y\ge0$, $x^2+y^2\le1$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. The region is the quarter of the unit disc. $\displaystyle\int_{0}^{\frac{\pi}{2}}\!\int_{0}^{1}r^{2}\,r\,dr\,d\theta=\frac{\pi}{8}$.
+    - id: mp-po-8
+      statement: |-
+        Find the area of the sector $0\le\theta\le\dfrac\pi3$, $0\le r\le2$ (the unit is squ: give the number only).
+      answerType: expression
+      answer: "2*pi/3"
+      hints:
+        - |-
+          Area $=\iint1\,dA$.
+      solution: |-
+        In polar coordinates $dA=r\,dr\,d\theta$. $\displaystyle\int_{0}^{\frac{\pi}{3}}\!\int_{0}^{2}1\,r\,dr\,d\theta=\frac{2 \pi}{3}$.
+    - id: mp-po-9
+      statement: |-
+        Find the area enclosed by the cardioid $r=1+\cos\theta$ (the unit is squ: give the number only).
+      answerType: expression
+      answer: "3*pi/2"
+      hints:
+        - |-
+          $A=\dfrac12\int r^2\,d\theta$.
+      solution: |-
+        $A=\dfrac12\displaystyle\int_{0}^{2 \pi}r^2\,d\theta=\dfrac12\int_{0}^{2 \pi}\left(\cos{\left(\theta \right)} + 1\right)^2d\theta=\frac{3 \pi}{2}$.
+    - id: mp-po-10
+      statement: |-
+        Find the area enclosed by the circle $r=2\cos\theta$ (the unit is squ: give the number only).
+      answerType: expression
+      answer: pi
+      hints:
+        - |-
+          The circle is traced once for $-\dfrac\pi2\le\theta\le\dfrac\pi2$.
+      solution: |-
+        $A=\dfrac12\displaystyle\int_{- \frac{\pi}{2}}^{\frac{\pi}{2}}r^2\,d\theta=\dfrac12\int_{- \frac{\pi}{2}}^{\frac{\pi}{2}}\left(2 \cos{\left(\theta \right)}\right)^2d\theta=\pi$.
+    - id: mp-po-11
+      statement: |-
+        Find the volume of the solid under the paraboloid $z=x^2+y^2$ and above the unit disc $x^2+y^2\le1$ (the unit is cu: give the number only).
+      answerType: expression
+      answer: pi/2
+      hints:
+        - |-
+          $V=\iint_D\left(x^2+y^2\right)dA$ in polar coordinates.
+      solution: |-
+        $V=\displaystyle\int_0^{2\pi}\!\!\int_0^1r^2\cdot r\,dr\,d\theta=2\pi\cdot\dfrac14=\dfrac\pi2$.
+    - id: mp-po-12
+      statement: |-
+        Which description of the disc $x^2+y^2\le9$ in polar coordinates is correct?
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: |-
+            $0\le r\le9,\ 0\le\theta\le\pi$
+          value: "1"
+        - text: |-
+            $0\le r\le9,\ 0\le\theta\le2\pi$
+          value: "2"
+        - text: |-
+            $0\le r\le3,\ 0\le\theta\le2\pi$
+          value: "3"
+      correctIndex: 2
+      hints:
+        - "$x^2+y^2=r^2$."
+      solution: |-
+        $x^2+y^2\le9$ means $r^2\le9$, so $0\le r\le3$; the whole disc needs $0\le\theta\le2\pi$.

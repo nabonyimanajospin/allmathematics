@@ -113,3 +113,127 @@
         $r^2+3=0$ gives $r=\pm i\sqrt3$: $y=C_1\cos\sqrt3x+C_2\sin\sqrt3x$. $y(0)=0$ gives $C_1=0$. Then $y(3)=C_2\sin3\sqrt3=0$. $\sin3\sqrt3=0$ would need $3\sqrt3=k\pi$ for an integer $k\ne0$, that is $\pi=\dfrac{3\sqrt3}k$, an algebraic number; but $\pi$ is transcendental. So $\sin3\sqrt3\ne0$ and $C_2=0$. The only solution of this boundary-value problem is $y=0$.
       note: |-
         On the printed sheet this exercise is also labelled c. It is a boundary-value problem: the conditions are at two points, and the only solution is the trivial one.
+- id: more-constant
+  task: |-
+    More practice: constant coefficients.
+  format: "Type the general solution with constants `C1` and `C2`, for example `y = C1*e^x + C2*e^(-x)`."
+  items:
+    - id: mp-cc-1
+      statement: "$y'' - 3 y' + 2 y=0$"
+      answerType: ode_solution
+      answer: "y = (C1 + C2*exp(x))*exp(x)"
+      ode:
+        order: 2
+        equation: "2*y - 3*y1 + y2"
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(-3)r+(2)=0$ has the roots $2, 1$, so $y=\left(C_{1} + C_{2} e^{x}\right) e^{x}$.
+    - id: mp-cc-2
+      statement: "$y'' + 4 y' + 4 y=0$"
+      answerType: ode_solution
+      answer: "y = (C1 + C2*x)*exp(-2*x)"
+      ode:
+        order: 2
+        equation: "4*y + 4*y1 + y2"
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(4)r+(4)=0$ has the roots $-2$, so $y=\left(C_{1} + C_{2} x\right) e^{- 2 x}$.
+    - id: mp-cc-3
+      statement: "$y'' + 4 y=0$"
+      answerType: ode_solution
+      answer: "y = C1*sin(2*x) + C2*cos(2*x)"
+      ode:
+        order: 2
+        equation: "4*y + y2"
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(0)r+(4)=0$ has the roots $- 2 i, 2 i$, so $y=C_{1} \sin{\left(2 x \right)} + C_{2} \cos{\left(2 x \right)}$.
+    - id: mp-cc-4
+      statement: "$y'' + 2 y' + 5 y=0$"
+      answerType: ode_solution
+      answer: "y = (C1*sin(2*x) + C2*cos(2*x))*exp(-x)"
+      ode:
+        order: 2
+        equation: "5*y + 2*y1 + y2"
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(2)r+(5)=0$ has the roots $-1 - 2 i, -1 + 2 i$, so $y=\left(C_{1} \sin{\left(2 x \right)} + C_{2} \cos{\left(2 x \right)}\right) e^{- x}$.
+    - id: mp-cc-5
+      statement: |-
+        $y'' - 4 y=0$, $\ y(0)=1$, $y'(0)=2$
+      answerType: ode_solution
+      answer: "y = exp(2*x)"
+      ode:
+        order: 2
+        equation: "-4*y + y2"
+        conditions:
+          - at: "0"
+            value: "1"
+            derivative: 0
+          - at: "0"
+            value: "2"
+            derivative: 1
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: "The characteristic equation $r^2+(0)r+(-4)=0$ has the roots $-2, 2$. The general solution fitted to the conditions is $y=e^{2 x}$."
+    - id: mp-cc-6
+      statement: |-
+        $y'' + 6 y' + 9 y=0$, $\ y(0)=1$, $y'(0)=0$
+      answerType: ode_solution
+      answer: "y = (3*x + 1)*exp(-3*x)"
+      ode:
+        order: 2
+        equation: "9*y + 6*y1 + y2"
+        conditions:
+          - at: "0"
+            value: "1"
+            derivative: 0
+          - at: "0"
+            value: "0"
+            derivative: 1
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(6)r+(9)=0$ has the roots $-3$. The general solution fitted to the conditions is $y=\left(3 x + 1\right) e^{- 3 x}$.
+    - id: mp-cc-7
+      statement: |-
+        $y'' + y' - 6 y=0$, $\ y(0)=0$, $y'(0)=5$
+      answerType: ode_solution
+      answer: "y = (exp(5*x) - 1)*exp(-3*x)"
+      ode:
+        order: 2
+        equation: "-6*y + y1 + y2"
+        conditions:
+          - at: "0"
+            value: "0"
+            derivative: 0
+          - at: "0"
+            value: "5"
+            derivative: 1
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(1)r+(-6)=0$ has the roots $2, -3$. The general solution fitted to the conditions is $y=\left(e^{5 x} - 1\right) e^{- 3 x}$.
+    - id: mp-cc-8
+      statement: |-
+        $y'' + 9 y=0$, $\ y(0)=2$, $y'(0)=3$
+      answerType: ode_solution
+      answer: "y = sin(3*x) + 2*cos(3*x)"
+      ode:
+        order: 2
+        equation: "9*y + y2"
+        conditions:
+          - at: "0"
+            value: "2"
+            derivative: 0
+          - at: "0"
+            value: "3"
+            derivative: 1
+      hints:
+        - "Solve the characteristic equation $r^2+ar+b=0$."
+      solution: |-
+        The characteristic equation $r^2+(0)r+(9)=0$ has the roots $- 3 i, 3 i$. The general solution fitted to the conditions is $y=\sin{\left(3 x \right)} + 2 \cos{\left(3 x \right)}$.

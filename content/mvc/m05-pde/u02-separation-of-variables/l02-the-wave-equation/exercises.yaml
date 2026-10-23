@@ -118,3 +118,65 @@
           $\omega_n=\dfrac{n\pi c}{L}$.
       solution: |-
         $\omega_2=\dfrac{2\pi\cdot6}3=4\pi$.
+- id: more-wave
+  task: |-
+    More practice: the wave equation.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-wa-1
+      statement: |-
+        The displacement $u(x,t)$ of a string with $c=1$, $L=\pi$, starting at rest with $f=\sin3x$, with fixed ends.
+      answerType: expression
+      answer: "sin(3*x)*cos(3*t)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The angular frequency of the mode $n$ is $\omega_n=\dfrac{n\pi c}{L}$.
+      solution: |-
+        With $\omega_n=\dfrac{n\pi c}{L}$ the solution is $u=\sin{\left(3 x \right)} \cos{\left(3 t \right)}$.
+    - id: mp-wa-2
+      statement: |-
+        The displacement $u(x,t)$ of a string with $c=3$, $L=\pi$, starting at rest with $f=2\sin x+\sin2x$, with fixed ends.
+      answerType: expression
+      answer: "2*sin(x)*cos(3*t) + sin(2*x)*cos(6*t)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The angular frequency of the mode $n$ is $\omega_n=\dfrac{n\pi c}{L}$.
+      solution: |-
+        With $\omega_n=\dfrac{n\pi c}{L}$ the solution is $u=2 \sin{\left(x \right)} \cos{\left(3 t \right)} + \sin{\left(2 x \right)} \cos{\left(6 t \right)}$.
+    - id: mp-wa-3
+      statement: |-
+        The displacement $u(x,t)$ of a string with $c=2$, $L=1$, starting flat with the velocity $g=\sin\pi x$, with fixed ends.
+      answerType: expression
+      answer: "sin(2*pi*t)*sin(pi*x)/(2*pi)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The angular frequency of the mode $n$ is $\omega_n=\dfrac{n\pi c}{L}$.
+      solution: |-
+        With $\omega_n=\dfrac{n\pi c}{L}$ the solution is $u=\frac{\sin{\left(2 \pi t \right)} \sin{\left(\pi x \right)}}{2 \pi}$.
+    - id: mp-wa-4
+      statement: |-
+        Solve $u_{tt}=c^2u_{xx}$ with $c=3$, $u(x,0)=\sin x$ and $u_t(x,0)=0$.
+      answerType: expression
+      answer: "sin(x)*cos(3*t)"
+      variables:
+        [x, t]
+      hints:
+        - "Use d'Alembert's formula."
+      solution: |-
+        $\dfrac{\sin(x-3t)+\sin(x+3t)}{2}=\sin x\cos3t$.
+    - id: mp-wa-5
+      statement: |-
+        A string has $c=2$ and $L=4$. The angular frequency $\omega_3$ of its third mode.
+      answerType: expression
+      answer: "3*pi/2"
+      hints:
+        - |-
+          $\omega_n=\dfrac{n\pi c}{L}$.
+      solution: |-
+        $\omega_3=\dfrac{3\pi\cdot2}{4}=\frac{3 \pi}{2}$.

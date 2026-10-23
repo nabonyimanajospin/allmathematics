@@ -39,3 +39,135 @@
       verify:
         - expr: "integrate(integrate(integrate(rho^2*sin(f), rho, 0, a), f, 0, pi), t, 0, 2*pi)"
           equals: "4*pi*a^3/3"
+- id: more-coordinates
+  task: |-
+    More practice: cylindrical and spherical coordinates.
+  format: "Type an exact value such as `3*pi/5`, or a triple such as `(2, pi/6, 1)`."
+  items:
+    - id: mp-cs-1
+      statement: |-
+        Find the volume of the solid cylinder $x^2+y^2\le4$, $0\le z\le5$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "20*pi"
+      hints:
+        - |-
+          Use $0\le r\le2$, $0\le\theta\le2\pi$, $0\le z\le5$.
+      solution: |-
+        In cylindrical coordinates $dV=r\,dz\,dr\,d\theta$, and the integral is $20 \pi$.
+    - id: mp-cs-2
+      statement: |-
+        Find the volume of the solid between the paraboloid $z=x^2+y^2$ and the plane $z=4$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "8*pi"
+      hints:
+        - "For a fixed $r$, $z$ runs from $r^2$ to $4$."
+      solution: |-
+        In cylindrical coordinates $dV=r\,dz\,dr\,d\theta$, and the integral is $8 \pi$.
+    - id: mp-cs-3
+      statement: |-
+        Find the volume of the cone $\sqrt{x^2+y^2}\le z\le3$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "9*pi"
+      hints:
+        - |-
+          The cone is $r\le z\le3$.
+      solution: |-
+        In cylindrical coordinates $dV=r\,dz\,dr\,d\theta$, and the integral is $9 \pi$.
+    - id: mp-cs-4
+      statement: |-
+        $\displaystyle\iiint_Dz\,dV$, where $D$ lies between $z=x^2+y^2$ and $z=4$.
+      answerType: expression
+      answer: "64*pi/3"
+      hints:
+        - "Integrate $z$ from $r^2$ to $4$ first."
+      solution: |-
+        In cylindrical coordinates $dV=r\,dz\,dr\,d\theta$, and the integral is $\frac{64 \pi}{3}$.
+    - id: mp-cs-5
+      statement: |-
+        Find the volume of the ball $x^2+y^2+z^2\le9$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "36*pi"
+      hints:
+        - |-
+          $0\le\rho\le3$, $0\le\varphi\le\pi$, $0\le\theta\le2\pi$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $36 \pi$.
+    - id: mp-cs-6
+      statement: |-
+        $\displaystyle\iiint_Dz\,dV$, where $D$ is the upper half of the unit ball ($x^2+y^2+z^2\le1$, $z\ge0$).
+      answerType: expression
+      answer: pi/4
+      hints:
+        - |-
+          $z=\rho\cos\varphi$ and $0\le\varphi\le\dfrac\pi2$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $\frac{\pi}{4}$.
+    - id: mp-cs-7
+      statement: |-
+        $\displaystyle\iiint_D\left(x^2+y^2+z^2\right)dV$, where $D$ is the ball of radius $2$.
+      answerType: expression
+      answer: "128*pi/5"
+      hints:
+        - |-
+          $x^2+y^2+z^2=\rho^2$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $\frac{128 \pi}{5}$.
+    - id: mp-cs-8
+      statement: |-
+        $\displaystyle\iiint_Dx^2\,dV$, where $D$ is the unit ball.
+      answerType: expression
+      answer: "4*pi/15"
+      hints:
+        - |-
+          $x=\rho\sin\varphi\cos\theta$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $\frac{4 \pi}{15}$.
+    - id: mp-cs-9
+      statement: "Find the mass of the unit ball whose density at each point is its distance from the origin (give the number only, in kg)."
+      answerType: expression
+      answer: pi
+      hints:
+        - |-
+          The density is $\rho$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $\pi$.
+    - id: mp-cs-10
+      statement: |-
+        Find the volume of the part of the unit ball inside the cone $z\ge\sqrt{x^2+y^2}$ (the 'ice-cream cone'). The unit is cu: give the number only.
+      answerType: expression
+      answer: "pi*(2 - sqrt(2))/3"
+      hints:
+        - |-
+          The cone is $0\le\varphi\le\dfrac\pi4$.
+      solution: |-
+        In spherical coordinates $dV=\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, and the integral is $\frac{\pi \left(2 - \sqrt{2}\right)}{3}$.
+    - id: mp-cs-11
+      statement: |-
+        Convert the point $(1,1,2)$ from rectangular to cylindrical coordinates $(r,\theta,z)$ with $r>0$ and $0\le\theta<2\pi$.
+      answerType: vector
+      answer: "(sqrt(2), pi/4, 2)"
+      hints:
+        - |-
+          $r=\sqrt{x^2+y^2}$ and $\tan\theta=\dfrac yx$.
+      solution: |-
+        $r=\sqrt{1+1}=\sqrt2$, $\theta=\dfrac\pi4$ (first quadrant), $z=2$.
+    - id: mp-cs-12
+      statement: |-
+        Convert the point $(1,1,\sqrt2)$ to spherical coordinates $(\rho,\varphi,\theta)$ with $\rho>0$, $0\le\varphi\le\pi$, $0\le\theta<2\pi$.
+      answerType: vector
+      answer: "(2, pi/4, pi/4)"
+      hints:
+        - |-
+          $\rho=\sqrt{x^2+y^2+z^2}$, $\cos\varphi=\dfrac z\rho$, $\tan\theta=\dfrac yx$.
+      solution: |-
+        $\rho=\sqrt{1+1+2}=2$, $\cos\varphi=\dfrac{\sqrt2}{2}$ so $\varphi=\dfrac\pi4$, and $\theta=\dfrac\pi4$.
+    - id: mp-cs-13
+      statement: |-
+        Convert the spherical point $(\rho,\varphi,\theta)=\left(2,\dfrac\pi2,\dfrac\pi3\right)$ to rectangular coordinates.
+      answerType: vector
+      answer: "(1, sqrt(3), 0)"
+      hints:
+        - |-
+          $x=\rho\sin\varphi\cos\theta$, $y=\rho\sin\varphi\sin\theta$, $z=\rho\cos\varphi$.
+      solution: |-
+        $x=2\cdot1\cdot\dfrac12=1$, $y=2\cdot1\cdot\dfrac{\sqrt3}{2}=\sqrt3$, $z=2\cos\dfrac\pi2=0$: the point is $\left(1, \sqrt{3}, 0\right)$.

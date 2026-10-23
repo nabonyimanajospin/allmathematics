@@ -146,3 +146,79 @@
       solution: |-
         Solving for $y'$ gives $y'=\dfrac{x+2y+1}{2x+4y+3}$, the equation of part (c). The solution is the same: $8y-4x+\ln|4x+8y+5|=C$.
       note: "Parts (c) and (d) of the sheet are the same differential equation, written in two ways."
+- id: more-homogeneous
+  task: |-
+    More practice: homogeneous equations.
+  format: "Type the solution with an arbitrary constant `C`, for example `y = C*e^x` or `x^2 + y^2 = C`."
+  items:
+    - id: mp-hom-1
+      statement: "$y' x=y + x$"
+      answerType: ode_solution
+      answer: "y = x*ln(x) + C*x"
+      ode:
+        order: 1
+        equation: "x*y1 - x - y"
+        sample:
+          [0.6, 1.9]
+      hints:
+        - "Put $y=vx$, so $y'=v+xv'$."
+      solution: |-
+        Put $y=vx$: $xv'+v=1+v$, so $v'=\dfrac1x$ and $v=\ln x+C$. Hence $y=x\ln x+Cx$.
+    - id: mp-hom-2
+      statement: |-
+        $y'=\frac{y}{x} + \tan{\left(\frac{y}{x} \right)}$
+      answerType: ode_solution
+      answer: "sin(y/x) = C*x"
+      ode:
+        order: 1
+        equation: "y1 - tan(y/x) - y/x"
+      hints:
+        - |-
+          With $y=vx$ the equation becomes $xv'=\tan v$.
+      solution: |-
+        Put $y=vx$: $xv'=\tan v$, so $\cot v\,dv=\dfrac{dx}{x}$ and $\ln|\sin v|=\ln|x|+c$. Hence $\sin\dfrac yx=Cx$.
+    - id: mp-hom-3
+      statement: |-
+        $y'=\frac{y^{2} + x^{2}}{2 y x}$
+      answerType: ode_solution
+      answer: "y^2 = x^2 + C*x"
+      ode:
+        order: 1
+        equation: "y1 - (x^2 + y^2)/(2*x*y)"
+      hints:
+        - "Put $y=vx$ and separate $v$ from $x$."
+      solution: |-
+        Put $y=vx$: $xv'=\dfrac{1-v^2}{2v}$, so $\dfrac{2v\,dv}{1-v^2}=\dfrac{dx}x$ and $-\ln|1-v^2|=\ln|x|+c$. Hence $x\left(1-v^2\right)=C'$, that is $y^2=x^2+Cx$.
+    - id: mp-hom-4
+      statement: |-
+        $y'=\frac{y}{x} + \frac{y^{2}}{x^{2}}$
+      answerType: ode_solution
+      answer: "y = -x/(ln(x) + C)"
+      ode:
+        order: 1
+        equation: "y1 - y/x - y^2/x^2"
+        sample:
+          [1.2, 1.9]
+      hints:
+        - |-
+          With $y=vx$: $xv'=v^2$.
+      solution: |-
+        Put $y=vx$: $xv'=v^2$, so $-\dfrac1v=\ln x+C$ and $y=vx=-\dfrac{x}{\ln x+C}$.
+    - id: mp-hom-5
+      statement: |-
+        $y' x=y + x$, $\ y(1)=2$
+      answerType: ode_solution
+      answer: "y = x*ln(x) + 2*x"
+      ode:
+        order: 1
+        equation: "x*y1 - x - y"
+        sample:
+          [0.6, 1.9]
+        conditions:
+          - at: "1"
+            value: "2"
+            derivative: 0
+      hints:
+        - "First find the general solution, then use $y(1)=2$."
+      solution: |-
+        As in part 1, $y=x\ln x+Cx$. $y(1)=2$ gives $C=2$.

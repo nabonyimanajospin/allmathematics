@@ -92,3 +92,94 @@
         - |-
           The higher mode decays faster: compute its exponent.
       solution: "The modes decay like $e^{-t}$ and $e^{-4t}$; the second one is smaller, with exponent $4$."
+- id: more-heat
+  task: |-
+    More practice: the heat equation.
+  format: "Type an expression in the variables of the question, such as `exp(-3*t)*sin(x)` or `5/(7*pi)`."
+  items:
+    - id: mp-he-1
+      statement: |-
+        A rod of length $\pi$ with $k=1$ has its ends at $0$ and the initial temperature $f(x)=2 \sin{\left(x \right)} + 3 \sin{\left(2 x \right)}$. Find $u(x,t)$.
+      answerType: expression
+      answer: "2*exp(-t)*sin(x) + 3*exp(-4*t)*sin(2*x)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The mode $n$ is multiplied by $e^{-k(n\pi/L)^2t}$.
+      solution: |-
+        Each mode $\sin\dfrac{n\pi x}{\pi}$ is multiplied by $e^{-1(n\pi/\pi)^2t}$, so $u=2 e^{- t} \sin{\left(x \right)} + 3 e^{- 4 t} \sin{\left(2 x \right)}$.
+    - id: mp-he-2
+      statement: |-
+        A rod of length $\pi$ with $k=4$ has its ends at $0$ and the initial temperature $f(x)=\sin{\left(3 x \right)}$. Find $u(x,t)$.
+      answerType: expression
+      answer: "exp(-36*t)*sin(3*x)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The mode $n$ is multiplied by $e^{-k(n\pi/L)^2t}$.
+      solution: |-
+        Each mode $\sin\dfrac{n\pi x}{\pi}$ is multiplied by $e^{-4(n\pi/\pi)^2t}$, so $u=e^{- 36 t} \sin{\left(3 x \right)}$.
+    - id: mp-he-3
+      statement: |-
+        A rod of length $2$ with $k=3$ has its ends at $0$ and the initial temperature $f(x)=\sin{\left(\frac{\pi x}{2} \right)} - 2 \sin{\left(\pi x \right)}$. Find $u(x,t)$.
+      answerType: expression
+      answer: "-2*exp(-3*pi^2*t)*sin(pi*x) + exp(-3*pi^2*t/4)*sin(pi*x/2)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The mode $n$ is multiplied by $e^{-k(n\pi/L)^2t}$.
+      solution: |-
+        Each mode $\sin\dfrac{n\pi x}{2}$ is multiplied by $e^{-3(n\pi/2)^2t}$, so $u=- 2 e^{- 3 \pi^{2} t} \sin{\left(\pi x \right)} + e^{- \frac{3 \pi^{2} t}{4}} \sin{\left(\frac{\pi x}{2} \right)}$.
+    - id: mp-he-4
+      statement: |-
+        A rod of length $1$ with $k=1$ has its ends at $0$ and the initial temperature $f(x)=5 \sin{\left(2 \pi x \right)}$. Find $u(x,t)$.
+      answerType: expression
+      answer: "5*exp(-4*pi^2*t)*sin(2*pi*x)"
+      variables:
+        [x, t]
+      hints:
+        - |-
+          The mode $n$ is multiplied by $e^{-k(n\pi/L)^2t}$.
+      solution: |-
+        Each mode $\sin\dfrac{n\pi x}{1}$ is multiplied by $e^{-1(n\pi/1)^2t}$, so $u=5 e^{- 4 \pi^{2} t} \sin{\left(2 \pi x \right)}$.
+    - id: mp-he-5
+      statement: |-
+        On a rod of length $\pi$ with $k=4$, the number $\mu$ such that the mode $n=3$ decays like $e^{-\mu t}$.
+      answerType: number
+      answer: "36"
+      hints:
+        - |-
+          $\mu=k\left(\dfrac{n\pi}{L}\right)^2$.
+      solution: |-
+        $\mu=4\cdot3^2=36$.
+    - id: mp-he-6
+      statement: |-
+        On a rod of length $2$ with $k=3$, the number $\mu$ such that the mode $n=1$ decays like $e^{-\mu t}$.
+      answerType: expression
+      answer: "3*pi^2/4"
+      hints:
+        - |-
+          $\mu=k\left(\dfrac{n\pi}{L}\right)^2$ with $L=2$.
+      solution: |-
+        $\mu=3\cdot\dfrac{\pi^2}{4}=\frac{3 \pi^{2}}{4}$.
+    - id: mp-he-7
+      statement: |-
+        A rod with both ends kept at temperature $0$ is heated and then left alone. What happens to its temperature $u(x,t)$ as $t\to\infty$?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: It stays equal to the initial temperature
+          value: "1"
+        - text: "It tends to $0$ everywhere"
+          value: "2"
+        - text: It becomes constant and positive
+          value: "3"
+      correctIndex: 1
+      hints:
+        - |-
+          Every mode contains a factor $e^{-\mu_nt}$ with $\mu_n>0$.
+      solution: |-
+        Every term of the solution has a factor $e^{-\mu_nt}\to0$, so the rod cools to the temperature $0$ of its ends.

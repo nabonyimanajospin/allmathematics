@@ -20,3 +20,157 @@
       verify:
         - expr: "integrate(integrate(u^3*v^2/2, v, -1, 1), u, 1, 3)"
           equals: "20/3"
+- id: more-jacobian
+  task: |-
+    More practice: the Jacobian.
+  format: "Type an expression in u and v, or an exact value such as `-7`."
+  items:
+    - id: mp-ja-1
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=u+v$, $y=u-v$.
+      answerType: expression
+      answer: "-2"
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: "$x_u=1$, $x_v=1$, $y_u=1$, $y_v=-1$, so the Jacobian is $x_uy_v-x_vy_u=-2$."
+    - id: mp-ja-2
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=u\cos v$, $y=u\sin v$.
+      answerType: expression
+      answer: u
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: |-
+        $x_u=\cos{\left(v \right)}$, $x_v=- u \sin{\left(v \right)}$, $y_u=\sin{\left(v \right)}$, $y_v=u \cos{\left(v \right)}$, so the Jacobian is $x_uy_v-x_vy_u=u$.
+    - id: mp-ja-3
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=2u+3v$, $y=u-v$.
+      answerType: expression
+      answer: "-5"
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: "$x_u=2$, $x_v=3$, $y_u=1$, $y_v=-1$, so the Jacobian is $x_uy_v-x_vy_u=-5$."
+    - id: mp-ja-4
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=e^{u}\cos v$, $y=e^{u}\sin v$.
+      answerType: expression
+      answer: "exp(2*u)"
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: |-
+        $x_u=e^{u} \cos{\left(v \right)}$, $x_v=- e^{u} \sin{\left(v \right)}$, $y_u=e^{u} \sin{\left(v \right)}$, $y_v=e^{u} \cos{\left(v \right)}$, so the Jacobian is $x_uy_v-x_vy_u=e^{2 u}$.
+    - id: mp-ja-5
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=u^2-v^2$, $y=2uv$.
+      answerType: expression
+      answer: "4*u^2 + 4*v^2"
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: "$x_u=2 u$, $x_v=- 2 v$, $y_u=2 v$, $y_v=2 u$, so the Jacobian is $x_uy_v-x_vy_u=4 u^{2} + 4 v^{2}$."
+    - id: mp-ja-6
+      statement: |-
+        Find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$ of the change of variables $x=uv$, $y=u+v$.
+      answerType: expression
+      answer: "-u + v"
+      variables:
+        [u, v]
+      hints:
+        - |-
+          $\dfrac{\partial(x,y)}{\partial(u,v)}=x_uy_v-x_vy_u$.
+      solution: "$x_u=v$, $x_v=u$, $y_u=1$, $y_v=1$, so the Jacobian is $x_uy_v-x_vy_u=- u + v$."
+    - id: mp-ja-7
+      statement: |-
+        For $x=u^2-v^2$, $y=2uv$, find the value of $\dfrac{\partial(x,y)}{\partial(u,v)}$ at $(u,v)=(1,2)$.
+      answerType: number
+      answer: "20"
+      hints:
+        - "Compute the Jacobian as an expression first, then substitute."
+      solution: "The Jacobian is $4 u^{2} + 4 v^{2}$, which at $(1,2)$ equals $20$."
+    - id: mp-ja-8
+      statement: |-
+        For $x=uv$, $y=u+v$, find the value of $\dfrac{\partial(x,y)}{\partial(u,v)}$ at $(u,v)=(3,1)$.
+      answerType: number
+      answer: "-2"
+      hints:
+        - "Compute the Jacobian as an expression first, then substitute."
+      solution: "The Jacobian is $- u + v$, which at $(3,1)$ equals $-2$."
+    - id: mp-ja-9
+      statement: |-
+        For $x=u\cos v$, $y=u\sin v$, find the value of $\dfrac{\partial(x,y)}{\partial(u,v)}$ at $(u,v)=(4,\dfrac{pi}{3})$.
+      answerType: number
+      answer: "4"
+      hints:
+        - "Compute the Jacobian as an expression first, then substitute."
+      solution: "The Jacobian is $u$, which at $(4,\\dfrac{pi}{3})$ equals $4$."
+    - id: mp-ja-10
+      statement: |-
+        Use the substitution $x=3u\cos v$, $y=2u\sin v$ to find the area of the ellipse $\dfrac{x^2}{9}+\dfrac{y^2}{4}\le1$ (the unit is squ: give the number only).
+      answerType: expression
+      answer: "6*pi"
+      hints:
+        - |-
+          The ellipse becomes $0\le u\le1$, $0\le v\le2\pi$, and $dA=\left|\dfrac{\partial(x,y)}{\partial(u,v)}\right|du\,dv$.
+      solution: |-
+        $\dfrac{\partial(x,y)}{\partial(u,v)}=3\cos v\cdot2u\cos v-(-3u\sin v)\cdot2\sin v=6u$. Then $A=\displaystyle\int_0^{2\pi}\!\!\int_0^16u\,du\,dv=6\pi$.
+    - id: mp-ja-11
+      statement: |-
+        Let $D$ be the square with vertices $(0,0)$, $(1,1)$, $(2,0)$, $(1,-1)$. Use $u=x+y$, $v=x-y$ to compute $\displaystyle\iint_D(x+y)\,dA$.
+      answerType: number
+      answer: "2"
+      hints:
+        - |-
+          In the new variables $D$ is $0\le u\le2$, $0\le v\le2$. Solve for $x=\dfrac{u+v}{2}$, $y=\dfrac{u-v}{2}$ and find $|J|$.
+      solution: |-
+        $x=\dfrac{u+v}{2}$, $y=\dfrac{u-v}{2}$ give $\dfrac{\partial(x,y)}{\partial(u,v)}=-\dfrac12$, so $dA=\dfrac12\,du\,dv$ and $\displaystyle\iint_D(x+y)\,dA=\int_0^2\!\!\int_0^2u\cdot\dfrac12\,du\,dv=2$.
+    - id: mp-ja-12
+      statement: |-
+        In the change of variables $x=r\cos\theta$, $y=r\sin\theta$ the area element is $dA=\left|\dfrac{\partial(x,y)}{\partial(r,\theta)}\right|dr\,d\theta$. What is the factor?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "$1$"
+          value: "1"
+        - text: "$r$"
+          value: "2"
+        - text: "$r^2$"
+          value: "3"
+      correctIndex: 1
+      hints:
+        - |-
+          Compute $x_ry_\theta-x_\theta y_r$.
+      solution: |-
+        $x_ry_\theta-x_\theta y_r=\cos\theta\cdot r\cos\theta-(-r\sin\theta)\sin\theta=r$.
+    - id: mp-ja-13
+      statement: |-
+        A change of variables has Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}=-3$ everywhere. A region of area $5$ in the $uv$-plane is mapped to a region of what area in the $xy$-plane?
+      answerType: number
+      answer: "15"
+      hints:
+        - "Areas are multiplied by $|J|$."
+      solution: |-
+        The area is multiplied by $|J|=3$: $5\cdot3=15$.
+    - id: mp-ja-14
+      statement: |-
+        For $x=u+2v$, $y=3u+v$, find the Jacobian $\dfrac{\partial(x,y)}{\partial(u,v)}$.
+      answerType: number
+      answer: "-5"
+      hints:
+        - |-
+          $x_uy_v-x_vy_u=1\cdot1-2\cdot3$.
+      solution: |-
+        $x_u=1$, $x_v=2$, $y_u=3$, $y_v=1$, so $J=1\cdot1-2\cdot3=-5$.

@@ -39,3 +39,139 @@
       verify:
         - expr: "integrate(integrate(1-x-y, y, 0, 1-x), x, 0, 1)"
           equals: "1/6"
+- id: more-volumes
+  task: |-
+    More practice: volumes.
+  format: "Type an exact value such as `7*pi/6`."
+  items:
+    - id: mp-vo-1
+      statement: |-
+        Find the volume under the paraboloid $z=4-x^2-y^2$ and above the $xy$-plane. The unit is cu: give the number only.
+      answerType: expression
+      answer: "8*pi"
+      hints:
+        - |-
+          Use polar coordinates over the disc $r\le2$.
+      solution: |-
+        The paraboloid meets $z=0$ on $r=2$: $V=\displaystyle\int_0^{2\pi}\!\!\int_0^2(4-r^2)\,r\,dr\,d\theta=8 \pi$.
+    - id: mp-vo-2
+      statement: |-
+        Find the volume of the solid between the paraboloids $z=x^2+y^2$ and $z=8-x^2-y^2$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "16*pi"
+      hints:
+        - Subtract the lower surface from the upper one over the disc where they meet.
+      solution: |-
+        They meet where $r^2=8-r^2$, that is $r=2$. $V=\displaystyle\int_0^{2\pi}\!\!\int_0^2\left(8-2r^2\right)r\,dr\,d\theta=16 \pi$.
+    - id: mp-vo-3
+      statement: |-
+        Find the volume of the part of the ball $x^2+y^2+z^2\le4$ inside the cylinder $x^2+y^2\le1$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "4*pi*(8 - 3*sqrt(3))/3"
+      hints:
+        - Use cylindrical coordinates.
+      solution: |-
+        For each $r\le1$, $z$ runs from $-\sqrt{4-r^2}$ to $\sqrt{4-r^2}$: $V=\displaystyle\int_0^{2\pi}\!\!\int_0^12\sqrt{4-r^2}\,r\,dr\,d\theta=\frac{4 \pi \left(8 - 3 \sqrt{3}\right)}{3}$.
+    - id: mp-vo-4
+      statement: |-
+        Find the volume of the tetrahedron bounded by the coordinate planes and $x+2y+3z=6$. The unit is cu: give the number only.
+      answerType: number
+      answer: "6"
+      hints:
+        - |-
+          The base is the triangle $x+2y\le6$ in the $xy$-plane.
+      solution: |-
+        $V=\displaystyle\int_0^6\!\!\int_0^{\frac{6-x}{2}}\dfrac{6-x-2y}{3}\,dy\,dx=6$.
+    - id: mp-vo-5
+      statement: |-
+        Find the volume under the plane $z=x+y$ above the triangle $0\le y\le x\le1$. The unit is cu: give the number only.
+      answerType: number
+      answer: "1/2"
+      hints:
+        - |-
+          The base triangle is $0\le x\le1$, $0\le y\le x$.
+      solution: |-
+        $V=\displaystyle\int_0^1\!\!\int_0^x(x+y)\,dy\,dx=\frac{1}{2}$.
+    - id: mp-vo-6
+      statement: |-
+        Find the volume under the surface $z=y$ above the region $0\le x\le1$, $0\le y\le\sqrt x$. The unit is cu: give the number only.
+      answerType: number
+      answer: "1/4"
+      hints:
+        - "Integrate $z=y$ over the base region."
+      solution: |-
+        $V=\displaystyle\int_0^1\!\!\int_0^{\sqrt x}y\,dy\,dx=\frac{1}{4}$.
+    - id: mp-vo-7
+      statement: |-
+        Find the volume of the solid above the cone $z=\sqrt{x^2+y^2}$ and inside the unit sphere. The unit is cu: give the number only.
+      answerType: expression
+      answer: "pi*(2 - sqrt(2))/3"
+      hints:
+        - |-
+          The cone is $\varphi=\dfrac\pi4$.
+      solution: |-
+        In spherical coordinates the solid is $0\le\rho\le1$, $0\le\varphi\le\dfrac\pi4$: $V=\frac{\pi \left(2 - \sqrt{2}\right)}{3}$.
+    - id: mp-vo-8
+      statement: |-
+        Find the volume of the ellipsoid $\dfrac{x^2}{4}+\dfrac{y^2}{9}+z^2\le1$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "8*pi"
+      hints:
+        - "Use the substitution $x=2u$, $y=3v$, $z=w$ (Jacobian $6$)."
+      solution: |-
+        With $x=2u$, $y=3v$, $z=w$ the ellipsoid becomes the unit ball and $dV=6\,du\,dv\,dw$: $V=6\cdot\dfrac{4\pi}{3}=8 \pi$.
+    - id: mp-vo-9
+      statement: |-
+        Find the volume of the solid $0\le x\le3$, $0\le z\le1-y^2$, $-1\le y\le1$. The unit is cu: give the number only.
+      answerType: number
+      answer: "4"
+      hints:
+        - "The cross-section does not depend on $x$."
+      solution: |-
+        $V=3\displaystyle\int_{-1}^{1}\left(1-y^2\right)dy=4$.
+    - id: mp-vo-10
+      statement: |-
+        Find the volume of the solid between the paraboloid $z=x^2+y^2$ and the plane $z=2x$. The unit is cu: give the number only.
+      answerType: expression
+      answer: pi/2
+      hints:
+        - |-
+          The plane is above the paraboloid over the disc $(x-1)^2+y^2\le1$.
+      solution: |-
+        They meet above the circle $x^2+y^2=2x$, that is $r=2\cos\theta$. $V=\displaystyle\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\!\!\int_0^{2\cos\theta}\left(2r\cos\theta-r^2\right)r\,dr\,d\theta=\frac{\pi}{2}$.
+    - id: mp-vo-11
+      statement: |-
+        Find the volume of the solid inside the cylinder $x^2+y^2\le4$ between the planes $z=0$ and $z=5+x$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "20*pi"
+      hints:
+        - Use polar coordinates for the base disc.
+      solution: |-
+        $V=\displaystyle\int_0^{2\pi}\!\!\int_0^2(5+r\cos\theta)\,r\,dr\,d\theta=20 \pi$ (the term with $\cos\theta$ integrates to $0$).
+    - id: mp-vo-12
+      statement: |-
+        Find the volume of the cone with base radius $3$ and height $4$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "12*pi"
+      hints:
+        - |-
+          Use cylindrical coordinates, or the formula $\dfrac13\pi r^2h$ to check.
+      solution: |-
+        With the apex up: $0\le z\le4\left(1-\dfrac r3\right)$, so $V=\displaystyle\int_0^{2\pi}\!\!\int_0^3 4\left(1-\dfrac r3\right)r\,dr\,d\theta=12 \pi$ $\left(=\dfrac13\pi r^2h\right)$.
+    - id: mp-vo-13
+      statement: "Which coordinate system is the most convenient for the volume of the part of a ball above a cone with the same vertex at its centre?"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: Rectangular
+          value: "1"
+        - text: Cylindrical
+          value: "2"
+        - text: Spherical
+          value: "3"
+      correctIndex: 2
+      hints:
+        - |-
+          Both the ball and the cone are very simple in $\rho$ and $\varphi$.
+      solution: |-
+        In spherical coordinates the ball is $\rho\le R$ and the cone is $\varphi\le\alpha$, so the limits are constants.

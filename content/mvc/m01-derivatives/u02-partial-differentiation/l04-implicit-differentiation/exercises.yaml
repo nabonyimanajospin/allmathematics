@@ -136,3 +136,118 @@
         With $F(x,y,z)=x^{2} - x y + y^{2} - z^{2}$ we get $F_x=2 x - y$, $F_y=- x + 2 y$, $F_z=- 2 z$.
 
         $$\pd zx=-\dfrac{F_x}{F_z}=\dfrac{x - \dfrac{y}{2}}{z},\qquad \pd zy=-\dfrac{F_y}{F_z}=\dfrac{- \dfrac{x}{2} + y}{z}.$$
+- id: more-implicit
+  task: |-
+    More practice: implicit differentiation.
+  format: "Type an expression in `x` and `y` such as `x/(y+1)`, or a value such as `-2/3`."
+  items:
+    - id: mp-imp-1a
+      statement: |-
+        The equation $x^2+y^2-25=0$ defines $y$ as a function of $x$ near the point $(3,4)$. Find $\dfrac{dy}{dx}$ as an expression in $x$ and $y$.
+      answerType: expression
+      answer: "-x/y"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          For $F(x,y)=0$: $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$.
+      solution: |-
+        With $F=x^{2} + y^{2} - 25$ we get $F_x=2 x$ and $F_y=2 y$, so $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=- \frac{x}{y}$.
+    - id: mp-imp-1b
+      statement: |-
+        For the same equation $x^2+y^2-25=0$, find the slope $\dfrac{dy}{dx}$ at the point $(3,4)$.
+      answerType: number
+      answer: "-3/4"
+      hints:
+        - |-
+          Substitute the coordinates of the point in $-\dfrac{F_x}{F_y}$.
+      solution: |-
+        $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=- \frac{x}{y}$, which at the point equals $- \frac{3}{4}$.
+    - id: mp-imp-2a
+      statement: |-
+        The equation $x^3+y^3-6xy=0$ defines $y$ as a function of $x$ near the point $(3,3)$. Find $\dfrac{dy}{dx}$ as an expression in $x$ and $y$.
+      answerType: expression
+      answer: "(x^2 - 2*y)/(2*x - y^2)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          For $F(x,y)=0$: $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$.
+      solution: |-
+        With $F=x^{3} - 6 x y + y^{3}$ we get $F_x=3 x^{2} - 6 y$ and $F_y=- 6 x + 3 y^{2}$, so $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{x^{2} - 2 y}{2 x - y^{2}}$.
+    - id: mp-imp-2b
+      statement: |-
+        For the same equation $x^3+y^3-6xy=0$, find the slope $\dfrac{dy}{dx}$ at the point $(3,3)$.
+      answerType: number
+      answer: "-1"
+      hints:
+        - |-
+          Substitute the coordinates of the point in $-\dfrac{F_x}{F_y}$.
+      solution: |-
+        $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{x^{2} - 2 y}{2 x - y^{2}}$, which at the point equals $-1$.
+    - id: mp-imp-3a
+      statement: |-
+        The equation $x^2y+xy^2-6=0$ defines $y$ as a function of $x$ near the point $(1,2)$. Find $\dfrac{dy}{dx}$ as an expression in $x$ and $y$.
+      answerType: expression
+      answer: "y*(-2*x - y)/(x*(x + 2*y))"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          For $F(x,y)=0$: $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$.
+      solution: |-
+        With $F=x^{2} y + x y^{2} - 6$ we get $F_x=2 x y + y^{2}$ and $F_y=x^{2} + 2 x y$, so $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{y \left(- 2 x - y\right)}{x \left(x + 2 y\right)}$.
+    - id: mp-imp-3b
+      statement: |-
+        For the same equation $x^2y+xy^2-6=0$, find the slope $\dfrac{dy}{dx}$ at the point $(1,2)$.
+      answerType: number
+      answer: "-8/5"
+      hints:
+        - |-
+          Substitute the coordinates of the point in $-\dfrac{F_x}{F_y}$.
+      solution: |-
+        $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{y \left(- 2 x - y\right)}{x \left(x + 2 y\right)}$, which at the point equals $- \frac{8}{5}$.
+    - id: mp-imp-4a
+      statement: |-
+        The equation $\sin x+\cos y-1=0$ defines $y$ as a function of $x$ near the point $\left(\dfrac\pi2,\dfrac\pi2\right)$. Find $\dfrac{dy}{dx}$ as an expression in $x$ and $y$.
+      answerType: expression
+      answer: "cos(x)/sin(y)"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          For $F(x,y)=0$: $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$.
+      solution: |-
+        With $F=\sin{\left(x \right)} + \cos{\left(y \right)} - 1$ we get $F_x=\cos{\left(x \right)}$ and $F_y=- \sin{\left(y \right)}$, so $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{\cos{\left(x \right)}}{\sin{\left(y \right)}}$.
+    - id: mp-imp-4b
+      statement: |-
+        For the same equation $\sin x+\cos y-1=0$, find the slope $\dfrac{dy}{dx}$ at the point $\left(\dfrac\pi2,\dfrac\pi2\right)$.
+      answerType: number
+      answer: "0"
+      hints:
+        - |-
+          Substitute the coordinates of the point in $-\dfrac{F_x}{F_y}$.
+      solution: |-
+        $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{\cos{\left(x \right)}}{\sin{\left(y \right)}}$, which at the point equals $0$.
+    - id: mp-imp-5a
+      statement: |-
+        The equation $xe^{y}+ye^{x}=0$ defines $y$ as a function of $x$ near the point $(0,0)$. Find $\dfrac{dy}{dx}$ as an expression in $x$ and $y$.
+      answerType: expression
+      answer: "(-y*exp(x) - exp(y))/(x*exp(y) + exp(x))"
+      variables:
+        [x, y]
+      hints:
+        - |-
+          For $F(x,y)=0$: $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$.
+      solution: |-
+        With $F=x e^{y} + y e^{x}$ we get $F_x=y e^{x} + e^{y}$ and $F_y=x e^{y} + e^{x}$, so $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{- y e^{x} - e^{y}}{x e^{y} + e^{x}}$.
+    - id: mp-imp-5b
+      statement: |-
+        For the same equation $xe^{y}+ye^{x}=0$, find the slope $\dfrac{dy}{dx}$ at the point $(0,0)$.
+      answerType: number
+      answer: "-1"
+      hints:
+        - |-
+          Substitute the coordinates of the point in $-\dfrac{F_x}{F_y}$.
+      solution: |-
+        $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}=\frac{- y e^{x} - e^{y}}{x e^{y} + e^{x}}$, which at the point equals $-1$.
