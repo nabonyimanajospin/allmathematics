@@ -52,5 +52,11 @@ test.describe("the solver", () => {
 
     // the limit is reached
     await expect(page.getByRole("button", { name: "Solve", exact: true })).toBeDisabled();
+    await expect(page.getByText("Online payment is not set up yet.")).toBeVisible();
+
+    // without payment settings there is no checkout, and the webhook refuses everyone
+    const origin = new URL(page.url()).origin;
+    expect((await page.request.post("/api/payments/checkout", { headers: { origin } })).status()).toBe(503);
+    expect((await page.request.post("/api/payments/webhook", { data: { event: "charge.completed" } })).status()).toBe(503);
   });
 });

@@ -16,3 +16,4 @@ export * from "./admin/manage";
 export * from "./learning/enrollment";
 export * from "./learning/unit-test";
 export * from "./solver/plan";
+export * from "./payments/flutterwave";

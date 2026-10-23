@@ -28,7 +28,7 @@ function AccessLine({ access }: { access: SolverAccessDto }) {
   );
 }
 
-export function SolverClient({ initialAccess }: { initialAccess: SolverAccessDto }) {
+export function SolverClient({ initialAccess, canPay, justPaid }: { initialAccess: SolverAccessDto; canPay: boolean; justPaid: boolean }) {
   const uid = useId();
   const [input, setInput] = useState("");
   const [operation, setOperation] = useState<SolverOperation>("auto");
@@ -36,6 +36,23 @@ export function SolverClient({ initialAccess }: { initialAccess: SolverAccessDto
   const [access, setAccess] = useState(initialAccess);
   const [result, setResult] = useState<SolveResultDto | null>(null);
   const [error, setError] = useState<{ code: string; message: string } | null>(null);
+  const [paying, setPaying] = useState(false);
+
+  async function pay() {
+    setPaying(true);
+    try {
+      const res = await fetch("/api/payments/checkout", { method: "POST" });
+      const data = (await res.json().catch(() => null)) as { link?: string; error?: { message?: string } } | null;
+      if (res.ok && data?.link) {
+        window.location.assign(data.link);
+        return;
+      }
+      setError({ code: "payment", message: data?.error?.message ?? t("auth.errorGeneric") });
+    } catch {
+      setError({ code: "network", message: t("auth.errorNetwork") });
+    }
+    setPaying(false);
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -132,6 +149,24 @@ export function SolverClient({ initialAccess }: { initialAccess: SolverAccessDto
           </div>
         </div>
       </Card>
+
+      {justPaid ? (
+        <p role="status" className="mt-4 rounded-[var(--radius-sm)] bg-success-soft px-3 py-2 font-medium text-success">
+          {t("solver.paidThanks")}
+        </p>
+      ) : null}
+      {!access.premium && access.remaining === 0 ? (
+        <Card className="mt-4 border-2 border-warning">
+          <p className="font-semibold">{t("solver.upgrade")}</p>
+          {canPay ? (
+            <Button className="mt-3" onClick={pay} disabled={paying}>
+              {paying ? t("solver.paying") : t("solver.pay")}
+            </Button>
+          ) : (
+            <p className="mt-2 text-sm text-muted">{t("solver.payOff")}</p>
+          )}
+        </Card>
+      ) : null}
 
       <div aria-live="polite" className="mt-6">
         {error ? (
