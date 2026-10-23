@@ -34,6 +34,12 @@
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
   },
   "grapher": {
+    "tools": "Tools", "toolMove": "Move", "toolPoint": "Point", "toolSegment": "Segment", "toolLine": "Line",
+    "toolHelpMove": "Drag the picture. Drag a point to move it.", "toolHelpPoint": "Touch the picture to put a point.", "toolHelpSegment": "Touch one point, then another: they are joined by a segment. Touching an empty place makes a new point.", "toolHelpLine": "Touch one point, then another: the line through them is drawn.",
+    "pending": "First point {name} chosen. Now touch the second point (Escape cancels).",
+    "measures": "Measurements", "measureSegment": "Segment {a}{b}", "measureLine": "Line {a}{b}", "length": "length", "midpoint": "midpoint", "equation": "equation", "unitLength": "lu", "approxNote": "≈ means a decimal approximation.",
+    "helpTitle": "What can I type?", "helpTip": "Touch an example to put it in a line.",
+    "ex": { "function": "A function", "xfunction": "x as a function of y", "curve": "A curve", "polar": "Polar curve", "parametric": "Parametric curve", "parametricRange": "With a range for t", "point": "A point", "segment": "A segment between two points", "line": "A line through two points", "inequality": "An inequality (shaded)", "region": "A region (shaded)", "slider": "A slider (any letter a, b, k)" },
     "copyLink": "Copy link", "linkCopied": "Link copied. Anyone who opens it sees these expressions.", "linkFailed": "I could not copy the link. Copy the address from the browser.",
     "special": "Roots and intersections", "specialNote": "The math engine gives the exact value whenever it can prove it. A value with ≈ has no closed form (or could not be proved) and is a decimal approximation.", "approx": "Approximate value", "root": "Line {n} crosses the x-axis", "meet": "Lines {a} and {b} meet", "helpRegion": "shaded region (dashed border for < and >)",
     "title": "Grapher", "lead": "Plot functions, curves and surfaces. Type what you want to see, drag to move, use the wheel to zoom. Any letter such as a or k becomes a slider.",
@@ -46,16 +52,19 @@
     "extent": "Size of the picture: from -{n} to {n}", "wireframe": "Show only the grid lines"
   },
   "solver": {
+    "howTo": "How to write a problem (touch an example to use it)", "howToTip": "Matrices are written [[1,2],[3,4]] and vectors (1,2,3). Touch an example to put it in the box, then change the numbers.",
+    "groups": { "calculus": "Calculus and series", "equations": "Equations and inequalities", "matrices": "Matrices and vectors", "multivariable": "Multivariable calculus", "other": "Matrices, series, tangents and more" },
+    "say": { "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "tangent": "Tangent line", "taylor": "Taylor series", "sum": "Sum of a series", "area": "Area between curves", "fractions": "Partial fractions", "equation": "Equation", "system": "System of equations", "inequality": "Inequality", "ode": "Differential equation", "factor": "Factor", "determinant": "Determinant", "inverse": "Inverse", "eigen": "Eigenvalues, eigenvectors", "rref": "Row reduction and rank", "product": "Product of matrices", "norm": "Length of a vector", "cross": "Cross product", "partial": "Partial derivative", "gradient": "Gradient", "critical": "Maxima, minima, saddles", "lagrange": "Lagrange multipliers", "plane": "Tangent plane", "double": "Double integral", "polar": "Polar coordinates", "line": "Line integral" },
     "checkInput": "Check the input.", "photo": "Read from a picture", "photoHint": "Choose a clear picture of one printed problem. The text is read on your device; check it before solving.", "photoReading": "Reading the picture...", "photoFail": "I could not read any text in this picture. Check the picture or type the problem.", "photoBig": "The picture is too large (4 MB at most).", "photoDone": "Text read from the picture. Check it and correct it before you solve.",
     "pay": "Pay for Premium", "paying": "Opening the payment page...", "payOff": "Online payment is not set up yet.", "paidThanks": "Thank you. Your payment is being confirmed; Premium is activated in a moment.",
     "title": "Solver", "lead": "Type a problem and get the answer with every step. The math engine checks the result; there is no guessing.",
     "operation": "What do you want to do?", "problem": "Your problem", "placeholder": "for example: derivative of x^2*sin(x)",
-    "tips": "Write products with * (2*x), powers with ^ (x^2), functions with parentheses (sin(x)) and fractions with / ((x+1)/(x-1)).",
+    "tips": "Powers with ^, fractions with /, functions with brackets: x^2, (x+1)/(x-1), sin(x). A product such as 2x is understood.",
     "solve": "Solve", "solving": "Solving...", "examples": "Try an example", "steps": "Step by step", "answer": "Answer", "problemLabel": "Problem",
     "premium": "Premium: no limit", "freeLeft": "Free plan: {left} of {limit} solves left today",
     "upgrade": "Premium has no daily limit. Ask your administrator to activate Premium for your account.",
     "learnMore": "Want to understand the method? Practise it in your course.",
-    "ops": { "auto": "Automatic (recommended)", "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "solve": "Solve an equation or a system", "ode": "Differential equation", "simplify": "Simplify", "expand": "Expand", "factor": "Factor", "vector": "Vectors", "multivariable": "Multivariable calculus" }
+    "ops": { "auto": "Automatic (recommended)", "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "solve": "Solve an equation or a system", "ode": "Differential equation", "simplify": "Simplify", "expand": "Expand", "factor": "Factor", "vector": "Vectors", "multivariable": "Multivariable calculus", "other": "Matrices, series, tangents and more" }
   },
   "unitTest": {
     "title": "Unit test", "heading": "Unit test: {unit}", "start": "Start the test", "again": "Take the test again",

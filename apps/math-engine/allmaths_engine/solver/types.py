@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
 import sympy as sp
@@ -42,4 +43,4 @@ def tex(e: object) -> str:
 
 def eng(e: object) -> str:
     """Plain text of an exact value (the form a learner would type)."""
-    return str(e).replace("**", "^").replace("log(", "ln(")
+    return re.sub(r"\bE\b", "e", str(e).replace("**", "^").replace("log(", "ln("))

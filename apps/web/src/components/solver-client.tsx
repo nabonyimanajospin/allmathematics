@@ -8,25 +8,61 @@ import { SOLVER_OPERATIONS, type SolveResponseDto, type SolveResultDto, type Sol
 import { cleanRecognized } from "@/lib/recognized-text";
 import { Rich } from "./lesson/rich";
 
-const EXAMPLES = [
-  "derivative of x^2*sin(x)",
-  "integral of x*e^x from 0 to 1",
-  "limit of sin(x)/x as x->0",
-  "solve x^2-5x+6=0",
-  "x+y=5, x-y=1",
-  "y' + 2y = e^x",
-  "norm of (3,4)",
-  "partial derivative of x^2*y wrt x",
-  "gradient of x^2*y + z at (1,2,3)",
-  "critical points of x^3 - 3*x*y + y^3",
-  "maximize x + y subject to x^2 + y^2 = 1",
-  "double integral of x*y over x from 0 to 1, y from 0 to x",
-  "double integral of x^2 + y^2 in polar coordinates over r from 0 to 2, theta from 0 to 2*pi",
-  "line integral of (-y, x) along (cos(t), sin(t)) for t from 0 to 2*pi",
+/** What the solver understands, by topic: each example can be touched to put it in the problem box. */
+type SayKey = "derivative" | "integral" | "limit" | "tangent" | "taylor" | "sum" | "area" | "fractions" | "equation" | "system" | "inequality" | "ode" | "factor" | "determinant" | "inverse" | "eigen" | "rref" | "product" | "norm" | "cross" | "partial" | "gradient" | "critical" | "lagrange" | "plane" | "double" | "polar" | "line";
+const GROUPS: { key: "calculus" | "equations" | "matrices" | "multivariable"; examples: { say: SayKey; text: string }[] }[] = [
+  {
+    key: "calculus",
+    examples: [
+      { say: "derivative", text: "derivative of x^2*sin(x)" },
+      { say: "integral", text: "integral of x*e^x from 0 to 1" },
+      { say: "limit", text: "limit of sin(x)/x as x->0" },
+      { say: "tangent", text: "tangent line to y = x^3 at x = 2" },
+      { say: "taylor", text: "taylor series of sin(x) at 0 order 5" },
+      { say: "sum", text: "sum of 1/n^2 for n from 1 to infinity" },
+      { say: "area", text: "area between y = x and y = x^2" },
+      { say: "fractions", text: "partial fractions of (3x+5)/((x-1)(x+2))" },
+    ],
+  },
+  {
+    key: "equations",
+    examples: [
+      { say: "equation", text: "solve x^2-5x+6=0" },
+      { say: "system", text: "x+y=5, x-y=1" },
+      { say: "inequality", text: "solve (x-1)/(x+2) > 0" },
+      { say: "ode", text: "y' + 2y = e^x" },
+      { say: "factor", text: "factor x^2 - 9" },
+    ],
+  },
+  {
+    key: "matrices",
+    examples: [
+      { say: "determinant", text: "determinant of [[2,1,0],[1,3,1],[0,1,4]]" },
+      { say: "inverse", text: "inverse of [[2,1],[5,3]]" },
+      { say: "eigen", text: "eigenvalues and eigenvectors of [[4,1],[2,3]]" },
+      { say: "rref", text: "row reduce [[1,2,3],[4,5,6],[7,8,10]]" },
+      { say: "product", text: "[[1,2],[3,4]] * [[0,1],[1,0]]" },
+      { say: "norm", text: "norm of (3,4)" },
+      { say: "cross", text: "cross product of (1,2,3) and (4,5,6)" },
+    ],
+  },
+  {
+    key: "multivariable",
+    examples: [
+      { say: "partial", text: "partial derivative of x^2*y wrt x" },
+      { say: "gradient", text: "gradient of x^2*y + z at (1,2,3)" },
+      { say: "critical", text: "critical points of x^3 - 3*x*y + y^3" },
+      { say: "lagrange", text: "maximize x + y subject to x^2 + y^2 = 1" },
+      { say: "plane", text: "tangent plane to z = x^2 + y^2 at (1, 2)" },
+      { say: "double", text: "double integral of x*y over x from 0 to 1, y from 0 to x" },
+      { say: "polar", text: "double integral of x^2 + y^2 in polar coordinates over r from 0 to 2, theta from 0 to 2*pi" },
+      { say: "line", text: "line integral of (-y, x) along (cos(t), sin(t)) for t from 0 to 2*pi" },
+    ],
+  },
 ];
 
 /** Problems with what the learner typed: they all get the same short headline. */
-const INPUT_CODES = new Set(["parse", "unknown_word", "empty", "no_intent", "bad_vectors", "vector_args", "bad_variables", "bad_point", "bad_bounds", "bad_curve", "undefined", "ambiguous", "bad_system", "bad_operation", "too_long", "invalid_input", "invalid_json"]);
+const INPUT_CODES = new Set(["parse", "unknown_word", "empty", "no_intent", "bad_vectors", "vector_args", "bad_variables", "bad_point", "bad_bounds", "bad_curve", "undefined", "bad_matrix", "ambiguous", "bad_system", "bad_operation", "too_long", "invalid_input", "invalid_json"]);
 
 const SYMBOLS = ["^", "*", "/", "(", ")", ",", "sqrt()", "pi", "->"];
 
@@ -190,24 +226,34 @@ export function SolverClient({ initialAccess, canPay, justPaid }: { initialAcces
             </Button>
           </div>
         </form>
-        <div className="mt-5">
-          <p className="text-sm font-semibold text-muted">{t("solver.examples")}</p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {EXAMPLES.map((ex) => (
-              <button
-                key={ex}
-                type="button"
-                onClick={() => {
-                  setInput(ex);
-                  setOperation("auto");
-                }}
-                className="rounded-full border border-line bg-surface px-3 py-1.5 font-mono text-sm hover:bg-accent-soft"
-              >
-                {ex}
-              </button>
+        <details className="mt-5 rounded-[var(--radius-sm)] border border-line bg-surface-2 p-3">
+          <summary className="cursor-pointer font-semibold text-accent">{t("solver.howTo")}</summary>
+          <p className="mt-2 text-sm text-muted">{t("solver.howToTip")}</p>
+          <div className="mt-3 grid gap-4">
+            {GROUPS.map((g) => (
+              <section key={g.key} aria-label={t(`solver.groups.${g.key}`)}>
+                <h3 className="text-sm font-bold">{t(`solver.groups.${g.key}`)}</h3>
+                <ul className="mt-2 grid gap-1.5">
+                  {g.examples.map((ex) => (
+                    <li key={ex.say} className="grid gap-0.5 sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-center sm:gap-3">
+                      <span className="text-sm text-muted">{t(`solver.say.${ex.say}`)}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setInput(ex.text);
+                          setOperation("auto");
+                        }}
+                        className="min-w-0 break-words rounded-[var(--radius-sm)] border border-line bg-surface px-2 py-1.5 text-left font-mono text-sm hover:bg-accent-soft"
+                      >
+                        {ex.text}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
           </div>
-        </div>
+        </details>
       </Card>
 
       {justPaid ? (

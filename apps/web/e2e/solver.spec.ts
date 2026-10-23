@@ -106,4 +106,44 @@ test.describe("the solver", () => {
     await solve(page, "double integral of x*y over x from 0 to y, y from 0 to x");
     await expect(page.locator("p[role=alert]")).toHaveText("Check the input.");
   });
+
+  test("matrices, inequalities, tangents, series and areas, chosen from the written examples", async ({ page }) => {
+    await signUp(page);
+    await page.goto("/solver");
+    const answer = page.locator("p.font-mono");
+    const noBrokenMath = async () => expect(await page.locator(".katex-error").count()).toBe(0);
+
+    // the examples are grouped and can be touched to fill the box
+    await page.getByText("How to write a problem").click();
+    await expect(page.getByRole("heading", { name: "Matrices and vectors" })).toBeVisible();
+    await page.getByRole("button", { name: "determinant of [[2,1,0],[1,3,1],[0,1,4]]" }).click();
+    await expect(page.getByLabel("Your problem")).toHaveValue("determinant of [[2,1,0],[1,3,1],[0,1,4]]");
+    await page.getByRole("button", { name: "Solve", exact: true }).click();
+    await expect(answer).toHaveText("18");
+    await noBrokenMath();
+
+    await solve(page, "solve (x-1)/(x+2) > 0");
+    await expect(answer).toHaveText("(-oo, -2) U (1, oo)");
+    await noBrokenMath();
+
+    await solve(page, "tangent line to y = x^3 at x = 2");
+    await expect(answer).toHaveText("y = 12*x - 16");
+    await noBrokenMath();
+
+    await solve(page, "eigenvalues and eigenvectors of [[4,1],[2,3]]");
+    await expect(answer).toHaveText("λ = 2: [-1, 2]; λ = 5: [1, 1]");
+    await noBrokenMath();
+
+    await solve(page, "sum of 1/n^2 for n from 1 to infinity");
+    await expect(answer).toHaveText("pi^2/6");
+    await noBrokenMath();
+  });
+
+  test("a matrix problem with the wrong sizes is refused with the reason", async ({ page }) => {
+    await signUp(page);
+    await page.goto("/solver");
+    await solve(page, "[[1,2],[3,4]] * [[1,2,3]]");
+    await expect(page.locator("p[role=alert]")).toHaveText("Check the input.");
+    await expect(page.getByText(/needs as many columns/)).toBeVisible();
+  });
 });

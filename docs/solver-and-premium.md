@@ -87,3 +87,22 @@ Operation "Multivariable calculus" (also found automatically). Every result is c
 Limits of the current version: functions of at most 3 variables (4 for partial derivatives and the gradient), isolated critical points only (a whole line of
 them is reported as such), the regions of integration are given by limits (no "over the disk" in words), and paths must be given parametrically.
 For functions with sin, exp or ln the list of critical points or candidates may be incomplete; the answer says so.
+
+## More problem types ("Matrices, series, tangents and more")
+
+| You write | What you get | Second check |
+|---|---|---|
+| `determinant of [[1,2],[3,4]]`, `inverse of ...`, `transpose of ...`, `trace of ...` | steps (cofactor expansion, adjugate) | Berkowitz determinant; A·A⁻¹ = I |
+| `rank of ...`, `row reduce ...` | every row operation, rref, rank | SymPy's rref and the null space |
+| `eigenvalues of ...`, `eigenvectors of ...` | characteristic polynomial, roots, vectors | A·v = λ·v exactly |
+| `[[1,2],[3,4]] * [[0,1],[1,0]]`, `+`, `-`, `[[1,1],[0,1]]^5`, `3*[[1,2],[3,4]]` | the result | recomputed from the definition |
+| `solve (x-1)/(x+2) > 0` | critical values, a test in each interval, interval answer | the sign table agrees with SymPy at 160 values |
+| `tangent line to y = x^3 at x = 2`, `normal line ...`, `tangent plane to z = x^2 + y^2 at (1, 2)` | value, slope, equation | difference quotients |
+| `taylor series of sin(x) at 0 order 5`, `maclaurin series of e^x` | derivatives and coefficients | the error shrinks like (x − a)^(n+1) |
+| `sum of k^2 for k from 1 to 10`, `... to infinity` | closed form, convergence | explicit addition or numerical summation |
+| `partial fractions of (3x+5)/((x-1)(x+2))` | factored denominator, decomposition | sum equals the original |
+| `area between y = x and y = x^2` (`from 0 to 2`), `area under y = x^2 from 0 to 3` | meeting points, upper curve on each piece, integrals | numerical integration of |f − g| |
+
+Also understood: `limit as x approaches infinity of ...`, `|(3,4)|` for the length of a vector, and phrases such as "what is the derivative of ...".
+The page has a grouped, clickable list of examples ("How to write a problem"). The engine warms up its worker processes when it starts
+(`ENGINE_WARMUP=0` turns this off), so the first solve is not slow.

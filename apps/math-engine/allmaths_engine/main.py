@@ -36,6 +36,19 @@ def require_token(x_engine_token: Annotated[str | None, Header()] = None) -> Non
 app = FastAPI(title="Allmaths math engine", version="0.1.0", docs_url=None, redoc_url=None, openapi_url=None)
 
 
+@app.on_event("startup")
+def _warm_up_the_solver() -> None:
+    """Start the solver's worker processes now, so that the first learner does not wait for SymPy to load (set ENGINE_WARMUP=0 to skip)."""
+    import os
+    import threading
+
+    if os.environ.get("ENGINE_WARMUP", "1") == "0":
+        return
+    from .solver_pool import get_pool
+
+    threading.Thread(target=get_pool()._ensure, daemon=True).start()
+
+
 class MistakeIn(BaseModel):
     expr: str = Field(max_length=MAX_TEXT)
     hint: str = Field(max_length=300)
@@ -184,7 +197,7 @@ def verify(req: VerifyRequest) -> VerifyResponse:
 
 class SolveRequest(BaseModel):
     input: str = Field(min_length=1, max_length=300)
-    operation: Literal["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable"] = "auto"
+    operation: Literal["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable", "other"] = "auto"
 
 
 class SolveStep(BaseModel):
@@ -225,7 +238,7 @@ class GraphExactCandidate(BaseModel):
 
 
 class GraphExactRequest(BaseModel):
-    lines: dict[str, str] = Field(max_length=8)
+    lines: dict[str, str] = Field(max_length=24)
     params: dict[str, str] = Field(default_factory=dict, max_length=8)
     candidates: list[GraphExactCandidate] = Field(max_length=24)
 

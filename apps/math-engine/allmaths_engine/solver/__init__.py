@@ -12,11 +12,11 @@ import sympy as sp
 
 from ..errors import EngineError
 from ..parser import _WORDS, _split_name, parse
-from . import algebra, derivative, integral, limits, multivar_text, odes, vector_ops
+from . import algebra, derivative, integral, limits, more_text, multivar_text, odes, vector_ops
 from .types import Solution, SolverError
 
 MAX_INPUT = 300
-OPERATIONS = {"auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable"}
+OPERATIONS = {"auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable", "other"}
 
 
 def _check_words(text: str) -> None:
@@ -107,6 +107,10 @@ def _integral(low: str, text: str) -> Solution | None:
 
 
 def _limit(low: str, text: str) -> Solution | None:
+    m = re.match(r"^(?:find |compute |calculate |evaluate )?(?:the )?(?:limit|lim)\s+(?:as|when)\s+([a-z])\s*(?:->|to|approaches|tends to)\s*(\S+)\s+of\s+(.+)$", low)
+    if m:
+        body, var, target = text[m.start(3):m.end(3)], m.group(1), text[m.start(2):m.end(2)]
+        return limits.limit(_expr(body), sp.Symbol(var, real=True), _expr(target.replace("infinity", "oo").replace("inf", "oo")), "")
     m = re.match(r"^(?:find |compute |calculate )?(?:the )?(?:limit|lim)\s*(?:of )?(.+?)\s+(?:as|when)\s+([a-z])\s*(?:->|to|approaches|tends to)\s*(.+?)$", low)
     if m:
         body, var, target = text[m.start(1):m.end(1)], m.group(2), text[m.start(3):m.end(3)]
@@ -185,6 +189,10 @@ def solve_text(raw: str, operation: str = "auto") -> Solution:
     if len(text) > MAX_INPUT:
         raise SolverError("The problem is too long.", "too_long")
     low = text.lower()
+    bars = re.fullmatch(r"\|\s*(\(.*\))\s*\|", text)
+    if bars:
+        text = "norm of " + bars.group(1)
+        low = text.lower()
 
     if operation in ("auto", "multivariable"):
         r = multivar_text.read(low, text)
@@ -192,6 +200,12 @@ def solve_text(raw: str, operation: str = "auto") -> Solution:
             return r
         if operation == "multivariable":
             raise SolverError("I did not recognise this multivariable problem. Examples: “gradient of x^2*y”, “critical points of x^3-3*x*y+y^3”, “double integral of x*y over x from 0 to 1, y from 0 to x”.", "no_intent")
+    if operation in ("auto", "other"):
+        r = more_text.read(low, text)
+        if r:
+            return r
+        if operation == "other":
+            raise SolverError("I did not recognise this problem. Examples: “determinant of [[1,2],[3,4]]”, “solve x^2 - 4 > 0”, “tangent line to y = x^2 at x = 1”, “taylor series of sin(x) up to order 5”, “sum of k^2 for k from 1 to 10”.", "no_intent")
     if operation in ("auto", "derivative"):
         r = _derivative(low, text)
         if r:
