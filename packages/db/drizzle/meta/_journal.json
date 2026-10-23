@@ -15,6 +15,20 @@
       "when": 1792737267078,
       "tag": "0001_magical_valkyrie",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792747624649,
+      "tag": "0002_damp_phil_sheldon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792748721985,
+      "tag": "0003_closed_nekra",
+      "breakpoints": true
     }
   ]
 }

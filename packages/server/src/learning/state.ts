@@ -5,6 +5,7 @@ import { schema, type AppDb } from "@allmaths/db";
 import { allExercises } from "@allmaths/content-schema";
 import type { ContentStore } from "../content/store";
 import { dbSectionId } from "../content/store";
+import { unitTestStatuses, type UnitTestStatus } from "./unit-test";
 import { readProgress, refreshProgress, type ProgressValue, type ProgressSnapshot } from "./progress";
 
 export interface LessonState {
@@ -91,6 +92,7 @@ export interface DashboardLesson {
   percent: number;
 }
 export interface DashboardUnit {
+  test: UnitTestStatus;
   tenths: number;
   id: string;
   title: string;
@@ -134,6 +136,7 @@ export async function getDashboard(db: AppDb, store: ContentStore, userId: strin
     }
   }
   await refreshProgress(db, store, userId);
+  const tests = await unitTestStatuses(db, store, userId);
   const p = await readProgress(db, userId, items);
   const pct = (kind: string, id: string): number => p.get(`${kind}:${id}`)?.percent ?? 0;
   const tenths = (kind: string, id: string): number => p.get(`${kind}:${id}`)?.tenths ?? 0;
@@ -157,6 +160,7 @@ export async function getDashboard(db: AppDb, store: ContentStore, userId: strin
         title: u.meta.title,
         percent: pct("unit", u.meta.id),
         tenths: tenths("unit", u.meta.id),
+        test: tests.get(u.meta.id) ?? { exists: false, attempts: 0, bestScore: null, passed: false },
         lessons: u.lessons.map((l) => {
           const percent = pct("lesson", l.meta.id);
           if (percent > 0 && percent < 100) inProgress ??= l.meta.id;

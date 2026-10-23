@@ -80,8 +80,21 @@ export function weightedAverage(items: readonly Weighted[]): Frac {
   return min(ONE, div(sumWP, sumW));
 }
 
-/** Unit progress = time-weighted average of its lessons. */
+/** Unit progress = time-weighted average of its lessons (the lessons alone, without the unit test). */
 export const unitProgress = weightedAverage;
+
+export const UNIT_WEIGHTS = { lessons: 80, test: 20 } as const;
+
+/**
+ *   P_unit = 0.80 * weighted average of its lessons + 0.20 * [unit test passed]
+ * If the unit has no test, the test weight is removed. A unit is therefore 100% only when every lesson is complete and the test is passed.
+ */
+export function unitProgressWithTest(lessons: readonly Weighted[], test: { exists: boolean; passed: boolean }): Frac {
+  const avg = weightedAverage(lessons);
+  if (!test.exists) return avg;
+  const total = add(mul(frac(UNIT_WEIGHTS.lessons), avg), test.passed ? frac(UNIT_WEIGHTS.test) : ZERO);
+  return div(total, frac(UNIT_WEIGHTS.lessons + UNIT_WEIGHTS.test));
+}
 
 /**
  *   P_module = 0.80 * weighted average of unit progress + 0.20 * [module test passed]

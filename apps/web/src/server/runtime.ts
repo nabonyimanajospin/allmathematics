@@ -28,6 +28,8 @@ export interface Services {
     resetRequest: RateLimiter;
     resetRequestPerEmail: RateLimiter;
     resetVerify: RateLimiter;
+    unitTest: RateLimiter;
+    solver: RateLimiter;
   };
 }
 
@@ -85,6 +87,8 @@ async function createRuntime(): Promise<Runtime> {
       resetRequest: createMemoryRateLimiter(scale(10), 10 * MIN),
       resetRequestPerEmail: createMemoryRateLimiter(scale(3), 10 * MIN),
       resetVerify: createMemoryRateLimiter(scale(20), 10 * MIN),
+      unitTest: createMemoryRateLimiter(scale(30), 60 * MIN),
+      solver: createMemoryRateLimiter(scale(20), MIN),
     },
   };
 }

@@ -39,7 +39,7 @@ export const verbEnum = pgEnum("verb", [
   "bookmarked",
   "resumed",
 ]);
-export const providerEnum = pgEnum("payment_provider", ["stripe", "flutterwave"]);
+export const providerEnum = pgEnum("payment_provider", ["stripe", "flutterwave", "manual"]);
 
 const createdAt = () => timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
@@ -481,6 +481,40 @@ export const certificates = pgTable("certificates", {
   issuedAt: timestamp("issued_at", { withTimezone: true }).notNull().defaultNow(),
   verifyCode: text("verify_code").notNull().unique(),
 });
+
+/** One attempt at the test of a unit: the questions drawn for it, the answers, the score. A unit counts as complete only when an attempt passed. */
+export const unitTestAttempts = pgTable(
+  "unit_test_attempts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    unitId: text("unit_id").notNull(),
+    /** [{ lessonId, exerciseId }] in the order shown. */
+    questions: jsonb("questions").notNull(),
+    answers: jsonb("answers"),
+    score: integer("score"),
+    passed: boolean("passed").notNull().default(false),
+    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    submittedAt: timestamp("submitted_at", { withTimezone: true }),
+  },
+  (t) => [index("unit_test_attempts_user_unit_idx").on(t.userId, t.unitId)],
+);
+
+/** Every successful use of the solver: the free plan allows a few per day. */
+export const solverRequests = pgTable(
+  "solver_requests",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    operation: text("operation").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("solver_requests_user_idx").on(t.userId, t.createdAt)],
+);
 
 export const auditLog = pgTable("audit_log", {
   id: uuid("id").primaryKey().defaultRandom(),

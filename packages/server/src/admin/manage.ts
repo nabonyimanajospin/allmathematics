@@ -1,6 +1,6 @@
 /** The minimum an administrator needs: platform numbers, finding a user, recovering or suspending an account. */
 
-import { and, count, countDistinct, desc, eq, gte, ilike, isNull, or, sql } from "drizzle-orm";
+import { and, count, countDistinct, desc, eq, gt, gte, ilike, isNull, or, sql } from "drizzle-orm";
 import { randomBytes } from "node:crypto";
 import { ROLES, schema, type AppDb, type Role } from "@allmaths/db";
 import { Errors, AppError } from "../errors";
@@ -75,6 +75,7 @@ export interface AdminUserRow {
   name: string;
   role: Role;
   suspended: boolean;
+  premium: boolean;
   createdAt: Date;
   lastSeenAt: Date | null;
 }
@@ -97,12 +98,22 @@ export async function listUsers(db: AppDb, opts: { q?: string; limit?: number } 
     .where(and(isNull(schema.users.deletedAt), pattern ? or(ilike(schema.users.email, pattern), ilike(schema.users.name, pattern)) : undefined))
     .orderBy(desc(schema.users.createdAt))
     .limit(Math.min(opts.limit ?? 50, 200));
+  const now = new Date();
+  const premiumIds = new Set(
+    (
+      await db
+        .select({ userId: schema.subscriptions.userId })
+        .from(schema.subscriptions)
+        .where(and(eq(schema.subscriptions.status, "active"), eq(schema.subscriptions.plan, "premium"), or(isNull(schema.subscriptions.currentPeriodEnd), gt(schema.subscriptions.currentPeriodEnd, now))))
+    ).map((r) => r.userId),
+  );
   return rows.map((r) => ({
     id: r.id,
     email: r.email,
     name: r.name,
     role: r.role,
     suspended: r.suspendedAt !== null,
+    premium: premiumIds.has(r.id),
     createdAt: r.createdAt,
     lastSeenAt: r.lastSeenAt ? new Date(r.lastSeenAt) : null,
   }));

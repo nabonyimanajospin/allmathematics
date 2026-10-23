@@ -21,7 +21,7 @@ describe("migrations", () => {
       "users", "courses", "modules", "units", "lessons", "sections", "skills", "problem_templates",
       "template_skills", "problem_instances", "assessments", "attempts", "responses", "events", "progress",
       "mastery", "enrollments", "subscriptions", "payments", "classes", "class_members", "assignments",
-      "forum_threads", "forum_posts", "password_resets", "notes", "bookmarks", "certificates", "audit_log", "sessions",
+      "forum_threads", "forum_posts", "password_resets", "unit_test_attempts", "solver_requests", "notes", "bookmarks", "certificates", "audit_log", "sessions",
       "section_progress",
     ]) {
       expect(names.has(t), `table ${t}`).toBe(true);

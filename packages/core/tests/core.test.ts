@@ -11,6 +11,7 @@ import {
   parseLessonId,
   rational,
   unitProgress,
+  unitProgressWithTest,
   type LessonInputs,
 } from "../src";
 
@@ -82,6 +83,25 @@ describe("lessonProgress (spec 9.2: 0.40 sections + 0.20 practice + 0.40 quiz)",
     expect(() => lessonProgress(full({ practiceSolved: 1.5 }))).toThrow();
     expect(() => lessonProgress(full({ practiceSolved: 11 }))).toThrow();
     expect(() => lessonProgress(full({ practiceTotal: 0 }))).toThrow();
+  });
+});
+
+describe("unit progress with the unit test", () => {
+  const lessons = [
+    { weight: 30, progress: frac(1) },
+    { weight: 30, progress: frac(1) },
+  ];
+  it("is the lessons alone when the unit has no test", () => {
+    expect(show(unitProgressWithTest(lessons, { exists: false, passed: false }))).toBe("1");
+  });
+  it("is 80% when every lesson is done but the test is not passed, and 100% only when it is passed", () => {
+    expect(show(unitProgressWithTest(lessons, { exists: true, passed: false }))).toBe("4/5");
+    expect(percentFloor(unitProgressWithTest(lessons, { exists: true, passed: false }))).toBe(80);
+    expect(show(unitProgressWithTest(lessons, { exists: true, passed: true }))).toBe("1");
+  });
+  it("passing the test alone, with no lessons done, gives 20%", () => {
+    const none = [{ weight: 30, progress: frac(0) }];
+    expect(percentFloor(unitProgressWithTest(none, { exists: true, passed: true }))).toBe(20);
   });
 });
 

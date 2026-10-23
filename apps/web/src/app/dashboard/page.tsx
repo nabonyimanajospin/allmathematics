@@ -70,6 +70,9 @@ export default async function DashboardPage() {
         <Link href="/formulas" className={buttonClass("secondary")}>
           {t("nav.formulas")}
         </Link>
+        <Link href="/solver" className={buttonClass("secondary")}>
+          {t("nav.solver")}
+        </Link>
         <Link href="/resources" className={buttonClass("secondary")}>
           {t("nav.resources")}
         </Link>
@@ -140,6 +143,24 @@ export default async function DashboardPage() {
                             </li>
                           ))}
                         </ul>
+                        {u.test.exists ? (
+                          <Link
+                            href={`/test/${u.id}`}
+                            className="mt-1 flex min-h-12 items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-line px-3 py-2 hover:bg-surface-2"
+                          >
+                            <span className="min-w-0">
+                              <span className="block font-medium">{t("unitTest.open")}</span>
+                              <span className="block text-sm text-muted">
+                                {u.test.attempts === 0 ? t("unitTest.notTaken") : t("unitTest.best", { best: u.test.bestScore ?? 0, n: 10 })}
+                              </span>
+                            </span>
+                            <span
+                              className={`shrink-0 rounded-full px-2.5 py-1 text-sm font-semibold ${u.test.passed ? "bg-success-soft text-success" : "bg-surface-2 text-ink"}`}
+                            >
+                              {u.test.passed ? t("unitTest.passedBadge") : t("unitTest.take")}
+                            </span>
+                          </Link>
+                        ) : null}
                       </div>
                     ))}
                   </div>

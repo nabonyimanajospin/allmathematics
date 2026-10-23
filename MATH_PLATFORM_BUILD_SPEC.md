@@ -683,7 +683,9 @@ All percentages are computed on the server from events, never trusted from the c
 P_{\text{lesson}} = 0.40\cdot\frac{\text{sections completed}}{\text{total sections}} + 0.20\cdot\frac{\text{exercises solved}}{\text{exercises of the lesson}} + 0.40\cdot\mathbb 1[\text{quiz passed}]
 \]
 
-**Unit progress** is the time-weighted average of its lessons' progress (weights = estimated lesson minutes).
+**Unit progress** is the time-weighted average of its lessons' progress (weights = estimated lesson minutes), times 0.80, plus 0.20 when the unit test is passed (v1.4). A unit without a test keeps the plain average.
+
+**The unit test (v1.4).** Every unit with at least 10 typed-answer exercises ends with a test of 10 questions drawn from those exercises (spread over the lessons of the unit, no multiple choice, answers typed and checked by the math engine). 7 correct answers pass. A new attempt draws different questions where the bank allows it. The answers are checked on the server when the attempt is submitted; the worked solutions are shown only after the submission. Because of the 0.20 weight, a unit (and therefore a module and a course) can reach 100% only after the test is passed.
 
 **Module progress**
 \[

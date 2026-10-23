@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "solver": "Solver", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -32,6 +32,37 @@
     "sendCode": "Send the code", "codeSent": "If an account exists for this e-mail, a code is on its way. It is valid for 10 minutes.",
     "code": "6-digit code", "newPassword": "New password", "resetButton": "Set the new password", "resendCode": "Send a new code",
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
+  },
+  "solver": {
+    "title": "Solver", "lead": "Type a problem and get the answer with every step. The math engine checks the result; there is no guessing.",
+    "operation": "What do you want to do?", "problem": "Your problem", "placeholder": "for example: derivative of x^2*sin(x)",
+    "tips": "Write products with * (2*x), powers with ^ (x^2), functions with parentheses (sin(x)) and fractions with / ((x+1)/(x-1)).",
+    "solve": "Solve", "solving": "Solving...", "examples": "Try an example", "steps": "Step by step", "answer": "Answer", "problemLabel": "Problem",
+    "premium": "Premium: no limit", "freeLeft": "Free plan: {left} of {limit} solves left today",
+    "upgrade": "Premium has no daily limit. Ask your administrator to activate Premium for your account.",
+    "learnMore": "Want to understand the method? Practise it in your course.",
+    "ops": { "auto": "Automatic (recommended)", "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "solve": "Solve an equation or a system", "ode": "Differential equation", "simplify": "Simplify", "expand": "Expand", "factor": "Factor", "vector": "Vectors" }
+  },
+  "unitTest": {
+    "title": "Unit test", "heading": "Unit test: {unit}", "start": "Start the test", "again": "Take the test again",
+    "rule1": "{n} questions where you type the answer. There are no multiple-choice questions.",
+    "rule2": "You pass with {pass} correct answers out of {n}.",
+    "rule3": "The questions are drawn from the exercises of this unit. A new attempt gives different questions.",
+    "rule4": "You see the result and the worked solutions after you submit. The unit counts as complete when you pass.",
+    "statusPassed": "You passed this unit. Your best score is {best} out of {n}.",
+    "statusNotPassed": "Your best score so far is {best} out of {n} after {attempts} attempt(s). Keep going.",
+    "answered": "Answered {done} of {n}", "question": "Question {n}", "submit": "Submit the test", "checking": "Checking...",
+    "blankConfirm": "{n} question(s) have no answer yet. Submit anyway?",
+    "score": "{score} out of {total}", "passed": "Passed. Well done.", "failed": "Not passed yet: you need {pass} correct answers. Review the solutions and try again.",
+    "retry": "Try again with new questions", "review": "Review the questions", "correct": "Correct", "incorrect": "Not correct", "solution": "Worked solution",
+    "open": "Unit test", "notTaken": "Not taken yet", "best": "Best {best}/{n}", "passedBadge": "Passed", "take": "Take the test"
+  },
+  "sheet": {
+    "title": "Lesson sheet", "back": "Back to the lesson", "print": "Print this sheet", "nameLine": "Name: ____________________    Date: ______________",
+    "objectives": "What you will learn", "keyFacts": "Key facts", "practice": "Exercises",
+    "figuresNote": "Figures and quick checks are in the lesson on the website.",
+    "checkOnline": "Write your answers here, then type them in the lesson to have them checked and to count for your progress.",
+    "open": "Printable lesson sheet"
   },
   "courses": {
     "title": "Choose your course", "lead": "Pick the course you want to follow. You work in one course at a time, so you can focus; you can switch later and your progress is kept.",
@@ -117,7 +148,8 @@
       "resetPassword": "Reset password", "resetConfirm": "Set a new temporary password for {email}? They will be signed out everywhere.",
       "tempTitle": "Temporary password for {email}", "tempLead": "Give it to the user. It is shown only now; they should change it after signing in.",
       "suspend": "Suspend", "unsuspend": "Restore", "suspendConfirm": "Suspend {email}? They are signed out and cannot sign in.",
-      "changeRole": "Change role", "roleConfirm": "Make {email} {role}?", "done": "Done."
+      "changeRole": "Change role", "givePremium": "Give Premium", "revokePremium": "Remove Premium", "days": "days", "premiumBadge": "Premium",
+      "grantConfirm": "Give {email} Premium for {days} days?", "revokeConfirm": "Remove the Premium plan of {email}?", "roleConfirm": "Make {email} {role}?", "done": "Done."
     },
     "resources": {
       "title": "Manage resources",

@@ -10,13 +10,14 @@ import {
   lessonProgress,
   moduleProgress,
   rational,
-  unitProgress,
+  unitProgressWithTest,
   type Frac,
   type Weighted,
 } from "@allmaths/core";
 import { allExercises } from "@allmaths/content-schema";
 import type { ContentStore, LessonRef } from "../content/store";
 import { dbSectionId } from "../content/store";
+import { hasUnitTest, passedUnitIds } from "./unit-test";
 
 export type ProgressKind = "lesson" | "unit" | "module" | "course";
 
@@ -37,19 +38,6 @@ export interface ProgressSnapshot {
 }
 
 const toValue = (f: Frac): ProgressValue => ({ exact: rational.toString(f), percent: rational.percentFloor(f), tenths: Number((f.num * 1000n) / f.den) / 10 });
-
-async function readLessonFracs(db: AppDb, userId: string, lessonIds: string[]): Promise<Map<string, Frac>> {
-  const map = new Map<string, Frac>();
-  if (lessonIds.length === 0) return map;
-  const rows = await db
-    .select()
-    .from(schema.progress)
-    .where(
-      and(eq(schema.progress.userId, userId), eq(schema.progress.objectType, "lesson"), inArray(schema.progress.objectId, lessonIds)),
-    );
-  for (const r of rows) map.set(r.objectId, rational.frac(r.num, r.den));
-  return map;
-}
 
 async function upsert(db: AppDb, userId: string, kind: ProgressKind, id: string, f: Frac, now: Date): Promise<void> {
   const row = { userId, objectType: kind, objectId: id, num: f.num, den: f.den, percent: rational.percentFloor(f), updatedAt: now };
@@ -89,7 +77,7 @@ export async function computeLessonFrac(db: AppDb, userId: string, ref: LessonRe
   });
 }
 
-/** Recompute and store lesson, unit, module and course progress after something changed in a lesson. */
+/** Recompute and store lesson, unit, module and course progress after something changed in a lesson, and return the values of its chain. */
 export async function recomputeProgress(
   db: AppDb,
   store: ContentStore,
@@ -99,44 +87,15 @@ export async function recomputeProgress(
 ): Promise<ProgressSnapshot> {
   const ref = store.lesson(lessonId);
   if (!ref) throw new Error(`Unknown lesson ${lessonId}`);
-
-  const lessonFrac = await computeLessonFrac(db, userId, ref);
-  await upsert(db, userId, "lesson", lessonId, lessonFrac, now);
-
-  const siblings = ref.unit.lessons.map((l) => l.meta);
-  const fracs = await readLessonFracs(db, userId, siblings.map((l) => l.id));
-  const lessonFracOf = (id: string): Frac => fracs.get(id) ?? rational.ZERO;
-  const unitItems = (lessons: { id: string; estMinutes: number }[]): Weighted[] =>
-    lessons.map((l) => ({ weight: l.estMinutes, progress: lessonFracOf(l.id) }));
-
-  const unitFrac = unitProgress(unitItems(siblings));
-  await upsert(db, userId, "unit", ref.unit.meta.id, unitFrac, now);
-
-  // module: needs every lesson of every unit
-  const moduleLessons = ref.module.units.flatMap((u) => u.lessons.map((l) => l.meta));
-  const moduleFracs = await readLessonFracs(db, userId, moduleLessons.map((l) => l.id));
-  const unitFracs = ref.module.units.map((u) => {
-    const items = u.lessons.map((l) => ({ weight: l.meta.estMinutes, progress: moduleFracs.get(l.meta.id) ?? rational.ZERO }));
-    return { weight: u.lessons.reduce((a, l) => a + l.meta.estMinutes, 0), progress: unitProgress(items) };
-  });
-  const moduleFrac = moduleProgress(unitFracs, { exists: false, passed: false });
-  await upsert(db, userId, "module", ref.module.meta.id, moduleFrac, now);
-
-  // course: every module
-  const allLessons = ref.course.modules.flatMap((m) => m.units.flatMap((u) => u.lessons.map((l) => l.meta)));
-  const courseFracs = await readLessonFracs(db, userId, allLessons.map((l) => l.id));
-  const moduleItems: Weighted[] = ref.course.modules.map((m) => {
-    const lessons = m.units.flatMap((u) => u.lessons.map((l) => l.meta));
-    const units = m.units.map((u) => ({
-      weight: u.lessons.reduce((a, l) => a + l.meta.estMinutes, 0),
-      progress: unitProgress(u.lessons.map((l) => ({ weight: l.meta.estMinutes, progress: courseFracs.get(l.meta.id) ?? rational.ZERO }))),
-    }));
-    return { weight: lessons.reduce((a, l) => a + l.estMinutes, 0), progress: moduleProgress(units, { exists: false, passed: false }) };
-  });
-  const courseFrac = courseProgress(moduleItems);
-  await upsert(db, userId, "course", ref.course.meta.id, courseFrac, now);
-
-  return { lesson: toValue(lessonFrac), unit: toValue(unitFrac), module: toValue(moduleFrac), course: toValue(courseFrac) };
+  await refreshProgress(db, store, userId, now);
+  const p = await readProgress(db, userId, [
+    { kind: "lesson", id: lessonId },
+    { kind: "unit", id: ref.unit.meta.id },
+    { kind: "module", id: ref.module.meta.id },
+    { kind: "course", id: ref.course.meta.id },
+  ]);
+  const get = (k: string): ProgressValue => p.get(k) ?? toValue(rational.ZERO);
+  return { lesson: get(`lesson:${lessonId}`), unit: get(`unit:${ref.unit.meta.id}`), module: get(`module:${ref.module.meta.id}`), course: get(`course:${ref.course.meta.id}`) };
 }
 
 /** Stored progress for display. Missing rows mean 0. */
@@ -171,6 +130,7 @@ export async function refreshProgress(db: AppDb, store: ContentStore, userId: st
         .where(and(eq(schema.sectionProgress.userId, userId), sql`${schema.sectionProgress.completedAt} is not null`))
     ).map((r) => r.sectionId),
   );
+  const passedUnits = await passedUnitIds(db, userId);
   const target = new Map<string, Frac>();
   const lessonFrac = (id: string): Frac => {
     const ref = store.lesson(id);
@@ -198,7 +158,7 @@ export async function refreshProgress(db: AppDb, store: ContentStore, userId: st
           target.set(`lesson:${l.meta.id}`, f);
           return { weight: l.meta.estMinutes, progress: f };
         });
-        const uf = unitProgress(items);
+        const uf = unitProgressWithTest(items, { exists: hasUnitTest(store, u.meta.id), passed: passedUnits.has(u.meta.id) });
         target.set(`unit:${u.meta.id}`, uf);
         unitItems.push({ weight: u.lessons.reduce((a, l) => a + l.meta.estMinutes, 0), progress: uf });
       }
