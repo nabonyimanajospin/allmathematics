@@ -1,0 +1,143 @@
+id: mvc-m01-u04-l03
+title: Absolute maxima and minima on a closed region
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - absolute-extrema
+objectives:
+  - Say when a continuous function must have an absolute maximum and minimum.
+  - Find the absolute extreme values of $f(x,y)$ on a closed bounded region by comparing the interior critical points with the boundary.
+sections:
+  - id: idea
+    type: concept
+    title: Local is not absolute
+    body: |
+      A **local** maximum is the highest value near a point. The **absolute** (or global) maximum is the highest value of $f$ on the whole region we care about.
+      An engineer who wants the cheapest design inside given limits asks for the absolute minimum on a region.
+
+      Two things can go wrong. The function may have no largest value at all (for example $f(x,y)=x+y$ on the whole plane keeps growing), or the largest value may be
+      reached on the **edge** of the region, where there is no critical point at all. We need a region without these problems and a method that checks the edge.
+
+  - id: def-sets
+    type: definition
+    term: Bounded, boundary, closed
+    body: |
+      - A set $K$ is **bounded** if it fits inside some disc $x^2+y^2\le M^2$.
+      - A point is a **boundary point** of $K$ if every disc around it contains points of $K$ and points outside $K$.
+      - $K$ is **closed** if it contains all its boundary points.
+
+      The closed disc $x^2+y^2\le r^2$ is closed and bounded. The open disc $x^2+y^2<r^2$ is bounded but not closed. The half-plane $y\ge0$ is closed but not bounded.
+
+  - id: thm-evt
+    type: theorem
+    name: Extreme value theorem
+    statement: |
+      If $f$ is continuous on a closed and bounded set $K$, then $f$ has an absolute maximum value and an absolute minimum value on $K$.
+      Each of them is reached either at a critical point inside $K$ (where $\nabla f=\vec 0$, or where a partial derivative does not exist) or at a point of the boundary of $K$.
+    more: |
+      The proof belongs to analysis. What matters in practice is the last sentence: it tells us exactly where to look.
+
+  - id: method
+    type: concept
+    title: The method
+    body: |
+      1. Find the critical points of $f$ **inside** the region and compute $f$ there.
+      2. Find the largest and smallest values of $f$ on the **boundary**: on each edge, reduce $f$ to a function of one variable (or use a parametrization of the curve, or a Lagrange multiplier), and do not forget the corners.
+      3. Compare all the values found. The largest is the absolute maximum, the smallest is the absolute minimum.
+
+  - id: ex-rectangle
+    type: example
+    title: A rectangle
+    problem: |
+      Find the absolute maximum and minimum of $f(x,y)=x^2-2xy+2y$ on the rectangle $0\le x\le3,\ 0\le y\le2$.
+    steps:
+      - text: |
+          **Inside.** $f_x=2x-2y=0$ and $f_y=-2x+2=0$ give $x=1$, $y=1$, which is inside the rectangle. $f(1,1)=1$.
+        why: |
+          From $f_y=0$ we get $x=1$; then $f_x=0$ gives $y=x=1$.
+      - text: |
+          **The edge $y=0$** ($0\le x\le3$): $f=x^2$, from $0$ at $x=0$ to $9$ at $x=3$.
+          **The edge $y=2$**: $f=x^2-4x+4=(x-2)^2$; it has the value $4$ at $x=0$, $0$ at $x=2$ and $1$ at $x=3$.
+          **The edge $x=0$**: $f=2y$, from $0$ to $4$. **The edge $x=3$**: $f=9-4y$, from $9$ down to $1$.
+        why: |
+          On an edge one variable is fixed, so $f$ becomes a function of one variable. Its extreme values are at its critical points and at the end points (the corners).
+      - |
+        **Compare.** The values found are $1,\ 0,\ 9,\ 4,\ 1$. The largest is $9$, at $(3,0)$; the smallest is $0$, at $(0,0)$ and at $(2,2)$.
+    answer: |
+      Absolute maximum $9$ at $(3,0)$; absolute minimum $0$ at $(0,0)$ and $(2,2)$.
+    verify:
+      - expr: "1^2-2*1*1+2*1"
+        equals: "1"
+      - expr: "3^2-2*3*0+2*0"
+        equals: "9"
+      - expr: "2^2-2*2*2+2*2"
+        equals: "0"
+
+  - id: chk-rectangle
+    type: check
+    prompt: |
+      Find the absolute minimum value of $f(x,y)=x^2+y^2-2x$ on the square $0\le x\le2,\ 0\le y\le2$.
+    answerType: number
+    answer: "-1"
+    hints:
+      - |
+        $f=(x-1)^2+y^2-1$. The critical point is $(1,0)$, and it lies on the boundary.
+    explanation: |
+      $f_x=2x-2$ and $f_y=2y$ vanish at $(1,0)$, where $f=-1$. Since $(x-1)^2+y^2\ge0$, we always have $f\ge-1$, so the absolute minimum is $-1$.
+
+  - id: ex-disc
+    type: example
+    title: A disc
+    problem: |
+      Find the absolute maximum and minimum of $f(x,y)=x^2+xy+y^2$ on the disc $x^2+y^2\le4$.
+    steps:
+      - |
+        **Inside.** $f_x=2x+y=0$ and $f_y=x+2y=0$ give $(0,0)$, with $f=0$.
+      - text: |
+          **On the circle** $x=2\cos\theta,\ y=2\sin\theta$: $f=4+4\cos\theta\sin\theta=4+2\sin2\theta$.
+        why: |
+          $x^2+y^2=4$ on the circle, and $xy=4\sin\theta\cos\theta=2\sin2\theta$.
+      - |
+        This takes values from $4-2=2$ to $4+2=6$. The value $6$ occurs for $\sin2\theta=1$, at the point $(\sqrt2,\sqrt2)$.
+      - |
+        **Compare**: $0,\ 2,\ 6$. The absolute maximum is $6$ and the absolute minimum is $0$ (at the origin).
+    answer: |
+      Absolute maximum $6$ at $(\sqrt2,\sqrt2)$ and $(-\sqrt2,-\sqrt2)$; absolute minimum $0$ at $(0,0)$.
+    verify:
+      - expr: "2^2+2*2*0+0^2"
+        equals: "4"
+      - expr: "sqrt(2)^2+sqrt(2)*sqrt(2)+sqrt(2)^2"
+        equals: "6"
+
+  - id: chk-disc
+    type: check
+    prompt: |
+      Find the absolute maximum value of $f(x,y)=x+y$ on the disc $x^2+y^2\le2$.
+    answerType: number
+    answer: "2"
+    hints:
+      - |
+        $\nabla f=(1,1)$ never vanishes, so the maximum is on the circle $x=\sqrt2\cos\theta,\ y=\sqrt2\sin\theta$.
+    explanation: |
+      On the circle $f=\sqrt2(\cos\theta+\sin\theta)=2\sin\left(\theta+\dfrac\pi4\right)$, whose largest value is $2$ (at the point $(1,1)$).
+
+  - id: warning
+    type: concept
+    title: When the region is not closed and bounded
+    body: |
+      The theorem does not apply if the region is not closed or not bounded, and then there may be no absolute maximum or minimum.
+      For example, $f(x,y)=x^2+y^2$ has no absolute maximum on the whole plane, and $f(x,y)=x+y$ has no absolute minimum on the open disc $x^2+y^2<1$,
+      because the value $-\sqrt2$ is approached at the missing boundary point but never reached.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A continuous function on a closed and bounded region has an absolute maximum and an absolute minimum.
+      - |
+        They are found at critical points inside the region or at boundary points.
+      - |
+        Method: critical points inside, extreme values on each part of the boundary (with the corners), then compare all the values.
+      - |
+        Without a closed and bounded region, the extreme values may not exist.

@@ -1,0 +1,233 @@
+id: mvc-m01-u05-l01
+title: The gradient and the directional derivative
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - gradient
+  - directional-derivative
+objectives:
+  - Compute the gradient $\grad f$ of a function of two or three variables.
+  - Compute the rate of change of $f$ at a point in any direction with $\dirder{u}{f}=\dotp{\grad f}{\vec u}$.
+  - Find the direction of fastest increase and the greatest rate of change.
+  - Use the fact that $\grad f$ is perpendicular to the level curve to write its tangent line.
+sections:
+  - id: why-direction
+    type: concept
+    title: Rates of change in every direction
+    body: |
+      The partial derivatives $f_x$ and $f_y$ tell us how fast $f$ changes when we move parallel to the $x$-axis or to the
+      $y$-axis. But on a hill we may walk in any direction. Standing at a point $P$, which way is the ground steepest, and
+      how steep is it in the direction we actually choose?
+
+      To answer, we need one vector that collects all the partial derivatives, and a way to turn it into a rate of change
+      for **any** direction. That vector is the gradient.
+
+  - id: def-gradient
+    type: definition
+    term: Gradient
+    body: |
+      The **gradient** of a function $f(x,y)$ is the vector of its partial derivatives,
+
+      $$\grad f=\left(f_x,\ f_y\right),$$
+
+      and for a function of three variables $\grad f=\left(f_x,\ f_y,\ f_z\right)$. It is a vector that depends on the point:
+      at each point $P$ we get the vector $\grad f(P)$.
+
+  - id: def-directional
+    type: definition
+    term: Directional derivative
+    body: |
+      Let $\vec u$ be a **unit** vector ($\norm{\vec u}=1$). The directional derivative of $f$ at $P$ in the direction $\vec u$ is
+
+      $$\dirder{u}{f}(P)=\lim_{t\to0}\dfrac{f(P+t\,\vec u)-f(P)}{t}.$$
+
+      It is the rate of change of $f$ per unit of distance when we leave $P$ in the direction $\vec u$. For $\vec u=(1,0)$ it
+      is $f_x$, and for $\vec u=(0,1)$ it is $f_y$.
+
+  - id: thm-formula
+    type: theorem
+    name: Computing the directional derivative
+    statement: |
+      If $f$ is differentiable at $P$ and $\vec u$ is a unit vector, then
+
+      $$\dirder{u}{f}(P)=\dotp{\grad f(P)}{\vec u}.$$
+
+      In two variables, with $\vec u=(u_1,u_2)$: $\ \dirder{u}{f}=f_x\,u_1+f_y\,u_2$.
+    proof: |
+      Put $x(t)=x_0+t\,u_1$ and $y(t)=y_0+t\,u_2$, so that $\dirder{u}{f}(P)=\dfrac{d}{dt}f\big(x(t),y(t)\big)\Big|_{t=0}$.
+      By the chain rule this is $f_x\,x'(0)+f_y\,y'(0)=f_x\,u_1+f_y\,u_2$, which is the dot product of $\grad f$ and $\vec u$.
+
+  - id: ex-directional
+    type: example
+    title: A directional derivative
+    problem: |
+      Find the rate of change of $f(x,y)=x^2y$ at $P(1,2)$ in the direction of $\vec v=(3,4)$.
+    steps:
+      - text: |
+          The gradient is $\grad f=(2xy,\ x^2)$. At $P$: $\grad f(1,2)=(4,\ 1)$.
+        why: |
+          $f_x=2xy$ because $y$ is treated as a constant, and $f_y=x^2$ because $x$ is treated as a constant. Then put $x=1$, $y=2$.
+      - text: |
+          The vector $\vec v$ is not a unit vector: $\norm{\vec v}=\sqrt{9+16}=5$. The unit vector in its direction is
+          $\vec u=\dfrac15(3,4)=\left(\dfrac35,\dfrac45\right)$.
+        why: |
+          The formula $\dotp{\grad f}{\vec u}$ needs a **unit** vector, otherwise the answer is multiplied by $\norm{\vec v}$.
+          Always divide by the length first.
+      - |
+        $\dirder{u}{f}(P)=\dotp{(4,1)}{\left(\dfrac35,\dfrac45\right)}=\dfrac{12}{5}+\dfrac45=\dfrac{16}{5}$.
+    answer: |
+      $\dirder{u}{f}(P)=\dfrac{16}{5}$: $f$ increases by $\dfrac{16}{5}$ units per unit of distance in that direction.
+    verify:
+      - expr: "diff(x^2*y, x)"
+        equals: "2*x*y"
+      - expr: "4*(3/5)+1*(4/5)"
+        equals: "16/5"
+
+  - id: chk-directional
+    type: check
+    prompt: |
+      Find the directional derivative of $f(x,y)=x^2+3xy$ at $P(1,1)$ in the direction of $\vec v=(1,1)$.
+    answerType: expression
+    answer: "4*sqrt(2)"
+    hints:
+      - |
+        $\grad f=(2x+3y,\ 3x)$. Divide $\vec v$ by its length $\sqrt2$ before taking the dot product.
+    explanation: |
+      $\grad f(1,1)=(5,3)$ and $\vec u=\dfrac{1}{\sqrt2}(1,1)$, so $\dirder{u}{f}=\dfrac{5+3}{\sqrt2}=\dfrac{8}{\sqrt2}=4\sqrt2$.
+
+  - id: thm-steepest
+    type: theorem
+    name: Direction of fastest increase
+    statement: |
+      Let $\grad f(P)\ne\vec 0$. Among all unit vectors $\vec u$,
+
+      - $f$ increases fastest in the direction of $\grad f(P)$, and the greatest rate of change is $\norm{\grad f(P)}$;
+      - $f$ decreases fastest in the direction of $-\grad f(P)$, with rate $-\norm{\grad f(P)}$;
+      - $f$ does not change to first order in the directions perpendicular to $\grad f(P)$.
+    proof: |
+      Let $\theta$ be the angle between $\grad f(P)$ and $\vec u$. Since $\norm{\vec u}=1$,
+      $\dirder{u}{f}=\norm{\grad f}\cos\theta$. This is largest ($=\norm{\grad f}$) when $\theta=0$, smallest ($=-\norm{\grad f}$)
+      when $\theta=\pi$, and zero when $\theta=\dfrac\pi2$.
+
+  - id: ex-steepest
+    type: example
+    title: The steepest direction
+    problem: |
+      The temperature in a room is $T(x,y)=x^2+xy+y^2$. At $P(1,1)$, in which direction does it rise fastest, and how fast?
+    steps:
+      - |
+        $\grad T=(2x+y,\ x+2y)$, so $\grad T(1,1)=(3,3)$.
+      - text: |
+          The fastest increase is in the direction of $(3,3)$, that is the unit vector $\vec u=\dfrac{1}{\sqrt2}(1,1)$.
+        why: |
+          $\norm{(3,3)}=\sqrt{9+9}=3\sqrt2$, and $\dfrac{1}{3\sqrt2}(3,3)=\dfrac{1}{\sqrt2}(1,1)$.
+      - |
+        The greatest rate is $\norm{\grad T}=3\sqrt2$ degrees per unit of distance.
+    answer: |
+      Direction $\dfrac{1}{\sqrt2}(1,1)$; greatest rate $3\sqrt2$.
+    verify:
+      - expr: "sqrt(3^2+3^2)"
+        equals: "3*sqrt(2)"
+
+  - id: chk-steepest
+    type: check
+    prompt: |
+      What is the greatest rate of change of $f(x,y)=x^2+y^2$ at $P(3,4)$?
+    answerType: number
+    answer: "10"
+    hints:
+      - |
+        The greatest rate is $\norm{\grad f(P)}$.
+    explanation: |
+      $\grad f=(2x,2y)=(6,8)$ at $P$, and $\norm{(6,8)}=\sqrt{36+64}=10$.
+
+  - id: thm-level
+    type: theorem
+    name: The gradient is perpendicular to the level curve
+    statement: |
+      If $\grad f(P)\ne\vec 0$, then $\grad f(P)$ is perpendicular to the level curve $f(x,y)=c$ through $P$. So the tangent line
+      to the level curve at $P(x_0,y_0)$ is
+
+      $$f_x(P)\,(x-x_0)+f_y(P)\,(y-y_0)=0.$$
+    proof: |
+      Let $x(t),y(t)$ describe the level curve, so $f\big(x(t),y(t)\big)=c$ is constant. Differentiating with the chain rule gives
+      $f_x\,x'+f_y\,y'=0$, that is $\dotp{\grad f}{(x',y')}=0$. The tangent vector $(x',y')$ of the curve is perpendicular to $\grad f$.
+
+  - id: fig-level
+    type: visual
+    kind: figure
+    title: The gradient and the level curve
+    caption: |
+      For $f(x,y)=x^2+y^2$ the level curves are circles. At $P(3,4)$ the gradient $(6,8)$ points away from the centre, perpendicular to the
+      circle $x^2+y^2=25$ and to its tangent line.
+    figure:
+      dim: 2
+      alt: "A circle of radius 5 centred at the origin with the point P(3,4) on it. An arrow from P points outward along the gradient, perpendicular to the dashed tangent line at P."
+      view: [-7, 9, -7, 9]
+      axes: true
+      items:
+        - {t: circle, center: [0, 0], r: 5, color: muted}
+        - {t: point, id: P, at: [3, 4], color: warning}
+        - {t: point, id: G, at: [9/2, 6], color: success}
+        - {t: point, id: T, at: [7, 1]}
+        - {t: segment, from: P, to: G, color: success, arrow: true, label: "∇f"}
+        - {t: line, through: [P, T], dashed: true}
+        - {t: right, at: P, a: G, b: T}
+
+  - id: ex-tangent
+    type: example
+    title: The tangent line to a level curve
+    problem: |
+      Write the tangent line to the ellipse $x^2+4y^2=8$ at $P(2,1)$.
+    steps:
+      - |
+        The point is on the curve: $4+4=8$. The curve is the level curve $f=8$ of $f(x,y)=x^2+4y^2$.
+      - |
+        $\grad f=(2x,\ 8y)$, so $\grad f(2,1)=(4,\ 8)$.
+      - text: |
+          The tangent line is $4(x-2)+8(y-1)=0$, that is $x+2y=4$.
+        why: |
+          The gradient is perpendicular to the curve, so it is a **normal** vector of the tangent line. A line with normal vector $(4,8)$ through $P$
+          has the equation above; dividing by $4$ gives $x+2y=4$.
+    answer: |
+      The tangent line is $x+2y=4$.
+    verify:
+      - expr: "2^2+4*1^2"
+        equals: "8"
+      - expr: "2+2*1"
+        equals: "4"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Write the tangent line to the curve $xy=6$ at $P(2,3)$.
+    answerType: equation
+    coordinates: [x, y]
+    answer: "3*x+2*y=12"
+    hints:
+      - |
+        Take $f=xy$. Then $\grad f=(y,x)$.
+    explanation: |
+      $\grad f(2,3)=(3,2)$, so $3(x-2)+2(y-3)=0$, that is $3x+2y=12$.
+
+  - id: space
+    type: concept
+    title: Three variables and surfaces
+    body: |
+      Everything works the same in space. For $F(x,y,z)$ we have $\grad F=(F_x,F_y,F_z)$ and
+      $\dirder{u}{F}=\dotp{\grad F}{\vec u}$. The level sets $F(x,y,z)=c$ are surfaces, and $\grad F(P)$ is perpendicular to the
+      surface at $P$. This is exactly why the vector $(F_x,F_y,F_z)$ was the normal vector of the tangent plane in the previous
+      unit: the tangent plane at $P$ is $\dotp{\grad F(P)}{(x-x_0,\ y-y_0,\ z-z_0)}=0$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\grad f=(f_x,f_y)$, or $(f_x,f_y,f_z)$ in space; it depends on the point.
+      - |
+        $\dirder{u}{f}(P)=\dotp{\grad f(P)}{\vec u}$ with $\vec u$ a **unit** vector: divide a given direction by its length first.
+      - |
+        $f$ grows fastest along $\grad f$ with rate $\norm{\grad f}$, falls fastest along $-\grad f$, and is stationary perpendicular to it.
+      - |
+        $\grad f(P)$ is perpendicular to the level curve (or level surface) through $P$: it is a normal vector of the tangent line (or plane).

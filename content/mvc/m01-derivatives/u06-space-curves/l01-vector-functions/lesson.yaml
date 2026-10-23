@@ -1,0 +1,201 @@
+id: mvc-m01-u06-l01
+title: Vector functions, velocity and acceleration
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - vector-function
+  - velocity-acceleration
+objectives:
+  - Describe a curve in the plane or in space by a vector function $\vec r(t)$.
+  - Differentiate a vector function and interpret $\vec r\,'(t)$ as velocity and $\vec r\,''(t)$ as acceleration.
+  - Write the tangent line to a curve and compute the length of an arc.
+sections:
+  - id: idea
+    type: concept
+    title: A moving point
+    body: |
+      A point that moves in the plane or in space has a position that depends on time $t$. Its coordinates are three functions of $t$,
+      and we collect them in one **vector function**
+
+      $$\vec r(t)=\big(x(t),\ y(t),\ z(t)\big).$$
+
+      As $t$ runs through an interval, the end of $\vec r(t)$ draws a **curve**. For example $\vec r(t)=(\cos t,\ \sin t)$ describes the unit circle,
+      and $\vec r(t)=(\cos t,\ \sin t,\ t)$ describes a spiral staircase called a **helix**. The equations $x=x(t)$, $y=y(t)$, $z=z(t)$ are the
+      **parametric equations** of the curve.
+
+  - id: def-derivative
+    type: definition
+    term: Derivative of a vector function
+    body: |
+      The derivative of $\vec r(t)$ is obtained by differentiating each coordinate:
+
+      $$\vec r\,'(t)=\big(x'(t),\ y'(t),\ z'(t)\big)=\lim_{h\to0}\dfrac{\vec r(t+h)-\vec r(t)}{h}.$$
+
+      The vector $\vec r\,'(t)$ is tangent to the curve at the point $\vec r(t)$ and points in the direction of motion.
+
+  - id: def-velocity
+    type: definition
+    term: Velocity, speed and acceleration
+    body: |
+      If $\vec r(t)$ is the position at time $t$, then
+
+      - the **velocity** is $\vec v(t)=\vec r\,'(t)$,
+      - the **speed** is $\norm{\vec v(t)}=\sqrt{x'^2+y'^2+z'^2}$, a number,
+      - the **acceleration** is $\vec a(t)=\vec r\,''(t)$.
+
+  - id: ex-helix
+    type: example
+    title: A helix
+    problem: |
+      For $\vec r(t)=(\cos t,\ \sin t,\ t)$ find the velocity, the speed and the acceleration.
+    steps:
+      - |
+        $\vec v(t)=\vec r\,'(t)=(-\sin t,\ \cos t,\ 1)$.
+      - text: |
+          The speed is $\norm{\vec v}=\sqrt{\sin^2t+\cos^2t+1}=\sqrt2$, a constant.
+        why: |
+          $\sin^2t+\cos^2t=1$, so the sum under the root is $1+1=2$ for every $t$. The point climbs the helix at constant speed.
+      - |
+        $\vec a(t)=\vec r\,''(t)=(-\cos t,\ -\sin t,\ 0)$.
+    answer: |
+      $\vec v=(-\sin t,\cos t,1)$, speed $\sqrt2$, $\vec a=(-\cos t,-\sin t,0)$.
+    verify:
+      - expr: "diff(cos(t), t)"
+        equals: "-sin(t)"
+      - expr: "sqrt(sin(t)^2+cos(t)^2+1)"
+        equals: "sqrt(2)"
+
+  - id: fig-circle
+    type: visual
+    kind: figure
+    title: Velocity and acceleration on a circle
+    caption: |
+      For $\vec r(t)=(\cos t,\sin t)$ at $t=\dfrac\pi4$ the velocity $(-\sin t,\cos t)$ is tangent to the circle and the acceleration $(-\cos t,-\sin t)$
+      points to the centre.
+    figure:
+      dim: 2
+      alt: "The unit circle with a point at 45 degrees. A green arrow tangent to the circle shows the velocity and a second arrow towards the centre shows the acceleration."
+      view: [-2, 2, -2, 2]
+      axes: true
+      items:
+        - {t: circle, center: [0, 0], r: 1, color: muted}
+        - {t: point, id: O, at: [0, 0]}
+        - {t: point, id: P, at: [sqrt(2)/2, sqrt(2)/2], color: warning}
+        - {t: point, id: V, at: [0, sqrt(2)], color: success}
+        - {t: segment, from: P, to: V, color: success, arrow: true, label: "v"}
+        - {t: segment, from: P, to: O, color: danger, arrow: true, label: "a"}
+
+  - id: chk-velocity
+    type: check
+    prompt: |
+      Find the speed of the point $\vec r(t)=(3t,\ 4t,\ 12t)$.
+    answerType: number
+    answer: "13"
+    hints:
+      - |
+        $\vec v=\vec r\,'=(3,4,12)$. The speed is its length.
+    explanation: |
+      $\norm{\vec v}=\sqrt{9+16+144}=\sqrt{169}=13$.
+
+  - id: thm-rules
+    type: theorem
+    name: Rules of differentiation
+    statement: |
+      If $\vec r(t)$ and $\vec s(t)$ are differentiable and $c$ is a constant, then
+
+      - $(\vec r+\vec s)'=\vec r\,'+\vec s\,'$ and $(c\,\vec r)'=c\,\vec r\,'$;
+      - $\dfrac{d}{dt}\dotp{\vec r}{\vec s}=\dotp{\vec r\,'}{\vec s}+\dotp{\vec r}{\vec s\,'}$;
+      - $\dfrac{d}{dt}\crossp{\vec r}{\vec s}=\crossp{\vec r\,'}{\vec s}+\crossp{\vec r}{\vec s\,'}$.
+    proof: |
+      Each rule follows by writing the products in coordinates and applying the product rule to every term.
+
+  - id: thm-constant-length
+    type: theorem
+    name: A point at constant distance from the origin
+    statement: |
+      If $\norm{\vec r(t)}$ is constant, then $\vec r\,'(t)$ is perpendicular to $\vec r(t)$ for every $t$. In particular the velocity of a point moving on a circle
+      or on a sphere centred at the origin is tangent to it.
+    proof: |
+      $\dotp{\vec r}{\vec r}=\norm{\vec r}^2$ is constant, so its derivative is $0$. By the rule for the dot product,
+      $0=\dotp{\vec r\,'}{\vec r}+\dotp{\vec r}{\vec r\,'}=2\dotp{\vec r}{\vec r\,'}$.
+
+  - id: ex-tangent
+    type: example
+    title: The tangent line to a curve
+    problem: |
+      Write the tangent line to the curve $\vec r(t)=(t,\ t^2,\ t^3)$ at $t=1$.
+    steps:
+      - |
+        The point is $\vec r(1)=(1,1,1)$.
+      - |
+        $\vec r\,'(t)=(1,\ 2t,\ 3t^2)$, so the direction vector is $\vec r\,'(1)=(1,2,3)$.
+      - text: |
+          The tangent line is $(x,y,z)=(1,1,1)+\lambda(1,2,3)$, that is $x=1+\lambda$, $y=1+2\lambda$, $z=1+3\lambda$.
+        why: |
+          A line is a point plus a multiple of a direction vector. The tangent vector $\vec r\,'(1)$ gives the direction in which the curve leaves the point.
+    answer: |
+      $x=1+\lambda,\ y=1+2\lambda,\ z=1+3\lambda$.
+    verify:
+      - expr: "diff(t^3, t)"
+        equals: "3*t^2"
+
+  - id: chk-tangent
+    type: check
+    prompt: |
+      Give a direction vector of the tangent line to $\vec r(t)=(t^2,\ 2t,\ \ln t)$ at $t=1$.
+    answerType: direction
+    answer: "(2, 2, 1)"
+    hints:
+      - |
+        $\vec r\,'(t)=\left(2t,\ 2,\ \dfrac1t\right)$.
+    explanation: |
+      $\vec r\,'(1)=(2,2,1)$. Any non-zero multiple is also a direction vector.
+
+  - id: thm-length
+    type: formula
+    title: Length of an arc
+    formula: |
+      L=\int_a^b\norm{\vec r\,'(t)}\,dt=\int_a^b\sqrt{x'(t)^2+y'(t)^2+z'(t)^2}\,dt
+    note: |
+      The distance travelled is the integral of the speed. For a curve $y=f(x)$ this becomes $\displaystyle\int_a^b\sqrt{1+f'(x)^2}\,dx$.
+
+  - id: ex-length
+    type: example
+    title: The length of a helix
+    problem: |
+      Find the length of the helix $\vec r(t)=(\cos t,\ \sin t,\ t)$ for $0\le t\le2\pi$.
+    steps:
+      - |
+        The speed is the constant $\sqrt2$ (see the first example).
+      - |
+        $L=\displaystyle\int_0^{2\pi}\sqrt2\,dt=2\pi\sqrt2$ lu.
+    answer: |
+      $L=2\pi\sqrt2$ lu.
+    verify:
+      - expr: "integrate(sqrt(2), t, 0, 2*pi)"
+        equals: "2*sqrt(2)*pi"
+
+  - id: chk-length
+    type: check
+    prompt: |
+      Find the length of the segment $\vec r(t)=(t,\ 2t,\ 2t)$ for $0\le t\le3$. The unit is lu: give the number only.
+    answerType: number
+    answer: "9"
+    hints:
+      - |
+        The speed is constant: $\norm{(1,2,2)}$.
+    explanation: |
+      $\norm{\vec r\,'}=\sqrt{1+4+4}=3$ and $L=\displaystyle\int_0^33\,dt=9$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A curve is described by a vector function $\vec r(t)=(x(t),y(t),z(t))$; its derivative is taken coordinate by coordinate.
+      - |
+        $\vec v=\vec r\,'$ is tangent to the curve, $\norm{\vec v}$ is the speed and $\vec a=\vec r\,''$ the acceleration.
+      - |
+        The tangent line at $t_0$ is $\vec r(t_0)+\lambda\,\vec r\,'(t_0)$.
+      - |
+        Length of an arc: $L=\displaystyle\int_a^b\norm{\vec r\,'(t)}\,dt$.

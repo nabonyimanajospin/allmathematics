@@ -68,7 +68,7 @@ function looksLikeVector(arg: string): boolean {
   const a = arg.trim();
   if (a === "") return false;
   if (new RegExp(`^${VECTOR_TOKEN}`).test(a)) return true;
-  if (/\\crossp|\\dotp|\\proj|\\comp|\\vec|\\overrightarrow|\\unit|\\hat|\\begin\{pmatrix\}/.test(a)) return true;
+  if (/\\crossp|\\dotp|\\proj|\\comp|\\vec|\\overrightarrow|\\unit|\\hat|\\grad|\\nabla|\\begin\{pmatrix\}/.test(a)) return true;
   // explicit coordinates such as (1,2,3) or \left(1,2\right), possibly with a scalar in front
   if (/(?:\\left)?\(.*,.*(?:\\right)?\)/.test(a)) return true;
   // a combination such as 2\vec u - \vec v already matched above; sums of tokens too.

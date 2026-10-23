@@ -1,0 +1,168 @@
+id: mvc-m02-u01-l02
+title: The double integral as a limit of sums, mass and average value
+estMinutes: 40
+version: 1
+status: draft
+skills:
+  - riemann-sum
+  - mass-average-value
+objectives:
+  - Explain the double integral as the limit of Riemann sums and compute a midpoint sum.
+  - Use the properties of the double integral (linearity, additivity, comparison, area).
+  - Compute the mass, the average value and the centre of mass of a plate.
+sections:
+  - id: idea
+    type: concept
+    title: From a sum of boxes to an integral
+    body: |
+      How much volume lies under the surface $z=f(x,y)$ above a region $D$ of the plane? We cut $D$ into small rectangles, build a thin box over
+      each one, and add the volumes of the boxes. The thinner the boxes, the better the sum; the volume is the **limit** of these sums.
+      The same limit also measures mass, charge or any quantity spread over a region.
+
+  - id: def-riemann
+    type: definition
+    term: Double integral
+    body: |
+      Cut the region $D$ with a grid into small rectangles $R_1,\dots,R_k$ of areas $\Delta A_1,\dots,\Delta A_k$, and choose a point $(x_i^*,y_i^*)$ in each $R_i$.
+      The **Riemann sum** is
+
+      $$S=\sum_{i=1}^{k}f(x_i^*,y_i^*)\,\Delta A_i.$$
+
+      If $f$ is continuous on $D$ (and the boundary of $D$ is a curve of finite length), $S$ approaches one number when all the rectangles shrink to points. This
+      number is the **double integral**
+
+      $$\iint_D f\,dA=\lim S.$$
+
+  - id: ex-midpoint
+    type: example
+    title: A midpoint sum
+    problem: |
+      Estimate $\displaystyle\iint_R(x^2+y^2)\,dA$ over $R=[0,2]\times[0,2]$ with the four unit squares and the centre of each square as the sample point. Then compare with the exact value.
+    steps:
+      - |
+        The squares have centres $\left(\dfrac12,\dfrac12\right)$, $\left(\dfrac32,\dfrac12\right)$, $\left(\dfrac12,\dfrac32\right)$, $\left(\dfrac32,\dfrac32\right)$, and each has area $\Delta A=1$.
+      - |
+        The values of $f$ are $\dfrac12,\ \dfrac52,\ \dfrac52,\ \dfrac92$, so $S=\dfrac12+\dfrac52+\dfrac52+\dfrac92=10$.
+      - text: |
+          The exact value is $\displaystyle\int_0^2\!\!\int_0^2(x^2+y^2)\,dy\,dx=\dfrac{16}{3}+\dfrac{16}{3}=\dfrac{32}{3}$, a little more than $10$.
+        why: |
+          $\displaystyle\int_0^2\!\!\int_0^2x^2\,dy\,dx=2\cdot\dfrac{8}{3}=\dfrac{16}{3}$, and the term $y^2$ gives the same value by symmetry.
+          With more and smaller squares the sums come closer and closer to $\dfrac{32}{3}$.
+    answer: |
+      $S=10$, while the exact value is $\dfrac{32}{3}$.
+    verify:
+      - expr: "1/2+5/2+5/2+9/2"
+        equals: "10"
+      - expr: "integrate(integrate(x^2+y^2, y, 0, 2), x, 0, 2)"
+        equals: "32/3"
+
+  - id: chk-midpoint
+    type: check
+    prompt: |
+      Compute the midpoint Riemann sum of $f(x,y)=xy$ over $[0,2]\times[0,2]$ with the four unit squares.
+    answerType: number
+    answer: "4"
+    hints:
+      - |
+        The centres are $\left(\dfrac12,\dfrac12\right)$, $\left(\dfrac32,\dfrac12\right)$, $\left(\dfrac12,\dfrac32\right)$, $\left(\dfrac32,\dfrac32\right)$.
+    explanation: |
+      $S=\dfrac14+\dfrac34+\dfrac34+\dfrac94=4$.
+
+  - id: thm-properties
+    type: theorem
+    name: Properties of the double integral
+    statement: |
+      For continuous $f$, $g$ on $D$ and a constant $c$:
+
+      1. $\displaystyle\iint_D(f+g)\,dA=\iint_Df\,dA+\iint_Dg\,dA$ and $\displaystyle\iint_Dc\,f\,dA=c\iint_Df\,dA$.
+      2. If $f\ge g$ on $D$, then $\displaystyle\iint_Df\,dA\ge\iint_Dg\,dA$.
+      3. If $D$ is the union of two regions $D_1$, $D_2$ that do not overlap, then $\displaystyle\iint_Df\,dA=\iint_{D_1}f\,dA+\iint_{D_2}f\,dA$.
+      4. $\displaystyle\iint_D1\,dA=\text{area of }D$.
+    proof: |
+      Each property holds for every Riemann sum, so it also holds in the limit. For (4), the Riemann sum of the function $1$ is the sum of the areas of the small rectangles, which tends to the area of $D$.
+
+  - id: chk-properties
+    type: check
+    prompt: |
+      Over a region $D$ we know $\displaystyle\iint_Df\,dA=5$ and $\displaystyle\iint_Dg\,dA=3$. Find $\displaystyle\iint_D(2f-g)\,dA$.
+    answerType: number
+    answer: "7"
+    hints:
+      - |
+        Use linearity: $2\cdot5-3$.
+    explanation: |
+      $\displaystyle\iint_D(2f-g)\,dA=2\iint_Df\,dA-\iint_Dg\,dA=10-3=7$.
+
+  - id: interpretations
+    type: concept
+    title: What the integral measures
+    body: |
+      - If $f\ge0$, $\iint_Df\,dA$ is the **volume** of the solid under the graph of $f$ above $D$.
+      - If $f=1$, it is the **area** of $D$.
+      - If $\rho(x,y)$ is a density (mass per unit area), $\iint_D\rho\,dA$ is the **mass** of a thin plate $D$. For an electric charge density it is the total charge.
+
+  - id: formula-average
+    type: formula
+    title: Average value, mass and centre of mass
+    formula: |
+      f_{\text{av}}=\dfrac{1}{\text{area}(D)}\iint_Df\,dA,\qquad M=\iint_D\rho\,dA,\qquad \bar x=\dfrac1M\iint_Dx\,\rho\,dA,\quad \bar y=\dfrac1M\iint_Dy\,\rho\,dA
+    note: |
+      The average value is the height a flat plate of the same volume would have. The centre of mass $(\bar x,\bar y)$ is the balance point of the plate.
+
+  - id: ex-mass
+    type: example
+    title: Mass of a plate
+    problem: |
+      A plate is the triangle $0\le y\le x\le2$ with density $\rho(x,y)=x$ (in kg per squ). Find its mass.
+    steps:
+      - |
+        For a fixed $x$, $y$ runs from $0$ to $x$, and $x$ from $0$ to $2$.
+      - |
+        $M=\displaystyle\int_0^2\!\!\int_0^xx\,dy\,dx=\int_0^2x\cdot x\,dx=\int_0^2x^2\,dx=\dfrac83$ kg.
+    answer: |
+      $M=\dfrac83$ kg.
+    verify:
+      - expr: "integrate(integrate(x, y, 0, x), x, 0, 2)"
+        equals: "8/3"
+
+  - id: ex-centre
+    type: example
+    title: A centre of mass
+    problem: |
+      Find the centre of mass of the triangle with vertices $(0,0)$, $(3,0)$, $(0,3)$ with constant density $1$.
+    steps:
+      - |
+        The region is $0\le x\le3$, $0\le y\le3-x$; the area (= mass) is $M=\dfrac92$.
+      - |
+        $\displaystyle\iint_Dx\,dA=\int_0^3x(3-x)\,dx=\dfrac{27}{2}-9=\dfrac92$, and the mass is $M=\dfrac92$, so $\bar x=1$.
+      - |
+        By symmetry in $x$ and $y$, $\bar y=1$. The centre of mass is $(1,1)$, one third of the way from the right-angle vertex along each leg.
+    answer: |
+      $(\bar x,\bar y)=(1,1)$.
+    verify:
+      - expr: "integrate(integrate(x, y, 0, 3-x), x, 0, 3)"
+        equals: "9/2"
+
+  - id: chk-average
+    type: check
+    prompt: |
+      Find the average value of $f(x,y)=xy$ over the rectangle $0\le x\le2,\ 0\le y\le1$.
+    answerType: number
+    answer: "1/2"
+    hints:
+      - |
+        $\displaystyle\iint f\,dA=\int_0^2x\,dx\cdot\int_0^1y\,dy$, and the area is $2$.
+    explanation: |
+      $\displaystyle\iint_Rxy\,dA=2\cdot\dfrac12=1$, and the area of $R$ is $2$, so the average value is $\dfrac12$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $\iint_Df\,dA$ is the limit of the Riemann sums $\sum f(x_i^*,y_i^*)\,\Delta A_i$ as the grid becomes finer.
+      - |
+        The integral is linear, additive over regions that do not overlap, keeps inequalities, and $\iint_D1\,dA$ is the area of $D$.
+      - |
+        With a density $\rho$: mass $M=\iint_D\rho\,dA$ and centre of mass $\bar x=\dfrac1M\iint_Dx\rho\,dA$, $\bar y=\dfrac1M\iint_Dy\rho\,dA$.
+      - |
+        Average value: $f_{\text{av}}=\dfrac{1}{\text{area}(D)}\iint_Df\,dA$.

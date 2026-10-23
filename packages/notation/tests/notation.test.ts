@@ -44,6 +44,7 @@ describe("macros", () => {
 describe("lint: vectors", () => {
   it("accepts correct notation", () => {
     expect(rules("\\dotp{\\vec u}{\\vec v}=-8")).toEqual([]);
+    expect(rules("\\dirder{u}{f}=\\dotp{\\grad f(P)}{\\vec u}")).toEqual([]); // the gradient is a vector
     expect(rules("\\crossp{\\vec u}{\\vec v}=(-10,7,9)")).toEqual([]);
     expect(rules("\\boxp{\\vec u}{\\vec v}{\\vec w}=16")).toEqual([]);
     expect(rules("\\norm{\\vec u}=\\sqrt{14}")).toEqual([]);
