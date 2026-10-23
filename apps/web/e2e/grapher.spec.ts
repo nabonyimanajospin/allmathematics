@@ -1,5 +1,19 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { enrollAfterSignUp } from "./helpers";
+
+const unique = () => `gr${Date.now()}${Math.floor(Math.random() * 1000)}@example.com`;
+
+async function signUpAndOpen(page: Page): Promise<void> {
+  await page.goto("/signup");
+  await page.getByLabel("Full name").fill("Grapher Fan");
+  await page.getByLabel("E-mail").fill(unique());
+  await page.getByLabel("Password").fill("a long passphrase 1");
+  await page.getByRole("button", { name: "Create account" }).click();
+  await enrollAfterSignUp(page, "geo");
+  await page.goto("/graph");
+}
+
 
 /** A fingerprint of what is drawn on the canvas, to see that something changed (or did not). */
 async function fingerprint(page: Page): Promise<number> {
@@ -23,8 +37,82 @@ async function paintedPixels(page: Page): Promise<number> {
 }
 
 test.describe("the grapher", () => {
-  test("draws, moves, zooms, makes sliders from letters and reports a bad expression", async ({ page }) => {
+  test("is part of the account: a visitor is sent to sign in", async ({ page }) => {
     await page.goto("/graph");
+    await expect(page).toHaveURL(/\/signin/);
+    const res = await page.request.post("/api/graph/exact", { data: { lines: {}, params: {}, candidates: [] }, headers: { origin: new URL(page.url()).origin } });
+    expect(res.status()).toBe(401);
+  });
+
+  test("named points, the segment tool and measurements, and moving a point", async ({ page }) => {
+    await signUpAndOpen(page);
+    await page.getByLabel("Expression 1").fill("A(0, 0)");
+    await page.getByLabel("Expression 2").fill("B = (2, 1)");
+    await expect(page.locator("p[role=alert]")).toHaveCount(0);
+    const canvas = page.locator("canvas");
+    /** A place on the picture, in pixels from its centre (50 px per unit); measured fresh, because the page scrolls when buttons are touched. */
+    const at = async (dx: number, dy: number): Promise<[number, number]> => {
+      await canvas.scrollIntoViewIfNeeded();
+      let box = (await canvas.boundingBox())!;
+      for (let i = 0; i < 20; i++) {
+        await page.waitForTimeout(150);
+        const next = (await canvas.boundingBox())!;
+        if (next.width === box.width && next.height === box.height && next.y === box.y) break;
+        box = next;
+      }
+      return [box.x + box.width / 2 + dx, box.y + box.height / 2 + dy];
+    };
+    const touch = async (dx: number, dy: number) => {
+      const [x, y] = await at(dx, dy);
+      await page.mouse.click(x, y);
+    };
+
+    // the segment tool: touch A, then B (scale 50 px per unit: B is 100 px right and 50 px up)
+    await page.getByRole("radio", { name: "Segment" }).click();
+    await touch(0, 0);
+    await expect(page.getByText("First point A chosen")).toBeVisible();
+    await touch(100, -50);
+    await expect(page.getByLabel("Expression 3")).toHaveValue("segment(A, B)");
+    await expect(page.getByText("Segment AB")).toBeVisible();
+    await expect(page.getByText(/length: √5 lu, midpoint: \(1, 1\/2\)/)).toBeVisible();
+    await expect(page.getByText("equation: y = (1/2)x")).toBeVisible();
+
+    // the point tool puts a point on the nearest half step and names it
+    await page.getByRole("radio", { name: "Point" }).click();
+    await touch(150, 0);
+    await expect(page.getByLabel("Expression 4")).toHaveValue("C = (3, 0)");
+
+    // the line tool through two points, and touching an empty place makes a point
+    await page.getByRole("radio", { name: "Line" }).click();
+    await touch(150, 0);
+    await touch(-100, 100);
+    await expect(page.getByLabel("Expression 5")).toHaveValue("D = (-2, -2)");
+    await expect(page.getByLabel("Expression 6")).toHaveValue("line(C, D)");
+    await expect(page.getByText("Line CD")).toBeVisible();
+
+    // the move tool drags a point and the segment follows
+    await page.getByRole("radio", { name: "Move" }).click();
+    const [fromX, fromY] = await at(100, -50);
+    await page.mouse.move(fromX, fromY);
+    await page.mouse.down();
+    await page.mouse.move(fromX, fromY - 50, { steps: 5 });
+    await page.mouse.up();
+    await expect(page.getByLabel("Expression 2")).toHaveValue("B = (2, 2)");
+    await expect(page.getByText(/length: 2√2 lu/)).toBeVisible();
+
+    // the help lists what can be typed; touching an example puts it in a line
+    await page.getByText("What can I type?").click();
+    await page.getByRole("button", { name: "r = 1 + cos(theta)" }).click();
+    await expect(page.locator("input[aria-label^=Expression]").last()).toHaveValue("r = 1 + cos(theta)");
+
+    // a point that is not defined is explained
+    await page.getByRole("button", { name: "Add an expression" }).click();
+    await page.getByLabel("Expression 8").fill("segment(A, Z)");
+    await expect(page.getByText(/The point Z is not defined/)).toBeVisible();
+  });
+
+  test("draws, moves, zooms, makes sliders from letters and reports a bad expression", async ({ page }) => {
+    await signUpAndOpen(page);
     await expect(page.getByRole("heading", { name: "Grapher", level: 1 })).toBeVisible();
     // no account is needed; the two starting expressions are drawn and the letter a is a slider
     await expect(page.getByLabel("Expression 1")).toHaveValue("y = sin(x)");
@@ -71,7 +159,7 @@ test.describe("the grapher", () => {
 
   test("shades an inequality, lists roots and intersections, and a copied link restores the graph", async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]).catch(() => undefined);
-    await page.goto("/graph");
+    await signUpAndOpen(page);
     await page.getByLabel("Expression 1").fill("y = x^2 - 4");
     await page.getByLabel("Expression 2").fill("y = x - 2");
     await expect(page.getByRole("heading", { name: "Roots and intersections" })).toBeVisible();
@@ -113,7 +201,7 @@ test.describe("the grapher", () => {
   });
 
   test("the 3D view draws a surface, turns when dragged and has no accessibility violations", async ({ page }) => {
-    await page.goto("/graph");
+    await signUpAndOpen(page);
     await page.getByRole("tab", { name: "3D surface" }).click();
     await expect(page.getByLabel("Surface z = f(x, y)")).toHaveValue("z = sin(x)*cos(y)");
     await expect.poll(() => paintedPixels(page)).toBeGreaterThan(20);
@@ -139,7 +227,7 @@ test.describe("the grapher", () => {
 
   test("fits a phone screen", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 800 });
-    await page.goto("/graph");
+    await signUpAndOpen(page);
     await expect(page.locator("canvas")).toBeVisible();
     const scroll = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(scroll).toBeLessThanOrEqual(1);

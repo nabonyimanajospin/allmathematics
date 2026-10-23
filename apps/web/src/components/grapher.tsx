@@ -2,10 +2,45 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button, Card } from "@allmaths/ui";
-import { classify, drawable, evalConstant, parameterNames, sampleCurve3, sampleSurface, specialPoints, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
+import { classify, drawable, evalConstant, measure, namedPoints, parameterNames, sampleCurve3, sampleSurface, specialPoints, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
 import { t } from "@/i18n";
 import { RichInline } from "./lesson/rich";
 import type { ExactPointDto } from "@/app/api/graph/exact/route";
+
+type Tool = "move" | "point" | "segment" | "line";
+const TOOLS: { tool: Tool; label: "toolMove" | "toolPoint" | "toolSegment" | "toolLine"; help: "toolHelpMove" | "toolHelpPoint" | "toolHelpSegment" | "toolHelpLine" }[] = [
+  { tool: "move", label: "toolMove", help: "toolHelpMove" },
+  { tool: "point", label: "toolPoint", help: "toolHelpPoint" },
+  { tool: "segment", label: "toolSegment", help: "toolHelpSegment" },
+  { tool: "line", label: "toolLine", help: "toolHelpLine" },
+];
+const HELP: { key: "function" | "xfunction" | "curve" | "polar" | "parametric" | "parametricRange" | "point" | "segment" | "line" | "inequality" | "region" | "slider"; example: string }[] = [
+  { key: "function", example: "y = x^2 - 3" },
+  { key: "xfunction", example: "x = y^2" },
+  { key: "curve", example: "x^2 + y^2 = 9" },
+  { key: "polar", example: "r = 1 + cos(theta)" },
+  { key: "parametric", example: "(cos(t), sin(t))" },
+  { key: "parametricRange", example: "(t, t^2), t in [0, 3]" },
+  { key: "point", example: "A(2, 3)" },
+  { key: "segment", example: "segment(A, B)" },
+  { key: "line", example: "line(A, B)" },
+  { key: "inequality", example: "y > x^2" },
+  { key: "region", example: "x^2 + y^2 <= 4" },
+  { key: "slider", example: "y = a*x^2 + b" },
+];
+const MAX_ROWS = 24;
+const NUMBER = /^-?\d+(\.\d+)?$/;
+
+/** The next free point name: A, B, C, ... then A1, B1, ... */
+function pointName(used: Set<string>): string {
+  for (let round = 0; round < 10; round++) {
+    for (const ch of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
+      const name = round === 0 ? ch : `${ch}${round}`;
+      if (!used.has(name)) return name;
+    }
+  }
+  return "P99";
+}
 
 const COLORS = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2", "#be185d", "#4d7c0f"];
 
@@ -63,6 +98,10 @@ function Graph2D() {
   const nextId = useRef(3);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const lastPinch = useRef<number | null>(null);
+  const [tool, setTool] = useState<Tool>("move");
+  const [pending, setPending] = useState<string | null>(null);
+  const press = useRef<{ x: number; y: number; lx: number; ly: number; moved: boolean; multi: boolean } | null>(null);
+  const dragging = useRef<{ rowId: number; name: string } | null>(null);
 
   const items: GraphItem[] = useMemo(() => rows.map((r) => (r.visible ? classify(r.text) : { kind: "empty" as const })), [rows]);
   const names = useMemo(() => parameterNames(items), [items]);
@@ -71,9 +110,21 @@ function Graph2D() {
     () => ({ xmin: view.cx - w / 2 / view.scale, xmax: view.cx + w / 2 / view.scale, ymin: view.cy - h / 2 / view.scale, ymax: view.cy + h / 2 / view.scale }),
     [view, w, h],
   );
-  const drawn = useMemo(() => items.map((it) => drawable(it, values, range)), [items, values, range]);
+  const points = useMemo(() => namedPoints(items, values), [items, values]);
+  const drawn = useMemo(() => items.map((it) => drawable(it, values, range, points)), [items, values, range, points]);
   const special = useMemo(() => specialPoints(items, values, range), [items, values, range]);
+  const measures = useMemo(() => {
+    const out: { key: string; a: string; b: string; mode: "segment" | "line"; info: ReturnType<typeof measure> }[] = [];
+    items.forEach((it, i) => {
+      if (it.kind !== "segment") return;
+      const pa = points[it.a];
+      const pb = points[it.b];
+      if (pa && pb && (pa[0] !== pb[0] || pa[1] !== pb[1])) out.push({ key: `${rows[i]!.id}`, a: it.a, b: it.b, mode: it.mode, info: measure(pa, pb) });
+    });
+    return out;
+  }, [items, points, rows]);
   const [exact, setExact] = useState<ExactPointDto[]>([]);
+  const exactCache = useRef(new Map<string, ExactPointDto[]>());
 
   // ask the math engine to make the numeric roots and intersections exact (it answers only when it can prove the value)
   useEffect(() => {
@@ -90,18 +141,23 @@ function Graph2D() {
       const tenths = Math.round(v * 10);
       params[n] = tenths % 10 === 0 ? String(tenths / 10) : `${tenths}/10`;
     }
+    const body = JSON.stringify({ lines, params, candidates: special.map((sp) => ({ lines: sp.lines, x: sp.at[0] })) });
+    const known = exactCache.current.get(body);
+    if (known) {
+      setExact(known);
+      return;
+    }
     const ctl = new AbortController();
     const timer = setTimeout(() => {
-      fetch("/api/graph/exact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ lines, params, candidates: special.map((sp) => ({ lines: sp.lines, x: sp.at[0] })) }),
-        signal: ctl.signal,
-      })
+      fetch("/api/graph/exact", { method: "POST", headers: { "content-type": "application/json" }, body, signal: ctl.signal })
         .then((r) => (r.ok ? (r.json() as Promise<{ points: ExactPointDto[] }>) : { points: [] }))
-        .then((d) => setExact(d.points))
+        .then((d) => {
+          if (exactCache.current.size > 60) exactCache.current.clear();
+          exactCache.current.set(body, d.points);
+          setExact(d.points);
+        })
         .catch(() => undefined);
-    }, 400);
+    }, 600);
     return () => {
       clearTimeout(timer);
       ctl.abort();
@@ -118,7 +174,7 @@ function Graph2D() {
       if (!m) return;
       const list: unknown = JSON.parse(decodeURIComponent(escape(atob(m[1]!.replace(/-/g, "+").replace(/_/g, "/")))));
       if (!Array.isArray(list)) return;
-      const texts = list.filter((x): x is string => typeof x === "string").slice(0, 8);
+      const texts = list.filter((x): x is string => typeof x === "string").slice(0, MAX_ROWS);
       if (texts.length === 0) return;
       setRows(texts.map((text, i) => ({ id: i + 1, text: text.slice(0, 200), color: COLORS[i % COLORS.length]!, visible: true })));
       nextId.current = texts.length + 1;
@@ -232,25 +288,34 @@ function Graph2D() {
         ctx.stroke();
         ctx.setLineDash([]);
       } else if (d.kind === "point") {
+        const it = items[i];
+        const label = it?.kind === "point" && it.name ? it.name : "";
         ctx.beginPath();
-        ctx.arc(X(d.at[0]), Y(d.at[1]), 5, 0, 2 * Math.PI);
+        ctx.arc(X(d.at[0]), Y(d.at[1]), label === pending ? 6 : 4, 0, 2 * Math.PI);
         ctx.fill();
+        if (label !== "" && label === pending) {
+          ctx.strokeStyle = ink;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
         ctx.fillStyle = ink;
         ctx.textAlign = "left";
-        ctx.fillText(`(${fmt(d.at[0])}, ${fmt(d.at[1])})`, X(d.at[0]) + 8, Y(d.at[1]) - 8);
+        ctx.font = "600 13px system-ui, sans-serif";
+        ctx.fillText(`${label}(${fmt(d.at[0])}, ${fmt(d.at[1])})`, X(d.at[0]) + 7, Y(d.at[1]) - 7);
+        ctx.font = "12px system-ui, sans-serif";
       }
     });
     // roots and intersections
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     for (const sp of special) {
       ctx.strokeStyle = ink;
       ctx.fillStyle = bg;
       ctx.beginPath();
-      ctx.arc(X(sp.at[0]), Y(sp.at[1]), 5, 0, 2 * Math.PI);
+      ctx.arc(X(sp.at[0]), Y(sp.at[1]), 3, 0, 2 * Math.PI);
       ctx.fill();
       ctx.stroke();
     }
-  }, [drawn, rows, view, w, h, range, special]);
+  }, [drawn, rows, items, pending, view, w, h, range, special]);
 
   const toWorld = useCallback(
     (px: number, py: number): [number, number] => [view.cx + (px - w / 2) / view.scale, view.cy - (py - h / 2) / view.scale],
@@ -266,17 +331,68 @@ function Graph2D() {
     });
   }
 
+  /** The nearest named point within reach of a touch at (px, py), with the row it comes from. */
+  function pointAt(px: number, py: number): { name: string; rowId: number; movable: boolean } | null {
+    let best: { name: string; rowId: number; movable: boolean; d: number } | null = null;
+    items.forEach((it, i) => {
+      if (it.kind !== "point" || !it.name) return;
+      const at = points[it.name];
+      if (!at) return;
+      const d = Math.hypot(w / 2 + (at[0] - view.cx) * view.scale - px, h / 2 - (at[1] - view.cy) * view.scale - py);
+      if (d <= 14 && (!best || d < best.d)) best = { name: it.name, rowId: rows[i]!.id, movable: NUMBER.test(it.x) && NUMBER.test(it.y), d };
+    });
+    return best;
+  }
+
+  /** A position under a touch, moved to the nearest half grid step so that coordinates stay simple. */
+  function snapped(px: number, py: number): [number, number] {
+    const unit = niceStep(70 / view.scale) / 2;
+    const [wx, wy] = toWorld(px, py);
+    const round = (v: number) => parseFloat((Math.round(v / unit) * unit).toFixed(6));
+    return [round(wx), round(wy)];
+  }
+
+  function addPoint(at: [number, number]): string {
+    const used = new Set(items.flatMap((it) => (it.kind === "point" && it.name ? [it.name] : [])));
+    const name = pointName(used);
+    addRow(`${name} = (${at[0]}, ${at[1]})`);
+    return name;
+  }
+
+  function toolClick(px: number, py: number) {
+    const hit = pointAt(px, py);
+    if (tool === "point") {
+      if (!hit) addPoint(snapped(px, py));
+      return;
+    }
+    if (tool !== "segment" && tool !== "line") return;
+    const name = hit ? hit.name : addPoint(snapped(px, py));
+    if (pending === null) setPending(name);
+    else if (pending !== name) {
+      addRow(`${tool}(${pending}, ${name})`);
+      setPending(null);
+    }
+  }
+
   function onPointerDown(e: React.PointerEvent<HTMLCanvasElement>) {
     (e.target as HTMLCanvasElement).setPointerCapture(e.pointerId);
+    const rect = e.currentTarget.getBoundingClientRect();
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     lastPinch.current = null;
+    press.current = { x: e.clientX, y: e.clientY, lx: e.clientX - rect.left, ly: e.clientY - rect.top, moved: false, multi: pointers.current.size > 1 };
+    if (tool === "move" && pointers.current.size === 1) {
+      const hit = pointAt(e.clientX - rect.left, e.clientY - rect.top);
+      dragging.current = hit?.movable ? { rowId: hit.rowId, name: hit.name } : null;
+    }
   }
   function onPointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     setCursor(toWorld(e.clientX - rect.left, e.clientY - rect.top));
     const p = pointers.current.get(e.pointerId);
     if (!p) return;
+    if (press.current && Math.hypot(e.clientX - press.current.x, e.clientY - press.current.y) > 5) press.current.moved = true;
     if (pointers.current.size === 2) {
+      if (press.current) press.current.multi = true;
       const [a, b] = [...pointers.current.values()] as [{ x: number; y: number }, { x: number; y: number }];
       pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
       const [a2, b2] = [...pointers.current.values()] as [{ x: number; y: number }, { x: number; y: number }];
@@ -286,14 +402,25 @@ function Graph2D() {
       lastPinch.current = d2;
       return;
     }
+    if (dragging.current) {
+      const [x, y] = snapped(e.clientX - rect.left, e.clientY - rect.top);
+      const { rowId, name } = dragging.current;
+      setRow(rowId, { text: `${name} = (${x}, ${y})` });
+      return;
+    }
     const dx = e.clientX - p.x;
     const dy = e.clientY - p.y;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (tool !== "move" && !press.current?.moved) return;
     setView((v) => ({ ...v, cx: v.cx - dx / v.scale, cy: v.cy + dy / v.scale }));
   }
   function onPointerUp(e: React.PointerEvent<HTMLCanvasElement>) {
+    const was = press.current;
     pointers.current.delete(e.pointerId);
     lastPinch.current = null;
+    dragging.current = null;
+    press.current = null;
+    if (e.type === "pointerup" && was && !was.moved && !was.multi && tool !== "move") toolClick(was.lx, was.ly); // the place where the touch began (the page may have scrolled to focus the picture)
   }
   function onKey(e: React.KeyboardEvent<HTMLCanvasElement>) {
     const move = 60 / view.scale;
@@ -304,6 +431,7 @@ function Graph2D() {
     else if (e.key === "+" || e.key === "=") zoomAt(w / 2, h / 2, 1.25);
     else if (e.key === "-") zoomAt(w / 2, h / 2, 0.8);
     else if (e.key === "Home") setView({ cx: 0, cy: 0, scale: 50 });
+    else if (e.key === "Escape") setPending(null);
     else return;
     e.preventDefault();
   }
@@ -321,6 +449,17 @@ function Graph2D() {
 
   function setRow(id: number, patch: Partial<Row>) {
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  }
+  function addRow(text: string) {
+    const id = nextId.current;
+    nextId.current += 1;
+    setRows((rs) => (rs.length >= MAX_ROWS ? rs : [...rs, { id, text, color: COLORS[rs.length % COLORS.length]!, visible: true }]));
+  }
+  /** An example from the help goes into the first empty line, or into a new one. */
+  function fillExample(text: string) {
+    const empty = rows.find((r) => r.text.trim() === "");
+    if (empty) setRow(empty.id, { text });
+    else addRow(text);
   }
 
   return (
@@ -366,7 +505,7 @@ function Graph2D() {
             );
           })}
         </ul>
-        {rows.length < 8 ? (
+        {rows.length < MAX_ROWS ? (
           <Button
             variant="secondary"
             onClick={() => {
@@ -396,27 +535,49 @@ function Graph2D() {
         ) : null}
 
         <details className="border-t border-line pt-3 text-sm">
-          <summary className="cursor-pointer font-semibold text-accent">{t("grapher.help")}</summary>
-          <ul className="mt-2 grid gap-1 text-muted">
-            <li><code>y = x^2 - 3</code>, <code>sin(x)/x</code></li>
-            <li><code>x = y^2</code> · <code>x^2 + y^2 = 9</code></li>
-            <li><code>r = 1 + cos(theta)</code></li>
-            <li><code>(cos(t), sin(t))</code>, <code>(t, t^2), t in [0, 3]</code></li>
-            <li><code>(2, 3)</code> — {t("grapher.helpPoint")}</li>
-            <li><code>y &gt; x^2</code> · <code>x^2 + y^2 &lt;= 4</code> — {t("grapher.helpRegion")}</li>
-            <li>{t("grapher.helpSliders")}</li>
-          </ul>
+          <summary className="cursor-pointer font-semibold text-accent">{t("grapher.helpTitle")}</summary>
+          <p className="mt-2 text-muted">{t("grapher.helpTip")}</p>
+          <dl className="mt-2 grid gap-2">
+            {HELP.map((h) => (
+              <div key={h.key} className="grid gap-1">
+                <dt className="text-muted">{t(`grapher.ex.${h.key}`)}</dt>
+                <dd>
+                  <button type="button" onClick={() => fillExample(h.example)} className="rounded-[var(--radius-sm)] border border-line bg-surface-2 px-2 py-1 text-left font-mono hover:bg-accent-soft">
+                    {h.example}
+                  </button>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </details>
       </Card>
 
       <div className="min-w-0">
+        <div role="radiogroup" aria-label={t("grapher.tools")} className="mb-2 flex flex-wrap items-center gap-2">
+          {TOOLS.map((k) => (
+            <button
+              key={k.tool}
+              type="button"
+              role="radio"
+              aria-checked={tool === k.tool}
+              onClick={() => {
+                setTool(k.tool);
+                setPending(null);
+              }}
+              className={`min-h-10 rounded-[var(--radius-sm)] border px-3 font-semibold ${tool === k.tool ? "border-accent bg-accent-soft text-accent" : "border-line bg-surface hover:bg-surface-2"}`}
+            >
+              {t(`grapher.${k.label}`)}
+            </button>
+          ))}
+          <p className="text-sm text-muted">{pending ? t("grapher.pending", { name: pending }) : t(`grapher.${TOOLS.find((k) => k.tool === tool)!.help}`)}</p>
+        </div>
         <div className="relative overflow-hidden rounded-[var(--radius)] border border-line">
           <canvas
             ref={canvas}
             role="img"
             aria-label={t("grapher.canvasLabel")}
             tabIndex={0}
-            style={{ width: w, height: h, touchAction: "none", cursor: "grab" }}
+            style={{ width: w, height: h, touchAction: "none", cursor: tool === "move" ? "grab" : "crosshair" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
@@ -451,6 +612,29 @@ function Graph2D() {
           ) : null}
           <p className="text-sm text-muted">{t("grapher.controls2d")}</p>
         </div>
+        {measures.length > 0 ? (
+          <Card className="mt-3">
+            <h3 className="font-bold">{t("grapher.measures")}</h3>
+            <ul className="mt-2 grid gap-3 text-sm">
+              {measures.map((m) => (
+                <li key={m.key} className="grid gap-0.5">
+                  <span className="font-semibold">{t(m.mode === "line" ? "grapher.measureLine" : "grapher.measureSegment", { a: m.a, b: m.b })}</span>
+                  {m.mode === "segment" ? (
+                    <span className="font-mono tabular-nums">
+                      {t("grapher.length")}: {m.info.exact ? "" : "≈ "}
+                      {m.info.length} {t("grapher.unitLength")}, {t("grapher.midpoint")}: {m.info.midpoint}
+                    </span>
+                  ) : null}
+                  <span className="font-mono tabular-nums">
+                    {t("grapher.equation")}: {m.info.exact ? "" : "≈ "}
+                    {m.info.equation}
+                  </span>
+                </li>
+              ))}
+              {measures.some((m) => !m.info.exact) ? <li className="text-muted">{t("grapher.approxNote")}</li> : null}
+            </ul>
+          </Card>
+        ) : null}
         {special.length > 0 ? (
           <Card className="mt-3">
             <h3 className="font-bold">{t("grapher.special")}</h3>

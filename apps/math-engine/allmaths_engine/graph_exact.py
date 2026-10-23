@@ -20,7 +20,7 @@ from .errors import EngineError
 from .parser import parse
 
 MAX_CANDIDATES = 24
-MAX_LINES = 8
+MAX_LINES = 24
 
 
 def _real_x(expr: sp.Expr, params: dict[str, sp.Expr]) -> tuple[sp.Expr, sp.Symbol]:

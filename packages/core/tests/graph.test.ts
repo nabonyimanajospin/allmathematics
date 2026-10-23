@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface, specialPoints } from "../src/graph";
+import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface, specialPoints, namedPoints, measure } from "../src/graph";
 import { compileExpr } from "../src/plot";
 
 const VIEW = { xmin: -6, xmax: 6, ymin: -4, ymax: 4 };
@@ -176,5 +176,46 @@ describe("roots and intersections", () => {
     const pts = specialPoints([classify("y = x - a")], { a: 3 }, VIEW);
     expect(pts).toHaveLength(1);
     expect(near(pts[0]!.at[0], 3)).toBe(true);
+  });
+});
+
+describe("named points, segments and lines", () => {
+  it("reads P(2,2), A = (1, 2) and segment(A, B), but still reads f(x) and sin(x) as functions", () => {
+    expect(classify("P(2,2)")).toMatchObject({ kind: "point", name: "P", x: "2", y: "2" });
+    expect(classify("A = (1, -2.5)")).toMatchObject({ kind: "point", name: "A", x: "1" });
+    expect(classify("Segment(A, B)")).toMatchObject({ kind: "segment", a: "A", b: "B", mode: "segment" });
+    expect(classify("line(A,B)")).toMatchObject({ kind: "segment", mode: "line" });
+    expect(classify("sin(x)")).toMatchObject({ kind: "function" });
+    expect(classify("P(1,2,3)")).toMatchObject({ kind: "error" });
+    expect(classify("(2, 3)")).toMatchObject({ kind: "point" });
+  });
+  it("draws a segment between named points, and explains a missing point", () => {
+    const items = [classify("A(0,0)"), classify("B(3,4)"), classify("segment(A,B)"), classify("segment(A,C)")];
+    const pts = namedPoints(items, {});
+    expect(pts).toEqual({ A: [0, 0], B: [3, 4] });
+    const d = drawable(items[2]!, {}, VIEW, pts);
+    expect(d).toEqual({ kind: "lines", pieces: [[[0, 0], [3, 4]]] });
+    const bad = drawable(items[3]!, {}, VIEW, pts);
+    expect(bad).toMatchObject({ kind: "error" });
+    if (bad.kind === "error") expect(bad.message).toContain("C");
+  });
+  it("uses sliders in the coordinates of a point", () => {
+    const items = [classify("P(a, 2)")];
+    expect(parameterNames(items)).toEqual(["a"]);
+    expect(namedPoints(items, { a: 3 })).toEqual({ P: [3, 2] });
+  });
+  it("measures exactly: length, midpoint and equation", () => {
+    expect(measure([0, 0], [3, 4])).toEqual({ length: "5", midpoint: "(3/2, 2)", equation: "y = (4/3)x", exact: true });
+    expect(measure([1, 1], [3, 2]).length).toBe("√5");
+    expect(measure([0, 0], [2, 2]).length).toBe("2√2");
+    expect(measure([0, 0], [1, 1]).length).toBe("√2");
+    expect(measure([0, 0], [1, 2]).equation).toBe("y = 2x");
+    expect(measure([0, 1], [2, 1]).equation).toBe("y = 1");
+    expect(measure([2, 0], [2, 5]).equation).toBe("x = 2");
+    expect(measure([0, 0], [1, 1]).equation).toBe("y = x");
+    expect(measure([0, 2], [1, 1]).equation).toBe("y = -x + 2");
+    expect(measure([1, 0], [3, 3]).equation).toBe("y = (3/2)x - 3/2");
+    expect(measure([0, 0], [0.5, 1.5]).length).toBe("√10/2");
+    expect(measure([0, 0], [1 / 3, 1]).exact).toBe(false);
   });
 });

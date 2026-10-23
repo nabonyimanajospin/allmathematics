@@ -61,7 +61,8 @@ export type GraphItem =
   | { kind: "implicit"; lhs: string; rhs: string }
   | { kind: "parametric"; x: string; y: string; t0: string; t1: string }
   | { kind: "polar"; expr: string }
-  | { kind: "point"; x: string; y: string }
+  | { kind: "point"; x: string; y: string; name?: string }
+  | { kind: "segment"; a: string; b: string; mode: "segment" | "line" }
   | { kind: "region"; lhs: string; rhs: string; op: "<" | ">" | "<=" | ">=" }
   | { kind: "empty" }
   | { kind: "error"; message: string };
@@ -90,6 +91,19 @@ export function classify(text: string): GraphItem {
   const raw = text.trim();
   if (raw === "") return { kind: "empty" };
   try {
+    // a segment or a line through two named points:  segment(A, B)   line(A, B)
+    const seg = /^(segment|seg|line)\s*\(\s*([A-Z][A-Za-z0-9]*)\s*,\s*([A-Z][A-Za-z0-9]*)\s*\)$/i.exec(raw);
+    if (seg) return { kind: "segment", a: seg[2]!, b: seg[3]!, mode: seg[1]!.toLowerCase() === "line" ? "line" : "segment" };
+    // a named point:  P(2, 3)   A = (1, 2)   (a capital letter, so that f(x) and sin(x) are still functions)
+    const named = /^([A-Z][A-Za-z0-9]*)\s*=?\s*\((.*)\)$/.exec(raw);
+    if (named) {
+      const coords = splitTopLevel(named[2]!, ",");
+      if (coords.length === 2) {
+        const [px, py] = coords.map((p) => normalizeExpr(p)) as [string, string];
+        return { kind: "point", x: px, y: py, name: named[1]! };
+      }
+      return { kind: "error", message: `Write the point as ${named[1]!}(x, y), for example ${named[1]!}(2, 3).` };
+    }
     // (x(t), y(t)) with an optional range:  (cos(t), sin(t)), t in [0, 2pi]
     const m = /^\((.*)\)\s*(?:,\s*(?:for\s+)?t\s*(?:in|=)\s*\[?\s*(.+?)\s*(?:,|\.\.|to)\s*(.+?)\s*\]?)?$/.exec(raw);
     if (m && splitTopLevel(m[1]!, ",").length === 2) {
@@ -265,11 +279,40 @@ export type Drawable =
   | { kind: "error"; message: string }
   | { kind: "none" };
 
-export function drawable(item: GraphItem, params: Params, view: View): Drawable {
+/** The named points (A(1, 2), P = (3, 4)) of the items, by name. */
+export function namedPoints(items: GraphItem[], params: Params): Record<string, Pt> {
+  const out: Record<string, Pt> = {};
+  for (const it of items) {
+    if (it.kind !== "point" || !it.name) continue;
+    try {
+      const x = bind(it.x, [], params)();
+      const y = bind(it.y, [], params)();
+      if (Number.isFinite(x) && Number.isFinite(y)) out[it.name] = [x, y];
+    } catch {
+      /* a point that cannot be read is simply not available to segments */
+    }
+  }
+  return out;
+}
+
+export function drawable(item: GraphItem, params: Params, view: View, points: Record<string, Pt> = {}): Drawable {
   try {
     switch (item.kind) {
       case "empty":
         return { kind: "none" };
+      case "segment": {
+        const a = points[item.a];
+        const b = points[item.b];
+        if (!a) return { kind: "error", message: `The point ${item.a} is not defined. Add it, for example ${item.a}(1, 2).` };
+        if (!b) return { kind: "error", message: `The point ${item.b} is not defined. Add it, for example ${item.b}(3, 4).` };
+        if (a[0] === b[0] && a[1] === b[1]) return { kind: "error", message: `${item.a} and ${item.b} are the same point.` };
+        if (item.mode === "segment") return { kind: "lines", pieces: [[a, b]] };
+        // a line: extend far beyond the picture in both directions
+        const reach = 1e4;
+        const dx = b[0] - a[0];
+        const dy = b[1] - a[1];
+        return { kind: "lines", pieces: [[[a[0] - reach * dx, a[1] - reach * dy], [a[0] + reach * dx, a[1] + reach * dy]]] };
+      }
       case "error":
         return { kind: "error", message: item.message };
       case "function": {
@@ -435,4 +478,93 @@ export function specialPoints(items: GraphItem[], params: Params, view: View, li
     }
   }
   return out.slice(0, limit);
+}
+
+// --- measurements of segments and lines ------------------------------------------------------------------------------
+type Frac = [number, number];
+
+const gcd = (a: number, b: number): number => (b === 0 ? Math.abs(a) : gcd(b, a % b));
+
+function frac(n: number, d: number): Frac {
+  const g = gcd(n, d) || 1;
+  const s = d < 0 ? -1 : 1;
+  return [(s * n) / g, (s * d) / g];
+}
+
+/** A decimal such as 2.5 or -0.25 as an exact fraction, or null when it has more than 3 decimals. */
+function toFrac(v: number): Frac | null {
+  const scaled = Math.round(v * 1000);
+  if (!Number.isSafeInteger(scaled) || Math.abs(scaled / 1000 - v) > 1e-9) return null;
+  return frac(scaled, 1000);
+}
+
+const sub = (a: Frac, b: Frac): Frac => frac(a[0] * b[1] - b[0] * a[1], a[1] * b[1]);
+const add = (a: Frac, b: Frac): Frac => frac(a[0] * b[1] + b[0] * a[1], a[1] * b[1]);
+const mul = (a: Frac, b: Frac): Frac => frac(a[0] * b[0], a[1] * b[1]);
+const div = (a: Frac, b: Frac): Frac => frac(a[0] * b[1], a[1] * b[0]);
+const fmtFrac = (f: Frac): string => (f[1] === 1 ? String(f[0]) : `${f[0]}/${f[1]}`);
+
+/** sqrt of a non-negative fraction as text: 13 -> "√13", 8 -> "2√2", 9/4 -> "3/2", 2/9 -> "√2/3". */
+function sqrtText(f: Frac): string {
+  const [n, d] = f;
+  const big = n * d; // sqrt(n/d) = sqrt(n*d)/d
+  let k = 1;
+  let m = big;
+  for (let p = 2; p * p <= m; p++) {
+    while (m % (p * p) === 0) {
+      m /= p * p;
+      k *= p;
+    }
+  }
+  const g = gcd(k, d);
+  const num = k / g;
+  const den = d / g;
+  const root = m === 1 ? String(num) : `${num === 1 ? "" : num}√${m}`;
+  return den === 1 ? root : `${root}/${den}`;
+}
+
+export interface Measurement {
+  /** length of the segment between the two points ("√13"); the same for a line is the distance between the two defining points */
+  length: string;
+  midpoint: string;
+  /** y = mx + c or x = c */
+  equation: string;
+  /** true when everything above is exact (the coordinates are decimals with at most 3 digits) */
+  exact: boolean;
+}
+
+const fmtNum = (v: number): string => String(parseFloat(v.toPrecision(6)));
+
+/** Length, midpoint and equation of the line through two points, exactly when the coordinates are simple decimals. */
+export function measure(p: Pt, q: Pt): Measurement {
+  const fx1 = toFrac(p[0]);
+  const fy1 = toFrac(p[1]);
+  const fx2 = toFrac(q[0]);
+  const fy2 = toFrac(q[1]);
+  if (fx1 && fy1 && fx2 && fy2) {
+    const dx = sub(fx2, fx1);
+    const dy = sub(fy2, fy1);
+    const len2 = add(mul(dx, dx), mul(dy, dy));
+    const half: Frac = [1, 2];
+    const mid = `(${fmtFrac(mul(add(fx1, fx2), half))}, ${fmtFrac(mul(add(fy1, fy2), half))})`;
+    let equation: string;
+    if (dx[0] === 0) equation = `x = ${fmtFrac(fx1)}`;
+    else {
+      const m = div(dy, dx);
+      const c = sub(fy1, mul(m, fx1));
+      const slope = m[0] === 0 ? "" : m[0] === m[1] ? "x" : m[0] === -m[1] ? "-x" : m[1] === 1 ? `${m[0]}x` : `(${fmtFrac(m)})x`;
+      const intercept = c[0] === 0 ? "" : c[0] < 0 ? ` - ${fmtFrac([-c[0], c[1]])}` : slope === "" ? fmtFrac(c) : ` + ${fmtFrac(c)}`;
+      equation = `y = ${slope}${intercept}` === "y = " ? "y = 0" : `y = ${slope}${intercept}`;
+    }
+    return { length: sqrtText(len2), midpoint: mid, equation, exact: true };
+  }
+  const dx = q[0] - p[0];
+  const dy = q[1] - p[1];
+  const m = dx === 0 ? null : dy / dx;
+  return {
+    length: fmtNum(Math.hypot(dx, dy)),
+    midpoint: `(${fmtNum((p[0] + q[0]) / 2)}, ${fmtNum((p[1] + q[1]) / 2)})`,
+    equation: m === null ? `x = ${fmtNum(p[0])}` : `y = ${fmtNum(m)}x + ${fmtNum(p[1] - m * p[0])}`,
+    exact: false,
+  };
 }

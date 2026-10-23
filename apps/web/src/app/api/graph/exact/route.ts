@@ -1,13 +1,14 @@
 import { z } from "zod";
 import { EngineUnavailableError } from "@allmaths/core";
-import { assertSameOrigin, clientIp, enforce, handle, json, readJson } from "@/server/http";
+import { assertSameOrigin, enforce, handle, json, readJson } from "@/server/http";
 import { renderMath } from "@/server/render";
 import { getServices } from "@/server/runtime";
+import { requireUser } from "@/server/session";
 
 const body = z.strictObject({
-  lines: z.record(z.string().regex(/^[1-8]$/), z.string().max(200)).refine((o) => Object.keys(o).length <= 8),
+  lines: z.record(z.string().regex(/^\d{1,2}$/), z.string().max(200)).refine((o) => Object.keys(o).length <= 24),
   params: z.record(z.string().regex(/^[a-z]$/), z.string().regex(/^-?\d{1,6}(\/\d{1,3})?$/)).default({}),
-  candidates: z.array(z.strictObject({ lines: z.array(z.number().int().min(1).max(8)).min(1).max(2), x: z.number().finite() })).max(24),
+  candidates: z.array(z.strictObject({ lines: z.array(z.number().int().min(1).max(24)).min(1).max(2), x: z.number().finite() })).max(24),
 });
 
 export interface ExactPointDto {
@@ -19,13 +20,14 @@ export interface ExactPointDto {
 
 /**
  * Makes the roots and intersections that the grapher found numerically exact, when the math engine can prove the exact value.
- * Open to everyone (the grapher needs no account), so it is limited per address.
+ * Only for signed-in learners (the grapher is part of the account), and limited per learner.
  */
 export function POST(req: Request): Promise<Response> {
   return handle(async () => {
     assertSameOrigin(req);
+    const user = await requireUser();
     const { engine, limits } = await getServices();
-    enforce(limits.solver, `graph:${clientIp(req)}`);
+    enforce(limits.solver, `graph:${user.id}`);
     const b = await readJson(req, body);
     if (b.candidates.length === 0) return json({ points: [] as ExactPointDto[] });
     try {
