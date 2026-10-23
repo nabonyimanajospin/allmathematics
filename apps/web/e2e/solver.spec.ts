@@ -63,4 +63,47 @@ test.describe("the solver", () => {
     expect((await page.request.post("/api/payments/checkout", { headers: { origin } })).status()).toBe(503);
     expect((await page.request.post("/api/payments/webhook", { data: { event: "charge.completed" } })).status()).toBe(503);
   });
+
+  test("solves multivariable problems: partial derivatives, extrema, Lagrange, double and line integrals", async ({ page }) => {
+    await signUp(page);
+    await page.goto("/solver");
+    const answer = page.locator("p.font-mono");
+    const noBrokenMath = async () => expect(await page.locator(".katex-error").count()).toBe(0);
+
+    await solve(page, "partial derivative of x^2*y + y^3 wrt y at (1, 2)");
+    await expect(answer).toHaveText("13");
+    await noBrokenMath();
+
+    await solve(page, "critical points of x^3 - 3*x*y + y^3");
+    await expect(answer).toHaveText("(0, 0): saddle point, f = 0; (1, 1): local minimum, f = -1");
+    await expect(page.getByText("Second-derivative test").first()).toBeVisible();
+    await noBrokenMath();
+
+    await solve(page, "maximize x + y subject to x^2 + y^2 = 1");
+    await expect(answer).toHaveText("maximum sqrt(2) at (sqrt(2)/2, sqrt(2)/2)");
+    await noBrokenMath();
+
+    await solve(page, "double integral of x^2 + y^2 in polar coordinates over r from 0 to 2, theta from 0 to 2*pi");
+    await expect(answer).toHaveText("8*pi");
+    await expect(page.getByText("checked by numerical integration").first()).toBeVisible();
+    await noBrokenMath();
+
+    await solve(page, "line integral of (-y, x) along (cos(t), sin(t)) for t from 0 to 2*pi");
+    await expect(answer).toHaveText("2*pi");
+    await noBrokenMath();
+
+  });
+
+  test("the operation list has multivariable calculus, and bad limits are refused", async ({ page }) => {
+    await signUp(page);
+    await page.goto("/solver");
+    const answer = page.locator("p.font-mono");
+    const noBrokenMath = async () => expect(await page.locator(".katex-error").count()).toBe(0);
+    await page.getByLabel("What do you want to do?").selectOption("multivariable");
+    await solve(page, "gradient of x^2*y + z at (1,2,3)");
+    await expect(answer).toHaveText("(4, 1, 1)");
+    await noBrokenMath();
+    await solve(page, "double integral of x*y over x from 0 to y, y from 0 to x");
+    await expect(page.locator("p[role=alert]")).toHaveText("Check the input.");
+  });
 });

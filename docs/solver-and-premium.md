@@ -69,3 +69,21 @@ the math engine verifies the answer as always. Signs such as × ÷ − √ π ar
 
 Anything the engine cannot read as a problem (an empty box, an unknown word, a missing side of an equation, wrong vectors) is shown as **Check the input.**
 with the specific reason below it.
+
+## Multivariable calculus
+
+Operation "Multivariable calculus" (also found automatically). Every result is checked by a second method before it is shown.
+
+| You write | What you get | Second check |
+|---|---|---|
+| `partial derivative of x^2*y wrt x` (`wrt x, y` for mixed, `second ... wrt x`, `... at (1, 2)`) | steps for each derivative, the value at a point | difference quotient |
+| `gradient of x^2*y + z at (1,2,3)` | the vector, its length at a point | difference quotient |
+| `directional derivative of x*y at (1,2) in the direction (3,4)` | gradient, unit vector, dot product | derivative of f(P + t·u) |
+| `critical points of x^3 - 3*x*y + y^3` | critical points, Hessian, minimum / maximum / saddle / inconclusive | substitution, values around each point |
+| `maximize x + y subject to x^2 + y^2 = 1` (also `minimize`, `extrema of`; 2 or 3 variables, 1 or 2 constraints) | Lagrange equations, candidates, values | substitution; on a closed bounded constraint the extremes are absolute, otherwise bordered Hessian gives local extremes and the answer says so |
+| `double integral of x*y over x from 0 to 1, y from 0 to x` (also `triple`, `0 <= x <= 1`, `dy dx` order, `in polar/cylindrical/spherical coordinates over r from ..., theta from ...`) | integration from the inside out, each step | numerical integration |
+| `line integral of (-y, x) along (cos(t), sin(t)) for t from 0 to 2*pi` (a function gives ∫ f ds, a vector field gives the work) | parametrization, dot product or speed, the integral | numerical integration |
+
+Limits of the current version: functions of at most 3 variables (4 for partial derivatives and the gradient), isolated critical points only (a whole line of
+them is reported as such), the regions of integration are given by limits (no "over the disk" in words), and paths must be given parametrically.
+For functions with sin, exp or ln the list of critical points or candidates may be incomplete; the answer says so.

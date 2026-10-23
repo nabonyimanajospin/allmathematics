@@ -16,12 +16,19 @@ const EXAMPLES = [
   "x+y=5, x-y=1",
   "y' + 2y = e^x",
   "norm of (3,4)",
+  "partial derivative of x^2*y wrt x",
+  "gradient of x^2*y + z at (1,2,3)",
+  "critical points of x^3 - 3*x*y + y^3",
+  "maximize x + y subject to x^2 + y^2 = 1",
+  "double integral of x*y over x from 0 to 1, y from 0 to x",
+  "double integral of x^2 + y^2 in polar coordinates over r from 0 to 2, theta from 0 to 2*pi",
+  "line integral of (-y, x) along (cos(t), sin(t)) for t from 0 to 2*pi",
 ];
 
 /** Problems with what the learner typed: they all get the same short headline. */
-const INPUT_CODES = new Set(["parse", "unknown_word", "empty", "no_intent", "bad_vectors", "vector_args", "ambiguous", "bad_system", "bad_operation", "too_long", "invalid_input", "invalid_json"]);
+const INPUT_CODES = new Set(["parse", "unknown_word", "empty", "no_intent", "bad_vectors", "vector_args", "bad_variables", "bad_point", "bad_bounds", "bad_curve", "undefined", "ambiguous", "bad_system", "bad_operation", "too_long", "invalid_input", "invalid_json"]);
 
-const SYMBOLS = ["^", "*", "/", "(", ")", "sqrt()", "pi", "->"];
+const SYMBOLS = ["^", "*", "/", "(", ")", ",", "sqrt()", "pi", "->"];
 
 function AccessLine({ access }: { access: SolverAccessDto }) {
   if (access.premium) return <p className="rounded-full bg-success-soft px-3 py-1 text-sm font-semibold text-success">{t("solver.premium")}</p>;

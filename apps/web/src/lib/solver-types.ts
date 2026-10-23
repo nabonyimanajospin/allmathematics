@@ -1,4 +1,4 @@
-export const SOLVER_OPERATIONS = ["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector"] as const;
+export const SOLVER_OPERATIONS = ["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable"] as const;
 export type SolverOperation = (typeof SOLVER_OPERATIONS)[number];
 
 export interface SolverStepDto {

@@ -12,11 +12,11 @@ import sympy as sp
 
 from ..errors import EngineError
 from ..parser import _WORDS, _split_name, parse
-from . import algebra, derivative, integral, limits, odes, vector_ops
+from . import algebra, derivative, integral, limits, multivar_text, odes, vector_ops
 from .types import Solution, SolverError
 
 MAX_INPUT = 300
-OPERATIONS = {"auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector"}
+OPERATIONS = {"auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable"}
 
 
 def _check_words(text: str) -> None:
@@ -65,6 +65,7 @@ def _pick_variable(expr: sp.Expr, wanted: str | None) -> sp.Symbol:
 
 def _clean(raw: str) -> str:
     t = raw.strip().rstrip("?.")
+    t = t.replace("∬", " double integral of ").replace("∭", " triple integral of ").replace("∇", " gradient of ").replace("∂", " partial ")
     t = t.replace("∫", " integral of ").replace("′", "'").replace("→", "->").replace("’", "'")
     t = re.sub(r"\s+", " ", t)
     return t.strip()
@@ -185,6 +186,12 @@ def solve_text(raw: str, operation: str = "auto") -> Solution:
         raise SolverError("The problem is too long.", "too_long")
     low = text.lower()
 
+    if operation in ("auto", "multivariable"):
+        r = multivar_text.read(low, text)
+        if r:
+            return r
+        if operation == "multivariable":
+            raise SolverError("I did not recognise this multivariable problem. Examples: “gradient of x^2*y”, “critical points of x^3-3*x*y+y^3”, “double integral of x*y over x from 0 to 1, y from 0 to x”.", "no_intent")
     if operation in ("auto", "derivative"):
         r = _derivative(low, text)
         if r:

@@ -184,7 +184,7 @@ def verify(req: VerifyRequest) -> VerifyResponse:
 
 class SolveRequest(BaseModel):
     input: str = Field(min_length=1, max_length=300)
-    operation: Literal["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector"] = "auto"
+    operation: Literal["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector", "multivariable"] = "auto"
 
 
 class SolveStep(BaseModel):

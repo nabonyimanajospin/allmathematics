@@ -55,7 +55,7 @@
     "premium": "Premium: no limit", "freeLeft": "Free plan: {left} of {limit} solves left today",
     "upgrade": "Premium has no daily limit. Ask your administrator to activate Premium for your account.",
     "learnMore": "Want to understand the method? Practise it in your course.",
-    "ops": { "auto": "Automatic (recommended)", "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "solve": "Solve an equation or a system", "ode": "Differential equation", "simplify": "Simplify", "expand": "Expand", "factor": "Factor", "vector": "Vectors" }
+    "ops": { "auto": "Automatic (recommended)", "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "solve": "Solve an equation or a system", "ode": "Differential equation", "simplify": "Simplify", "expand": "Expand", "factor": "Factor", "vector": "Vectors", "multivariable": "Multivariable calculus" }
   },
   "unitTest": {
     "title": "Unit test", "heading": "Unit test: {unit}", "start": "Start the test", "again": "Take the test again",

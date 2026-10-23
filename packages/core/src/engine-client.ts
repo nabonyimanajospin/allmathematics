@@ -54,7 +54,7 @@ export interface EngineGraphExactRequest {
   candidates: { lines: number[]; x: number }[];
 }
 export type EngineSolveResponse = z.infer<typeof solveResponse>;
-export type SolveOperation = "auto" | "derivative" | "integral" | "limit" | "solve" | "ode" | "simplify" | "expand" | "factor" | "vector";
+export type SolveOperation = "auto" | "derivative" | "integral" | "limit" | "solve" | "ode" | "simplify" | "expand" | "factor" | "vector" | "multivariable";
 
 export interface EngineCheckRequest {
   answer_type:
