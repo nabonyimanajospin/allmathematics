@@ -21,7 +21,7 @@ sections:
 
       Each side now contains one variable only, and we can integrate each of them:
 
-      $$\int\frac{dy}{g(y)}=\int f(x)\,dx+C.$$
+      $$\int\dfrac{dy}{g(y)}=\int f(x)\,dx+C.$$
 
       One constant $C$ is enough, because the two constants of integration can be merged.
 
