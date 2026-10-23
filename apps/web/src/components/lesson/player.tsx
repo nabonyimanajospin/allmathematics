@@ -435,14 +435,14 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, pre
 
         <nav aria-label={t("lesson.pager")} className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
           {prev ? (
-            <Link href={`/learn/${prev.id}`} className={buttonClass("secondary")}>
+            <Link href={`/learn/${prev.id}`} className={buttonClass("secondary", "h-auto max-w-full whitespace-normal! py-2 text-left")}>
               ← {t("lesson.previous")}: {prev.title}
             </Link>
           ) : (
             <span />
           )}
           {next ? (
-            <Link href={`/learn/${next.id}`} className={buttonClass(percent >= 100 ? "primary" : "secondary")}>
+            <Link href={`/learn/${next.id}`} className={buttonClass(percent >= 100 ? "primary" : "secondary", "h-auto max-w-full whitespace-normal! py-2 text-left")}>
               {t("lesson.next")}: {next.title} →
             </Link>
           ) : null}

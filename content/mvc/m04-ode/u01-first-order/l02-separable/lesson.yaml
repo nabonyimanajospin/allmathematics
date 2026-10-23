@@ -19,7 +19,10 @@ sections:
 
       $$\dfrac{dy}{g(y)}=f(x)\,dx.$$
 
-      Each side now contains one variable only, and we can integrate each of them: $\displaystyle\int\frac{dy}{g(y)}=\int f(x)\,dx+C$.
+      Each side now contains one variable only, and we can integrate each of them:
+
+      $$\int\frac{dy}{g(y)}=\int f(x)\,dx+C.$$
+
       One constant $C$ is enough, because the two constants of integration can be merged.
 
   - id: ex-separable

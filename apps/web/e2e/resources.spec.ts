@@ -23,7 +23,7 @@ test.describe("resources", () => {
 
   test("a signed-in student sees size and type, previews, downloads a permitted one and is refused the others", async ({ page }) => {
     await signUp(page);
-    await page.getByRole("link", { name: "Resources" }).click();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Resources" }).click();
     await expect(page.getByRole("heading", { name: "Resources", level: 1 })).toBeVisible();
     await expect(page.getByRole("link", { name: "Download" }).first()).toBeVisible();
     await page.getByRole("link", { name: "Preview" }).first().click();

@@ -35,14 +35,15 @@ test.describe("student journey (spec Phase 1 acceptance)", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Points, coordinates and the vector AB");
     expect(await percent(page)).toBe(0);
 
-    // The first concept section completes after 20 seconds of real reading time (spec 3.3).
-    await expect.poll(() => percent(page), { timeout: 60_000, intervals: [1000] }).toBeGreaterThanOrEqual(7);
+    // The first concept section completes after 20 seconds of real reading time (spec 3.3). Reading is two thirds of a lesson (the exercises are the rest),
+    // so one section of about a dozen is a few percent.
+    await expect.poll(() => percent(page), { timeout: 60_000, intervals: [1000] }).toBeGreaterThanOrEqual(3);
 
     // Refresh: the exact progress is still there (it comes from the server, not the browser).
     await page.reload();
-    await expect.poll(() => percent(page), { timeout: 20_000 }).toBeGreaterThanOrEqual(7);
+    await expect.poll(() => percent(page), { timeout: 20_000 }).toBeGreaterThanOrEqual(3);
     const afterRefresh = await percent(page);
-    expect(afterRefresh).toBeGreaterThanOrEqual(7);
+    expect(afterRefresh).toBeGreaterThanOrEqual(3);
 
     // Answer the first check with an equivalent exact form; the section completes and the bar rises.
     const input = page.getByLabel("Your answer").first();
