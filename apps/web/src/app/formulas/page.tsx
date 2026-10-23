@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { listFormulas } from "@allmaths/server";
+import { BackLink } from "@/components/back-link";
 import { t } from "@/i18n";
 import { renderInline, renderMath, renderRich } from "@/server/render";
 import { getServices } from "@/server/runtime";
@@ -27,6 +28,7 @@ export default async function FormulaSheetPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
+      <BackLink href="/dashboard">{t("lesson.back")}</BackLink>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight">{t("formulas.title")}</h1>

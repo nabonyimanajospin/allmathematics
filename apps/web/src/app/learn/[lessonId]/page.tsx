@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { toClientLesson } from "@allmaths/content-schema";
-import { getCourseOutline, getLessonState, savedSectionIds } from "@allmaths/server";
+import { canOpenCourse, getCourseOutline, getEnrolledCourseId, getLessonState, savedSectionIds } from "@allmaths/server";
 import { CourseOutlinePanel } from "@/components/course-outline";
 import { t } from "@/i18n";
 import { LessonPlayer } from "@/components/lesson/player";
@@ -27,6 +27,9 @@ export default async function LessonPage({ params }: Params) {
   const ref = store.lesson(lessonId);
   if (!ref) notFound();
 
+  // a student works in the course they enrolled in; the other courses stay closed until they switch
+  if (!canOpenCourse(user.role, await getEnrolledCourseId(db, user.id), ref.course.meta.id)) redirect("/courses");
+
   const state = await getLessonState(db, store, user.id, lessonId);
   if (!state) notFound();
 
@@ -34,6 +37,7 @@ export default async function LessonPage({ params }: Params) {
   const order = ref.course.modules.flatMap((m) => m.units.flatMap((u) => u.lessons.map((l) => l.meta)));
   const idx = order.findIndex((l) => l.id === lessonId);
   const nextMeta = idx >= 0 ? order[idx + 1] : undefined;
+  const prevMeta = idx > 0 ? order[idx - 1] : undefined;
 
   const outline = await getCourseOutline(db, store, user.id, lessonId);
   const savedFormulas = await savedSectionIds(db, store, user.id, lessonId);
@@ -51,6 +55,7 @@ export default async function LessonPage({ params }: Params) {
       userId={user.id}
       savedFormulas={savedFormulas}
       next={nextMeta ? { id: nextMeta.id, title: nextMeta.title } : null}
+      prev={prevMeta ? { id: prevMeta.id, title: prevMeta.title } : null}
     />
   );
 
