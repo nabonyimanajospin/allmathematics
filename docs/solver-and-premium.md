@@ -57,3 +57,15 @@ The code in `packages/server/src/payments/flutterwave.ts` implements the flow, *
    is delivered several times.
 
 Nothing is trusted from the browser. Without these settings the payment button is not shown and an administrator can still grant Premium.
+
+## Reading a picture
+
+The solver page has **Read from a picture**. The text is read in the learner's browser with Tesseract (tesseract.js); the picture is never sent to our server,
+and the language data is downloaded by the browser the first time. Printed text works best (clear, one problem, good light); handwriting and very small
+print are often misread. The recognised text is only a draft: it is put in the problem box for the learner to check and correct before pressing Solve, and
+the math engine verifies the answer as always. Signs such as × ÷ − √ π are converted to the typed form, and several lines become a system.
+
+## Messages
+
+Anything the engine cannot read as a problem (an empty box, an unknown word, a missing side of an equation, wrong vectors) is shown as **Check the input.**
+with the specific reason below it.

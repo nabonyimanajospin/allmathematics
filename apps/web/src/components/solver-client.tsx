@@ -5,6 +5,7 @@ import { useId, useState, type FormEvent } from "react";
 import { Button, Card, Field, inputClass } from "@allmaths/ui";
 import { t } from "@/i18n";
 import { SOLVER_OPERATIONS, type SolveResponseDto, type SolveResultDto, type SolverAccessDto, type SolverOperation } from "@/lib/solver-types";
+import { cleanRecognized } from "@/lib/recognized-text";
 import { Rich } from "./lesson/rich";
 
 const EXAMPLES = [
@@ -16,6 +17,9 @@ const EXAMPLES = [
   "y' + 2y = e^x",
   "norm of (3,4)",
 ];
+
+/** Problems with what the learner typed: they all get the same short headline. */
+const INPUT_CODES = new Set(["parse", "unknown_word", "empty", "no_intent", "bad_vectors", "vector_args", "ambiguous", "bad_system", "bad_operation", "too_long", "invalid_input", "invalid_json"]);
 
 const SYMBOLS = ["^", "*", "/", "(", ")", "sqrt()", "pi", "->"];
 
@@ -37,6 +41,33 @@ export function SolverClient({ initialAccess, canPay, justPaid }: { initialAcces
   const [result, setResult] = useState<SolveResultDto | null>(null);
   const [error, setError] = useState<{ code: string; message: string } | null>(null);
   const [paying, setPaying] = useState(false);
+  const [reading, setReading] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  /** Reads the text of a picture on the learner's device (Tesseract); the text is only a draft the learner checks. */
+  async function onPicture(file: File | undefined) {
+    if (!file) return;
+    setError(null);
+    setNotice(null);
+    if (file.size > 4 * 1024 * 1024) {
+      setError({ code: "invalid_input", message: t("solver.photoBig") });
+      return;
+    }
+    setReading(true);
+    try {
+      const { recognize } = await import("tesseract.js");
+      const out = await recognize(file, "eng");
+      const text = cleanRecognized(out.data.text);
+      if (text === "") setError({ code: "invalid_input", message: t("solver.photoFail") });
+      else {
+        setInput(text.slice(0, 300));
+        setNotice(t("solver.photoDone"));
+      }
+    } catch {
+      setError({ code: "invalid_input", message: t("solver.photoFail") });
+    }
+    setReading(false);
+  }
 
   async function pay() {
     setPaying(true);
@@ -124,6 +155,28 @@ export function SolverClient({ initialAccess, canPay, justPaid }: { initialAcces
               </button>
             ))}
           </div>
+          <div className="grid gap-1">
+            <label htmlFor={`${uid}-pic`} className="text-sm font-semibold">
+              {t("solver.photo")}
+            </label>
+            <input
+              id={`${uid}-pic`}
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              disabled={reading}
+              onChange={(e) => {
+                void onPicture(e.target.files?.[0]);
+                e.target.value = "";
+              }}
+              className="text-sm file:mr-3 file:min-h-10 file:rounded-[var(--radius-sm)] file:border file:border-line file:bg-surface-2 file:px-3 file:font-semibold"
+            />
+            <p className="text-sm text-muted">{reading ? t("solver.photoReading") : t("solver.photoHint")}</p>
+            {notice ? (
+              <p role="status" className="text-sm font-medium text-success">
+                {notice}
+              </p>
+            ) : null}
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <Button type="submit" disabled={busy || input.trim() === "" || limitReached}>
               {busy ? t("solver.solving") : t("solver.solve")}
@@ -172,8 +225,9 @@ export function SolverClient({ initialAccess, canPay, justPaid }: { initialAcces
         {error ? (
           <Card className={`border-2 ${error.code === "limit_reached" ? "border-warning" : "border-danger"}`}>
             <p role="alert" className="font-semibold">
-              {error.message}
+              {INPUT_CODES.has(error.code) ? t("solver.checkInput") : error.message}
             </p>
+            {INPUT_CODES.has(error.code) ? <p className="mt-1 text-muted">{error.message}</p> : null}
             {error.code === "limit_reached" ? <p className="mt-2 text-muted">{t("solver.upgrade")}</p> : null}
           </Card>
         ) : null}

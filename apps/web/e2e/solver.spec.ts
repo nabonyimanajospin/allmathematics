@@ -35,12 +35,16 @@ test.describe("the solver", () => {
 
     // a problem that cannot be read does not use up a solve
     await solve(page, "hello world");
+    await expect(page.locator("p[role=alert]")).toHaveText("Check the input.");
     await expect(page.getByText(/I could not read/)).toBeVisible();
     await expect(page.getByText("Free plan: 4 of 5 solves left today")).toBeVisible();
 
     // the equation solver finds both solutions
     await solve(page, "solve x^2=2x for x");
     await expect(page.locator("p.font-mono")).toHaveText("x=0, x=2");
+
+    await solve(page, "x+y=5, x-y=1, x=");
+    await expect(page.locator("p[role=alert]")).toHaveText("Check the input.");
 
     await solve(page, "integral of x*e^x from 0 to 1");
     await expect(page.getByText("Integration by parts").first()).toBeVisible();
