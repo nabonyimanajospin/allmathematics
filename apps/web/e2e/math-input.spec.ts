@@ -1,4 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
+import { enrollAfterSignUp } from "./helpers";
 import { expect, test, type Page } from "@playwright/test";
 
 const LESSON = "geo-m01-u01-l01";
@@ -10,7 +11,7 @@ async function signUp(page: Page): Promise<void> {
   await page.getByLabel("E-mail").fill(unique());
   await page.getByLabel("Password").fill("a long passphrase 1");
   await page.getByRole("button", { name: "Create account" }).click();
-  await page.waitForURL("**/dashboard");
+  await enrollAfterSignUp(page, "geo");
 }
 
 test.describe("answer field", () => {

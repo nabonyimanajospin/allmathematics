@@ -17,6 +17,8 @@ const csp = [
 ].join("; ");
 
 const config: NextConfig = {
+  // the browser tests run their own server next to the one being developed: they set NEXT_DIST_DIR to a separate build folder
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: [

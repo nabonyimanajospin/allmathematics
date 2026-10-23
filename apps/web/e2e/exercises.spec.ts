@@ -1,4 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
+import { enrollAfterSignUp } from "./helpers";
 import { expect, test, type Page } from "@playwright/test";
 
 // A lesson of Module 4 with an exercise set from the printed sheet.
@@ -11,7 +12,7 @@ async function signUp(page: Page, name: string): Promise<void> {
   await page.getByLabel("E-mail").fill(unique());
   await page.getByLabel("Password").fill("a long passphrase 1");
   await page.getByRole("button", { name: "Create account" }).click();
-  await page.waitForURL("**/dashboard");
+  await enrollAfterSignUp(page, "mvc");
 }
 
 /** Exercises appear once the lesson's own check questions are answered: answer the single check of this lesson. */
