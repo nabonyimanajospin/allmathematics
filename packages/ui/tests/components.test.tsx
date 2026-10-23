@@ -11,6 +11,13 @@ describe("ProgressBar", () => {
     expect(html).toContain("width:42%");
   });
 
+  it("can draw small progress with a decimal while announcing a whole number, and never reaches 100 early", () => {
+    const small = renderToStaticMarkup(<ProgressBar fractional percent={0.14} label="x" />);
+    expect(small).toContain('aria-valuenow="0"');
+    expect(small).toContain("width:0.1%");
+    expect(renderToStaticMarkup(<ProgressBar fractional percent={99.99} label="x" />)).toContain("width:99.9%");
+  });
+
   it("clamps to 0..100", () => {
     expect(renderToStaticMarkup(<ProgressBar percent={-5} label="x" />)).toContain('aria-valuenow="0"');
     expect(renderToStaticMarkup(<ProgressBar percent={250} label="x" />)).toContain('aria-valuenow="100"');

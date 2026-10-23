@@ -86,7 +86,7 @@ export default async function DashboardPage() {
             </div>
             <span className="shrink-0 text-lg font-bold tabular-nums text-success">{shown(course.percent, course.tenths)}</span>
           </div>
-          <ProgressBar percent={course.tenths} label={`${course.title}: ${t("dashboard.courseProgress")}`} className="mt-3" />
+          <ProgressBar fractional percent={course.tenths} label={`${course.title}: ${t("dashboard.courseProgress")}`} className="mt-3" />
 
           <div className="mt-5 grid gap-4">
             {course.modules.map((m) => (
@@ -115,7 +115,7 @@ export default async function DashboardPage() {
                           </h3>
                           <span className="text-sm tabular-nums text-muted">{shown(u.percent, u.tenths)}</span>
                         </div>
-                        <ProgressBar percent={u.tenths} label={u.title} className="mt-1.5 h-1.5" />
+                        <ProgressBar fractional percent={u.tenths} label={u.title} className="mt-1.5 h-1.5" />
                         <ul className="mt-2 grid gap-1">
                           {u.lessons.map((l) => (
                             <li key={l.id}>

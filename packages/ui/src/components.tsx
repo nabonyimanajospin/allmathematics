@@ -54,11 +54,14 @@ export interface ProgressBarProps {
   label: string;
   className?: string;
   tone?: "accent" | "success";
+  /** Draw the bar with one decimal so that small real progress is visible (the value announced stays a whole number). */
+  fractional?: boolean;
 }
 
-export function ProgressBar({ percent, label, className, tone = "success" }: ProgressBarProps) {
-  // the bar may carry a fraction of a percent so that small real progress is visible
-  const p = Math.max(0, Math.min(100, percent >= 100 ? 100 : Math.floor(percent * 10) / 10));
+export function ProgressBar({ percent, label, className, tone = "success", fractional = false }: ProgressBarProps) {
+  const p = Math.max(0, Math.min(100, Math.floor(percent)));
+  // the drawn width may carry a fraction of a percent so that small real progress is visible; 100 only when complete
+  const width = !fractional ? p : percent >= 100 ? 100 : Math.max(0, Math.min(99.9, Math.floor(percent * 10) / 10));
   return (
     <div
       role="progressbar"
@@ -70,7 +73,7 @@ export function ProgressBar({ percent, label, className, tone = "success" }: Pro
     >
       <div
         className={cn("h-full rounded-full transition-[width] duration-[var(--dur-slow)] ease-[var(--ease)]", tone === "success" ? "bg-success" : "bg-accent")}
-        style={{ width: `${p}%` }}
+        style={{ width: `${width}%` }}
       />
     </div>
   );
