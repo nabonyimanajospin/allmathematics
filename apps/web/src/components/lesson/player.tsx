@@ -427,7 +427,13 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, pre
           <p className="mt-10 text-sm text-muted">{t("lesson.toFinish")}</p>
         )}
 
-        <nav aria-label={t("lesson.pager")} className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
+        <p className="mt-8">
+          <Link href={`/learn/${lesson.id}/sheet`} className={buttonClass("secondary")}>
+            {t("sheet.open")}
+          </Link>
+        </p>
+
+        <nav aria-label={t("lesson.pager")} className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
           {prev ? (
             <Link href={`/learn/${prev.id}`} className={buttonClass("secondary")}>
               ← {t("lesson.previous")}: {prev.title}
