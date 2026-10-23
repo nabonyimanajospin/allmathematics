@@ -23,7 +23,13 @@ export function geometryModule1Store(): ContentStore {
       ...m,
       units: m.units
         .filter((u) => u.meta.id === "geo-m01-u01")
-        .map((u) => ({ ...u, lessons: u.lessons.filter((l) => ["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"].includes(l.meta.id)) })),
+        .map((u) => ({
+          ...u,
+          // these tests are about the reading part of the formula; the exercise part is tested on a lesson that has exercises
+          lessons: u.lessons
+            .filter((l) => ["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03"].includes(l.meta.id))
+            .map((l) => ({ ...l, meta: { ...l.meta, exerciseSets: [] } })),
+        })),
     }));
   return buildStore([{ ...geo, modules: first }]);
 }

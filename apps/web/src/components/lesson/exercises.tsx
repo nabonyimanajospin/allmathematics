@@ -14,8 +14,8 @@ interface Props {
 }
 
 /**
- * The practice area of a lesson. Exercises never block reading: they are optional, every one has hints and a
- * worked solution, and solving them moves the lesson progress (up to 10 solved, spec section 9.2).
+ * The practice area of a lesson. Exercises never block reading, but the lesson reaches 100% only when every exercise
+ * is solved correctly (spec section 9.2). Every one has hints and a worked solution.
  */
 export function ExerciseSets({ lessonId, sets, solved, hintsUsed, onSolved }: Props) {
   const total = sets.reduce((n, s) => n + s.items.length, 0);

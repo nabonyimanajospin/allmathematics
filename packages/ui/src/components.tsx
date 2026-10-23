@@ -49,14 +49,16 @@ export function Card({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
 
 // --- Progress -------------------------------------------------------------------------------------
 export interface ProgressBarProps {
-  /** Whole percentage 0..100. */
+  /** Percentage 0..100 (a fraction is allowed). */
   percent: number;
   label: string;
   className?: string;
+  tone?: "accent" | "success";
 }
 
-export function ProgressBar({ percent, label, className }: ProgressBarProps) {
-  const p = Math.max(0, Math.min(100, Math.floor(percent)));
+export function ProgressBar({ percent, label, className, tone = "success" }: ProgressBarProps) {
+  // the bar may carry a fraction of a percent so that small real progress is visible
+  const p = Math.max(0, Math.min(100, percent >= 100 ? 100 : Math.floor(percent * 10) / 10));
   return (
     <div
       role="progressbar"
@@ -67,7 +69,7 @@ export function ProgressBar({ percent, label, className }: ProgressBarProps) {
       className={cn("h-2 w-full overflow-hidden rounded-full bg-surface-2", className)}
     >
       <div
-        className="h-full rounded-full bg-accent transition-[width] duration-[var(--dur-slow)] ease-[var(--ease)]"
+        className={cn("h-full rounded-full transition-[width] duration-[var(--dur-slow)] ease-[var(--ease)]", tone === "success" ? "bg-success" : "bg-accent")}
         style={{ width: `${p}%` }}
       />
     </div>
@@ -79,9 +81,11 @@ export interface ProgressRingProps {
   label: string;
   size?: number;
   children?: ReactNode;
+  /** Green for the learner's own progress, blue otherwise. */
+  tone?: "accent" | "success";
 }
 
-export function ProgressRing({ percent, label, size = 96, children }: ProgressRingProps) {
+export function ProgressRing({ percent, label, size = 96, children, tone = "accent" }: ProgressRingProps) {
   const p = Math.max(0, Math.min(100, Math.floor(percent)));
   const stroke = Math.max(6, Math.round(size / 11));
   const r = (size - stroke) / 2;
@@ -105,7 +109,7 @@ export function ProgressRing({ percent, label, size = 96, children }: ProgressRi
           fill="none"
           strokeWidth={stroke}
           strokeLinecap="round"
-          stroke="var(--accent)"
+          stroke={tone === "success" ? "var(--success)" : "var(--accent)"}
           strokeDasharray={c}
           strokeDashoffset={c * (1 - p / 100)}
           style={{ transition: "stroke-dashoffset var(--dur-slow) var(--ease)" }}

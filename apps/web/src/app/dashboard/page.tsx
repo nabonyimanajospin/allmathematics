@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getDashboard } from "@allmaths/server";
+import { getDashboard, getEnrolledCourseId } from "@allmaths/server";
 import { Card, ProgressBar, ProgressRing, buttonClass } from "@allmaths/ui";
 import { t } from "@/i18n";
 import { getServices } from "@/server/runtime";
 import { getCurrentUser } from "@/server/session";
 
 export const metadata: Metadata = { title: t("dashboard.title") };
+
+/** Small real progress is shown with a decimal (0.1%), never as 0%; 100% only when everything is done. */
+function shown(percent: number, tenths: number): string {
+  if (percent >= 10 || tenths === 0) return `${percent}%`;
+  return `${tenths}%`;
+}
 
 function status(percent: number): string {
   return percent >= 100 ? t("dashboard.complete") : percent > 0 ? t("dashboard.inProgress") : t("dashboard.notStarted");
@@ -17,7 +23,9 @@ export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/signin?next=/dashboard");
   const { db, store } = await getServices();
-  const dash = await getDashboard(db, store, user.id);
+  const enrolled = await getEnrolledCourseId(db, user.id);
+  if (!enrolled) redirect("/courses");
+  const dash = await getDashboard(db, store, user.id, enrolled);
 
   const allLessons = dash.courses.flatMap((c) => c.modules.flatMap((m) => m.units.flatMap((u) => u.lessons)));
   const next = allLessons.find((l) => l.id === dash.continueLessonId);
@@ -29,7 +37,11 @@ export default async function DashboardPage() {
 
       <section aria-labelledby="continue" className="mt-6">
         <Card className="flex flex-wrap items-center gap-5">
-          {firstCourse ? <ProgressRing percent={firstCourse.percent} label={t("dashboard.courseProgress")} size={88} /> : null}
+          {firstCourse ? (
+            <ProgressRing percent={firstCourse.percent} label={t("dashboard.courseProgress")} size={96} tone="success">
+              <span className="block text-base leading-tight">{shown(firstCourse.percent, firstCourse.tenths)}</span>
+            </ProgressRing>
+          ) : null}
           <div className="min-w-[13rem] flex-1">
             <h2 id="continue" className="text-sm font-semibold uppercase tracking-wide text-muted">
               {t("dashboard.continueFrom")}
@@ -52,6 +64,9 @@ export default async function DashboardPage() {
       </section>
 
       <nav aria-label={t("dashboard.more")} className="mt-4 flex flex-wrap gap-2">
+        <Link href="/courses" className={buttonClass("secondary")}>
+          {t("courses.switch")}
+        </Link>
         <Link href="/formulas" className={buttonClass("secondary")}>
           {t("nav.formulas")}
         </Link>
@@ -69,9 +84,9 @@ export default async function DashboardPage() {
               </h2>
               <p className="mt-1 max-w-2xl text-muted">{course.description}</p>
             </div>
-            <span className="shrink-0 text-lg font-bold tabular-nums">{course.percent}%</span>
+            <span className="shrink-0 text-lg font-bold tabular-nums text-success">{shown(course.percent, course.tenths)}</span>
           </div>
-          <ProgressBar percent={course.percent} label={`${course.title}: ${t("dashboard.courseProgress")}`} className="mt-3" />
+          <ProgressBar percent={course.tenths} label={`${course.title}: ${t("dashboard.courseProgress")}`} className="mt-3" />
 
           <div className="mt-5 grid gap-4">
             {course.modules.map((m) => (
@@ -89,7 +104,7 @@ export default async function DashboardPage() {
                         </span>
                       ) : null}
                     </span>
-                    <span className="text-sm font-semibold tabular-nums text-muted">{m.percent}%</span>
+                    <span className="text-sm font-semibold tabular-nums text-muted">{shown(m.percent, m.tenths)}</span>
                   </summary>
                   <div className="border-t border-line px-5 pb-4">
                     {m.units.map((u) => (
@@ -98,9 +113,9 @@ export default async function DashboardPage() {
                           <h3 className="font-semibold">
                             {t("dashboard.unit")} {u.id.slice(-2).replace(/^0/, "")}: {u.title}
                           </h3>
-                          <span className="text-sm tabular-nums text-muted">{u.percent}%</span>
+                          <span className="text-sm tabular-nums text-muted">{shown(u.percent, u.tenths)}</span>
                         </div>
-                        <ProgressBar percent={u.percent} label={u.title} className="mt-1.5 h-1.5" />
+                        <ProgressBar percent={u.tenths} label={u.title} className="mt-1.5 h-1.5" />
                         <ul className="mt-2 grid gap-1">
                           {u.lessons.map((l) => (
                             <li key={l.id}>
@@ -119,7 +134,7 @@ export default async function DashboardPage() {
                                     l.percent >= 100 ? "bg-success-soft text-success" : "bg-surface-2 text-ink"
                                   }`}
                                 >
-                                  {l.percent}%
+                                  {shown(l.percent, l.tenths)}
                                 </span>
                               </Link>
                             </li>

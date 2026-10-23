@@ -14,12 +14,13 @@ import {
   type LessonInputs,
 } from "../src";
 
-const { frac, percentFloor, toString: show, eq } = rational;
+const { frac, percentFloor, toString: show } = rational;
 
 const full = (o: Partial<LessonInputs>): LessonInputs => ({
   sectionsCompleted: 0,
   sectionsTotal: 10,
   practiceSolved: 0,
+  practiceTotal: 10,
   quizPassed: false,
   hasPractice: true,
   hasQuiz: true,
@@ -40,8 +41,14 @@ describe("lessonProgress (spec 9.2: 0.40 sections + 0.20 practice + 0.40 quiz)",
     expect(show(lessonProgress(full({ practiceSolved: 3 })))).toBe("3/50"); // 0.20 * 3/10
   });
 
-  it("caps practice at 10 problems", () => {
-    expect(eq(lessonProgress(full({ practiceSolved: 25 })), lessonProgress(full({ practiceSolved: 10 })))).toBe(true);
+  it("needs every exercise of the lesson, whether it has 3 or 25", () => {
+    for (const n of [1, 3, 7, 15, 25]) {
+      const base = { sectionsCompleted: 10, practiceTotal: n, hasQuiz: false };
+      expect(show(lessonProgress(full({ ...base, practiceSolved: n })))).toBe("1");
+      expect(percentFloor(lessonProgress(full({ ...base, practiceSolved: n - 1 })))).toBeLessThan(100);
+    }
+    // 12 of 25 exercises and all sections: 2/3 + 1/3 * 12/25 = 0.826..., shown as 82
+    expect(percentFloor(lessonProgress(full({ sectionsCompleted: 10, practiceSolved: 12, practiceTotal: 25, hasQuiz: false })))).toBe(82);
   });
 
   it("never shows 100% before everything is complete", () => {
@@ -73,6 +80,8 @@ describe("lessonProgress (spec 9.2: 0.40 sections + 0.20 practice + 0.40 quiz)",
     expect(() => lessonProgress(full({ sectionsCompleted: 11 }))).toThrow();
     expect(() => lessonProgress(full({ sectionsCompleted: -1 }))).toThrow();
     expect(() => lessonProgress(full({ practiceSolved: 1.5 }))).toThrow();
+    expect(() => lessonProgress(full({ practiceSolved: 11 }))).toThrow();
+    expect(() => lessonProgress(full({ practiceTotal: 0 }))).toThrow();
   });
 });
 

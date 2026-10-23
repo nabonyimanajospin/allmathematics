@@ -680,7 +680,7 @@ All percentages are computed on the server from events, never trusted from the c
 
 **Lesson progress**
 \[
-P_{\text{lesson}} = 0.40\cdot\frac{\text{sections completed}}{\text{total sections}} + 0.20\cdot\frac{\text{practice problems solved (max 10)}}{10} + 0.40\cdot\mathbb 1[\text{quiz passed}]
+P_{\text{lesson}} = 0.40\cdot\frac{\text{sections completed}}{\text{total sections}} + 0.20\cdot\frac{\text{exercises solved}}{\text{exercises of the lesson}} + 0.40\cdot\mathbb 1[\text{quiz passed}]
 \]
 
 **Unit progress** is the time-weighted average of its lessons' progress (weights = estimated lesson minutes).
@@ -694,6 +694,8 @@ where \(w_u\) is the sum of the estimated minutes of the lessons of unit \(u\).
 **Course progress** is the time-weighted average of module progress (weights = estimated minutes of the module).
 
 All results are exact rational numbers computed in integer arithmetic and displayed as whole percentages (rounded down), so 100% is shown only when everything is truly complete.
+
+**Every exercise counts (changed in v1.3).** The practice part is the share of the lesson's exercises solved correctly, so a lesson reaches 100% only when all its sections are completed and all its exercises are solved. The old cap of 10 made lessons with fewer than 10 exercises impossible to finish and let others finish with half of theirs.
 
 **Components a lesson does not have yet.** The lesson formula is applied to the components the lesson actually has. A lesson without a practice set or quiz (all Phase 1 lessons) drops those weights, so reading and answering everything gives 100%. When Phase 2 adds them, the full formula applies.
 

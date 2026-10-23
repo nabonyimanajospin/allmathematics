@@ -7,14 +7,15 @@
 import { add, frac, ONE, ZERO, mul, div, min, type Frac } from "./rational";
 
 export const LESSON_WEIGHTS = { sections: 40, practice: 20, quiz: 40 } as const;
-export const PRACTICE_CAP = 10;
 export const MODULE_WEIGHTS = { units: 80, test: 20 } as const;
 
 export interface LessonInputs {
   sectionsCompleted: number;
   sectionsTotal: number;
-  /** Distinct practice problems solved correctly. Counted up to PRACTICE_CAP. */
+  /** Distinct exercises of the lesson solved correctly. */
   practiceSolved: number;
+  /** All exercises of the lesson. Every one must be solved for the practice part to be complete. */
+  practiceTotal: number;
   quizPassed: boolean;
   /**
    * Components that exist for this lesson. Before Phase 2 a lesson has no practice set or quiz yet;
@@ -29,13 +30,17 @@ function checkCount(name: string, v: number): void {
 }
 
 /**
- *   P_lesson = 0.40 * sections/total + 0.20 * min(practice,10)/10 + 0.40 * [quiz passed]
- * normalised over the components the lesson actually has.
+ *   P_lesson = 0.40 * sections/total + 0.20 * exercises solved/exercises total + 0.40 * [quiz passed]
+ * normalised over the components the lesson actually has. A lesson reaches 100% only when every section
+ * is completed and every exercise is solved correctly.
  */
 export function lessonProgress(i: LessonInputs): Frac {
   checkCount("sectionsCompleted", i.sectionsCompleted);
   checkCount("sectionsTotal", i.sectionsTotal);
   checkCount("practiceSolved", i.practiceSolved);
+  checkCount("practiceTotal", i.practiceTotal);
+  if (i.practiceSolved > i.practiceTotal) throw new RangeError("practiceSolved exceeds practiceTotal");
+  if (i.hasPractice && i.practiceTotal === 0) throw new RangeError("a lesson with practice needs at least one exercise");
   if (i.sectionsCompleted > i.sectionsTotal) throw new RangeError("sectionsCompleted exceeds sectionsTotal");
 
   let weight = LESSON_WEIGHTS.sections;
@@ -46,7 +51,7 @@ export function lessonProgress(i: LessonInputs): Frac {
 
   if (i.hasPractice) {
     weight += LESSON_WEIGHTS.practice;
-    total = add(total, mul(frac(LESSON_WEIGHTS.practice), frac(Math.min(i.practiceSolved, PRACTICE_CAP), PRACTICE_CAP)));
+    total = add(total, mul(frac(LESSON_WEIGHTS.practice), frac(i.practiceSolved, i.practiceTotal)));
   }
   if (i.hasQuiz) {
     weight += LESSON_WEIGHTS.quiz;

@@ -27,6 +27,7 @@ interface Props {
   /** Formulas and theorems of this lesson that the student saved. */
   savedFormulas: string[];
   next: { id: string; title: string } | null;
+  prev: { id: string; title: string } | null;
 }
 
 const FLUSH_EVERY_MS = 5000;
@@ -39,20 +40,21 @@ const uuid = (): string =>
     ? crypto.randomUUID()
     : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/[x]/g, () => Math.floor(Math.random() * 16).toString(16));
 
-function localPercent(done: number, total: number, solved: number, hasPractice: boolean): number {
+function localPercent(done: number, total: number, solved: number, practiceTotal: number): number {
   return rational.percentFloor(
     lessonProgress({
       sectionsCompleted: Math.min(done, total),
       sectionsTotal: total,
-      practiceSolved: solved,
+      practiceSolved: Math.min(solved, practiceTotal),
+      practiceTotal,
       quizPassed: false,
-      hasPractice,
+      hasPractice: practiceTotal > 0,
       hasQuiz: false,
     }),
   );
 }
 
-export function LessonPlayer({ lesson, initial, userId, savedFormulas, next }: Props) {
+export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, prev }: Props) {
   const total = lesson.sections.length;
   const ids = useMemo(() => new Set(lesson.sections.map((s) => s.id)), [lesson]);
 
@@ -266,8 +268,9 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next }: P
 
   // --- derived state ----------------------------------------------------------------------------------
   const doneNow = new Set([...completed, ...optimistic]);
-  const hasPractice = lesson.exerciseSets.length > 0;
-  const percent = Math.max(serverProgress.lesson.percent, localPercent(doneNow.size, total, solved.size, hasPractice));
+  const practiceTotal = lesson.exerciseSets.reduce((n, s) => n + s.items.length, 0);
+  const hasPractice = practiceTotal > 0;
+  const percent = Math.max(serverProgress.lesson.percent, localPercent(doneNow.size, total, solved.size, practiceTotal));
 
   // sections after the first unanswered check stay hidden until it is answered
   let lastVisible = total - 1;
@@ -420,7 +423,24 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next }: P
               </Link>
             </div>
           </Card>
-        ) : null}
+        ) : (
+          <p className="mt-10 text-sm text-muted">{t("lesson.toFinish")}</p>
+        )}
+
+        <nav aria-label={t("lesson.pager")} className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
+          {prev ? (
+            <Link href={`/learn/${prev.id}`} className={buttonClass("secondary")}>
+              ← {t("lesson.previous")}: {prev.title}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link href={`/learn/${next.id}`} className={buttonClass(percent >= 100 ? "primary" : "secondary")}>
+              {t("lesson.next")}: {next.title} →
+            </Link>
+          ) : null}
+        </nav>
       </article>
     </div>
   );

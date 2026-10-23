@@ -257,9 +257,9 @@ describe("progress formulas applied end to end", () => {
   it("completing lesson 1 gives 100% for the lesson and the exact weighted share above it", async () => {
     await completeLesson(g, L1);
     const s = (await getLessonState(g.h.db, g.store, g.userId, L1))!;
-    expect(s.progress.lesson).toEqual({ exact: "1", percent: 100 });
+    expect(s.progress.lesson).toEqual({ exact: "1", percent: 100, tenths: 100 });
     // lessons weigh 25, 30 and 35 minutes: unit = 25/90 = 27.7...% -> 27 (rounded down)
-    expect(s.progress.unit).toEqual({ exact: "5/18", percent: 27 });
+    expect(s.progress.unit).toEqual({ exact: "5/18", percent: 27, tenths: 27.7 });
     expect(s.progress.module.exact).toBe("5/18");
     expect(s.progress.course.exact).toBe("5/18");
   });
@@ -268,8 +268,8 @@ describe("progress formulas applied end to end", () => {
     await completeLesson(g, L2, new Date("2026-10-22T10:00:00Z"));
     await completeLesson(g, L3, new Date("2026-10-23T10:00:00Z"));
     const s = (await getLessonState(g.h.db, g.store, g.userId, L3))!;
-    expect(s.progress.unit).toEqual({ exact: "1", percent: 100 });
-    expect(s.progress.course).toEqual({ exact: "1", percent: 100 });
+    expect(s.progress.unit).toEqual({ exact: "1", percent: 100, tenths: 100 });
+    expect(s.progress.course).toEqual({ exact: "1", percent: 100, tenths: 100 });
     expect(s.nextIncompleteSectionId).toBeNull();
   });
 

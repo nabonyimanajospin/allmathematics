@@ -2,7 +2,7 @@
 
 import type { AppDb } from "@allmaths/db";
 import type { ContentStore } from "../content/store";
-import { readProgress } from "./progress";
+import { readProgress, refreshProgress } from "./progress";
 
 export interface OutlineLesson {
   id: string;
@@ -45,6 +45,7 @@ export async function getCourseOutline(db: AppDb, store: ContentStore, userId: s
       ...m.units.flatMap((u) => u.lessons.map((l) => ({ kind: "lesson" as const, id: l.meta.id }))),
     ]),
   ];
+  await refreshProgress(db, store, userId);
   const progress = await readProgress(db, userId, items);
   const pct = (kind: string, id: string): number => progress.get(`${kind}:${id}`)?.percent ?? 0;
   return {

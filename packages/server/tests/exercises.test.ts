@@ -2,7 +2,8 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { eq } from "drizzle-orm";
 import { schema } from "@allmaths/db";
 import { toClientLesson } from "@allmaths/content-schema";
-import { checkAnswer, getHint, getLessonState } from "../src";
+import { allExercises } from "@allmaths/content-schema";
+import { checkAnswer, dbSectionId, getHint, getLessonState, recomputeProgress } from "../src";
 import { engine, makeFixture, type Fixture } from "./helpers";
 
 // Lesson "Separable equations" of Module 4 has an exercise set from the printed sheet.
@@ -82,5 +83,26 @@ describe("exercises of a lesson", () => {
     expect(ok.status).toBe("correct");
     const bad = await checkAnswer(deps(), f.userId, lin, "lin-e", "y = x^n*e^x", T0);
     expect(bad.status).not.toBe("correct");
+  });
+  it("the lesson reaches 100% only when every section is read and every exercise is solved", async () => {
+    const lesson = f.store.lesson(L)!.lesson;
+    const exercises = allExercises(lesson);
+    expect(exercises.length).toBeGreaterThan(1);
+    const done = async (sectionDb: string, at: Date) => {
+      await f.h.db
+        .insert(schema.sectionProgress)
+        .values({ userId: f.userId, lessonId: L, sectionId: sectionDb, completedAt: at })
+        .onConflictDoUpdate({ target: [schema.sectionProgress.userId, schema.sectionProgress.sectionId], set: { completedAt: at } });
+    };
+    const at = new Date(T0.getTime() + 3_600_000);
+    for (const sec of lesson.sections) await done(dbSectionId(L, sec.id), at);
+    for (const ex of exercises.slice(0, -1)) await done(dbSectionId(L, ex.id), at);
+    const almost = await recomputeProgress(f.h.db, f.store, f.userId, L, at);
+    expect(almost.lesson.percent).toBeLessThan(100);
+    expect(almost.course.percent).toBeLessThan(100);
+    await done(dbSectionId(L, exercises[exercises.length - 1]!.id), at);
+    const all = await recomputeProgress(f.h.db, f.store, f.userId, L, at);
+    expect(all.lesson.percent).toBe(100);
+    expect(all.lesson.exact).toBe("1");
   });
 });

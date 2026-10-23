@@ -5,7 +5,7 @@ import { schema, type AppDb } from "@allmaths/db";
 import { allExercises } from "@allmaths/content-schema";
 import type { ContentStore } from "../content/store";
 import { dbSectionId } from "../content/store";
-import { readProgress, type ProgressValue, type ProgressSnapshot } from "./progress";
+import { readProgress, refreshProgress, type ProgressValue, type ProgressSnapshot } from "./progress";
 
 export interface LessonState {
   lessonId: string;
@@ -57,13 +57,14 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
   // Resume at the section last touched; if that one is done, continue at the next unfinished one.
   const resume = lastTouched && !completed.has(lastTouched) ? lastTouched : (firstIncomplete ?? lastTouched ?? first);
 
+  await refreshProgress(db, store, userId);
   const p = await readProgress(db, userId, [
     { kind: "lesson", id: lessonId },
     { kind: "unit", id: ref.unit.meta.id },
     { kind: "module", id: ref.module.meta.id },
     { kind: "course", id: ref.course.meta.id },
   ]);
-  const get = (k: string): ProgressValue => p.get(k) ?? { exact: "0", percent: 0 };
+  const get = (k: string): ProgressValue => p.get(k) ?? { exact: "0", percent: 0, tenths: 0 };
   return {
     lessonId,
     sectionsTotal: ref.lesson.sections.length,
@@ -83,18 +84,21 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
 }
 
 export interface DashboardLesson {
+  tenths: number;
   id: string;
   title: string;
   estMinutes: number;
   percent: number;
 }
 export interface DashboardUnit {
+  tenths: number;
   id: string;
   title: string;
   percent: number;
   lessons: DashboardLesson[];
 }
 export interface DashboardModule {
+  tenths: number;
   id: string;
   title: string;
   free: boolean;
@@ -102,6 +106,7 @@ export interface DashboardModule {
   units: DashboardUnit[];
 }
 export interface DashboardCourse {
+  tenths: number;
   id: string;
   title: string;
   description: string;
@@ -114,9 +119,11 @@ export interface Dashboard {
   continueLessonId: string | null;
 }
 
-export async function getDashboard(db: AppDb, store: ContentStore, userId: string): Promise<Dashboard> {
+/** `courseId` limits the dashboard to the course the learner follows. */
+export async function getDashboard(db: AppDb, store: ContentStore, userId: string, courseId?: string): Promise<Dashboard> {
+  const scope = courseId ? store.courses.filter((c) => c.meta.id === courseId) : store.courses;
   const items: { kind: "lesson" | "unit" | "module" | "course"; id: string }[] = [];
-  for (const c of store.courses) {
+  for (const c of scope) {
     items.push({ kind: "course", id: c.meta.id });
     for (const m of c.modules) {
       items.push({ kind: "module", id: m.meta.id });
@@ -126,30 +133,35 @@ export async function getDashboard(db: AppDb, store: ContentStore, userId: strin
       }
     }
   }
+  await refreshProgress(db, store, userId);
   const p = await readProgress(db, userId, items);
   const pct = (kind: string, id: string): number => p.get(`${kind}:${id}`)?.percent ?? 0;
+  const tenths = (kind: string, id: string): number => p.get(`${kind}:${id}`)?.tenths ?? 0;
 
   let inProgress: string | null = null;
   let firstUntouched: string | null = null;
-  const courses: DashboardCourse[] = store.courses.map((c) => ({
+  const courses: DashboardCourse[] = scope.map((c) => ({
     id: c.meta.id,
     title: c.meta.title,
     description: c.meta.description,
     percent: pct("course", c.meta.id),
+    tenths: tenths("course", c.meta.id),
     modules: c.modules.map((m) => ({
       id: m.meta.id,
       title: m.meta.title,
       free: m.meta.free,
       percent: pct("module", m.meta.id),
+      tenths: tenths("module", m.meta.id),
       units: m.units.map((u) => ({
         id: u.meta.id,
         title: u.meta.title,
         percent: pct("unit", u.meta.id),
+        tenths: tenths("unit", u.meta.id),
         lessons: u.lessons.map((l) => {
           const percent = pct("lesson", l.meta.id);
           if (percent > 0 && percent < 100) inProgress ??= l.meta.id;
           if (percent === 0) firstUntouched ??= l.meta.id;
-          return { id: l.meta.id, title: l.meta.title, estMinutes: l.meta.estMinutes, percent };
+          return { id: l.meta.id, title: l.meta.title, estMinutes: l.meta.estMinutes, percent, tenths: tenths("lesson", l.meta.id) };
         }),
       })),
     })),
