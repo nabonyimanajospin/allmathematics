@@ -9,6 +9,7 @@ export const PERMISSIONS = {
   "content:write": ["content_author", "admin"],
   "content:review": ["reviewer", "admin"],
   "users:manage": ["admin"],
+  "resources:manage": ["admin"],
   "audit:view": ["admin"],
 } as const satisfies Record<string, readonly Role[]>;
 

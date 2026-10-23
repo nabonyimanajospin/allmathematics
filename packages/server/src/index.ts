@@ -11,3 +11,6 @@ export * from "./learning/checks";
 export * from "./learning/outline";
 export * from "./learning/state";
 export * from "./learning/formulas";
+export * from "./auth/recovery";
+export * from "./admin/manage";
+export * from "./learning/enrollment";

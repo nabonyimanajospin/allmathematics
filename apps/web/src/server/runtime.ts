@@ -25,6 +25,9 @@ export interface Services {
     check: RateLimiter;
     hint: RateLimiter;
     events: RateLimiter;
+    resetRequest: RateLimiter;
+    resetRequestPerEmail: RateLimiter;
+    resetVerify: RateLimiter;
   };
 }
 
@@ -79,6 +82,9 @@ async function createRuntime(): Promise<Runtime> {
       check: createMemoryRateLimiter(scale(90), MIN),
       hint: createMemoryRateLimiter(scale(40), MIN),
       events: createMemoryRateLimiter(scale(240), MIN),
+      resetRequest: createMemoryRateLimiter(scale(10), 10 * MIN),
+      resetRequestPerEmail: createMemoryRateLimiter(scale(3), 10 * MIN),
+      resetVerify: createMemoryRateLimiter(scale(20), 10 * MIN),
     },
   };
 }

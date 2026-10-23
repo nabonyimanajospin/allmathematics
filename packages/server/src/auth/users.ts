@@ -5,7 +5,7 @@ import { schema, type AppDb, type Role } from "@allmaths/db";
 import { AppError } from "../errors";
 import { dummyHash, hashPassword, verifyPassword } from "./password";
 
-const COMMON_PASSWORDS = new Set([
+export const COMMON_PASSWORDS = new Set([
   "password12", "password123", "1234567890", "qwertyuiop", "iloveyou12", "welcome123", "letmein123", "admin12345",
 ]);
 

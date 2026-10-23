@@ -3,7 +3,9 @@ import { extname, join } from "node:path";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { isDownloadable, type Resource } from "@allmaths/content-schema";
+import { can } from "@allmaths/server";
 import { buttonClass } from "@allmaths/ui";
+import { BackLink } from "@/components/back-link";
 import { t, type MessageKey } from "@/i18n";
 import { getResourceCatalog } from "@/server/resources";
 import { getCurrentUser } from "@/server/session";
@@ -25,8 +27,16 @@ export default async function ResourcesPage() {
   const byCourse = COURSES.map((c) => ({ course: c, items: catalog.resources.filter((r) => r.course === c) })).filter((g) => g.items.length > 0);
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
+      <BackLink href="/dashboard">{t("lesson.back")}</BackLink>
       <h1 className="text-3xl font-extrabold tracking-tight">{t("resources.title")}</h1>
       <p className="mt-3 max-w-2xl text-muted">{t("resources.lead")}</p>
+      {can(user.role, "resources:manage") ? (
+        <p className="mt-4">
+          <a href="/admin/resources" className={buttonClass("primary")}>
+            {t("resources.manage")}
+          </a>
+        </p>
+      ) : null}
 
       {byCourse.length > 1 ? (
         <nav aria-label={t("resources.jump")} className="mt-6 flex flex-wrap gap-2">

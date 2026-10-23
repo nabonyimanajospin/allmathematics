@@ -126,6 +126,8 @@ describe("roles and permissions", () => {
     expect(can("instructor", "class:manage")).toBe(true);
     expect(can("instructor", "users:manage")).toBe(false);
     expect(can("admin", "users:manage")).toBe(true);
+    expect(can("admin", "resources:manage")).toBe(true);
+    for (const role of ["student", "instructor", "content_author", "reviewer"] as const) expect(can(role, "resources:manage")).toBe(false);
     expect(can("reviewer", "content:review")).toBe(true);
     expect(can("content_author", "content:review")).toBe(false);
   });

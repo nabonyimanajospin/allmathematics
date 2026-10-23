@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -26,7 +26,19 @@
     "noAccount": "New here?", "haveAccount": "Already have an account?",
     "working": "Please wait…",
     "errorGeneric": "Something went wrong. Please try again.",
-    "errorNetwork": "Could not reach the server. Check your connection."
+    "errorNetwork": "Could not reach the server. Check your connection.",
+    "forgot": "Forgot your password?", "forgotTitle": "Reset your password",
+    "forgotLead": "Enter your e-mail. If an account exists, we send a 6-digit code that is valid for 10 minutes.",
+    "sendCode": "Send the code", "codeSent": "If an account exists for this e-mail, a code is on its way. It is valid for 10 minutes.",
+    "code": "6-digit code", "newPassword": "New password", "resetButton": "Set the new password", "resendCode": "Send a new code",
+    "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
+  },
+  "courses": {
+    "title": "Choose your course", "lead": "Pick the course you want to follow. You work in one course at a time, so you can focus; you can switch later and your progress is kept.",
+    "switchTitle": "Switch course", "switchLead": "Your progress in every course is kept. When you come back to a course you continue where you stopped.",
+    "enroll": "Enroll in this course", "switchTo": "Switch to this course", "current": "Your current course",
+    "switchConfirm": "Switch to \"{title}\"? Your progress in your current course is kept.",
+    "facts": "{modules} modules, {lessons} lessons, about {hours} hours", "switch": "Switch course"
   },
   "dashboard": { "more": "Study tools",
     "title": "My learning", "hello": "Hello, {name}",
@@ -41,7 +53,7 @@
     "moduleProgress": "module progress", "done": "Done", "open": "Open the course outline"
   },
   "lesson": {
-    "progress": "Lesson progress", "back": "Back to my learning", "objectives": "In this lesson you will",
+    "progress": "Lesson progress", "back": "Back to my learning", "previous": "Previous lesson", "pager": "Lessons", "toFinish": "To finish this lesson, complete every section and solve every exercise correctly.", "backToCourses": "Back to courses", "objectives": "In this lesson you will",
     "resumeBanner": "Welcome back. We saved your place.",
     "definition": "Definition", "theorem": "Theorem", "formula": "Key formula", "example": "Worked example",
     "proof": "Show proof", "more": "Explain this in more detail", "why": "How was this step found?", "nextStep": "Show next step", "showAll": "Show all steps", "answerLabel": "Answer",
@@ -86,6 +98,49 @@
     "download": "Download", "back": "Back to resources", "noPreview": "This file type cannot be previewed in the browser. Download it to open it.", "jump": "Courses", "preview": "Preview",
     "unavailable": "Not available for download yet.",
     "course": { "geo": "Geometry", "mvc": "Multivariable Calculus and Differential Equations", "stat": "Probability and Statistics" },
-    "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" }
+    "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" },
+    "manage": "Manage resources"
+  },
+  "admin": {
+    "nav": { "overview": "Overview", "users": "Users", "resources": "Resources" },
+    "overview": {
+      "title": "Administration", "lead": "The numbers of the platform and the tools to look after accounts.",
+      "totalUsers": "Registered users", "newUsers": "New in the last 7 days", "activeUsers": "Active in the last 7 days", "suspended": "Suspended accounts",
+      "byRole": "Accounts by role", "coursesTitle": "Courses", "course": "Course", "entered": "Entered", "completed": "Completed",
+      "enteredHint": "Learners who opened at least one section.", "noCourses": "No courses yet."
+    },
+    "users": {
+      "title": "Users", "lead": "Find an account, recover it, suspend it or change its role.",
+      "search": "Search by name or e-mail", "searchButton": "Search", "none": "No user found.", "showing": "Showing the {n} newest matching accounts.",
+      "name": "Name", "role": "Role", "status": "Status", "joined": "Joined", "lastSeen": "Last seen", "never": "Never",
+      "active": "Active", "suspendedState": "Suspended", "you": "(you)",
+      "resetPassword": "Reset password", "resetConfirm": "Set a new temporary password for {email}? They will be signed out everywhere.",
+      "tempTitle": "Temporary password for {email}", "tempLead": "Give it to the user. It is shown only now; they should change it after signing in.",
+      "suspend": "Suspend", "unsuspend": "Restore", "suspendConfirm": "Suspend {email}? They are signed out and cannot sign in.",
+      "changeRole": "Change role", "roleConfirm": "Make {email} {role}?", "done": "Done."
+    },
+    "resources": {
+      "title": "Manage resources",
+      "lead": "Upload documents for the learners. A document appears on the Resources page as soon as it is uploaded.",
+      "uploadTitle": "Upload a document",
+      "file": "File",
+      "fileHint": "PDF, DOCX, PNG or JPG, at most 50 MB.",
+      "docTitle": "Title",
+      "docId": "Identifier",
+      "docIdHint": "Lower-case words separated by hyphens, for example notes-unit4. It cannot be changed later.",
+      "description": "Description",
+      "kind": "Type",
+      "course": "Course",
+      "confirm": "I confirm that we have the right to publish this file to the learners.",
+      "upload": "Upload",
+      "uploading": "Uploading...",
+      "uploaded": "Document uploaded.",
+      "listTitle": "Documents on the site",
+      "remove": "Remove",
+      "removeConfirm": "Remove \"{title}\" and delete its file?",
+      "removed": "Document removed.",
+      "none": "No documents yet.",
+      "back": "Back to resources"
+    }
   }
 }

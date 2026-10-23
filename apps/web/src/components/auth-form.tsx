@@ -8,7 +8,7 @@ import { t } from "@/i18n";
 
 type Mode = "signin" | "signup";
 
-export function AuthForm({ mode, next }: { mode: Mode; next: string }) {
+export function AuthForm({ mode, next, notice }: { mode: Mode; next: string; notice?: string }) {
   const router = useRouter();
   const uid = useId();
   const [busy, setBusy] = useState(false);
@@ -47,6 +47,11 @@ export function AuthForm({ mode, next }: { mode: Mode; next: string }) {
     <div className="mx-auto max-w-md px-4 py-10">
       <Card className="p-6 sm:p-8">
         <h1 className="text-2xl font-bold tracking-tight">{signup ? t("auth.signUpTitle") : t("auth.signInTitle")}</h1>
+        {notice ? (
+          <p role="status" className="mt-4 rounded-[var(--radius-sm)] bg-success-soft px-3 py-2 text-sm font-medium text-success">
+            {notice}
+          </p>
+        ) : null}
         <form onSubmit={onSubmit} className="mt-6 grid gap-4" noValidate={false}>
           {signup ? (
             <Field label={t("auth.name")} id={`${uid}-name`}>
@@ -68,6 +73,11 @@ export function AuthForm({ mode, next }: { mode: Mode; next: string }) {
               className={inputClass}
             />
           </Field>
+          {!signup ? (
+            <Link href="/forgot-password" className="text-sm font-semibold text-accent underline">
+              {t("auth.forgot")}
+            </Link>
+          ) : null}
           {error ? (
             <p role="alert" className="rounded-[var(--radius-sm)] bg-danger-soft px-3 py-2 text-sm font-medium text-danger">
               {error}

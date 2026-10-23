@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { can } from "@allmaths/server";
 import { Logo, buttonClass } from "@allmaths/ui";
 import { t } from "@/i18n";
 import { getCurrentUser } from "@/server/session";
@@ -30,6 +31,11 @@ export async function SiteHeader() {
               <Link href="/resources" className={buttonClass("ghost")}>
                 {t("nav.resources")}
               </Link>
+              {can(user.role, "users:manage") ? (
+                <Link href="/admin" className={buttonClass("ghost")}>
+                  {t("nav.admin")}
+                </Link>
+              ) : null}
               <SignOutButton />
             </>
           ) : (
