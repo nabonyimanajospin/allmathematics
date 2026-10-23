@@ -82,3 +82,66 @@
         - "For independent variables, variances add."
       solution: |-
         $\dfrac{35}{12}+\dfrac{35}{12}=\dfrac{35}{6}$.
+- id: more-expectation
+  task: |-
+    More practice: expectation and variance.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-ev-1
+      statement: |-
+        $X$ takes the values $1$ with probability $\frac{1}{5}$, $2$ with probability $\frac{1}{5}$, $3$ with probability $\frac{3}{10}$, $4$ with probability $\frac{3}{10}$. Find $E[X]$.
+      answerType: expression
+      answer: "27/10"
+      hints:
+        - |-
+          $E[X]=\sum x_ip_i$ and $\operatorname{Var}=E[X^2]-E[X]^2$.
+      solution: |-
+        $E[X]=\frac{27}{10}$ and $\operatorname{Var}(X)=E[X^2]-E[X]^2=\frac{121}{100}$.
+    - id: mp-ev-2
+      statement: |-
+        $X$ takes the values $1$ with probability $\frac{1}{5}$, $2$ with probability $\frac{1}{5}$, $3$ with probability $\frac{3}{10}$, $4$ with probability $\frac{3}{10}$. Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "121/100"
+      hints:
+        - |-
+          $E[X]=\sum x_ip_i$ and $\operatorname{Var}=E[X^2]-E[X]^2$.
+      solution: |-
+        $E[X]=\frac{27}{10}$ and $\operatorname{Var}(X)=E[X^2]-E[X]^2=\frac{121}{100}$.
+    - id: mp-ev-3
+      statement: |-
+        $X$ takes the values $-1$ with probability $\frac{1}{4}$, $0$ with probability $\frac{1}{2}$, $2$ with probability $\frac{1}{4}$. Find $E[X]$.
+      answerType: expression
+      answer: "1/4"
+      hints:
+        - |-
+          $E[X]=\sum x_ip_i$ and $\operatorname{Var}=E[X^2]-E[X]^2$.
+      solution: |-
+        $E[X]=\frac{1}{4}$ and $\operatorname{Var}(X)=E[X^2]-E[X]^2=\frac{19}{16}$.
+    - id: mp-ev-4
+      statement: |-
+        $X$ takes the values $-1$ with probability $\frac{1}{4}$, $0$ with probability $\frac{1}{2}$, $2$ with probability $\frac{1}{4}$. Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "19/16"
+      hints:
+        - |-
+          $E[X]=\sum x_ip_i$ and $\operatorname{Var}=E[X^2]-E[X]^2$.
+      solution: |-
+        $E[X]=\frac{1}{4}$ and $\operatorname{Var}(X)=E[X^2]-E[X]^2=\frac{19}{16}$.
+    - id: mp-ev-5
+      statement: "A fair coin is tossed $6$ times. The expected number of heads."
+      answerType: number
+      answer: "3"
+      hints:
+        - Linearity of the expectation.
+      solution: |-
+        $E[X]=np=6\cdot\dfrac12=3$.
+    - id: mp-ev-6
+      statement: |-
+        $E[X]=2$ and $\operatorname{Var}(X)=3$. Find $\operatorname{Var}(3X+1)$.
+      answerType: number
+      answer: "27"
+      hints:
+        - |-
+          $\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X)$.
+      solution: |-
+        $\operatorname{Var}(3X+1)=3^2\cdot3=27$ (the constant does not change the variance).

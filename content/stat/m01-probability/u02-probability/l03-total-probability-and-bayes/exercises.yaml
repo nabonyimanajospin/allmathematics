@@ -46,3 +46,108 @@
         - "Compute $P(+)$ first."
       solution: |-
         $P(+)=\dfrac{8}{500}+\dfrac{49}{500}=\dfrac{57}{500}$ and $P(\text{sick}\mid+)=\dfrac{8}{57}$.
+- id: more-bayes
+  task: |-
+    More practice: total probability and Bayes.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-ba-1a
+      statement: |-
+        Two boxes: box 1 has $3$ red and $1$ blue ball, box 2 has $1$ red and $3$ blue. A box is chosen at random and a ball is drawn. The probability that the ball is red.
+      answerType: expression
+      answer: "1/2"
+      hints:
+        - |-
+          Add the cases: probability of the cause times probability of the event.
+      solution: |-
+        Total probability: $P=\frac{1}{2}\cdot\frac{3}{4} + \frac{1}{2}\cdot\frac{1}{4}=\frac{1}{2}$.
+    - id: mp-ba-1b
+      statement: |-
+        Two boxes: box 1 has $3$ red and $1$ blue ball, box 2 has $1$ red and $3$ blue. A box is chosen at random and a ball is drawn. Given that the ball is red, the probability that it came from box 1.
+      answerType: expression
+      answer: "3/4"
+      hints:
+        - |-
+          $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
+      solution: |-
+        Bayes' theorem: $\dfrac{\frac{1}{2}\cdot\frac{3}{4}}{\frac{1}{2}}=\frac{3}{4}$.
+    - id: mp-ba-2a
+      statement: |-
+        A factory has three lines making $50\%$, $30\%$ and $20\%$ of the items, with defect rates $2\%$, $3\%$ and $5\%$. An item is picked. The probability that the item is defective.
+      answerType: expression
+      answer: "29/1000"
+      hints:
+        - |-
+          Add the cases: probability of the cause times probability of the event.
+      solution: |-
+        Total probability: $P=\frac{1}{2}\cdot\frac{1}{50} + \frac{3}{10}\cdot\frac{3}{100} + \frac{1}{5}\cdot\frac{1}{20}=\frac{29}{1000}$.
+    - id: mp-ba-2b
+      statement: |-
+        A factory has three lines making $50\%$, $30\%$ and $20\%$ of the items, with defect rates $2\%$, $3\%$ and $5\%$. An item is picked. Given that the item is defective, the probability that it comes from line 3.
+      answerType: expression
+      answer: "10/29"
+      hints:
+        - |-
+          $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
+      solution: |-
+        Bayes' theorem: $\dfrac{\frac{1}{5}\cdot\frac{1}{20}}{\frac{29}{1000}}=\frac{10}{29}$.
+    - id: mp-ba-3a
+      statement: |-
+        In a town $1\%$ of the people have a condition. A test is positive for $90\%$ of the sick and for $5\%$ of the healthy. A person is tested. The probability that the test is positive.
+      answerType: expression
+      answer: "117/2000"
+      hints:
+        - |-
+          Add the cases: probability of the cause times probability of the event.
+      solution: |-
+        Total probability: $P=\frac{1}{100}\cdot\frac{9}{10} + \frac{99}{100}\cdot\frac{1}{20}=\frac{117}{2000}$.
+    - id: mp-ba-3b
+      statement: |-
+        In a town $1\%$ of the people have a condition. A test is positive for $90\%$ of the sick and for $5\%$ of the healthy. A person is tested. Given that the test is positive, the probability that the person is sick.
+      answerType: expression
+      answer: "2/13"
+      hints:
+        - |-
+          $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
+      solution: |-
+        Bayes' theorem: $\dfrac{\frac{1}{100}\cdot\frac{9}{10}}{\frac{117}{2000}}=\frac{2}{13}$.
+    - id: mp-ba-4a
+      statement: |-
+        A student comes to class by bus ($40\%$), by bike ($35\%$) or on foot ($25\%$), and is late with probability $10\%$, $4\%$ and $2\%$. The probability that the student is late.
+      answerType: expression
+      answer: "59/1000"
+      hints:
+        - |-
+          Add the cases: probability of the cause times probability of the event.
+      solution: |-
+        Total probability: $P=\frac{2}{5}\cdot\frac{1}{10} + \frac{7}{20}\cdot\frac{1}{25} + \frac{1}{4}\cdot\frac{1}{50}=\frac{59}{1000}$.
+    - id: mp-ba-4b
+      statement: |-
+        A student comes to class by bus ($40\%$), by bike ($35\%$) or on foot ($25\%$), and is late with probability $10\%$, $4\%$ and $2\%$. Given that the student is late, the probability that the student came by bus.
+      answerType: expression
+      answer: "40/59"
+      hints:
+        - |-
+          $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
+      solution: |-
+        Bayes' theorem: $\dfrac{\frac{2}{5}\cdot\frac{1}{10}}{\frac{59}{1000}}=\frac{40}{59}$.
+    - id: mp-ba-5a
+      statement: |-
+        A message is sent by two senders: sender 1 ($70\%$ of the messages) writes spam with probability $\dfrac1{10}$, sender 2 ($30\%$) with probability $\dfrac12$. The probability that a message is spam.
+      answerType: expression
+      answer: "11/50"
+      hints:
+        - |-
+          Add the cases: probability of the cause times probability of the event.
+      solution: |-
+        Total probability: $P=\frac{7}{10}\cdot\frac{1}{10} + \frac{3}{10}\cdot\frac{1}{2}=\frac{11}{50}$.
+    - id: mp-ba-5b
+      statement: |-
+        A message is sent by two senders: sender 1 ($70\%$ of the messages) writes spam with probability $\dfrac1{10}$, sender 2 ($30\%$) with probability $\dfrac12$. Given that a message is spam, the probability that it came from sender 2.
+      answerType: expression
+      answer: "15/22"
+      hints:
+        - |-
+          $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
+      solution: |-
+        Bayes' theorem: $\dfrac{\frac{3}{10}\cdot\frac{1}{2}}{\frac{11}{50}}=\frac{15}{22}$.

@@ -87,3 +87,39 @@
         - Square root of the sample variance.
       solution: |-
         $s^2=\dfrac{28}4=7$, so $s=\sqrt7$.
+- id: more-data
+  task: |-
+    More practice: describing data.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-ds-1
+      statement: "The mean of $2,3,5,8,12$."
+      answerType: number
+      answer: "6"
+      hints:
+        - Add and divide by the number of values.
+      solution: |-
+        $\dfrac{30}{5}=6$.
+    - id: mp-ds-2
+      statement: "The sample variance of $2,3,5,8,12$."
+      answerType: expression
+      answer: "33/2"
+      hints:
+        - "Divide by $n-1$."
+      solution: |-
+        The sum of the squared deviations is $66$; divided by $4$: $\frac{33}{2}$.
+    - id: mp-ds-3
+      statement: "The median of $4,7,7,9,10,13$."
+      answerType: number
+      answer: "8"
+      hints:
+        - Average the two middle values.
+      solution: |-
+        With six values the median is the average of the third and the fourth: $\dfrac{7+9}2=8$.
+    - id: mp-ds-4
+      statement: "The mode of $4,7,7,9,10,13$."
+      answerType: number
+      answer: "7"
+      hints:
+        - The most frequent value.
+      solution: "The value $7$ appears twice, more than any other."

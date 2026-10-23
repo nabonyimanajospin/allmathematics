@@ -76,3 +76,92 @@
           Compare $P(A\cap B)$ with $P(A)P(B)$.
       solution: |-
         $P(A)P(B)=\dfrac14\ne\dfrac15$: not independent.
+- id: more-conditional
+  task: |-
+    More practice: conditional probability.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-cn-1
+      statement: "A box has $5$ white and $7$ black balls. Two are drawn without replacement. The probability that both are white."
+      answerType: expression
+      answer: "5/33"
+      hints:
+        - "After one white ball, $4$ white remain among $11$."
+      solution: |-
+        $\dfrac5{12}\cdot\dfrac4{11}=\dfrac{5}{33}$.
+    - id: mp-cn-2
+      statement: "In the same box, the probability that the first ball is black and the second is white."
+      answerType: expression
+      answer: "35/132"
+      hints:
+        - Multiplication rule.
+      solution: |-
+        $\dfrac7{12}\cdot\dfrac5{11}=\dfrac{35}{132}$.
+    - id: mp-cn-3
+      statement: |-
+        $P(A\cap B)=\dfrac3{20}$ and $P(B)=\dfrac25$. Find $P(A\mid B)$.
+      answerType: expression
+      answer: "3/8"
+      hints:
+        - |-
+          $P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}$.
+      solution: |-
+        $\dfrac{\dfrac{3}{20}}{\dfrac{2}{5}}=\dfrac38$.
+    - id: mp-cn-4
+      statement: "Two dice are thrown and the sum is at least $10$. The probability that the first die shows $6$."
+      answerType: expression
+      answer: "1/2"
+      hints:
+        - "Restrict to the outcomes with a sum of at least $10$."
+      solution: |-
+        The favorable pairs for the sum are $(4,6),(5,5),(6,4),(5,6),(6,5),(6,6)$; three have a first die equal to $6$: $\dfrac36=\dfrac12$.
+    - id: mp-cn-5
+      statement: |-
+        $P(A)=\dfrac14$, $P(B)=\dfrac13$ and $P(A\cap B)=\dfrac1{12}$. Are $A$ and $B$ independent?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - |-
+          Compare $P(A\cap B)$ with $P(A)P(B)$.
+      solution: |-
+        $\dfrac14\cdot\dfrac13=\dfrac1{12}=P(A\cap B)$: independent.
+    - id: mp-cn-6
+      statement: |-
+        $P(A)=\dfrac12$, $P(B)=\dfrac12$ and $P(A\cap B)=\dfrac3{10}$. Are $A$ and $B$ independent?
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 1
+      hints:
+        - |-
+          Compare $P(A\cap B)$ with $P(A)P(B)$.
+      solution: |-
+        $\dfrac14\ne\dfrac3{10}$: not independent.
+    - id: mp-cn-7
+      statement: A fair coin is tossed three times. The probability of three heads.
+      answerType: expression
+      answer: "1/8"
+      hints:
+        - |-
+          Independent events: multiply.
+      solution: |-
+        The tosses are independent: $\left(\dfrac12\right)^3=\dfrac18$.
+    - id: mp-cn-8
+      statement: A fair die is thrown twice. The probability of at least one six.
+      answerType: expression
+      answer: "11/36"
+      hints:
+        - |-
+          Use the complement: no six at all.
+      solution: |-
+        $1-\left(\dfrac56\right)^2=\dfrac{11}{36}$.

@@ -100,3 +100,43 @@
           $r=\dfrac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$.
       solution: |-
         $r=\dfrac{7}{\sqrt{5\cdot10}}=\dfrac{7\sqrt2}{10}$.
+- id: more-regression
+  task: |-
+    More practice: least squares.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-lr-1
+      statement: "The slope $m$ of the least-squares line through $(1,1), (2,3), (3,4), (4,6)$."
+      answerType: expression
+      answer: "8/5"
+      hints:
+        - |-
+          $m=\dfrac{S_{xy}}{S_{xx}}$.
+      solution: |-
+        $\bar x=\frac{5}{2}$, $\bar y=\frac{7}{2}$, $S_{xx}=5$, $S_{xy}=8$, so $m=\frac{8}{5}$.
+    - id: mp-lr-2
+      statement: "The intercept $q$ of the least-squares line through $(1,1), (2,3), (3,4), (4,6)$."
+      answerType: expression
+      answer: "-1/2"
+      hints:
+        - |-
+          $q=\bar y-m\bar x$.
+      solution: |-
+        $q=\bar y-m\bar x=- \frac{1}{2}$.
+    - id: mp-lr-3
+      statement: "The least-squares line through $(1,1), (2,3), (3,4), (4,6)$ predicts which value at $x=5$?"
+      answerType: expression
+      answer: "15/2"
+      hints:
+        - "Use $y=mx+q$."
+      solution: |-
+        $y=\frac{8}{5}x+\left(- \frac{1}{2}\right)$, so $y(5)=\frac{15}{2}$.
+    - id: mp-lr-4
+      statement: "The correlation coefficient of $(1,1), (2,3), (3,4), (4,6)$ (a simplified expression)."
+      answerType: expression
+      answer: "8*sqrt(65)/65"
+      hints:
+        - |-
+          $r=\dfrac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$.
+      solution: |-
+        $r=\dfrac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}=\frac{8 \sqrt{65}}{65}$.

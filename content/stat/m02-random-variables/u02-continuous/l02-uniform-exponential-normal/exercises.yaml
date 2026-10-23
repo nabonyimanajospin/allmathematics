@@ -73,3 +73,72 @@
       hints:
         - Symmetry.
       solution: The mean divides the area in two equal halves.
+- id: more-continuous
+  task: |-
+    More practice: uniform, exponential and normal.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-un-1
+      statement: "$X$ is uniform on $[2,10]$. Find $P(X>7)$."
+      answerType: expression
+      answer: "3/8"
+      hints:
+        - Ratio of lengths.
+      solution: |-
+        $\dfrac{10-7}{10-2}=\dfrac38$.
+    - id: mp-un-2
+      statement: "$X$ is uniform on $[2,10]$. Find $E[X]$."
+      answerType: number
+      answer: "6"
+      hints:
+        - |-
+          $\dfrac{a+b}{2}$.
+      solution: |-
+        The midpoint of the interval: $\dfrac{2+10}2=6$.
+    - id: mp-un-3
+      statement: |-
+        $T$ is exponential with rate $\dfrac12$. Find $P(T>4)$.
+      answerType: expression
+      answer: "exp(-2)"
+      hints:
+        - |-
+          $e^{-\lambda t}$.
+      solution: |-
+        $e^{-\lambda t}=e^{-\frac12\cdot4}=e^{-2}$.
+    - id: mp-un-4
+      statement: |-
+        $T$ is exponential with rate $\dfrac12$. Find $E[T]$.
+      answerType: number
+      answer: "2"
+      hints:
+        - Reciprocal of the rate.
+      solution: |-
+        $\dfrac1\lambda=2$.
+    - id: mp-un-5
+      statement: |-
+        $X\sim\mathrm N(50,16)$. The standardized value of $x=58$.
+      answerType: number
+      answer: "2"
+      hints:
+        - |-
+          $\sigma=\sqrt{16}$.
+      solution: |-
+        $\sigma=4$, so $z=\dfrac{58-50}4=2$.
+    - id: mp-un-6
+      statement: |-
+        $X\sim\mathrm N(50,16)$. Find the value $x$ whose standardized value is $z=-\dfrac32$.
+      answerType: number
+      answer: "44"
+      hints:
+        - |-
+          $x=\mu+z\sigma$.
+      solution: |-
+        $x=\mu+z\sigma=50-\dfrac32\cdot4=44$.
+    - id: mp-un-7
+      statement: "A lamp lasts an exponential time with mean $100$ hours. The probability that it lasts more than $100$ hours."
+      answerType: expression
+      answer: "exp(-1)"
+      hints:
+        - The rate is the reciprocal of the mean.
+      solution: |-
+        The rate is $\dfrac1{100}$, so $P(T>100)=e^{-1}$.

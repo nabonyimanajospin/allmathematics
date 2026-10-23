@@ -76,3 +76,59 @@
       hints:
         - "Binomial theorem with $a=b=1$."
       solution: "The sum is $2^{10}=1024$."
+- id: more-binomial-theorem
+  task: |-
+    More practice: repetitions and the binomial theorem.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-bt-1
+      statement: The number of different arrangements of the letters of the word MISSISSIPPI.
+      answerType: number
+      answer: "34650"
+      hints:
+        - Divide by the factorial of each multiplicity.
+      solution: |-
+        11 letters with multiplicities $4, 4, 2, 1$: $\dfrac{11!}{4!4!2!1!}=34650$.
+    - id: mp-bt-2
+      statement: The number of different arrangements of the letters of the word BANANA.
+      answerType: number
+      answer: "60"
+      hints:
+        - Divide by the factorial of each multiplicity.
+      solution: |-
+        6 letters with multiplicities $3, 2, 1$: $\dfrac{6!}{3!2!1!}=60$.
+    - id: mp-bt-3
+      statement: The number of different arrangements of the letters of the word COMMITTEE.
+      answerType: number
+      answer: "45360"
+      hints:
+        - Divide by the factorial of each multiplicity.
+      solution: |-
+        9 letters with multiplicities $2, 2, 2, 1, 1, 1$: $\dfrac{9!}{2!2!2!1!1!1!}=45360$.
+    - id: mp-bt-4
+      statement: "The coefficient of $x^3$ in $(2 x + 1)^6$."
+      answerType: number
+      answer: "160"
+      hints:
+        - |-
+          $\dbinom nk(ax)^k b^{n-k}$.
+      solution: |-
+        The coefficient is $\dbinom632^3(1)^3=160$ (binomial theorem).
+    - id: mp-bt-5
+      statement: "The coefficient of $x^2$ in $(x - 3)^5$."
+      answerType: number
+      answer: "-270"
+      hints:
+        - |-
+          $\dbinom nk(ax)^k b^{n-k}$.
+      solution: |-
+        The coefficient is $\dbinom521^2(-3)^3=-270$ (binomial theorem).
+    - id: mp-bt-6
+      statement: "The coefficient of $x^2$ in $(3 x + 2)^4$."
+      answerType: number
+      answer: "216"
+      hints:
+        - |-
+          $\dbinom nk(ax)^k b^{n-k}$.
+      solution: |-
+        The coefficient is $\dbinom423^2(2)^2=216$ (binomial theorem).

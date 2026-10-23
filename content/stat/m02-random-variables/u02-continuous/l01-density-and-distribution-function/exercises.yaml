@@ -59,3 +59,91 @@
         - "Integrate from $0$ to $2$."
       solution: |-
         $F(2)=\int_0^2\dfrac{x^2}9dx=\dfrac{8}{27}$.
+- id: more-densities
+  task: |-
+    More practice: densities.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-dn-1a
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{3x^2}{8}$ on $[0,2]$ (and $0$ elsewhere). Find $E[X]$.
+      answerType: expression
+      answer: "3/2"
+      hints:
+        - |-
+          $\int xf(x)\,dx$.
+      solution: |-
+        $E[X]=\int_{0}^{2}xf(x)\,dx=\frac{3}{2}$.
+    - id: mp-dn-1b
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{3x^2}{8}$ on $[0,2]$ (and $0$ elsewhere). Find $P(1<X<2)$.
+      answerType: expression
+      answer: "7/8"
+      hints:
+        - Integrate the density between the two values.
+      solution: |-
+        $\int_{1}^{2}f(x)\,dx=\frac{7}{8}$.
+    - id: mp-dn-1c
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{3x^2}{8}$ on $[0,2]$ (and $0$ elsewhere). Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "3/20"
+      hints:
+        - "$E[X^2]-E[X]^2$."
+      solution: |-
+        $E[X^2]-E[X]^2=\frac{3}{20}$.
+    - id: mp-dn-2a
+      statement: "$X$ has the density $f(x)=2x$ on $[0,1]$ (and $0$ elsewhere). Find $E[X]$."
+      answerType: expression
+      answer: "2/3"
+      hints:
+        - |-
+          $\int xf(x)\,dx$.
+      solution: |-
+        $E[X]=\int_{0}^{1}xf(x)\,dx=\frac{2}{3}$.
+    - id: mp-dn-2b
+      statement: |-
+        $X$ has the density $f(x)=2x$ on $[0,1]$ (and $0$ elsewhere). Find $P(\frac{1}{2}<X<1)$.
+      answerType: expression
+      answer: "3/4"
+      hints:
+        - Integrate the density between the two values.
+      solution: |-
+        $\int_{\frac{1}{2}}^{1}f(x)\,dx=\frac{3}{4}$.
+    - id: mp-dn-2c
+      statement: |-
+        $X$ has the density $f(x)=2x$ on $[0,1]$ (and $0$ elsewhere). Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "1/18"
+      hints:
+        - "$E[X^2]-E[X]^2$."
+      solution: |-
+        $E[X^2]-E[X]^2=\frac{1}{18}$.
+    - id: mp-dn-3a
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{x}{2}$ on $[0,2]$ (and $0$ elsewhere). Find $E[X]$.
+      answerType: expression
+      answer: "4/3"
+      hints:
+        - |-
+          $\int xf(x)\,dx$.
+      solution: |-
+        $E[X]=\int_{0}^{2}xf(x)\,dx=\frac{4}{3}$.
+    - id: mp-dn-3b
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{x}{2}$ on $[0,2]$ (and $0$ elsewhere). Find $P(1<X<2)$.
+      answerType: expression
+      answer: "3/4"
+      hints:
+        - Integrate the density between the two values.
+      solution: |-
+        $\int_{1}^{2}f(x)\,dx=\frac{3}{4}$.
+    - id: mp-dn-3c
+      statement: |-
+        $X$ has the density $f(x)=\dfrac{x}{2}$ on $[0,2]$ (and $0$ elsewhere). Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "2/9"
+      hints:
+        - "$E[X^2]-E[X]^2$."
+      solution: |-
+        $E[X^2]-E[X]^2=\frac{2}{9}$.

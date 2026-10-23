@@ -84,3 +84,61 @@
           $\dfrac{2^3}{3!}$.
       solution: |-
         $e^{-2}\dfrac{8}{6}=\dfrac43e^{-2}$.
+- id: more-distributions
+  task: |-
+    More practice: binomial, geometric and Poisson.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-bg-1
+      statement: |-
+        $X\sim\mathrm B\left(8,\dfrac14\right)$. Find $P(X=3)$.
+      answerType: expression
+      answer: "1701/8192"
+      hints:
+        - |-
+          $\dbinom nkp^k(1-p)^{n-k}$.
+      solution: |-
+        $\dbinom83\left(\dfrac14\right)^3\left(\dfrac34\right)^5=56\cdot\dfrac{243}{65536}=\dfrac{1701}{8192}$.
+    - id: mp-bg-2
+      statement: |-
+        $X\sim\mathrm B\left(20,\dfrac15\right)$. Find $E[X]$.
+      answerType: number
+      answer: "4"
+      hints:
+        - "$np$."
+      solution: "$np=4$."
+    - id: mp-bg-3
+      statement: |-
+        $X\sim\mathrm B\left(20,\dfrac15\right)$. Find $\operatorname{Var}(X)$.
+      answerType: expression
+      answer: "16/5"
+      hints:
+        - "$npq$."
+      solution: |-
+        $np(1-p)=20\cdot\dfrac15\cdot\dfrac45=\dfrac{16}5$.
+    - id: mp-bg-4
+      statement: |-
+        Trials succeed with probability $\dfrac13$. The probability that the first success is at trial $3$.
+      answerType: expression
+      answer: "4/27"
+      hints:
+        - "Two failures, then a success."
+      solution: |-
+        $\left(\dfrac23\right)^2\dfrac13=\dfrac4{27}$.
+    - id: mp-bg-5
+      statement: "$X$ is Poisson with mean $3$. Find $P(X=0)$."
+      answerType: expression
+      answer: "exp(-3)"
+      hints:
+        - |-
+          $e^{-\lambda}\dfrac{\lambda^k}{k!}$.
+      solution: "$e^{-3}$."
+    - id: mp-bg-6
+      statement: |-
+        $X$ is Poisson with mean $2$. Find $P(X\le2)$.
+      answerType: expression
+      answer: "5*exp(-2)"
+      hints:
+        - "Add the cases $0$, $1$ and $2$."
+      solution: |-
+        $e^{-2}\left(1+2+2\right)=5e^{-2}$.

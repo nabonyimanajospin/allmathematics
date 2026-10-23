@@ -77,3 +77,58 @@
         - One red and one blue.
       solution: |-
         $\dfrac{5\cdot3}{\binom82}=\dfrac{15}{28}$.
+- id: more-sample-spaces
+  task: |-
+    More practice: probabilities of events.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-sa-1
+      statement: "Two fair dice are thrown. The probability that the sum is $7$."
+      answerType: expression
+      answer: "1/6"
+      hints:
+        - List the favorable outcomes.
+      solution: |-
+        The outcomes $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$: $\dfrac6{36}=\dfrac16$.
+    - id: mp-sa-2
+      statement: Two fair dice are thrown. The probability that both show the same number.
+      answerType: expression
+      answer: "1/6"
+      hints:
+        - "Count the pairs $(k,k)$."
+      solution: |-
+        $6$ outcomes among $36$: $\dfrac16$.
+    - id: mp-sa-3
+      statement: "Two fair dice are thrown. The probability that both show at most $4$."
+      answerType: expression
+      answer: "4/9"
+      hints:
+        - "Each die has $4$ favorable faces."
+      solution: |-
+        $4\cdot4=16$ outcomes among $36$: $\dfrac49$.
+    - id: mp-sa-4
+      statement: "A fair coin is tossed $5$ times. The probability of exactly $2$ heads."
+      answerType: expression
+      answer: "5/16"
+      hints:
+        - Choose the positions of the heads.
+      solution: |-
+        $\dfrac{\binom52}{2^5}=\dfrac{10}{32}=\dfrac5{16}$.
+    - id: mp-sa-5
+      statement: "Two cards are drawn together from a deck of $52$. The probability that both are hearts."
+      answerType: expression
+      answer: "1/17"
+      hints:
+        - Count pairs.
+      solution: |-
+        $\dfrac{\binom{13}2}{\binom{52}2}=\dfrac{78}{1326}=\dfrac1{17}$.
+    - id: mp-sa-6
+      statement: |-
+        $P(A)=\dfrac12$, $P(B)=\dfrac25$ and $A$, $B$ are mutually exclusive. Find $P(A\cup B)$.
+      answerType: expression
+      answer: "9/10"
+      hints:
+        - |-
+          Exclusive events: add.
+      solution: |-
+        For exclusive events $P(A\cup B)=\dfrac12+\dfrac25=\dfrac9{10}$.

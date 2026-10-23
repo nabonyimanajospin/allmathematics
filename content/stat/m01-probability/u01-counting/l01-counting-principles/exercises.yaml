@@ -87,3 +87,49 @@
         - A handshake is an unordered pair.
       solution: |-
         Each handshake is a pair of people: $\dbinom{12}2=66$.
+- id: more-counting
+  task: |-
+    More practice: counting.
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`."
+  items:
+    - id: mp-co-1
+      statement: "A team of $3$ boys is chosen from $8$ and a team of $2$ girls from $6$. In how many ways can the two teams be chosen?"
+      answerType: number
+      answer: "840"
+      hints:
+        - Multiply the two independent choices.
+      solution: |-
+        $\dbinom83\cdot\dbinom62=56\cdot15=840$.
+    - id: mp-co-2
+      statement: "A code has $3$ letters (of $26$) followed by $4$ digits. How many codes are possible?"
+      answerType: number
+      answer: "175760000"
+      hints:
+        - |-
+          Multiplication principle: each position is chosen independently.
+      solution: |-
+        $26^3\cdot10^4=175\,760\,000$.
+    - id: mp-co-3
+      statement: "How many subsets has a set of $10$ elements (including the empty set)?"
+      answerType: number
+      answer: "1024"
+      hints:
+        - Two choices for each element.
+      solution: |-
+        Each element is in or out: $2^{10}=1024$.
+    - id: mp-co-4
+      statement: "In how many ways can $6$ different books be arranged on a shelf?"
+      answerType: number
+      answer: "720"
+      hints:
+        - Arrangements of all the objects.
+      solution: "$6!=720$."
+    - id: mp-co-5
+      statement: "A committee of $4$ is chosen from $4$ doctors and $5$ nurses. In how many ways does it contain at least one doctor?"
+      answerType: number
+      answer: "121"
+      hints:
+        - |-
+          Count the complement: no doctor.
+      solution: |-
+        All committees: $\dbinom94=126$. With no doctor: $\dbinom54=5$. So $121$.
