@@ -145,6 +145,26 @@ sections:
       **Why $a=2R\sin\hat A$ (the law of sines).** Draw the circumcircle and the diameter $BA'$ through $B$. The angle $\hat{BCA'}$ is a right angle (it is inscribed in a semicircle), and the angle at $A'$ equals $\hat A$ (both are inscribed angles on the arc $BC$).
       In the right triangle $BCA'$ the hypotenuse is $2R$ and the side opposite $\hat A$ is $a$, so $\sin\hat A=\dfrac{a}{2R}$, that is $a=2R\sin\hat A$.
 
+  - id: circumcenter-formulas
+    type: formula
+    title: Circumcenter and circumcircle, the formulas to remember
+    formula: |
+      \begin{aligned}
+      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D}\\
+      y_O&=\dfrac{(x_1^2+y_1^2)(x_3-x_2)+(x_2^2+y_2^2)(x_1-x_3)+(x_3^2+y_3^2)(x_2-x_1)}{D}\\
+      D&=2\left[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\right]
+      \end{aligned}
+    note: |
+      These are the coordinates of the point at equal distance from $A$, $B$, $C$. If $D=0$ the three points are on one line and there is no circumcircle.
+
+  - id: circumcircle-formulas
+    type: formula
+    title: Radius and the relations with the other centers
+    formula: |
+      R=\dfrac{abc}{4S}=\dfrac{a}{2\sin\hat A},\qquad OI^2=R^2-2Rr,\qquad OH^2=9R^2-\left(a^2+b^2+c^2\right),\qquad H=A+B+C-2O
+    note: |
+      $I$ is the incenter with inradius $r$ and $H$ the orthocenter. The first relation (Euler's) shows $R\ge2r$, with equality only for the equilateral triangle. The last one puts $O$, $G$, $H$ on one line, the Euler line.
+
   - id: ex-circumcenter
     type: example
     title: The circumcenter and the circumradius
