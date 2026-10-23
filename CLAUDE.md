@@ -55,9 +55,14 @@ write original content (spec section 12.2).
 - Figures: a `visual` section with `kind: figure` and a `figure:` block (2D or rotatable 3D, exact coordinates, see `packages/core/src/figure.ts`).
   Plot legends (`l1`..`l5`) are LaTeX. Put the key formula of a lesson before its first question (questions lock what follows).
 - Resources (downloadable documents) are listed in `resources/resources.yaml`; only `permission: granted` files can be downloaded.
+- Every lesson must have at least 15 exercises, and a lesson is 100% only when all its sections are read and all its exercises are solved (spec 9.2, v1.3).
+  Extra practice is added by the `more_*.py` modules in `scripts/authoring/` (registered in `build_all.py`, merged by `toolkit.write_exercises`); every key is computed
+  with SymPy and cross-checked numerically. After any build run `fix_dfrac.py`; it also rewrites `a/b` inside `$...$` of lessons, so never write `(3,3)/(3\sqrt2)` there.
+- A student follows one course at a time (enrollments); progress is recomputed from the student's answers on every dashboard load (`refreshProgress`), so content changes never leave a stale percentage.
 - Commits: small, plain messages, authored by the repository owner only (no co-author lines).
 
 ## Current phase
 Phase 1 foundation done. Content written and verified (92 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression). Also built: resources page (signed-in only), formula sheet (save formulas and theorems from lessons), stacked-fraction answer field, figures in many geometry lessons.
+Added since: admin panel (users, stats, resources upload), forgot-password by e-mail code, enrollment, new MVC lessons from the lecture notes (gradient, linear approximation, space curves, absolute extrema, Riemann sums). Exercises are at 15+ in all of Course 2 and in Geometry Module 1; Geometry Modules 2 and 3 and Statistics are still being topped up.
 Next: Phase 2 (problem generator, quizzes, mastery, dashboard), figures for the remaining lessons, more `more`/`why` explanations, stat inference module.
 Spec version 1.2 (hierarchy: Course > Module > Unit > Lesson).

@@ -40,3 +40,68 @@ The platform also has: a Resources page with downloadable course documents, a pe
 fractions stacked as in print, and 2D and rotatable 3D figures drawn from exact coordinates.
 
 Next: Phase 2, assessment and tracking (problem generator, quizzes, mastery, dashboard).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You run it as two programs in two terminals: the math engine, then the website. This is from [docs/running.md](docs/running.md). I haven't run it myself.
+
+**You need:** Node 22+, pnpm (`npm i -g pnpm`), Python 3.11+ and Git. You don't need Docker or a database server.
+
+**First time only** (from the project root):
+```powershell
+pnpm install
+cd apps/math-engine
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements-dev.txt
+cd ../..
+```
+
+**Every time:**
+
+Terminal 1 starts the math engine on port 8001:
+```powershell
+cd apps/math-engine
+$env:ENGINE_TOKEN = "dev-engine-token"
+.\.venv\Scripts\python -m uvicorn allmaths_engine.main:app --host 127.0.0.1 --port 8001
+```
+
+Terminal 2 starts the website on port 3000:
+```powershell
+$env:MATH_ENGINE_TOKEN = "dev-engine-token"
+pnpm dev
+```
+
+The two tokens must be the same string.
+
+Then open http://localhost:3000, click **Create account**, and open Lesson 1.
+
+**Optional demo users:** stop the website first, because the database allows only one process at a time. Then run `pnpm seed`. It creates `student@allmaths.test`, `instructor@allmaths.test` and `admin@allmaths.test`, all with the password `demo-password-123`.
+
+**Checks:** `pnpm typecheck`, `pnpm lint`, `pnpm test` (the engine must be running), `pnpm test:engine` and `pnpm verify-content`.

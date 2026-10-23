@@ -44,6 +44,16 @@ pnpm seed
 This creates `student@allmaths.test`, `instructor@allmaths.test`, `admin@allmaths.test`
 (password `demo-password-123`). It refuses to run in production.
 
+## Administration and password recovery
+
+Signed in as an administrator, **Admin** in the header opens `/admin`: user counts, and per course how many learners entered
+(opened a section) and completed it; `/admin/users` finds an account and can reset its password (a temporary password is shown
+once and all sessions end), suspend or restore it, and change its role; `/admin/resources` manages documents.
+You cannot suspend or demote yourself. Every action is written to the audit log.
+
+"Forgot your password?" on the sign-in page sends a 6-digit code (valid 10 minutes, 5 tries). To send real e-mail set
+`RESEND_API_KEY` and `MAIL_FROM` (required in production). Without them, in development, the code is printed in the web server's console.
+
 ## Checks
 
 | Command | What it does |
@@ -74,4 +84,7 @@ Set `DATABASE_URL` (PostgreSQL), `MATH_ENGINE_URL`, `MATH_ENGINE_TOKEN` (long ra
 The page `/resources` lists the documents of `resources/resources.yaml`; the files are in `resources/files/`. A document is
 downloadable only if `permission: granted` and its file exists (`pnpm verify-content` checks this). To add one: copy the file
 into `resources/files/`, add an entry to the catalogue, set `permission: granted` only when we may publish it (spec 12.2).
+An administrator can also upload and remove documents in the browser at `/admin/resources` (PDF, DOCX, PNG or JPG, up to 50 MB;
+the uploader confirms the right to publish, and the action is written to the audit log). Uploads change `resources.yaml` and
+`resources/files/` on disk, so in production `RESOURCES_DIR` must be a writable, persistent folder.
 Very large books (tens of MB) should not go into git: keep them on the server in `resources/files/` (or set `RESOURCES_DIR`).
