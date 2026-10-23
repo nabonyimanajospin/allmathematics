@@ -109,3 +109,77 @@
           $\cos(\theta-\alpha)=\cos\theta\cos\alpha+\sin\theta\sin\alpha$.
       solution: |-
         $r\left(\dfrac12\cos\theta+\dfrac{\sqrt3}2\sin\theta\right)=2$ gives $\dfrac x2+\dfrac{\sqrt3}2y=2$, that is $x+\sqrt3y=4$.
+- id: more-polar-equations
+  task: |-
+    More practice: equations in polar form.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-pe-1
+      statement: |-
+        Write the curve $x^2+y^2=10x$ in polar form $r=\dots$ (an expression in theta).
+      answerType: expression
+      answer: "10*cos(theta)"
+      variables:
+        - theta
+      hints:
+        - |-
+          Use $x^2+y^2=r^2$ and $x=r\cos\theta$, then divide by $r$.
+      solution: |-
+        With $x=r\cos\theta$ and $y=r\sin\theta$, the equation becomes $r=10 \cos{\left(\theta \right)}$.
+    - id: mp-pe-2
+      statement: |-
+        Write the curve $x^2+y^2+6y=0$ in polar form $r=\dots$ (an expression in theta).
+      answerType: expression
+      answer: "-6*sin(theta)"
+      variables:
+        - theta
+      hints:
+        - |-
+          Use $x^2+y^2=r^2$ and $y=r\sin\theta$, then divide by $r$.
+      solution: |-
+        With $x=r\cos\theta$ and $y=r\sin\theta$, the equation becomes $r=- 6 \sin{\left(\theta \right)}$.
+    - id: mp-pe-3
+      statement: |-
+        Write the curve $2x+3y=6$ in polar form $r=\dots$ (an expression in theta).
+      answerType: expression
+      answer: "6/(3*sin(theta) + 2*cos(theta))"
+      variables:
+        - theta
+      hints:
+        - |-
+          Put $x=r\cos\theta$, $y=r\sin\theta$ and solve for $r$.
+      solution: |-
+        With $x=r\cos\theta$ and $y=r\sin\theta$, the equation becomes $r=\frac{6}{3 \sin{\left(\theta \right)} + 2 \cos{\left(\theta \right)}}$.
+    - id: mp-pe-4
+      statement: |-
+        Write the curve $r=4\cos\theta+4\sin\theta$ as a Cartesian equation.
+      answerType: equation
+      answer: "x^2 - 4*x + y^2 - 4*y=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Multiply by $r$ (or $\cos\theta$) to make $x=r\cos\theta$ and $y=r\sin\theta$ appear.
+      solution: "The Cartesian equation is $x^{2} - 4 x + y^{2} - 4 y=0$ (any non-zero multiple is accepted)."
+    - id: mp-pe-5
+      statement: |-
+        Write the curve $r=\dfrac{3}{\sin\theta}$ as a Cartesian equation.
+      answerType: equation
+      answer: "y - 3=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Multiply by $r$ (or $\cos\theta$) to make $x=r\cos\theta$ and $y=r\sin\theta$ appear.
+      solution: "The Cartesian equation is $y - 3=0$ (any non-zero multiple is accepted)."
+    - id: mp-pe-6
+      statement: |-
+        Write the curve $r=\dfrac{2}{\cos\theta+\sin\theta}$ as a Cartesian equation.
+      answerType: equation
+      answer: "x + y - 2=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Multiply by $r$ (or $\cos\theta$) to make $x=r\cos\theta$ and $y=r\sin\theta$ appear.
+      solution: "The Cartesian equation is $x + y - 2=0$ (any non-zero multiple is accepted)."

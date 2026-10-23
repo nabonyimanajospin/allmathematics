@@ -100,3 +100,51 @@
         - Check that the point is on the ellipse.
       solution: |-
         $\dfrac{2x}{20}+\dfrac{2y}5=1$ gives $x+4y=10$.
+- id: more-ellipse
+  task: |-
+    More practice: the ellipse.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-el-1
+      statement: "The center of the ellipse $4 x^{2} - 16 x + 9 y^{2} + 18 y - 11=0$."
+      answerType: vector
+      answer: "(2, -1)"
+      hints:
+        - "Complete the squares in $x$ and in $y$."
+      solution: |-
+        $4 x^{2} - 16 x + 9 y^{2} + 18 y - 11=0$ becomes $\dfrac{(x-2)^2}{9}+\dfrac{(y+1)^2}{4}=1$: the center is $(2,-1)$.
+    - id: mp-el-2
+      statement: "The foci of the ellipse $4 x^{2} - 16 x + 9 y^{2} + 18 y - 11=0$ (give the two points)."
+      answerType: points
+      answer: "(2 - sqrt(5), -1), (2 + sqrt(5), -1)"
+      hints:
+        - "$c^2=a^2-b^2$, on the major axis."
+      solution: |-
+        $a^2=9$, $b^2=4$, so $c=\sqrt5$. The major axis is horizontal: the foci are $\left(2 - \sqrt{5},\,-1\right)$ and $\left(2 + \sqrt{5},\,-1\right)$.
+    - id: mp-el-3
+      statement: "The eccentricity of the ellipse $4 x^{2} - 16 x + 9 y^{2} + 18 y - 11=0$."
+      answerType: expression
+      answer: "sqrt(5)/3"
+      hints:
+        - |-
+          $e=\dfrac ca$.
+      solution: |-
+        $e=\dfrac{\sqrt5}{3}=\frac{\sqrt{5}}{3}$.
+    - id: mp-el-4
+      statement: |-
+        The length of the minor axis of the ellipse $4 x^{2} - 16 x + 9 y^{2} + 18 y - 11=0$. The unit is lu: give the number only.
+      answerType: number
+      answer: "4"
+      hints:
+        - "The minor axis is $2b$."
+      solution: "$b^2=4$, so the minor axis has length $2b=4$."
+    - id: mp-el-5
+      statement: "Find the equation of the ellipse whose points have distances to $(-3,0)$ and $(3,0)$ adding up to $10$."
+      answerType: equation
+      answer: "x^2/25+y^2/16=1"
+      coordinates:
+        [x, y]
+      hints:
+        - "$2a=10$ and $c=3$, so $b^2=a^2-c^2$."
+      solution: |-
+        $a=5$, $c=3$, $b^2=25-9=16$: $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$.

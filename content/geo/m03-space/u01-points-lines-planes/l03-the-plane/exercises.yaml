@@ -91,3 +91,80 @@
           $p=\dfrac{|d|}{\sqrt{a^2+b^2+c^2}}$.
       solution: |-
         The normal has length $3$, so $p=\dfrac{|d|}{3}=3$.
+- id: more-planes
+  task: |-
+    More practice: the plane.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-pl-1
+      statement: "The plane through $A(1,0,0)$, $B(0,2,0)$, $C(0,0,3)$."
+      answerType: equation
+      answer: "6*x + 3*y + 2*z - 6=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - |-
+          Use the intercept form, or the normal vector $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}$.
+      solution: |-
+        The plane is $6 x + 3 y + 2 z - 6=0$ (intercept form $x+\dfrac y2+\dfrac z3=1$).
+    - id: mp-pl-2
+      statement: |-
+        The plane through $P(1,2,-1)$ with normal vector $\vec n=(2,-1,3)$.
+      answerType: equation
+      answer: "2*x - y + 3*z + 3=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "$a(x-x_0)+b(y-y_0)+c(z-z_0)=0$."
+      solution: "$2(x-1)-(y-2)+3(z+1)=0$, that is $2 x - y + 3 z + 3=0$."
+    - id: mp-pl-3
+      statement: "The plane through $P(1,1,1)$ parallel to $3x-2y+5z+7=0$."
+      answerType: equation
+      answer: "3*x - 2*y + 5*z - 6=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - Keep the normal vector.
+      solution: "Parallel planes have the same normal vector $(3,-2,5)$."
+    - id: mp-pl-4
+      statement: "The plane through $A(1,2,3)$, $B(2,3,5)$, $C(4,4,4)$."
+      answerType: equation
+      answer: "3*x - 5*y + z + 4=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - Use the cross product of two edge vectors as the normal.
+      solution: |-
+        $\overrightarrow{AB}=(1,1,2)$, $\overrightarrow{AC}=(3,2,1)$, $\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=\left(-3,\,5,\,-1\right)$; the plane is $3 x - 5 y + z + 4=0$.
+    - id: mp-pl-5
+      statement: "Give a normal vector of the plane $4x-2y+z-9=0$."
+      answerType: direction
+      answer: "(4, -2, 1)"
+      hints:
+        - "Read the coefficients of $x$, $y$, $z$."
+      solution: "The normal vector is $(4,-2,1)$; any non-zero multiple is accepted."
+    - id: mp-pl-6
+      statement: "The plane through $P(5,3,2)$ parallel to the $xz$-plane."
+      answerType: equation
+      answer: "y - 3=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "Parallel to the $xz$-plane means constant $y$."
+      solution: "The $xz$-plane has normal $(0,1,0)$, so the plane is $y=3$."
+    - id: mp-pl-7
+      statement: "The plane $z=5$ is"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "parallel to the $xy$-plane"
+          value: "1"
+        - text: "parallel to the $xz$-plane"
+          value: "2"
+        - text: "perpendicular to the $xy$-plane"
+          value: "3"
+      correctIndex: 0
+      hints:
+        - "Its normal vector is $(0,0,1)$."
+      solution: |-
+        The normal vector $(0,0,1)$ is the one of the $xy$-plane: the planes are parallel.

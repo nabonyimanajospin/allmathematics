@@ -100,3 +100,55 @@
         - "First write the equation of $BC$."
       solution: |-
         The line $BC$ is $4 x + 3 y - 56=0$, so $d=\dfrac{|-56|}{5}=\frac{56}{5}$.
+- id: more-distance-line
+  task: |-
+    More practice: distance from a point to a line.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-dl-1
+      statement: |-
+        The distance from $P\left(3,\,-2\right)$ to the line $4 x + 3 y - 5=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "1/5"
+      hints:
+        - |-
+          $d=\dfrac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}$.
+      solution: |-
+        The norm of the normal vector is $5$ (since $4^2+3^2=25$), so the distance is $\dfrac{|4\cdot3+3\cdot(-2)-5|}{5}=\dfrac15$.
+    - id: mp-dl-2
+      statement: |-
+        The distance between the parallel lines $3 x + 4 y - 10=0$ and $3 x + 4 y + 5=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "3"
+      hints:
+        - |-
+          Use a point of one line, or the formula $\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}$.
+      solution: |-
+        The norm of the normal vector is $5$ (since $3^2+4^2=25$), so the distance is $\dfrac{|-10-5|}{5}=3$.
+    - id: mp-dl-3
+      statement: |-
+        Find the foot of the perpendicular from $P\left(1,\,2\right)$ to the line $x + y - 6=0$.
+      answerType: vector
+      answer: "(5/2, 7/2)"
+      hints:
+        - "Move from $P$ along the normal vector until you reach the line."
+      solution: |-
+        The foot is $P-\dfrac{ax_0+by_0+c}{a^2+b^2}(a,b)$, and it lies on the line.
+    - id: mp-dl-4
+      statement: |-
+        Find the reflection of $P\left(1,\,2\right)$ in the line $x + y - 6=0$.
+      answerType: vector
+      answer: "(4, 5)"
+      hints:
+        - "The foot is the midpoint of $P$ and its image."
+      solution: |-
+        The foot of the perpendicular is $\left(\frac{5}{2},\,\frac{7}{2}\right)$, and it is the midpoint of $P$ and its reflection.
+    - id: mp-dl-5
+      statement: |-
+        The distance from the origin to the line $5 x - 12 y + 26=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "2"
+      hints:
+        - "Put $x_0=y_0=0$ in the formula."
+      solution: |-
+        The norm of the normal vector is $13$ (since $5^2+12^2=169$), so the distance is $\dfrac{26}{13}=2$.

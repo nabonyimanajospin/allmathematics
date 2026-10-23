@@ -138,3 +138,27 @@
       hints:
         - The triangle is right-angled.
       solution: "The angle at $A$ is a right angle, so $H=A=(0,0)$."
+- id: more-triangle
+  task: |-
+    More practice: a new triangle.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-ta-1
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the orthocenter $H$.
+      answerType: vector
+      answer: "(2, 11/3)"
+      hints:
+        - Intersect two altitudes.
+      solution: |-
+        Two altitudes meet at $\left(2,\,\frac{11}{3}\right)$ (also $H=A+B+C-2O$ with $O=\left(2,\,\frac{8}{3}\right)$).
+    - id: mp-ta-2
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the length of the altitude from $B$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "24*sqrt(13)/13"
+      hints:
+        - |-
+          Use $h=\dfrac{2S}{\text{side}}$.
+      solution: |-
+        $h_b=\dfrac{2S}{b}=\frac{24 \sqrt{13}}{13}$ with $S=24$.

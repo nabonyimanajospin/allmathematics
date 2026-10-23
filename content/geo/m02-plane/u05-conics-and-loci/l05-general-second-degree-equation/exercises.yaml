@@ -125,3 +125,76 @@
           The roots of $\lambda^2-14\lambda+48=0$.
       solution: |-
         $\delta=49-1=48$, $S=14$: $\lambda^2-14\lambda+48=0$ has roots $6$ and $8$. The equation becomes $6x'^2+8y'^2=24$.
+- id: more-general
+  task: |-
+    More practice: the general second-degree equation.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-gs-1
+      statement: "The equation $x^2+4y^2+x-y-5=0$ (a general second-degree equation, if it has points) represents"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 0
+      hints:
+        - "Compute $B^2-4AC$."
+      solution: |-
+        $A=1$, $B=0$, $C=4$: $B^2-4\norm{\overrightarrow{AC}}=-16$, so the curve is an ellipse.
+    - id: mp-gs-2
+      statement: "The equation $x^2+2xy+1y^2+x-y-5=0$ (a general second-degree equation, if it has points) represents"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 2
+      hints:
+        - "Compute $B^2-4AC$."
+      solution: |-
+        $A=1$, $B=2$, $C=1$: $B^2-4\norm{\overrightarrow{AC}}=0$, so the curve is a parabola.
+    - id: mp-gs-3
+      statement: "The equation $x^2+4xy+1y^2+x-y-5=0$ (a general second-degree equation, if it has points) represents"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 1
+      hints:
+        - "Compute $B^2-4AC$."
+      solution: |-
+        $A=1$, $B=4$, $C=1$: $B^2-4\norm{\overrightarrow{AC}}=12$, so the curve is a hyperbola.
+    - id: mp-gs-4
+      statement: |-
+        The term $xy$ of $x^2+2\sqrt3\,xy+3y^2-8=0$ is removed by rotating the axes through an acute angle $\theta$. Find $\theta$.
+      answerType: expression
+      answer: pi/3
+      hints:
+        - |-
+          $\tan2\theta=\dfrac{B}{A-C}$.
+      solution: |-
+        $\tan2\theta=\dfrac{2\sqrt3}{1-3}=-\sqrt3$, so $2\theta=\dfrac{2\pi}{3}$ and $\theta=\dfrac\pi3$ (acute).
+    - id: mp-gs-5
+      statement: |-
+        For $x^2+xy+y^2=3$, $A=C$: the axes must be rotated by what angle to remove the $xy$ term?
+      answerType: expression
+      answer: pi/4
+      hints:
+        - |-
+          When $A=C$, $\tan2\theta$ is infinite.
+      solution: |-
+        $A-C=0$ gives $2\theta=\dfrac\pi2$, so $\theta=\dfrac\pi4$.

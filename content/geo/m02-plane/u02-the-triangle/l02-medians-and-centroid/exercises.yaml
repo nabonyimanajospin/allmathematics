@@ -143,3 +143,17 @@
         - Use the formula with the sides.
       solution: |-
         $m_a=\dfrac12\sqrt{2\cdot100+2\cdot144-100}=\dfrac12\sqrt{388}=\sqrt{97}$.
+- id: more-triangle
+  task: |-
+    More practice: a new triangle.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-tm-1
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the length of the median from $A$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "3*sqrt(5)"
+      hints:
+        - "The median joins $A$ to the midpoint of $BC$."
+      solution: |-
+        The midpoint of $BC$ is $\left(4,\,4\right)$, so $m_a=\norm{\overrightarrow{AM_a}}=3 \sqrt{5}$.

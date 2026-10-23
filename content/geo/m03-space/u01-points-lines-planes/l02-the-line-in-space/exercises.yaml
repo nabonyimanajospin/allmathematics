@@ -79,3 +79,94 @@
           Find $\lambda$ from the first coordinate.
       solution: |-
         $\overrightarrow{AB}=(4,2,-2)$ and $\overrightarrow{AP}=(2,1,-1)=\dfrac12\overrightarrow{AB}$: the point is on the line (for $\lambda=\dfrac12$).
+- id: more-lines
+  task: |-
+    More practice: the line in space.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-ln-1
+      statement: |-
+        Give a direction vector of the line through $A\left(1,\,2,\,3\right)$ and $B\left(4,\,6,\,15\right)$.
+      answerType: direction
+      answer: "(3, 4, 12)"
+      hints:
+        - |-
+          Use $\overrightarrow{AB}$.
+      solution: |-
+        $\overrightarrow{AB}=\left(3,\,4,\,12\right)$; any non-zero multiple is accepted.
+    - id: mp-ln-2
+      statement: "The line $x=2+3t$, $y=-1$, $z=4-2t$. Find its point for $t=2$."
+      answerType: vector
+      answer: "(8, -1, 0)"
+      hints:
+        - "Substitute $t=2$."
+      solution: |-
+        $x=2+6=8$, $y=-1$, $z=4-4=0$: the point is $\left(8,\,-1,\,0\right)$.
+    - id: mp-ln-3
+      statement: |-
+        Is the point $Q\left(11,\,-1,\,-2\right)$ on the line $x=2+3t$, $y=-1$, $z=4-2t$?
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - "Find $t$ from one coordinate and test the others."
+      solution: |-
+        $11=2+3t$ gives $t=3$; then $y=-1$ and $z=4-6=-2$ also match: the point is on the line.
+    - id: mp-ln-4
+      statement: "The lines $(x,y,z)=(1,0,2)+s(1,1,0)$ and $(x,y,z)=(0,1,0)+u(0,1,-1)$ meet at one point. Find it."
+      answerType: vector
+      answer: "(0, -1, 2)"
+      hints:
+        - "Solve the first two coordinates, then check the third."
+      solution: |-
+        Equating the coordinates gives $s=-1$, $u=-2$, and the point $\left(0,\,-1,\,2\right)$.
+    - id: mp-ln-5
+      statement: |-
+        The distance from $Q\left(3,\,0,\,0\right)$ to the line through the origin with direction $\vec v=\left(1,\,2,\,2\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "2*sqrt(2)"
+      hints:
+        - |-
+          Use the cross product of $\overrightarrow{OQ}$ and the direction vector.
+      solution: |-
+        $d=\dfrac{\norm{\crossp{\overrightarrow{OQ}}{\vec v}}}{\norm{\vec v}}=2 \sqrt{2}$.
+    - id: mp-ln-6
+      statement: "The lines with direction vectors $(1,2,3)$ and $(2,4,6)$ are"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: perpendicular
+          value: "1"
+        - text: parallel or the same
+          value: "2"
+        - text: skew for sure
+          value: "3"
+        - text: intersecting for sure
+          value: "4"
+      correctIndex: 1
+      hints:
+        - Compare the direction vectors.
+      solution: |-
+        $(2,4,6)=2(1,2,3)$: the directions are parallel, so the lines are parallel (or the same line).
+    - id: mp-ln-7
+      statement: "The line through the origin with direction $(1,0,0)$ and the line through $(0,1,1)$ with direction $(0,1,0)$ are"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: intersecting
+          value: "1"
+        - text: parallel
+          value: "2"
+        - text: skew
+          value: "3"
+      correctIndex: 2
+      hints:
+        - |-
+          Compute the box product of $\overrightarrow{P_1P_2}$ and the two directions.
+      solution: |-
+        The box product is $1\ne0$, so the lines are not coplanar: they are skew.

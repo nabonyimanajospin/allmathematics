@@ -134,3 +134,27 @@
           $h=\dfrac{3V}{S}$.
       solution: |-
         $h_D=\dfrac{3V}{S_{ABC}}=\dfrac{45}{9}=5$.
+- id: more-tetrahedron
+  task: |-
+    More practice: a new tetrahedron.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-tt-1
+      statement: |-
+        Find the volume of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$, $D\left(1,\,1,\,6\right)$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "6"
+      hints:
+        - A sixth of the absolute value of the box product.
+      solution: |-
+        $V=\dfrac16\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|=6$.
+    - id: mp-tt-2
+      statement: |-
+        Find the height of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$, $D\left(1,\,1,\,6\right)$ from $D$ on the face $ABC$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "6"
+      hints:
+        - |-
+          $h=\dfrac{3V}{\text{area of the face}}$.
+      solution: |-
+        The face $ABC$ lies in the plane $z=0$, so the height is the $z$-coordinate of $D$: $6$. Check: $h=\dfrac{3V}{S}$.

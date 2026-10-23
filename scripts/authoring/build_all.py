@@ -41,6 +41,10 @@ MORE = [
     "more_mvc_c",
     "more_mvc_d",
     "more_geo_a",
+    "more_geo_b",
+    "more_geo_c",
+    "more_geo_d",
+    "more_stat",
 ]
 
 
@@ -55,6 +59,13 @@ def main() -> int:
     import toolkit
 
     toolkit.write_orphans()
+    if not sys.argv[1:]:  # a full build must write every registered set
+        missing = toolkit.unused_extras()
+        if missing:
+            print("extra practice registered for lessons that were not built:")
+            for d in missing:
+                print("  ", d)
+            return 1
     print("done")
     return 0
 

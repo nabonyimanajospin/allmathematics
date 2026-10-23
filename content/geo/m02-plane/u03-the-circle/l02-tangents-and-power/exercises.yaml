@@ -83,3 +83,76 @@
         - Compare the distance from the center to the line with the radius.
       solution: |-
         The distance from the origin to the line is $\dfrac{20}{5}=4$, which equals the radius $4$: the line is tangent to the circle, so there is exactly one common point.
+- id: more-tangents
+  task: |-
+    More practice: tangents and the power of a point.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-ct-1
+      statement: |-
+        Find the tangent to the circle $x^{2} - 2 x + y^{2} - 4 y - 20=0$ at the point $P\left(4,\,6\right)$.
+      answerType: equation
+      answer: "3*x + 4*y - 36=0"
+      coordinates:
+        [x, y]
+      hints:
+        - Use the radius as the normal vector of the tangent.
+      solution: |-
+        The tangent is perpendicular to the radius $\overrightarrow{CP}=(3,4)$.
+    - id: mp-ct-2
+      statement: |-
+        Find the length of the tangent segment from $P\left(13,\,0\right)$ to the circle $x^2+y^2=25$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "12"
+      hints:
+        - "$t^2=d^2-r^2$."
+      solution: "$t^2=OP^2-r^2=169-25=144$, so $t=12$."
+    - id: mp-ct-3
+      statement: |-
+        Find the power of $P\left(13,\,0\right)$ with respect to the circle $x^2+y^2=25$.
+      answerType: number
+      answer: "144"
+      hints:
+        - "Power $=d^2-r^2$."
+      solution: "The power is $OP^2-r^2=144$."
+    - id: mp-ct-4
+      statement: "The line $3 x + 4 y - 25=0$ and the circle $x^2+y^2=25$:"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: do not meet
+          value: "1"
+        - text: are tangent
+          value: "2"
+        - text: meet at two points
+          value: "3"
+      correctIndex: 1
+      hints:
+        - Compare the distance from the center to the line with the radius.
+      solution: |-
+        The distance from $(0,0)$ to the line is $\dfrac{25}{5}=5$, equal to the radius: the line is tangent.
+    - id: mp-ct-5
+      statement: |-
+        Find the length of the chord cut from the circle $x^2+y^2=25$ by the line $x + y - 2=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "2*sqrt(23)"
+      hints:
+        - "Half the chord, the distance and the radius form a right triangle."
+      solution: |-
+        The distance from the center to the line is $\sqrt{2}$, so the chord has length $2\sqrt{25-2}=2 \sqrt{23}$.
+    - id: mp-ct-6
+      statement: "Find the points where the line $x+y=1$ meets the circle $x^2+y^2=25$."
+      answerType: points
+      answer: "(-3, 4), (4, -3)"
+      hints:
+        - "Put $y=1-x$ in the circle."
+      solution: |-
+        $x^2+(1-x)^2=25$ gives $x^2-x-12=0$, so $x=4$ or $x=-3$: the points are $\left(-3,\,4\right)$ and $\left(4,\,-3\right)$.
+    - id: mp-ct-7
+      statement: "How many tangents can be drawn from the point $(0,10)$ to the circle $x^2+y^2=25$?"
+      answerType: number
+      answer: "2"
+      hints:
+        - "Is the point outside the circle?"
+      solution: |-
+        $0+100>25$: the point is outside, so there are two tangents.

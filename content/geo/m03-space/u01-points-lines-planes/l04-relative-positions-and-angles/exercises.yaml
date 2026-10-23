@@ -89,3 +89,65 @@
         - "Replace $x,y,z$ in the equation of the plane by the parametric equations."
       solution: |-
         Substitute the line in the plane: $2+\lambda\cdot-1=0$ gives $\lambda=2$, and the point is $\left(3,\,0,\,7\right)$.
+- id: more-angles
+  task: |-
+    More practice: relative positions and angles.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-rp-1
+      statement: "The cosine of the acute angle between the planes $x+y=0$ and $y+z=0$."
+      answerType: expression
+      answer: "1/2"
+      hints:
+        - Use the angle between the normal vectors.
+      solution: |-
+        The normals $(1,1,0)$ and $(0,1,1)$ give $\cos\theta=\dfrac{1}{2}=\frac{1}{2}$.
+    - id: mp-rp-2
+      statement: "The sine of the angle between the line with direction $(1,1,1)$ and the plane $z=0$."
+      answerType: expression
+      answer: "sqrt(3)/3"
+      hints:
+        - The sine of the angle with the plane uses the dot product with the normal.
+      solution: |-
+        $\sin\varphi=\dfrac{|\dotp{\vec v}{\vec n}|}{\norm{\vec v}\norm{\vec n}}=\frac{\sqrt{3}}{3}$.
+    - id: mp-rp-3
+      statement: "The cosine of the acute angle between the lines with directions $(1,2,2)$ and $(2,1,-2)$."
+      answerType: expression
+      answer: "0"
+      hints:
+        - Use the absolute value of the dot product of the directions.
+      solution: |-
+        $\dotp{\vec d_1}{\vec d_2}=0$ and the norms are $3$ and $3$: $\cos\theta=0$.
+    - id: mp-rp-4
+      statement: "For which $k$ are the planes $kx+2y+z=1$ and $x-y+3z=2$ perpendicular?"
+      answerType: number
+      answer: "-1"
+      hints:
+        - The normals must be orthogonal.
+      solution: "$k-2+3=0$ gives $k=-1$."
+    - id: mp-rp-5
+      statement: "The line $(x,y,z)=t(1,2,3)$ meets the plane $x+2y+3z-14=0$ at one point. Find it."
+      answerType: vector
+      answer: "(1, 2, 3)"
+      hints:
+        - Substitute the parametric equations in the plane equation.
+      solution: |-
+        $t+4t+9t=14$ gives $t=1$: the point is $\left(1,\,2,\,3\right)$.
+    - id: mp-rp-6
+      statement: "The planes $x+y+z=1$ and $2x+2y+2z=5$ are"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: the same plane
+          value: "1"
+        - text: parallel and different
+          value: "2"
+        - text: perpendicular
+          value: "3"
+        - text: intersecting in a line
+          value: "4"
+      correctIndex: 1
+      hints:
+        - "The normals are proportional; compare the constants."
+      solution: |-
+        $(2,2,2)=2(1,1,1)$ but $5\ne2\cdot1$: the planes are parallel and different.

@@ -72,3 +72,137 @@
         - "Compare $d$ with $r_1-r_2$."
       solution: |-
         $d=4=7-3$: the circles are internally tangent.
+- id: more-two-circles
+  task: |-
+    More practice: two circles and the radical axis.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-tc-1
+      statement: "Find the radical axis of the circles $x^{2} + y^{2} - 9=0$ and $x^{2} - 12 x + y^{2} + 32=0$."
+      answerType: equation
+      answer: "12*x - 41=0"
+      coordinates:
+        [x, y]
+      hints:
+        - Subtract one equation from the other.
+      solution: |-
+        Subtract the two equations: the terms in $x^2$ and $y^2$ cancel and a line remains.
+    - id: mp-tc-2
+      statement: |-
+        Find the distance between the centers of the circles $x^2+y^2=9$ and $(x-6)^2+y^2=4$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "6"
+      hints:
+        - Read the centers from the equations.
+      solution: |-
+        The centers are $(0,0)$ and $(6,0)$: the distance is $6$.
+    - id: mp-tc-3
+      statement: "How are the circles $x^2+y^2=9$ and $(x-6)^2+y^2=4$ placed? (the second has center at distance $6$ and radius $2$)"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "They are separate (outside each other)"
+          value: "1"
+        - text: They are tangent internally
+          value: "2"
+        - text: They are tangent externally
+          value: "3"
+        - text: One circle is inside the other without touching
+          value: "4"
+        - text: They intersect at two points
+          value: "5"
+      correctIndex: 0
+      hints:
+        - "Compare the distance between the centers with $r_1+r_2$ and $|r_1-r_2|$."
+      solution: |-
+        $d=6$, $r_1+r_2=5$ and $|r_1-r_2|=1$: they are separate (outside each other).
+    - id: mp-tc-4
+      statement: "How are the circles $x^2+y^2=9$ and $(x-1)^2+y^2=1$ placed? (the second has center at distance $1$ and radius $1$)"
+      answerType: multiple_choice
+      answer: "4"
+      choices:
+        - text: "They are separate (outside each other)"
+          value: "1"
+        - text: They are tangent internally
+          value: "2"
+        - text: They are tangent externally
+          value: "3"
+        - text: One circle is inside the other without touching
+          value: "4"
+        - text: They intersect at two points
+          value: "5"
+      correctIndex: 3
+      hints:
+        - "Compare the distance between the centers with $r_1+r_2$ and $|r_1-r_2|$."
+      solution: |-
+        $d=1$, $r_1+r_2=4$ and $|r_1-r_2|=2$: one circle is inside the other without touching.
+    - id: mp-tc-5
+      statement: "How are the circles $x^2+y^2=9$ and $(x-5)^2+y^2=4$ placed? (the second has center at distance $5$ and radius $2$)"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: "They are separate (outside each other)"
+          value: "1"
+        - text: They are tangent internally
+          value: "2"
+        - text: They are tangent externally
+          value: "3"
+        - text: One circle is inside the other without touching
+          value: "4"
+        - text: They intersect at two points
+          value: "5"
+      correctIndex: 2
+      hints:
+        - "Compare the distance between the centers with $r_1+r_2$ and $|r_1-r_2|$."
+      solution: |-
+        $d=5$, $r_1+r_2=5$ and $|r_1-r_2|=1$: they are tangent externally.
+    - id: mp-tc-6
+      statement: "How are the circles $x^2+y^2=9$ and $x^2+y^2=1$ placed? (the second has center at distance $0$ and radius $1$)"
+      answerType: multiple_choice
+      answer: "4"
+      choices:
+        - text: "They are separate (outside each other)"
+          value: "1"
+        - text: They are tangent internally
+          value: "2"
+        - text: They are tangent externally
+          value: "3"
+        - text: One circle is inside the other without touching
+          value: "4"
+        - text: They intersect at two points
+          value: "5"
+      correctIndex: 3
+      hints:
+        - "Compare the distance between the centers with $r_1+r_2$ and $|r_1-r_2|$."
+      solution: |-
+        $d=0$, $r_1+r_2=4$ and $|r_1-r_2|=2$: one circle is inside the other without touching.
+    - id: mp-tc-7
+      statement: |-
+        Find the length of the common chord of the circles $x^2+y^2=25$ and $(x-7)^2+y^2=25$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "sqrt(51)"
+      hints:
+        - The common chord lies on the radical axis.
+      solution: |-
+        The radical axis is $x=\frac{7}{2}$; there $y^2=25-\frac{49}{4}$, so $y=\pm\frac{\sqrt{51}}{2}$ and the chord has length $\sqrt{51}$.
+    - id: mp-tc-8
+      statement: "Find the power of the point $P(3,0)$ with respect to the circle $x^2+y^2=9$."
+      answerType: number
+      answer: "0"
+      hints:
+        - "Power $=OP^2-r^2$."
+      solution: "The point is on the circle, so its power is $0$."
+    - id: mp-tc-9
+      statement: "Is the point $(4,0)$ on the radical axis of $x^2+y^2=16$ and $(x-8)^2+y^2=16$?"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "Yes"
+          value: "1"
+        - text: "No"
+          value: "2"
+      correctIndex: 0
+      hints:
+        - Compute the power of the point with respect to each circle.
+      solution: |-
+        The powers are $16-16=0$ and $16-16=0$: equal, so the point is on the radical axis.

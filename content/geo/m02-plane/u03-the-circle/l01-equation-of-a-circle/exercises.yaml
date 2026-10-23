@@ -133,3 +133,45 @@
         - "Complete the squares to find $r$."
       solution: |-
         $(x+1)^2+(y-2)^2=9$, so $r=3$ and the circumference is $2\pi r=6\pi$.
+- id: more-circles
+  task: |-
+    More practice: the equation of a circle.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-ci-1
+      statement: |-
+        Write the equation of the circle with center $\left(2,-3\right)$ and radius $4$ in the form $x^2+y^2+Dx+Ey+F=0$.
+      answerType: equation
+      answer: "x^2 - 4*x + y^2 + 6*y - 3=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Start from $(x-h)^2+(y-k)^2=r^2$ and expand."
+      solution: "$(x-2)^2+(y+3)^2=16$ expands to $x^{2} - 4 x + y^{2} + 6 y - 3=0$."
+    - id: mp-ci-2
+      statement: "Find the center of the circle $x^2+y^2-6x+4y-12=0$."
+      answerType: vector
+      answer: "(3, -2)"
+      hints:
+        - "Complete the squares in $x$ and in $y$."
+      solution: |-
+        $(x-3)^2+(y+2)^2=25$: the center is $\left(3,\,-2\right)$ and the radius is $5$.
+    - id: mp-ci-3
+      statement: |-
+        Find the radius of the circle $x^2+y^2-6x+4y-12=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "5"
+      hints:
+        - |-
+          Complete the squares: $r^2=h^2+k^2-F$.
+      solution: "$r^2=h^2+k^2-F=25$, so $r=5$."
+    - id: mp-ci-4
+      statement: |-
+        Find the equation of the circle through $A\left(0,\,0\right)$, $B\left(4,\,0\right)$ and $C\left(0,\,6\right)$.
+      answerType: equation
+      answer: "x^2 - 4*x + y^2 - 6*y=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Put the three points in $x^2+y^2+Dx+Ey+F=0$ and solve for $D$, $E$, $F$."
+      solution: "The three conditions give $D=-4$, $E=-6$, $F=0$."

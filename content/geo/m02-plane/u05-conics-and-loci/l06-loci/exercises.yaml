@@ -61,3 +61,117 @@
         - "$2a=6$ and $c=5$."
       solution: |-
         $a=3$, $c=5$, $b^2=16$: $\dfrac{x^2}9-\dfrac{y^2}{16}=1$.
+- id: more-loci
+  task: |-
+    More practice: loci.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-lo-1
+      statement: "Find the locus of the points equidistant from $A(1,2)$ and $B(5,4)$."
+      answerType: equation
+      answer: "2*x + y - 9=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Write $PA^2=PB^2$ and expand."
+      solution: "$PA^2=PB^2$ gives $-2x-4y+5=-10x-8y+41$. The equation is $2 x + y - 9=0$."
+    - id: mp-lo-2
+      statement: "Find the locus of the points at equal distances from the point $(0,3)$ and the line $y=-3$."
+      answerType: equation
+      answer: "x^2 - 12*y=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "A point $(x,y)$ is at distance $|y+3|$ from the line."
+      solution: |-
+        The distance to the focus equals the distance to the directrix: $x^2+(y-3)^2=(y+3)^2$. The equation is $x^{2} - 12 y=0$.
+    - id: mp-lo-3
+      statement: |-
+        Find the locus of the points whose distances to $(\pm3,0)$ add up to $10$.
+      answerType: equation
+      answer: "16*x^2 + 25*y^2 - 400=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          It is an ellipse with foci $(\pm3,0)$ and $2a=10$.
+      solution: "This is an ellipse with $2a=10$ and $c=3$, so $b^2=16$. The equation is $16 x^{2} + 25 y^{2} - 400=0$."
+    - id: mp-lo-4
+      statement: |-
+        Find the locus of the points whose distances to $(\pm5,0)$ differ by $6$ (in absolute value).
+      answerType: equation
+      answer: "16*x^2 - 9*y^2 - 144=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          It is a hyperbola with foci $(\pm5,0)$ and $2a=6$.
+      solution: "This is a hyperbola with $2a=6$ and $c=5$, so $b^2=16$. The equation is $16 x^{2} - 9 y^{2} - 144=0$."
+    - id: mp-lo-5
+      statement: |-
+        Find the locus of the points $P$ with $PA=2\,PB$, where $A(0,0)$ and $B(3,0)$.
+      answerType: equation
+      answer: "x^2 - 8*x + y^2 + 12=0"
+      coordinates:
+        [x, y]
+      hints:
+        - Square both sides.
+      solution: |-
+        $PA^2=4PB^2$ gives $x^2+y^2=4\left[(x-3)^2+y^2\right]$; this is a circle (of Apollonius). The equation is $x^{2} - 8 x + y^{2} + 12=0$.
+    - id: mp-lo-6
+      statement: "Find the locus of the midpoints of the segments joining $A(4,0)$ to the points of the circle $x^2+y^2=4$."
+      answerType: equation
+      answer: "x^2 - 4*x + y^2 + 3=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          If $Q(u,v)$ is on the circle, the midpoint is $x=\dfrac{4+u}{2}$, $y=\dfrac v2$.
+      solution: |-
+        With $u=2x-4$ and $v=2y$ in $u^2+v^2=4$: $(2x-4)^2+4y^2=4$, that is $(x-2)^2+y^2=1$.
+    - id: mp-lo-7
+      statement: "Find the locus of the points $P$ with $PA^2+PB^2=20$, where $A(-2,0)$ and $B(2,0)$."
+      answerType: equation
+      answer: "x^2 + y^2 - 6=0"
+      coordinates:
+        [x, y]
+      hints:
+        - Expand both squares.
+      solution: "$(x+2)^2+y^2+(x-2)^2+y^2=20$ gives $2x^2+2y^2+8=20$, so $x^2+y^2=6$."
+    - id: mp-lo-8
+      statement: "The points at distance $3$ from the line $3x+4y=0$ form"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: one line
+          value: "1"
+        - text: two parallel lines
+          value: "2"
+        - text: a circle
+          value: "3"
+        - text: a parabola
+          value: "4"
+      correctIndex: 1
+      hints:
+        - |-
+          The distance to the line is $\dfrac{|3x+4y|}{5}$.
+      solution: |-
+        $\dfrac{|3x+4y|}{5}=3$ gives $3x+4y=15$ or $3x+4y=-15$: two parallel lines.
+    - id: mp-lo-9
+      statement: "The points whose distances to two fixed points have a constant ratio different from $1$ form"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: a line
+          value: "1"
+        - text: a circle
+          value: "2"
+        - text: a parabola
+          value: "3"
+        - text: a hyperbola
+          value: "4"
+      correctIndex: 1
+      hints:
+        - |-
+          Square the condition: the $x^2$ and $y^2$ terms stay equal.
+      solution: "This is the circle of Apollonius. (When the ratio is $1$, the locus is the perpendicular bisector, a line.)"

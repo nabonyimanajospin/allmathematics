@@ -105,3 +105,94 @@
       hints:
         - "The traces $z=k$ are circles."
       solution: "It is the paraboloid of revolution, a case of the elliptic paraboloid."
+- id: more-revolution
+  task: |-
+    More practice: cylinders, cones and revolution.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-sr-1
+      statement: "The surface $y^2+z^2=4$ in space is"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: a sphere
+          value: "1"
+        - text: "a cylinder with the $x$-axis as its axis"
+          value: "2"
+        - text: a cone
+          value: "3"
+        - text: a plane
+          value: "4"
+      correctIndex: 1
+      hints:
+        - "The variable $x$ is missing."
+      solution: |-
+        $x$ is free: the circle $y^2+z^2=4$ is repeated along the $x$-axis, giving a cylinder.
+    - id: mp-sr-2
+      statement: "The surface $x^2+y^2=z^2$ is"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: a sphere
+          value: "1"
+        - text: a cylinder
+          value: "2"
+        - text: a circular cone
+          value: "3"
+        - text: a paraboloid
+          value: "4"
+      correctIndex: 2
+      hints:
+        - "The right side is the square of $z$."
+      solution: |-
+        The sections $z=\text{constant}$ are circles of radius $|z|$: a circular cone.
+    - id: mp-sr-3
+      statement: "The surface $x^2=4y$ in space is"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: a parabola
+          value: "1"
+        - text: a parabolic cylinder
+          value: "2"
+        - text: a paraboloid
+          value: "3"
+        - text: a plane
+          value: "4"
+      correctIndex: 1
+      hints:
+        - "The variable $z$ is missing."
+      solution: |-
+        $z$ is free: the parabola $x^2=4y$ is repeated along the $z$-axis: a parabolic cylinder.
+    - id: mp-sr-4
+      statement: "The curve $z=x^2$ (in the $xz$-plane) is rotated about the $z$-axis. Write the equation of the surface."
+      answerType: equation
+      answer: "z=x^2+y^2"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "Replace $x^2$ by $x^2+y^2$."
+      solution: |-
+        Rotating about the $z$-axis replaces $|x|$ by $\sqrt{x^2+y^2}$: $z=x^2+y^2$, a paraboloid.
+    - id: mp-sr-5
+      statement: "The line $y=3x$ (in the $xy$-plane) is rotated about the $x$-axis. Write the equation of the surface."
+      answerType: equation
+      answer: "y^2+z^2=9*x^2"
+      coordinates:
+        [x, y, z]
+      hints:
+        - "Replace $y^2$ by $y^2+z^2$."
+      solution: |-
+        $y^2=9x^2$ becomes $y^2+z^2=9x^2$: a circular cone with the $x$-axis as its axis.
+    - id: mp-sr-6
+      statement: |-
+        The circle $(x-3)^2+z^2=1$ (in the $xz$-plane) is rotated about the $z$-axis. Write the equation of the surface (a torus), in the form $\left(\sqrt{x^2+y^2}-3\right)^2+z^2=1$.
+      answerType: equation
+      answer: "(sqrt(x^2+y^2)-3)^2+z^2=1"
+      coordinates:
+        [x, y, z]
+      hints:
+        - |-
+          Replace $x$ by $\sqrt{x^2+y^2}$.
+      solution: |-
+        Rotating about the $z$-axis replaces $x$ by $\sqrt{x^2+y^2}$ (the distance to the axis): $\left(\sqrt{x^2+y^2}-3\right)^2+z^2=1$.

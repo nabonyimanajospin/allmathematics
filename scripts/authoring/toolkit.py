@@ -192,6 +192,11 @@ def add_extra(lesson_dir: str, exercise_set: dict, script: str, orphan: bool = F
         ORPHANS[lesson_dir] = script
 
 
+def unused_extras() -> list[str]:
+    """Lesson directories that have extra sets but were never written (a wrong path would otherwise be ignored silently)."""
+    return sorted(d for d in EXTRA if d not in WRITTEN and d not in ORPHANS)
+
+
 def write_orphans() -> None:
     """Write the lessons whose exercises come only from the extra sets."""
     for lesson_dir, script in ORPHANS.items():

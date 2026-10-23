@@ -115,3 +115,35 @@
       hints:
         - "Euler's formula."
       solution: "$20-E+12=2$, so $E=30$ (the dodecahedron)."
+- id: more-tetrahedron
+  task: |-
+    More practice: a new tetrahedron.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-tt-6
+      statement: |-
+        The volume of a regular tetrahedron of edge $6$. The unit is cu: give the number only.
+      answerType: expression
+      answer: "18*sqrt(2)"
+      hints:
+        - |-
+          $V=\dfrac{a^3\sqrt2}{12}$.
+      solution: |-
+        $V=\dfrac{a^3\sqrt2}{12}=\dfrac{216\sqrt2}{12}=18\sqrt2$.
+    - id: mp-tt-7
+      statement: |-
+        The circumradius of a regular tetrahedron of edge $4\sqrt2$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "2*sqrt(3)"
+      hints:
+        - |-
+          $R=\dfrac{a\sqrt6}{4}$.
+      solution: |-
+        $R=\dfrac{a\sqrt6}{4}=\dfrac{4\sqrt2\cdot\sqrt6}{4}=2\sqrt3$.
+    - id: mp-tt-8
+      statement: "A convex polyhedron has $8$ vertices and $12$ edges. How many faces has it (Euler's formula $V-E+F=2$)?"
+      answerType: number
+      answer: "6"
+      hints:
+        - "$F=2-V+E$."
+      solution: "$F=2-8+12=6$ (a cube is an example)."

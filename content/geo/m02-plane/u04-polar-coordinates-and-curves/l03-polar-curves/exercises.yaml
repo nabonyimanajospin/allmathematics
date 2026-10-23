@@ -141,3 +141,18 @@
           $A=\dfrac12\int_0^{2\pi}\dfrac{\theta^2}{64}\,d\theta$.
       solution: |-
         $A=\dfrac1{128}\cdot\dfrac{(2\pi)^3}{3}=\dfrac{8\pi^3}{384}=\dfrac{\pi^3}{48}$.
+- id: more-curves
+  task: |-
+    More practice: polar curves.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-pk-1
+      statement: |-
+        The number of petals of the rose $r=4\cos6\theta$.
+      answerType: number
+      answer: "12"
+      hints:
+        - |-
+          Odd $n$: $n$ petals. Even $n$: $2n$ petals.
+      solution: |-
+        The coefficient $6$ is even, so the rose has $2\cdot6=12$ petals.

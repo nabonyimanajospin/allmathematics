@@ -114,3 +114,36 @@
         - Weight each vertex by the area of the opposite face.
       solution: |-
         $I=\dfrac{S_AA+S_BB+S_CC+S_DD}{S}=\left(\frac{2}{3},\,\frac{2}{3},\,\frac{2}{3}\right)$.
+- id: more-tetrahedron
+  task: |-
+    More practice: a new tetrahedron.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-tt-3
+      statement: |-
+        Find the centroid of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$, $D\left(1,\,1,\,6\right)$.
+      answerType: vector
+      answer: "(3/4, 1, 3/2)"
+      hints:
+        - Average the four vertices.
+      solution: |-
+        $G=\dfrac{A+B+C+D}{4}=\left(\frac{3}{4},\,1,\,\frac{3}{2}\right)$.
+    - id: mp-tt-4
+      statement: |-
+        Find the center of the circumscribed sphere of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$, $D\left(1,\,1,\,6\right)$.
+      answerType: vector
+      answer: "(1, 3/2, 11/4)"
+      hints:
+        - "Equate the distances to $A$, $B$, $C$, $D$."
+      solution: |-
+        The center is at equal distances from the four vertices: $\left(1,\,\frac{3}{2},\,\frac{11}{4}\right)$, and the radius is $\frac{\sqrt{173}}{4}$.
+    - id: mp-tt-5
+      statement: |-
+        Find the radius of the inscribed sphere of the tetrahedron $A\left(0,\,0,\,0\right)$, $B\left(2,\,0,\,0\right)$, $C\left(0,\,3,\,0\right)$, $D\left(1,\,1,\,6\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "-41*sqrt(469)/252 - 97/36 + 5*sqrt(17353)/252 + 25*sqrt(37)/36"
+      hints:
+        - |-
+          $r=\dfrac{3V}{S}$.
+      solution: |-
+        $r=\dfrac{3V}{S}=- \frac{41 \sqrt{469}}{252} - \frac{97}{36} + \frac{5 \sqrt{17353}}{252} + \frac{25 \sqrt{37}}{36}$ where $S$ is the total area of the four faces.

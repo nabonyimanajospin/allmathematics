@@ -71,3 +71,89 @@
         - "Replace $x$ and $y$ by the rotation formulas."
       solution: |-
         $xy=\dfrac12(x'^2-y'^2)=1$, so $x'^2-y'^2=2$.
+- id: more-axes
+  task: |-
+    More practice: change of axes.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-ax-1
+      statement: |-
+        After moving the origin to $O'\left(3,\,-1\right)$, find the new coordinates of $M\left(7,\,2\right)$.
+      answerType: vector
+      answer: "(4, 3)"
+      hints:
+        - "$x'=x-a$, $y'=y-b$."
+      solution: "$x'=7-(3)=4$ and $y'=2-(-1)=3$."
+    - id: mp-ax-2
+      statement: |-
+        After moving the origin to $O'\left(1,\,1\right)$, find the new coordinates of $M\left(-2,\,5\right)$.
+      answerType: vector
+      answer: "(-3, 4)"
+      hints:
+        - "$x'=x-a$, $y'=y-b$."
+      solution: "$x'=-2-(1)=-3$ and $y'=5-(1)=4$."
+    - id: mp-ax-3
+      statement: |-
+        The curve $x^2+y^2-6x+2y+6=0$ is described in axes with the new origin $O'\left(3,\,-1\right)$. Write its equation in the new coordinates (using the letters $x$ and $y$).
+      answerType: equation
+      answer: "x^2 + y^2 - 4=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Replace $x$ by $x+a$ and $y$ by $y+b$ and expand."
+      solution: |-
+        Substituting $x\to x+3$, $y\to y+-1$ gives $x^{2} + y^{2} - 4=0$.
+    - id: mp-ax-4
+      statement: |-
+        The curve $y^2-4y-8x+20=0$ is described in axes with the new origin $O'\left(2,\,2\right)$. Write its equation in the new coordinates (using the letters $x$ and $y$).
+      answerType: equation
+      answer: "8*x - y^2=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Replace $x$ by $x+a$ and $y$ by $y+b$ and expand."
+      solution: |-
+        Substituting $x\to x+2$, $y\to y+2$ gives $8 x - y^{2}=0$.
+    - id: mp-ax-5
+      statement: |-
+        The axes are rotated by $\dfrac\pi4$. Find the new coordinates of $M\left(1,\,1\right)$.
+      answerType: vector
+      answer: "(sqrt(2), 0)"
+      hints:
+        - |-
+          $x'=x\cos\varphi+y\sin\varphi$ and $y'=-x\sin\varphi+y\cos\varphi$.
+      solution: |-
+        $x'=\sqrt{2}$ and $y'=0$.
+    - id: mp-ax-6
+      statement: |-
+        The axes are rotated by $\dfrac\pi3$. Find the new coordinates of $M\left(4,\,0\right)$.
+      answerType: vector
+      answer: "(2, -2*sqrt(3))"
+      hints:
+        - |-
+          $x'=x\cos\varphi+y\sin\varphi$ and $y'=-x\sin\varphi+y\cos\varphi$.
+      solution: |-
+        $x'=2$ and $y'=- 2 \sqrt{3}$.
+    - id: mp-ax-7
+      statement: |-
+        The axes are rotated by $\dfrac\pi4$. Write $x^2+4xy+y^2=6$ in the new coordinates (using the letters $x$ and $y$).
+      answerType: equation
+      answer: "3*x^2-y^2=6"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Replace $x$ and $y$ by $\dfrac{\sqrt2}2(x'-y')$ and $\dfrac{\sqrt2}2(x'+y')$.
+      solution: |-
+        $x^2+y^2=x'^2+y'^2$ and $4xy=2\left(x'^2-y'^2\right)$, so the equation is $3x'^2-y'^2=6$.
+    - id: mp-ax-8
+      statement: |-
+        The axes are rotated by $\dfrac\pi4$. Write $2xy=1$ in the new coordinates (using the letters $x$ and $y$).
+      answerType: equation
+      answer: "x^2-y^2=1"
+      coordinates:
+        [x, y]
+      hints:
+        - "$2xy=x'^2-y'^2$ after the rotation."
+      solution: |-
+        $2xy=x'^2-y'^2$, so the equation is $x'^2-y'^2=1$: a hyperbola.

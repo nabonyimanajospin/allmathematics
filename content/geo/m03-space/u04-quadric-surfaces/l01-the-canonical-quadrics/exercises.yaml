@@ -133,3 +133,118 @@
         - The equation is homogeneous.
       solution: |-
         The traces $z=k$ are circles of radius $\lvert k\rvert$, and the trace $z=0$ is one point: a cone.
+- id: more-quadrics
+  task: |-
+    More practice: quadric surfaces.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-qu-1
+      statement: |-
+        The surface $\dfrac{x^2}{4}+\dfrac{y^2}{9}+\dfrac{z^2}{16}=1$ is
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: ellipsoid
+          value: "1"
+        - text: hyperboloid of one sheet
+          value: "2"
+        - text: hyperboloid of two sheets
+          value: "3"
+        - text: elliptic paraboloid
+          value: "4"
+        - text: hyperbolic paraboloid
+          value: "5"
+        - text: elliptic cone
+          value: "6"
+      correctIndex: 0
+      hints:
+        - Look at the signs of the squared terms and at the right-hand side.
+      solution: The signs of the terms show that it is a ellipsoid.
+    - id: mp-qu-2
+      statement: |-
+        The surface $\dfrac{x^2}{4}+\dfrac{y^2}{9}-\dfrac{z^2}{16}=1$ is
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: ellipsoid
+          value: "1"
+        - text: hyperboloid of one sheet
+          value: "2"
+        - text: hyperboloid of two sheets
+          value: "3"
+        - text: elliptic paraboloid
+          value: "4"
+        - text: hyperbolic paraboloid
+          value: "5"
+        - text: elliptic cone
+          value: "6"
+      correctIndex: 1
+      hints:
+        - Look at the signs of the squared terms and at the right-hand side.
+      solution: The signs of the terms show that it is a hyperboloid of one sheet.
+    - id: mp-qu-3
+      statement: |-
+        The surface $\dfrac{x^2}{4}-\dfrac{y^2}{9}-\dfrac{z^2}{16}=1$ is
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: ellipsoid
+          value: "1"
+        - text: hyperboloid of one sheet
+          value: "2"
+        - text: hyperboloid of two sheets
+          value: "3"
+        - text: elliptic paraboloid
+          value: "4"
+        - text: hyperbolic paraboloid
+          value: "5"
+        - text: elliptic cone
+          value: "6"
+      correctIndex: 2
+      hints:
+        - Look at the signs of the squared terms and at the right-hand side.
+      solution: The signs of the terms show that it is a hyperboloid of two sheets.
+    - id: mp-qu-4
+      statement: |-
+        The surface $z=\dfrac{x^2}{4}+\dfrac{y^2}{9}$ is
+      answerType: multiple_choice
+      answer: "4"
+      choices:
+        - text: ellipsoid
+          value: "1"
+        - text: hyperboloid of one sheet
+          value: "2"
+        - text: hyperboloid of two sheets
+          value: "3"
+        - text: elliptic paraboloid
+          value: "4"
+        - text: hyperbolic paraboloid
+          value: "5"
+        - text: elliptic cone
+          value: "6"
+      correctIndex: 3
+      hints:
+        - Look at the signs of the squared terms and at the right-hand side.
+      solution: The signs of the terms show that it is a elliptic paraboloid.
+    - id: mp-qu-5
+      statement: |-
+        The surface $z=\dfrac{x^2}{4}-\dfrac{y^2}{9}$ is
+      answerType: multiple_choice
+      answer: "5"
+      choices:
+        - text: ellipsoid
+          value: "1"
+        - text: hyperboloid of one sheet
+          value: "2"
+        - text: hyperboloid of two sheets
+          value: "3"
+        - text: elliptic paraboloid
+          value: "4"
+        - text: hyperbolic paraboloid
+          value: "5"
+        - text: elliptic cone
+          value: "6"
+      correctIndex: 4
+      hints:
+        - Look at the signs of the squared terms and at the right-hand side.
+      solution: The signs of the terms show that it is a hyperbolic paraboloid.

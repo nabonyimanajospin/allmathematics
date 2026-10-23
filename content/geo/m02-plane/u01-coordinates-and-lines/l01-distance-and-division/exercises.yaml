@@ -93,3 +93,65 @@
           Compare the first coordinates: $\overrightarrow{AP}$ and $\overrightarrow{PB}$.
       solution: |-
         $\overrightarrow{AP}=\left(6,\,3\right)$ and $\overrightarrow{PB}=\left(2,\,1\right)$; the first is $3$ times the second, so $AP:PB=3:1$.
+- id: more-distance
+  task: |-
+    More practice: distance, midpoint and division.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-di-1
+      statement: |-
+        Find the distance between $P\left(-2,\,3\right)$ and $Q\left(4,\,-5\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "10"
+      hints:
+        - |-
+          Use $\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+      solution: |-
+        $\overrightarrow{PQ}=\left(6,\,-8\right)$, so $PQ=\sqrt{36+64}=10$.
+    - id: mp-di-2
+      statement: |-
+        Find the distance between $P\left(1,\,1\right)$ and $Q\left(4,\,5\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "5"
+      hints:
+        - |-
+          Use $\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+      solution: |-
+        $\overrightarrow{PQ}=\left(3,\,4\right)$, so $PQ=\sqrt{9+16}=5$.
+    - id: mp-di-3
+      statement: |-
+        Find the distance between $P\left(-3,\,-1\right)$ and $Q\left(2,\,11\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "13"
+      hints:
+        - |-
+          Use $\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+      solution: |-
+        $\overrightarrow{PQ}=\left(5,\,12\right)$, so $PQ=\sqrt{25+144}=13$.
+    - id: mp-di-4
+      statement: |-
+        Find the midpoint of $P\left(-4,\,7\right)$ and $Q\left(10,\,-3\right)$.
+      answerType: vector
+      answer: "(3, 2)"
+      hints:
+        - Average the coordinates.
+      solution: |-
+        The midpoint is $\left(\dfrac{-4+10}2,\dfrac{7-3}2\right)=\left(3,\,2\right)$.
+    - id: mp-di-5
+      statement: |-
+        The point $P$ divides the segment $AB$ in the ratio $AP:PB=2:3$, with $A\left(-1,\,2\right)$ and $B\left(9,\,7\right)$. Find $P$.
+      answerType: vector
+      answer: "(3, 4)"
+      hints:
+        - "$P$ is two fifths of the way from $A$ to $B$."
+      solution: |-
+        $\overrightarrow{AP}=\dfrac25\overrightarrow{AB}$, so $P=A+\dfrac25\left(10,\,5\right)=\left(3,\,4\right)$.
+    - id: mp-di-6
+      statement: |-
+        Find the perimeter of the triangle $A\left(0,\,0\right)$, $B\left(6,\,0\right)$, $C\left(3,\,4\right)$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "16"
+      hints:
+        - Add the three side lengths.
+      solution: |-
+        The sides are $\norm{\overrightarrow{AB}}=6$, $\norm{\overrightarrow{BC}}=\sqrt{9+16}=5$ and $\norm{\overrightarrow{CA}}=5$, so the perimeter is $16$.

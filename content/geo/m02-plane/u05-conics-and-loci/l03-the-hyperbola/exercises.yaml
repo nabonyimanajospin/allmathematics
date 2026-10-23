@@ -89,3 +89,63 @@
       hints:
         - It is constant.
       solution: "It is $2a=6$."
+- id: more-hyperbola
+  task: |-
+    More practice: the hyperbola.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-hy-1
+      statement: "The center of the hyperbola $16 x^{2} - 32 x - 9 y^{2} + 36 y - 164=0$."
+      answerType: vector
+      answer: "(1, 2)"
+      hints:
+        - "Complete the squares in $x$ and in $y$."
+      solution: |-
+        The equation becomes $\dfrac{(x-1)^2}{9}-\dfrac{(y-2)^2}{16}=1$: the center is $(1,2)$.
+    - id: mp-hy-2
+      statement: "The vertices of the hyperbola $16 x^{2} - 32 x - 9 y^{2} + 36 y - 164=0$ (give the two points)."
+      answerType: points
+      answer: "(-2, 2), (4, 2)"
+      hints:
+        - "The vertices are $a$ to the left and to the right of the center."
+      solution: |-
+        $a^2=9$, so $a=3$: the vertices are $(-2,2)$ and $(4,2)$.
+    - id: mp-hy-3
+      statement: "The foci of the hyperbola $16 x^{2} - 32 x - 9 y^{2} + 36 y - 164=0$ (give the two points)."
+      answerType: points
+      answer: "(-4, 2), (6, 2)"
+      hints:
+        - "$c^2=a^2+b^2$."
+      solution: |-
+        $c^2=9+16=25$, so $c=5$: the foci are $(-4,2)$ and $(6,2)$.
+    - id: mp-hy-4
+      statement: "The eccentricity of the hyperbola $16 x^{2} - 32 x - 9 y^{2} + 36 y - 164=0$."
+      answerType: expression
+      answer: "5/3"
+      hints:
+        - |-
+          $e=\dfrac ca$.
+      solution: |-
+        $e=\dfrac53$.
+    - id: mp-hy-5
+      statement: "An asymptote of the hyperbola $16 x^{2} - 32 x - 9 y^{2} + 36 y - 164=0$ with positive slope."
+      answerType: equation
+      answer: "4*x - 3*y + 2=0"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          The asymptotes are $y-k=\pm\dfrac ba(x-h)$.
+      solution: |-
+        The slopes are $\pm\dfrac43$; the one with positive slope is $y-2=\dfrac43(x-1)$, that is $4 x - 3 y + 2=0$.
+    - id: mp-hy-6
+      statement: |-
+        Find the equation of the hyperbola with foci $(\pm5,0)$ whose points have distances to the foci differing by $6$.
+      answerType: equation
+      answer: "x^2/9-y^2/16=1"
+      coordinates:
+        [x, y]
+      hints:
+        - "$2a=6$ and $c=5$, so $b^2=c^2-a^2$."
+      solution: |-
+        $a=3$, $c=5$, $b^2=25-9=16$: $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$.

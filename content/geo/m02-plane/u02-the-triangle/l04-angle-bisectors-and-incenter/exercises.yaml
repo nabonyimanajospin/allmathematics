@@ -143,3 +143,18 @@
         - |-
           $r=\dfrac{S}{s}$.
       solution: "$S=6$ and $s=6$, so $r=1$."
+- id: more-triangle
+  task: |-
+    More practice: a new triangle.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-tb-1
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the inradius $r$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "-8/3 + 4*sqrt(13)/3"
+      hints:
+        - |-
+          $r=\dfrac{S}{s}$.
+      solution: |-
+        $S=24$ and $s=4 + 2 \sqrt{13}$, so $r=\dfrac{S}{s}=- \frac{8}{3} + \frac{4 \sqrt{13}}{3}$.

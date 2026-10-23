@@ -90,3 +90,65 @@
         - Swap the coefficients and change one sign.
       solution: |-
         The normal of the perpendicular is $(2,5)$, and the line passes through $(0,0)$: $2x+5y=0$.
+- id: more-angles
+  task: |-
+    More practice: angles, parallel and perpendicular lines.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-an-1
+      statement: |-
+        Find the slope of the line through $P\left(1,\,2\right)$ and $Q\left(4,\,11\right)$.
+      answerType: number
+      answer: "3"
+      hints:
+        - |-
+          $m=\dfrac{y_2-y_1}{x_2-x_1}$.
+      solution: |-
+        $m=\dfrac{11-2}{4-1}=3$.
+    - id: mp-an-2
+      statement: |-
+        Find $\tan\theta$ for the acute angle $\theta$ between the lines $y=x$ and $y=3x$.
+      answerType: number
+      answer: "1/2"
+      hints:
+        - |-
+          Use $\tan\theta=\left|\dfrac{m_2-m_1}{1+m_1m_2}\right|$.
+      solution: |-
+        $\tan\theta=\left|\dfrac{m_2-m_1}{1+m_1m_2}\right|=\dfrac{2}{4}=\dfrac12$.
+    - id: mp-an-3
+      statement: "Find the acute angle between the lines $x-y=0$ and $y=0$."
+      answerType: expression
+      answer: pi/4
+      hints:
+        - "The second line is the $x$-axis."
+      solution: |-
+        The first line has slope $1$ and the second slope $0$, so $\tan\theta=1$ and $\theta=\dfrac\pi4$.
+    - id: mp-an-4
+      statement: |-
+        Find the line through $P\left(2,\,3\right)$ parallel to $3 x - y + 1=0$.
+      answerType: equation
+      answer: "3*x - y - 3=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "Keep the normal vector $(a,b)$."
+      solution: "Parallel lines have the same normal vector $(3,-1)$, so the line is $3(x-2)-(y-3)=0$."
+    - id: mp-an-5
+      statement: |-
+        Find the line through $P\left(1,\,-2\right)$ perpendicular to $2 x + 3 y - 5=0$.
+      answerType: equation
+      answer: "3*x - 2*y - 7=0"
+      coordinates:
+        [x, y]
+      hints:
+        - Swap the coefficients and change one sign to get the normal vector.
+      solution: "The normal vector of the given line, $(2,3)$, becomes the direction vector of the new line; its normal vector is $(3,-2)$."
+    - id: mp-an-6
+      statement: "For which $k$ are the lines $kx+2y-1=0$ and $6x+(k-1)y+4=0$ perpendicular?"
+      answerType: number
+      answer: "1/4"
+      hints:
+        - |-
+          The normal vectors must be orthogonal: $6k+2(k-1)=0$.
+      solution: |-
+        $6k+2(k-1)=0$ gives $8k=2$, so $k=\frac{1}{4}$.

@@ -124,3 +124,46 @@
           Compare $d$ with $\rho_1+\rho_2$.
       solution: |-
         $d=10=7+3$: the spheres are externally tangent.
+- id: more-sections
+  task: |-
+    More practice: tangent planes and sections.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-ss-1
+      statement: "The tangent plane to the sphere $x^2+y^2+z^2=14$ at the point $(1,2,3)$."
+      answerType: equation
+      answer: "x + 2*y + 3*z - 14=0"
+      coordinates:
+        [x, y, z]
+      hints:
+        - The tangent plane is perpendicular to the radius.
+      solution: |-
+        The radius $(1,2,3)$ is the normal vector of the tangent plane: $x+2y+3z=14$.
+    - id: mp-ss-2
+      statement: |-
+        The plane $2x+2y+z=6$ cuts the sphere $x^2+y^2+z^2=25$ in a circle. Find its radius. The unit is lu: give the number only.
+      answerType: expression
+      answer: "sqrt(21)"
+      hints:
+        - |-
+          Use the right triangle: radius of the sphere, distance, radius of the circle.
+      solution: |-
+        The distance from the center to the plane is $\dfrac63=2$, so the radius of the circle is $\sqrt{25-4}=\sqrt{21}$.
+    - id: mp-ss-3
+      statement: "The spheres $x^2+y^2+z^2=9$ and $(x-5)^2+y^2+z^2=4$ are"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: separate
+          value: "1"
+        - text: tangent externally
+          value: "2"
+        - text: intersecting in a circle
+          value: "3"
+        - text: one inside the other
+          value: "4"
+      correctIndex: 1
+      hints:
+        - "Compare the distance between the centers with $r_1+r_2$."
+      solution: |-
+        The centers are at distance $5=3+2$: the spheres touch each other externally.

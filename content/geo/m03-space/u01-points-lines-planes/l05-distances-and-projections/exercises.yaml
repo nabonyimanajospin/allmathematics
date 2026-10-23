@@ -129,3 +129,27 @@
         - "The coefficients of $x,y,z$ are already equal."
       solution: |-
         $d=\dfrac{|c_1-c_2|}{3}=3$.
+- id: more-distances
+  task: |-
+    More practice: distances.
+  format: "Type a point as `(a, b, c)`, an exact value such as `sqrt(7)/4` or `5/7`, and a plane or a surface as an equation with `=`."
+  items:
+    - id: mp-dp-1
+      statement: |-
+        The distance from $P\left(1,\,1,\,1\right)$ to the plane $2 x - y + 2 z - 5=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "2/3"
+      hints:
+        - |-
+          $d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+      solution: |-
+        $\dfrac{|2-1+2-5|}{3}=\frac{2}{3}$ (the norm of the normal vector is $3$).
+    - id: mp-dp-2
+      statement: |-
+        The distance between the parallel planes $x + 2 y + 2 z + 3=0$ and $x + 2 y + 2 z - 6=0$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "3"
+      hints:
+        - Divide the difference of the constants by the norm of the normal vector.
+      solution: |-
+        $\dfrac{|3-(-6)|}{3}=3$.

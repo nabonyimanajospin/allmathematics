@@ -84,3 +84,96 @@
           $r-r\cos\theta=4$ gives $r=x+4$.
       solution: |-
         $r=x+4$, so $x^2+y^2=(x+4)^2$ and $y^2=8x+16$: a parabola with vertex $(-2,0)$.
+- id: more-focus
+  task: |-
+    More practice: focus, directrix and eccentricity.
+  format: "Type a point as `(a, b)`, an exact value such as `5/13` or `sqrt(7)/3`, an equation with `=`, and a list of points as `(a, b), (c, d)`."
+  items:
+    - id: mp-fd-1
+      statement: |-
+        A conic has eccentricity $e=\frac{1}{2}$. It is
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 0
+      hints:
+        - "Compare $e$ with $1$."
+      solution: |-
+        $e<1$ ellipse, $e=1$ parabola, $e>1$ hyperbola: here it is an ellipse.
+    - id: mp-fd-2
+      statement: |-
+        A conic has eccentricity $e=\frac{3}{2}$. It is
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 1
+      hints:
+        - "Compare $e$ with $1$."
+      solution: |-
+        $e<1$ ellipse, $e=1$ parabola, $e>1$ hyperbola: here it is a hyperbola.
+    - id: mp-fd-3
+      statement: "A conic has eccentricity $e=1$. It is"
+      answerType: multiple_choice
+      answer: "3"
+      choices:
+        - text: an ellipse
+          value: "1"
+        - text: a hyperbola
+          value: "2"
+        - text: a parabola
+          value: "3"
+      correctIndex: 2
+      hints:
+        - "Compare $e$ with $1$."
+      solution: |-
+        $e<1$ ellipse, $e=1$ parabola, $e>1$ hyperbola: here it is a parabola.
+    - id: mp-fd-4
+      statement: |-
+        A conic has the polar equation $r=\dfrac{6}{1+2\cos\theta}$. Find its eccentricity.
+      answerType: number
+      answer: "2"
+      hints:
+        - |-
+          Compare with $r=\dfrac{ep}{1+e\cos\theta}$.
+      solution: |-
+        The coefficient of $\cos\theta$ in the denominator is $e=2$.
+    - id: mp-fd-5
+      statement: |-
+        A conic has the polar equation $r=\dfrac{6}{1+2\cos\theta}$. Find the distance $p$ from the focus to the directrix. The unit is lu: give the number only.
+      answerType: number
+      answer: "3"
+      hints:
+        - "$ep=6$."
+      solution: "$ep=6$ and $e=2$, so $p=3$."
+    - id: mp-fd-6
+      statement: |-
+        Write the conic $r=\dfrac{4}{1+\cos\theta}$ as a Cartesian equation.
+      answerType: equation
+      answer: "y^2+8*x=16"
+      coordinates:
+        [x, y]
+      hints:
+        - |-
+          Multiply by the denominator: $r+r\cos\theta=4$, so $r=4-x$; square.
+      solution: "$r+x=4$ gives $r=4-x$; squaring, $x^2+y^2=(4-x)^2$, that is $y^2+8x=16$."
+    - id: mp-fd-7
+      statement: |-
+        A point moves so that its distance to the point $(2,0)$ is half of its distance to the line $x=8$. Its eccentricity is The unit is lu: give the number only.
+      answerType: expression
+      answer: "1/2"
+      hints:
+        - The ratio of the distances is the eccentricity.
+      solution: |-
+        $e=\dfrac{\text{distance to the focus}}{\text{distance to the directrix}}=\dfrac12$: an ellipse.

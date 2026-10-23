@@ -103,3 +103,65 @@
       lintIgnore:
         - unrationalized-denominator
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
+- id: more-triangle
+  task: |-
+    More practice: a new triangle.
+  format: "Type a point as `(a, b)`, a number or an exact value such as `5/13` or `sqrt(7)/3`, and a line or a circle as an equation with `=`."
+  items:
+    - id: mp-te-1
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the circumcenter $O$.
+      answerType: vector
+      answer: "(2, 8/3)"
+      hints:
+        - Intersect two perpendicular bisectors.
+      solution: |-
+        $O$ is at equal distance from the three vertices: $O=\left(2,\,\frac{8}{3}\right)$ and $R=\frac{13}{3}$.
+    - id: mp-te-2
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the circumradius $R$. The unit is lu: give the number only.
+      answerType: expression
+      answer: "13/3"
+      hints:
+        - |-
+          $R=\dfrac{abc}{4S}$.
+      solution: |-
+        $R=\dfrac{abc}{4S}=\frac{13}{3}$.
+    - id: mp-te-3
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the centroid $G$.
+      answerType: vector
+      answer: "(2, 3)"
+      hints:
+        - Average the vertices.
+      solution: |-
+        $G=\dfrac{A+B+C}3=\left(2,\,3\right)$.
+    - id: mp-te-4
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the distance $OH$ between the circumcenter and the orthocenter. The unit is lu: give the number only.
+      answerType: expression
+      answer: "1"
+      hints:
+        - "Find $O$ and $H$ first."
+      solution: |-
+        $O=\left(2,\,\frac{8}{3}\right)$ and $H=\left(2,\,\frac{11}{3}\right)$, so $OH=1$; it is three times $OG$ (Euler line).
+    - id: mp-te-5
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find the equation of the Euler line (through $O$, $G$ and $H$).
+      answerType: equation
+      answer: "x - 2=0"
+      coordinates:
+        [x, y]
+      hints:
+        - "The Euler line passes through $O$ and $G$."
+      solution: |-
+        The line through $O=\left(2,\,\frac{8}{3}\right)$ and $G=\left(2,\,3\right)$ also contains $H$.
+    - id: mp-te-6
+      statement: |-
+        In the triangle $A\left(-2,\,1\right)$, $B\left(6,\,1\right)$, $C\left(2,\,7\right)$, find $OI^2$ where $I$ is the incenter, using Euler's relation $OI^2=R^2-2Rr$. The unit is squ: give the number only.
+      answerType: expression
+      answer: "377/9 - 104*sqrt(13)/9"
+      hints:
+        - "$OI^2=R^2-2Rr$."
+      solution: |-
+        $R=\frac{13}{3}$ and $r=- \frac{8}{3} + \frac{4 \sqrt{13}}{3}$, so $OI^2=R^2-2Rr=\frac{377}{9} - \frac{104 \sqrt{13}}{9}$.
