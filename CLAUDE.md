@@ -45,8 +45,8 @@ write original content (spec section 12.2).
   engine's Python, then `fix_dfrac.py`, then `pnpm verify-content` with the engine running).
 - The printed exercise sheet (MATH126, T. Hakizimana) is fully inside course mvc; printed errors are corrected and shown
   in the exercise `note`.
-- Never write LaTeX through a shell heredoc (``, `	`, `
-` become control characters); use the editor tools.
+- Never write LaTeX through a shell heredoc or a Python string that is not raw (a backslash before r, t, n or f becomes a control character, and a replace whose
+  pattern does not match silently does nothing); use the editor tools.
 - A format hint of an exercise set must not contain the answer of one of its exercises (verify-content checks this).
 - Notation in lessons: a vector value is written as a column and a point as a row (the renderer turns `\overrightarrow{AB}=(3,4)` into a column
   automatically); a length is `\norm{\overrightarrow{BC}}`, never `BC` alone (`a=\norm{\overrightarrow{BC}}`); the area of a triangle is `S`.
@@ -62,7 +62,9 @@ write original content (spec section 12.2).
 - Commits: small, plain messages, authored by the repository owner only (no co-author lines).
 
 ## Current phase
-Phase 1 foundation done. Content written and verified (92 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression). Also built: resources page (signed-in only), formula sheet (save formulas and theorems from lessons), stacked-fraction answer field, figures in many geometry lessons.
-Added since: admin panel (users, stats, resources upload), forgot-password by e-mail code, enrollment, new MVC lessons from the lecture notes (gradient, linear approximation, space curves, absolute extrema, Riemann sums). Exercises are at 15+ in all of Course 2 and in Geometry Module 1; Geometry Modules 2 and 3 and Statistics are still being topped up.
+Phase 1 foundation done. Content written and verified (97 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression). Also built: resources page (signed-in only), formula sheet (save formulas and theorems from lessons), stacked-fraction answer field, figures in many geometry lessons.
+Added since: admin panel (users, stats, resource upload, Premium grants), forgot-password by e-mail code, one-course-at-a-time enrollment, printable lesson sheet, unit tests (10 typed questions, pass 7; a unit is 100% only after passing), progress recomputed from the student's answers, the step-by-step solver (`apps/math-engine/allmaths_engine/solver`, no AI; free 5 per day, Premium unlimited; see docs/solver-and-premium.md), Flutterwave payment code (tested with a simulated provider only), the grapher (/graph, docs/grapher.md), new MVC lessons from the lecture notes, and at least 15 exercises in every lesson.
+Not done: photo input for the solver (needs OCR), live payments (needs the owner's Flutterwave keys), geometric constructions in the grapher.
+Browser tests: run them in isolation, never against the dev server on port 3000: `E2E_PORT=3100 E2E_ENGINE_PORT=8101 NEXT_DIST_DIR=.next-e2e PGLITE_DIR=<some empty folder> pnpm --filter @allmaths/web exec playwright test` (one run at a time).
 Next: Phase 2 (problem generator, quizzes, mastery, dashboard), figures for the remaining lessons, more `more`/`why` explanations, stat inference module.
-Spec version 1.2 (hierarchy: Course > Module > Unit > Lesson).
+Spec version 1.4 (every exercise counts for a lesson, the unit test; hierarchy: Course > Module > Unit > Lesson).

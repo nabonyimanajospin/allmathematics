@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "solver": "Solver", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "solver": "Solver", "grapher": "Grapher", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -33,7 +33,18 @@
     "code": "6-digit code", "newPassword": "New password", "resetButton": "Set the new password", "resendCode": "Send a new code",
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
   },
+  "grapher": {
+    "title": "Grapher", "lead": "Plot functions, curves and surfaces. Type what you want to see, drag to move, use the wheel to zoom. Any letter such as a or k becomes a slider.",
+    "tab2d": "2D graph", "tab3d": "3D surface", "expressions": "Expressions", "show": "Show line {n}", "expression": "Expression {n}", "remove": "Remove line {n}",
+    "add": "Add an expression", "sliders": "Sliders", "help": "What can I type?", "helpPoint": "a point", "helpSliders": "Letters such as a, b, k become sliders: try y = a*x^2 + b.",
+    "canvasLabel": "Graph of the expressions. Use the arrow keys to move, plus and minus to zoom, Home to reset.",
+    "canvasLabel3d": "3D graph. Use the arrow keys to rotate, plus and minus to zoom.",
+    "zoomIn": "Zoom in", "zoomOut": "Zoom out", "reset": "Reset the view", "controls2d": "Drag to move, wheel or pinch to zoom.", "controls3d": "Drag to turn the picture, wheel to zoom.",
+    "surface": "Surface z = f(x, y)", "curve3d": "Space curve (optional)", "curve3dHelp": "Write the curve as (x(t), y(t), z(t)), t in [a, b], for example (cos(t), sin(t), t/3), t in [0, 12].",
+    "extent": "Size of the picture: from -{n} to {n}", "wireframe": "Show only the grid lines"
+  },
   "solver": {
+    "pay": "Pay for Premium", "paying": "Opening the payment page...", "payOff": "Online payment is not set up yet.", "paidThanks": "Thank you. Your payment is being confirmed; Premium is activated in a moment.",
     "title": "Solver", "lead": "Type a problem and get the answer with every step. The math engine checks the result; there is no guessing.",
     "operation": "What do you want to do?", "problem": "Your problem", "placeholder": "for example: derivative of x^2*sin(x)",
     "tips": "Write products with * (2*x), powers with ^ (x^2), functions with parentheses (sin(x)) and fractions with / ((x+1)/(x-1)).",

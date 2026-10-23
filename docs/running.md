@@ -54,6 +54,26 @@ You cannot suspend or demote yourself. Every action is written to the audit log.
 "Forgot your password?" on the sign-in page sends a 6-digit code (valid 10 minutes, 5 tries). To send real e-mail set
 `RESEND_API_KEY` and `MAIL_FROM` (required in production). Without them, in development, the code is printed in the web server's console.
 
+## After an update
+
+New releases add database migrations and new engine endpoints. **Restart both programs** (the engine and `pnpm dev`) after pulling: the web server
+applies the migrations when it starts, and the solver needs the new engine.
+
+Settings (all optional in development): `SOLVER_FREE_PER_DAY` (default 5), `RESEND_API_KEY` and `MAIL_FROM` (real e-mail), and for payments
+`FLW_SECRET_KEY`, `FLW_SECRET_HASH`, `PREMIUM_PRICE`, `PREMIUM_CURRENCY`, `APP_URL`; see `docs/solver-and-premium.md`.
+
+## Browser tests
+
+Run them in isolation, never against the site you are using (they create many accounts and the sign-up limit would stop them):
+
+```powershell
+$env:E2E_PORT = "3100"; $env:E2E_ENGINE_PORT = "8101"; $env:NEXT_DIST_DIR = ".next-e2e"
+$env:PGLITE_DIR = "$env:TEMP\allmaths-e2e-db"     # an empty folder: a throw-away database
+pnpm --filter @allmaths/web exec playwright test
+```
+
+Run one pass at a time: two runs at the same moment disturb each other.
+
 ## Checks
 
 | Command | What it does |

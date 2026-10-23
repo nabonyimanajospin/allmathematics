@@ -15,6 +15,11 @@ export async function SiteHeader() {
           <Logo name={t("app.name")} />
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1.5">
+          <span className="hidden md:block">
+            <Link href="/graph" className={buttonClass("ghost")}>
+              {t("nav.grapher")}
+            </Link>
+          </span>
           <ThemeToggle />
           {user ? (
             <>

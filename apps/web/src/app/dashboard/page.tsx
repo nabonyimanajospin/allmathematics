@@ -70,6 +70,9 @@ export default async function DashboardPage() {
         <Link href="/formulas" className={buttonClass("secondary")}>
           {t("nav.formulas")}
         </Link>
+        <Link href="/graph" className={buttonClass("secondary")}>
+          {t("nav.grapher")}
+        </Link>
         <Link href="/solver" className={buttonClass("secondary")}>
           {t("nav.solver")}
         </Link>
