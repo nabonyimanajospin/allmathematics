@@ -48,11 +48,11 @@ export default async function AdminUsersPage({ searchParams }: { searchParams: P
                 <p className="break-all text-sm text-muted">{r.email}</p>
               </div>
               <p className="text-sm text-muted">
-                {r.role.replace("_", " ")} · {r.suspended ? t("admin.users.suspendedState") : t("admin.users.active")} · {t("admin.users.joined")} {fmt(r.createdAt)} ·{" "}
+                {r.role.replace("_", " ")} · {r.suspended ? t("admin.users.suspendedState") : t("admin.users.active")}{r.premium ? ` · ${t("admin.users.premiumBadge")}` : ""} · {t("admin.users.joined")} {fmt(r.createdAt)} ·{" "}
                 {t("admin.users.lastSeen")} {r.lastSeenAt ? fmt(r.lastSeenAt) : t("admin.users.never")}
               </p>
             </div>
-            <UserActions id={r.id} email={r.email} role={r.role} suspended={r.suspended} isSelf={r.id === user.id} />
+            <UserActions id={r.id} email={r.email} role={r.role} suspended={r.suspended} premium={r.premium} isSelf={r.id === user.id} />
           </li>
         ))}
       </ul>

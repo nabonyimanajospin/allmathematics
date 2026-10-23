@@ -1,0 +1,189 @@
+"use client";
+
+import Link from "next/link";
+import { useId, useState, type FormEvent } from "react";
+import { Button, Card, Field, inputClass } from "@allmaths/ui";
+import { t } from "@/i18n";
+import { SOLVER_OPERATIONS, type SolveResponseDto, type SolveResultDto, type SolverAccessDto, type SolverOperation } from "@/lib/solver-types";
+import { Rich } from "./lesson/rich";
+
+const EXAMPLES = [
+  "derivative of x^2*sin(x)",
+  "integral of x*e^x from 0 to 1",
+  "limit of sin(x)/x as x->0",
+  "solve x^2-5x+6=0",
+  "x+y=5, x-y=1",
+  "y' + 2y = e^x",
+  "norm of (3,4)",
+];
+
+const SYMBOLS = ["^", "*", "/", "(", ")", "sqrt()", "pi", "->"];
+
+function AccessLine({ access }: { access: SolverAccessDto }) {
+  if (access.premium) return <p className="rounded-full bg-success-soft px-3 py-1 text-sm font-semibold text-success">{t("solver.premium")}</p>;
+  return (
+    <p className="rounded-full bg-surface-2 px-3 py-1 text-sm font-semibold tabular-nums">
+      {t("solver.freeLeft", { left: access.remaining ?? 0, limit: access.limit ?? 0 })}
+    </p>
+  );
+}
+
+export function SolverClient({ initialAccess }: { initialAccess: SolverAccessDto }) {
+  const uid = useId();
+  const [input, setInput] = useState("");
+  const [operation, setOperation] = useState<SolverOperation>("auto");
+  const [busy, setBusy] = useState(false);
+  const [access, setAccess] = useState(initialAccess);
+  const [result, setResult] = useState<SolveResultDto | null>(null);
+  const [error, setError] = useState<{ code: string; message: string } | null>(null);
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (busy || input.trim() === "") return;
+    setBusy(true);
+    setError(null);
+    setResult(null);
+    try {
+      const res = await fetch("/api/solver", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ input, operation }) });
+      const data = (await res.json().catch(() => null)) as (SolveResponseDto & { error?: { code?: string; message?: string } }) | null;
+      if (!res.ok || !data) {
+        if (res.status === 402) setAccess((a) => ({ ...a, remaining: 0 }));
+        setError({ code: data?.error?.code ?? "error", message: data?.error?.message ?? t("auth.errorGeneric") });
+      } else if (!data.ok || !data.solution) {
+        setAccess(data.access);
+        setError({ code: data.code ?? "cannot_solve", message: data.message ?? t("auth.errorGeneric") });
+      } else {
+        setAccess(data.access);
+        setResult(data.solution);
+      }
+    } catch {
+      setError({ code: "network", message: t("auth.errorNetwork") });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const limitReached = error?.code === "limit_reached" || (!access.premium && access.remaining === 0);
+  return (
+    <div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-muted">{t("solver.lead")}</p>
+        <AccessLine access={access} />
+      </div>
+
+      <Card className="mt-6">
+        <form onSubmit={onSubmit} className="grid gap-4">
+          <Field label={t("solver.operation")} id={`${uid}-op`}>
+            <select id={`${uid}-op`} value={operation} onChange={(e) => setOperation(e.target.value as SolverOperation)} className={inputClass}>
+              {SOLVER_OPERATIONS.map((o) => (
+                <option key={o} value={o}>
+                  {t(`solver.ops.${o}`)}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label={t("solver.problem")} id={`${uid}-input`} hint={t("solver.tips")}>
+            <input
+              id={`${uid}-input`}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              maxLength={300}
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              placeholder={t("solver.placeholder")}
+              className={`${inputClass} font-mono`}
+            />
+          </Field>
+          <div className="flex flex-wrap gap-2" role="group" aria-label={t("check.symbols")}>
+            {SYMBOLS.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setInput((v) => v + s)}
+                className="min-h-10 min-w-10 rounded-[var(--radius-sm)] border border-line bg-surface-2 px-3 font-mono font-semibold hover:bg-accent-soft"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button type="submit" disabled={busy || input.trim() === "" || limitReached}>
+              {busy ? t("solver.solving") : t("solver.solve")}
+            </Button>
+          </div>
+        </form>
+        <div className="mt-5">
+          <p className="text-sm font-semibold text-muted">{t("solver.examples")}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {EXAMPLES.map((ex) => (
+              <button
+                key={ex}
+                type="button"
+                onClick={() => {
+                  setInput(ex);
+                  setOperation("auto");
+                }}
+                className="rounded-full border border-line bg-surface px-3 py-1.5 font-mono text-sm hover:bg-accent-soft"
+              >
+                {ex}
+              </button>
+            ))}
+          </div>
+        </div>
+      </Card>
+
+      <div aria-live="polite" className="mt-6">
+        {error ? (
+          <Card className={`border-2 ${error.code === "limit_reached" ? "border-warning" : "border-danger"}`}>
+            <p role="alert" className="font-semibold">
+              {error.message}
+            </p>
+            {error.code === "limit_reached" ? <p className="mt-2 text-muted">{t("solver.upgrade")}</p> : null}
+          </Card>
+        ) : null}
+
+        {result ? (
+          <div className="grid gap-4">
+            <Card>
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted">{t("solver.problemLabel")}</p>
+              <Rich html={result.questionHtml} />
+            </Card>
+            <Card>
+              <h2 className="text-xl font-bold">{t("solver.steps")}</h2>
+              <ol className="mt-3 grid gap-4">
+                {result.steps.map((s, i) => (
+                  <li key={i} className="grid gap-1">
+                    <p className="font-medium">
+                      <span className="mr-2 font-bold tabular-nums text-accent">{i + 1}.</span>
+                      {s.title}
+                    </p>
+                    {s.html ? <Rich html={s.html} /> : null}
+                  </li>
+                ))}
+              </ol>
+            </Card>
+            <Card className="border-2 border-success">
+              <p className="text-sm font-semibold uppercase tracking-wide text-success">{t("solver.answer")}</p>
+              <Rich html={result.answerHtml} />
+              <p className="mt-1 font-mono text-sm text-muted">{result.answerText}</p>
+            </Card>
+            {result.notes.length > 0 ? (
+              <ul className="list-disc pl-6 text-sm text-muted">
+                {result.notes.map((n, i) => (
+                  <li key={i}>{n}</li>
+                ))}
+              </ul>
+            ) : null}
+            <p className="text-sm text-muted">
+              {t("solver.learnMore")}{" "}
+              <Link href="/dashboard" className="font-semibold text-accent underline">
+                {t("lesson.back")}
+              </Link>
+            </p>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}

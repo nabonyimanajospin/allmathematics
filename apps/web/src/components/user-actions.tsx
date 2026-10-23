@@ -7,9 +7,15 @@ import { t } from "@/i18n";
 
 const ROLES = ["student", "instructor", "content_author", "reviewer", "admin"] as const;
 
-type Action = { action: "reset_password" } | { action: "suspend" } | { action: "unsuspend" } | { action: "set_role"; role: (typeof ROLES)[number] };
+type Action =
+  | { action: "reset_password" }
+  | { action: "suspend" }
+  | { action: "unsuspend" }
+  | { action: "set_role"; role: (typeof ROLES)[number] }
+  | { action: "grant_premium"; days: number }
+  | { action: "revoke_premium" };
 
-export function UserActions({ id, email, role, suspended, isSelf }: { id: string; email: string; role: string; suspended: boolean; isSelf: boolean }) {
+export function UserActions({ id, email, role, suspended, premium, isSelf }: { id: string; email: string; role: string; suspended: boolean; premium: boolean; isSelf: boolean }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +47,28 @@ export function UserActions({ id, email, role, suspended, isSelf }: { id: string
         <Button variant="secondary" disabled={busy} onClick={() => run({ action: "reset_password" }, t("admin.users.resetConfirm", { email }))}>
           {t("admin.users.resetPassword")}
         </Button>
+        {premium ? (
+          <Button variant="secondary" disabled={busy} onClick={() => run({ action: "revoke_premium" }, t("admin.users.revokeConfirm", { email }))}>
+            {t("admin.users.revokePremium")}
+          </Button>
+        ) : (
+          <select
+            aria-label={`${t("admin.users.givePremium")}: ${email}`}
+            value=""
+            disabled={busy}
+            onChange={(e) => {
+              const days = Number(e.target.value);
+              e.target.value = "";
+              if (days > 0) void run({ action: "grant_premium", days }, t("admin.users.grantConfirm", { email, days }));
+            }}
+            className="rounded-[var(--radius-sm)] border border-line bg-surface px-2 py-2 text-sm"
+          >
+            <option value="">{t("admin.users.givePremium")}</option>
+            <option value="30">30 {t("admin.users.days")}</option>
+            <option value="90">90 {t("admin.users.days")}</option>
+            <option value="365">365 {t("admin.users.days")}</option>
+          </select>
+        )}
         {!isSelf ? (
           <>
             <Button
