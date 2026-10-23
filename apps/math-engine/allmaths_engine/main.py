@@ -180,3 +180,40 @@ def verify(req: VerifyRequest) -> VerifyResponse:
     except EngineError as exc:
         return VerifyResponse(equal=False, code=exc.code, message=exc.message)
     return VerifyResponse(equal=equal, method=method)
+
+
+class SolveRequest(BaseModel):
+    input: str = Field(min_length=1, max_length=300)
+    operation: Literal["auto", "derivative", "integral", "limit", "solve", "ode", "simplify", "expand", "factor", "vector"] = "auto"
+
+
+class SolveStep(BaseModel):
+    title: str
+    latex: str = ""
+
+
+class SolveSolution(BaseModel):
+    operation: str
+    question_latex: str
+    answer_latex: str
+    answer_text: str
+    steps: list[SolveStep]
+    notes: list[str] = Field(default_factory=list)
+
+
+class SolveResponse(BaseModel):
+    ok: bool
+    solution: SolveSolution | None = None
+    code: str | None = None
+    message: str | None = None
+
+
+@app.post("/v1/solve", response_model=SolveResponse, dependencies=[Depends(require_token)])
+def solve(req: SolveRequest) -> SolveResponse:
+    """Step-by-step solver. Runs in a worker process with a time limit; never executes the input as code."""
+    from .solver_pool import get_pool
+
+    result = get_pool().run(req.input, req.operation)
+    if "solution" in result:
+        return SolveResponse(ok=True, solution=SolveSolution(**result["solution"]))
+    return SolveResponse(ok=False, code=result["error"], message=result["message"])
