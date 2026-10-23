@@ -75,9 +75,24 @@ test.describe("the grapher", () => {
     await page.getByLabel("Expression 1").fill("y = x^2 - 4");
     await page.getByLabel("Expression 2").fill("y = x - 2");
     await expect(page.getByRole("heading", { name: "Roots and intersections" })).toBeVisible();
-    await expect(page.getByText("Line 1 crosses the x-axis: (-2, 0)")).toBeVisible();
-    await expect(page.getByText("Lines 1 and 2 meet: (2, 0)")).toBeVisible();
-    await expect(page.getByText("Lines 1 and 2 meet: (-1, -3)")).toBeVisible();
+    // the engine makes them exact; the TeX of each exact point is in the page
+    const tex = (src: string) => page.locator("annotation").filter({ hasText: src });
+    await expect(page.getByText("Line 1 crosses the x-axis:")).toBeVisible();
+    await expect(tex(String.raw`\left(-2,\ 0\right)`).first()).toBeAttached();
+    await expect(tex(String.raw`\left(2,\ 0\right)`).first()).toBeAttached();
+    await expect(tex(String.raw`\left(-1,\ -3\right)`).first()).toBeAttached();
+
+    // exact radicals and multiples of pi, not decimals
+    await page.getByLabel("Expression 1").fill("y = x^2 - 2");
+    await page.getByLabel("Expression 2").fill("y = sin(x)");
+    await expect(tex(String.raw`\sqrt{2}`).first()).toBeAttached();
+    await expect(tex(String.raw`\pi`).first()).toBeAttached();
+    // a value with no closed form stays a decimal and says so
+    await page.getByLabel("Expression 1").fill("y = cos(x)");
+    await page.getByLabel("Expression 2").fill("y = x");
+    await expect(page.getByText(/≈ \(0\.7391, 0\.7391\)/)).toBeVisible();
+    await page.getByLabel("Expression 1").fill("y = x^2 - 4");
+    await page.getByLabel("Expression 2").fill("y = x - 2");
 
     const before = await paintedPixels(page);
     await page.getByRole("button", { name: "Add an expression" }).click();

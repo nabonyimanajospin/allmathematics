@@ -35,7 +35,7 @@
   },
   "grapher": {
     "copyLink": "Copy link", "linkCopied": "Link copied. Anyone who opens it sees these expressions.", "linkFailed": "I could not copy the link. Copy the address from the browser.",
-    "special": "Roots and intersections", "specialNote": "Found from the picture, so they are approximate. Zoom in to read them more exactly.", "root": "Line {n} crosses the x-axis", "meet": "Lines {a} and {b} meet", "helpRegion": "shaded region (dashed border for < and >)",
+    "special": "Roots and intersections", "specialNote": "The math engine gives the exact value whenever it can prove it. A value with ≈ has no closed form (or could not be proved) and is a decimal approximation.", "approx": "Approximate value", "root": "Line {n} crosses the x-axis", "meet": "Lines {a} and {b} meet", "helpRegion": "shaded region (dashed border for < and >)",
     "title": "Grapher", "lead": "Plot functions, curves and surfaces. Type what you want to see, drag to move, use the wheel to zoom. Any letter such as a or k becomes a slider.",
     "tab2d": "2D graph", "tab3d": "3D surface", "expressions": "Expressions", "show": "Show line {n}", "expression": "Expression {n}", "remove": "Remove line {n}",
     "add": "Add an expression", "sliders": "Sliders", "help": "What can I type?", "helpPoint": "a point", "helpSliders": "Letters such as a, b, k become sliders: try y = a*x^2 + b.",

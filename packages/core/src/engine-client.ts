@@ -44,6 +44,15 @@ const solveResponse = z.object({
   code: z.string().nullable().optional(),
   message: z.string().nullable().optional(),
 });
+const graphExactResponse = z.object({
+  points: z.array(z.object({ lines: z.array(z.number()), x: z.number(), x_latex: z.string(), y_latex: z.string(), x_text: z.string(), y_text: z.string() })),
+});
+export type EngineGraphExactResponse = z.infer<typeof graphExactResponse>;
+export interface EngineGraphExactRequest {
+  lines: Record<string, string>;
+  params: Record<string, string>;
+  candidates: { lines: number[]; x: number }[];
+}
 export type EngineSolveResponse = z.infer<typeof solveResponse>;
 export type SolveOperation = "auto" | "derivative" | "integral" | "limit" | "solve" | "ode" | "simplify" | "expand" | "factor" | "vector";
 
@@ -147,6 +156,8 @@ export function createEngineClient(opts: EngineClientOptions) {
     verify: (a: string, b: string) => post("/v1/verify", { a, b }, verifyResponse),
     compute: (expression: string) => post("/v1/compute", { expression }, computeResponse),
     /** The step-by-step solver. A solve is never retried (it can be slow) and gets a longer time limit than a check. */
+    /** Exact coordinates for roots and intersections that the grapher found numerically (only those SymPy can prove). */
+    graphExact: (body: EngineGraphExactRequest) => post("/v1/graph/exact", body, graphExactResponse, { timeoutMs: 20_000, retries: 0 }),
     solve: (input: string, operation: SolveOperation = "auto") => post("/v1/solve", { input, operation }, solveResponse, { timeoutMs: 25_000, retries: 0 }),
     async health(): Promise<boolean> {
       try {

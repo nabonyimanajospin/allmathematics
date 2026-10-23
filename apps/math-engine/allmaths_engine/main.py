@@ -217,3 +217,40 @@ def solve(req: SolveRequest) -> SolveResponse:
     if "solution" in result:
         return SolveResponse(ok=True, solution=SolveSolution(**result["solution"]))
     return SolveResponse(ok=False, code=result["error"], message=result["message"])
+
+
+class GraphExactCandidate(BaseModel):
+    lines: list[int] = Field(min_length=1, max_length=2)
+    x: float
+
+
+class GraphExactRequest(BaseModel):
+    lines: dict[str, str] = Field(max_length=8)
+    params: dict[str, str] = Field(default_factory=dict, max_length=8)
+    candidates: list[GraphExactCandidate] = Field(max_length=24)
+
+
+class GraphExactPoint(BaseModel):
+    lines: list[int]
+    x: float
+    x_latex: str
+    y_latex: str
+    x_text: str
+    y_text: str
+
+
+class GraphExactResponse(BaseModel):
+    points: list[GraphExactPoint]
+
+
+@app.post("/v1/graph/exact", response_model=GraphExactResponse, dependencies=[Depends(require_token)])
+def graph_exact(req: GraphExactRequest) -> GraphExactResponse:
+    """Exact coordinates for roots and intersections found numerically by the grapher (only the ones SymPy can prove)."""
+    import json
+
+    from .solver_pool import get_pool
+
+    result = get_pool().run(json.dumps(req.model_dump()), "_graph")
+    if "solution" in result:
+        return GraphExactResponse(points=[GraphExactPoint(**p) for p in result["solution"]["points"]])
+    return GraphExactResponse(points=[])

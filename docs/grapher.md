@@ -30,8 +30,11 @@ parameters. Drag to rotate, wheel to zoom, arrow keys from the keyboard. The gri
 
 ## Roots, intersections and sharing
 
-Under the picture the grapher lists where a line `y = f(x)` crosses the x-axis and where two such lines meet. They are found numerically from the picture
-(bisection), so they are approximate; zoom in to read them more exactly. **Copy link** puts the expressions in the address (`#g=...`), so whoever opens the
+Under the picture the grapher lists where a line `y = f(x)` crosses the x-axis and where two such lines meet. The browser first finds them numerically
+(bisection); then the math engine (`/v1/graph/exact`, SymPy) makes each one exact when it can prove the value: it lists every real solution when it can, or
+recognises the value as a rational multiple of pi, a radical or e and accepts the guess only if it satisfies the equation exactly. So `x^2 - 2` gives
+`(\sqrt2, 0)` and `sin(x)` gives `(\pi, 0)`. A value with no closed form (`cos(x) = x`) stays a decimal marked with ≈. Sliders are sent as exact fractions.
+**Copy link** puts the expressions in the address (`#g=...`), so whoever opens the
 link sees the same graph. Nothing is stored on the server.
 
 ## Not included (yet)

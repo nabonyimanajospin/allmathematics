@@ -4,6 +4,8 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { Button, Card } from "@allmaths/ui";
 import { classify, drawable, evalConstant, parameterNames, sampleCurve3, sampleSurface, specialPoints, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
 import { t } from "@/i18n";
+import { RichInline } from "./lesson/rich";
+import type { ExactPointDto } from "@/app/api/graph/exact/route";
 
 const COLORS = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2", "#be185d", "#4d7c0f"];
 
@@ -71,6 +73,42 @@ function Graph2D() {
   );
   const drawn = useMemo(() => items.map((it) => drawable(it, values, range)), [items, values, range]);
   const special = useMemo(() => specialPoints(items, values, range), [items, values, range]);
+  const [exact, setExact] = useState<ExactPointDto[]>([]);
+
+  // ask the math engine to make the numeric roots and intersections exact (it answers only when it can prove the value)
+  useEffect(() => {
+    if (special.length === 0) {
+      setExact([]);
+      return;
+    }
+    const lines: Record<string, string> = {};
+    items.forEach((it, i) => {
+      if (it.kind === "function") lines[String(i + 1)] = it.expr;
+    });
+    const params: Record<string, string> = {};
+    for (const [n, v] of Object.entries(values)) {
+      const tenths = Math.round(v * 10);
+      params[n] = tenths % 10 === 0 ? String(tenths / 10) : `${tenths}/10`;
+    }
+    const ctl = new AbortController();
+    const timer = setTimeout(() => {
+      fetch("/api/graph/exact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ lines, params, candidates: special.map((sp) => ({ lines: sp.lines, x: sp.at[0] })) }),
+        signal: ctl.signal,
+      })
+        .then((r) => (r.ok ? (r.json() as Promise<{ points: ExactPointDto[] }>) : { points: [] }))
+        .then((d) => setExact(d.points))
+        .catch(() => undefined);
+    }, 400);
+    return () => {
+      clearTimeout(timer);
+      ctl.abort();
+    };
+  }, [special, items, values]);
+  const exactFor = (sp: { lines: number[]; at: [number, number] }): ExactPointDto | undefined =>
+    exact.find((e) => e.lines.join() === sp.lines.join() && Math.abs(e.x - sp.at[0]) < 1e-5 * Math.max(1, Math.abs(sp.at[0])));
   const [shared, setShared] = useState<"copied" | "failed" | null>(null);
 
   // a link made by "Copy link" carries the expressions in its #g=... part
@@ -418,11 +456,21 @@ function Graph2D() {
             <h3 className="font-bold">{t("grapher.special")}</h3>
             <p className="text-sm text-muted">{t("grapher.specialNote")}</p>
             <ul className="mt-2 grid gap-1 font-mono text-sm tabular-nums">
-              {special.map((sp, k) => (
-                <li key={k}>
-                  {sp.kind === "root" ? t("grapher.root", { n: sp.lines[0] ?? 0 }) : t("grapher.meet", { a: sp.lines[0] ?? 0, b: sp.lines[1] ?? 0 })}: ({fmt(Math.round(sp.at[0] * 1e4) / 1e4)}, {fmt(Math.round(sp.at[1] * 1e4) / 1e4)})
-                </li>
-              ))}
+              {special.map((sp, k) => {
+                const ex = exactFor(sp);
+                return (
+                  <li key={k} className="flex flex-wrap items-center gap-x-2">
+                    <span>{sp.kind === "root" ? t("grapher.root", { n: sp.lines[0] ?? 0 }) : t("grapher.meet", { a: sp.lines[0] ?? 0, b: sp.lines[1] ?? 0 })}:</span>
+                    {ex ? (
+                      <RichInline html={ex.html} />
+                    ) : (
+                      <span title={t("grapher.approx")}>
+                        ≈ ({fmt(Math.round(sp.at[0] * 1e4) / 1e4)}, {fmt(Math.round(sp.at[1] * 1e4) / 1e4)})
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </Card>
         ) : null}

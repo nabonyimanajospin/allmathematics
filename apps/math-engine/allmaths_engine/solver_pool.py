@@ -26,6 +26,13 @@ def _worker(conn: Any) -> None:  # runs in the child process
         except EOFError:
             return
         try:
+            if operation == "_graph":
+                import json
+
+                from .graph_exact import exact_points
+
+                conn.send(("ok", exact_points(json.loads(text))))
+                continue
             sol = solve_text(text, operation)
             conn.send(("ok", asdict(sol)))
         except SolverError as exc:
