@@ -62,6 +62,7 @@ export type GraphItem =
   | { kind: "parametric"; x: string; y: string; t0: string; t1: string }
   | { kind: "polar"; expr: string }
   | { kind: "point"; x: string; y: string }
+  | { kind: "region"; lhs: string; rhs: string; op: "<" | ">" | "<=" | ">=" }
   | { kind: "empty" }
   | { kind: "error"; message: string };
 
@@ -102,6 +103,16 @@ export function classify(text: string): GraphItem {
       }
       return { kind: "point", x: px, y: py };
     }
+    // an inequality:  y > x^2,  x^2 + y^2 <= 4
+    const ineq = /^(.+?)(<=|>=|≤|≥|<|>)(.+)$/.exec(raw);
+    if (ineq && !ineq[3]!.includes("=") && !/[<>]/.test(ineq[3]!)) {
+      const op = ({ "≤": "<=", "≥": ">=" } as Record<string, string>)[ineq[2]!] ?? ineq[2]!;
+      const lhs = normalizeExpr(ineq[1]!);
+      const rhs = normalizeExpr(ineq[3]!);
+      if (!usesName(lhs + " " + rhs, "x") && !usesName(lhs + " " + rhs, "y")) return { kind: "error", message: "An inequality needs x or y." };
+      return { kind: "region", lhs, rhs, op: op as "<" | ">" | "<=" | ">=" };
+    }
+    if (/[<>≤≥]/.test(raw)) return { kind: "error", message: "Use one inequality sign, for example y > x^2." };
     const sides = splitTopLevel(raw, "=");
     if (sides.length > 2) return { kind: "error", message: "Use only one = sign." };
     if (sides.length === 2) {
@@ -126,7 +137,7 @@ export function parameterNames(items: GraphItem[]): string[] {
   const texts: string[] = [];
   for (const it of items) {
     if (it.kind === "function" || it.kind === "xfunction" || it.kind === "polar") texts.push(it.expr);
-    else if (it.kind === "implicit") texts.push(it.lhs, it.rhs);
+    else if (it.kind === "implicit" || it.kind === "region") texts.push(it.lhs, it.rhs);
     else if (it.kind === "parametric") texts.push(it.x, it.y, it.t0, it.t1);
     else if (it.kind === "point") texts.push(it.x, it.y);
   }
@@ -250,6 +261,7 @@ export type Drawable =
   | { kind: "lines"; pieces: Pt[][] }
   | { kind: "segments"; segments: [number, number, number, number][] }
   | { kind: "point"; at: Pt }
+  | { kind: "region"; inside: (x: number, y: number) => boolean; boundary: [number, number, number, number][]; strict: boolean }
   | { kind: "error"; message: string }
   | { kind: "none" };
 
@@ -273,6 +285,17 @@ export function drawable(item: GraphItem, params: Params, view: View): Drawable 
         const l = bind(item.lhs, ["x", "y"], params);
         const r = bind(item.rhs, ["x", "y"], params);
         return { kind: "segments", segments: marchingSquares((x, y) => l(x, y) - r(x, y), view) };
+      }
+      case "region": {
+        const l = bind(item.lhs, ["x", "y"], params);
+        const r = bind(item.rhs, ["x", "y"], params);
+        const strict = item.op === "<" || item.op === ">";
+        const less = item.op === "<" || item.op === "<=";
+        const inside = (x: number, y: number): boolean => {
+          const d = l(x, y) - r(x, y);
+          return Number.isFinite(d) && (less ? (strict ? d < 0 : d <= 0) : strict ? d > 0 : d >= 0);
+        };
+        return { kind: "region", inside, strict, boundary: marchingSquares((x, y) => l(x, y) - r(x, y), view) };
       }
       case "polar": {
         const r = bind(item.expr, ["t"], params);
@@ -329,4 +352,87 @@ export function sampleCurve3(ex: string, ey: string, ez: string, params: Params,
     if (p.every(Number.isFinite)) out.push(p);
   }
   return out;
+}
+
+// --- special points -------------------------------------------------------------------------------------------------
+export interface SpecialPoint {
+  at: Pt;
+  kind: "root" | "intersection";
+  /** 1-based numbers of the lines that meet here (one for a root). */
+  lines: number[];
+}
+
+/** The x in [a, b] where g changes sign, found by bisection (g(a) and g(b) have opposite signs). */
+function bisect(g: (x: number) => number, a: number, b: number): number {
+  let lo = a;
+  let hi = b;
+  let glo = g(lo);
+  for (let k = 0; k < 60; k++) {
+    const mid = (lo + hi) / 2;
+    const gm = g(mid);
+    if (gm === 0) return mid;
+    if (Math.sign(gm) === Math.sign(glo)) {
+      lo = mid;
+      glo = gm;
+    } else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+/** Where g(x) = 0 inside [xmin, xmax]; a jump over an asymptote is not a zero. */
+function zeros(g: (x: number) => number, xmin: number, xmax: number, samples = 1600): number[] {
+  const out: number[] = [];
+  let px = xmin;
+  let pv = g(px);
+  for (let i = 1; i <= samples; i++) {
+    const x = xmin + ((xmax - xmin) * i) / samples;
+    const v = g(x);
+    if (Number.isFinite(pv) && Number.isFinite(v)) {
+      if (pv === 0) out.push(px);
+      else if (Math.sign(pv) !== Math.sign(v) && v !== 0) {
+        const z = bisect(g, px, x);
+        if (Math.abs(g(z)) < 1e-6 * Math.max(1, Math.abs(pv), Math.abs(v))) out.push(z);
+      }
+    }
+    px = x;
+    pv = v;
+  }
+  if (Number.isFinite(pv) && pv === 0) out.push(px);
+  return out;
+}
+
+/**
+ * The roots (where a line y = f(x) meets the x-axis) and the intersections of two such lines, inside the view.
+ * These are found numerically from the picture, so they are approximate: the learner reads them as a guide.
+ */
+export function specialPoints(items: GraphItem[], params: Params, view: View, limit = 24): SpecialPoint[] {
+  const fns: { n: number; f: (x: number) => number }[] = [];
+  items.forEach((it, i) => {
+    if (it.kind !== "function") return;
+    try {
+      fns.push({ n: i + 1, f: bind(it.expr, ["x"], params) });
+    } catch {
+      /* an unreadable line has no special points */
+    }
+  });
+  const out: SpecialPoint[] = [];
+  const dedupe = (x: number, kind: SpecialPoint["kind"], lines: number[], y: number) => {
+    if (!Number.isFinite(y)) return;
+    const same = out.find((p) => Math.abs(p.at[0] - x) < 1e-6 && Math.abs(p.at[1] - y) < 1e-6);
+    if (!same) {
+      out.push({ at: [x, y], kind, lines });
+      return;
+    }
+    for (const l of lines) if (!same.lines.includes(l)) same.lines.push(l);
+    if (same.lines.length > 1) same.kind = "intersection";
+  };
+  for (const { n, f } of fns) for (const x of zeros(f, view.xmin, view.xmax)) dedupe(x, "root", [n], 0);
+  for (let i = 0; i < fns.length; i++) {
+    for (let j = i + 1; j < fns.length; j++) {
+      const a = fns[i]!;
+      const b = fns[j]!;
+      for (const x of zeros((t) => a.f(t) - b.f(t), view.xmin, view.xmax)) dedupe(x, "intersection", [a.n, b.n], a.f(x));
+    }
+  }
+  return out.slice(0, limit);
 }

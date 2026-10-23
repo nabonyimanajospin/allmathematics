@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button, Card } from "@allmaths/ui";
-import { classify, drawable, evalConstant, parameterNames, sampleCurve3, sampleSurface, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
+import { classify, drawable, evalConstant, parameterNames, sampleCurve3, sampleSurface, specialPoints, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
 import { t } from "@/i18n";
 
 const COLORS = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2", "#be185d", "#4d7c0f"];
@@ -70,6 +70,36 @@ function Graph2D() {
     [view, w, h],
   );
   const drawn = useMemo(() => items.map((it) => drawable(it, values, range)), [items, values, range]);
+  const special = useMemo(() => specialPoints(items, values, range), [items, values, range]);
+  const [shared, setShared] = useState<"copied" | "failed" | null>(null);
+
+  // a link made by "Copy link" carries the expressions in its #g=... part
+  useEffect(() => {
+    try {
+      const m = /^#g=(.+)$/.exec(window.location.hash);
+      if (!m) return;
+      const list: unknown = JSON.parse(decodeURIComponent(escape(atob(m[1]!.replace(/-/g, "+").replace(/_/g, "/")))));
+      if (!Array.isArray(list)) return;
+      const texts = list.filter((x): x is string => typeof x === "string").slice(0, 8);
+      if (texts.length === 0) return;
+      setRows(texts.map((text, i) => ({ id: i + 1, text: text.slice(0, 200), color: COLORS[i % COLORS.length]!, visible: true })));
+      nextId.current = texts.length + 1;
+    } catch {
+      /* a damaged link keeps the starting expressions */
+    }
+  }, []);
+
+  async function copyLink() {
+    try {
+      const json = JSON.stringify(rows.filter((r) => r.text.trim() !== "").map((r) => r.text));
+      const code = btoa(unescape(encodeURIComponent(json))).replace(/\+/g, "-").replace(/\//g, "_");
+      const url = `${window.location.origin}${window.location.pathname}#g=${code}`;
+      await navigator.clipboard.writeText(url);
+      setShared("copied");
+    } catch {
+      setShared("failed");
+    }
+  }
 
   useEffect(() => {
     const c = canvas.current;
@@ -120,6 +150,19 @@ function Graph2D() {
         ctx.fillText(fmt(gy), Math.min(w - 36, Math.max(4, X(0) + 5)), Y(gy) - 3);
       }
     }
+    // inequalities: shade the points that satisfy them
+    drawn.forEach((d, i) => {
+      if (d.kind !== "region") return;
+      ctx.fillStyle = rows[i]!.color;
+      ctx.globalAlpha = 0.2;
+      const cell = 4;
+      for (let py = 0; py < h; py += cell) {
+        for (let px = 0; px < w; px += cell) {
+          if (d.inside(view.cx + (px + cell / 2 - w / 2) / view.scale, view.cy - (py + cell / 2 - h / 2) / view.scale)) ctx.fillRect(px, py, cell, cell);
+        }
+      }
+      ctx.globalAlpha = 1;
+    });
     // the curves
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -141,6 +184,15 @@ function Graph2D() {
           ctx.lineTo(X(c2), Y(e));
         }
         ctx.stroke();
+      } else if (d.kind === "region") {
+        ctx.setLineDash(d.strict ? [7, 6] : []);
+        ctx.beginPath();
+        for (const [a, b, c2, e] of d.boundary) {
+          ctx.moveTo(X(a), Y(b));
+          ctx.lineTo(X(c2), Y(e));
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
       } else if (d.kind === "point") {
         ctx.beginPath();
         ctx.arc(X(d.at[0]), Y(d.at[1]), 5, 0, 2 * Math.PI);
@@ -150,7 +202,17 @@ function Graph2D() {
         ctx.fillText(`(${fmt(d.at[0])}, ${fmt(d.at[1])})`, X(d.at[0]) + 8, Y(d.at[1]) - 8);
       }
     });
-  }, [drawn, rows, view, w, h, range]);
+    // roots and intersections
+    ctx.lineWidth = 2;
+    for (const sp of special) {
+      ctx.strokeStyle = ink;
+      ctx.fillStyle = bg;
+      ctx.beginPath();
+      ctx.arc(X(sp.at[0]), Y(sp.at[1]), 5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+    }
+  }, [drawn, rows, view, w, h, range, special]);
 
   const toWorld = useCallback(
     (px: number, py: number): [number, number] => [view.cx + (px - w / 2) / view.scale, view.cy - (py - h / 2) / view.scale],
@@ -303,6 +365,7 @@ function Graph2D() {
             <li><code>r = 1 + cos(theta)</code></li>
             <li><code>(cos(t), sin(t))</code>, <code>(t, t^2), t in [0, 3]</code></li>
             <li><code>(2, 3)</code> — {t("grapher.helpPoint")}</li>
+            <li><code>y &gt; x^2</code> · <code>x^2 + y^2 &lt;= 4</code> — {t("grapher.helpRegion")}</li>
             <li>{t("grapher.helpSliders")}</li>
           </ul>
         </details>
@@ -340,8 +403,29 @@ function Graph2D() {
           <Button variant="secondary" onClick={() => setView({ cx: 0, cy: 0, scale: 50 })}>
             {t("grapher.reset")}
           </Button>
+          <Button variant="secondary" onClick={copyLink}>
+            {t("grapher.copyLink")}
+          </Button>
+          {shared ? (
+            <p role="status" className="text-sm font-medium">
+              {shared === "copied" ? t("grapher.linkCopied") : t("grapher.linkFailed")}
+            </p>
+          ) : null}
           <p className="text-sm text-muted">{t("grapher.controls2d")}</p>
         </div>
+        {special.length > 0 ? (
+          <Card className="mt-3">
+            <h3 className="font-bold">{t("grapher.special")}</h3>
+            <p className="text-sm text-muted">{t("grapher.specialNote")}</p>
+            <ul className="mt-2 grid gap-1 font-mono text-sm tabular-nums">
+              {special.map((sp, k) => (
+                <li key={k}>
+                  {sp.kind === "root" ? t("grapher.root", { n: sp.lines[0] ?? 0 }) : t("grapher.meet", { a: sp.lines[0] ?? 0, b: sp.lines[1] ?? 0 })}: ({fmt(Math.round(sp.at[0] * 1e4) / 1e4)}, {fmt(Math.round(sp.at[1] * 1e4) / 1e4)})
+                </li>
+              ))}
+            </ul>
+          </Card>
+        ) : null}
       </div>
     </div>
   );

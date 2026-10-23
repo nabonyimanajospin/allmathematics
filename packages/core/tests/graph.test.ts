@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface } from "../src/graph";
+import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface, specialPoints } from "../src/graph";
 import { compileExpr } from "../src/plot";
 
 const VIEW = { xmin: -6, xmax: 6, ymin: -4, ymax: 4 };
@@ -122,5 +122,59 @@ describe("space", () => {
     expect(pts).toHaveLength(9);
     expect(pts[0]).toEqual([1, 0, 0]);
     expect(pts[8]![2]).toBeCloseTo(2 * Math.PI);
+  });
+});
+
+describe("inequalities", () => {
+  it("reads <, >, <= and >= (and the printed signs)", () => {
+    expect(classify("y > x^2")).toMatchObject({ kind: "region", op: ">" });
+    expect(classify("x^2 + y^2 ≤ 4")).toMatchObject({ kind: "region", op: "<=" });
+    expect(classify("y >= 2x")).toMatchObject({ kind: "region", lhs: "y", rhs: "2*x" });
+    expect(classify("3 < 4")).toMatchObject({ kind: "error" });
+    expect(classify("y < x < 3")).toMatchObject({ kind: "error" });
+  });
+  it("says which points are inside, and whether the boundary is included", () => {
+    const d = drawable(classify("x^2 + y^2 <= 4"), {}, VIEW);
+    if (d.kind !== "region") throw new Error("expected a region");
+    expect(d.inside(0, 0)).toBe(true);
+    expect(d.inside(2, 0)).toBe(true);
+    expect(d.inside(2.1, 0)).toBe(false);
+    expect(d.strict).toBe(false);
+    expect(d.boundary.length).toBeGreaterThan(20);
+    const s = drawable(classify("y > x"), {}, VIEW);
+    if (s.kind !== "region") throw new Error("expected a region");
+    expect(s.inside(1, 1)).toBe(false);
+    expect(s.inside(0, 1)).toBe(true);
+    expect(s.strict).toBe(true);
+  });
+  it("makes a slider from a letter", () => {
+    expect(parameterNames([classify("y < a*x + 1")])).toEqual(["a"]);
+  });
+});
+
+describe("roots and intersections", () => {
+  const near = (v: number, w: number) => Math.abs(v - w) < 1e-6;
+  it("finds the roots of x^2 - 4", () => {
+    const roots = specialPoints([classify("y = x^2 - 4")], {}, VIEW).map((p) => p.at[0]).sort((a, b) => a - b);
+    expect(roots).toHaveLength(2);
+    expect(near(roots[0]!, -2) && near(roots[1]!, 2)).toBe(true);
+  });
+  it("finds where two lines meet, once, even when it is also a root", () => {
+    const pts = specialPoints([classify("y = x^2 - 4"), classify("y = x - 2")], {}, VIEW);
+    const meet = pts.filter((p) => p.kind === "intersection").sort((a, b) => a.at[0] - b.at[0]);
+    expect(meet).toHaveLength(2);
+    expect(near(meet[0]!.at[0], -1) && near(meet[0]!.at[1], -3)).toBe(true);
+    expect(near(meet[1]!.at[0], 2) && near(meet[1]!.at[1], 0)).toBe(true);
+    expect(meet[1]!.lines).toEqual([1, 2]);
+    expect(pts).toHaveLength(3); // the root -2 and the two meeting points
+  });
+  it("does not take the jump of tan(x) or 1/x for a zero", () => {
+    const pts = specialPoints([classify("y = 1/x")], {}, VIEW);
+    expect(pts).toEqual([]);
+  });
+  it("uses the sliders", () => {
+    const pts = specialPoints([classify("y = x - a")], { a: 3 }, VIEW);
+    expect(pts).toHaveLength(1);
+    expect(near(pts[0]!.at[0], 3)).toBe(true);
   });
 });

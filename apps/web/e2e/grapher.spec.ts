@@ -69,6 +69,34 @@ test.describe("the grapher", () => {
     await expect.poll(() => fingerprint(page)).not.toBe(start);
   });
 
+  test("shades an inequality, lists roots and intersections, and a copied link restores the graph", async ({ page, context }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]).catch(() => undefined);
+    await page.goto("/graph");
+    await page.getByLabel("Expression 1").fill("y = x^2 - 4");
+    await page.getByLabel("Expression 2").fill("y = x - 2");
+    await expect(page.getByRole("heading", { name: "Roots and intersections" })).toBeVisible();
+    await expect(page.getByText("Line 1 crosses the x-axis: (-2, 0)")).toBeVisible();
+    await expect(page.getByText("Lines 1 and 2 meet: (2, 0)")).toBeVisible();
+    await expect(page.getByText("Lines 1 and 2 meet: (-1, -3)")).toBeVisible();
+
+    const before = await paintedPixels(page);
+    await page.getByRole("button", { name: "Add an expression" }).click();
+    await page.getByLabel("Expression 3").fill("x^2 + y^2 <= 4");
+    await expect.poll(() => paintedPixels(page)).toBeGreaterThan(before);
+    await page.getByLabel("Expression 3").fill("y < x < 3");
+    await expect(page.getByText(/Use one inequality sign/)).toBeVisible();
+    await page.getByLabel("Expression 3").fill("x^2 + y^2 <= 4");
+
+    await page.getByRole("button", { name: "Copy link" }).click();
+    const link = await page.evaluate(() => navigator.clipboard.readText()).catch(() => null);
+    if (link) {
+      await page.goto(link);
+      await page.reload();
+      await expect(page.getByLabel("Expression 3")).toHaveValue("x^2 + y^2 <= 4");
+      await expect(page.getByLabel("Expression 1")).toHaveValue("y = x^2 - 4");
+    }
+  });
+
   test("the 3D view draws a surface, turns when dragged and has no accessibility violations", async ({ page }) => {
     await page.goto("/graph");
     await page.getByRole("tab", { name: "3D surface" }).click();

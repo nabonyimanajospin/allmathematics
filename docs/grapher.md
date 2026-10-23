@@ -15,6 +15,7 @@ One line per object, up to eight, each with its own colour. What you type decide
 | polar | `r = 1 + cos(theta)` |
 | parametric | `(cos(t), sin(t))`, `(t, t^2), t in [0, 3]` |
 | point | `(2, 3)` |
+| inequality (shaded) | `y > x^2`, `x^2 + y^2 <= 4` (dashed border for `<` and `>`) |
 
 Implicit multiplication works (`2x`, `x(x+1)`, `ax^2+bx+c`). Any single letter that is not `x`, `y`, `t` or a constant becomes a **slider**
 (from −10 to 10), so `y = a*x^2 + b` gives two sliders and the curve moves as they move. A function is broken where it is undefined or jumps over an
@@ -27,7 +28,12 @@ Drag to pan, wheel or pinch to zoom, arrow keys and `+`/`−` from the keyboard,
 A surface `z = f(x, y)` (shaded by height, or as a wireframe) and an optional space curve `(x(t), y(t), z(t)), t in [a, b]`, with sliders for
 parameters. Drag to rotate, wheel to zoom, arrow keys from the keyboard. The grid is 36 × 36 and the surface is drawn back to front.
 
+## Roots, intersections and sharing
+
+Under the picture the grapher lists where a line `y = f(x)` crosses the x-axis and where two such lines meet. They are found numerically from the picture
+(bisection), so they are approximate; zoom in to read them more exactly. **Copy link** puts the expressions in the address (`#g=...`), so whoever opens the
+link sees the same graph. Nothing is stored on the server.
+
 ## Not included (yet)
 
-Geometric constructions (points that move along lines, intersections of objects), inequalities with shading, parametric surfaces, saving a graph.
-These are what makes GeoGebra a complete geometry tool; the grapher is the function-and-surface part of it.
+Geometric constructions (points that move along lines), parametric surfaces, intersections with curves that are not of the form `y = f(x)`.

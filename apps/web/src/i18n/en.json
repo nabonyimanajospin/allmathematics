@@ -34,6 +34,8 @@
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
   },
   "grapher": {
+    "copyLink": "Copy link", "linkCopied": "Link copied. Anyone who opens it sees these expressions.", "linkFailed": "I could not copy the link. Copy the address from the browser.",
+    "special": "Roots and intersections", "specialNote": "Found from the picture, so they are approximate. Zoom in to read them more exactly.", "root": "Line {n} crosses the x-axis", "meet": "Lines {a} and {b} meet", "helpRegion": "shaded region (dashed border for < and >)",
     "title": "Grapher", "lead": "Plot functions, curves and surfaces. Type what you want to see, drag to move, use the wheel to zoom. Any letter such as a or k becomes a slider.",
     "tab2d": "2D graph", "tab3d": "3D surface", "expressions": "Expressions", "show": "Show line {n}", "expression": "Expression {n}", "remove": "Remove line {n}",
     "add": "Add an expression", "sliders": "Sliders", "help": "What can I type?", "helpPoint": "a point", "helpSliders": "Letters such as a, b, k become sliders: try y = a*x^2 + b.",
@@ -44,6 +46,7 @@
     "extent": "Size of the picture: from -{n} to {n}", "wireframe": "Show only the grid lines"
   },
   "solver": {
+    "checkInput": "Check the input.", "photo": "Read from a picture", "photoHint": "Choose a clear picture of one printed problem. The text is read on your device; check it before solving.", "photoReading": "Reading the picture...", "photoFail": "I could not read any text in this picture. Check the picture or type the problem.", "photoBig": "The picture is too large (4 MB at most).", "photoDone": "Text read from the picture. Check it and correct it before you solve.",
     "pay": "Pay for Premium", "paying": "Opening the payment page...", "payOff": "Online payment is not set up yet.", "paidThanks": "Thank you. Your payment is being confirmed; Premium is activated in a moment.",
     "title": "Solver", "lead": "Type a problem and get the answer with every step. The math engine checks the result; there is no guessing.",
     "operation": "What do you want to do?", "problem": "Your problem", "placeholder": "for example: derivative of x^2*sin(x)",
