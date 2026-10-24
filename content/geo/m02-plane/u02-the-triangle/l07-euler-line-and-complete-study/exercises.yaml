@@ -103,6 +103,91 @@
       lintIgnore:
         - unrationalized-denominator
       note: "This is the triangle of the past paper (vertices $A(-3,2)$, $B(1,5)$, $C(5,-7)$). The printed question gives $C$ with the signs mixed up; the worked solution on the paper uses $C(5,-7)$."
+- id: add-centers
+  task: The incenter and the radii of a triangle.
+  format: "Type a point as `(x, y, z)`, an exact value such as `sqrt(7)/4`, or an equation with `=`."
+  items:
+    - id: ad-ci1
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the incenter $I=\dfrac{aA+bB+cC}{a+b+c}$ is
+      answerType: point
+      answer: "(6, 4)"
+      hints:
+        - The weights are the opposite sides.
+      solution: |-
+        $a=\norm{\overrightarrow{BC}}=15$, $b=\norm{\overrightarrow{CA}}=13$, $c=\norm{\overrightarrow{AB}}=14$, so $I=\left(6,\,4\right)$.
+    - id: ad-cr1
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the inradius $r=\dfrac Ss$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "4"
+      hints:
+        - "$r=\\dfrac{S}{s}$."
+      solution: "$S=84$ and $s=21$, so $r=4$."
+    - id: ad-cx1
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the circumradius $R=\dfrac{abc}{4S}$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "65/8"
+      hints:
+        - |-
+          $R=\dfrac{abc}{4S}$.
+      solution: |-
+        $R=\dfrac{15\cdot13\cdot14}{4\cdot84}=\frac{65}{8}$.
+    - id: ad-ci2
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(6,\,0\right)$, $C\left(0,\,8\right)$ the incenter $I=\dfrac{aA+bB+cC}{a+b+c}$ is
+      answerType: point
+      answer: "(2, 2)"
+      hints:
+        - The weights are the opposite sides.
+      solution: |-
+        $a=\norm{\overrightarrow{BC}}=10$, $b=\norm{\overrightarrow{CA}}=8$, $c=\norm{\overrightarrow{AB}}=6$, so $I=\left(2,\,2\right)$.
+    - id: ad-cr2
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(6,\,0\right)$, $C\left(0,\,8\right)$ the inradius $r=\dfrac Ss$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "2"
+      hints:
+        - "$r=\\dfrac{S}{s}$."
+      solution: "$S=24$ and $s=12$, so $r=2$."
+    - id: ad-cx2
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(6,\,0\right)$, $C\left(0,\,8\right)$ the circumradius $R=\dfrac{abc}{4S}$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "5"
+      hints:
+        - |-
+          $R=\dfrac{abc}{4S}$.
+      solution: |-
+        $R=\dfrac{10\cdot8\cdot6}{4\cdot24}=5$.
+    - id: ad-ci3
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,3\right)$ the incenter $I=\dfrac{aA+bB+cC}{a+b+c}$ is
+      answerType: point
+      answer: "(1, 1)"
+      hints:
+        - The weights are the opposite sides.
+      solution: |-
+        $a=\norm{\overrightarrow{BC}}=5$, $b=\norm{\overrightarrow{CA}}=3$, $c=\norm{\overrightarrow{AB}}=4$, so $I=\left(1,\,1\right)$.
+    - id: ad-cr3
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,3\right)$ the inradius $r=\dfrac Ss$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "1"
+      hints:
+        - "$r=\\dfrac{S}{s}$."
+      solution: "$S=6$ and $s=6$, so $r=1$."
+    - id: ad-cx3
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,3\right)$ the circumradius $R=\dfrac{abc}{4S}$ is The unit is lu: give the number only.
+      answerType: expression
+      answer: "5/2"
+      hints:
+        - |-
+          $R=\dfrac{abc}{4S}$.
+      solution: |-
+        $R=\dfrac{5\cdot3\cdot4}{4\cdot6}=\frac{5}{2}$.
 - id: more-triangle
   task: |-
     More practice: a new triangle.

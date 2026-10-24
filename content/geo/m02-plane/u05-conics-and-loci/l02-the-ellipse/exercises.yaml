@@ -100,6 +100,157 @@
         - Check that the point is on the ellipse.
       solution: |-
         $\dfrac{2x}{20}+\dfrac{2y}5=1$ gives $x+4y=10$.
+- id: add-ellipse
+  task: |-
+    The ellipse: area, latus rectum, directrices, parametric points.
+  format: "Type a point as `(x, y, z)`, an exact value such as `sqrt(7)/4`, or an equation with `=`."
+  items:
+    - id: ad-el1a
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$ the area (unit squ: number only) is
+      answerType: expression
+      answer: "15*pi"
+      hints:
+        - |-
+          $\pi ab$.
+      solution: |-
+        $\pi ab=\pi\cdot5\cdot3=15 \pi$.
+    - id: ad-el1l
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$ the length of the latus rectum is The unit is lu: give the number only.
+      answerType: expression
+      answer: "18/5"
+      hints:
+        - |-
+          $\dfrac{2b^2}a$.
+      solution: |-
+        $\dfrac{2b^2}a=\dfrac{18}{5}$.
+    - id: ad-el1d
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$ the directrix $x=d$ with $d>0$ has $d=$
+      answerType: expression
+      answer: "25/4"
+      hints:
+        - |-
+          $\dfrac{a^2}c$.
+      solution: |-
+        $d=\dfrac{a^2}c$ with $a^2=25$ and $c=4$, so $d=\frac{25}{4}$.
+    - id: ad-el2a
+      statement: |-
+        For the ellipse $\dfrac{x^2}{16}+\dfrac{y^2}{4}=1$ the area (unit squ: number only) is
+      answerType: expression
+      answer: "8*pi"
+      hints:
+        - |-
+          $\pi ab$.
+      solution: |-
+        $\pi ab=\pi\cdot4\cdot2=8 \pi$.
+    - id: ad-el2l
+      statement: |-
+        For the ellipse $\dfrac{x^2}{16}+\dfrac{y^2}{4}=1$ the length of the latus rectum is The unit is lu: give the number only.
+      answerType: expression
+      answer: "2"
+      hints:
+        - |-
+          $\dfrac{2b^2}a$.
+      solution: |-
+        $\dfrac{2b^2}a=\dfrac{8}{4}$.
+    - id: ad-el2d
+      statement: |-
+        For the ellipse $\dfrac{x^2}{16}+\dfrac{y^2}{4}=1$ the directrix $x=d$ with $d>0$ has $d=$
+      answerType: expression
+      answer: "8*sqrt(3)/3"
+      hints:
+        - |-
+          $\dfrac{a^2}c$.
+      solution: |-
+        $d=\dfrac{a^2}c$ with $a^2=16$ and $c=2 \sqrt{3}$, so $d=\frac{8 \sqrt{3}}{3}$.
+    - id: ad-el3a
+      statement: |-
+        For the ellipse $\dfrac{x^2}{169}+\dfrac{y^2}{25}=1$ the area (unit squ: number only) is
+      answerType: expression
+      answer: "65*pi"
+      hints:
+        - |-
+          $\pi ab$.
+      solution: |-
+        $\pi ab=\pi\cdot13\cdot5=65 \pi$.
+    - id: ad-el3l
+      statement: |-
+        For the ellipse $\dfrac{x^2}{169}+\dfrac{y^2}{25}=1$ the length of the latus rectum is The unit is lu: give the number only.
+      answerType: expression
+      answer: "50/13"
+      hints:
+        - |-
+          $\dfrac{2b^2}a$.
+      solution: |-
+        $\dfrac{2b^2}a=\dfrac{50}{13}$.
+    - id: ad-el3d
+      statement: |-
+        For the ellipse $\dfrac{x^2}{169}+\dfrac{y^2}{25}=1$ the directrix $x=d$ with $d>0$ has $d=$
+      answerType: expression
+      answer: "169/12"
+      hints:
+        - |-
+          $\dfrac{a^2}c$.
+      solution: |-
+        $d=\dfrac{a^2}c$ with $a^2=169$ and $c=12$, so $d=\frac{169}{12}$.
+    - id: ad-el4a
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$ the area (unit squ: number only) is
+      answerType: expression
+      answer: "20*pi"
+      hints:
+        - |-
+          $\pi ab$.
+      solution: |-
+        $\pi ab=\pi\cdot5\cdot4=20 \pi$.
+    - id: ad-el4l
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$ the length of the latus rectum is The unit is lu: give the number only.
+      answerType: expression
+      answer: "32/5"
+      hints:
+        - |-
+          $\dfrac{2b^2}a$.
+      solution: |-
+        $\dfrac{2b^2}a=\dfrac{32}{5}$.
+    - id: ad-el4d
+      statement: |-
+        For the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$ the directrix $x=d$ with $d>0$ has $d=$
+      answerType: expression
+      answer: "25/3"
+      hints:
+        - |-
+          $\dfrac{a^2}c$.
+      solution: |-
+        $d=\dfrac{a^2}c$ with $a^2=25$ and $c=3$, so $d=\frac{25}{3}$.
+    - id: ad-ep
+      statement: |-
+        The point of the ellipse $x=5\cos t$, $y=3\sin t$ for $t=\dfrac\pi3$ is
+      answerType: point
+      answer: "(5/2, 3*sqrt(3)/2)"
+      hints:
+        - "Replace $t$."
+      solution: |-
+        $x=5\cos\dfrac\pi3=\frac{5}{2}$, $y=3\sin\dfrac\pi3=\frac{3 \sqrt{3}}{2}$.
+    - id: ad-ef
+      statement: |-
+        On the ellipse $\dfrac{x^2}{25}+\dfrac{y^2}9=1$ the point with $x=\dfrac52$ has the focal radius $MF_1=a+ex$ equal to The unit is lu: give the number only.
+      answerType: expression
+      answer: "7"
+      hints:
+        - "$MF_1=a+ex$."
+      solution: |-
+        $e=\dfrac45$, so $MF_1=5+\dfrac45\cdot\dfrac52=7$.
+    - id: ad-ee
+      statement: "The eccentricity of $9x^2+25y^2=225$ is"
+      answerType: expression
+      answer: "4/5"
+      hints:
+        - "Divide by $225$ first."
+      solution: |-
+        $\dfrac{x^2}{25}+\dfrac{y^2}9=1$: $a=5$, $c=4$, $e=\dfrac45$.
 - id: more-ellipse
   task: |-
     More practice: the ellipse.

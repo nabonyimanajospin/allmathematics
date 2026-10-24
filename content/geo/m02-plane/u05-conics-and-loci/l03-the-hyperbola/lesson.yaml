@@ -98,6 +98,75 @@ sections:
     explanation: |
       $c=5$ and $a=4$, so $e=\dfrac54$.
 
+  - id: hyperbola-formulas
+    type: formula
+    title: The hyperbola at a glance (center at the origin, $c^2=a^2+b^2$)
+    formula: |
+      \begin{aligned}
+      \text{canonical}&:\ \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2-a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}-\dfrac{(y-k)^2}{b^2}=1,\\
+      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{x^2-a^2},\qquad|x|\ge a,\\
+      \text{parametric}&:\ x=\pm a\cosh t,\ y=b\sinh t\quad\text{or}\quad x=\dfrac a{\cos t},\ y=b\tan t,\\
+      \text{polar, pole at the center}&:\ \rho^2=\dfrac{b^2}{e^2\cos^2\theta-1},\qquad\text{pole at the focus }F_1(-c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
+      \end{aligned}
+    note: |
+      The polar equation with the pole at the focus is the same form as for the ellipse, with $e>1$.
+
+  - id: hyperbola-elements
+    type: formula
+    title: The hyperbola - foci, asymptotes, latus rectum, directrices and focal radii
+    formula: |
+      \begin{aligned}
+      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\quad e=\dfrac ca>1,\quad\text{asymptotes}:\ y=\pm\dfrac bax,\\
+      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
+      \text{focal radii}&:\ MF_{1,2}=|ex\pm a|.
+      \end{aligned}
+    note: |
+      The hyperbola has no area (it is not a closed curve). For the conjugate hyperbola $\dfrac{y^2}{b^2}-\dfrac{x^2}{a^2}=1$ the foci are $(0,\pm c)$ and the directrices are horizontal. When $a=b$ the asymptotes are perpendicular and the hyperbola is **rectangular**, with $e=\sqrt2$.
+
+  - id: ex-hyperbola-all
+    type: example
+    title: Every element of one hyperbola
+    problem: |
+      For $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$ give the explicit and the parametric equations, the foci, the eccentricity, the asymptotes, the latus rectum and the directrices, and check that the point $M\left(5,\dfrac{16}3\right)$ is on it, with its focal radii.
+    steps:
+      - |
+        $a=3$, $b=4$, $c=\sqrt{9+16}=5$: foci $(\pm5,0)$, $e=\dfrac53$, asymptotes $y=\pm\dfrac43x$.
+      - |
+        Explicit: $y=\pm\dfrac43\sqrt{x^2-9}$ for $|x|\ge3$. Parametric: $x=3\cosh t$, $y=4\sinh t$ (right branch).
+      - text: |
+          Latus rectum $\dfrac{2b^2}a=\dfrac{32}3$; directrices $x=\pm\dfrac{a^2}c=\pm\dfrac95$.
+        why: |
+          Both are formulas of the box with $a=3$, $b=4$, $c=5$. The directrices lie between the center and the vertices ($\dfrac95<3$), the opposite of the ellipse, because $e>1$.
+      - text: |
+          $\dfrac{25}9-\dfrac{\dfrac{256}{9}}{16}=\dfrac{25}9-\dfrac{16}9=1$, so $M$ is on the hyperbola. The focal radii are $MF_1=ex+a=\dfrac53\cdot5+3=\dfrac{34}3$ and $MF_2=ex-a=\dfrac{25}3-3=\dfrac{16}3$.
+        why: |
+          Check: $MF_1-MF_2=\dfrac{34}3-\dfrac{16}3=6=2a$, which is the definition of the hyperbola.
+    answer: |
+      $y=\pm\dfrac43\sqrt{x^2-9}$; $(3\cosh t,4\sinh t)$; foci $(\pm5,0)$; $e=\dfrac53$; asymptotes $y=\pm\dfrac43x$; latus rectum $\dfrac{32}3$; directrices $x=\pm\dfrac95$; $MF_1=\dfrac{34}3$, $MF_2=\dfrac{16}3$.
+    verify:
+      - expr: "sqrt(9+16)"
+        equals: "5"
+      - expr: "2*16/3"
+        equals: "32/3"
+      - expr: "9/5"
+        equals: "9/5"
+      - expr: "5^2/9-(16/3)^2/16"
+        equals: "1"
+      - expr: "5/3*5+3-(5/3*5-3)"
+        equals: "6"
+
+  - id: chk-latus
+    type: check
+    prompt: |
+      Find the length of the latus rectum of $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$.
+    answerType: expression
+    answer: "32/3"
+    hints:
+      - |
+        The length is $\dfrac{2b^2}a$.
+    explanation: |
+      $\dfrac{2\cdot16}3=\dfrac{32}3$.
+
   - id: tangent
     type: theorem
     name: Tangent

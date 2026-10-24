@@ -84,6 +84,52 @@ sections:
     explanation: |
       $H=3(1,2)-2(0,0)=(3,6)$.
 
+  - id: centers-at-a-glance
+    type: formula
+    title: The centers of a triangle on one page
+    formula: |
+      \begin{aligned}
+      G&=\dfrac{A+B+C}3,\qquad I=\dfrac{aA+bB+cC}{a+b+c},\qquad r=\dfrac Ss\ \left(s=\dfrac{a+b+c}2\right),\\
+      O&:\ \text{intersection of the perpendicular bisectors},\qquad R=\dfrac{abc}{4S},\\
+      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D},\qquad D=2\bigl[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\bigr],\\
+      H&=A+B+C-2O=3G-2O,\qquad\overrightarrow{HG}=2\,\overrightarrow{GO},\\
+      OI^2&=R^2-2Rr\quad(\text{Euler's formula}),\qquad OH^2=9R^2-(a^2+b^2+c^2).
+      \end{aligned}
+    note: |
+      Here $a=BC$, $b=CA$, $c=AB$ are the sides opposite $A$, $B$, $C$, and $S$ is the area. The weights of the incenter are the **opposite** sides; the centroid has equal weights. In an equilateral triangle $G=I=O=H$. The coordinates $y_O$ are obtained from the same formula with the roles of $x$ and $y$ exchanged (see the lesson on the circumcenter).
+
+  - id: ex-centers-glance
+    type: example
+    title: The incenter, the radii and Euler's formula for the running triangle
+    problem: |
+      For $A(0,0)$, $B(14,0)$, $C(5,12)$ find $I$, $r$, $R$ and check $OI^2=R^2-2Rr$, with $O\left(7,\dfrac{33}8\right)$.
+    steps:
+      - text: |
+          $a=BC=15$, $b=CA=13$, $c=AB=14$, so $a+b+c=42$ and $s=21$. The area is $S=\dfrac12\cdot14\cdot12=84$.
+        why: |
+          $BC=\sqrt{(14-5)^2+12^2}=\sqrt{225}=15$ and $CA=\sqrt{25+144}=13$. The base $AB=14$ is horizontal and the height of $C$ is $12$.
+      - |
+        $I=\dfrac{15A+13B+14C}{42}=\dfrac{(0+182+70,\ 0+0+168)}{42}=(6,4)$, and $r=\dfrac Ss=\dfrac{84}{21}=4$.
+      - |
+        $R=\dfrac{abc}{4S}=\dfrac{15\cdot13\cdot14}{336}=\dfrac{65}8$.
+      - text: |
+          $OI^2=(7-6)^2+\left(\dfrac{33}8-4\right)^2=1+\dfrac1{64}=\dfrac{65}{64}$ and $R^2-2Rr=\dfrac{4225}{64}-2\cdot\dfrac{65}8\cdot4=\dfrac{4225-4160}{64}=\dfrac{65}{64}$.
+        why: |
+          Euler's formula links the distance between the circumcenter and the incenter to the two radii: it is a check that is easy to remember and that the center coordinates are right.
+    answer: |
+      $I(6,4)$, $r=4$, $R=\dfrac{65}8$, and $OI^2=R^2-2Rr=\dfrac{65}{64}$.
+    verify:
+      - expr: "(15*0+13*14+14*5)/42"
+        equals: "6"
+      - expr: "(14*12)/42"
+        equals: "4"
+      - expr: "15*13*14/(4*84)"
+        equals: "65/8"
+      - expr: "(7-6)^2+(33/8-4)^2"
+        equals: "65/64"
+      - expr: "(65/8)^2-2*(65/8)*4"
+        equals: "65/64"
+
   - id: study-plan
     type: concept
     title: A complete study of a triangle

@@ -146,3 +146,105 @@
         - "The dot product must be $0$."
       solution: |-
         $2k-3-6=0$ gives $k=\dfrac92$.
+- id: add-dot-2d3d
+  task: The dot product in the plane and in space.
+  format: "Type a point as `(x, y, z)`, an exact value such as `sqrt(7)/4`, or an equation with `=`."
+  items:
+    - id: ad-dp1
+      statement: |-
+        In the plane, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(3,\,4\right)$ and $\vec v=\left(-4,\,3\right)$ is
+      answerType: expression
+      answer: "0"
+      hints:
+        - Multiply the first components and the second components and add.
+      solution: |-
+        $3\cdot(-4)+4\cdot3=0$.
+    - id: ad-dp2
+      statement: |-
+        In the plane, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(1,\,2\right)$ and $\vec v=\left(3,\,-5\right)$ is
+      answerType: expression
+      answer: "-7"
+      hints:
+        - Multiply the first components and the second components and add.
+      solution: |-
+        $1\cdot3+2\cdot(-5)=-7$.
+    - id: ad-dp3
+      statement: |-
+        In the plane, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(2,\,-1\right)$ and $\vec v=\left(4,\,8\right)$ is
+      answerType: expression
+      answer: "0"
+      hints:
+        - Multiply the first components and the second components and add.
+      solution: |-
+        $2\cdot4+(-1)\cdot8=0$.
+    - id: ad-dp4
+      statement: |-
+        In the plane, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(1,\,1\right)$ and $\vec v=\left(1,\,0\right)$ is
+      answerType: expression
+      answer: "1"
+      hints:
+        - Multiply the first components and the second components and add.
+      solution: |-
+        $1\cdot1+1\cdot0=1$.
+    - id: ad-da1
+      statement: |-
+        The angle between $\vec u=\left(1,\,1\right)$ and $\vec v=\left(1,\,0\right)$ in the plane is (an exact value)
+      answerType: expression
+      answer: pi/4
+      hints:
+        - Compute the cosine first.
+      solution: |-
+        $\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\norm{\vec v}}=\frac{\sqrt{2}}{2}$, so $\theta=\frac{\pi}{4}$.
+    - id: ad-da2
+      statement: |-
+        The angle between $\vec u=\left(1,\,\sqrt{3}\right)$ and $\vec v=\left(1,\,0\right)$ in the plane is (an exact value)
+      answerType: expression
+      answer: pi/3
+      hints:
+        - Compute the cosine first.
+      solution: |-
+        $\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\norm{\vec v}}=\frac{1}{2}$, so $\theta=\frac{\pi}{3}$.
+    - id: ad-da3
+      statement: |-
+        The angle between $\vec u=\left(2,\,2\right)$ and $\vec v=\left(-1,\,1\right)$ in the plane is (an exact value)
+      answerType: expression
+      answer: pi/2
+      hints:
+        - Compute the cosine first.
+      solution: |-
+        $\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\norm{\vec v}}=0$, so $\theta=\frac{\pi}{2}$.
+    - id: ad-ds1
+      statement: |-
+        In space, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(1,\,2,\,3\right)$ and $\vec v=\left(4,\,-1,\,2\right)$ is
+      answerType: expression
+      answer: "8"
+      hints:
+        - Three products.
+      solution: |-
+        $\dotp{\vec u}{\vec v}=8$ (three products).
+    - id: ad-ds2
+      statement: |-
+        In space, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(2,\,-1,\,0\right)$ and $\vec v=\left(1,\,2,\,5\right)$ is
+      answerType: expression
+      answer: "0"
+      hints:
+        - Three products.
+      solution: |-
+        $\dotp{\vec u}{\vec v}=0$ (three products).
+    - id: ad-ds3
+      statement: |-
+        In space, $\dotp{\vec u}{\vec v}$ for $\vec u=\left(1,\,0,\,1\right)$ and $\vec v=\left(0,\,1,\,1\right)$ is
+      answerType: expression
+      answer: "1"
+      hints:
+        - Three products.
+      solution: |-
+        $\dotp{\vec u}{\vec v}=1$ (three products).
+    - id: ad-dk
+      statement: "For which $k$ are $(k,3,-2)$ and $(2,1,4)$ perpendicular?"
+      answerType: expression
+      answer: "5/2"
+      hints:
+        - "Set the dot product equal to $0$."
+      solution: |-
+        $2k+3-8=0$, so $k=\dfrac52$.

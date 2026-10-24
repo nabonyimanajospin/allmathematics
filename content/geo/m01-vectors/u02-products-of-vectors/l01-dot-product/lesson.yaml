@@ -33,6 +33,54 @@ sections:
     more: |
       **Notation.** In this course the dot product of two vectors is written with angle brackets around the two vectors. Other books put a dot between them; both mean the same number.
 
+  - id: dot-plane
+    type: formula
+    title: The dot product in the plane (2D)
+    formula: |
+      \begin{aligned}
+      \dotp{\vec u}{\vec v}&=u_1v_1+u_2v_2,\qquad\norm{\vec u}=\sqrt{u_1^2+u_2^2},\\
+      \cos\theta&=\dfrac{u_1v_1+u_2v_2}{\sqrt{u_1^2+u_2^2}\,\sqrt{v_1^2+v_2^2}},\\
+      \vec u\perp\vec v&\iff u_1v_1+u_2v_2=0.
+      \end{aligned}
+    note: |
+      For plane vectors only two components are multiplied. To build a vector perpendicular to $(a,b)$, swap the components and change one sign: $(-b,a)$ or $(b,-a)$, because $a(-b)+b\,a=0$.
+
+  - id: ex-dot-plane
+    type: example
+    title: The dot product and the angle in the plane
+    problem: |
+      Find $\dotp{\vec u}{\vec v}$ and the angle for $\vec u=(1,1)$ and $\vec v=(1,0)$, and show that $(3,4)$ and $(-4,3)$ are perpendicular.
+    steps:
+      - |
+        $\dotp{\vec u}{\vec v}=1\cdot1+1\cdot0=1$, $\norm{\vec u}=\sqrt2$ and $\norm{\vec v}=1$.
+      - text: |
+          $\cos\theta=\dfrac{1}{\sqrt2\cdot1}=\dfrac{\sqrt2}2$, so $\theta=\dfrac\pi4$.
+        why: |
+          $\dfrac{\sqrt2}{2}$ is a value we know by heart, so the angle is exact: $45^\circ$. Indeed $(1,1)$ points halfway between the two axes.
+      - |
+        $\dotp{(3,4)}{(-4,3)}=3\cdot(-4)+4\cdot3=0$: the vectors are perpendicular.
+    answer: |
+      $\dotp{\vec u}{\vec v}=1$, $\theta=\dfrac\pi4$; $(3,4)\perp(-4,3)$.
+    verify:
+      - expr: "dot((1,1),(1,0))"
+        equals: "1"
+      - expr: "dot((1,1),(1,0))/(sqrt(2)*1)"
+        equals: "sqrt(2)/2"
+      - expr: "dot((3,4),(-4,3))"
+        equals: "0"
+
+  - id: dot-space
+    type: formula
+    title: The dot product in space (3D)
+    formula: |
+      \begin{aligned}
+      \dotp{\vec u}{\vec v}&=u_1v_1+u_2v_2+u_3v_3,\qquad\norm{\vec u}=\sqrt{u_1^2+u_2^2+u_3^2},\\
+      \cos\theta&=\dfrac{u_1v_1+u_2v_2+u_3v_3}{\sqrt{u_1^2+u_2^2+u_3^2}\,\sqrt{v_1^2+v_2^2+v_3^2}},\\
+      \vec u\perp\vec v&\iff u_1v_1+u_2v_2+u_3v_3=0.
+      \end{aligned}
+    note: |
+      In space a vector perpendicular to a given vector is **not** unique: all the vectors of a plane are perpendicular to it. To find one perpendicular to both $\vec u$ and $\vec v$, use the cross product of the next lessons. The worked example below, "An angle in space", uses these formulas.
+
   - id: dot-properties
     type: theorem
     name: Properties of the dot product

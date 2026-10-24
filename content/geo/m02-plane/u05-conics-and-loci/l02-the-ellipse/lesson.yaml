@@ -94,6 +94,77 @@ sections:
     explanation: |
       $c^2=25$, $c=5$, $a=13$, so $e=\dfrac5{13}$.
 
+  - id: ellipse-formulas
+    type: formula
+    title: The ellipse at a glance (center at the origin, $a>b>0$, $c^2=a^2-b^2$)
+    formula: |
+      \begin{aligned}
+      \text{canonical}&:\ \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2+a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}+\dfrac{(y-k)^2}{b^2}=1,\\
+      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{a^2-x^2},\qquad x\in[-a,a],\\
+      \text{parametric}&:\ x=a\cos t,\ y=b\sin t,\quad t\in[0,2\pi),\\
+      \text{polar, pole at the center}&:\ \dfrac1{\rho^2}=\dfrac{\cos^2\theta}{a^2}+\dfrac{\sin^2\theta}{b^2},\qquad\text{pole at the focus }F_2(c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
+      \end{aligned}
+    note: |
+      The polar equation with the pole at the center is used for roses and distances from the center; the one with the pole at a focus is the one of orbits.
+
+  - id: ellipse-elements
+    type: formula
+    title: The ellipse - foci, latus rectum, directrices, focal radii and area
+    formula: |
+      \begin{aligned}
+      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\ (0,\pm b),\quad e=\dfrac ca<1,\\
+      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
+      \text{focal radii}&:\ MF_{1,2}=a\pm ex,\qquad\text{area}:\ \pi ab.
+      \end{aligned}
+    note: |
+      If the major axis is vertical ($b>a$ in the equation), exchange the roles of $x$ and $y$: the foci are $(0,\pm c)$ with $c^2=b^2-a^2$ and the directrices are horizontal. The area $\pi ab$ is the area of a circle of radius $r$, $\pi r^2$, with the two semi-axes $a=b=r$.
+
+  - id: ex-ellipse-all
+    type: example
+    title: Every element of one ellipse
+    problem: |
+      For $\dfrac{x^2}{25}+\dfrac{y^2}9=1$ give the explicit and the parametric equations, the foci, the eccentricity, the latus rectum, the directrices, the area, and the point for $t=\dfrac\pi3$ with its focal radii.
+    steps:
+      - |
+        $a=5$, $b=3$, $c=\sqrt{25-9}=4$: the foci are $(\pm4,0)$ and $e=\dfrac45$.
+      - |
+        Explicit: $y=\pm\dfrac35\sqrt{25-x^2}$. Parametric: $x=5\cos t$, $y=3\sin t$.
+      - text: |
+          Latus rectum $\dfrac{2b^2}a=\dfrac{18}5$; directrices $x=\pm\dfrac{a^2}c=\pm\dfrac{25}4$; area $\pi ab=15\pi$.
+        why: |
+          Each one is a formula of the box above with $a=5$, $b=3$, $c=4$. The directrices are outside the ellipse, farther from the center than the vertices, since $\dfrac{25}4>5$ (because $25>20$).
+      - text: |
+          For $t=\dfrac\pi3$: $x=5\cos\dfrac\pi3=\dfrac52$ and $y=3\sin\dfrac\pi3=\dfrac{3\sqrt3}2$. The focal radii are $MF_1=a+ex=5+\dfrac45\cdot\dfrac52=7$ and $MF_2=5-2=3$.
+        why: |
+          Check: $MF_1+MF_2=7+3=10=2a$, which is the definition of the ellipse.
+    answer: |
+      $y=\pm\dfrac35\sqrt{25-x^2}$; $(5\cos t,3\sin t)$; foci $(\pm4,0)$; $e=\dfrac45$; latus rectum $\dfrac{18}5$; directrices $x=\pm\dfrac{25}4$; area $15\pi$; $M\left(\dfrac52,\dfrac{3\sqrt3}2\right)$ with $MF_1=7$, $MF_2=3$.
+    verify:
+      - expr: "sqrt(25-9)"
+        equals: "4"
+      - expr: "2*9/5"
+        equals: "18/5"
+      - expr: "25/4"
+        equals: "25/4"
+      - expr: "pi*5*3"
+        equals: "15*pi"
+      - expr: "(5/2)^2/25+(3*sqrt(3)/2)^2/9"
+        equals: "1"
+      - expr: "5+(4/5)*(5/2)"
+        equals: "7"
+
+  - id: chk-ellipse-area
+    type: check
+    prompt: |
+      Find the area of the ellipse $\dfrac{x^2}{16}+\dfrac{y^2}{4}=1$.
+    answerType: expression
+    answer: "8*pi"
+    hints:
+      - |
+        The area is $\pi ab$ with the semi-axes $a$ and $b$.
+    explanation: |
+      $a=4$ and $b=2$, so the area is $\pi\cdot4\cdot2=8\pi$.
+
   - id: tangent
     type: theorem
     name: Tangent and parametrization
