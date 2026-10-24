@@ -14,8 +14,8 @@ import pg from "pg";
 import * as schema from "./schema";
 
 export * as schema from "./schema";
-export type { Role } from "./schema";
-export { ROLES } from "./schema";
+export type { Role, FeedbackCategory, FeedbackStatus } from "./schema";
+export { ROLES, FEEDBACK_CATEGORIES, FEEDBACK_STATUSES } from "./schema";
 
 export type AppDb = PgDatabase<PgQueryResultHKT, typeof schema>;
 

@@ -36,7 +36,11 @@ export function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("hex");
 }
 
-export async function registerStudent(db: AppDb, input: unknown): Promise<SessionUser> {
+/**
+ * Creates an account. It is a student account, except when the e-mail is in `adminEmails` (the ADMIN_EMAILS setting): that is how the
+ * first administrator of a new installation is made, by signing up with an e-mail the owner listed in the server settings.
+ */
+export async function registerStudent(db: AppDb, input: unknown, opts: { adminEmails?: readonly string[] } = {}): Promise<SessionUser> {
   const parsed = signupSchema.safeParse(input);
   if (!parsed.success) {
     throw new AppError("invalid_input", 400, parsed.error.issues[0]?.message ?? "Invalid input");
@@ -49,7 +53,7 @@ export async function registerStudent(db: AppDb, input: unknown): Promise<Sessio
   try {
     const [row] = await db
       .insert(schema.users)
-      .values({ email, name, passwordHash, role: "student" })
+      .values({ email, name, passwordHash, role: opts.adminEmails?.includes(email) ? "admin" : "student" })
       .returning({
         id: schema.users.id,
         email: schema.users.email,

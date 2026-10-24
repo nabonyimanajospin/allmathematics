@@ -54,12 +54,16 @@ You cannot suspend or demote yourself. Every action is written to the audit log.
 "Forgot your password?" on the sign-in page sends a 6-digit code (valid 10 minutes, 5 tries). To send real e-mail set
 `RESEND_API_KEY` and `MAIL_FROM` (required in production). Without them, in development, the code is printed in the web server's console.
 
+## The first administrator
+
+Sign up with an e-mail listed in the server setting `ADMIN_EMAILS` (see [administration.md](administration.md)). In the browser tests this is `e2e-admin@example.com`.
+
 ## After an update
 
 New releases add database migrations and new engine endpoints. **Restart both programs** (the engine and `pnpm dev`) after pulling: the web server
 applies the migrations when it starts, and the solver needs the new engine.
 
-Settings (all optional in development): `SOLVER_FREE_PER_DAY` (default 5), `RESEND_API_KEY` and `MAIL_FROM` (real e-mail), and for payments
+Settings (all optional in development): `ADMIN_EMAILS` (who becomes an administrator at sign-up), `SOLVER_FREE_PER_DAY` (default 5), `RESEND_API_KEY` and `MAIL_FROM` (real e-mail), and for payments
 `FLW_SECRET_KEY`, `FLW_SECRET_HASH`, `PREMIUM_PRICE`, `PREMIUM_CURRENCY`, `APP_URL`; see `docs/solver-and-premium.md`.
 
 ## Browser tests

@@ -66,6 +66,12 @@ export default async function AdminOverviewPage() {
         </div>
       ) : null}
 
+      <p className="mt-6">
+        <a href="/api/admin/users/export" className="font-semibold text-accent underline underline-offset-2">
+          {t("admin.overview.export")}
+        </a>
+      </p>
+
       <h2 className="mt-10 text-xl font-bold">{t("admin.overview.byRole")}</h2>
       <ul className="mt-4 flex flex-wrap gap-2">
         {Object.entries(s.byRole).map(([role, n]) => (

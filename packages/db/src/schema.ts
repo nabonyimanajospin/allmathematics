@@ -523,3 +523,36 @@ export const auditLog = pgTable("audit_log", {
   target: text("target"),
   ts: timestamp("ts", { withTimezone: true }).notNull().defaultNow(),
 });
+
+export const FEEDBACK_CATEGORIES = ["problem", "idea", "question", "content", "other"] as const;
+export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
+export const FEEDBACK_STATUSES = ["new", "read", "resolved"] as const;
+export type FeedbackStatus = (typeof FEEDBACK_STATUSES)[number];
+
+/** What learners tell the administrators: a problem, an idea, a question, a mistake in a lesson. */
+export const feedback = pgTable(
+  "feedback",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    category: text("category").notNull(),
+    message: text("message").notNull(),
+    /** The page the learner was on (a path such as /learn/geo-m01-u01-l01), if any. */
+    page: text("page"),
+    status: text("status").notNull().default("new"),
+    /** A note of the administrator, not shown to the learner. */
+    adminNote: text("admin_note"),
+    createdAt: createdAt(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("feedback_status_idx").on(t.status, t.createdAt)],
+);
+
+/** A message of the administrators shown to every signed-in learner while it is active. */
+export const announcements = pgTable("announcements", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  authorId: uuid("author_id").references(() => users.id, { onDelete: "set null" }),
+  message: text("message").notNull(),
+  active: boolean("active").notNull().default(true),
+  createdAt: createdAt(),
+});

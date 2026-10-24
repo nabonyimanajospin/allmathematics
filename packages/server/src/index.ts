@@ -15,5 +15,6 @@ export * from "./auth/recovery";
 export * from "./admin/manage";
 export * from "./learning/enrollment";
 export * from "./learning/unit-test";
+export * from "./admin/feedback";
 export * from "./solver/plan";
 export * from "./payments/flutterwave";
