@@ -219,3 +219,31 @@ describe("named points, segments and lines", () => {
     expect(measure([0, 0], [1 / 3, 1]).exact).toBe(false);
   });
 });
+
+describe("circles, polygons and differential equations", () => {
+  it("reads circle(A, B), polygon(A, B, C), y' = f and ode(y' = f, A)", () => {
+    expect(classify("circle(A, B)")).toMatchObject({ kind: "circle", center: "A", through: "B" });
+    expect(classify("Polygon(A, B, C, D)")).toMatchObject({ kind: "polygon", names: ["A", "B", "C", "D"] });
+    expect(classify("polygon(A, B)")).toMatchObject({ kind: "error" });
+    expect(classify("y' = x - y")).toMatchObject({ kind: "slopefield", expr: "x-y" });
+    expect(classify("dy/dx = 2x")).toMatchObject({ kind: "slopefield", expr: "2*x" });
+    expect(classify("ode(y' = x - y, A)")).toMatchObject({ kind: "slopefield", expr: "x-y", at: "A" });
+  });
+  it("draws a circle and a polygon from named points, and a solution curve through a point", () => {
+    const items = [classify("A(0, 0)"), classify("B(3, 4)"), classify("C(6, 0)"), classify("circle(A, B)"), classify("polygon(A, B, C)"), classify("ode(y' = y, D)"), classify("circle(A, Q)"), classify("D(0, 1)")];
+    const pts = namedPoints(items, {});
+    const c = drawable(items[3]!, {}, VIEW, pts);
+    expect(c.kind).toBe("lines");
+    const p = drawable(items[4]!, {}, VIEW, pts);
+    expect(p).toEqual({ kind: "polygon", pts: [[0, 0], [3, 4], [6, 0]] });
+    const o = drawable(items[5]!, {}, VIEW, pts);
+    if (o.kind !== "slopefield") throw new Error("expected a slope field");
+    expect(o.f(1, 2)).toBe(2);
+    const at = (x: number) => o.curve[0]!.reduce((b, q) => (Math.abs(q[0] - x) < Math.abs(b[0] - x) ? q : b))[1];
+    expect(at(1)).toBeCloseTo(Math.E, 2);
+    expect(drawable(items[6]!, {}, VIEW, pts)).toMatchObject({ kind: "error" });
+  });
+  it("uses sliders in a slope field", () => {
+    expect(parameterNames([classify("y' = a*y")])).toEqual(["a"]);
+  });
+});

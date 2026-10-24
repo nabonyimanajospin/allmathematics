@@ -2,19 +2,28 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button, Card } from "@allmaths/ui";
-import { classify, drawable, evalConstant, measure, namedPoints, parameterNames, sampleCurve3, sampleSurface, specialPoints, type GraphItem, type Params, type Pt3, type View } from "@allmaths/core";
+import { classify, drawable, evalConstant, measure, measureCircle, measurePolygon, namedPoints, parameterNames, parseParamSurface, sampleCurve3, sampleParamSurface, sampleSurface, specialPoints, type GraphItem, type Params, type Pt, type Pt3, type View } from "@allmaths/core";
 import { t } from "@/i18n";
 import { RichInline } from "./lesson/rich";
 import type { ExactPointDto } from "@/app/api/graph/exact/route";
 
-type Tool = "move" | "point" | "segment" | "line";
-const TOOLS: { tool: Tool; label: "toolMove" | "toolPoint" | "toolSegment" | "toolLine"; help: "toolHelpMove" | "toolHelpPoint" | "toolHelpSegment" | "toolHelpLine" }[] = [
+type Tool = "move" | "point" | "segment" | "line" | "circle" | "polygon";
+const TOOLS: {
+  tool: Tool;
+  label: "toolMove" | "toolPoint" | "toolSegment" | "toolLine" | "toolCircle" | "toolPolygon";
+  help: "toolHelpMove" | "toolHelpPoint" | "toolHelpSegment" | "toolHelpLine" | "toolHelpCircle" | "toolHelpPolygon";
+}[] = [
   { tool: "move", label: "toolMove", help: "toolHelpMove" },
   { tool: "point", label: "toolPoint", help: "toolHelpPoint" },
   { tool: "segment", label: "toolSegment", help: "toolHelpSegment" },
   { tool: "line", label: "toolLine", help: "toolHelpLine" },
+  { tool: "circle", label: "toolCircle", help: "toolHelpCircle" },
+  { tool: "polygon", label: "toolPolygon", help: "toolHelpPolygon" },
 ];
-const HELP: { key: "function" | "xfunction" | "curve" | "polar" | "parametric" | "parametricRange" | "point" | "segment" | "line" | "inequality" | "region" | "slider"; example: string }[] = [
+const HELP: {
+  key: "function" | "xfunction" | "curve" | "polar" | "parametric" | "parametricRange" | "point" | "segment" | "line" | "circle" | "polygon" | "slopefield" | "ode" | "inequality" | "region" | "slider";
+  example: string;
+}[] = [
   { key: "function", example: "y = x^2 - 3" },
   { key: "xfunction", example: "x = y^2" },
   { key: "curve", example: "x^2 + y^2 = 9" },
@@ -24,9 +33,23 @@ const HELP: { key: "function" | "xfunction" | "curve" | "polar" | "parametric" |
   { key: "point", example: "A(2, 3)" },
   { key: "segment", example: "segment(A, B)" },
   { key: "line", example: "line(A, B)" },
+  { key: "circle", example: "circle(A, B)" },
+  { key: "polygon", example: "polygon(A, B, C)" },
+  { key: "slopefield", example: "y' = x - y" },
+  { key: "ode", example: "ode(y' = x - y, A)" },
   { key: "inequality", example: "y > x^2" },
   { key: "region", example: "x^2 + y^2 <= 4" },
   { key: "slider", example: "y = a*x^2 + b" },
+];
+/** Ready-made surfaces of the geometry course; each one can be edited in the box after it is chosen. */
+const SURFACE_PRESETS: { key: "paraboloid" | "saddle" | "sphere" | "ellipsoid" | "cylinder" | "cone" | "torus"; text: string; extent: number }[] = [
+  { key: "paraboloid", text: "z = x^2 + y^2", extent: 3 },
+  { key: "saddle", text: "z = x^2 - y^2", extent: 3 },
+  { key: "sphere", text: "(3*sin(u)*cos(v), 3*sin(u)*sin(v), 3*cos(u)), u in [0, pi], v in [0, 2*pi]", extent: 4 },
+  { key: "ellipsoid", text: "(3*sin(u)*cos(v), 2*sin(u)*sin(v), cos(u)), u in [0, pi], v in [0, 2*pi]", extent: 4 },
+  { key: "cylinder", text: "(2*cos(v), 2*sin(v), u), u in [-2, 2], v in [0, 2*pi]", extent: 4 },
+  { key: "cone", text: "(u*cos(v), u*sin(v), u), u in [-2, 2], v in [0, 2*pi]", extent: 3 },
+  { key: "torus", text: "((3 + cos(u))*cos(v), (3 + cos(u))*sin(v), sin(u)), u in [0, 2*pi], v in [0, 2*pi]", extent: 5 },
 ];
 const MAX_ROWS = 24;
 const NUMBER = /^-?\d+(\.\d+)?$/;
@@ -100,6 +123,7 @@ function Graph2D() {
   const lastPinch = useRef<number | null>(null);
   const [tool, setTool] = useState<Tool>("move");
   const [pending, setPending] = useState<string | null>(null);
+  const [polyPending, setPolyPending] = useState<string[]>([]);
   const press = useRef<{ x: number; y: number; lx: number; ly: number; moved: boolean; multi: boolean } | null>(null);
   const dragging = useRef<{ rowId: number; name: string } | null>(null);
 
@@ -114,12 +138,35 @@ function Graph2D() {
   const drawn = useMemo(() => items.map((it) => drawable(it, values, range, points)), [items, values, range, points]);
   const special = useMemo(() => specialPoints(items, values, range), [items, values, range]);
   const measures = useMemo(() => {
-    const out: { key: string; a: string; b: string; mode: "segment" | "line"; info: ReturnType<typeof measure> }[] = [];
+    interface Entry {
+      key: string;
+      title: string;
+      exact: boolean;
+      rows: { label: string; value: string }[];
+    }
+    const out: Entry[] = [];
+    const unit = (label: string, value: string): string => (label === "length" || label === "radius" || label === "perimeter" ? `${value} ${t("grapher.unitLength")}` : label === "area" ? `${value} ${t("grapher.unitArea")}` : value);
     items.forEach((it, i) => {
-      if (it.kind !== "segment") return;
-      const pa = points[it.a];
-      const pb = points[it.b];
-      if (pa && pb && (pa[0] !== pb[0] || pa[1] !== pb[1])) out.push({ key: `${rows[i]!.id}`, a: it.a, b: it.b, mode: it.mode, info: measure(pa, pb) });
+      const key = `${rows[i]!.id}`;
+      if (it.kind === "segment") {
+        const pa = points[it.a];
+        const pb = points[it.b];
+        if (!pa || !pb || (pa[0] === pb[0] && pa[1] === pb[1])) return;
+        const m = measure(pa, pb);
+        const list = it.mode === "segment" ? [{ label: t("grapher.length"), value: `${m.length} ${t("grapher.unitLength")}` }, { label: t("grapher.midpoint"), value: m.midpoint }] : [];
+        out.push({ key, title: t(it.mode === "line" ? "grapher.measureLine" : "grapher.measureSegment", { a: it.a, b: it.b }), exact: m.exact, rows: [...list, { label: t("grapher.equation"), value: m.equation }] });
+      } else if (it.kind === "circle") {
+        const c = points[it.center];
+        const p = points[it.through];
+        if (!c || !p || (c[0] === p[0] && c[1] === p[1])) return;
+        const m = measureCircle(c, p);
+        out.push({ key, title: t("grapher.measureCircle", { a: it.center, b: it.through }), exact: m.exact, rows: m.lines.map((l) => ({ label: t(`grapher.m.${l.label}`), value: unit(l.label, l.value) })) });
+      } else if (it.kind === "polygon") {
+        const pts = it.names.map((n) => points[n]);
+        if (pts.some((p) => !p)) return;
+        const m = measurePolygon(pts as Pt[]);
+        out.push({ key, title: t("grapher.measurePolygon", { names: it.names.join("") }), exact: m.exact, rows: m.lines.map((l) => ({ label: t(`grapher.m.${l.label}`), value: unit(l.label, l.value) })) });
+      }
     });
     return out;
   }, [items, points, rows]);
@@ -278,6 +325,40 @@ function Graph2D() {
           ctx.lineTo(X(c2), Y(e));
         }
         ctx.stroke();
+      } else if (d.kind === "polygon") {
+        ctx.beginPath();
+        d.pts.forEach(([x, y], k) => (k === 0 ? ctx.moveTo(X(x), Y(y)) : ctx.lineTo(X(x), Y(y))));
+        ctx.closePath();
+        ctx.globalAlpha = 0.16;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.stroke();
+      } else if (d.kind === "slopefield") {
+        // short segments of the right slope on a grid, then the solution curve
+        const gap = 34;
+        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        for (let px = gap / 2; px < w; px += gap) {
+          for (let py = gap / 2; py < h; py += gap) {
+            const wx = view.cx + (px - w / 2) / view.scale;
+            const wy = view.cy - (py - h / 2) / view.scale;
+            const slope = d.f(wx, wy);
+            if (!Number.isFinite(slope)) continue;
+            const ang = Math.atan2(-slope, 1); // screen y points down
+            const half = gap * 0.36;
+            ctx.moveTo(px - half * Math.cos(ang), py - half * Math.sin(ang));
+            ctx.lineTo(px + half * Math.cos(ang), py + half * Math.sin(ang));
+          }
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        ctx.lineWidth = 2.8;
+        for (const piece of d.curve) {
+          ctx.beginPath();
+          piece.forEach(([x, y], k) => (k === 0 ? ctx.moveTo(X(x), Y(y)) : ctx.lineTo(X(x), Y(y))));
+          ctx.stroke();
+        }
       } else if (d.kind === "region") {
         ctx.setLineDash(d.strict ? [7, 6] : []);
         ctx.beginPath();
@@ -291,9 +372,10 @@ function Graph2D() {
         const it = items[i];
         const label = it?.kind === "point" && it.name ? it.name : "";
         ctx.beginPath();
-        ctx.arc(X(d.at[0]), Y(d.at[1]), label === pending ? 6 : 4, 0, 2 * Math.PI);
+        const chosen = label !== "" && (label === pending || polyPending.includes(label));
+        ctx.arc(X(d.at[0]), Y(d.at[1]), chosen ? 6 : 4, 0, 2 * Math.PI);
         ctx.fill();
-        if (label !== "" && label === pending) {
+        if (chosen) {
           ctx.strokeStyle = ink;
           ctx.lineWidth = 2;
           ctx.stroke();
@@ -315,7 +397,7 @@ function Graph2D() {
       ctx.fill();
       ctx.stroke();
     }
-  }, [drawn, rows, items, pending, view, w, h, range, special]);
+  }, [drawn, rows, items, pending, polyPending, view, w, h, range, special]);
 
   const toWorld = useCallback(
     (px: number, py: number): [number, number] => [view.cx + (px - w / 2) / view.scale, view.cy - (py - h / 2) / view.scale],
@@ -365,13 +447,24 @@ function Graph2D() {
       if (!hit) addPoint(snapped(px, py));
       return;
     }
-    if (tool !== "segment" && tool !== "line") return;
+    if (tool === "polygon") {
+      const name = hit ? hit.name : addPoint(snapped(px, py));
+      if (polyPending.length >= 3 && name === polyPending[0]) finishPolygon();
+      else if (polyPending[polyPending.length - 1] !== name && !polyPending.includes(name)) setPolyPending((l) => [...l, name]);
+      return;
+    }
+    if (tool !== "segment" && tool !== "line" && tool !== "circle") return;
     const name = hit ? hit.name : addPoint(snapped(px, py));
     if (pending === null) setPending(name);
     else if (pending !== name) {
       addRow(`${tool}(${pending}, ${name})`);
       setPending(null);
     }
+  }
+
+  function finishPolygon() {
+    if (polyPending.length >= 3) addRow(`polygon(${polyPending.join(", ")})`);
+    setPolyPending([]);
   }
 
   function onPointerDown(e: React.PointerEvent<HTMLCanvasElement>) {
@@ -431,7 +524,10 @@ function Graph2D() {
     else if (e.key === "+" || e.key === "=") zoomAt(w / 2, h / 2, 1.25);
     else if (e.key === "-") zoomAt(w / 2, h / 2, 0.8);
     else if (e.key === "Home") setView({ cx: 0, cy: 0, scale: 50 });
-    else if (e.key === "Escape") setPending(null);
+    else if (e.key === "Escape") {
+      setPending(null);
+      setPolyPending([]);
+    }
     else return;
     e.preventDefault();
   }
@@ -563,13 +659,25 @@ function Graph2D() {
               onClick={() => {
                 setTool(k.tool);
                 setPending(null);
+                setPolyPending([]);
               }}
               className={`min-h-10 rounded-[var(--radius-sm)] border px-3 font-semibold ${tool === k.tool ? "border-accent bg-accent-soft text-accent" : "border-line bg-surface hover:bg-surface-2"}`}
             >
               {t(`grapher.${k.label}`)}
             </button>
           ))}
-          <p className="text-sm text-muted">{pending ? t("grapher.pending", { name: pending }) : t(`grapher.${TOOLS.find((k) => k.tool === tool)!.help}`)}</p>
+          {tool === "polygon" && polyPending.length > 0 ? (
+            <>
+              <p className="text-sm text-muted">{t("grapher.polygonProgress", { names: polyPending.join(", ") })}</p>
+              {polyPending.length >= 3 ? (
+                <Button variant="secondary" onClick={finishPolygon}>
+                  {t("grapher.finishPolygon")}
+                </Button>
+              ) : null}
+            </>
+          ) : (
+            <p className="text-sm text-muted">{pending ? t("grapher.pending", { name: pending }) : t(`grapher.${TOOLS.find((k) => k.tool === tool)!.help}`)}</p>
+          )}
         </div>
         <div className="relative overflow-hidden rounded-[var(--radius)] border border-line">
           <canvas
@@ -618,20 +726,16 @@ function Graph2D() {
             <ul className="mt-2 grid gap-3 text-sm">
               {measures.map((m) => (
                 <li key={m.key} className="grid gap-0.5">
-                  <span className="font-semibold">{t(m.mode === "line" ? "grapher.measureLine" : "grapher.measureSegment", { a: m.a, b: m.b })}</span>
-                  {m.mode === "segment" ? (
-                    <span className="font-mono tabular-nums">
-                      {t("grapher.length")}: {m.info.exact ? "" : "≈ "}
-                      {m.info.length} {t("grapher.unitLength")}, {t("grapher.midpoint")}: {m.info.midpoint}
+                  <span className="font-semibold">{m.title}</span>
+                  {m.rows.map((r) => (
+                    <span key={r.label} className="font-mono tabular-nums">
+                      {r.label}: {m.exact ? "" : "≈ "}
+                      {r.value}
                     </span>
-                  ) : null}
-                  <span className="font-mono tabular-nums">
-                    {t("grapher.equation")}: {m.info.exact ? "" : "≈ "}
-                    {m.info.equation}
-                  </span>
+                  ))}
                 </li>
               ))}
-              {measures.some((m) => !m.info.exact) ? <li className="text-muted">{t("grapher.approxNote")}</li> : null}
+              {measures.some((m) => !m.exact) ? <li className="text-muted">{t("grapher.approxNote")}</li> : null}
             </ul>
           </Card>
         ) : null}
@@ -677,18 +781,24 @@ function Graph3D() {
   const drag = useRef<{ x: number; y: number } | null>(null);
 
   const surfaceExpr = surface.replace(/^\s*z\s*=\s*/i, "");
-  const surfItem = useMemo(() => classify(surfaceExpr === "" ? "" : `y = ${surfaceExpr}`), [surfaceExpr]);
-  const names = useMemo(() => parameterNames([classify(`y = ${surfaceExpr}`)]), [surfaceExpr]);
+  // a parametric surface (x(u,v), y(u,v), z(u,v)), u in [a, b], v in [c, d]: a sphere, a torus, a cone ...
+  const param = useMemo(() => parseParamSurface(surface), [surface]);
+  const surfItem = useMemo(() => classify(surfaceExpr === "" || param ? "" : `y = ${surfaceExpr}`), [surfaceExpr, param]);
+  const names = useMemo(() => {
+    const text = param ? `${param.x}+${param.y}+${param.z}+${param.u.join("+")}+${param.v.join("+")}` : surfaceExpr;
+    return parameterNames([classify(`y = ${text}`)]).filter((n) => !(param && (n === "u" || n === "v")));
+  }, [surfaceExpr, param]);
   const values: Params = useMemo(() => Object.fromEntries(names.map((n) => [n, params[n] ?? 1])), [names, params]);
 
   const mesh = useMemo(() => {
     if (surfaceExpr.trim() === "") return { grid: null as (Pt3 | null)[][] | null, error: null as string | null };
     try {
+      if (param) return { grid: sampleParamSurface(param, values, (txt) => evalConstant(txt, values), 40), error: null };
       return { grid: sampleSurface(surfaceExpr, values, [-extent, extent], [-extent, extent], 36), error: null };
     } catch (e) {
       return { grid: null, error: e instanceof Error ? e.message : "?" };
     }
-  }, [surfaceExpr, values, extent]);
+  }, [surfaceExpr, param, values, extent]);
   const curvePts = useMemo(() => {
     const m = /^\(\s*(.+?)\s*,\s*(.+?)\s*,\s*(.+?)\s*\)\s*(?:,\s*t\s*in\s*\[\s*(.+?)\s*,\s*(.+?)\s*\])?$/.exec(curve.trim());
     if (!m) return { pts: [] as Pt3[], error: curve.trim() === "" ? null : t("grapher.curve3dHelp") };
@@ -815,6 +925,24 @@ function Graph3D() {
             {mesh.error ?? (surfItem.kind === "error" ? surfItem.message : "")}
           </p>
         ) : null}
+        <div>
+          <p className="text-sm text-muted">{t("grapher.presetsTip")}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {SURFACE_PRESETS.map((p) => (
+              <button
+                key={p.key}
+                type="button"
+                onClick={() => {
+                  setSurface(p.text);
+                  setExtent(p.extent);
+                }}
+                className="rounded-full border border-line bg-surface-2 px-3 py-1.5 text-sm font-semibold hover:bg-accent-soft"
+              >
+                {t(`grapher.preset.${p.key}`)}
+              </button>
+            ))}
+          </div>
+        </div>
         <h2 className="mt-2 text-lg font-bold">{t("grapher.curve3d")}</h2>
         <input
           value={curve}

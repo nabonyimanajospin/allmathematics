@@ -16,6 +16,9 @@ One line per object, up to eight, each with its own colour. What you type decide
 | parametric | `(cos(t), sin(t))`, `(t, t^2), t in [0, 3]` |
 | point (named) | `A(2, 3)` or `A = (2, 3)`; a capital letter, so `f(x)` stays a function |
 | segment, line | `segment(A, B)`, `line(A, B)` through two named points |
+| circle | `circle(A, B)`: centre A, through the point B |
+| polygon | `polygon(A, B, C)` (3 to 12 named points) |
+| differential equation | `y' = x - y` draws the slope field; `ode(y' = x - y, A)` also draws the solution through the point A (Runge–Kutta) |
 | inequality (shaded) | `y > x^2`, `x^2 + y^2 <= 4` (dashed border for `<` and `>`) |
 
 Implicit multiplication works (`2x`, `x(x+1)`, `ax^2+bx+c`). Any single letter that is not `x`, `y`, `t` or a constant becomes a **slider**
@@ -27,16 +30,17 @@ Drag to pan, wheel or pinch to zoom, arrow keys and `+`/`−` from the keyboard,
 ## 3D
 
 A surface `z = f(x, y)` (shaded by height, or as a wireframe) and an optional space curve `(x(t), y(t), z(t)), t in [a, b]`, with sliders for
-parameters. Drag to rotate, wheel to zoom, arrow keys from the keyboard. The grid is 36 × 36 and the surface is drawn back to front.
+parameters. Parametric surfaces `(x(u,v), y(u,v), z(u,v)), u in [a, b], v in [c, d]` are drawn too, with ready-made ones (paraboloid, saddle, sphere, ellipsoid, cylinder, cone, torus). Drag to rotate, wheel to zoom, arrow keys from the keyboard. The grid is 36 × 36 and the surface is drawn back to front.
 
 ## Tools (like a geometry program)
 
-Above the picture: **Move**, **Point**, **Segment**, **Line**.
+Above the picture: **Move**, **Point**, **Segment**, **Line**, **Circle**, **Polygon**.
 
 - **Point**: touch the picture; a point is added on the nearest half grid step and named A, B, C, ... (a new line `A = (x, y)` appears).
 - **Segment** / **Line**: touch one point, then another (touching an empty place makes a new point); a line `segment(A, B)` / `line(A, B)` is added.
+- **Circle**: touch the centre, then a point of the circle. **Polygon**: touch the corners one after the other, then the first corner again (or press Finish).
 - **Move**: drag the picture, or drag a point (the segments that use it follow). Escape cancels a half-made segment.
-- **Measurements** under the picture: for every segment its exact length (`√13`, `3√2/2`), midpoint and the equation of the line through the two points,
+- **Measurements** under the picture: for a circle the radius, circumference, area and equation, for a polygon the perimeter and the exact area (shoelace formula); for every segment its exact length (`√13`, `3√2/2`), midpoint and the equation of the line through the two points,
   as exact fractions when the coordinates are decimals with at most 3 digits; otherwise marked ≈.
 - The dots where lines meet are small, so that they do not hide the picture.
 
@@ -51,4 +55,4 @@ link sees the same graph. Nothing is stored on the server.
 
 ## Not included (yet)
 
-Geometric constructions (points that move along lines), parametric surfaces, intersections with curves that are not of the form `y = f(x)`.
+Intersections with curves that are not of the form `y = f(x)`, perpendiculars and parallels, implicit surfaces such as `x^2 + y^2 + z^2 = 9` (write them as parametric surfaces).

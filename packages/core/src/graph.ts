@@ -3,6 +3,7 @@
  * parametric curves, points, surfaces) and sampling it. Pure code with the safe expression evaluator of plot.ts: no eval, no Function.
  */
 
+import { circlePoints, slopeFunction, solutionCurve } from "./graph-geometry";
 import { PlotExpressionError, compileExpr } from "./plot";
 
 export type Pt = [number, number];
@@ -63,6 +64,10 @@ export type GraphItem =
   | { kind: "polar"; expr: string }
   | { kind: "point"; x: string; y: string; name?: string }
   | { kind: "segment"; a: string; b: string; mode: "segment" | "line" }
+  | { kind: "circle"; center: string; through: string }
+  | { kind: "polygon"; names: string[] }
+  /** y' = f(x, y): the slope field, and the solution through the named point when there is one. */
+  | { kind: "slopefield"; expr: string; at?: string }
   | { kind: "region"; lhs: string; rhs: string; op: "<" | ">" | "<=" | ">=" }
   | { kind: "empty" }
   | { kind: "error"; message: string };
@@ -94,6 +99,20 @@ export function classify(text: string): GraphItem {
     // a segment or a line through two named points:  segment(A, B)   line(A, B)
     const seg = /^(segment|seg|line)\s*\(\s*([A-Z][A-Za-z0-9]*)\s*,\s*([A-Z][A-Za-z0-9]*)\s*\)$/i.exec(raw);
     if (seg) return { kind: "segment", a: seg[2]!, b: seg[3]!, mode: seg[1]!.toLowerCase() === "line" ? "line" : "segment" };
+    // a circle with its centre and a point on it, and a polygon through named points:  circle(A, B)   polygon(A, B, C)
+    const circ = /^circle\s*\(\s*([A-Z][A-Za-z0-9]*)\s*,\s*([A-Z][A-Za-z0-9]*)\s*\)$/i.exec(raw);
+    if (circ) return { kind: "circle", center: circ[1]!, through: circ[2]! };
+    const poly = /^polygon\s*\((.+)\)$/i.exec(raw);
+    if (poly) {
+      const names = poly[1]!.split(",").map((n) => n.trim());
+      if (names.length < 3 || names.length > 12 || names.some((n) => !/^[A-Z][A-Za-z0-9]*$/.test(n))) return { kind: "error", message: "Write the polygon with at least three named points, for example polygon(A, B, C)." };
+      return { kind: "polygon", names };
+    }
+    // a first-order differential equation:  y' = x - y   or   ode(y' = x - y, A)  for the solution through the point A
+    const ode = /^ode\s*\(\s*(?:y'|dy\s*\/\s*dx)\s*=\s*(.+?)\s*,\s*([A-Z][A-Za-z0-9]*)\s*\)$/i.exec(raw);
+    if (ode) return { kind: "slopefield", expr: normalizeExpr(ode[1]!), at: ode[2]! };
+    const field = /^(?:y'|dy\s*\/\s*dx)\s*=\s*(.+)$/i.exec(raw);
+    if (field) return { kind: "slopefield", expr: normalizeExpr(field[1]!) };
     // a named point:  P(2, 3)   A = (1, 2)   (a capital letter, so that f(x) and sin(x) are still functions)
     const named = /^([A-Z][A-Za-z0-9]*)\s*=?\s*\((.*)\)$/.exec(raw);
     if (named) {
@@ -154,6 +173,7 @@ export function parameterNames(items: GraphItem[]): string[] {
     else if (it.kind === "implicit" || it.kind === "region") texts.push(it.lhs, it.rhs);
     else if (it.kind === "parametric") texts.push(it.x, it.y, it.t0, it.t1);
     else if (it.kind === "point") texts.push(it.x, it.y);
+    else if (it.kind === "slopefield") texts.push(it.expr);
   }
   const found = new Set<string>();
   for (const t of texts) for (const m of t.matchAll(/(^|[^A-Za-z_])([a-z])(?![A-Za-z_(])/g)) if (PARAM_LETTERS.has(m[2]!)) found.add(m[2]!);
@@ -275,6 +295,8 @@ export type Drawable =
   | { kind: "lines"; pieces: Pt[][] }
   | { kind: "segments"; segments: [number, number, number, number][] }
   | { kind: "point"; at: Pt }
+  | { kind: "polygon"; pts: Pt[] }
+  | { kind: "slopefield"; f: (x: number, y: number) => number; curve: Pt[][] }
   | { kind: "region"; inside: (x: number, y: number) => boolean; boundary: [number, number, number, number][]; strict: boolean }
   | { kind: "error"; message: string }
   | { kind: "none" };
@@ -300,6 +322,33 @@ export function drawable(item: GraphItem, params: Params, view: View, points: Re
     switch (item.kind) {
       case "empty":
         return { kind: "none" };
+      case "circle": {
+        const c = points[item.center];
+        const p = points[item.through];
+        if (!c) return { kind: "error", message: `The point ${item.center} is not defined. Add it, for example ${item.center}(0, 0).` };
+        if (!p) return { kind: "error", message: `The point ${item.through} is not defined. Add it, for example ${item.through}(3, 0).` };
+        if (c[0] === p[0] && c[1] === p[1]) return { kind: "error", message: `${item.center} and ${item.through} are the same point: the circle has radius 0.` };
+        return { kind: "lines", pieces: [circlePoints(c, p)] };
+      }
+      case "polygon": {
+        const pts: Pt[] = [];
+        for (const n of item.names) {
+          const p = points[n];
+          if (!p) return { kind: "error", message: `The point ${n} is not defined. Add it, for example ${n}(1, 2).` };
+          pts.push(p);
+        }
+        return { kind: "polygon", pts };
+      }
+      case "slopefield": {
+        const f = slopeFunction(item.expr, params);
+        let curve: Pt[][] = [];
+        if (item.at !== undefined) {
+          const p = points[item.at];
+          if (!p) return { kind: "error", message: `The point ${item.at} is not defined. Add it, for example ${item.at}(0, 1).` };
+          curve = solutionCurve(f, p[0], p[1], view.xmin, view.xmax, 50 * (view.ymax - view.ymin));
+        }
+        return { kind: "slopefield", f, curve };
+      }
       case "segment": {
         const a = points[item.a];
         const b = points[item.b];

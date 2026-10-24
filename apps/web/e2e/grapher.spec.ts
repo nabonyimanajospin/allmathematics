@@ -74,7 +74,8 @@ test.describe("the grapher", () => {
     await touch(100, -50);
     await expect(page.getByLabel("Expression 3")).toHaveValue("segment(A, B)");
     await expect(page.getByText("Segment AB")).toBeVisible();
-    await expect(page.getByText(/length: √5 lu, midpoint: \(1, 1\/2\)/)).toBeVisible();
+    await expect(page.getByText("length: √5 lu")).toBeVisible();
+    await expect(page.getByText("midpoint: (1, 1/2)")).toBeVisible();
     await expect(page.getByText("equation: y = (1/2)x")).toBeVisible();
 
     // the point tool puts a point on the nearest half step and names it
@@ -198,6 +199,42 @@ test.describe("the grapher", () => {
       await expect(page.getByLabel("Expression 3")).toHaveValue("x^2 + y^2 <= 4");
       await expect(page.getByLabel("Expression 1")).toHaveValue("y = x^2 - 4");
     }
+  });
+
+  test("circles, polygons and slope fields with exact measurements, and a parametric surface", async ({ page }) => {
+    await signUpAndOpen(page);
+    const rows: string[] = ["A(0, 0)", "B(3, 4)", "circle(A, B)", "C(6, 0)", "polygon(A, B, C)", "ode(y' = x - y, A)"];
+    for (let i = 0; i < rows.length; i++) {
+      if (i >= 2) await page.getByRole("button", { name: "Add an expression" }).click();
+      await page.getByLabel(`Expression ${i + 1}`).fill(rows[i]!);
+    }
+    await expect(page.locator("p[role=alert]")).toHaveCount(0);
+    await expect(page.getByText("Circle with centre A through B")).toBeVisible();
+    await expect(page.getByText("radius: 5 lu")).toBeVisible();
+    await expect(page.getByText("circumference: 10π")).toBeVisible();
+    await expect(page.getByText("area: 25π squ")).toBeVisible();
+    await expect(page.getByText("equation: x² + y² = 25")).toBeVisible();
+    await expect(page.getByText("Polygon ABC")).toBeVisible();
+    await expect(page.getByText("perimeter: 16 lu")).toBeVisible();
+    await expect(page.getByText("area: 12 squ")).toBeVisible();
+    expect(await paintedPixels(page)).toBeGreaterThan(5);
+
+    // an unknown point is explained, for a circle and for a differential equation
+    await page.getByRole("button", { name: "Add an expression" }).click();
+    await page.getByLabel("Expression 7").fill("circle(A, Z)");
+    await expect(page.getByText(/The point Z is not defined/)).toBeVisible();
+    await page.getByLabel("Expression 7").fill("polygon(A, B)");
+    await expect(page.getByText(/at least three named points/)).toBeVisible();
+
+    // 3D: a ready-made parametric surface
+    await page.getByRole("tab", { name: "3D surface" }).click();
+    await page.getByRole("button", { name: "Sphere", exact: true }).click();
+    await expect(page.getByLabel("Surface z = f(x, y)")).toHaveValue(/^\(3\*sin\(u\)\*cos\(v\)/);
+    await expect(page.locator("p[role=alert]")).toHaveCount(0);
+    await expect.poll(() => paintedPixels(page)).toBeGreaterThan(20);
+    await page.getByRole("button", { name: "Torus", exact: true }).click();
+    await expect(page.locator("p[role=alert]")).toHaveCount(0);
+    await expect.poll(() => paintedPixels(page)).toBeGreaterThan(20);
   });
 
   test("the 3D view draws a surface, turns when dragged and has no accessibility violations", async ({ page }) => {
