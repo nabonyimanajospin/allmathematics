@@ -1,0 +1,145 @@
+id: stat-m01-u02-l04
+title: Equally likely outcomes - coins, dice and cards
+estMinutes: 45
+version: 1
+status: draft
+skills:
+  - equally-likely
+  - counting-probability
+objectives:
+  - Compute a probability as favorable outcomes over possible outcomes.
+  - Count the favorable outcomes with selections, for cards and committees.
+  - Use the complement for "at least one".
+  - Split a probability into cases that add up.
+sections:
+  - id: why
+    type: concept
+    title: Probability by counting
+    body: |
+      When all the outcomes of an experiment are equally likely (a fair coin, a fair die, a well-shuffled pack of cards, a draw "at random"), the probability of an event $A$ is
+
+      $$P(A)=\dfrac{\text{number of outcomes in }A\ (\text{favorable})}{\text{number of all possible outcomes}}.$$
+
+      Everything therefore reduces to counting twice: first the whole sample space, then the favorable outcomes. The counting tools of the previous lessons (arrangements, selections, the complement) do all the work.
+
+  - id: method
+    type: formula
+    title: The method in three lines
+    formula: |
+      \begin{aligned}
+      &1.\ |S|=\text{number of possible outcomes (often }2^n,\ 6^n\text{ or }\dbinom Nn\text{)}\\
+      &2.\ |A|=\text{number of favorable outcomes (a product of selections)}\\
+      &3.\ P(A)=\dfrac{|A|}{|S|},\qquad P(\text{at least one})=1-P(\text{none})
+      \end{aligned}
+    note: |
+      Check that your two counts are of the same kind: if the total counts **unordered** groups, count the favorable groups also unordered.
+
+  - id: ex-coins
+    type: example
+    title: Three coins
+    problem: |
+      Three coins are tossed together. Find the probability of exactly $2$ heads.
+    steps:
+      - text: |
+          There are $2\cdot2\cdot2=8$ equally likely outcomes.
+        why: |
+          Each coin has $2$ results and the coins do not influence each other.
+      - text: |
+          Exactly two heads: we choose which $2$ of the $3$ coins show heads, $\dbinom32=3$ outcomes (HHT, HTH, THH).
+        why: |
+          Once we have decided which coins are heads, the third one is tails: nothing else to choose.
+      - |
+        $P=\dfrac38$.
+    answer: |
+      $\dfrac38$.
+    verify:
+      - expr: "3/8"
+        equals: "3/8"
+
+  - id: ex-cards
+    type: example
+    title: Cards from a pack
+    problem: |
+      Two cards are drawn from a pack of $52$. Find the probability that one is a king and the other a jack.
+    steps:
+      - text: |
+          All the pairs of cards: $\dbinom{52}2=\dfrac{52\cdot51}2=1326$.
+        why: |
+          The two cards are drawn together, so the order does not matter: we count pairs.
+      - text: |
+          Favorable pairs: one of the $4$ kings and one of the $4$ jacks, $4\cdot4=16$.
+        why: |
+          Choose the king ($4$ ways) and independently the jack ($4$ ways); multiply.
+      - text: |
+          $P=\dfrac{16}{1326}=\dfrac8{663}$.
+        why: |
+          Divide numerator and denominator by $2$.
+    answer: |
+      $\dfrac8{663}$.
+    verify:
+      - expr: "16/(52*51/2)"
+        equals: "8/663"
+
+  - id: ex-committee
+    type: example
+    title: A group chosen by lots
+    problem: |
+      From $3$ engineers, $4$ doctors and $5$ lawyers a sub-committee of four is chosen by lots. Find the probability that it contains $2$ engineers, $1$ doctor and $1$ lawyer.
+    steps:
+      - text: |
+          All sub-committees: $\dbinom{12}4=495$.
+        why: |
+          There are $3+4+5=12$ people and we choose $4$ of them without regard to order.
+      - text: |
+          Favorable: $\dbinom32\cdot\dbinom41\cdot\dbinom51=3\cdot4\cdot5=60$.
+        why: |
+          We choose the engineers, the doctor and the lawyer separately and multiply.
+      - |
+        $P=\dfrac{60}{495}=\dfrac4{33}$.
+    answer: |
+      $\dfrac4{33}$.
+    verify:
+      - expr: "(3*4*5)/(12*11*10*9/24)"
+        equals: "4/33"
+
+  - id: ratio
+    type: concept
+    title: When probabilities are given as a ratio
+    body: |
+      Sometimes the data are "A is twice as likely to win as B". Introduce a letter for the smallest probability, express the others with it, and use the fact that the probabilities of all the possible results add up to $1$.
+
+      Example: $A$ is twice as likely as $B$, and $B$ twice as likely as $C$. If $P(C)=p$ then $P(B)=2p$ and $P(A)=4p$, and $4p+2p+p=1$ gives $p=\dfrac17$. So $P(A)=\dfrac47$, $P(B)=\dfrac27$, $P(C)=\dfrac17$.
+
+  - id: chk-coin
+    type: check
+    prompt: |
+      A coin is tossed two times. Find the probability of getting at least one tail.
+    answerType: expression
+    answer: "3/4"
+    hints:
+      - |
+        Count the complement: no tail at all.
+    explanation: |
+      The $4$ outcomes HH, HT, TH, TT are equally likely. Only HH has no tail, so $P(\text{at least one tail})=1-\dfrac14=\dfrac34$.
+
+  - id: chk-cards
+    type: check
+    prompt: |
+      Four persons are chosen at random from $3$ men, $2$ women and $4$ children. Find the probability that exactly two of them are children.
+    answerType: expression
+    answer: "10/21"
+    hints:
+      - |
+        The other two persons come from the $5$ adults.
+    explanation: |
+      Favorable: $\dbinom42\dbinom52=6\cdot10=60$. All: $\dbinom94=126$. $\dfrac{60}{126}=\dfrac{10}{21}$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Equally likely outcomes: $P(A)=\dfrac{\text{favorable}}{\text{possible}}$, both counted in the same way (both ordered or both unordered).
+      - |
+        "At least one" is the complement of "none". "Exactly $k$ of a kind" is a product of selections.
+      - |
+        Probabilities given by ratios: call the smallest $p$ and use that the probabilities add up to $1$.

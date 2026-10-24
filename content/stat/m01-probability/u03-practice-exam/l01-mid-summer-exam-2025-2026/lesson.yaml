@@ -1,0 +1,176 @@
+id: stat-m01-u03-l01
+title: The mid-summer exam STAT8225, solved
+estMinutes: 60
+version: 1
+status: draft
+skills:
+  - exam-practice
+objectives:
+  - See how the questions of a real exam in Probability are solved, step by step, without a calculator.
+  - Recognize the pattern of each question (a definition, an equation in $n$, a constant term, independence, Bayes) and apply the method.
+sections:
+  - id: how
+    type: concept
+    title: How to work in an exam without a calculator
+    body: |
+      The exam (Information Technology, AY 2025-2026, duration 1h30) does not allow calculators. That is why every answer is an **exact value**: a fraction, a binomial coefficient, a product of powers. Three habits save marks.
+
+      1. **Name the method** before you compute: "addition rule", "general term", "Bayes".
+      2. **Keep fractions as fractions** and simplify at the end. Do not turn them into decimals.
+      3. **Check** with a second reading: probabilities between $0$ and $1$, cells of a Venn diagram that add up to $1$, a value of $n$ that is a whole number.
+
+      Each question below is solved in full. Try it yourself first, then compare.
+
+  - id: q1
+    type: concept
+    title: Q1 - definitions and the axioms of probability
+    body: |
+      **Sample space.** The set $S$ of all possible outcomes of an experiment. Tossing a die: $S=\{1,2,3,4,5,6\}$. An **event** is a subset of $S$.
+
+      **Independent events.** $A$ and $B$ are independent when the occurrence of one does not change the probability of the other: $P(A\cap B)=P(A)\,P(B)$, equivalently $P(A\mid B)=P(A)$ when $P(B)>0$.
+
+      **Axioms of probability.** (1) $P(A)\ge0$ for every event $A$. (2) $P(S)=1$. (3) If $A$ and $B$ are mutually exclusive then $P(A\cup B)=P(A)+P(B)$ (and, more generally, for a sequence of pairwise exclusive events the probability of the union is the sum). All the other rules ($P(\bar A)=1-P(A)$, $P(\varnothing)=0$, the addition rule) follow from these three.
+
+  - id: ex-q2a
+    type: example
+    title: Q2 a - the value of n
+    problem: |
+      Determine the value of $n$ in $3\dbinom n3=10\dbinom n2$.
+    steps:
+      - text: |
+          $3\dbinom n3=\dfrac{3n(n-1)(n-2)}{6}=\dfrac{n(n-1)(n-2)}2$ and $10\dbinom n2=\dfrac{10n(n-1)}{2}=5n(n-1)$.
+        why: |
+          Replace each binomial coefficient by a product of consecutive numbers divided by $r!$. No factorial of $n$ remains.
+      - text: |
+          $\dfrac{n(n-1)(n-2)}2=5n(n-1)$. Divide by $n(n-1)$: $\dfrac{n-2}2=5$.
+        why: |
+          $n(n-1)\ne0$ because $\dbinom n3$ needs $n\ge3$, so the division is allowed.
+      - text: |
+          $n-2=10$, so $n=12$. Check: $3\dbinom{12}3=3\cdot220=660=10\cdot66=10\dbinom{12}2$.
+        why: |
+          The check protects against an algebra slip.
+    answer: |
+      $n=12$.
+    verify:
+      - expr: "3*(12*11*10/6)"
+        equals: "660"
+      - expr: "10*(12*11/2)"
+        equals: "660"
+
+  - id: ex-q2b
+    type: example
+    title: Q2 b - a constant term
+    problem: |
+      Find the constant term in the expansion of $\left(3x-\dfrac1{x^2}\right)^{15}$.
+    steps:
+      - text: |
+          $T_{k+1}=\dbinom{15}k(3x)^{15-k}\left(-\dfrac1{x^2}\right)^k=\dbinom{15}k3^{15-k}(-1)^kx^{15-k-2k}$.
+        why: |
+          $a=3x$ and $b=-x^{-2}$. The powers of $x$ are $15-k$ from $a$ and $-2k$ from $b$.
+      - text: |
+          The power of $x$ is $15-3k$. It is $0$ for $k=5$.
+        why: |
+          $5$ is a whole number between $0$ and $15$: a constant term exists.
+      - text: |
+          $T_6=\dbinom{15}53^{10}(-1)^5=-3003\cdot59049=-177\,324\,147$.
+        why: |
+          $\dbinom{15}5=3003$, $3^{10}=59049$, and $(-1)^5=-1$: the term is negative.
+    answer: |
+      $-177\,324\,147$.
+    verify:
+      - expr: "3003*3^10*(-1)^5"
+        equals: "-177324147"
+
+  - id: ex-q3
+    type: example
+    title: Q3 - independence of A and the complement of B
+    problem: |
+      (a) $A$ and $B$ are independent. Show that $A$ and $\bar B$ are independent. (b) With $P(A)=\dfrac23$ and $P(B)=\dfrac35$ find (i) $P(A\mid\bar B)$ and (ii) $P(\bar A\cup\bar B)$.
+    steps:
+      - text: |
+          (a) $A=(A\cap B)\cup(A\cap\bar B)$, two disjoint events, so $P(A\cap\bar B)=P(A)-P(A\cap B)=P(A)-P(A)P(B)=P(A)\,\bigl(1-P(B)\bigr)=P(A)P(\bar B)$.
+        why: |
+          This is exactly the definition of independence of $A$ and $\bar B$. We only used the independence of $A$ and $B$ for $P(A\cap B)=P(A)P(B)$.
+      - text: |
+          (b)(i) $P(A\mid\bar B)=\dfrac{P(A\cap\bar B)}{P(\bar B)}=\dfrac{P(A)P(\bar B)}{P(\bar B)}=P(A)=\dfrac23$.
+        why: |
+          By part (a) the intersection is a product, and the factor $P(\bar B)$ cancels.
+      - text: |
+          (ii) $\bar A\cup\bar B=\overline{A\cap B}$ (De Morgan), so $P(\bar A\cup\bar B)=1-P(A)P(B)=1-\dfrac23\cdot\dfrac35=1-\dfrac25=\dfrac35$.
+        why: |
+          Choosing the complement turns the "or" of two complements into one simple product.
+    answer: |
+      (i) $\dfrac23$; (ii) $\dfrac35$.
+    verify:
+      - expr: "1-(2/3)*(3/5)"
+        equals: "3/5"
+
+  - id: ex-q4a
+    type: example
+    title: Q4 a - passing two tests
+    problem: |
+      The probability that a student passes a mathematics test is $\dfrac7{10}$ and that s/he passes both mathematics and statistics is $\dfrac15$. The probability that s/he passes at least one test is $\dfrac45$. What is the probability that s/he fails statistics and passes mathematics?
+    steps:
+      - text: |
+          We want $P(M\cap\bar S)$. The event $M$ splits into $M\cap S$ and $M\cap\bar S$, which do not overlap.
+        why: |
+          Passing mathematics happens either together with passing statistics or together with failing it.
+      - text: |
+          $P(M\cap\bar S)=P(M)-P(M\cap S)=\dfrac7{10}-\dfrac2{10}=\dfrac5{10}=\dfrac12$.
+        why: |
+          The probability of passing at least one test ($\dfrac45$) is not needed for this question. It only shows that the data are consistent: $P(S)=\dfrac8{10}-\dfrac7{10}+\dfrac2{10}=\dfrac3{10}$.
+    answer: |
+      $\dfrac12$.
+    verify:
+      - expr: "7/10-2/10"
+        equals: "1/2"
+
+  - id: ex-q4b
+    type: example
+    title: Q4 b - Bayes in a class
+    problem: |
+      Two-thirds of the students in a class are boys and the rest are girls. The probability of a girl getting a first class is $\dfrac14$ and that of a boy is $\dfrac7{25}$. A student chosen at random is found to have the first class. What is the probability that she is a girl?
+    steps:
+      - text: |
+          Total probability: $P(F)=P(\text{boy})P(F\mid\text{boy})+P(\text{girl})P(F\mid\text{girl})=\dfrac23\cdot\dfrac7{25}+\dfrac13\cdot\dfrac14=\dfrac{14}{75}+\dfrac1{12}$.
+        why: |
+          Split the students into boys and girls (a partition). $\dfrac23\cdot\dfrac{28}{100}=\dfrac{56}{300}=\dfrac{14}{75}$ and $\dfrac13\cdot\dfrac14=\dfrac1{12}$.
+      - text: |
+          $\dfrac{14}{75}+\dfrac1{12}=\dfrac{56+25}{300}=\dfrac{81}{300}=\dfrac{27}{100}$.
+        why: |
+          Common denominator $300$.
+      - text: |
+          Bayes: $P(\text{girl}\mid F)=\dfrac{P(\text{girl})P(F\mid\text{girl})}{P(F)}=\dfrac{\dfrac{1}{12}}{\dfrac{27}{100}}=\dfrac{100}{324}=\dfrac{25}{81}$.
+        why: |
+          We reverse the conditioning: from "first class given girl" to "girl given first class". Dividing by $\dfrac{27}{100}$ multiplies by $\dfrac{100}{27}$.
+    answer: |
+      $\dfrac{25}{81}$.
+    more: |
+      **Sense check.** Girls are one third of the class but have a slightly lower rate of first classes, so among first-class students the share of girls $\dfrac{25}{81}$ is a little below $\dfrac13$. The result is plausible.
+    verify:
+      - expr: "(1/12)/(27/100)"
+        equals: "25/81"
+
+  - id: chk-n
+    type: check
+    prompt: |
+      Determine $n$ in $\dbinom n3=4\dbinom n2$.
+    answerType: number
+    answer: "14"
+    hints:
+      - |
+        Divide both sides by $n(n-1)$.
+    explanation: |
+      $\dfrac{n(n-1)(n-2)}6=2n(n-1)$, so $\dfrac{n-2}6=2$ and $n=14$. Check: $\dbinom{14}3=364=4\cdot91$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Definitions to know: sample space, independent events ($P(A\cap B)=P(A)P(B)$), the three axioms.
+      - |
+        An equation in $n$: write the binomial coefficients as products, cancel $n(n-1)$, check the value. A constant term: set the power of $x$ in $T_{k+1}$ equal to $0$.
+      - |
+        Independence is kept by complements; De Morgan turns a union of complements into the complement of an intersection.
+      - |
+        "Given that it happened" questions are Bayes: total probability first, then reverse the conditioning.

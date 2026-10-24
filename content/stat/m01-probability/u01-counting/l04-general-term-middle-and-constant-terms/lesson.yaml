@@ -1,0 +1,166 @@
+id: stat-m01-u01-l04
+title: The general term, the middle term and the constant term
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - general-term
+  - middle-term
+  - constant-term
+objectives:
+  - Write the general term $T_{k+1}$ of $(a+b)^n$ and use it to find any term.
+  - Find the middle term (one or two) of an expansion.
+  - Find the constant term, or decide that there is none.
+  - Prove identities on sums of binomial coefficients with the binomial theorem.
+sections:
+  - id: why
+    type: concept
+    title: Finding one term without expanding
+    body: |
+      Expanding $\left(3x-\dfrac{2}{x^2}\right)^{17}$ would give $18$ terms, but a question usually asks for **one** of them: the middle one, the one with $x^5$, the constant one. The binomial theorem gives a formula for any single term, so we never have to expand the rest.
+
+  - id: general
+    type: theorem
+    name: The general term
+    statement: |
+      In the expansion of $(a+b)^n=\sum_{k=0}^n\dbinom nk a^{n-k}b^k$ the term number $k+1$ is
+
+      $$T_{k+1}=\dbinom nk\,a^{\,n-k}\,b^{\,k}\qquad(k=0,1,\dots,n).$$
+
+      The expansion has $n+1$ terms. The numbering is shifted by one: the first term is $T_1$ ($k=0$).
+    more: |
+      **Be careful with signs and coefficients.** The letters $a$ and $b$ stand for the whole terms, with their signs and coefficients. For $(3x-2x^{-2})^{17}$ take $a=3x$ and $b=-2x^{-2}$; then $b^k$ contains $(-2)^k$ and a minus sign when $k$ is odd.
+
+  - id: middle
+    type: theorem
+    name: The middle term
+    statement: |
+      If $n$ is **even**, there is one middle term: $T_{\frac n2+1}$. If $n$ is **odd**, there are two middle terms: $T_{\frac{n+1}2}$ and $T_{\frac{n+3}2}$.
+    proof: |
+      There are $n+1$ terms. If $n+1$ is odd (that is, $n$ even) the middle one has $\dfrac n2$ terms before it, so it is $T_{\frac{n}{2}+1}$. If $n+1$ is even there is no single middle: the two in the middle are the terms number $\dfrac{n+1}2$ and $\dfrac{n+3}2$.
+
+  - id: ex-middle
+    type: example
+    title: A middle term
+    problem: |
+      Find the middle term in the expansion of $\left(3x-\dfrac23x^2\right)^{8}$.
+    steps:
+      - text: |
+          $n=8$ is even, so there is one middle term, $T_5$ ($k=4$).
+        why: |
+          There are $9$ terms; four come before the middle one and four after.
+      - text: |
+          $T_5=\dbinom84(3x)^{4}\left(-\dfrac23x^2\right)^{4}=70\cdot81x^4\cdot\dfrac{16}{81}x^8$.
+        why: |
+          $\left(-\dfrac23\right)^4=\dfrac{16}{81}$ (an even power is positive) and $(x^2)^4=x^8$.
+      - text: |
+          $T_5=70\cdot16\,x^{12}=1120\,x^{12}$.
+        why: |
+          The $81$ cancels. The powers of $x$ add: $4+8=12$.
+    answer: |
+      $1120\,x^{12}$.
+    verify:
+      - expr: "70*3^4*(2/3)^4"
+        equals: "1120"
+
+  - id: constant
+    type: concept
+    title: The constant term
+    body: |
+      A term is constant when the power of $x$ is $0$. The method never changes:
+
+      1. Write the general term and collect the **power of $x$** as an expression in $k$.
+      2. Set that power equal to $0$ and solve for $k$.
+      3. If $k$ is a whole number between $0$ and $n$, put it in $T_{k+1}$. If not, **there is no constant term**.
+
+  - id: ex-constant
+    type: example
+    title: A constant term
+    problem: |
+      Find the constant term in the expansion of $\left(2x^2+\dfrac1x\right)^{12}$.
+    steps:
+      - text: |
+          $T_{k+1}=\dbinom{12}k(2x^2)^{12-k}\left(\dfrac1x\right)^k=\dbinom{12}k2^{12-k}x^{24-2k}x^{-k}=\dbinom{12}k2^{12-k}x^{24-3k}$.
+        why: |
+          $(x^2)^{12-k}=x^{24-2k}$ and $\left(\dfrac1x\right)^k=x^{-k}$. The powers of $x$ add up: $24-2k-k=24-3k$.
+      - text: |
+          The term is constant when $24-3k=0$, that is $k=8$.
+        why: |
+          $k=8$ is a whole number between $0$ and $12$, so the constant term exists.
+      - text: |
+          $T_9=\dbinom{12}82^{4}=495\cdot16=7920$.
+        why: |
+          $\dbinom{12}8=\dbinom{12}4=495$ and $2^{12-8}=2^4=16$.
+    answer: |
+      $7920$.
+    verify:
+      - expr: "495*16"
+        equals: "7920"
+
+  - id: ex-none
+    type: example
+    title: When there is no constant term
+    problem: |
+      Does the expansion of $\left(9x-\dfrac{b}{cx^2}\right)^{17}$ have a constant term?
+    steps:
+      - text: |
+          The power of $x$ in $T_{k+1}$ is $(17-k)-2k=17-3k$.
+        why: |
+          From $(9x)^{17-k}$ we get $x^{17-k}$, and from $\left(x^{-2}\right)^k$ we get $x^{-2k}$.
+      - text: |
+          $17-3k=0$ gives $k=\dfrac{17}3$, which is not a whole number.
+        why: |
+          $k$ counts terms, so it must be a whole number. But $\dfrac{17}{3}$ lies between $5$ and $6$, so no term has the power $0$.
+    answer: |
+      No: there is no constant term.
+    verify:
+      - expr: "17/3"
+        equals: "17/3"
+
+  - id: identities
+    type: theorem
+    name: Sums of binomial coefficients
+    statement: |
+      For every integer $n\ge0$:
+
+      $$\sum_{k=0}^n\dbinom nk=2^n,\qquad\sum_{k=0}^n2^k\dbinom nk=3^n,\qquad\sum_{k=0}^n3^k\dbinom nk=4^n,\qquad\sum_{k=0}^n\dbinom nk^2=\dbinom{2n}n.$$
+    proof: |
+      The binomial theorem gives $(1+b)^n=\sum_k\dbinom nkb^k$. Put $b=1$, $b=2$, $b=3$: the first three identities follow ($2^n$, $3^n$, $4^n$). For the last, compare the coefficient of $x^n$ in $(1+x)^{2n}=(1+x)^n(1+x)^n$. On the left it is $\dbinom{2n}n$. On the right, multiplying $\sum_j\dbinom njx^j$ by $\sum_k\dbinom nkx^k$ and keeping $j+k=n$ gives $\sum_k\dbinom n{n-k}\dbinom nk=\sum_k\dbinom nk^2$.
+    more: |
+      Together, the second and third give $\sum_k3^k\dbinom nk=4^n=(2^n)^2=\left[\sum_k\dbinom nk\right]^2$, another identity of the exercise sheet.
+
+  - id: chk-constant
+    type: check
+    prompt: |
+      Find the constant term in the expansion of $\left(x^2+\dfrac2x\right)^{9}$.
+    answerType: number
+    answer: "5376"
+    hints:
+      - |
+        The power of $x$ in $T_{k+1}$ is $2(9-k)-k=18-3k$.
+    explanation: |
+      $18-3k=0$ gives $k=6$ and $T_7=\dbinom962^6=84\cdot64=5376$.
+
+  - id: chk-ratio
+    type: check
+    prompt: |
+      In the expansion of $(1+x)^{20}$ the coefficients of the $r$th and the $(r+1)$th terms are in the ratio $1:6$. Find $r$.
+    answerType: number
+    answer: "3"
+    hints:
+      - |
+        The coefficients are $\dbinom{20}{r-1}$ and $\dbinom{20}r$; their ratio is $\dfrac{r}{21-r}$.
+    explanation: |
+      $\dfrac r{21-r}=\dfrac16$ gives $6r=21-r$, so $r=3$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        $T_{k+1}=\dbinom nka^{n-k}b^k$; there are $n+1$ terms.
+      - |
+        Middle term: $n$ even gives $T_{\frac{n}{2}+1}$; $n$ odd gives two middle terms.
+      - |
+        Constant term: set the power of $x$ equal to $0$, solve for $k$ and keep it only if it is a whole number from $0$ to $n$.
+      - |
+        $\sum\dbinom nk=2^n$, $\sum2^k\dbinom nk=3^n$, $\sum3^k\dbinom nk=4^n$, $\sum\dbinom nk^2=\dbinom{2n}n$.

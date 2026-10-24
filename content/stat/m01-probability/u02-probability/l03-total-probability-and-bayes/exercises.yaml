@@ -151,3 +151,136 @@
           $P(\text{cause}\mid\text{event})=\dfrac{P(\text{cause})P(\text{event}\mid\text{cause})}{P(\text{event})}$.
       solution: |-
         Bayes' theorem: $\dfrac{\frac{3}{10}\cdot\frac{1}{2}}{\frac{11}{50}}=\frac{15}{22}$.
+- id: sheet-bayes
+  task: "Total probability and Bayes (exercise sheet)."
+  format: "Type a fraction such as `5/11` (not a decimal). For a formula in a, b, c type for example `2*a-b+1`."
+  source: "STAT8225 exercise sheet, T. Hakizimana"
+  items:
+    - id: ba-20-1
+      statement: |-
+        Three groups of people: $G_1$ has $3$ men and $1$ woman, $G_2$ has $2$ men and $2$ women, $G_3$ has $1$ man and $3$ women. A group is chosen at random, then a person from it. The person is a woman. Find the probability that she comes from $G_1$.
+      answerType: expression
+      answer: "1/6"
+      hints:
+        - |-
+          First find $P(\text{woman})$ by total probability.
+      solution: |-
+        Each group has probability $\dfrac13$. $P(\text{woman})=\dfrac13\left(\dfrac14+\dfrac24+\dfrac34\right)=\dfrac13\cdot\dfrac32=\dfrac12$. Bayes: $P(G_1\mid\text{woman})=\dfrac{\frac13\cdot P(\text{woman}\mid G_1)}{\dfrac{1}{2}}=\dfrac{\frac13\cdot\dfrac{1}{4}}{\dfrac{1}{2}}=\dfrac{1}{6}$.
+      note: |-
+        The sheet says 'a committee is selected and a person is chosen'; we read it as: one of the three groups is chosen at random, then a person of that group.
+    - id: ba-20-2
+      statement: |-
+        Three groups of people: $G_1$ has $3$ men and $1$ woman, $G_2$ has $2$ men and $2$ women, $G_3$ has $1$ man and $3$ women. A group is chosen at random, then a person from it. The person is a woman. Find the probability that she comes from $G_2$.
+      answerType: expression
+      answer: "1/3"
+      hints:
+        - |-
+          First find $P(\text{woman})$ by total probability.
+      solution: |-
+        Each group has probability $\dfrac13$. $P(\text{woman})=\dfrac13\left(\dfrac14+\dfrac24+\dfrac34\right)=\dfrac13\cdot\dfrac32=\dfrac12$. Bayes: $P(G_2\mid\text{woman})=\dfrac{\frac13\cdot P(\text{woman}\mid G_2)}{\dfrac{1}{2}}=\dfrac{\frac13\cdot\dfrac{1}{2}}{\dfrac{1}{2}}=\dfrac{1}{3}$.
+      note: |-
+        The sheet says 'a committee is selected and a person is chosen'; we read it as: one of the three groups is chosen at random, then a person of that group.
+    - id: ba-20-3
+      statement: |-
+        Three groups of people: $G_1$ has $3$ men and $1$ woman, $G_2$ has $2$ men and $2$ women, $G_3$ has $1$ man and $3$ women. A group is chosen at random, then a person from it. The person is a woman. Find the probability that she comes from $G_3$.
+      answerType: expression
+      answer: "1/2"
+      hints:
+        - |-
+          First find $P(\text{woman})$ by total probability.
+      solution: |-
+        Each group has probability $\dfrac13$. $P(\text{woman})=\dfrac13\left(\dfrac14+\dfrac24+\dfrac34\right)=\dfrac13\cdot\dfrac32=\dfrac12$. Bayes: $P(G_3\mid\text{woman})=\dfrac{\frac13\cdot P(\text{woman}\mid G_3)}{\dfrac{1}{2}}=\dfrac{\frac13\cdot\dfrac{3}{4}}{\dfrac{1}{2}}=\dfrac{1}{2}$.
+      note: |-
+        The sheet says 'a committee is selected and a person is chosen'; we read it as: one of the three groups is chosen at random, then a person of that group.
+    - id: ba-21-a
+      statement: |-
+        In a bolt factory, machines A, B, C make $25\%$, $35\%$ and $40\%$ of the total, and $5\%$, $4\%$ and $2\%$ of their output is defective. A bolt is drawn at random and is defective. Find the probability that it was made by machine A.
+      answerType: expression
+      answer: "25/69"
+      hints:
+        - "Total probability first, then divide the machine's share of defective bolts."
+      solution: |-
+        $P(D)=0.25\cdot0.05+0.35\cdot0.04+0.40\cdot0.02=0.0125+0.014+0.008=0.0345$. Bayes: $P(A\mid D)=\dfrac{0.25\cdot0.05}{0.0345}=\dfrac{0.0125}{0.0345}=\dfrac{25}{69}$. The three answers $\dfrac{25}{69},\dfrac{28}{69},\dfrac{16}{69}$ add up to $1$.
+      allowDecimal: true
+    - id: ba-21-b
+      statement: |-
+        In a bolt factory, machines A, B, C make $25\%$, $35\%$ and $40\%$ of the total, and $5\%$, $4\%$ and $2\%$ of their output is defective. A bolt is drawn at random and is defective. Find the probability that it was made by machine B.
+      answerType: expression
+      answer: "28/69"
+      hints:
+        - "Total probability first, then divide the machine's share of defective bolts."
+      solution: |-
+        $P(D)=0.25\cdot0.05+0.35\cdot0.04+0.40\cdot0.02=0.0125+0.014+0.008=0.0345$. Bayes: $P(B\mid D)=\dfrac{0.35\cdot0.04}{0.0345}=\dfrac{0.014}{0.0345}=\dfrac{28}{69}$. The three answers $\dfrac{25}{69},\dfrac{28}{69},\dfrac{16}{69}$ add up to $1$.
+      allowDecimal: true
+    - id: ba-21-c
+      statement: |-
+        In a bolt factory, machines A, B, C make $25\%$, $35\%$ and $40\%$ of the total, and $5\%$, $4\%$ and $2\%$ of their output is defective. A bolt is drawn at random and is defective. Find the probability that it was made by machine C.
+      answerType: expression
+      answer: "16/69"
+      hints:
+        - "Total probability first, then divide the machine's share of defective bolts."
+      solution: |-
+        $P(D)=0.25\cdot0.05+0.35\cdot0.04+0.40\cdot0.02=0.0125+0.014+0.008=0.0345$. Bayes: $P(C\mid D)=\dfrac{0.4\cdot0.02}{0.0345}=\dfrac{0.008}{0.0345}=\dfrac{16}{69}$. The three answers $\dfrac{25}{69},\dfrac{28}{69},\dfrac{16}{69}$ add up to $1$.
+      allowDecimal: true
+    - id: ba-22-1
+      statement: "Urn I has $1$ white, $2$ black and $3$ red balls; urn II has $2$ white, $1$ black and $1$ red; urn III has $4$ white, $5$ black and $3$ red. One urn is chosen at random and two balls are drawn. They are one white and one red. Find the probability that they come from urn I."
+      answerType: expression
+      answer: "33/118"
+      hints:
+        - Count the ways to draw one white and one red ball in each urn.
+      solution: |-
+        Probability of one white and one red in each urn: I: $\dfrac{1\cdot3}{\binom62}=\dfrac15$; II: $\dfrac{2\cdot1}{\binom42}=\dfrac13$; III: $\dfrac{4\cdot3}{\binom{12}2}=\dfrac2{11}$. Each urn has probability $\dfrac13$, so $P(WR)=\dfrac13\left(\dfrac15+\dfrac13+\dfrac2{11}\right)=\dfrac{118}{495}$. Bayes: $P(\text{urn I}\mid WR)=\dfrac{\frac13\cdot\dfrac{1}{5}}{\dfrac{118}{495}}=\dfrac{33}{118}$.
+    - id: ba-22-2
+      statement: "Urn I has $1$ white, $2$ black and $3$ red balls; urn II has $2$ white, $1$ black and $1$ red; urn III has $4$ white, $5$ black and $3$ red. One urn is chosen at random and two balls are drawn. They are one white and one red. Find the probability that they come from urn II."
+      answerType: expression
+      answer: "55/118"
+      hints:
+        - Count the ways to draw one white and one red ball in each urn.
+      solution: |-
+        Probability of one white and one red in each urn: I: $\dfrac{1\cdot3}{\binom62}=\dfrac15$; II: $\dfrac{2\cdot1}{\binom42}=\dfrac13$; III: $\dfrac{4\cdot3}{\binom{12}2}=\dfrac2{11}$. Each urn has probability $\dfrac13$, so $P(WR)=\dfrac13\left(\dfrac15+\dfrac13+\dfrac2{11}\right)=\dfrac{118}{495}$. Bayes: $P(\text{urn II}\mid WR)=\dfrac{\frac13\cdot\dfrac{1}{3}}{\dfrac{118}{495}}=\dfrac{55}{118}$.
+    - id: ba-22-3
+      statement: "Urn I has $1$ white, $2$ black and $3$ red balls; urn II has $2$ white, $1$ black and $1$ red; urn III has $4$ white, $5$ black and $3$ red. One urn is chosen at random and two balls are drawn. They are one white and one red. Find the probability that they come from urn III."
+      answerType: expression
+      answer: "15/59"
+      hints:
+        - Count the ways to draw one white and one red ball in each urn.
+      solution: |-
+        Probability of one white and one red in each urn: I: $\dfrac{1\cdot3}{\binom62}=\dfrac15$; II: $\dfrac{2\cdot1}{\binom42}=\dfrac13$; III: $\dfrac{4\cdot3}{\binom{12}2}=\dfrac2{11}$. Each urn has probability $\dfrac13$, so $P(WR)=\dfrac13\left(\dfrac15+\dfrac13+\dfrac2{11}\right)=\dfrac{118}{495}$. Bayes: $P(\text{urn III}\mid WR)=\dfrac{\frac13\cdot\dfrac{2}{11}}{\dfrac{118}{495}}=\dfrac{15}{59}$.
+    - id: ba-23
+      statement: |-
+        A certain item is made by three factories A, B, C. A makes twice as many items as B, and B and C make the same number. $2\%$ of the items of A and B are defective, and $4\%$ of those of C. One item is chosen at random from the stockpile. What is the probability that it is defective?
+      answerType: expression
+      answer: "1/40"
+      hints:
+        - Find the share of each factory first.
+      solution: |-
+        Let C make a share $s$; then B makes $s$ and A makes $2s$, so $2s+s+s=1$ and $s=\dfrac14$: A makes $\dfrac12$, B $\dfrac14$, C $\dfrac14$. $P(D)=\dfrac12\cdot0.02+\dfrac14\cdot0.02+\dfrac14\cdot0.04=0.01+0.005+0.01=0.025=\dfrac1{40}$.
+      allowDecimal: true
+    - id: ba-24
+      statement: "Two-thirds of the students in a class are boys and the rest are girls. The probability that a girl gets a first class is $0.25$ and that a boy gets one is $0.28$. Find the probability that a student chosen at random gets first class marks."
+      answerType: expression
+      answer: "27/100"
+      hints:
+        - Split into boys and girls.
+      solution: |-
+        Law of total probability over boy/girl: $P(F)=P(\text{boy})P(F\mid\text{boy})+P(\text{girl})P(F\mid\text{girl})=\dfrac23\cdot0.28+\dfrac13\cdot0.25=\dfrac{14}{75}+\dfrac1{12}=\dfrac{56+25}{300}=\dfrac{81}{300}=\dfrac{27}{100}$.
+      allowDecimal: true
+    - id: ba-24b
+      statement: |-
+        In the same class (two-thirds boys; $P(\text{first class}\mid\text{girl})=0.25$, $P(\text{first class}\mid\text{boy})=0.28$), a student is chosen at random and is found to have first class marks. What is the probability that she is a girl?
+      answerType: expression
+      answer: "25/81"
+      hints:
+        - |-
+          Use $P(F)=\dfrac{27}{100}$ from the previous question.
+      solution: |-
+        $P(\text{girl}\mid F)=\dfrac{P(\text{girl})P(F\mid\text{girl})}{P(F)}=\dfrac{\frac13\cdot\frac14}{\dfrac{27}{100}}=\dfrac{\dfrac{1}{12}}{\dfrac{27}{100}}=\dfrac{100}{324}=\dfrac{25}{81}$.
+      allowDecimal: true
+    - id: ba-25
+      statement: "Three groups of children have respectively $3$ girls and $1$ boy; $2$ girls and $2$ boys; $1$ girl and $3$ boys. One child is chosen at random from each group. Find the probability that the three chosen children are $1$ girl and $2$ boys."
+      answerType: expression
+      answer: "13/32"
+      hints:
+        - "Choose which group gives the girl; the draws are independent."
+      solution: |-
+        The girl can come from the first, the second or the third group; these cases are mutually exclusive. Girl from group 1 only: $\dfrac34\cdot\dfrac24\cdot\dfrac34=\dfrac{18}{64}$. From group 2 only: $\dfrac14\cdot\dfrac24\cdot\dfrac34=\dfrac6{64}$. From group 3 only: $\dfrac14\cdot\dfrac24\cdot\dfrac14=\dfrac2{64}$. Add: $\dfrac{26}{64}=\dfrac{13}{32}$.

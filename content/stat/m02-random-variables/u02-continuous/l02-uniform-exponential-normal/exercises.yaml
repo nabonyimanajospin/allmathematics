@@ -142,3 +142,200 @@
         - The rate is the reciprocal of the mean.
       solution: |-
         The rate is $\dfrac1{100}$, so $P(T>100)=e^{-1}$.
+- id: sheet-exp-normal
+  task: "Exponential and normal distributions (exercise sheet)."
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`. Write the standard normal distribution function as `Phi(z)`. For a function of t type for example `(1+2*exp(t))/3`."
+  source: "STAT8225 exercise sheet, T. Hakizimana"
+  items:
+    - id: ex-12k
+      statement: "The length of a phone call has the density $f(x)=ke^{-\\frac{x}{6}}$ for $x>0$ (and $0$ otherwise). Find $k$."
+      answerType: expression
+      answer: "1/6"
+      hints:
+        - |-
+          $\int_0^\infty e^{-\frac{x}{6}}dx=6$.
+      solution: |-
+        $\int_0^{\infty}ke^{-\frac{x}{6}}dx=k\cdot6=1$, so $k=\dfrac16$ (an exponential distribution with mean $6$ minutes).
+    - id: ex-12a
+      statement: |-
+        The length of a call has the density $f(x)=\dfrac16e^{-\frac{x}{6}}$ for $x>0$. Find the probability that the person talks more than $8$ minutes.
+      answerType: expression
+      answer: "exp(-4/3)"
+      hints:
+        - "$P(X>a)=e^{-\\frac{a}{6}}$."
+      solution: |-
+        $P(X>8)=\int_8^\infty\dfrac16e^{-\frac{x}{6}}dx=e^{-\frac{8}{6}}=e^{-\frac{4}{3}}$.
+    - id: ex-12b
+      statement: |-
+        The length of a call has the density $f(x)=\dfrac16e^{-\frac{x}{6}}$ for $x>0$. Find the probability that the person talks less than $4$ minutes.
+      answerType: expression
+      answer: "1 - exp(-2/3)"
+      hints:
+        - "$P(X<a)=1-e^{-\\frac{a}{6}}$."
+      solution: "$P(X<4)=1-e^{-\\frac{4}{6}}=1-e^{-\\frac{2}{3}}$."
+    - id: ex-12c
+      statement: |-
+        The length of a call has the density $f(x)=\dfrac16e^{-\frac{x}{6}}$ for $x>0$. Find the probability that the person talks between $5$ and $10$ minutes.
+      answerType: expression
+      answer: "-exp(-5/3) + exp(-5/6)"
+      hints:
+        - "$P(X>5)-P(X>10)$."
+      solution: "$P(5<X<10)=P(X>5)-P(X>10)=e^{-\\frac{5}{6}}-e^{-\\frac{10}{6}}=e^{-\\frac{5}{6}}-e^{-\\frac{5}{3}}$."
+    - id: ex-13a
+      statement: "The waiting time $X$ in hours between two speeders has the distribution function $F(x)=1-e^{-8x}$ for $x>0$. Find the probability of waiting more than $12$ minutes."
+      answerType: expression
+      answer: "exp(-8/5)"
+      hints:
+        - Convert the minutes to hours first.
+      solution: |-
+        $12$ minutes $=\dfrac15$ hour. $P(X>\tfrac15)=1-F\left(\tfrac15\right)=e^{-\frac{8}{5}}$.
+    - id: ex-13b
+      statement: "The waiting time $X$ in hours between two speeders has the distribution function $F(x)=1-e^{-8x}$ for $x>0$. Find the probability of waiting less than $5$ minutes."
+      answerType: expression
+      answer: "1 - exp(-2/3)"
+      hints:
+        - |-
+          $5$ minutes is $\dfrac{5}{60}=\dfrac1{12}$ hour.
+      solution: |-
+        $5$ minutes $=\dfrac1{12}$ hour. $P(X<\tfrac1{12})=F\left(\tfrac1{12}\right)=1-e^{-\frac{8}{12}}=1-e^{-\frac{2}{3}}$.
+    - id: no-14z
+      statement: "Speeds of cars are normally distributed with mean $90$ km/h and standard deviation $10$ km/h. Find the standardized value $z$ of the speed $100$ km/h."
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          $z=\dfrac{x-\mu}\sigma$.
+      solution: |-
+        $z=\dfrac{x-\mu}{\sigma}=\dfrac{100-90}{10}=1$.
+    - id: no-14
+      statement: |-
+        Speeds of cars are normally distributed with mean $90$ km/h and standard deviation $10$ km/h. Find the probability that a car picked at random travels at more than $100$ km/h. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "1 - Phi(1)"
+      hints:
+        - |-
+          Standardize: $z=\dfrac{x-\mu}\sigma$.
+      solution: |-
+        $P(X>100)=P\left(Z>\dfrac{100-90}{10}\right)=P(Z>1)=1-\Phi(1)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-15z
+      statement: "The life of an instrument is normal with mean $12$ months and standard deviation $2$ months. Find the standardized value of $7$ months."
+      answerType: expression
+      answer: "-5/2"
+      hints:
+        - |-
+          $z=\dfrac{x-\mu}\sigma$.
+      solution: |-
+        $z=\dfrac{7-12}{2}=-\dfrac52$.
+    - id: no-15a
+      statement: |-
+        The life of an instrument is normal with mean $12$ months and standard deviation $2$ months. Find the probability that it lasts less than $7$ months. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "Phi(-5/2)"
+      hints:
+        - Standardize.
+      solution: |-
+        $P(X<7)=P\left(Z<\dfrac{7-12}{2}\right)=P\left(Z<-\dfrac52\right)=\Phi\left(-\dfrac52\right)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-15b
+      statement: |-
+        The life of an instrument is normal with mean $12$ months and standard deviation $2$ months. Find the probability that it lasts between $7$ and $12$ months. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "1/2 - Phi(-5/2)"
+      hints:
+        - |-
+          $P(a<X<b)=\Phi(z_b)-\Phi(z_a)$.
+      solution: |-
+        $P(7<X<12)=\Phi(0)-\Phi\left(-\dfrac52\right)=\dfrac12-\Phi\left(-\dfrac52\right)$, since $z=0$ for $x=12$ and $z=-\dfrac52$ for $x=7$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-15c
+      statement: |-
+        The life of an instrument is normal with mean $12$ months and standard deviation $2$ months. Find the probability that it lasts at most $7$ months. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "Phi(-5/2)"
+      hints:
+        - "For a continuous variable 'at most' and 'less than' are the same."
+      solution: |-
+        For a continuous variable $P(X\le7)=P(X<7)=\Phi\left(-\dfrac52\right)$ (a single value has probability $0$). $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-16a
+      statement: |-
+        The assembly time of a car is normal with mean $20$ hours and standard deviation $2$ hours. Find the probability that a car is assembled in less than $19.5$ hours. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "Phi(-1/4)"
+      hints:
+        - "Standardize $19.5$."
+      solution: |-
+        $z=\dfrac{19.5-20}{2}=-\dfrac14$, so $P(X<19.5)=\Phi\left(-\dfrac14\right)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+      allowDecimal: true
+    - id: no-16b
+      statement: |-
+        The assembly time of a car is normal with mean $20$ hours and standard deviation $2$ hours. Find the probability that it is between $20$ and $22$ hours. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "Phi(1) - 1/2"
+      hints:
+        - Standardize both ends.
+      solution: |-
+        $z=0$ for $20$ and $z=\dfrac{22-20}2=1$ for $22$: $P=\Phi(1)-\Phi(0)=\Phi(1)-\dfrac12$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-17a
+      statement: |-
+        Grades are approximately normal with mean $70$ and standard deviation $10$. Find the proportion of students who score higher than $80$. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "1 - Phi(1)"
+      hints:
+        - "Standardize $80$."
+      solution: |-
+        $z=\dfrac{80-70}{10}=1$; $P(X>80)=1-\Phi(1)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-17b
+      statement: |-
+        Grades are approximately normal with mean $70$ and standard deviation $10$. Find the proportion of students who pass, with a grade of at least $60$. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "1 - Phi(-1)"
+      hints:
+        - |-
+          $P(X\ge a)=1-\Phi(z_a)$.
+      solution: |-
+        $z=\dfrac{60-70}{10}=-1$; $P(X\ge60)=1-\Phi(-1)=\Phi(1)$ by symmetry. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-18a
+      statement: |-
+        Salaries are approximately normal with mean $\$50\,000$ and standard deviation $\$20\,000$. Find the proportion of people who earn less than $\$40\,000$. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "Phi(-1/2)"
+      hints:
+        - Standardize.
+      solution: |-
+        $z=\dfrac{40\,000-50\,000}{20\,000}=-\dfrac12$; $P(X<40\,000)=\Phi\left(-\dfrac12\right)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-18b
+      statement: |-
+        Salaries are approximately normal with mean $\$50\,000$ and standard deviation $\$20\,000$. Find the proportion of people who earn between $\$45\,000$ and $\$65\,000$. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "-Phi(-1/4) + Phi(3/4)"
+      hints:
+        - Standardize both ends.
+      solution: |-
+        $z=\dfrac{45\,000-50\,000}{20\,000}=-\dfrac14$ and $z=\dfrac{65\,000-50\,000}{20\,000}=\dfrac34$. $P=\Phi\left(\dfrac34\right)-\Phi\left(-\dfrac14\right)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-18c
+      statement: |-
+        Salaries are approximately normal with mean $\$50\,000$ and standard deviation $\$20\,000$. Find the proportion of people who earn more than $\$70\,000$. Give the answer with $\Phi$.
+      answerType: expression
+      answer: "1 - Phi(1)"
+      hints:
+        - Standardize.
+      solution: |-
+        $z=\dfrac{70\,000-50\,000}{20\,000}=1$; $P(X>70\,000)=1-\Phi(1)$. $\Phi(z)=P(Z\le z)$ is the distribution function of the standard normal law (in the answer write `Phi(z)`; a table gives its values). $\Phi(-z)=1-\Phi(z)$.
+    - id: no-m1
+      statement: "$X$ is normal with mean $100$ and standard deviation $5$. Which value of $z$ corresponds to $x=92.5$?"
+      answerType: multiple_choice
+      answer: "1"
+      choices:
+        - text: "$-1.5$"
+          value: "1"
+        - text: "$-2.5$"
+          value: "2"
+        - text: "$1.5$"
+          value: "3"
+        - text: "$-7.5$"
+          value: "4"
+      correctIndex: 0
+      hints:
+        - |-
+          $z=\dfrac{x-\mu}\sigma$.
+      solution: |-
+        $z=\dfrac{92.5-100}{5}=\dfrac{-7.5}{5}=-1.5$. (Dividing by the variance $25$ instead of the standard deviation $5$ would give $-0.3$.)
+      allowDecimal: true

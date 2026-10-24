@@ -180,6 +180,7 @@ def emit(value: object, indent: int = 0) -> str:
 
 
 # Extra practice registered by the `more_*` modules: lesson directory -> exercise sets appended after the base sets.
+MAX_SET_ITEMS = 20
 EXTRA: dict[str, list[dict]] = {}
 ORPHANS: dict[str, str] = {}  # lessons that have no base builder: directory -> script that registered them
 WRITTEN: set[str] = set()
@@ -187,7 +188,17 @@ WRITTEN: set[str] = set()
 
 def add_extra(lesson_dir: str, exercise_set: dict, script: str, orphan: bool = False) -> None:
     """Register a set of extra exercises for a lesson. `orphan` is for a lesson that has no base builder."""
-    EXTRA.setdefault(lesson_dir, []).append(exercise_set)
+    items = exercise_set.get("items", [])
+    if len(items) > MAX_SET_ITEMS:  # a set holds at most 20 exercises: split a long one into numbered parts
+        parts = [items[i : i + MAX_SET_ITEMS] for i in range(0, len(items), MAX_SET_ITEMS)]
+        for n, chunk in enumerate(parts, 1):
+            part = dict(exercise_set)
+            part["id"] = f"{exercise_set['id']}-{n}"
+            part["task"] = f"{exercise_set['task'].rstrip('.')} (part {n} of {len(parts)})."
+            part["items"] = chunk
+            EXTRA.setdefault(lesson_dir, []).append(part)
+    else:
+        EXTRA.setdefault(lesson_dir, []).append(exercise_set)
     if orphan:
         ORPHANS[lesson_dir] = script
 
@@ -284,7 +295,18 @@ def ex(
     item["solution"] = segment_norms(solution)
     for key, val in extra.items():
         item[key] = val
+    if "allowDecimal" not in item and _has_decimal(item):
+        item["allowDecimal"] = True
     return _tidy(item)
+
+
+_DECIMAL = re.compile(r"(?<![\w.])\d+\.\d+")
+
+
+def _has_decimal(item: dict) -> bool:
+    """A decimal number in the statement, hints, choices or solution (the data of some exercises are decimals)."""
+    texts = [item.get("statement", ""), item.get("solution", ""), *item.get("hints", []), *[c.get("text", "") for c in item.get("choices", [])]]
+    return any(_DECIMAL.search(t) for t in texts if isinstance(t, str))
 
 
 _DISPLAY = re.compile(r"\$\$.*?\$\$", re.S)

@@ -45,6 +45,10 @@ MORE = [
     "more_geo_c",
     "more_geo_d",
     "more_stat",
+    "stat_sheet_counting",
+    "stat_sheet_prob",
+    "stat_sheet_rv",
+    "stat_exam_practice",
 ]
 
 

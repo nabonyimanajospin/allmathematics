@@ -47,6 +47,8 @@ _UNARY: dict[str, Callable[[sp.Expr], sp.Expr]] = {
     "asin": sp.asin, "acos": sp.acos, "atan": sp.atan, "arcsin": sp.asin, "arccos": sp.acos,
     "arctan": sp.atan, "sinh": sp.sinh, "cosh": sp.cosh, "tanh": sp.tanh,
     "ln": sp.log, "log": sp.log, "exp": sp.exp, "sqrt": sp.sqrt, "abs": sp.Abs,
+    # the distribution function of the standard normal law: Phi(z) = P(Z <= z)
+    "Phi": lambda z: (1 + sp.erf(z / sp.sqrt(2))) / 2,
 }
 _GREEK = {
     "alpha", "beta", "gamma", "delta", "epsilon", "varepsilon", "zeta", "eta", "theta", "vartheta",

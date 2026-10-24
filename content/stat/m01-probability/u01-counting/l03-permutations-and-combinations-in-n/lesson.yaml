@@ -1,0 +1,195 @@
+id: stat-m01-u01-l03
+title: Permutations, combinations and equations in n
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - permutations
+  - combinations
+  - equations-in-n
+objectives:
+  - Choose between an arrangement (order matters) and a selection (order does not matter), and compute it.
+  - Use the symmetry $\dbinom nr=\dbinom n{n-r}$ and the ratio of consecutive coefficients.
+  - Solve an equation in which the unknown $n$ is the number of objects.
+  - Count with restrictions (objects together, objects always or never chosen, circular arrangements).
+sections:
+  - id: why
+    type: concept
+    title: Two questions that look alike
+    body: |
+      "In how many ways can we choose $3$ people from $10$?" and "In how many ways can we choose a president, a secretary and a treasurer from $10$ people?" use the same people but are different problems. In the second one the **order** matters: Ann as president and Ben as secretary is not the same as Ben as president and Ann as secretary. In the first one only the group matters.
+
+      This lesson gives one formula for each situation, shows how to find the unknown $n$ in an equation made of such counts, and finishes with the usual restricted problems (people who sit together, objects that must or must not be chosen).
+
+  - id: perm
+    type: theorem
+    name: Arrangements and selections
+    statement: |
+      The number of **arrangements** (order matters) of $r$ objects taken from $n$ different objects is
+
+      $${}_nP_r=\dfrac{n!}{(n-r)!}=n(n-1)(n-2)\cdots(n-r+1)\qquad(r\text{ factors}).$$
+
+      The number of **selections** (order does not matter) is
+
+      $$\dbinom nr=\dfrac{n!}{r!\,(n-r)!}=\dfrac{{}_nP_r}{r!}.$$
+    proof: |
+      Choose the first object in $n$ ways, the second in $n-1$ ways, and so on: $r$ choices, so ${}_nP_r=n(n-1)\cdots(n-r+1)=\dfrac{n!}{(n-r)!}$. In a selection the same $r$ objects appear in all their $r!$ different orders, and these $r!$ arrangements count as one selection, so $\dbinom nr=\dfrac{{}_nP_r}{r!}$.
+    more: |
+      **Two useful facts.** (1) $\dbinom nr=\dbinom n{n-r}$: choosing the $r$ objects to keep is the same as choosing the $n-r$ objects to leave out. (2) Consecutive coefficients are linked by $\dbinom n{r}=\dbinom n{r-1}\cdot\dfrac{n-r+1}{r}$; this removes the factorials when we compare two coefficients.
+
+  - id: ex-values
+    type: example
+    title: Computing arrangements and selections
+    problem: |
+      Compute ${}_8P_3$ and $\dbinom{10}4$, and say what each counts.
+    steps:
+      - text: |
+          ${}_8P_3=8\cdot7\cdot6=336$.
+        why: |
+          Three factors, starting at $8$ and going down. It counts the ways to choose and **line up** $3$ of $8$ objects.
+      - text: |
+          $\dbinom{10}4=\dfrac{10\cdot9\cdot8\cdot7}{4\cdot3\cdot2\cdot1}=\dfrac{5040}{24}=210$.
+        why: |
+          The numerator is ${}_{10}P_4$ ($4$ factors). We divide by $4!=24$ because the $24$ orders of the same $4$ objects make one group.
+    answer: |
+      ${}_8P_3=336$ and $\dbinom{10}4=210$.
+    verify:
+      - expr: "8*7*6"
+        equals: "336"
+      - expr: "(10*9*8*7)/(4*3*2*1)"
+        equals: "210"
+
+  - id: ex-equation
+    type: example
+    title: Finding n from a ratio of arrangements
+    problem: |
+      Find $n$ if ${}_{56}P_{n+6}:{}_{54}P_{n+3}=30800:1$.
+    steps:
+      - text: |
+          Write both arrangements with factorials: ${}_{56}P_{n+6}=\dfrac{56!}{(56-n-6)!}=\dfrac{56!}{(50-n)!}$ and ${}_{54}P_{n+3}=\dfrac{54!}{(51-n)!}$.
+        why: |
+          The formula is $\dfrac{(\text{total})!}{(\text{total}-\text{chosen})!}$. Here the totals are $56$ and $54$, and the numbers chosen are $n+6$ and $n+3$.
+      - text: |
+          The ratio is $\dfrac{56!}{54!}\cdot\dfrac{(51-n)!}{(50-n)!}=56\cdot55\cdot(51-n)=3080\,(51-n)$.
+        why: |
+          $\dfrac{56!}{54!}=56\cdot55$ because only two factors are left. Also $(51-n)!=(51-n)\cdot(50-n)!$, so the quotient of the two factorials is just $51-n$.
+      - text: |
+          Set it equal to $30800$: $51-n=10$, so $n=41$.
+        why: |
+          Always check that the arrangements exist: $n+6=47\le56$ and $n+3=44\le54$.
+    answer: |
+      $n=41$.
+    more: |
+      **A note on the printed sheet.** The exercise sheet prints the ratio as $3088:1$. That would give $3080(51-n)=3088$, which has no whole-number solution, so the zeros were lost in printing; the intended ratio is $30800:1$.
+    verify:
+      - expr: "56*55*(51-41)"
+        equals: "30800"
+
+  - id: ex-binomial-equation
+    type: example
+    title: Finding n from an equation with binomial coefficients
+    problem: |
+      Find $n$ if $2\dbinom n3=\dfrac{20}{3}\dbinom n2$.
+    steps:
+      - text: |
+          $\dbinom n3=\dfrac{n(n-1)(n-2)}{6}$ and $\dbinom n2=\dfrac{n(n-1)}{2}$.
+        why: |
+          Write each coefficient as a product of $r$ factors divided by $r!$: no factorial of $n$ remains.
+      - text: |
+          The equation becomes $\dfrac{n(n-1)(n-2)}{3}=\dfrac{10\,n(n-1)}{3}$.
+        why: |
+          $2\cdot\dfrac{1}{6}=\dfrac13$ on the left and $\dfrac{20}{3}\cdot\dfrac12=\dfrac{10}3$ on the right.
+      - text: |
+          Divide both sides by $\dfrac{n(n-1)}3$ (it is not $0$ because $n\ge3$): $n-2=10$, so $n=12$.
+        why: |
+          Never divide by something that could be $0$ without saying why it is not. Here $\dbinom n3$ needs $n\ge3$.
+    answer: |
+      $n=12$.
+    verify:
+      - expr: "2*(12*11*10/6)"
+        equals: "440"
+      - expr: "(20/3)*(12*11/2)"
+        equals: "440"
+
+  - id: restricted
+    type: concept
+    title: Counting with restrictions
+    body: |
+      Most problems are solved by one of three ideas.
+
+      **Glue objects together.** If some objects must stand next to each other, treat them as one block, arrange the blocks, and then arrange the objects inside the block.
+
+      **Count the complement.** "Not all together" and "at least one" are easiest as: all arrangements minus the unwanted ones.
+
+      **Fix some choices first.** If two particular books must be in the selection, they are already chosen: choose only the remaining places among the remaining objects. If they must not be chosen, remove them first.
+
+  - id: ex-sisters
+    type: example
+    title: A photograph
+    problem: |
+      A family of $4$ brothers and $3$ sisters is seated in a row. In how many ways can they sit (a) if the sisters sit together, (b) if the sisters are not all together?
+    steps:
+      - text: |
+          (a) Glue the $3$ sisters into one block. There are now $4$ brothers and $1$ block: $5!=120$ arrangements.
+        why: |
+          The block moves as one object, like a fifth person.
+      - text: |
+          Inside the block the sisters can be ordered in $3!=6$ ways. So (a) $=120\cdot6=720$.
+        why: |
+          For every arrangement of the $5$ units, the block can be written in $6$ different internal orders. We multiply.
+      - text: |
+          (b) All the arrangements are $7!=5040$. Subtract those with the sisters together: $5040-720=4320$.
+        why: |
+          "Not all together" is the complement of "all together".
+    answer: |
+      (a) $720$; (b) $4320$.
+    verify:
+      - expr: "5*4*3*2*1*6"
+        equals: "720"
+      - expr: "7*6*5*4*3*2*1-720"
+        equals: "4320"
+
+  - id: circle
+    type: formula
+    title: Arrangements in a circle and diagonals of a polygon
+    formula: |
+      \begin{aligned}
+      \text{$n$ people in a circle}&:\ (n-1)!\\
+      \text{diagonals of a polygon with $n$ sides}&:\ \dbinom n2-n=\dfrac{n(n-3)}2
+      \end{aligned}
+    note: |
+      In a circle only the order around the table counts, so a rotation gives the same arrangement: fix one person and arrange the others. For the diagonals, count all segments between two vertices ($\dbinom n2$) and remove the $n$ sides.
+
+  - id: chk-n
+    type: check
+    prompt: |
+      Find $n$ if $\dbinom n{n-4}=70$.
+    answerType: number
+    answer: "8"
+    hints:
+      - |
+        $\dbinom n{n-4}=\dbinom n4$.
+    explanation: |
+      $\dbinom n4=70$ means $n(n-1)(n-2)(n-3)=70\cdot24=1680=8\cdot7\cdot6\cdot5$, so $n=8$.
+
+  - id: chk-circle
+    type: check
+    prompt: |
+      In how many ways can $6$ persons be arranged in a circle?
+    answerType: number
+    answer: "120"
+    hints:
+      - |
+        Fix one person and arrange the other $5$.
+    explanation: |
+      $(6-1)!=5!=120$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Order matters: ${}_nP_r=\dfrac{n!}{(n-r)!}$. Order does not matter: $\dbinom nr=\dfrac{n!}{r!(n-r)!}$, and $\dbinom nr=\dbinom n{n-r}$.
+      - |
+        To solve for $n$, write the counts as products (no factorial of $n$), cancel the common factors, and check that the result makes sense (it must be a whole number and at least the number of chosen objects).
+      - |
+        Restrictions: glue, count the complement, or fix the compulsory choices first.

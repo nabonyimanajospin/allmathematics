@@ -1,0 +1,127 @@
+id: stat-m02-u02-l03
+title: Moments and shape of a density
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - density-constant
+  - cumulative-function
+  - continuous-moments
+objectives:
+  - Find the constant of a density from the total area $1$.
+  - Compute probabilities and the cumulative function by integration.
+  - Compute the mean, variance, skewness and median of a continuous variable.
+  - Recognize a valid density whose mean does not exist.
+sections:
+  - id: why
+    type: concept
+    title: Sums become integrals
+    body: |
+      For a continuous variable the mass function is replaced by a **density** $f(x)\ge0$, and every sum by an integral: the total area is $\int f(x)\,dx=1$, a probability is an area $P(a\le X\le b)=\int_a^bf(x)\,dx$, the **cumulative function** is $F(x)=P(X\le x)=\int_{-\infty}^xf(s)\,ds$, and the moments are $E[X^r]=\int x^rf(x)\,dx$. Everything from the previous lesson (variance, skewness, kurtosis) keeps its definition.
+
+  - id: measures
+    type: formula
+    title: The formulas
+    formula: |
+      \begin{aligned}
+      \mu&=\int xf(x)\,dx,\qquad\sigma^2=\int x^2f(x)\,dx-\mu^2,\qquad\gamma_1=\dfrac{\int(x-\mu)^3f(x)\,dx}{\sigma^3},\\
+      F(x)&=\int_{-\infty}^xf(s)\,ds,\qquad\text{median }m:\ F(m)=\dfrac12
+      \end{aligned}
+    note: |
+      A single value has probability $0$ for a continuous variable, so $P(X<a)=P(X\le a)$: "at most" and "less than" give the same number.
+
+  - id: ex-density
+    type: example
+    title: A density with an unknown constant
+    problem: |
+      $f(x)=2a(10-x)$ for $0\le x\le10$ and $0$ elsewhere. Find $a$, then $P(4\le X\le8)$, the cumulative function and the mean.
+    steps:
+      - text: |
+          $\int_0^{10}2a(10-x)\,dx=2a\left[10x-\dfrac{x^2}2\right]_0^{10}=2a\cdot50=100a=1$, so $a=\dfrac1{100}$ and $f(x)=\dfrac{10-x}{50}$.
+        why: |
+          The total area under a density is $1$. $\left[10x-\dfrac{x^2}2\right]_0^{10}=100-50=50$.
+      - text: |
+          $P(4\le X\le8)=\dfrac1{50}\left[10x-\dfrac{x^2}2\right]_4^8=\dfrac{(80-32)-(40-8)}{50}=\dfrac{16}{50}=\dfrac8{25}$.
+        why: |
+          Integrate the density between the two limits: the antiderivative at $8$ minus at $4$.
+      - text: |
+          $F(x)=\dfrac1{50}\left[10s-\dfrac{s^2}2\right]_0^x=\dfrac{20x-x^2}{100}$ for $0\le x\le10$. Check: $F(10)=1$.
+        why: |
+          $F$ is the area up to $x$. It must rise from $0$ to $1$.
+      - text: |
+          $E[X]=\int_0^{10}x\,\dfrac{10-x}{50}\,dx=\dfrac1{50}\left[5x^2-\dfrac{x^3}3\right]_0^{10}=\dfrac1{50}\cdot\dfrac{500}3=\dfrac{10}3$.
+        why: |
+          The density is larger near $0$, so the mean is less than the middle of the range, $5$.
+    answer: |
+      $a=\dfrac1{100}$, $P=\dfrac8{25}$, $F(x)=\dfrac{20x-x^2}{100}$, $E[X]=\dfrac{10}3$.
+    verify:
+      - expr: "((80-32)-(40-8))/50"
+        equals: "8/25"
+      - expr: "(5*100-1000/3)/50"
+        equals: "10/3"
+
+  - id: infinite
+    type: concept
+    title: A density whose mean does not exist
+    body: |
+      Take $f(x)=\dfrac{400}{x^2}$ for $x\ge400$. It is a density: $\int_{400}^\infty\dfrac{400}{x^2}dx=400\cdot\dfrac1{400}=1$. Its cumulative function is $F(x)=1-\dfrac{400}x$, so $P(X<500)=\dfrac15$, $P(X>600)=\dfrac23$ and the median solves $1-\dfrac{400}m=\dfrac12$, $m=800$.
+
+      But the mean would be $\int_{400}^\infty x\cdot\dfrac{400}{x^2}dx=400\int_{400}^\infty\dfrac{dx}x=400\left[\ln x\right]_{400}^\infty=\infty$. The integral diverges: **this variable has no mean**, and therefore no variance and no skewness. The tail is so heavy that very large values are too likely. Always check that the integral converges before you speak of a mean.
+
+  - id: ex-skew
+    type: example
+    title: The sign of the skewness
+    problem: |
+      For $f(x)=\dfrac{10-x}{50}$ on $[0,10]$ find the variance and decide the sign of the skewness.
+    steps:
+      - text: |
+          $E[X^2]=\dfrac1{50}\int_0^{10}x^2(10-x)\,dx=\dfrac1{50}\left[\dfrac{10x^3}3-\dfrac{x^4}4\right]_0^{10}=\dfrac1{50}\cdot\dfrac{2500}{3}=\dfrac{50}3$.
+        why: |
+          $\dfrac{10\cdot1000}3-\dfrac{10000}4=\dfrac{10000}3-2500=\dfrac{2500}3$.
+      - text: |
+          $\sigma^2=\dfrac{50}3-\left(\dfrac{10}3\right)^2=\dfrac{150-100}9=\dfrac{50}9$.
+        why: |
+          $E[X^2]-\mu^2$ with $\mu=\dfrac{10}3$.
+      - text: |
+          The density decreases: most of the probability is near $0$ and there is a tail to the right, so the skewness is **positive**. Its exact value is $\gamma_1=\dfrac{2\sqrt2}5$.
+        why: |
+          The sign of $\gamma_1$ is the side of the long tail. Here the tail is on the right.
+    answer: |
+      $\sigma^2=\dfrac{50}9$, $\gamma_1=\dfrac{2\sqrt2}5>0$.
+    verify:
+      - expr: "50/3-(10/3)^2"
+        equals: "50/9"
+
+  - id: chk-k
+    type: check
+    prompt: |
+      Find $k$ if $f(x)=\dfrac k{x^2}$ for $x\ge400$ (and $0$ elsewhere) is a density.
+    answerType: number
+    answer: "400"
+    hints:
+      - |
+        $\int_{400}^\infty\dfrac{dx}{x^2}=\dfrac1{400}$.
+    explanation: |
+      $k\cdot\dfrac1{400}=1$, so $k=400$.
+
+  - id: chk-median
+    type: check
+    prompt: |
+      $F(x)=1-\dfrac{400}x$ for $x\ge400$. Find the median.
+    answerType: number
+    answer: "800"
+    hints:
+      - |
+        Solve $F(m)=\dfrac12$.
+    explanation: |
+      $1-\dfrac{400}m=\dfrac12$ gives $\dfrac{400}m=\dfrac12$, so $m=800$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        A density has total area $1$; probabilities are areas; $F(x)=\int_{-\infty}^xf$; the median solves $F(m)=\dfrac12$.
+      - |
+        $\mu=\int xf$, $\sigma^2=\int x^2f-\mu^2$, $\gamma_1=\mu_3/\sigma^3$; the sign of the skewness is the side of the long tail.
+      - |
+        If $\int xf(x)\,dx$ diverges, the mean does not exist (and neither do the variance and the skewness).

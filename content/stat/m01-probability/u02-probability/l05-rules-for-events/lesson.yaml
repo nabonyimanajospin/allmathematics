@@ -1,0 +1,176 @@
+id: stat-m01-u02-l05
+title: Rules for events - union, complement and independence
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - event-algebra
+  - inclusion-exclusion
+  - independence
+objectives:
+  - Draw the four cells of two events and read any probability from them.
+  - Use the addition rule, the complement rule and De Morgan's laws.
+  - Decide whether two events are independent or mutually exclusive.
+  - Use inclusion-exclusion for three events.
+sections:
+  - id: why
+    type: concept
+    title: Four cells explain everything
+    body: |
+      Two events $A$ and $B$ cut the sample space into four pieces that do not overlap: $A\cap B$ (both), $A\cap\bar B$ ($A$ only), $\bar A\cap B$ ($B$ only) and $\bar A\cap\bar B$ (neither). Their probabilities add up to $1$.
+
+      Every probability in an exercise about two events is a sum of some of these four numbers. So the best strategy is: **find the four cells first**, then read the answer. We need only three data to fill them (for example $P(A)$, $P(B)$ and $P(A\cap B)$, or $P(A)$, $P(B)$ and $P(A\cup B)$).
+
+  - id: rules
+    type: theorem
+    name: The rules
+    statement: |
+      For events $A$, $B$ of the same experiment:
+
+      - Complement: $P(\bar A)=1-P(A)$.
+      - Addition: $P(A\cup B)=P(A)+P(B)-P(A\cap B)$.
+      - De Morgan: $\overline{A\cup B}=\bar A\cap\bar B$ and $\overline{A\cap B}=\bar A\cup\bar B$.
+      - Splitting: $P(A)=P(A\cap B)+P(A\cap\bar B)$.
+      - Conditional probability: $P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}$ for $P(B)>0$.
+    proof: |
+      The addition rule: $P(A)+P(B)$ counts $A\cap B$ twice, so we subtract it once. Splitting: $A$ is the union of the two disjoint pieces $A\cap B$ and $A\cap\bar B$. De Morgan: a point is outside $A\cup B$ exactly when it is outside $A$ and outside $B$.
+
+  - id: ex-two
+    type: example
+    title: From three data to all the answers
+    problem: |
+      $P(A)=\dfrac14$, $P(B)=\dfrac25$ and $P(A\cup B)=\dfrac12$. Find $P(A\cap B)$, $P(A\mid B)$, $P(A\cap\bar B)$ and $P(A\cup\bar B)$.
+    steps:
+      - text: |
+          $P(A\cap B)=P(A)+P(B)-P(A\cup B)=\dfrac14+\dfrac25-\dfrac12=\dfrac{5+8-10}{20}=\dfrac3{20}$.
+        why: |
+          This is the addition rule solved for the intersection. The common denominator is $20$.
+      - text: |
+          $P(A\mid B)=\dfrac{\dfrac{3}{20}}{\dfrac{2}{5}}=\dfrac38$.
+        why: |
+          Dividing by a fraction means multiplying by its inverse: $\dfrac3{20}\cdot\dfrac52=\dfrac{15}{40}=\dfrac38$.
+      - text: |
+          $P(A\cap\bar B)=P(A)-P(A\cap B)=\dfrac14-\dfrac3{20}=\dfrac1{10}$.
+        why: |
+          "A only" is what remains of $A$ after we remove the part inside $B$.
+      - text: |
+          $P(A\cup\bar B)=1-P(\bar A\cap B)=1-\left(\dfrac25-\dfrac3{20}\right)=1-\dfrac14=\dfrac34$.
+        why: |
+          By De Morgan, the complement of $A\cup\bar B$ is $\bar A\cap B$ ("B only"), whose probability is $P(B)-P(A\cap B)=\dfrac14$. Whenever a union looks difficult, try its complement.
+    answer: |
+      $\dfrac3{20}$, $\dfrac38$, $\dfrac1{10}$, $\dfrac34$.
+    verify:
+      - expr: "1/4+2/5-1/2"
+        equals: "3/20"
+      - expr: "(3/20)/(2/5)"
+        equals: "3/8"
+      - expr: "1/4-3/20"
+        equals: "1/10"
+      - expr: "1-(2/5-3/20)"
+        equals: "3/4"
+
+  - id: independence
+    type: definition
+    term: Independent and mutually exclusive events
+    body: |
+      $A$ and $B$ are **independent** when $P(A\cap B)=P(A)\,P(B)$; equivalently $P(A\mid B)=P(A)$: knowing $B$ does not change the probability of $A$.
+
+      $A$ and $B$ are **mutually exclusive** when $A\cap B=\varnothing$, so $P(A\cap B)=0$ and $P(A\cup B)=P(A)+P(B)$.
+
+      These are very different ideas. Two events of positive probability that are mutually exclusive are never independent: if $B$ occurs, $A$ cannot.
+    more: |
+      If $A$ and $B$ are independent, so are $A$ and $\bar B$, $\bar A$ and $B$, and $\bar A$ and $\bar B$. For $A$ and $\bar B$: $P(A\cap\bar B)=P(A)-P(A)P(B)=P(A)\,(1-P(B))=P(A)P(\bar B)$.
+
+  - id: ex-indep
+    type: example
+    title: Independent events
+    problem: |
+      $A$ and $B$ are independent with $P(A)=\dfrac23$ and $P(B)=\dfrac35$. Find $P(A\cup B)$, $P(\bar A\cap\bar B)$ and $P(\bar A\cup\bar B)$.
+    steps:
+      - text: |
+          $P(A\cap B)=\dfrac23\cdot\dfrac35=\dfrac25$ and $P(A\cup B)=\dfrac23+\dfrac35-\dfrac25=\dfrac{10+9-6}{15}=\dfrac{13}{15}$.
+        why: |
+          Independence gives the intersection as a product; then the addition rule.
+      - text: |
+          $P(\bar A\cap\bar B)=P(\bar A)P(\bar B)=\dfrac13\cdot\dfrac25=\dfrac2{15}$.
+        why: |
+          The complements of independent events are independent. Check: this is $1-P(A\cup B)=1-\dfrac{13}{15}=\dfrac2{15}$.
+      - text: |
+          $P(\bar A\cup\bar B)=1-P(A\cap B)=1-\dfrac25=\dfrac35$.
+        why: |
+          By De Morgan $\bar A\cup\bar B=\overline{A\cap B}$.
+    answer: |
+      $\dfrac{13}{15}$, $\dfrac2{15}$, $\dfrac35$.
+    verify:
+      - expr: "2/3+3/5-2/5"
+        equals: "13/15"
+      - expr: "(1/3)*(2/5)"
+        equals: "2/15"
+      - expr: "1-2/5"
+        equals: "3/5"
+
+  - id: three
+    type: theorem
+    name: Inclusion-exclusion for three events
+    statement: |
+      $$P(A\cup B\cup C)=P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C)-P(B\cap C)+P(A\cap B\cap C).$$
+    proof: |
+      Count how many times each point is counted. A point in exactly one event: once in the singles, never in the pairs, so once. A point in exactly two events: twice in the singles, once in the pairs we subtract, so $2-1=1$ time. A point in all three events: $3$ times in the singles, $3$ times in the pairs we subtract (it is in every pair), so $3-3=0$ times, and then we add the triple intersection once: $1$ time. Every point of the union is counted exactly once.
+    more: |
+      **Exactly one of the events.** The points in $A$ only are $P(A)-P(A\cap B)-P(A\cap C)+P(A\cap B\cap C)$ (the triple part was subtracted twice, so it is added back once). Add the three "only" probabilities to get "exactly one".
+
+  - id: ex-books
+    type: example
+    title: Three books
+    problem: |
+      A survey shows: $20\%$ read $X$, $16\%$ read $Y$, $14\%$ read $Z$, $8\%$ read $X$ and $Y$, $5\%$ read $X$ and $Z$, $4\%$ read $Y$ and $Z$ and $2\%$ read all three. Find the probability that a man chosen at random reads none of the books.
+    steps:
+      - text: |
+          $P(X\cup Y\cup Z)=20\%+16\%+14\%-8\%-5\%-4\%+2\%=35\%$.
+        why: |
+          Inclusion-exclusion: add the three, subtract the three pairs, add the triple.
+      - text: |
+          None of the books: $100\%-35\%=65\%=\dfrac{13}{20}$.
+        why: |
+          "None" is the complement of "at least one".
+    answer: |
+      $\dfrac{13}{20}$.
+    verify:
+      - expr: "1-(20+16+14-8-5-4+2)/100"
+        equals: "13/20"
+
+  - id: chk-two
+    type: check
+    prompt: |
+      $P(A)=\dfrac12$, $P(B)=\dfrac35$ and $P(A\cap B)=\dfrac13$. Find $P(\bar A\cap\bar B)$.
+    answerType: expression
+    answer: "7/30"
+    hints:
+      - |
+        $\bar A\cap\bar B$ is the complement of $A\cup B$.
+    explanation: |
+      $P(A\cup B)=\dfrac12+\dfrac35-\dfrac13=\dfrac{23}{30}$, so $P(\bar A\cap\bar B)=1-\dfrac{23}{30}=\dfrac7{30}$.
+
+  - id: chk-indep
+    type: check
+    prompt: |
+      $A$ and $B$ are independent, $P(A\cup B)=\dfrac35$ and $P(A)=\dfrac25$. Find $P(B)$.
+    answerType: expression
+    answer: "1/3"
+    hints:
+      - |
+        $P(A\cup B)=P(A)+P(B)\,(1-P(A))$ for independent events.
+    explanation: |
+      $\dfrac35=\dfrac25+\dfrac35\,P(B)$ (because $1-P(A)=\dfrac35$), so $P(B)=\dfrac{\dfrac{1}{5}}{\dfrac{3}{5}}=\dfrac13$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Draw the four cells ($A\cap B$, $A$ only, $B$ only, neither) and fill them from three data; every answer is a sum of cells.
+      - |
+        $P(A\cup B)=P(A)+P(B)-P(A\cap B)$; $P(\bar A)=1-P(A)$; De Morgan turns a hard union into the complement of an intersection.
+      - |
+        Independent: $P(A\cap B)=P(A)P(B)$. Mutually exclusive: $P(A\cap B)=0$. They are not the same.
+      - |
+        Three events: add the singles, subtract the pairs, add the triple.

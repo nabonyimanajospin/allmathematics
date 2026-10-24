@@ -142,3 +142,248 @@
         - "Add the cases $0$, $1$ and $2$."
       solution: |-
         $e^{-2}\left(1+2+2\right)=5e^{-2}$.
+- id: sheet-binomial-dist
+  task: "Binomial distributions (exercise sheet)."
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`. Write the standard normal distribution function as `Phi(z)`. For a function of t type for example `(1+2*exp(t))/3`."
+  source: "STAT8225 exercise sheet, T. Hakizimana"
+  items:
+    - id: sp-1n
+      statement: |-
+        A binomial distribution has mean $6$ and standard deviation $\sqrt2$. Find $n$.
+      answerType: number
+      answer: "9"
+      hints:
+        - |-
+          $\mathrm{mean}=np$, $\mathrm{variance}=npq$.
+      solution: |-
+        $np=6$ and $npq=\sigma^2=2$. Divide: $q=\dfrac{npq}{np}=\dfrac26=\dfrac13$, so $p=\dfrac23$ and $n=\dfrac6p=9$.
+    - id: sp-1p
+      statement: |-
+        A binomial distribution has mean $6$ and standard deviation $\sqrt2$. Find $p$.
+      answerType: expression
+      answer: "2/3"
+      hints:
+        - "Divide the variance by the mean to get $q$."
+      solution: |-
+        $np=6$ and $npq=\sigma^2=2$. Divide: $q=\dfrac{npq}{np}=\dfrac26=\dfrac13$, so $p=\dfrac23$ and $n=\dfrac6p=9$.
+    - id: sp-1a
+      statement: |-
+        A binomial distribution has mean $6$ and standard deviation $\sqrt2$ (so $n=9$, $p=\dfrac23$). Find the first term $P(X=0)$.
+      answerType: expression
+      answer: "1/19683"
+      hints:
+        - "$P(X=0)=q^n$."
+      solution: |-
+        $P(X=0)=q^9=\left(\dfrac13\right)^9=\dfrac1{19683}$.
+    - id: sp-1b
+      statement: |-
+        A binomial distribution has $n=9$, $p=\dfrac23$. Find the second term $P(X=1)$.
+      answerType: expression
+      answer: "2/2187"
+      hints:
+        - |-
+          $\dbinom9 1pq^8$.
+      solution: |-
+        $P(X=1)=\dbinom91p\,q^8=9\cdot\dfrac23\cdot\left(\dfrac13\right)^8=\dfrac{6}{3^8}=\dfrac2{2187}$.
+    - id: sp-1m
+      statement: |-
+        A binomial distribution has $n=9$ and $p=\dfrac23$. Find its moment generating function.
+      answerType: expression
+      answer: "(2*exp(t) + 1)^9/19683"
+      variables:
+        [t]
+      hints:
+        - "$M(t)=(q+pe^t)^n$."
+      solution: |-
+        For a binomial distribution $M(t)=\left(q+pe^t\right)^n=\left(\dfrac13+\dfrac23e^t\right)^9=\left(\dfrac{1+2e^t}{3}\right)^9$.
+    - id: sp-2a
+      statement: "Four perfect coins are tossed simultaneously. What is the probability of getting at least $2$ heads?"
+      answerType: expression
+      answer: "11/16"
+      hints:
+        - |-
+          Use the complement: $0$ or $1$ head.
+      solution: |-
+        $X\sim B\left(4,\dfrac12\right)$. $P(X\ge2)=1-P(0)-P(1)=1-\dfrac1{16}-\dfrac4{16}=\dfrac{11}{16}$.
+    - id: sp-2b
+      statement: "Four perfect coins are tossed simultaneously. What is the probability of getting at most $2$ heads?"
+      answerType: expression
+      answer: "11/16"
+      hints:
+        - "Add the cases $0$, $1$, $2$."
+      solution: |-
+        $P(X\le2)=\dfrac{1+4+6}{16}=\dfrac{11}{16}$.
+    - id: sp-2c
+      statement: "Four perfect coins are tossed simultaneously. What is the probability of getting no heads?"
+      answerType: expression
+      answer: "1/16"
+      hints:
+        - All four tails.
+      solution: |-
+        $P(X=0)=\left(\dfrac12\right)^4=\dfrac1{16}$.
+    - id: sp-3p
+      statement: "$X$ is binomial with $n=6$ and satisfies $9P(X=4)=P(X=2)$. Find $p$."
+      answerType: expression
+      answer: "1/4"
+      hints:
+        - "Write both probabilities with $p$ and $q$ and divide."
+      solution: |-
+        $9\dbinom64p^4q^2=\dbinom62p^2q^4$. Both coefficients equal $15$; divide by $15p^2q^2$: $9p^2=q^2$, so $q=3p$ (positive numbers). With $p+q=1$: $4p=1$, $p=\dfrac14$.
+    - id: sp-3a
+      statement: |-
+        $X$ is binomial with $n=6$ and $9P(X=4)=P(X=2)$ (so $p=\dfrac14$). Find $P(X=2)$.
+      answerType: expression
+      answer: "1215/4096"
+      hints:
+        - |-
+          $\dbinom62p^2q^4$.
+      solution: |-
+        $P(X=2)=\dbinom62\left(\dfrac14\right)^2\left(\dfrac34\right)^4=15\cdot\dfrac{81}{4096}=\dfrac{1215}{4096}$.
+    - id: sp-4
+      statement: "The sum of the mean and the variance of a binomial distribution with $5$ trials is $1.8$. Find $p$."
+      answerType: expression
+      answer: "1/5"
+      hints:
+        - "Write mean and variance with $p$ and solve the quadratic equation."
+      solution: |-
+        $np+npq=5p+5p(1-p)=10p-5p^2=1.8$, so $5p^2-10p+1.8=0$, i.e. $p^2-2p+0.36=0$. Then $p=1\pm\sqrt{1-0.36}=1\pm0.8$. Only $p=0.2=\dfrac15$ is a probability. The distribution is $B\left(5,\dfrac15\right)$.
+      allowDecimal: true
+    - id: sp-5n
+      statement: "A binomial distribution has mean $4$ and variance $3$. Find $n$."
+      answerType: number
+      answer: "16"
+      hints:
+        - Divide the variance by the mean.
+      solution: |-
+        $np=4$ and $npq=3$, so $q=\dfrac34$, $p=\dfrac14$ and $n=\dfrac4p=16$.
+    - id: sp-5a
+      statement: |-
+        A binomial distribution has mean $4$ and variance $3$ (so $n=16$, $p=\dfrac14$). Find the last term $P(X=16)$.
+      answerType: expression
+      answer: "1/4294967296"
+      hints:
+        - "$P(X=n)=p^n$."
+      solution: |-
+        $P(X=16)=p^{16}=\left(\dfrac14\right)^{16}=\dfrac1{4^{16}}$.
+    - id: sp-5b
+      statement: |-
+        A binomial distribution has $n=16$ and $p=\dfrac14$. Find the second last term $P(X=15)$.
+      answerType: expression
+      answer: "3/268435456"
+      hints:
+        - |-
+          $\dbinom{16}{15}=16$.
+      solution: |-
+        $P(X=15)=\dbinom{16}{15}p^{15}q=16\cdot\dfrac{3}{4^{16}}=\dfrac{48}{4^{16}}=\dfrac3{4^{14}}$.
+    - id: sp-5m
+      statement: |-
+        A binomial distribution has $n=16$ and $p=\dfrac14$. Find its moment generating function.
+      answerType: expression
+      answer: "(exp(t) + 3)^16/4294967296"
+      variables:
+        [t]
+      hints:
+        - "$M(t)=(q+pe^t)^n$."
+      solution: |-
+        $M(t)=(q+pe^t)^n=\left(\dfrac34+\dfrac14e^t\right)^{16}=\left(\dfrac{3+e^t}{4}\right)^{16}$.
+- id: sheet-poisson
+  task: "Poisson distributions (exercise sheet)."
+  format: "Type a whole number, a fraction such as `7/19`, or an exact expression such as `exp(-5)` or `sqrt(7)/3`. Write the standard normal distribution function as `Phi(z)`. For a function of t type for example `(1+2*exp(t))/3`."
+  source: "STAT8225 exercise sheet, T. Hakizimana"
+  items:
+    - id: po-7v
+      statement: "$X$ is Poisson with $P(X=1)+P(X=2)=P(X=0)$. Find the variance of $X$."
+      answerType: expression
+      answer: "-1 + sqrt(3)"
+      hints:
+        - |-
+          $P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!}$; divide by $e^{-\lambda}$.
+      solution: |-
+        Divide by $e^{-\lambda}$: $\lambda+\dfrac{\lambda^2}2=1$, so $\lambda^2+2\lambda-2=0$ and $\lambda=-1\pm\sqrt3$. Only $\lambda=\sqrt3-1>0$ is possible. For a Poisson distribution variance $=\lambda=\sqrt3-1$.
+    - id: po-7m
+      statement: |-
+        $X$ is Poisson with $P(X=1)+P(X=2)=P(X=0)$, so $\lambda=\sqrt3-1$. Find the moment generating function.
+      answerType: expression
+      answer: "exp((1 - sqrt(3))*(1 - exp(t)))"
+      variables:
+        [t]
+      hints:
+        - |-
+          $M(t)=e^{\lambda(e^t-1)}$.
+      solution: |-
+        For a Poisson distribution $M(t)=e^{\lambda(e^t-1)}=e^{(\sqrt3-1)(e^t-1)}$.
+    - id: po-8
+      statement: "$X$ is Poisson with $P(X=1)=P(X=2)$. Find $P(X=0)$."
+      answerType: expression
+      answer: "exp(-2)"
+      hints:
+        - |-
+          Divide both sides by $e^{-\lambda}\lambda$.
+      solution: |-
+        $e^{-\lambda}\lambda=e^{-\lambda}\dfrac{\lambda^2}2$ gives $\lambda=2$ (dividing by $\lambda\ne0$). Then $P(X=0)=e^{-2}$.
+    - id: po-9v
+      statement: "$X$ is Poisson with $P(X=2)=9P(X=4)+90P(X=6)$. Find the variance of $X$."
+      answerType: number
+      answer: "1"
+      hints:
+        - |-
+          Divide by $e^{-\lambda}\lambda^2$ and set $u=\lambda^2$.
+      solution: |-
+        Divide by $e^{-\lambda}\lambda^2$: $\dfrac12=\dfrac{9\lambda^2}{24}+\dfrac{90\lambda^4}{720}=\dfrac{3\lambda^2}8+\dfrac{\lambda^4}8$. Multiply by $8$: $\lambda^4+3\lambda^2-4=0$, i.e. $(\lambda^2+4)(\lambda^2-1)=0$. So $\lambda=1$ and the variance is $1$.
+    - id: po-9m
+      statement: |-
+        $X$ is Poisson with $P(X=2)=9P(X=4)+90P(X=6)$, so $\lambda=1$. Find the moment generating function.
+      answerType: expression
+      answer: "exp(exp(t) - 1)"
+      variables:
+        [t]
+      hints:
+        - |-
+          $M(t)=e^{\lambda(e^t-1)}$.
+      solution: |-
+        $M(t)=e^{\lambda(e^t-1)}=e^{e^t-1}$.
+    - id: po-10
+      statement: The number of fatal accidents in a week has a Poisson distribution such that the probability of two fatal accidents is the same as that of three. Find the mean number of accidents.
+      answerType: number
+      answer: "3"
+      hints:
+        - |-
+          Divide both sides by $e^{-\lambda}\lambda^2$.
+      solution: |-
+        $e^{-\lambda}\dfrac{\lambda^2}{2}=e^{-\lambda}\dfrac{\lambda^3}{6}$. Divide by $e^{-\lambda}\lambda^2$: $\dfrac12=\dfrac\lambda6$, so $\lambda=3$.
+    - id: po-11a
+      statement: "The number of fatal accidents in a year of a taxi-driver follows a Poisson distribution with mean $3$. Out of $200$ drivers, find the expected number with no accident in a year."
+      answerType: expression
+      answer: "200*exp(-3)"
+      hints:
+        - "Multiply $P(X=0)$ by $200$."
+      solution: "$P(X=0)=e^{-3}$, so among $200$ drivers about $200e^{-3}$ have no accident (about $10$)."
+    - id: po-11b
+      statement: "With the same Poisson distribution (mean $3$), find the expected number of drivers, out of $200$, with more than $5$ accidents in a year."
+      answerType: expression
+      answer: "200 - 3680*exp(-3)"
+      hints:
+        - |-
+          Use the complement: $0$ to $5$ accidents.
+      solution: |-
+        $P(X>5)=1-\sum_{k=0}^5e^{-3}\dfrac{3^k}{k!}=1-e^{-3}\left(1+3+\dfrac92+\dfrac92+\dfrac{27}8+\dfrac{81}{40}\right)=1-\dfrac{92}{5 e^{3}}$. Multiply by $200$.
+    - id: po-m1
+      statement: "A Poisson variable has $P(X=1)=P(X=2)$. What is its mean?"
+      answerType: multiple_choice
+      answer: "2"
+      choices:
+        - text: "$1$"
+          value: "1"
+        - text: "$2$"
+          value: "2"
+        - text: |-
+            $\dfrac12$
+          value: "3"
+        - text: "$4$"
+          value: "4"
+      correctIndex: 1
+      hints:
+        - |-
+          $\dfrac{P(X=2)}{P(X=1)}=\dfrac\lambda2$.
+      solution: |-
+        $\dfrac{P(X=2)}{P(X=1)}=\dfrac{\lambda}{2}=1$, so $\lambda=2$.
