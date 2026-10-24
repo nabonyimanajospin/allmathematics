@@ -7,7 +7,7 @@ import { can } from "@allmaths/server";
 import { buttonClass } from "@allmaths/ui";
 import { BackLink } from "@/components/back-link";
 import { t, type MessageKey } from "@/i18n";
-import { getResourceCatalog } from "@/server/resources";
+import { getResourceCatalog, resourceScope } from "@/server/resources";
 import { getCurrentUser } from "@/server/session";
 
 export const metadata: Metadata = { title: t("resources.title") };
@@ -23,8 +23,12 @@ const COURSES = ["geo", "mvc", "stat"] as const;
 export default async function ResourcesPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/signin?next=/resources");
+  const scope = await resourceScope(user);
+  if (scope === null) redirect("/courses");
   const catalog = getResourceCatalog();
-  const byCourse = COURSES.map((c) => ({ course: c, items: catalog.resources.filter((r) => r.course === c) })).filter((g) => g.items.length > 0);
+  const byCourse = COURSES.filter((c) => scope === "all" || c === scope)
+    .map((c) => ({ course: c, items: catalog.resources.filter((r) => r.course === c) }))
+    .filter((g) => g.items.length > 0);
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <BackLink href="/dashboard">{t("lesson.back")}</BackLink>
@@ -48,6 +52,7 @@ export default async function ResourcesPage() {
         </nav>
       ) : null}
 
+      {scope !== "all" ? <p className="mt-4 text-sm text-muted">{t("resources.onlyYourCourse")}</p> : null}
       {byCourse.length === 0 ? <p className="mt-8 text-muted">{t("resources.empty")}</p> : null}
       {byCourse.map((g) => (
         <section key={g.course} aria-labelledby={`c-${g.course}-h`} id={`c-${g.course}`} className="mt-10 scroll-mt-24">

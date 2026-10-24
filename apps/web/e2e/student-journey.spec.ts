@@ -75,7 +75,7 @@ test.describe("student journey (spec Phase 1 acceptance)", () => {
 
     await input.fill("(3.0, -4)");
     await page.getByRole("button", { name: "Check", exact: true }).click();
-    await expect(page.getByText(/exact value/i)).toBeVisible();
+    await expect(page.getByRole("alert").filter({ hasText: /exact value/i })).toBeVisible();
 
     // hints are revealed one at a time
     await page.getByRole("button", { name: /Show a hint \(1 of 2\)/ }).click();

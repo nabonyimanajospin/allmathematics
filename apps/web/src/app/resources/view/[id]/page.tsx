@@ -6,7 +6,7 @@ import { notFound, redirect } from "next/navigation";
 import { isDownloadable } from "@allmaths/content-schema";
 import { buttonClass } from "@allmaths/ui";
 import { t, type MessageKey } from "@/i18n";
-import { getResourceCatalog } from "@/server/resources";
+import { getResourceCatalog, resourceScope } from "@/server/resources";
 import { getCurrentUser } from "@/server/session";
 
 export const metadata: Metadata = { title: t("resources.title") };
@@ -24,7 +24,8 @@ export default async function ResourceViewPage({ params }: { params: Promise<{ i
   if (!user) redirect(`/signin?next=/resources/view/${id}`);
   const catalog = getResourceCatalog();
   const r = catalog.resources.find((x) => x.id === id);
-  if (!r || !r.file || !isDownloadable(catalog, r)) notFound();
+  const scope = await resourceScope(user);
+  if (!r || !r.file || !isDownloadable(catalog, r) || (scope !== "all" && scope !== r.course)) notFound();
   const ext = extname(r.file).slice(1).toUpperCase();
   const size = sizeLabel(statSync(join(catalog.filesDir, r.file)).size);
   return (

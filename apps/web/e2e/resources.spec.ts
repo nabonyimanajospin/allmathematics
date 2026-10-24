@@ -4,13 +4,13 @@ import { expect, test, type Page } from "@playwright/test";
 
 const unique = () => `res${Date.now()}${Math.floor(Math.random() * 1000)}@example.com`;
 
-async function signUp(page: Page): Promise<void> {
+async function signUp(page: Page, course: "geo" | "mvc" | "stat" = "mvc"): Promise<void> {
   await page.goto("/signup");
   await page.getByLabel("Full name").fill("Resource Reader");
   await page.getByLabel("E-mail").fill(unique());
   await page.getByLabel("Password").fill("a long passphrase 1");
   await page.getByRole("button", { name: "Create account" }).click();
-  await enrollAfterSignUp(page, "geo");
+  await enrollAfterSignUp(page, course);
 }
 
 test.describe("resources", () => {
@@ -44,6 +44,26 @@ test.describe("resources", () => {
 
     expect((await page.request.get("/resources/download/book-zill")).status()).toBe(404);
     expect((await page.request.get("/resources/download/..%2F..%2Fpackage.json")).status()).toBe(404);
+  });
+
+  test("a learner sees and can download only the documents of the course they follow", async ({ page }) => {
+    await signUp(page, "geo");
+    await page.goto("/resources");
+    await expect(page.getByText("Geometry, Assignment 1")).toBeVisible();
+    await expect(page.getByText("Table of integrals")).toHaveCount(0);
+    await expect(page.getByText("These are the documents of the course you follow.")).toBeVisible();
+    expect((await page.request.get("/resources/download/geometry-assignment-1")).status()).toBe(200);
+    expect((await page.request.get("/resources/download/integral-table")).status()).toBe(404);
+    expect((await page.request.get("/resources/view/integral-table")).status()).toBe(404);
+  });
+
+  test("a learner of Probability sees an empty list until an administrator uploads a document", async ({ page }) => {
+    await signUp(page, "stat");
+    await page.goto("/resources");
+    await expect(page.getByRole("heading", { name: "Resources", level: 1 })).toBeVisible();
+    await expect(page.getByText("Table of integrals")).toHaveCount(0);
+    await expect(page.getByText("Geometry, Assignment 1")).toHaveCount(0);
+    expect((await page.request.get("/resources/download/notes-unit1")).status()).toBe(404);
   });
 
   test("the page has no accessibility violations and fits the screen", async ({ page }) => {

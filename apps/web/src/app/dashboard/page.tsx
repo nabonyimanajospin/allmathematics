@@ -67,17 +67,15 @@ export default async function DashboardPage() {
         <Link href="/courses" className={buttonClass("secondary")}>
           {t("courses.switch")}
         </Link>
-        <Link href="/formulas" className={buttonClass("secondary")}>
+        {/* the header already has these links from the medium screen up; a phone has no room for them there */}
+        <Link href="/formulas" className={buttonClass("secondary", "sm:hidden")}>
           {t("nav.formulas")}
         </Link>
-        <Link href="/graph" className={buttonClass("secondary")}>
+        <Link href="/graph" className={buttonClass("secondary", "md:hidden")}>
           {t("nav.grapher")}
         </Link>
-        <Link href="/solver" className={buttonClass("secondary")}>
+        <Link href="/solver" className={buttonClass("secondary", "md:hidden")}>
           {t("nav.solver")}
-        </Link>
-        <Link href="/resources" className={buttonClass("secondary")}>
-          {t("nav.resources")}
         </Link>
       </nav>
 
