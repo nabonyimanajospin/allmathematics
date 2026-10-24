@@ -5,6 +5,8 @@ export interface TestQuestionDto {
   index: number;
   promptHtml: string;
   answerType: AnswerKind;
+  /** For a multiple-choice question: the choices (the answer sent back is the number of the chosen one, from 0). */
+  choicesHtml?: string[];
 }
 
 export interface StartedTestDto {

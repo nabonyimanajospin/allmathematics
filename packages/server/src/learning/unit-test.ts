@@ -1,7 +1,7 @@
 /**
- * The test at the end of every unit: 10 questions where the student types the answer (no multiple choice), drawn from the exercises
- * of the unit's lessons and checked by the math engine. 7 correct answers pass. A new attempt draws different questions, and the unit
- * counts as 100% only when the test is passed. The answers are never sent to the browser before the attempt is submitted.
+ * The test at the end of every unit: 10 questions drawn from the exercises of the unit's lessons and checked by the math engine, at most 3 of
+ * them multiple choice and the others typed answers. 7 correct answers pass. A new attempt draws different questions (also after a pass), and
+ * the unit counts as 100% only when the test is passed. The answers are never sent to the browser before the attempt is submitted.
  */
 
 import { randomInt } from "node:crypto";
@@ -14,12 +14,16 @@ import { AppError, Errors } from "../errors";
 
 export const UNIT_TEST_QUESTIONS = 10;
 export const UNIT_TEST_PASS = 7;
+/** At most this many of the 10 questions may be multiple choice. */
+export const UNIT_TEST_MAX_CHOICE = 3;
 /** A started attempt that is not submitted within this time is abandoned. */
 export const ATTEMPT_HOURS = 3;
 
 export interface TestQuestionRef {
   lessonId: string;
   exerciseId: string;
+  /** Only in the bank: the question is multiple choice. */
+  choice?: boolean;
 }
 
 export interface UnitTestStatus {
@@ -29,7 +33,7 @@ export interface UnitTestStatus {
   passed: boolean;
 }
 
-/** The exercises a test may use: typed answers only, from the lessons of the unit. */
+/** The exercises a test may use: all the exercises of the lessons of the unit. */
 export function unitTestBank(store: ContentStore, unitId: string): TestQuestionRef[] {
   const out: TestQuestionRef[] = [];
   for (const course of store.courses)
@@ -39,15 +43,16 @@ export function unitTestBank(store: ContentStore, unitId: string): TestQuestionR
         for (const l of u.lessons) {
           const lesson = store.lesson(l.meta.id)?.lesson;
           if (!lesson) continue;
-          for (const e of allExercises(lesson)) if (e.answerType !== "multiple_choice") out.push({ lessonId: l.meta.id, exerciseId: e.id });
+          for (const e of allExercises(lesson)) out.push({ lessonId: l.meta.id, exerciseId: e.id, choice: e.answerType === "multiple_choice" });
         }
       }
   return out;
 }
 
-/** A unit has a test when its bank can fill one. */
+/** A unit has a test when its bank can fill one: at least 10 questions, and at least 7 of them typed. */
 export function hasUnitTest(store: ContentStore, unitId: string): boolean {
-  return unitTestBank(store, unitId).length >= UNIT_TEST_QUESTIONS;
+  const bank = unitTestBank(store, unitId);
+  return bank.length >= UNIT_TEST_QUESTIONS && bank.filter((q) => !q.choice).length >= UNIT_TEST_QUESTIONS - UNIT_TEST_MAX_CHOICE;
 }
 
 /** The unit that contains a lesson. */
@@ -64,14 +69,8 @@ function shuffle<T>(items: T[], rnd: (n: number) => number): T[] {
   return a;
 }
 
-/**
- * Picks `n` questions spread over the lessons of the unit (round robin over the lessons, each in random order), avoiding the
- * questions of `avoid` as long as the bank is large enough.
- */
-export function pickQuestions(bank: TestQuestionRef[], n: number, avoid: TestQuestionRef[] = [], rnd: (n: number) => number = randomInt): TestQuestionRef[] {
-  const avoidSet = new Set(avoid.map((q) => `${q.lessonId}/${q.exerciseId}`));
-  let pool = bank.filter((q) => !avoidSet.has(`${q.lessonId}/${q.exerciseId}`));
-  if (pool.length < n) pool = bank;
+/** Round robin over the lessons (each in random order): the questions of `pool`, `n` of them. */
+function spread(pool: TestQuestionRef[], n: number, rnd: (n: number) => number): TestQuestionRef[] {
   const byLesson = new Map<string, TestQuestionRef[]>();
   for (const q of shuffle(pool, rnd)) byLesson.set(q.lessonId, [...(byLesson.get(q.lessonId) ?? []), q]);
   const lessons = shuffle([...byLesson.keys()], rnd);
@@ -82,7 +81,26 @@ export function pickQuestions(bank: TestQuestionRef[], n: number, avoid: TestQue
       if (next && picked.length < n) picked.push(next);
     }
   }
-  return shuffle(picked, rnd);
+  return picked;
+}
+
+/**
+ * Picks `n` questions spread over the lessons of the unit: at most 3 multiple choice (as many as the bank has, up to 3) and the others typed,
+ * avoiding the questions of `avoid` as long as the bank is large enough.
+ */
+export function pickQuestions(bank: TestQuestionRef[], n: number, avoid: TestQuestionRef[] = [], rnd: (n: number) => number = randomInt): TestQuestionRef[] {
+  const avoidSet = new Set(avoid.map((q) => `${q.lessonId}/${q.exerciseId}`));
+  const fresh = (pool: TestQuestionRef[], need: number): TestQuestionRef[] => {
+    const unseen = pool.filter((q) => !avoidSet.has(`${q.lessonId}/${q.exerciseId}`));
+    return unseen.length >= need ? unseen : pool;
+  };
+  const typedAll = bank.filter((q) => !q.choice);
+  const choiceAll = bank.filter((q) => q.choice);
+  const wantChoice = Math.min(UNIT_TEST_MAX_CHOICE, choiceAll.length, Math.max(0, n - 1));
+  const typedCount = Math.min(n - wantChoice, typedAll.length);
+  const typed = spread(fresh(typedAll, typedCount), typedCount, rnd);
+  const choices = spread(fresh(choiceAll, wantChoice), wantChoice, rnd);
+  return shuffle([...typed, ...choices], rnd).map(({ lessonId, exerciseId }) => ({ lessonId, exerciseId }));
 }
 
 function parseQuestions(value: unknown): TestQuestionRef[] {

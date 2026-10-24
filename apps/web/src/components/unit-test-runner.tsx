@@ -7,7 +7,7 @@ import { Button, Card, buttonClass } from "@allmaths/ui";
 import { t } from "@/i18n";
 import type { StartedTestDto, TestResultDto } from "@/lib/unit-test-types";
 import { AnswerInput } from "./lesson/answer-input";
-import { Rich } from "./lesson/rich";
+import { Rich, RichInline } from "./lesson/rich";
 
 interface Props {
   unitId: string;
@@ -70,7 +70,9 @@ export function UnitTestRunner({ unitId, passScore, questions, attempts, bestSco
           </p>
           <p className="mt-2 text-lg font-semibold">{result.passed ? t("unitTest.passed") : t("unitTest.failed", { pass: result.passScore })}</p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
-            {!result.passed ? <Button onClick={start} disabled={busy}>{t("unitTest.retry")}</Button> : null}
+            <Button variant={result.passed ? "secondary" : "primary"} onClick={start} disabled={busy}>
+              {t("unitTest.retry")}
+            </Button>
             <Link href="/dashboard" className={buttonClass(result.passed ? "primary" : "secondary")}>
               {t("lesson.back")}
             </Link>
@@ -143,12 +145,35 @@ export function UnitTestRunner({ unitId, passScore, questions, attempts, bestSco
               <p className="mb-2 text-sm font-bold uppercase tracking-wide text-accent">{t("unitTest.question", { n: q.index + 1 })}</p>
               <Rich html={q.promptHtml} />
               <div className="mt-3">
-                <AnswerInput
-                  id={`q${q.index}`}
-                  answerType={q.answerType}
-                  value={answers[q.index] ?? ""}
-                  onChange={(v) => setAnswers((a) => a.map((x, i) => (i === q.index ? v : x)))}
-                />
+                {q.answerType === "multiple_choice" ? (
+                  <fieldset className="grid gap-2">
+                    <legend className="sr-only">{t("check.chooseOne")}</legend>
+                    {(q.choicesHtml ?? []).map((html, i) => (
+                      <label
+                        key={i}
+                        className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-[var(--radius-sm)] border px-3 py-2 ${
+                          answers[q.index] === String(i) ? "border-accent bg-accent-soft" : "border-line hover:bg-surface-2"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name={`q${q.index}-choice`}
+                          checked={answers[q.index] === String(i)}
+                          onChange={() => setAnswers((a) => a.map((x, k) => (k === q.index ? String(i) : x)))}
+                          className="size-5 accent-[var(--accent)]"
+                        />
+                        <RichInline html={html} className="rich" />
+                      </label>
+                    ))}
+                  </fieldset>
+                ) : (
+                  <AnswerInput
+                    id={`q${q.index}`}
+                    answerType={q.answerType}
+                    value={answers[q.index] ?? ""}
+                    onChange={(v) => setAnswers((a) => a.map((x, i) => (i === q.index ? v : x)))}
+                  />
+                )}
               </div>
             </Card>
           </li>

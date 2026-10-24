@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { schema } from "@allmaths/db";
 import { allExercises } from "@allmaths/content-schema";
 import {
+  UNIT_TEST_MAX_CHOICE,
   UNIT_TEST_PASS,
   UNIT_TEST_QUESTIONS,
   dbSectionId,
@@ -32,27 +33,42 @@ afterAll(async () => {
 });
 
 const deps = () => ({ db: f.h.db, store: f.store, engine });
-const keyOf = (q: TestQuestionRef) => findExercise(f.store, q)!.answer;
+/** What a learner sends for the right answer: the typed key, or the number of the right choice. */
+const keyOf = (q: TestQuestionRef) => {
+  const e = findExercise(f.store, q)!;
+  return e.answerType === "multiple_choice" ? String(e.correctIndex) : e.answer;
+};
 
 describe("drawing the questions", () => {
-  it("the bank has typed-answer exercises only, from the lessons of the unit", () => {
+  it("the bank has all the exercises of the lessons of the unit, typed and multiple choice", () => {
     const bank = unitTestBank(f.store, UNIT);
     expect(bank.length).toBeGreaterThanOrEqual(UNIT_TEST_QUESTIONS);
     expect(new Set(bank.map((q) => q.lessonId))).toEqual(new Set(["geo-m01-u01-l01", "geo-m01-u01-l02", "geo-m01-u01-l03", "geo-m01-u01-l04"]));
-    for (const q of bank) expect(findExercise(f.store, q)!.answerType).not.toBe("multiple_choice");
+    for (const q of bank) expect(q.choice).toBe(findExercise(f.store, q)!.answerType === "multiple_choice");
+    expect(bank.filter((q) => q.choice).length).toBeGreaterThan(0);
     expect(hasUnitTest(f.store, UNIT)).toBe(true);
   });
 
-  it("picks 10 different questions spread over the lessons, and avoids the previous ones", () => {
+  it("picks 10 different questions, at most 3 of them multiple choice, and avoids the previous ones", () => {
     const bank = unitTestBank(f.store, UNIT);
     const first = pickQuestions(bank, UNIT_TEST_QUESTIONS);
     expect(new Set(first.map((q) => `${q.lessonId}/${q.exerciseId}`)).size).toBe(UNIT_TEST_QUESTIONS);
-    const perLesson = new Map<string, number>();
-    for (const q of first) perLesson.set(q.lessonId, (perLesson.get(q.lessonId) ?? 0) + 1);
-    expect(Math.max(...perLesson.values()) - Math.min(...perLesson.values())).toBeLessThanOrEqual(1);
+    const choices = (qs: TestQuestionRef[]) => qs.filter((q) => findExercise(f.store, q)!.answerType === "multiple_choice").length;
+    expect(choices(first)).toBe(UNIT_TEST_MAX_CHOICE);
+    for (let i = 0; i < 20; i++) expect(choices(pickQuestions(bank, UNIT_TEST_QUESTIONS))).toBeLessThanOrEqual(UNIT_TEST_MAX_CHOICE);
     const second = pickQuestions(bank, UNIT_TEST_QUESTIONS, first);
     const used = new Set(first.map((q) => `${q.lessonId}/${q.exerciseId}`));
     expect(second.filter((q) => used.has(`${q.lessonId}/${q.exerciseId}`)).length).toBe(0);
+  });
+
+  it("a bank without multiple choice gives a typed test, and a mixed bank gives 7 typed and 3 multiple choice", () => {
+    const typed = Array.from({ length: 12 }, (_, i) => ({ lessonId: "l1", exerciseId: `t${i}`, choice: false }));
+    const choice = Array.from({ length: 5 }, (_, i) => ({ lessonId: "l2", exerciseId: `c${i}`, choice: true }));
+    expect(pickQuestions(typed, 10)).toHaveLength(10);
+    const mixed = pickQuestions([...typed, ...choice], 10);
+    expect(mixed.filter((q) => q.exerciseId.startsWith("c"))).toHaveLength(3);
+    expect(mixed.filter((q) => q.exerciseId.startsWith("t"))).toHaveLength(7);
+    expect(mixed.every((q) => q.choice === undefined)).toBe(true); // the stored attempt has no bank flags
   });
 });
 

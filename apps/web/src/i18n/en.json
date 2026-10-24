@@ -34,12 +34,24 @@
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
   },
   "grapher": {
+    "presetsTip": "Or write your own: z = f(x, y), or a parametric surface (x(u,v), y(u,v), z(u,v)), u in [a, b], v in [c, d]. Touch one to start.",
+    "preset": { "paraboloid": "Paraboloid", "saddle": "Saddle", "sphere": "Sphere", "ellipsoid": "Ellipsoid", "cylinder": "Cylinder", "cone": "Cone", "torus": "Torus" },
+    "toolCircle": "Circle",
+    "toolPolygon": "Polygon",
+    "toolHelpCircle": "Touch the centre, then a point of the circle (touching an empty place makes a point).",
+    "toolHelpPolygon": "Touch the corners one after the other, then touch the first corner again or press Finish.",
+    "polygonProgress": "Corners chosen: {names}. Touch the next corner, or the first one to close the polygon.",
+    "finishPolygon": "Finish the polygon",
+    "measureCircle": "Circle with centre {a} through {b}",
+    "measurePolygon": "Polygon {names}",
+    "unitArea": "squ",
+    "m": {"radius": "radius", "circumference": "circumference", "area": "area", "perimeter": "perimeter", "equation": "equation"},
     "tools": "Tools", "toolMove": "Move", "toolPoint": "Point", "toolSegment": "Segment", "toolLine": "Line",
     "toolHelpMove": "Drag the picture. Drag a point to move it.", "toolHelpPoint": "Touch the picture to put a point.", "toolHelpSegment": "Touch one point, then another: they are joined by a segment. Touching an empty place makes a new point.", "toolHelpLine": "Touch one point, then another: the line through them is drawn.",
     "pending": "First point {name} chosen. Now touch the second point (Escape cancels).",
     "measures": "Measurements", "measureSegment": "Segment {a}{b}", "measureLine": "Line {a}{b}", "length": "length", "midpoint": "midpoint", "equation": "equation", "unitLength": "lu", "approxNote": "≈ means a decimal approximation.",
     "helpTitle": "What can I type?", "helpTip": "Touch an example to put it in a line.",
-    "ex": { "function": "A function", "xfunction": "x as a function of y", "curve": "A curve", "polar": "Polar curve", "parametric": "Parametric curve", "parametricRange": "With a range for t", "point": "A point", "segment": "A segment between two points", "line": "A line through two points", "inequality": "An inequality (shaded)", "region": "A region (shaded)", "slider": "A slider (any letter a, b, k)" },
+    "ex": { "circle": "A circle (centre, point on it)", "polygon": "A polygon through points", "slopefield": "A differential equation (slope field)", "ode": "A solution through a point", "function": "A function", "xfunction": "x as a function of y", "curve": "A curve", "polar": "Polar curve", "parametric": "Parametric curve", "parametricRange": "With a range for t", "point": "A point", "segment": "A segment between two points", "line": "A line through two points", "inequality": "An inequality (shaded)", "region": "A region (shaded)", "slider": "A slider (any letter a, b, k)" },
     "copyLink": "Copy link", "linkCopied": "Link copied. Anyone who opens it sees these expressions.", "linkFailed": "I could not copy the link. Copy the address from the browser.",
     "special": "Roots and intersections", "specialNote": "The math engine gives the exact value whenever it can prove it. A value with ≈ has no closed form (or could not be proved) and is a decimal approximation.", "approx": "Approximate value", "root": "Line {n} crosses the x-axis", "meet": "Lines {a} and {b} meet", "helpRegion": "shaded region (dashed border for < and >)",
     "title": "Grapher", "lead": "Plot functions, curves and surfaces. Type what you want to see, drag to move, use the wheel to zoom. Any letter such as a or k becomes a slider.",
@@ -68,9 +80,9 @@
   },
   "unitTest": {
     "title": "Unit test", "heading": "Unit test: {unit}", "start": "Start the test", "again": "Take the test again",
-    "rule1": "{n} questions where you type the answer. There are no multiple-choice questions.",
+    "rule1": "{n} questions. At most 3 are multiple choice; the others you calculate and type the answer.",
     "rule2": "You pass with {pass} correct answers out of {n}.",
-    "rule3": "The questions are drawn from the exercises of this unit. A new attempt gives different questions.",
+    "rule3": "The questions are drawn from the exercises of this unit. Every new attempt, also after a pass, gives different questions.",
     "rule4": "You see the result and the worked solutions after you submit. The unit counts as complete when you pass.",
     "statusPassed": "You passed this unit. Your best score is {best} out of {n}.",
     "statusNotPassed": "Your best score so far is {best} out of {n} after {attempts} attempt(s). Keep going.",
@@ -146,6 +158,7 @@
     "openLesson": "Open the lesson: {title}"
   },
   "resources": {
+    "onlyYourCourse": "These are the documents of the course you follow. Switch course to see the documents of another course.",
     "title": "Resources",
     "lead": "Books, lecture notes and exercise sheets that go with the courses. Sign in to preview and download them.",
     "empty": "No documents yet.",
@@ -155,9 +168,15 @@
     "kind": { "book": "Book", "notes": "Lecture notes", "exercises": "Exercises", "formulas": "Formulas", "syllabus": "Syllabus" },
     "manage": "Manage resources"
   },
+  "feedback": {"title": "Send feedback", "lead": "Tell the administrators about a problem, an idea, a question or a mistake in a lesson. Your name and e-mail are sent with the message.", "about": "What is it about?", "message": "Your message", "hint": "At most {max} characters.", "page": "Page", "send": "Send", "thanks": "Thank you. Your message was sent to the administrators.", "another": "Send another message", "link": "Feedback", "cat": {"problem": "A problem or an error", "idea": "An idea", "question": "A question", "content": "A mistake in a lesson or an answer", "other": "Something else"}},
+  "announcements": {"label": "Announcements"},
   "admin": {
-    "nav": { "overview": "Overview", "users": "Users", "resources": "Resources" },
+    "feedback": {"title": "Feedback from learners", "lead": "What learners report: problems, ideas, questions and mistakes in lessons. Mark a message as read or resolved and keep a private note.", "filter": "Filter by status", "all": "All", "none": "No messages here.", "unknownUser": "A deleted account", "note": "Private note (the learner does not see it)", "markRead": "Mark as read", "markResolved": "Mark as resolved", "markNew": "Mark as new", "saveNote": "Save the note", "delete": "Delete", "deleteConfirm": "Delete this message for good?", "status": {"new": "New", "read": "Read", "resolved": "Resolved"}},
+    "announcements": {"title": "Announcements", "lead": "A short message shown under the header to every signed-in learner until you hide it, for example the date of a test.", "message": "Message", "hint": "3 to 500 characters.", "publish": "Publish", "none": "No announcements yet.", "visible": "Visible to learners", "hidden": "Hidden", "hide": "Hide", "show": "Show again", "delete": "Delete", "deleteConfirm": "Delete this announcement for good?"},
+    "audit": {"title": "Audit log", "lead": "What administrators did: the last 200 actions, newest first.", "none": "Nothing recorded yet.", "when": "When (UTC)", "who": "Who", "action": "Action", "target": "Target"},
+    "nav": { "overview": "Overview", "users": "Users", "feedback": "Feedback", "announcements": "Announcements", "resources": "Resources", "audit": "Audit log" },
     "overview": {
+    "export": "Download the list of accounts (CSV)",
       "title": "Administration", "lead": "The numbers of the platform and the tools to look after accounts.",
       "totalUsers": "Registered users", "newUsers": "New in the last 7 days", "activeUsers": "Active in the last 7 days", "suspended": "Suspended accounts",
       "byRole": "Accounts by role", "coursesTitle": "Courses", "course": "Course", "entered": "Entered", "completed": "Completed",

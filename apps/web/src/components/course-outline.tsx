@@ -87,6 +87,27 @@ export function CourseOutlinePanel({ outline }: { outline: CourseOutline }) {
                             </Link>
                           </li>
                         ))}
+                        {u.test ? (
+                          <li>
+                            <Link
+                              href={`/test/${u.id}`}
+                              className="mt-1 flex min-h-11 items-center gap-2.5 rounded-[var(--radius-sm)] border border-dashed border-line px-2 py-1.5 text-sm font-semibold leading-snug hover:bg-surface-2"
+                            >
+                              <span
+                                className={`grid size-5 shrink-0 place-items-center rounded-full border text-[11px] font-bold ${
+                                  u.test.passed ? "border-success bg-success text-white" : "border-accent text-accent"
+                                }`}
+                                aria-hidden="true"
+                              >
+                                {u.test.passed ? "✓" : "?"}
+                              </span>
+                              <span className="min-w-0 flex-1">{t("unitTest.open")}</span>
+                              <span className="shrink-0 text-xs tabular-nums text-muted">
+                                {u.test.passed ? t("unitTest.passedBadge") : u.test.attempts > 0 ? t("unitTest.best", { best: u.test.bestScore ?? 0, n: 10 }) : t("unitTest.notTaken")}
+                              </span>
+                            </Link>
+                          </li>
+                        ) : null}
                       </ul>
                     </div>
                   ))}
