@@ -41,6 +41,7 @@ MORE = [
     "more_mvc_c",
     "more_mvc_d",
     "more_geo_a",
+    "geo_additions",
     "more_geo_b",
     "more_geo_c",
     "more_geo_d",

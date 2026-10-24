@@ -1,0 +1,175 @@
+id: geo-m03-u01-l06
+title: Polar, cylindrical and spherical coordinates
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - cylindrical-coordinates
+  - spherical-coordinates
+  - coordinate-conversion
+objectives:
+  - Recall the link between polar and Cartesian coordinates in the plane.
+  - Convert a point between Cartesian, cylindrical and spherical coordinates, in both directions.
+  - Read the surfaces $r=a$, $\rho=a$, $\varphi=\alpha$, $\theta=\beta$ and rewrite an equation in new coordinates.
+sections:
+  - id: why
+    type: concept
+    title: Choosing coordinates that fit the shape
+    body: |
+      A circle is simple in polar coordinates ($r=3$) and awkward in Cartesian ones ($x^2+y^2=9$). In space, a cylinder, a cone and a sphere have the same advantage with **cylindrical** and **spherical** coordinates. This lesson builds both systems from the plane one and gives the formulas to go from one system to another.
+
+  - id: plane
+    type: formula
+    title: In the plane (2D) - polar and Cartesian coordinates
+    formula: |
+      \begin{aligned}
+      x&=r\cos\theta,\qquad y=r\sin\theta,\\
+      r&=\sqrt{x^2+y^2},\qquad\tan\theta=\dfrac yx\ \ (x\ne0),\ \ \text{the quadrant of }(x,y)\text{ decides }\theta.
+      \end{aligned}
+    note: |
+      $r\ge0$ is the distance from the origin and $\theta$ is the angle from the positive $x$-axis. This is the system of the lessons on polar coordinates; the two systems of space below add one more coordinate to it.
+
+  - id: cylindrical
+    type: definition
+    term: Cylindrical coordinates $(r,\theta,z)$
+    body: |
+      Take the polar coordinates $(r,\theta)$ of the **projection** of a point $P$ on the plane $xy$ and keep the height $z$. Then
+
+      $$x=r\cos\theta,\qquad y=r\sin\theta,\qquad z=z,\qquad r=\sqrt{x^2+y^2},\qquad r\ge0,\ 0\le\theta<2\pi.$$
+
+      The surface $r=a$ is a circular **cylinder** around the $z$-axis, $\theta=\beta$ is a half-plane through the $z$-axis and $z=c$ is a horizontal plane.
+
+  - id: spherical
+    type: definition
+    term: Spherical coordinates $(\rho,\varphi,\theta)$
+    body: |
+      $\rho\ge0$ is the distance $OP$, $\varphi\in[0,\pi]$ is the angle between the positive $z$-axis and $\overrightarrow{OP}$ (the **polar angle**), and $\theta$ is the same angle as before (the **azimuth**, measured in the plane $xy$). Then
+
+      $$x=\rho\sin\varphi\cos\theta,\qquad y=\rho\sin\varphi\sin\theta,\qquad z=\rho\cos\varphi,\qquad\rho=\sqrt{x^2+y^2+z^2},\qquad\cos\varphi=\dfrac z\rho.$$
+
+      The surface $\rho=a$ is a **sphere**, $\varphi=\alpha$ is a **cone** around the $z$-axis and $\theta=\beta$ is a half-plane.
+    more: |
+      **Why these formulas.** The projection of $P$ on the plane $xy$ is at distance $r=\rho\sin\varphi$ from the origin (in the right triangle formed by $O$, $P$ and the foot of the perpendicular, the side opposite $\varphi$), and $z=\rho\cos\varphi$ is the adjacent side. Writing $x=r\cos\theta$ and $y=r\sin\theta$ gives the formulas. In particular $r=\rho\sin\varphi$.
+
+  - id: between
+    type: formula
+    title: From one system to the other
+    formula: |
+      \begin{aligned}
+      \text{cylindrical}\to\text{spherical}&:\ \rho=\sqrt{r^2+z^2},\quad\varphi=\arccos\dfrac z{\sqrt{r^2+z^2}},\quad\theta\text{ unchanged},\\
+      \text{spherical}\to\text{cylindrical}&:\ r=\rho\sin\varphi,\quad z=\rho\cos\varphi,\quad\theta\text{ unchanged}.
+      \end{aligned}
+    note: |
+      The azimuth $\theta$ is the same in both systems. Memory aid: in spherical coordinates $z$ is $\rho\cos\varphi$ (adjacent side) and the distance to the $z$-axis is $\rho\sin\varphi$.
+
+  - id: ex-to-cylindrical
+    type: example
+    title: From Cartesian to cylindrical and spherical coordinates
+    problem: |
+      Write the point $P(1,1,2)$ in cylindrical and in spherical coordinates.
+    steps:
+      - text: |
+          Cylindrical: $r=\sqrt{1+1}=\sqrt2$, $\theta=\dfrac\pi4$ (the point is in the first quadrant and $\tan\theta=1$), $z=2$. So $\left(\sqrt2,\dfrac\pi4,2\right)$.
+        why: |
+          The angle is read from the projection $(1,1)$ of $P$ on the plane $xy$.
+      - text: |
+          Spherical: $\rho=\sqrt{1+1+4}=\sqrt6$ and $\cos\varphi=\dfrac2{\sqrt6}=\dfrac{\sqrt6}3$, so $\varphi=\arccos\dfrac{\sqrt6}3$. The azimuth is the same: $\theta=\dfrac\pi4$.
+        why: |
+          $\varphi$ is not a familiar angle, so we keep it as an arccosine: this is exact. Check with $r=\rho\sin\varphi$: $\sin\varphi=\sqrt{1-\dfrac69}=\dfrac{\sqrt3}3$ and $\sqrt6\cdot\dfrac{\sqrt3}3=\sqrt2=r$.
+    answer: |
+      Cylindrical $\left(\sqrt2,\dfrac\pi4,2\right)$; spherical $\left(\sqrt6,\arccos\dfrac{\sqrt6}3,\dfrac\pi4\right)$.
+    verify:
+      - expr: "sqrt(1+1)"
+        equals: "sqrt(2)"
+      - expr: "sqrt(1+1+4)"
+        equals: "sqrt(6)"
+      - expr: "2/sqrt(6)"
+        equals: "sqrt(6)/3"
+      - expr: "sqrt(6)*sqrt(3)/3"
+        equals: "sqrt(2)"
+
+  - id: ex-from-spherical
+    type: example
+    title: From spherical coordinates to Cartesian coordinates
+    problem: |
+      Find the Cartesian coordinates of the point with $\rho=4$, $\varphi=\dfrac\pi3$, $\theta=\dfrac\pi6$.
+    steps:
+      - text: |
+          $x=4\sin\dfrac\pi3\cos\dfrac\pi6=4\cdot\dfrac{\sqrt3}2\cdot\dfrac{\sqrt3}2=3$.
+        why: |
+          $\sin\dfrac\pi3=\dfrac{\sqrt3}2$ and $\cos\dfrac\pi6=\dfrac{\sqrt3}2$; their product is $\dfrac34$ and $4\cdot\dfrac34=3$.
+      - |
+        $y=4\sin\dfrac\pi3\sin\dfrac\pi6=4\cdot\dfrac{\sqrt3}2\cdot\dfrac12=\sqrt3$ and $z=4\cos\dfrac\pi3=2$.
+      - text: |
+          The point is $(3,\sqrt3,2)$. Check: $9+3+4=16=\rho^2$.
+        why: |
+          The distance to the origin must equal $\rho$.
+    answer: |
+      $P(3,\sqrt3,2)$.
+    verify:
+      - expr: "4*sin(pi/3)*cos(pi/6)"
+        equals: "3"
+      - expr: "4*sin(pi/3)*sin(pi/6)"
+        equals: "sqrt(3)"
+      - expr: "4*cos(pi/3)"
+        equals: "2"
+
+  - id: ex-surfaces
+    type: example
+    title: Equations of surfaces in the new coordinates
+    problem: |
+      Write in spherical coordinates the sphere $x^2+y^2+z^2=9$ and the cone $z^2=x^2+y^2$ ($z\ge0$), and in cylindrical coordinates the cylinder $x^2+y^2=4$ and the paraboloid $z=x^2+y^2$.
+    steps:
+      - text: |
+          $x^2+y^2+z^2=\rho^2$, so the sphere is $\rho=3$.
+        why: |
+          The sum of the three squares is the square of the distance to the origin.
+      - text: |
+          For the cone $r^2=z^2$ with $r=\rho\sin\varphi$ and $z=\rho\cos\varphi$: $\sin\varphi=\cos\varphi$, so $\varphi=\dfrac\pi4$ (the upper half, $z\ge0$).
+        why: |
+          A cone around the $z$-axis is a surface of constant $\varphi$: the generator makes the same angle with the axis everywhere.
+      - |
+        Cylinder: $x^2+y^2=r^2=4$, so $r=2$. Paraboloid: $z=r^2$.
+    answer: |
+      $\rho=3$; $\varphi=\dfrac\pi4$; $r=2$; $z=r^2$.
+    verify:
+      - expr: "sin(pi/4)-cos(pi/4)"
+        equals: "0"
+      - expr: "3^2"
+        equals: "9"
+
+  - id: chk-cylindrical
+    type: check
+    prompt: |
+      Find the cylindrical coordinate $r$ of the point $P(3,4,7)$.
+    answerType: number
+    answer: "5"
+    hints:
+      - |
+        $r$ is the distance from $P$ to the $z$-axis.
+    explanation: |
+      $r=\sqrt{3^2+4^2}=5$.
+
+  - id: chk-spherical
+    type: check
+    prompt: |
+      Find the spherical coordinate $\rho$ of the point $P(2,3,6)$.
+    answerType: number
+    answer: "7"
+    hints:
+      - |
+        $\rho$ is the distance from $P$ to the origin.
+    explanation: |
+      $\rho=\sqrt{4+9+36}=\sqrt{49}=7$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Polar (plane): $x=r\cos\theta$, $y=r\sin\theta$. Cylindrical: the same with the height $z$ added.
+      - |
+        Spherical: $x=\rho\sin\varphi\cos\theta$, $y=\rho\sin\varphi\sin\theta$, $z=\rho\cos\varphi$, with $\varphi\in[0,\pi]$ measured from the $z$-axis.
+      - |
+        Between the two systems of space: $r=\rho\sin\varphi$, $z=\rho\cos\varphi$, and $\theta$ is the same.
+      - |
+        $r=a$ is a cylinder, $\rho=a$ a sphere, $\varphi=\alpha$ a cone, $\theta=\beta$ a half-plane, $z=c$ a plane.

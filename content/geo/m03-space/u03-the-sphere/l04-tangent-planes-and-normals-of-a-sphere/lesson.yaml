@@ -1,0 +1,138 @@
+id: geo-m03-u03-l04
+title: Applications - tangent planes (TpS) and normals (NpS) of a sphere
+estMinutes: 55
+version: 1
+status: draft
+skills:
+  - tangent-plane-sphere
+  - normal-line-sphere
+  - tangent-length
+objectives:
+  - Write the tangent plane at a point of a sphere and the normal line (the line of the radius) at that point.
+  - Find the tangent planes of a sphere that are parallel to a given plane.
+  - Find the length of the tangent segments from an outside point, and decide whether a point is outside, on or inside a sphere.
+sections:
+  - id: why
+    type: concept
+    title: Two lines of questions about a point of a sphere
+    body: |
+      At a point $P_0$ of a sphere there are two special objects. The **tangent plane** (TpS) touches the sphere only at $P_0$. The **normal** (NpS) is the line perpendicular to the tangent plane at $P_0$: it is the line of the radius $CP_0$, so it passes through the center $C$.
+
+      Both are built from the radius vector $\overrightarrow{CP_0}$. The tangent plane has it as **normal vector**, and the normal line has it as **direction vector**. The questions of this lesson are variations of these two facts.
+
+  - id: formulas
+    type: formula
+    title: Tangent plane and normal at $P_0(x_0,y_0,z_0)$ of the sphere with center $C(p,q,r_0)$
+    formula: |
+      \begin{aligned}
+      \text{TpS}&:\ (x_0-p)(x-p)+(y_0-q)(y-q)+(z_0-r_0)(z-r_0)=\rho^2,\\
+      \text{NpS}&:\ \dfrac{x-x_0}{x_0-p}=\dfrac{y-y_0}{y_0-q}=\dfrac{z-z_0}{z_0-r_0},\qquad(x,y,z)=P_0+t\,\overrightarrow{CP_0},\\
+      \text{power of an outside point }P&:\ \pi(P)=CP^2-\rho^2>0,\qquad\text{tangent length}=\sqrt{\pi(P)}.
+      \end{aligned}
+    note: |
+      A point is **outside** the sphere when $\pi(P)>0$, **on** it when $\pi(P)=0$ and **inside** when $\pi(P)<0$. For a point $P$ on the sphere the tangent plane equation is obtained from the equation of the sphere by "splitting": $x^2\to x_0x$, $(x-p)^2\to(x_0-p)(x-p)$, and so on.
+
+  - id: ex-tps-nps
+    type: example
+    title: The tangent plane and the normal at a point
+    problem: |
+      Find the tangent plane and the normal line to the sphere $x^2+y^2+z^2=9$ at $P_0(1,2,2)$.
+    steps:
+      - |
+        $P_0$ is on the sphere: $1+4+4=9$. The center is the origin, so $\overrightarrow{CP_0}=(1,2,2)$.
+      - text: |
+          Tangent plane: $x+2y+2z=9$.
+        why: |
+          The plane has normal vector $(1,2,2)$ and passes through $P_0$: $1\cdot(x-1)+2(y-2)+2(z-2)=0$, which is $x+2y+2z-9=0$. Its distance from the origin is $\dfrac9{\sqrt{1+4+4}}=3=\rho$.
+      - text: |
+          Normal line: $(x,y,z)=(1,2,2)+t(1,2,2)$, that is $\dfrac{x}1=\dfrac{y}2=\dfrac{z}2$.
+        why: |
+          The normal passes through the center, so it is the line $OP_0$: its equation does not need the point $P_0$ as a base point.
+    answer: |
+      Tangent plane $x+2y+2z-9=0$; normal line $\dfrac x1=\dfrac y2=\dfrac z2$.
+    verify:
+      - expr: "1+4+4"
+        equals: "9"
+      - expr: "9/sqrt(1+4+4)"
+        equals: "3"
+
+  - id: ex-parallel
+    type: example
+    title: Tangent planes parallel to a given plane
+    problem: |
+      Find the tangent planes to $x^2+y^2+z^2=9$ that are parallel to the plane $2x-y+2z=0$.
+    steps:
+      - text: |
+          A parallel plane has the equation $2x-y+2z=d$. It is tangent when its distance from the center equals the radius: $\dfrac{|d|}{3}=3$, because $\sqrt{4+1+4}=3$.
+        why: |
+          The normal $(2,-1,2)$ has length $3$, so $\dfrac{|d|}3=3$.
+      - |
+        $|d|=9$, so $d=9$ or $d=-9$: the planes are $2x-y+2z=9$ and $2x-y+2z=-9$.
+      - text: |
+          The points of tangency are the ends of the diameter parallel to the normal: $\pm3\cdot\dfrac{(2,-1,2)}3=\pm(2,-1,2)$.
+        why: |
+          Check: $4+1+4=9$, so $(2,-1,2)$ is on the sphere, and $2\cdot2-(-1)+2\cdot2=9$ is on the first plane.
+    answer: |
+      $2x-y+2z-9=0$ and $2x-y+2z+9=0$, touching the sphere at $(2,-1,2)$ and $(-2,1,-2)$.
+    verify:
+      - expr: "9/sqrt(4+1+4)"
+        equals: "3"
+      - expr: "2*2-(-1)+2*2"
+        equals: "9"
+
+  - id: ex-outside
+    type: example
+    title: A point outside the sphere and the tangent length
+    problem: |
+      Is the point $P(3,0,4)$ outside the sphere $x^2+y^2+z^2=9$? Find the length of a tangent segment from $P$ to the sphere.
+    steps:
+      - text: |
+          $\pi(P)=3^2+0+4^2-9=16>0$: the point is outside.
+        why: |
+          $CP^2=25$ and $\rho^2=9$, so the power is $25-9=16$.
+      - text: |
+          A tangent segment $PT$ has length $\sqrt{16}=4$.
+        why: |
+          In the triangle $CTP$ the angle at $T$ is right (the radius is perpendicular to the tangent), so $PT^2=CP^2-CT^2=25-9$.
+    answer: |
+      The point is outside; the tangent length is $4$ lu.
+    verify:
+      - expr: "3^2+0+4^2-9"
+        equals: "16"
+      - expr: "sqrt(25-9)"
+        equals: "4"
+
+  - id: chk-tps
+    type: check
+    prompt: |
+      Find the tangent plane to $x^2+y^2+z^2=14$ at $P_0(1,2,3)$.
+    answerType: equation
+    coordinates: [x, y, z]
+    answer: "x+2*y+3*z=14"
+    hints:
+      - |
+        For a sphere centered at the origin the tangent plane is $x_0x+y_0y+z_0z=\rho^2$.
+    explanation: |
+      $1+4+9=14$, so $P_0$ is on the sphere, and the tangent plane is $x+2y+3z=14$.
+
+  - id: chk-nps
+    type: check
+    prompt: |
+      Give a direction vector of the normal to the sphere $(x-1)^2+(y+2)^2+(z-3)^2=25$ at $P_0(4,2,3)$.
+    answerType: vector
+    answer: "(3, 4, 0)"
+    hints:
+      - |
+        The normal is the line through the center $(1,-2,3)$ and $P_0$.
+    explanation: |
+      $\overrightarrow{CP_0}=(4-1,\,2+2,\,3-3)=(3,4,0)$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        At $P_0$ of the sphere: the tangent plane has the normal vector $\overrightarrow{CP_0}$; the normal line has the direction vector $\overrightarrow{CP_0}$ and passes through the center.
+      - |
+        Tangent planes parallel to $ax+by+cz=0$: $ax+by+cz=d$ with $\dfrac{|a p+b q+c r_0-d|}{\sqrt{a^2+b^2+c^2}}=\rho$, two planes.
+      - |
+        Power $\pi(P)=CP^2-\rho^2$: positive outside, zero on, negative inside; the tangent length is $\sqrt{\pi(P)}$.

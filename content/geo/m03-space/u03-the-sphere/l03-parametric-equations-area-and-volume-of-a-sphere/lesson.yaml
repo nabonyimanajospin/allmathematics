@@ -1,0 +1,149 @@
+id: geo-m03-u03-l03
+title: The sphere - from four points to the parametric equations, area and volume
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - sphere-four-points-method
+  - sphere-parametric
+  - sphere-area-volume
+objectives:
+  - Find the sphere through four points with the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$, by solving four equations.
+  - Pass from the general equation to the canonical one by completing the squares.
+  - Write the parametric equations of a sphere, find a point from its angles, and compute the area and the volume.
+sections:
+  - id: why
+    type: concept
+    title: One sphere, four forms
+    body: |
+      A sphere is described by an **analytic (general) equation**, by a **canonical equation** that shows its center and radius, and by **parametric equations** that give every point from two angles. This lesson starts from four points of a tetrahedron, finds the general equation, completes the squares to reach the canonical form, writes the parametric equations and computes the **surface area** and the **volume**.
+
+  - id: method
+    type: theorem
+    name: The sphere through four points
+    statement: |
+      Four points that are not in one plane lie on exactly one sphere. Write its general equation
+
+      $$x^2+y^2+z^2+2mx+2ny+2pz+q=0,$$
+
+      put the coordinates of the four points in it: this gives **four linear equations** for the four unknowns $m,n,p,q$. After solving, completing the squares gives the canonical equation
+
+      $$(x+m)^2+(y+n)^2+(z+p)^2=m^2+n^2+p^2-q,$$
+
+      with center $(-m,-n,-p)$ and radius $\rho=\sqrt{m^2+n^2+p^2-q}$.
+    proof: |
+      Expanding $(x+m)^2+(y+n)^2+(z+p)^2$ gives $x^2+y^2+z^2+2mx+2ny+2pz+m^2+n^2+p^2$, so the general equation is the canonical one with $q=m^2+n^2+p^2-\rho^2$. The four points give four linear equations whose determinant is non-zero exactly when the points are not coplanar, so the solution is unique.
+    more: |
+      This is the same method as with $D,E,F,G$ in the lesson on the equation of a sphere; here the letters are chosen so that no coefficient $2$ appears in the center.
+
+  - id: ex-four-points
+    type: example
+    title: A sphere through four points, from the general equation to the volume
+    problem: |
+      Find the sphere through $A(1,0,0)$, $B(0,1,0)$, $C(0,0,1)$ and $D(1,1,1)$. Give its canonical equation, its center, its radius, its area and its volume.
+    steps:
+      - text: |
+          Put each point in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$: $A$: $1+2m+q=0$; $B$: $1+2n+q=0$; $C$: $1+2p+q=0$; $D$: $3+2m+2n+2p+q=0$.
+        why: |
+          For $A(1,0,0)$ only $x^2=1$ and the term $2mx=2m$ remain. The other points are treated in the same way: four equations, four unknowns, all of the first degree.
+      - text: |
+          The first three equations give $m=n=p=-\dfrac{1+q}2$. In the fourth: $3-3(1+q)+q=0$, so $-2q=0$ and $q=0$. Then $m=n=p=-\dfrac12$.
+        why: |
+          Substituting is the quickest way here, because the first three equations have the same form.
+      - text: |
+          The general equation is $x^2+y^2+z^2-x-y-z=0$. Completing the squares: $\left(x-\dfrac12\right)^2+\left(y-\dfrac12\right)^2+\left(z-\dfrac12\right)^2=\dfrac34$.
+        why: |
+          $x^2-x=\left(x-\dfrac12\right)^2-\dfrac14$, and the same for $y$ and $z$: three times $\dfrac14$ go to the right side, $\dfrac34$.
+      - text: |
+          The center is $\left(\dfrac12,\dfrac12,\dfrac12\right)$ and $\rho=\dfrac{\sqrt3}2$. Area $4\pi\rho^2=3\pi$ squ, volume $\dfrac43\pi\rho^3=\dfrac43\pi\cdot\dfrac{3\sqrt3}8=\dfrac{\sqrt3}2\pi$ cu.
+        why: |
+          $\rho^2=\dfrac34$ and $\rho^3=\dfrac34\cdot\dfrac{\sqrt3}2=\dfrac{3\sqrt3}8$. Check with $D$: the distance from the center to $D(1,1,1)$ is $\sqrt{3\cdot\dfrac14}=\dfrac{\sqrt3}2$.
+    answer: |
+      $(x-\tfrac12)^2+(y-\tfrac12)^2+(z-\tfrac12)^2=\tfrac34$; center $\left(\dfrac12,\dfrac12,\dfrac12\right)$, $\rho=\dfrac{\sqrt3}2$, area $3\pi$ squ, volume $\dfrac{\sqrt3}2\pi$ cu.
+    verify:
+      - expr: "1+2*(-1/2)+0"
+        equals: "0"
+      - expr: "3+2*(-1/2)*3+0"
+        equals: "0"
+      - expr: "4*pi*(3/4)"
+        equals: "3*pi"
+      - expr: "4/3*pi*(sqrt(3)/2)^3"
+        equals: "sqrt(3)*pi/2"
+
+  - id: parametric
+    type: theorem
+    name: The parametric equations of a sphere
+    statement: |
+      The sphere with center $(p,q,r_0)$ and radius $\rho$ is described by
+
+      $$x=p+\rho\sin\varphi\cos\theta,\qquad y=q+\rho\sin\varphi\sin\theta,\qquad z=r_0+\rho\cos\varphi,\qquad\varphi\in[0,\pi],\ \theta\in[0,2\pi).$$
+
+      $\varphi$ is the angle from the vertical direction ($\varphi=0$ is the north pole) and $\theta$ is the angle around the vertical axis.
+    proof: |
+      These are the spherical coordinates, with the constant distance $\rho$, of the vector $\overrightarrow{CP}$ from the center $C$. Squaring and adding: $(x-p)^2+(y-q)^2+(z-r_0)^2=\rho^2\sin^2\varphi\left(\cos^2\theta+\sin^2\theta\right)+\rho^2\cos^2\varphi=\rho^2$.
+    more: |
+      **Lines of the sphere.** Keeping $\varphi$ constant gives a **parallel** (a horizontal circle of radius $\rho\sin\varphi$); keeping $\theta$ constant gives a **meridian** (a half great circle). The equator is $\varphi=\dfrac\pi2$.
+
+  - id: ex-parametric
+    type: example
+    title: Parametric equations, a point and the area
+    problem: |
+      For the sphere $x^2+y^2+z^2-2x+4y-6z-11=0$ write the parametric equations, find the point for $\varphi=\dfrac\pi2$, $\theta=0$, and the area and the volume.
+    steps:
+      - text: |
+          Completing the squares: $(x-1)^2+(y+2)^2+(z-3)^2=25$, so the center is $(1,-2,3)$ and $\rho=5$.
+        why: |
+          $x^2-2x=(x-1)^2-1$, $y^2+4y=(y+2)^2-4$, $z^2-6z=(z-3)^2-9$; the constants $1+4+9+11=25$ go to the right side.
+      - |
+        Parametric equations: $x=1+5\sin\varphi\cos\theta$, $y=-2+5\sin\varphi\sin\theta$, $z=3+5\cos\varphi$.
+      - text: |
+          For $\varphi=\dfrac\pi2$ and $\theta=0$: $x=1+5=6$, $y=-2$, $z=3$. The point is $(6,-2,3)$.
+        why: |
+          It is on the equator ($z$ equal to the height of the center) in the direction of the positive $x$-axis; it is the point of tangency of the plane $x=6$ drawn in the lesson on tangent planes.
+      - |
+        Area $4\pi\cdot25=100\pi$ squ and volume $\dfrac43\pi\cdot125=\dfrac{500}3\pi$ cu.
+    answer: |
+      $x=1+5\sin\varphi\cos\theta$, $y=-2+5\sin\varphi\sin\theta$, $z=3+5\cos\varphi$; point $(6,-2,3)$; area $100\pi$ squ; volume $\dfrac{500\pi}3$ cu.
+    verify:
+      - expr: "1+4+9+11"
+        equals: "25"
+      - expr: "1+5*sin(pi/2)*cos(0)"
+        equals: "6"
+      - expr: "4/3*pi*5^3"
+        equals: "500*pi/3"
+
+  - id: chk-four
+    type: check
+    prompt: |
+      A sphere has the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and passes through the origin. What is $q$?
+    answerType: number
+    answer: "0"
+    hints:
+      - |
+        Put $x=y=z=0$.
+    explanation: |
+      At the origin every term with $x$, $y$ or $z$ vanishes, so $q=0$.
+
+  - id: chk-volume
+    type: check
+    prompt: |
+      Find the volume of the sphere of radius $3$. The unit is cu: give the exact value without the unit.
+    answerType: expression
+    answer: "36*pi"
+    hints:
+      - |
+        $V=\dfrac43\pi\rho^3$.
+    explanation: |
+      $\dfrac43\pi\cdot27=36\pi$ cu.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Through four points: substitute them in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$, solve the four linear equations, complete the squares.
+      - |
+        Canonical equation $(x+m)^2+(y+n)^2+(z+p)^2=m^2+n^2+p^2-q$: center $(-m,-n,-p)$.
+      - |
+        Parametric: $x=p+\rho\sin\varphi\cos\theta$, $y=q+\rho\sin\varphi\sin\theta$, $z=r_0+\rho\cos\varphi$.
+      - |
+        Area $4\pi\rho^2$ squ and volume $\dfrac43\pi\rho^3$ cu.

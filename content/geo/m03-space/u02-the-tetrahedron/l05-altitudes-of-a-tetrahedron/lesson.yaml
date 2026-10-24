@@ -1,0 +1,151 @@
+id: geo-m03-u02-l05
+title: The altitudes of a tetrahedron - length, foot and equation
+estMinutes: 50
+version: 1
+status: draft
+skills:
+  - tetrahedron-altitude
+  - foot-of-a-perpendicular
+  - line-perpendicular-to-plane
+objectives:
+  - Find the length of the altitude from a vertex of a tetrahedron, from the volume and from the distance to the plane.
+  - Find the foot of the altitude and write the equation of the altitude line.
+  - Compute the area of a face and use it to check the altitude.
+sections:
+  - id: why
+    type: concept
+    title: What an altitude of a tetrahedron is
+    body: |
+      The **altitude** from a vertex of a tetrahedron is the segment from that vertex perpendicular to the plane of the opposite face. Its length is the **height** used in the volume formula, and the point where it meets the plane is its **foot**.
+
+      We want three things for each vertex: the **length** of the altitude, its **foot** and the **equation of the line** that carries it. All three come from one idea: the altitude line passes through the vertex and has the **normal vector of the opposite face** as direction.
+
+  - id: formulas
+    type: formula
+    title: The altitude from the vertex $A$ to the face $BCD$
+    formula: |
+      \begin{aligned}
+      \vec n&=\crossp{\overrightarrow{BC}}{\overrightarrow{BD}},\qquad S_{BCD}=\dfrac12\norm{\vec n},\qquad V=\dfrac16\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|,\\
+      h_A&=\dfrac{3V}{S_{BCD}}=\dfrac{\left|\dotp{\overrightarrow{BA}}{\vec n}\right|}{\norm{\vec n}},\\
+      \text{altitude line}&:\ (x,y,z)=A+t\,\vec n,\qquad\text{foot }H=A+t_0\vec n\ \text{ with }t_0\text{ such that }H\in\text{plane }BCD.
+      \end{aligned}
+    note: |
+      The two expressions of $h_A$ agree because $\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|=\left|\dotp{\overrightarrow{BA}}{\vec n}\right|$ and $\norm{\vec n}=2S_{BCD}$. The volume does not depend on the face chosen, so $3V=h_AS_{BCD}=h_BS_{ACD}=h_CS_{ABD}=h_DS_{ABC}$: **the bigger the face, the smaller the altitude to it**.
+
+  - id: ex-altitude-a
+    type: example
+    title: The altitude from A
+    problem: |
+      Take $A(0,0,0)$, $B(3,0,0)$, $C(0,4,0)$, $D(0,0,12)$. Find the volume, the area of the face $BCD$, the length of the altitude from $A$, its foot and its equation.
+    steps:
+      - text: |
+          $V=\dfrac16\cdot3\cdot4\cdot12=24$ cu.
+        why: |
+          Three edges at $A$ are perpendicular, so the box product is the product of their lengths.
+      - text: |
+          $\overrightarrow{BC}=(-3,4,0)$ and $\overrightarrow{BD}=(-3,0,12)$, so $\vec n=\crossp{\overrightarrow{BC}}{\overrightarrow{BD}}=(48,36,12)=12\,(4,3,1)$ and $S_{BCD}=\dfrac12\cdot12\sqrt{16+9+1}=6\sqrt{26}$ squ.
+        why: |
+          Any multiple of $\vec n$ is a normal vector of the plane; we use $(4,3,1)$. The plane $BCD$ is $4x+3y+z=12$ (check $B$: $12$; $C$: $12$; $D$: $12$).
+      - text: |
+          $h_A=\dfrac{3V}{S_{BCD}}$ with $3V=72$ and $S_{BCD}=6\sqrt{26}$, so $h_A=\dfrac{6\sqrt{26}}{13}$ lu.
+        why: |
+          The same value comes from the distance from the origin to the plane $4x+3y+z=12$: $12$ divided by the length $\sqrt{26}$ of the normal vector, which is $\dfrac{12\sqrt{26}}{26}=\dfrac{6\sqrt{26}}{13}$.
+      - text: |
+          The altitude line is $(x,y,z)=t\,(4,3,1)$, that is $\dfrac x4=\dfrac y3=\dfrac z1$. It meets the plane when $16t+9t+t=12$, so $t=\dfrac{6}{13}$ and the foot is $H\left(\dfrac{24}{13},\dfrac{18}{13},\dfrac6{13}\right)$.
+        why: |
+          Check: $AH=\dfrac6{13}\sqrt{26}=h_A$. The foot is inside the triangle $BCD$ here (all coordinates are positive).
+    answer: |
+      $V=24$ cu, $S_{BCD}=6\sqrt{26}$ squ, $h_A=\dfrac{6\sqrt{26}}{13}$ lu, $H\left(\dfrac{24}{13},\dfrac{18}{13},\dfrac6{13}\right)$, line $\dfrac x4=\dfrac y3=\dfrac z1$.
+    verify:
+      - expr: "box((3,0,0),(0,4,0),(0,0,12))/6"
+        equals: "24"
+      - expr: "norm(cross((-3,4,0),(-3,0,12)))/2"
+        equals: "6*sqrt(26)"
+      - expr: "3*24/(6*sqrt(26))"
+        equals: "6*sqrt(26)/13"
+      - expr: "4*(24/13)+3*(18/13)+6/13"
+        equals: "12"
+
+  - id: ex-other-altitudes
+    type: example
+    title: The other three altitudes
+    problem: |
+      For the same tetrahedron find the altitudes from $B$, $C$ and $D$.
+    steps:
+      - text: |
+          From $D$ to the face $ABC$ (the plane $z=0$): the line is $x=0$, $y=0$ (the $z$-axis), the foot is $A(0,0,0)$ and $h_D=12$.
+        why: |
+          The normal of the plane $z=0$ is $(0,0,1)$ and the distance of $D(0,0,12)$ to the plane is its height $12$.
+      - |
+        From $B$ to the face $ACD$ (the plane $x=0$): the line is $y=0$, $z=0$, the foot is $A$ and $h_B=3$. From $C$ to the face $ABD$ (the plane $y=0$): the foot is $A$ and $h_C=4$.
+      - text: |
+          Check with the volume: $3V=72$ and $h_BS_{ACD}=3\cdot\dfrac12\cdot4\cdot12=72$, $h_DS_{ABC}=12\cdot\dfrac12\cdot3\cdot4=72$.
+        why: |
+          All the products $h\times$(area of the face) must equal $3V=72$.
+    answer: |
+      $h_B=3$, $h_C=4$, $h_D=12$, and all these altitudes have the foot $A$.
+    verify:
+      - expr: "3*(1/2*4*12)"
+        equals: "72"
+      - expr: "12*(1/2*3*4)"
+        equals: "72"
+      - expr: "4*(1/2*3*12)"
+        equals: "72"
+
+  - id: ex-general
+    type: example
+    title: A vertex whose altitude is not along an axis
+    problem: |
+      Find the length and the foot of the altitude from $D(2,2,6)$ to the plane $x+y+z=2$.
+    steps:
+      - text: |
+          The normal is $(1,1,1)$. The distance is $\dfrac{|2+2+6-2|}{\sqrt3}=\dfrac8{\sqrt3}=\dfrac{8\sqrt3}3$.
+        why: |
+          The distance from a point to the plane $ax+by+cz+d=0$ is $\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+      - |
+        The line is $(x,y,z)=(2,2,6)+t(1,1,1)$. It meets the plane when $2+t+2+t+6+t=2$, so $3t=-8$ and $t=-\dfrac83$.
+      - text: |
+          The foot is $\left(2-\dfrac83,\ 2-\dfrac83,\ 6-\dfrac83\right)=\left(-\dfrac23,-\dfrac23,\dfrac{10}3\right)$.
+        why: |
+          Check: $-\dfrac23-\dfrac23+\dfrac{10}3=2$, so the foot is in the plane, and $DH=\dfrac83\sqrt3=\dfrac{8\sqrt3}{3}$, the distance found above.
+    answer: |
+      $h=\dfrac{8\sqrt3}3$ lu, foot $\left(-\dfrac23,-\dfrac23,\dfrac{10}3\right)$.
+    verify:
+      - expr: "(2+2+6-2)/sqrt(3)"
+        equals: "8*sqrt(3)/3"
+      - expr: "-2/3-2/3+10/3"
+        equals: "2"
+
+  - id: chk-altitude
+    type: check
+    prompt: |
+      A tetrahedron has volume $V=24$ cu and a face of area $S=18$ squ. Find the altitude to that face.
+    answerType: expression
+    answer: "4"
+    hints:
+      - |
+        $V=\dfrac13Sh$.
+    explanation: |
+      $h=\dfrac{3V}S=\dfrac{72}{18}=4$ lu.
+
+  - id: chk-line
+    type: check
+    prompt: |
+      The face $BCD$ lies in the plane $2x-y+2z=6$. Give a direction vector of the altitude from $A(1,1,1)$.
+    answerType: vector
+    answer: "(2, -1, 2)"
+    hints:
+      - |
+        The altitude is perpendicular to the plane, so it is parallel to the normal vector.
+    explanation: |
+      The normal of $2x-y+2z=6$ is $(2,-1,2)$ and the altitude line is $(1,1,1)+t(2,-1,2)$.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        The altitude from a vertex is perpendicular to the opposite face: its direction is the normal $\vec n=\crossp{\overrightarrow{BC}}{\overrightarrow{BD}}$ of that face.
+      - |
+        Length: $h_A=\dfrac{3V}{S_{BCD}}=\dfrac{|\dotp{\overrightarrow{BA}}{\vec n}|}{\norm{\vec n}}$. Foot: put $A+t\vec n$ in the plane of the face and solve for $t$.
+      - |
+        $3V=h_AS_{BCD}=h_BS_{ACD}=h_CS_{ABD}=h_DS_{ABC}$: a check on every result.
