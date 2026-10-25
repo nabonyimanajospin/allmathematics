@@ -60,6 +60,31 @@ sections:
       ymax: 5
       alt: "An ellipse wider than tall, centered at the origin, with two dashed vertical lines outside it."
 
+  - id: ellipse-formulas
+    type: formula
+    title: The ellipse at a glance (center at the origin, $a>b>0$, $c^2=a^2-b^2$)
+    formula: |
+      \begin{aligned}
+      \text{canonical}&:\ \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2+a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}+\dfrac{(y-k)^2}{b^2}=1,\\
+      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{a^2-x^2},\qquad x\in[-a,a],\\
+      \text{parametric}&:\ x=a\cos t,\ y=b\sin t,\quad t\in[0,2\pi),\\
+      \text{polar, pole at the center}&:\ \dfrac1{\rho^2}=\dfrac{\cos^2\theta}{a^2}+\dfrac{\sin^2\theta}{b^2},\qquad\text{pole at the focus }F_2(c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
+      \end{aligned}
+    note: |
+      The polar equation with the pole at the center is used for roses and distances from the center; the one with the pole at a focus is the one of orbits.
+
+  - id: ellipse-elements
+    type: formula
+    title: The ellipse - foci, latus rectum, directrices, focal radii and area
+    formula: |
+      \begin{aligned}
+      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\ (0,\pm b),\quad e=\dfrac ca<1,\\
+      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
+      \text{focal radii}&:\ MF_{1,2}=a\pm ex,\qquad\text{area}:\ \pi ab.
+      \end{aligned}
+    note: |
+      If the major axis is vertical ($b>a$ in the equation), exchange the roles of $x$ and $y$: the foci are $(0,\pm c)$ with $c^2=b^2-a^2$ and the directrices are horizontal. The area $\pi ab$ is the area of a circle of radius $r$, $\pi r^2$, with the two semi-axes $a=b=r$.
+
   - id: ex-elements
     type: example
     title: The elements of an ellipse
@@ -90,34 +115,11 @@ sections:
     answer: "5/13"
     hints:
       - |
-        $c^2=a^2-b^2=169-144$.
+        The eccentricity is $e=\dfrac ca$ with $c^2=a^2-b^2$.
+      - |
+        Read $a^2$ and $b^2$ from the equation.
     explanation: |
       $c^2=25$, $c=5$, $a=13$, so $e=\dfrac5{13}$.
-
-  - id: ellipse-formulas
-    type: formula
-    title: The ellipse at a glance (center at the origin, $a>b>0$, $c^2=a^2-b^2$)
-    formula: |
-      \begin{aligned}
-      \text{canonical}&:\ \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2+a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}+\dfrac{(y-k)^2}{b^2}=1,\\
-      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{a^2-x^2},\qquad x\in[-a,a],\\
-      \text{parametric}&:\ x=a\cos t,\ y=b\sin t,\quad t\in[0,2\pi),\\
-      \text{polar, pole at the center}&:\ \dfrac1{\rho^2}=\dfrac{\cos^2\theta}{a^2}+\dfrac{\sin^2\theta}{b^2},\qquad\text{pole at the focus }F_2(c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
-      \end{aligned}
-    note: |
-      The polar equation with the pole at the center is used for roses and distances from the center; the one with the pole at a focus is the one of orbits.
-
-  - id: ellipse-elements
-    type: formula
-    title: The ellipse - foci, latus rectum, directrices, focal radii and area
-    formula: |
-      \begin{aligned}
-      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\ (0,\pm b),\quad e=\dfrac ca<1,\\
-      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
-      \text{focal radii}&:\ MF_{1,2}=a\pm ex,\qquad\text{area}:\ \pi ab.
-      \end{aligned}
-    note: |
-      If the major axis is vertical ($b>a$ in the equation), exchange the roles of $x$ and $y$: the foci are $(0,\pm c)$ with $c^2=b^2-a^2$ and the directrices are horizontal. The area $\pi ab$ is the area of a circle of radius $r$, $\pi r^2$, with the two semi-axes $a=b=r$.
 
   - id: ex-ellipse-all
     type: example
@@ -208,7 +210,9 @@ sections:
     answer: "x+2y=4"
     hints:
       - |
-        $\dfrac{2x}{8}+\dfrac{1\cdot y}{2}=1$.
+        The tangent at $(x_0,y_0)$ is $\dfrac{xx_0}{a^2}+\dfrac{yy_0}{b^2}=1$.
+      - |
+        Replace the coordinates of the point of tangency.
     explanation: |
       $\dfrac x4+\dfrac y2=1$, so $x+2y=4$.
 

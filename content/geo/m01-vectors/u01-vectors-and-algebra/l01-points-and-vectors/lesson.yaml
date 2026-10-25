@@ -88,7 +88,7 @@ sections:
       - |
         Use end minus start: the first component is $x_B-x_A$.
       - |
-        $x_B-x_A=1-(-2)$ and $y_B-y_A=-1-3$.
+        Be careful with the minus signs when a coordinate is negative.
     explanation: |
       $\overrightarrow{AB}=\overrightarrow{OB}-\overrightarrow{OA}=(1-(-2),\,-1-3)=(3,-4)$.
     mistakes:

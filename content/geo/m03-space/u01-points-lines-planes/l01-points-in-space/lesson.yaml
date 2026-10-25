@@ -61,7 +61,7 @@ sections:
     answer: "6"
     hints:
       - |
-        $\overrightarrow{AB}=(4,-4,2)$.
+        Compute the vector $\overrightarrow{AB}$, then its norm.
     explanation: |
       $\norm{\overrightarrow{AB}}=\sqrt{16+16+4}=\sqrt{36}=6$.
 

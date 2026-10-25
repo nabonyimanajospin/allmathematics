@@ -116,7 +116,9 @@ sections:
     answer: "sqrt(2)/2"
     hints:
       - |
-        $\dotp{\vec n_1}{\vec n_2}=1$ and $\norm{\vec n_2}=\sqrt2$.
+        The dihedral angle is linked to the angle between the normal vectors of the two faces.
+      - |
+        Use $\cos\theta=\dfrac{\left|\dotp{\vec n_1}{\vec n_2}\right|}{\norm{\vec n_1}\,\norm{\vec n_2}}$.
     explanation: |
       $\cos\varphi=\dfrac{1}{1\cdot\sqrt2}=\dfrac{\sqrt2}2$.
 

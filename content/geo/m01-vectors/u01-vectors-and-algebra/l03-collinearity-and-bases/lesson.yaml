@@ -70,7 +70,7 @@ sections:
       - |
         Collinear means $u_1v_2-u_2v_1=0$.
       - |
-        Here $3k-6\cdot2=0$.
+        Put the components of the two vectors in this equality and solve the equation in $k$.
     explanation: |
       $3k-12=0$ gives $k=4$. Check: $\vec u=(3,6)=\tfrac32(2,4)$, so $\vec v=(2,4)$ is proportional to $\vec u$.
     mistakes:
@@ -214,9 +214,9 @@ sections:
     answer: "(18/5, 11/5)"
     hints:
       - |
-        Write $(2a+b,\;a+3b)=(7,9)$.
+        Write the equality of the components as two equations in $a$ and $b$.
       - |
-        Eliminate $b$: multiply the first equation by $3$ and subtract the second: $5a=12$.
+        Eliminate one unknown by multiplying an equation by a suitable number and subtracting.
     explanation: |
       From $2a+b=7$ and $a+3b=9$: multiplying the first by $3$ gives $6a+3b=21$; subtracting the second
       gives $5a=12$, so $a=\tfrac{12}{5}$ and $b=7-2a=\tfrac{11}{5}$. Check: $\tfrac{12}{5}(2,1)+\tfrac{11}{5}(1,3)=(7,9)$.
@@ -261,9 +261,9 @@ sections:
     answer: "13"
     hints:
       - |
-        Expand along the first row: $1\cdot\begin{vmatrix}1&3\\0&1\end{vmatrix}-2\cdot\begin{vmatrix}0&3\\2&1\end{vmatrix}+0$.
+        Expand the determinant along the first row, which contains a zero.
       - |
-        The first small determinant is $1\cdot1-3\cdot0=1$ and the second is $0\cdot1-3\cdot2=-6$.
+        Each term is an entry times a $2\times2$ determinant, with the signs $+,-,+$.
     explanation: |
       $1\cdot1-2\cdot(-6)+0=13$. Since $13\neq0$, the vectors form a basis.
     mistakes:

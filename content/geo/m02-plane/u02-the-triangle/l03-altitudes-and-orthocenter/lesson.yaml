@@ -135,7 +135,9 @@ sections:
     answer: "12"
     hints:
       - |
-        $h_c=\dfrac{2S}{c}$ with $S=84$ and $c=14$.
+        The area is $S=\dfrac12\,c\,h_c$.
+      - |
+        Find $S$ first (cross product or shoelace formula), then solve for $h_c$.
     explanation: |
       $h_c=\dfrac{168}{14}=12$, which is the $y$-coordinate of $C$, as expected since $AB$ lies on the $x$-axis.
 

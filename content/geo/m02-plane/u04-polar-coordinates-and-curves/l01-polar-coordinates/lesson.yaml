@@ -153,7 +153,9 @@ sections:
     answer: "(3, -3*sqrt(3))"
     hints:
       - |
-        $\cos\left(-\dfrac\pi3\right)=\dfrac12$ and $\sin\left(-\dfrac\pi3\right)=-\dfrac{\sqrt3}2$.
+        Use $x=r\cos\theta$ and $y=r\sin\theta$.
+      - |
+        Recall the values of the cosine and the sine at the given angle (a negative angle turns clockwise).
     explanation: |
       $x=6\cdot\dfrac12=3$ and $y=6\cdot\left(-\dfrac{\sqrt3}2\right)=-3\sqrt3$.
 
@@ -197,7 +199,9 @@ sections:
     answer: "sqrt(25-12*sqrt(3))"
     hints:
       - |
-        $\theta_2-\theta_1=-\dfrac\pi6$ and $\cos\dfrac\pi6=\dfrac{\sqrt3}2$.
+        Use the law of cosines: $d^2=r_1^2+r_2^2-2r_1r_2\cos(\theta_2-\theta_1)$.
+      - |
+        Find the angle between the two directions first.
     explanation: |
       $PQ^2=9+16-2\cdot3\cdot4\cdot\dfrac{\sqrt3}2=25-12\sqrt3$.
 

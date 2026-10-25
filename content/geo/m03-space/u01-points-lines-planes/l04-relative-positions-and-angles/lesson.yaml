@@ -118,7 +118,9 @@ sections:
     answer: "pi/2"
     hints:
       - |
-        The normals are $(1,1,1)$ and $(1,-1,0)$.
+        The angle between two planes is the angle between their normal vectors.
+      - |
+        Compute the dot product of the normals.
     explanation: |
       $\dotp{\vec n_1}{\vec n_2}=1-1+0=0$, so the normals are perpendicular and the planes are perpendicular: the angle is $\dfrac\pi2$.
 

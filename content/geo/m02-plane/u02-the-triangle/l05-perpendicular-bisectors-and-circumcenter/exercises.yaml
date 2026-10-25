@@ -319,3 +319,175 @@
         - "$R=OA$."
       solution: |-
         The signed area is $S=18$, so $4S=72$. The determinants are $72$ and $168$, so $O=\left(\dfrac{72}{72},\dfrac{168}{72}\right)=\left(1,\,\frac{7}{3}\right)$. Then $R^2=OA^2=\frac{130}{9}$ and $R=\frac{\sqrt{130}}{3}$.
+- id: add-perp-three
+  task: The perpendicular bisectors of a triangle given by its three vertices.
+  format: "Type a point as `(x, y, z)`, an exact value such as `sqrt(7)/4`, or an equation with `=`."
+  items:
+    - id: pb-aab
+      statement: |-
+        The triangle has the vertices $A\left(0,\,0\right)$, $B\left(6,\,0\right)$ and $C\left(0,\,8\right)$. The equation of the perpendicular bisector of the side $AB$ is
+      answerType: equation
+      answer: "12*x - 36=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $AB$ is $\left(3,\,0\right)$ and the normal vector is $\overrightarrow{AB}=\left(6,\,0\right)$, so the line is $6 x - 18=0$, that is $12 x - 36=0$.
+    - id: pb-abc
+      statement: |-
+        The triangle has the vertices $A\left(0,\,0\right)$, $B\left(6,\,0\right)$ and $C\left(0,\,8\right)$. The equation of the perpendicular bisector of the side $BC$ is
+      answerType: equation
+      answer: "-12*x + 16*y - 28=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $BC$ is $\left(3,\,4\right)$ and the normal vector is $\overrightarrow{BC}=\left(-6,\,8\right)$, so the line is $- 6 x + 8 y - 14=0$, that is $- 12 x + 16 y - 28=0$.
+    - id: pb-aca
+      statement: |-
+        The triangle has the vertices $A\left(0,\,0\right)$, $B\left(6,\,0\right)$ and $C\left(0,\,8\right)$. The equation of the perpendicular bisector of the side $CA$ is
+      answerType: equation
+      answer: "64 - 16*y=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $CA$ is $\left(0,\,4\right)$ and the normal vector is $\overrightarrow{CA}=\left(0,\,-8\right)$, so the line is $32 - 8 y=0$, that is $64 - 16 y=0$.
+    - id: pb-ao
+      statement: |-
+        The triangle has the vertices $A\left(0,\,0\right)$, $B\left(6,\,0\right)$ and $C\left(0,\,8\right)$. The three perpendicular bisectors meet at the circumcenter $O$:
+      answerType: point
+      answer: "(3, 4)"
+      hints:
+        - "Intersect the bisectors of two sides; the third passes through the same point."
+      solution: |-
+        Write the perpendicular bisectors of two sides and solve the two equations: $O=\left(3,\,4\right)$ (it is also at equal distance from $A$, $B$ and $C$).
+    - id: pb-bab
+      statement: |-
+        The triangle has the vertices $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$ and $C\left(5,\,-7\right)$. The equation of the perpendicular bisector of the side $AB$ is
+      answerType: equation
+      answer: "8*x + 6*y - 13=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $AB$ is $\left(-1,\,\frac{7}{2}\right)$ and the normal vector is $\overrightarrow{AB}=\left(4,\,3\right)$, so the line is $4 x + 3 y - \frac{13}{2}=0$, that is $8 x + 6 y - 13=0$.
+    - id: pb-bbc
+      statement: |-
+        The triangle has the vertices $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$ and $C\left(5,\,-7\right)$. The equation of the perpendicular bisector of the side $BC$ is
+      answerType: equation
+      answer: "8*x - 24*y - 48=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $BC$ is $\left(3,\,-1\right)$ and the normal vector is $\overrightarrow{BC}=\left(4,\,-12\right)$, so the line is $4 x - 12 y - 24=0$, that is $8 x - 24 y - 48=0$.
+    - id: pb-bca
+      statement: |-
+        The triangle has the vertices $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$ and $C\left(5,\,-7\right)$. The equation of the perpendicular bisector of the side $CA$ is
+      answerType: equation
+      answer: "-16*x + 18*y + 61=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $CA$ is $\left(1,\,- \frac{5}{2}\right)$ and the normal vector is $\overrightarrow{CA}=\left(-8,\,9\right)$, so the line is $- 8 x + 9 y + \frac{61}{2}=0$, that is $- 16 x + 18 y + 61=0$.
+    - id: pb-bo
+      statement: |-
+        The triangle has the vertices $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$ and $C\left(5,\,-7\right)$. The three perpendicular bisectors meet at the circumcenter $O$:
+      answerType: point
+      answer: "(5/2, -7/6)"
+      hints:
+        - "Intersect the bisectors of two sides; the third passes through the same point."
+      solution: |-
+        Write the perpendicular bisectors of two sides and solve the two equations: $O=\left(\frac{5}{2},\,- \frac{7}{6}\right)$ (it is also at equal distance from $A$, $B$ and $C$).
+    - id: pb-cab
+      statement: |-
+        The triangle has the vertices $A\left(1,\,1\right)$, $B\left(5,\,1\right)$ and $C\left(1,\,4\right)$. The equation of the perpendicular bisector of the side $AB$ is
+      answerType: equation
+      answer: "8*x - 24=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $AB$ is $\left(3,\,1\right)$ and the normal vector is $\overrightarrow{AB}=\left(4,\,0\right)$, so the line is $4 x - 12=0$, that is $8 x - 24=0$.
+    - id: pb-cbc
+      statement: |-
+        The triangle has the vertices $A\left(1,\,1\right)$, $B\left(5,\,1\right)$ and $C\left(1,\,4\right)$. The equation of the perpendicular bisector of the side $BC$ is
+      answerType: equation
+      answer: "-8*x + 6*y + 9=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $BC$ is $\left(3,\,\frac{5}{2}\right)$ and the normal vector is $\overrightarrow{BC}=\left(-4,\,3\right)$, so the line is $- 4 x + 3 y + \frac{9}{2}=0$, that is $- 8 x + 6 y + 9=0$.
+    - id: pb-cca
+      statement: |-
+        The triangle has the vertices $A\left(1,\,1\right)$, $B\left(5,\,1\right)$ and $C\left(1,\,4\right)$. The equation of the perpendicular bisector of the side $CA$ is
+      answerType: equation
+      answer: "15 - 6*y=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $CA$ is $\left(1,\,\frac{5}{2}\right)$ and the normal vector is $\overrightarrow{CA}=\left(0,\,-3\right)$, so the line is $\frac{15}{2} - 3 y=0$, that is $15 - 6 y=0$.
+    - id: pb-co
+      statement: |-
+        The triangle has the vertices $A\left(1,\,1\right)$, $B\left(5,\,1\right)$ and $C\left(1,\,4\right)$. The three perpendicular bisectors meet at the circumcenter $O$:
+      answerType: point
+      answer: "(3, 5/2)"
+      hints:
+        - "Intersect the bisectors of two sides; the third passes through the same point."
+      solution: |-
+        Write the perpendicular bisectors of two sides and solve the two equations: $O=\left(3,\,\frac{5}{2}\right)$ (it is also at equal distance from $A$, $B$ and $C$).
+    - id: pb-dab
+      statement: |-
+        The triangle has the vertices $A\left(2,\,-1\right)$, $B\left(8,\,-1\right)$ and $C\left(5,\,3\right)$. The equation of the perpendicular bisector of the side $AB$ is
+      answerType: equation
+      answer: "12*x - 60=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $AB$ is $\left(5,\,-1\right)$ and the normal vector is $\overrightarrow{AB}=\left(6,\,0\right)$, so the line is $6 x - 30=0$, that is $12 x - 60=0$.
+    - id: pb-dbc
+      statement: |-
+        The triangle has the vertices $A\left(2,\,-1\right)$, $B\left(8,\,-1\right)$ and $C\left(5,\,3\right)$. The equation of the perpendicular bisector of the side $BC$ is
+      answerType: equation
+      answer: "-6*x + 8*y + 31=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $BC$ is $\left(\frac{13}{2},\,1\right)$ and the normal vector is $\overrightarrow{BC}=\left(-3,\,4\right)$, so the line is $- 3 x + 4 y + \frac{31}{2}=0$, that is $- 6 x + 8 y + 31=0$.
+    - id: pb-dca
+      statement: |-
+        The triangle has the vertices $A\left(2,\,-1\right)$, $B\left(8,\,-1\right)$ and $C\left(5,\,3\right)$. The equation of the perpendicular bisector of the side $CA$ is
+      answerType: equation
+      answer: "-6*x - 8*y + 29=0"
+      coordinates:
+        [x, y]
+      hints:
+        - It passes through the midpoint of the side and its normal vector is the side itself.
+      solution: |-
+        The midpoint of $CA$ is $\left(\frac{7}{2},\,1\right)$ and the normal vector is $\overrightarrow{CA}=\left(-3,\,-4\right)$, so the line is $- 3 x - 4 y + \frac{29}{2}=0$, that is $- 6 x - 8 y + 29=0$.
+    - id: pb-do
+      statement: |-
+        The triangle has the vertices $A\left(2,\,-1\right)$, $B\left(8,\,-1\right)$ and $C\left(5,\,3\right)$. The three perpendicular bisectors meet at the circumcenter $O$:
+      answerType: point
+      answer: "(5, -1/8)"
+      hints:
+        - "Intersect the bisectors of two sides; the third passes through the same point."
+      solution: |-
+        Write the perpendicular bisectors of two sides and solve the two equations: $O=\left(5,\,- \frac{1}{8}\right)$ (it is also at equal distance from $A$, $B$ and $C$).

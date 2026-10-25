@@ -62,7 +62,7 @@ sections:
     answer: "pi/3"
     hints:
       - |
-        The slope of the line is $\tan\alpha=\sqrt3$.
+        The slope of a line is the tangent of the angle it makes with the $x$-axis.
     explanation: |
       The $x$-axis has slope $0$, so $\tan\theta=\left|\dfrac{\sqrt3-0}{1+0}\right|=\sqrt3$ and $\theta=\dfrac\pi3$.
 

@@ -93,7 +93,9 @@ sections:
     answer: "12*x+23*y-168=0"
     hints:
       - |
-        The midpoint of $CA$ is $\left(\dfrac52,6\right)$. The direction vector is $\overrightarrow{BM_b}=\left(-\dfrac{23}{2},6\right)$.
+        The median from $B$ joins $B$ to the midpoint of $CA$.
+      - |
+        Find that midpoint, then write the line through the two points.
     explanation: |
       $M_b=\left(\dfrac52,6\right)$ and $\overrightarrow{BM_b}=\left(-\dfrac{23}2,6\right)\parallel(-23,12)$. A normal vector is $(12,23)$: $12(x-14)+23y=0$, that is $12x+23y-168=0$.
 
@@ -139,7 +141,7 @@ sections:
     answer: "2*sqrt(7)"
     hints:
       - |
-        $2b^2+2c^2-a^2=98+50-36$.
+        Use the median formula $m_a=\dfrac12\sqrt{2b^2+2c^2-a^2}$ with the correct sides.
     explanation: |
       $m_a=\dfrac12\sqrt{112}=\dfrac12\cdot4\sqrt7=2\sqrt7$.
 

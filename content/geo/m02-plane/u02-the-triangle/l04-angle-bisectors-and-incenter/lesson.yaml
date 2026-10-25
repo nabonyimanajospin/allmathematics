@@ -45,6 +45,18 @@ sections:
         - {t: segment, from: C, to: D_c, color: success}
         - {t: circle, center: I, r: 4, color: warning}
 
+  - id: incenter-formulas
+    type: formula
+    title: Incenter and incircle, the formulas to remember
+    formula: |
+      \begin{aligned}
+      I&\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac{S}{s}\quad\left(s=\dfrac{a+b+c}{2}\right)\\
+      AI&=\dfrac{r}{\sin\dfrac{\hat A}{2}},\qquad AI^2=\dfrac{bc\,(s-a)}{s}\\
+      r&=\dfrac{a+b-c}{2}\quad\text{in a right triangle with hypotenuse }c
+      \end{aligned}
+    note: |
+      The weight of a vertex is the length of the **opposite** side: $A$ is weighted by $a=BC$. The incenter is always inside the triangle, and in an equilateral triangle it is the centroid.
+
   - id: bisector-equation
     type: theorem
     name: Equation of a bisector
@@ -165,18 +177,6 @@ sections:
       In the triangle $ABD_a$, the segment $BI$ bisects the angle at $B$, so $AI:ID_a=\norm{\overrightarrow{AB}}:BD_a=c:\dfrac{ac}{b+c}=(b+c):a$, where $BD_a=\dfrac{ac}{b+c}$ from $BD_a:D_aC=c:b$.
       The section formula gives $I=\dfrac{aA+(b+c)D_a}{a+b+c}=\dfrac{aA+bB+cC}{a+b+c}$. For the radius, the segments $IA$, $IB$, $IC$ cut the triangle into three triangles of height $r$ and bases $a,b,c$, so $S=\dfrac12r(a+b+c)=rs$.
 
-  - id: incenter-formulas
-    type: formula
-    title: Incenter and incircle, the formulas to remember
-    formula: |
-      \begin{aligned}
-      I&\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac{S}{s}\quad\left(s=\dfrac{a+b+c}{2}\right)\\
-      AI&=\dfrac{r}{\sin\dfrac{\hat A}{2}},\qquad AI^2=\dfrac{bc\,(s-a)}{s}\\
-      r&=\dfrac{a+b-c}{2}\quad\text{in a right triangle with hypotenuse }c
-      \end{aligned}
-    note: |
-      The weight of a vertex is the length of the **opposite** side: $A$ is weighted by $a=BC$. The incenter is always inside the triangle, and in an equilateral triangle it is the centroid.
-
   - id: ex-incenter
     type: example
     title: The incenter and the inradius
@@ -207,7 +207,9 @@ sections:
     answer: "(1, 1)"
     hints:
       - |
-        The sides are $a=\norm{\overrightarrow{BC}}=5$, $b=\norm{\overrightarrow{CA}}=3$, $c=\norm{\overrightarrow{AB}}=4$.
+        The weights are the opposite sides: $a=BC$, $b=CA$, $c=AB$.
+      - |
+        Compute the three side lengths, then use the coordinate formula of the incenter.
     explanation: |
       $I=\dfrac{5A+3B+4C}{12}=\left(\dfrac{12}{12},\dfrac{12}{12}\right)=(1,1)$.
 

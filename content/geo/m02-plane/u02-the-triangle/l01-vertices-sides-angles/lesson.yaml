@@ -83,7 +83,9 @@ sections:
     answer: "12"
     hints:
       - |
-        The sides are $\norm{\overrightarrow{AB}}=3$, $\norm{\overrightarrow{AC}}=4$ and $\norm{\overrightarrow{BC}}=\sqrt{9+16}$.
+        The perimeter is the sum of the three side lengths.
+      - |
+        Compute each side as the norm of a vector between two vertices.
     explanation: |
       $\norm{\overrightarrow{BC}}=5$, so the perimeter is $3+4+5=12$.
 
@@ -145,7 +147,9 @@ sections:
     answer: "4/5"
     hints:
       - |
-        $\overrightarrow{BA}=(-4,0)$ and $\overrightarrow{BC}=(-4,3)$.
+        The angle at $B$ is the angle between the vectors $\overrightarrow{BA}$ and $\overrightarrow{BC}$.
+      - |
+        Use $\cos\hat B=\dfrac{\dotp{\overrightarrow{BA}}{\overrightarrow{BC}}}{\norm{\overrightarrow{BA}}\,\norm{\overrightarrow{BC}}}$.
     explanation: |
       $\dotp{\overrightarrow{BA}}{\overrightarrow{BC}}=16$, $\norm{\overrightarrow{BA}}=4$, $\norm{\overrightarrow{BC}}=5$, so $\cos\hat B=\dfrac{16}{20}=\dfrac45$.
 
@@ -194,7 +198,7 @@ sections:
     answer: "11/2"
     hints:
       - |
-        Take $A=(0,0)$: the vectors from $A$ are $(4,1)$ and $(1,3)$.
+        Use $S=\dfrac12\left|u_1v_2-u_2v_1\right|$ with two sides that start at the same vertex.
     explanation: |
       $S=\dfrac12|4\cdot3-1\cdot1|=\dfrac{11}2$.
     mistakes:
@@ -234,7 +238,9 @@ sections:
     answer: "12*x-5*y=0"
     hints:
       - |
-        The line passes through the origin and has direction $(5,12)$.
+        The line passes through the origin.
+      - |
+        Find a normal vector from the direction of the line, then write $ax+by=0$.
     explanation: |
       A normal vector is $(12,-5)$, and the line passes through $A(0,0)$: $12x-5y=0$.
 

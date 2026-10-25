@@ -84,7 +84,9 @@ sections:
     answer: "(3, 0)"
     hints:
       - |
-        $2p=12$, so $p=6$. The focus is at $\left(\dfrac p2,0\right)$.
+        Write the parabola as $y^2=2px$ and read $p$.
+      - |
+        The focus is at $\left(\dfrac p2,0\right)$.
     explanation: |
       $p=6$, so the focus is $(3,0)$ and the directrix is $x=-3$.
 
@@ -131,7 +133,9 @@ sections:
     answer: "y=x+1"
     hints:
       - |
-        Here $2p=4$, so $p=2$: $2y=2(x+1)$.
+        For $y^2=2px$ the tangent at $(x_0,y_0)$ is $yy_0=p(x+x_0)$.
+      - |
+        Replace the coordinates of the point of tangency.
     explanation: |
       $y\cdot2=2(x+1)$, that is $y=x+1$.
 

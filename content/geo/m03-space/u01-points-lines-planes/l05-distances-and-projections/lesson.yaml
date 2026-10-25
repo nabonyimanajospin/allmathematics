@@ -111,7 +111,9 @@ sections:
     answer: "5"
     hints:
       - |
-        The cross product of the directions is $(0,0,1)$, and $\overrightarrow{OC}=(0,0,5)$.
+        Use $d=\dfrac{\left|\boxp{\overrightarrow{AB}}{\vec u}{\vec v}\right|}{\norm{\crossp{\vec u}{\vec v}}}$.
+      - |
+        Compute $\crossp{\vec u}{\vec v}$ and the box product.
     explanation: |
       $\boxp{\overrightarrow{OC}}{\vec u}{\vec v}=5$ and $\norm{\crossp{\vec u}{\vec v}}=1$, so the distance is $5$: the lines are in the horizontal planes $z=0$ and $z=5$.
 

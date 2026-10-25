@@ -101,7 +101,9 @@ sections:
     answer: "x=3"
     hints:
       - |
-        $x^2+y^2-\left((x-4)^2+y^2\right)=8$.
+        Write $MA^2-MB^2$ in coordinates.
+      - |
+        The squares $x^2$ and $y^2$ cancel, and the locus is a line.
     explanation: |
       $8x-16=8$, so $x=3$: a line perpendicular to $AB$.
 
@@ -113,7 +115,9 @@ sections:
     answer: "3"
     hints:
       - |
-        $MA^2+MB^2=2x^2+2y^2+8$.
+        Write $MA^2$ and $MB^2$ in coordinates and add them.
+      - |
+        Complete the square to see the circle.
     explanation: |
       $2x^2+2y^2+8=26$ gives $x^2+y^2=9$: radius $3$.
 

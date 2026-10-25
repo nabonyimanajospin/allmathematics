@@ -109,7 +109,9 @@ sections:
     answer: "sqrt(3)"
     hints:
       - |
-        By symmetry the center is $(1,1,1)$.
+        Use the symmetry of the four vertices to place the center.
+      - |
+        The radius is the distance from the center to a vertex.
     explanation: |
       $O=(1,1,1)$ is at distance $\sqrt3$ from $A$, and also from $B$: $\sqrt{1+1+1}$. So $R=\sqrt3$.
 

@@ -108,7 +108,9 @@ sections:
     answer: "2"
     hints:
       - |
-        Look at the trace $z=1$: $x^2-y^2=1$.
+        Look at the traces of the surface with horizontal planes.
+      - |
+        Which curve do you get when $z$ is a constant?
     explanation: |
       The traces $z=k$ are hyperbolas, and the trace $y=0$ is the parabola $z=x^2$ while $x=0$ gives $z=-y^2$: a saddle.
 

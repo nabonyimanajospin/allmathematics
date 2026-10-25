@@ -77,7 +77,9 @@ sections:
     answer: "2"
     hints:
       - |
-        The center is $(2,-1,-2)$. Then $\rho^2=4+1+4-5$.
+        Complete the squares in $x$, $y$ and $z$.
+      - |
+        The right side of $(x-p)^2+(y-q)^2+(z-r_0)^2=\rho^2$ is $\rho^2$, not $\rho$.
     explanation: |
       $\rho^2=\dfrac{16+4+16}{4}-5=9-5=4$, so $\rho=2$.
 

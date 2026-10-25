@@ -48,6 +48,26 @@ sections:
         - {t: line, through: [M_c, O], color: success, dashed: true}
         - {t: circle, center: O, r: 65/8, color: warning}
 
+  - id: circumcenter-formulas
+    type: formula
+    title: Circumcenter and circumcircle, the formulas to remember
+    formula: |
+      \begin{aligned}
+      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D}\\
+      y_O&=\dfrac{(x_1^2+y_1^2)(x_3-x_2)+(x_2^2+y_2^2)(x_1-x_3)+(x_3^2+y_3^2)(x_2-x_1)}{D}\\
+      D&=2\left[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\right]
+      \end{aligned}
+    note: |
+      These are the coordinates of the point at equal distance from $A$, $B$, $C$. If $D=0$ the three points are on one line and there is no circumcircle.
+
+  - id: circumcenter-determinants
+    type: formula
+    title: The circumcenter with determinants
+    formula: |
+      O\left(\dfrac{1}{4S}\begin{vmatrix}x_1^2+y_1^2&y_1&1\\x_2^2+y_2^2&y_2&1\\x_3^2+y_3^2&y_3&1\end{vmatrix},\ \dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix}\right),\qquad S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}
+    note: |
+      Keep the **sign** of $S$ and of the two determinants: if the vertices are written clockwise, $S$ is negative and so are the determinants, and the signs cancel in the quotient. The first column of each determinant is what changes: it holds $x_i^2+y_i^2$ for $x_O$ and $x_i$ for $y_O$.
+
   - id: ex-perp-bisector
     type: example
     title: The perpendicular bisector of $BC$
@@ -77,7 +97,9 @@ sections:
     answer: "x+y-7=0"
     hints:
       - |
-        The midpoint is $(3,4)$ and the normal vector is $\overrightarrow{AB}=(4,4)$.
+        The perpendicular bisector passes through the midpoint of $AB$.
+      - |
+        Its normal vector is the vector $\overrightarrow{AB}$.
     explanation: |
       $4(x-3)+4(y-4)=0$, that is $x+y-7=0$.
 
@@ -123,7 +145,9 @@ sections:
     answer: "3"
     hints:
       - |
-        The length is $\dfrac a2\tan\hat B$ with $a=6$.
+        Draw the right triangle formed by half of the side, the bisector and the side from the vertex.
+      - |
+        Use the tangent of the angle in that right triangle.
     explanation: |
       $\dfrac62\tan\dfrac\pi4=3\cdot1=3$.
 
@@ -144,26 +168,6 @@ sections:
     more: |
       **Why $a=2R\sin\hat A$ (the law of sines).** Draw the circumcircle and the diameter $BA'$ through $B$. The angle $\hat{BCA'}$ is a right angle (it is inscribed in a semicircle), and the angle at $A'$ equals $\hat A$ (both are inscribed angles on the arc $BC$).
       In the right triangle $BCA'$ the hypotenuse is $2R$ and the side opposite $\hat A$ is $a$, so $\sin\hat A=\dfrac{a}{2R}$, that is $a=2R\sin\hat A$.
-
-  - id: circumcenter-formulas
-    type: formula
-    title: Circumcenter and circumcircle, the formulas to remember
-    formula: |
-      \begin{aligned}
-      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D}\\
-      y_O&=\dfrac{(x_1^2+y_1^2)(x_3-x_2)+(x_2^2+y_2^2)(x_1-x_3)+(x_3^2+y_3^2)(x_2-x_1)}{D}\\
-      D&=2\left[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\right]
-      \end{aligned}
-    note: |
-      These are the coordinates of the point at equal distance from $A$, $B$, $C$. If $D=0$ the three points are on one line and there is no circumcircle.
-
-  - id: circumcenter-determinants
-    type: formula
-    title: The circumcenter with determinants
-    formula: |
-      O\left(\dfrac{1}{4S}\begin{vmatrix}x_1^2+y_1^2&y_1&1\\x_2^2+y_2^2&y_2&1\\x_3^2+y_3^2&y_3&1\end{vmatrix},\ \dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix}\right),\qquad S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}
-    note: |
-      Keep the **sign** of $S$ and of the two determinants: if the vertices are written clockwise, $S$ is negative and so are the determinants, and the signs cancel in the quotient. The first column of each determinant is what changes: it holds $x_i^2+y_i^2$ for $x_O$ and $x_i$ for $y_O$.
 
   - id: ex-circumcenter-det
     type: example
@@ -240,7 +244,9 @@ sections:
     answer: "(3, 4)"
     hints:
       - |
-        The perpendicular bisectors of $AB$ and $AC$ are $x=3$ and $y=4$.
+        The circumcenter is on the perpendicular bisectors of the sides.
+      - |
+        Write the perpendicular bisectors of two sides, then find their intersection.
     explanation: |
       The perpendicular bisector of $AB$ is $x=3$ and that of $AC$ is $y=4$, so $O=(3,4)$. It is the midpoint of the hypotenuse $BC$.
 
@@ -252,7 +258,9 @@ sections:
     answer: "5/2"
     hints:
       - |
-        $S=6$. Use $R=\dfrac{abc}{4S}$.
+        Use $R=\dfrac{abc}{4S}$.
+      - |
+        Find the three sides and the area $S$ first.
     explanation: |
       $R=\dfrac{3\cdot4\cdot5}{4\cdot6}=\dfrac{60}{24}=\dfrac52$, half of the hypotenuse.
 

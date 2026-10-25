@@ -154,9 +154,9 @@ sections:
     answer: "(4, -9, 16)"
     hints:
       - |
-        Multiply each vector by its scalar first: $3\vec u=(6,-3,12)$.
+        Multiply each vector by its scalar first.
       - |
-        Then subtract $2\vec v=(2,6,-4)$ component by component.
+        Then subtract the two new vectors component by component.
     explanation: |
       $3\vec u=(6,-3,12)$ and $2\vec v=(2,6,-4)$, so $3\vec u-2\vec v=(4,-9,16)$.
     mistakes:

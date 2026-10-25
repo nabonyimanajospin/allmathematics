@@ -122,7 +122,7 @@ sections:
     answer: "5"
     hints:
       - |
-        $\overrightarrow{AB}=(1-(-2),\,5-1)$.
+        Compute the vector from $A$ to $B$, then its norm.
     explanation: |
       $\overrightarrow{AB}=(3,4)$, so $\norm{\overrightarrow{AB}}=\sqrt{9+16}=5$.
     mistakes:

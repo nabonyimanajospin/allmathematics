@@ -65,7 +65,7 @@ sections:
     answer: "2"
     hints:
       - |
-        $\sqrt{5^2+12^2}=13$.
+        Divide $|ax_0+by_0+c|$ by the length of the normal vector $(a,b)$.
     explanation: |
       $d=\dfrac{|26|}{13}=2$.
 

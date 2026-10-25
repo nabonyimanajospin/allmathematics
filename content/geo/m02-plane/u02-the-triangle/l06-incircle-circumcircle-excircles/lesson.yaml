@@ -97,7 +97,9 @@ sections:
     answer: "pi"
     hints:
       - |
-        $r=\dfrac Ss$ with $S=6$ and $s=6$.
+        The area of the incircle is $\pi r^2$.
+      - |
+        Find $r=\dfrac Ss$ from the area and the semiperimeter of the triangle.
     explanation: |
       $r=1$, so the area is $\pi r^2=\pi$.
 

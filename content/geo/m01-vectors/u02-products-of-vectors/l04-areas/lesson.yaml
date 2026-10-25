@@ -79,7 +79,9 @@ sections:
     answer: "sqrt(29)"
     hints:
       - |
-        $\crossp{\vec u}{\vec v}=(2\cdot1-2\cdot0,\ 2\cdot2-1\cdot1,\ 1\cdot0-2\cdot2)$.
+        The area of the parallelogram is $\norm{\crossp{\vec u}{\vec v}}$.
+      - |
+        Compute the cross product first, then its length.
     explanation: |
       $\crossp{\vec u}{\vec v}=(2,3,-4)$, with norm $\sqrt{4+9+16}=\sqrt{29}$.
 
@@ -107,7 +109,9 @@ sections:
     answer: "6"
     hints:
       - |
-        $\crossp{\overrightarrow{OA}}{\overrightarrow{OB}}=(0,0,12)$.
+        The area of the triangle is half the length of the cross product of two of its sides.
+      - |
+        Compute $\crossp{\overrightarrow{OA}}{\overrightarrow{OB}}$, then take its norm and halve it.
     explanation: |
       $K=\dfrac12\cdot12=6$, the area of the right triangle with legs $3$ and $4$.
 

@@ -53,6 +53,20 @@ sections:
       $\left(x+\dfrac D2\right)^2+\left(y+\dfrac E2\right)^2=\dfrac{D^2+E^2}4-F$. A sum of squares equals a positive number when this number is positive: that is a circle.
       If the number is $0$ the equation describes one point, and if it is negative there is no point.
 
+  - id: circle-forms
+    type: formula
+    title: The equations of a circle - canonical, implicit, explicit, parametric and polar
+    formula: |
+      \begin{aligned}
+      \text{canonical}&:\ (x-p)^2+(y-q)^2=r^2,\\
+      \text{analytic (implicit)}&:\ x^2+y^2+Dx+Ey+F=0,\quad D=-2p,\ E=-2q,\ F=p^2+q^2-r^2,\\
+      \text{explicit}&:\ y=q\pm\sqrt{r^2-(x-p)^2},\qquad x\in[p-r,\,p+r],\\
+      \text{parametric}&:\ \begin{cases}x=p+r\cos t\\y=q+r\sin t\end{cases}\quad t\in[0,2\pi),\\
+      \text{polar, center }O&:\ \rho=r,\qquad\text{polar, center }(p,q):\ \rho^2-2\rho\,(p\cos\theta+q\sin\theta)+p^2+q^2-r^2=0.
+      \end{aligned}
+    note: |
+      The parameter $t$ is the angle that the radius makes with the direction of the $x$-axis: when $t$ grows from $0$ to $2\pi$ the point goes once around the circle, counterclockwise. The two explicit branches are the upper and the lower half.
+
   - id: ex-complete-square
     type: example
     title: Completing the square
@@ -81,7 +95,9 @@ sections:
     answer: "3"
     hints:
       - |
-        The center is $(-1,2)$. Then $r^2=1+4+4$.
+        Complete the squares in $x$ and in $y$.
+      - |
+        The right side of $(x-p)^2+(y-q)^2=r^2$ is $r^2$, not $r$.
     explanation: |
       $r^2=\dfrac{4+16}{4}+4=9$, so $r=3$.
 
@@ -134,20 +150,6 @@ sections:
     body: |
       A circle of radius $r$ has **circumference** $2\pi r$ and encloses the **area** $\pi r^2$. For the circle of the example, with $r=5$, these are $10\pi$ and $25\pi$.
       The interior of the circle is described by the inequality $(x-p)^2+(y-q)^2<r^2$.
-
-  - id: circle-forms
-    type: formula
-    title: The equations of a circle - canonical, implicit, explicit, parametric and polar
-    formula: |
-      \begin{aligned}
-      \text{canonical}&:\ (x-p)^2+(y-q)^2=r^2,\\
-      \text{analytic (implicit)}&:\ x^2+y^2+Dx+Ey+F=0,\quad D=-2p,\ E=-2q,\ F=p^2+q^2-r^2,\\
-      \text{explicit}&:\ y=q\pm\sqrt{r^2-(x-p)^2},\qquad x\in[p-r,\,p+r],\\
-      \text{parametric}&:\ \begin{cases}x=p+r\cos t\\y=q+r\sin t\end{cases}\quad t\in[0,2\pi),\\
-      \text{polar, center }O&:\ \rho=r,\qquad\text{polar, center }(p,q):\ \rho^2-2\rho\,(p\cos\theta+q\sin\theta)+p^2+q^2-r^2=0.
-      \end{aligned}
-    note: |
-      The parameter $t$ is the angle that the radius makes with the direction of the $x$-axis: when $t$ grows from $0$ to $2\pi$ the point goes once around the circle, counterclockwise. The two explicit branches are the upper and the lower half.
 
   - id: ex-parametric
     type: example

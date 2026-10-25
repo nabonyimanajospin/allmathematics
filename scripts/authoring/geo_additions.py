@@ -363,6 +363,35 @@ def circ_det_items() -> list[dict]:
     return it
 
 
+def perp_three_items() -> list[dict]:
+    """The perpendicular bisector of each side of a triangle given by its three vertices, then the point where they meet."""
+    it: list[dict] = []
+    tris = {
+        "a": ((0, 0), (6, 0), (0, 8)),
+        "b": ((-3, 2), (1, 5), (5, -7)),
+        "c": ((1, 1), (5, 1), (1, 4)),
+        "d": ((2, -1), (8, -1), (5, 3)),
+    }
+    for name, (A, B, C) in tris.items():
+        head = rf"The triangle has the vertices $A{pt2_tex(A)}$, $B{pt2_tex(B)}$ and $C{pt2_tex(C)}$. "
+        for side, (P, Q, nm) in {"ab": (A, B, "AB"), "bc": (B, C, "BC"), "ca": (C, A, "CA")}.items():
+            M = (sp.Rational(P[0] + Q[0], 2), sp.Rational(P[1] + Q[1], 2))
+            nvec = (Q[0] - P[0], Q[1] - P[1])
+            eq = sp.expand(nvec[0] * (x - M[0]) + nvec[1] * (y - M[1]))
+            eq2 = sp.expand(2 * eq)  # integer coefficients
+            it.append(ex(f"pb-{name}{side}", head + rf"The equation of the perpendicular bisector of the side ${nm}$ is", "equation", f"{eng(eq2)}=0", coordinates=["x", "y"],
+                         hints=[r"It passes through the midpoint of the side and its normal vector is the side itself."],
+                         solution=rf"The midpoint of ${nm}$ is ${pt2_tex(M)}$ and the normal vector is $\overrightarrow{{{nm}}}={pt2_tex(nvec)}$, so the line is ${tex(eq)}=0$, that is ${tex(eq2)}=0$."))
+        # the point where the three bisectors meet
+        gen = sp.Matrix([[xx, yy, 1] for xx, yy in (A, B, C)]).det()
+        sol = sp.solve([(x - A[0]) ** 2 + (y - A[1]) ** 2 - (x - B[0]) ** 2 - (y - B[1]) ** 2, (x - A[0]) ** 2 + (y - A[1]) ** 2 - (x - C[0]) ** 2 - (y - C[1]) ** 2], (x, y), dict=True)[0]
+        O = (rad(sol[x]), rad(sol[y]))
+        it.append(item_pt2(f"pb-{name}o", head + r"The three perpendicular bisectors meet at the circumcenter $O$:", O,
+                           rf"Write the perpendicular bisectors of two sides and solve the two equations: $O={pt2_tex(O)}$ (it is also at equal distance from $A$, $B$ and $C$).", ["Intersect the bisectors of two sides; the third passes through the same point."]))
+        assert gen != 0
+    return it
+
+
 @with_units
 def register() -> None:
     sets = [
@@ -377,6 +406,7 @@ def register() -> None:
         ("m02-plane/u02-the-triangle", "l07-euler-line-and-complete-study", "add-centers", "The incenter and the radii of a triangle.", centers_items(), False),
         ("m03-space/u02-the-tetrahedron", "l06-complete-study-of-a-tetrahedron", "add-study", "Edge and face angle, distance between opposite edges, circumsphere.", study_items(), True),
         ("m02-plane/u02-the-triangle", "l05-perpendicular-bisectors-and-circumcenter", "add-circ-det", "The circumcenter with determinants.", circ_det_items(), False),
+        ("m02-plane/u02-the-triangle", "l05-perpendicular-bisectors-and-circumcenter", "add-perp-three", "The perpendicular bisectors of a triangle given by its three vertices.", perp_three_items(), False),
     ]
     for unit, lesson, sid, task, items, orphan in sets:
         for item in items:

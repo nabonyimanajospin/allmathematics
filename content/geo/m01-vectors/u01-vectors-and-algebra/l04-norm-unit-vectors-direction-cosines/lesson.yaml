@@ -98,7 +98,7 @@ sections:
     answer: "(3/5, 4/5)"
     hints:
       - |
-        The norm of $(3,4)$ is $5$.
+        A unit vector in the same direction is the vector divided by its norm.
     explanation: |
       $\dfrac{(3,4)}{5}=\left(\dfrac35,\dfrac45\right)$.
 

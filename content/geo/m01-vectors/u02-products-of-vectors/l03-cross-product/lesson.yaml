@@ -65,7 +65,7 @@ sections:
     answer: "(-3, 6, -3)"
     hints:
       - |
-        First component: $2\cdot6-3\cdot5$.
+        Each component is a $2\times2$ determinant made with the other two coordinates (with the sign $-$ for the middle one).
     explanation: |
       $(12-15,\ 12-6,\ 5-8)=(-3,6,-3)$.
     mistakes:

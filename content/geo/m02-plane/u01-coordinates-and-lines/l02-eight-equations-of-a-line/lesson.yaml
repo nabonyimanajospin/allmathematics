@@ -186,7 +186,9 @@ sections:
     answer: "4*x-3*y-11=0"
     hints:
       - |
-        $\overrightarrow{AB}=(3,4)$, so a normal vector is $(4,-3)$.
+        A normal vector of the line is perpendicular to $\overrightarrow{AB}$.
+      - |
+        Write $ax+by+c=0$ with that normal vector, then find $c$ from one of the points.
     explanation: |
       $4(x-2)-3(y+1)=0$, that is $4x-3y-11=0$. Any non-zero multiple of this equation is also correct.
 

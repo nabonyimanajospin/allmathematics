@@ -134,7 +134,7 @@ sections:
     answer: "12"
     hints:
       - |
-        $1\cdot4+(-2)\cdot5+3\cdot6$.
+        Multiply the matching components, then add the three products.
     explanation: |
       $4-10+18=12$.
 
@@ -162,7 +162,9 @@ sections:
     answer: "pi/3"
     hints:
       - |
-        $\dotp{\vec u}{\vec v}=1$ and both norms are $\sqrt2$.
+        Use $\cos\theta=\dfrac{\dotp{\vec u}{\vec v}}{\norm{\vec u}\,\norm{\vec v}}$.
+      - |
+        Compute the dot product and the two norms separately before dividing.
     explanation: |
       $\cos\theta=\dfrac{1}{\sqrt2\cdot\sqrt2}=\dfrac12$, so $\theta=\dfrac\pi3$.
 

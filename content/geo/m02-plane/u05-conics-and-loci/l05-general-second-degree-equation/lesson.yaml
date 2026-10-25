@@ -118,7 +118,9 @@ sections:
     answer: "6"
     hints:
       - |
-        $A=5$, $B=2$, $C=2$.
+        Read the coefficients $A$, $B$, $C$ of the terms of degree two.
+      - |
+        Then compute the discriminant $\delta$ as defined in the lesson.
     explanation: |
       $\delta=5\cdot2-2^2=6>0$: elliptic type.
 

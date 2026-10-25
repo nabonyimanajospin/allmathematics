@@ -64,6 +64,31 @@ sections:
       ymax: 8
       alt: "A hyperbola with two branches, one to the left and one to the right, between two crossing dashed asymptote lines."
 
+  - id: hyperbola-formulas
+    type: formula
+    title: The hyperbola at a glance (center at the origin, $c^2=a^2+b^2$)
+    formula: |
+      \begin{aligned}
+      \text{canonical}&:\ \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2-a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}-\dfrac{(y-k)^2}{b^2}=1,\\
+      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{x^2-a^2},\qquad|x|\ge a,\\
+      \text{parametric}&:\ x=\pm a\cosh t,\ y=b\sinh t\quad\text{or}\quad x=\dfrac a{\cos t},\ y=b\tan t,\\
+      \text{polar, pole at the center}&:\ \rho^2=\dfrac{b^2}{e^2\cos^2\theta-1},\qquad\text{pole at the focus }F_1(-c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
+      \end{aligned}
+    note: |
+      The polar equation with the pole at the focus is the same form as for the ellipse, with $e>1$.
+
+  - id: hyperbola-elements
+    type: formula
+    title: The hyperbola - foci, asymptotes, latus rectum, directrices and focal radii
+    formula: |
+      \begin{aligned}
+      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\quad e=\dfrac ca>1,\quad\text{asymptotes}:\ y=\pm\dfrac bax,\\
+      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
+      \text{focal radii}&:\ MF_{1,2}=|ex\pm a|.
+      \end{aligned}
+    note: |
+      The hyperbola has no area (it is not a closed curve). For the conjugate hyperbola $\dfrac{y^2}{b^2}-\dfrac{x^2}{a^2}=1$ the foci are $(0,\pm c)$ and the directrices are horizontal. When $a=b$ the asymptotes are perpendicular and the hyperbola is **rectangular**, with $e=\sqrt2$.
+
   - id: ex-elements
     type: example
     title: The elements of a hyperbola
@@ -94,34 +119,11 @@ sections:
     answer: "5/4"
     hints:
       - |
-        $c^2=a^2+b^2=16+9$.
+        For a hyperbola $c^2=a^2+b^2$ and $e=\dfrac ca$.
+      - |
+        Read $a^2$ and $b^2$ from the equation.
     explanation: |
       $c=5$ and $a=4$, so $e=\dfrac54$.
-
-  - id: hyperbola-formulas
-    type: formula
-    title: The hyperbola at a glance (center at the origin, $c^2=a^2+b^2$)
-    formula: |
-      \begin{aligned}
-      \text{canonical}&:\ \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1,\qquad\text{implicit}:\ b^2x^2-a^2y^2=a^2b^2,\qquad\text{center }(h,k):\ \dfrac{(x-h)^2}{a^2}-\dfrac{(y-k)^2}{b^2}=1,\\
-      \text{explicit}&:\ y=\pm\dfrac ba\sqrt{x^2-a^2},\qquad|x|\ge a,\\
-      \text{parametric}&:\ x=\pm a\cosh t,\ y=b\sinh t\quad\text{or}\quad x=\dfrac a{\cos t},\ y=b\tan t,\\
-      \text{polar, pole at the center}&:\ \rho^2=\dfrac{b^2}{e^2\cos^2\theta-1},\qquad\text{pole at the focus }F_1(-c,0):\ \rho=\dfrac{b^2/a}{1+e\cos\theta}.
-      \end{aligned}
-    note: |
-      The polar equation with the pole at the focus is the same form as for the ellipse, with $e>1$.
-
-  - id: hyperbola-elements
-    type: formula
-    title: The hyperbola - foci, asymptotes, latus rectum, directrices and focal radii
-    formula: |
-      \begin{aligned}
-      \text{foci}&:\ (\pm c,0),\quad\text{vertices}:\ (\pm a,0),\quad e=\dfrac ca>1,\quad\text{asymptotes}:\ y=\pm\dfrac bax,\\
-      \text{latus rectum}&:\ \dfrac{2b^2}{a},\qquad\text{directrices}:\ x=\pm\dfrac ae=\pm\dfrac{a^2}c,\\
-      \text{focal radii}&:\ MF_{1,2}=|ex\pm a|.
-      \end{aligned}
-    note: |
-      The hyperbola has no area (it is not a closed curve). For the conjugate hyperbola $\dfrac{y^2}{b^2}-\dfrac{x^2}{a^2}=1$ the foci are $(0,\pm c)$ and the directrices are horizontal. When $a=b$ the asymptotes are perpendicular and the hyperbola is **rectangular**, with $e=\sqrt2$.
 
   - id: ex-hyperbola-all
     type: example

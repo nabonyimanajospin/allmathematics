@@ -121,7 +121,9 @@ sections:
     answer: "4"
     hints:
       - |
-        For a parabola $e=1$ and $ed=4$.
+        The polar equation is $r=\dfrac{ed}{1+e\cos\theta}$.
+      - |
+        Compare it with the given equation to read $ed$.
     explanation: |
       $r=\dfrac{4}{1-\cos\frac\pi2}=4$.
 

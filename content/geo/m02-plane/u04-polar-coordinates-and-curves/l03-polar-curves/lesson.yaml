@@ -152,7 +152,7 @@ sections:
     answer: "3"
     hints:
       - |
-        The number $3$ is odd.
+        A rose $r=a\sin n\theta$ has $n$ petals when $n$ is odd and $2n$ petals when $n$ is even.
     explanation: |
       For an odd $n$ the rose $r=a\cos n\theta$ has $n$ petals: here $3$.
 

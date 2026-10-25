@@ -63,7 +63,9 @@ sections:
     correctIndex: 0
     hints:
       - |
-        The centers are $(0,0)$ and $(3,0)$, with radii $1$ and $2$. Compare $d$ with $r_1+r_2$.
+        Compute the distance $d$ between the centers.
+      - |
+        Compare $d$ with $r_1+r_2$ and with $|r_1-r_2|$.
     explanation: |
       $d=3$ and $r_1+r_2=1+2=3$, so the circles are externally tangent.
 
