@@ -156,7 +156,9 @@ sections:
     statement: |
       The three internal bisectors meet at one point, the **incenter** $I$, at the same distance $r$ (the **inradius**) from the three sides. With $a$, $b$, $c$ opposite $A$, $B$, $C$,
 
-      $$I=\dfrac{a\,A+b\,B+c\,C}{a+b+c}=\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac{S}{s}.$$
+      $$I\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac{S}{s}.$$
+
+      In vector form, each coordinate is a weighted average with the weights $a,b,c$: $I=\dfrac{a\,A+b\,B+c\,C}{a+b+c}$.
 
       Moreover $AI:ID_a=(b+c):a$.
     proof: |
@@ -168,7 +170,7 @@ sections:
     title: Incenter and incircle, the formulas to remember
     formula: |
       \begin{aligned}
-      I&=\dfrac{aA+bB+cC}{a+b+c},\qquad r=\dfrac{S}{s}\quad\left(s=\dfrac{a+b+c}{2}\right)\\
+      I&\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac{S}{s}\quad\left(s=\dfrac{a+b+c}{2}\right)\\
       AI&=\dfrac{r}{\sin\dfrac{\hat A}{2}},\qquad AI^2=\dfrac{bc\,(s-a)}{s}\\
       r&=\dfrac{a+b-c}{2}\quad\text{in a right triangle with hypotenuse }c
       \end{aligned}
@@ -217,4 +219,4 @@ sections:
       - |
         $l_a=\dfrac1{b+c}\sqrt{bc\left[(b+c)^2-a^2\right]}$.
       - |
-        $I=\dfrac{aA+bB+cC}{a+b+c}$ and $r=\dfrac Ss$: each vertex is weighted by the opposite side.
+        $I\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right)$ and $r=\dfrac Ss$: each vertex is weighted by the opposite side.

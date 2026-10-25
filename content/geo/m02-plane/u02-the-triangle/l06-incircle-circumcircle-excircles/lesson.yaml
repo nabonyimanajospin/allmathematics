@@ -119,7 +119,7 @@ sections:
     statement: |
       The **excircle** opposite $A$ touches the side $BC$ from outside and the extensions of the other two sides. Its center $I_a$ (the **excenter**) and radius $r_a$ (the **exradius**) are
 
-      $$I_a=\dfrac{-a\,A+b\,B+c\,C}{-a+b+c},\qquad r_a=\dfrac{S}{s-a}.$$
+      $$I_a\left(\dfrac{-ax_1+bx_2+cx_3}{-a+b+c},\ \dfrac{-ay_1+by_2+cy_3}{-a+b+c}\right),\qquad r_a=\dfrac{S}{s-a}.$$
 
       For the excircles opposite $B$ and $C$ change the sign of $b$, respectively $c$, in the same way: $I_b=\dfrac{aA-bB+cC}{a-b+c}$, $r_b=\dfrac S{s-b}$.
     proof: |
@@ -154,6 +154,6 @@ sections:
       - |
         Circle with center $(p,q)$ and radius $\rho$: $(x-p)^2+(y-q)^2=\rho^2$, or $x=p+\rho\cos t$, $y=q+\rho\sin t$; perimeter $2\pi\rho$, area $\pi\rho^2$.
       - |
-        Incircle: center $I=\dfrac{aA+bB+cC}{a+b+c}$, radius $r=\dfrac Ss$. Circumcircle: center $O$, radius $R=\dfrac{abc}{4S}$.
+        Incircle: center $I\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right)$, radius $r=\dfrac Ss$. Circumcircle: center $O$, radius $R=\dfrac{abc}{4S}$.
       - |
-        Excircle opposite $A$: $I_a=\dfrac{-aA+bB+cC}{-a+b+c}$, $r_a=\dfrac S{s-a}$.
+        Excircle opposite $A$: $I_a\left(\dfrac{-ax_1+bx_2+cx_3}{-a+b+c},\ \dfrac{-ay_1+by_2+cy_3}{-a+b+c}\right)$, $r_a=\dfrac S{s-a}$.

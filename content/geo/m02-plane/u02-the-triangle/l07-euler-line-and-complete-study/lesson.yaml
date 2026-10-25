@@ -89,15 +89,25 @@ sections:
     title: The centers of a triangle on one page
     formula: |
       \begin{aligned}
-      G&=\dfrac{A+B+C}3,\qquad I=\dfrac{aA+bB+cC}{a+b+c},\qquad r=\dfrac Ss\ \left(s=\dfrac{a+b+c}2\right),\\
+      G&\left(\dfrac{x_1+x_2+x_3}3,\ \dfrac{y_1+y_2+y_3}3\right),\\
+      I&\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right),\qquad r=\dfrac Ss\ \left(s=\dfrac{a+b+c}2\right),\\
       O&:\ \text{intersection of the perpendicular bisectors},\qquad R=\dfrac{abc}{4S},\\
-      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D},\qquad D=2\bigl[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\bigr],\\
+      x_O&=\dfrac{(x_1^2+y_1^2)(y_2-y_3)+(x_2^2+y_2^2)(y_3-y_1)+(x_3^2+y_3^2)(y_1-y_2)}{D},\\
+      D&=2\bigl[x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\bigr]
+      \end{aligned}
+    note: |
+      The coordinates $y_O$ are obtained from the same formula with the roles of $x$ and $y$ exchanged (see the lesson on the circumcenter, where the determinant form is also given).
+
+  - id: centers-relations
+    type: formula
+    title: The relations between the centers
+    formula: |
+      \begin{aligned}
       H&=A+B+C-2O=3G-2O,\qquad\overrightarrow{HG}=2\,\overrightarrow{GO},\\
       OI^2&=R^2-2Rr\quad(\text{Euler's formula}),\qquad OH^2=9R^2-(a^2+b^2+c^2).
       \end{aligned}
     note: |
-      Here $a=BC$, $b=CA$, $c=AB$ are the sides opposite $A$, $B$, $C$, and $S$ is the area. The weights of the incenter are the **opposite** sides; the centroid has equal weights. In an equilateral triangle $G=I=O=H$. The coordinates $y_O$ are obtained from the same formula with the roles of $x$ and $y$ exchanged (see the lesson on the circumcenter).
-
+      Here $a=BC$, $b=CA$, $c=AB$ are the sides opposite $A$, $B$, $C$, and $S$ is the area. The weights of the incenter are the **opposite** sides; the centroid has equal weights. In an equilateral triangle $G=I=O=H$.
   - id: ex-centers-glance
     type: example
     title: The incenter, the radii and Euler's formula for the running triangle
