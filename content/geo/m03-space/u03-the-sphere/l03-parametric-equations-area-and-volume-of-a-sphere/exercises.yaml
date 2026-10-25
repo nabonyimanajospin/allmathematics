@@ -13,7 +13,7 @@
       hints:
         - "Four linear equations in $m$, $n$, $p$, $q$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The center is $(-m,-n,-p)=\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=m^2+n^2+p^2-q=\frac{3}{4}$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The general equation is $x^{2} - x + y^{2} - y + z^{2} - z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-\frac{1}{2}\right)^2 + \left(y-\frac{1}{2}\right)^2 + \left(z-\frac{1}{2}\right)^2=\frac{3}{4}$, so the center is $\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=\frac{3}{4}$.
     - id: sf-s1c
       statement: |-
         The sphere passes through $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$. Its center is
@@ -22,7 +22,7 @@
       hints:
         - "The center is $(-m,-n,-p)$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The center is $(-m,-n,-p)=\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=m^2+n^2+p^2-q=\frac{3}{4}$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The general equation is $x^{2} - x + y^{2} - y + z^{2} - z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-\frac{1}{2}\right)^2 + \left(y-\frac{1}{2}\right)^2 + \left(z-\frac{1}{2}\right)^2=\frac{3}{4}$, so the center is $\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=\frac{3}{4}$.
     - id: sf-s1r
       statement: |-
         The sphere passes through $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$. Its radius is The unit is lu: give the number only.
@@ -32,7 +32,7 @@
         - |-
           $\rho^2=m^2+n^2+p^2-q$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The center is $(-m,-n,-p)=\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=m^2+n^2+p^2-q=\frac{3}{4}$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The general equation is $x^{2} - x + y^{2} - y + z^{2} - z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-\frac{1}{2}\right)^2 + \left(y-\frac{1}{2}\right)^2 + \left(z-\frac{1}{2}\right)^2=\frac{3}{4}$, so the center is $\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=\frac{3}{4}$.
     - id: sf-s1a
       statement: |-
         The sphere passes through $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$. Its surface area (unit squ: give the number only) is
@@ -42,7 +42,7 @@
         - |-
           $4\pi\rho^2$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The center is $(-m,-n,-p)=\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=m^2+n^2+p^2-q=\frac{3}{4}$. The area is $4\pi\rho^2=3 \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The general equation is $x^{2} - x + y^{2} - y + z^{2} - z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-\frac{1}{2}\right)^2 + \left(y-\frac{1}{2}\right)^2 + \left(z-\frac{1}{2}\right)^2=\frac{3}{4}$, so the center is $\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=\frac{3}{4}$. The area is $4\pi\rho^2=3 \pi$.
     - id: sf-s1v
       statement: |-
         The sphere passes through $A\left(1,\,0,\,0\right)$, $B\left(0,\,1,\,0\right)$, $C\left(0,\,0,\,1\right)$, $D\left(1,\,1,\,1\right)$. Its volume (unit cu: give the number only) is
@@ -52,7 +52,7 @@
         - |-
           $\dfrac43\pi\rho^3$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The center is $(-m,-n,-p)=\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=m^2+n^2+p^2-q=\frac{3}{4}$. The volume is $\dfrac43\pi\rho^3=\frac{\sqrt{3} \pi}{2}$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=- \frac{1}{2}$, $n=- \frac{1}{2}$, $p=- \frac{1}{2}$, $q=0$. The general equation is $x^{2} - x + y^{2} - y + z^{2} - z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-\frac{1}{2}\right)^2 + \left(y-\frac{1}{2}\right)^2 + \left(z-\frac{1}{2}\right)^2=\frac{3}{4}$, so the center is $\left(\frac{1}{2},\,\frac{1}{2},\,\frac{1}{2}\right)$ and $\rho^2=\frac{3}{4}$. The volume is $\dfrac43\pi\rho^3=\frac{\sqrt{3} \pi}{2}$.
     - id: sf-s2q
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,4\right)$. In the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ the value of $q$ is
@@ -61,7 +61,7 @@
       hints:
         - "Four linear equations in $m$, $n$, $p$, $q$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,2,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=12$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 4 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-2\right)^2 + \left(z-2\right)^2=12$, so the center is $\left(2,\,2,\,2\right)$ and $\rho^2=12$.
     - id: sf-s2c
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,4\right)$. Its center is
@@ -70,7 +70,7 @@
       hints:
         - "The center is $(-m,-n,-p)$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,2,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=12$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 4 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-2\right)^2 + \left(z-2\right)^2=12$, so the center is $\left(2,\,2,\,2\right)$ and $\rho^2=12$.
     - id: sf-s2r
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,4\right)$. Its radius is The unit is lu: give the number only.
@@ -80,7 +80,7 @@
         - |-
           $\rho^2=m^2+n^2+p^2-q$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,2,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=12$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 4 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-2\right)^2 + \left(z-2\right)^2=12$, so the center is $\left(2,\,2,\,2\right)$ and $\rho^2=12$.
     - id: sf-s2a
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,4\right)$. Its surface area (unit squ: give the number only) is
@@ -90,7 +90,7 @@
         - |-
           $4\pi\rho^2$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,2,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=12$. The area is $4\pi\rho^2=48 \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 4 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-2\right)^2 + \left(z-2\right)^2=12$, so the center is $\left(2,\,2,\,2\right)$ and $\rho^2=12$. The area is $4\pi\rho^2=48 \pi$.
     - id: sf-s2v
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,4\right)$. Its volume (unit cu: give the number only) is
@@ -100,7 +100,7 @@
         - |-
           $\dfrac43\pi\rho^3$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,2,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=12$. The volume is $\dfrac43\pi\rho^3=32 \sqrt{3} \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-2$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 4 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-2\right)^2 + \left(z-2\right)^2=12$, so the center is $\left(2,\,2,\,2\right)$ and $\rho^2=12$. The volume is $\dfrac43\pi\rho^3=32 \sqrt{3} \pi$.
     - id: sf-s3q
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$. In the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ the value of $q$ is
@@ -109,7 +109,7 @@
       hints:
         - "Four linear equations in $m$, $n$, $p$, $q$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,1,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=9$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 2 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-1\right)^2 + \left(z-2\right)^2=9$, so the center is $\left(2,\,1,\,2\right)$ and $\rho^2=9$.
     - id: sf-s3c
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$. Its center is
@@ -118,7 +118,7 @@
       hints:
         - "The center is $(-m,-n,-p)$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,1,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=9$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 2 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-1\right)^2 + \left(z-2\right)^2=9$, so the center is $\left(2,\,1,\,2\right)$ and $\rho^2=9$.
     - id: sf-s3r
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$. Its radius is The unit is lu: give the number only.
@@ -128,7 +128,7 @@
         - |-
           $\rho^2=m^2+n^2+p^2-q$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,1,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=9$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 2 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-1\right)^2 + \left(z-2\right)^2=9$, so the center is $\left(2,\,1,\,2\right)$ and $\rho^2=9$.
     - id: sf-s3a
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$. Its surface area (unit squ: give the number only) is
@@ -138,7 +138,7 @@
         - |-
           $4\pi\rho^2$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,1,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=9$. The area is $4\pi\rho^2=36 \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 2 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-1\right)^2 + \left(z-2\right)^2=9$, so the center is $\left(2,\,1,\,2\right)$ and $\rho^2=9$. The area is $4\pi\rho^2=36 \pi$.
     - id: sf-s3v
       statement: |-
         The sphere passes through $A\left(0,\,0,\,0\right)$, $B\left(4,\,0,\,0\right)$, $C\left(1,\,3,\,0\right)$, $D\left(2,\,1,\,5\right)$. Its volume (unit cu: give the number only) is
@@ -148,7 +148,7 @@
         - |-
           $\dfrac43\pi\rho^3$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The center is $(-m,-n,-p)=\left(2,\,1,\,2\right)$ and $\rho^2=m^2+n^2+p^2-q=9$. The volume is $\dfrac43\pi\rho^3=36 \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=-2$, $n=-1$, $p=-2$, $q=0$. The general equation is $x^{2} - 4 x + y^{2} - 2 y + z^{2} - 4 z=0$. Completing the squares in $x$, $y$ and $z$ gives $\left(x-2\right)^2 + \left(y-1\right)^2 + \left(z-2\right)^2=9$, so the center is $\left(2,\,1,\,2\right)$ and $\rho^2=9$. The volume is $\dfrac43\pi\rho^3=36 \pi$.
     - id: sf-s4q
       statement: |-
         The sphere passes through $A\left(2,\,0,\,0\right)$, $B\left(0,\,2,\,0\right)$, $C\left(0,\,0,\,2\right)$, $D\left(-2,\,0,\,0\right)$. In the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ the value of $q$ is
@@ -157,7 +157,7 @@
       hints:
         - "Four linear equations in $m$, $n$, $p$, $q$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The center is $(-m,-n,-p)=\left(0,\,0,\,0\right)$ and $\rho^2=m^2+n^2+p^2-q=4$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The general equation is $x^{2} + y^{2} + z^{2} - 4=0$. Completing the squares in $x$, $y$ and $z$ gives $x^2 + y^2 + z^2=4$, so the center is $\left(0,\,0,\,0\right)$ and $\rho^2=4$.
     - id: sf-s4c
       statement: |-
         The sphere passes through $A\left(2,\,0,\,0\right)$, $B\left(0,\,2,\,0\right)$, $C\left(0,\,0,\,2\right)$, $D\left(-2,\,0,\,0\right)$. Its center is
@@ -166,7 +166,7 @@
       hints:
         - "The center is $(-m,-n,-p)$."
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The center is $(-m,-n,-p)=\left(0,\,0,\,0\right)$ and $\rho^2=m^2+n^2+p^2-q=4$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The general equation is $x^{2} + y^{2} + z^{2} - 4=0$. Completing the squares in $x$, $y$ and $z$ gives $x^2 + y^2 + z^2=4$, so the center is $\left(0,\,0,\,0\right)$ and $\rho^2=4$.
     - id: sf-s4r
       statement: |-
         The sphere passes through $A\left(2,\,0,\,0\right)$, $B\left(0,\,2,\,0\right)$, $C\left(0,\,0,\,2\right)$, $D\left(-2,\,0,\,0\right)$. Its radius is The unit is lu: give the number only.
@@ -176,7 +176,7 @@
         - |-
           $\rho^2=m^2+n^2+p^2-q$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The center is $(-m,-n,-p)=\left(0,\,0,\,0\right)$ and $\rho^2=m^2+n^2+p^2-q=4$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The general equation is $x^{2} + y^{2} + z^{2} - 4=0$. Completing the squares in $x$, $y$ and $z$ gives $x^2 + y^2 + z^2=4$, so the center is $\left(0,\,0,\,0\right)$ and $\rho^2=4$.
     - id: sf-s4a
       statement: |-
         The sphere passes through $A\left(2,\,0,\,0\right)$, $B\left(0,\,2,\,0\right)$, $C\left(0,\,0,\,2\right)$, $D\left(-2,\,0,\,0\right)$. Its surface area (unit squ: give the number only) is
@@ -186,7 +186,7 @@
         - |-
           $4\pi\rho^2$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The center is $(-m,-n,-p)=\left(0,\,0,\,0\right)$ and $\rho^2=m^2+n^2+p^2-q=4$. The area is $4\pi\rho^2=16 \pi$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The general equation is $x^{2} + y^{2} + z^{2} - 4=0$. Completing the squares in $x$, $y$ and $z$ gives $x^2 + y^2 + z^2=4$, so the center is $\left(0,\,0,\,0\right)$ and $\rho^2=4$. The area is $4\pi\rho^2=16 \pi$.
     - id: sf-s4v
       statement: |-
         The sphere passes through $A\left(2,\,0,\,0\right)$, $B\left(0,\,2,\,0\right)$, $C\left(0,\,0,\,2\right)$, $D\left(-2,\,0,\,0\right)$. Its volume (unit cu: give the number only) is
@@ -196,7 +196,7 @@
         - |-
           $\dfrac43\pi\rho^3$.
       solution: |-
-        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The center is $(-m,-n,-p)=\left(0,\,0,\,0\right)$ and $\rho^2=m^2+n^2+p^2-q=4$. The volume is $\dfrac43\pi\rho^3=\frac{32 \pi}{3}$.
+        Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m=0$, $n=0$, $p=0$, $q=-4$. The general equation is $x^{2} + y^{2} + z^{2} - 4=0$. Completing the squares in $x$, $y$ and $z$ gives $x^2 + y^2 + z^2=4$, so the center is $\left(0,\,0,\,0\right)$ and $\rho^2=4$. The volume is $\dfrac43\pi\rho^3=\frac{32 \pi}{3}$.
 - id: add-sphere-2
   task: |-
     The sphere: four points, parametric equations, area and volume (part 2 of 2).

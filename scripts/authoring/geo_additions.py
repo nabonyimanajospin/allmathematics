@@ -146,6 +146,19 @@ def altitude_items() -> list[dict]:
     return it
 
 
+def completed_squares(m_, n_, p_, q_) -> str:
+    """The general equation, then the completed squares, as a sentence of a solution (center and radius come from the squares)."""
+    gen = sp.expand(x**2 + y**2 + z**2 + 2 * m_ * x + 2 * n_ * y + 2 * p_ * z + q_)
+    c = (-m_, -n_, -p_)
+    rho2 = rad(m_**2 + n_**2 + p_**2 - q_)
+
+    def sq(v: str, k) -> str:
+        return f"{v}^2" if k == 0 else rf"\left({v}{'-' if k > 0 else '+'}{tex(abs(k))}\right)^2"
+
+    canon = " + ".join(sq(v, k) for v, k in zip("xyz", c))
+    return rf"The general equation is ${tex(gen)}=0$. Completing the squares in $x$, $y$ and $z$ gives ${canon}={tex(rho2)}$, so the center is ${pt3_tex(tuple(rad(k) for k in c))}$ and $\rho^2={tex(rho2)}$."
+
+
 # --- the sphere: four points, parametric equations, area and volume ----------------------------------------------------------------------------------------
 def sphere_items() -> list[dict]:
     it: list[dict] = []
@@ -164,7 +177,7 @@ def sphere_items() -> list[dict]:
         rho = rad(sp.sqrt(rho2))
         assert all(rad(sum((P[i] - c[i]) ** 2 for i in range(3)) - rho2) == 0 for P in pts)
         head = "The sphere passes through " + ", ".join(rf"${'ABCD'[i]}{pt3_tex(P)}$" for i, P in enumerate(pts)) + ". "
-        sol_txt = rf"Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m={tex(sol[m])}$, $n={tex(sol[nn])}$, $p={tex(sol[p])}$, $q={tex(sol[q])}$. The center is $(-m,-n,-p)={pt3_tex(c)}$ and $\rho^2=m^2+n^2+p^2-q={tex(rho2)}$."
+        sol_txt = rf"Put the four points in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ and solve the four linear equations: $m={tex(sol[m])}$, $n={tex(sol[nn])}$, $p={tex(sol[p])}$, $q={tex(sol[q])}$. " + completed_squares(sol[m], sol[nn], sol[p], sol[q])
         it.append(item_num(f"sf-{name}q", head + r"In the general equation $x^2+y^2+z^2+2mx+2ny+2pz+q=0$ the value of $q$ is", sol[q], sol_txt, ["Four linear equations in $m$, $n$, $p$, $q$."]))
         it.append(item_pt(f"sf-{name}c", head + r"Its center is", c, sol_txt, ["The center is $(-m,-n,-p)$."]))
         it.append(item_num(f"sf-{name}r", head + r"Its radius is", rho, sol_txt, [r"$\rho^2=m^2+n^2+p^2-q$."]))
@@ -323,7 +336,7 @@ def study_items() -> list[dict]:
         rho2 = rad(sol[m] ** 2 + sol[nn] ** 2 + sol[p] ** 2 - sol[q])
         rho = rad(sp.sqrt(rho2))
         assert all(rad(sum((P[i] - c[i]) ** 2 for i in range(3)) - rho2) == 0 for P in (A, B, C, D))
-        txt = rf"Solving the four linear equations: $m={tex(sol[m])}$, $n={tex(sol[nn])}$, $p={tex(sol[p])}$, $q={tex(sol[q])}$. The center is ${pt3_tex(c)}$ and $\rho^2={tex(rho2)}$."
+        txt = rf"Solving the four linear equations: $m={tex(sol[m])}$, $n={tex(sol[nn])}$, $p={tex(sol[p])}$, $q={tex(sol[q])}$. " + completed_squares(sol[m], sol[nn], sol[p], sol[q])
         it.append(item_pt(f"st-{name}c", head + r"The center of the circumsphere is", c, txt, [r"The center is $(-m,-n,-p)$."]))
         it.append(item_num(f"st-{name}a", head + r"The area of the circumsphere (unit squ: number only) is", rad(4 * PI * rho2), txt + rf" The area is $4\pi\rho^2={tex(rad(4 * PI * rho2))}$.", [r"$4\pi\rho^2$."]))
         it.append(item_num(f"st-{name}v", head + r"The volume of the circumsphere (unit cu: number only) is", rad(sp.Rational(4, 3) * PI * rho**3), txt + rf" The volume is $\dfrac43\pi\rho^3={tex(rad(sp.Rational(4, 3) * PI * rho**3))}$.", [r"$\dfrac43\pi\rho^3$."]))
