@@ -6,53 +6,53 @@
   items:
     - id: st-ns
       statement: |-
-        The tetrahedron has the vertices $A\left(-1,\,-3,\,1\right)$, $B\left(5,\,3,\,8\right)$, $C\left(-1,\,-3,\,5\right)$, $D\left(2,\,1,\,4\right)$. The sine of the angle between the edge $AD$ and the face $ABC$ is
+        The tetrahedron has the vertices $A\left(2,\,3,\,-3\right)$, $B\left(1,\,3,\,-2\right)$, $C\left(2,\,2,\,-2\right)$, $D\left(2,\,3,\,-2\right)$. The sine of the angle between the edge $AD$ and the face $ABC$ is
       answerType: expression
-      answer: "sqrt(17)/34"
+      answer: "sqrt(3)/3"
       hints:
         - |-
           $\sin\theta=\dfrac{|\dotp{\vec N}{\overrightarrow{AD}}|}{\norm{\vec N}\norm{\overrightarrow{AD}}}$.
       solution: |-
-        $\vec N_{ABC}=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=\left(24,\,-24,\,0\right)$ and $\overrightarrow{AD}=\left(3,\,4,\,3\right)$; $|\dotp{\vec N}{\overrightarrow{AD}}|=24$, $\norm{\vec N}=24 \sqrt{2}$, $\norm{\overrightarrow{AD}}=\sqrt{34}$, so $\sin\theta=\frac{\sqrt{17}}{34}$.
+        $\vec N_{ABC}=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=\left(1,\,1,\,1\right)$ and $\overrightarrow{AD}=\left(0,\,0,\,1\right)$; $|\dotp{\vec N}{\overrightarrow{AD}}|=1$, $\norm{\vec N}=\sqrt{3}$, $\norm{\overrightarrow{AD}}=1$, so $\sin\theta=\frac{\sqrt{3}}{3}$.
     - id: st-nd
       statement: |-
-        The tetrahedron has the vertices $A\left(-1,\,-3,\,1\right)$, $B\left(5,\,3,\,8\right)$, $C\left(-1,\,-3,\,5\right)$, $D\left(2,\,1,\,4\right)$. The distance between the opposite edges $AD$ and $BC$ (unit lu: number only) is
+        The tetrahedron has the vertices $A\left(2,\,3,\,-3\right)$, $B\left(1,\,3,\,-2\right)$, $C\left(2,\,2,\,-2\right)$, $D\left(2,\,3,\,-2\right)$. The distance between the opposite edges $AD$ and $BC$ (unit lu: number only) is
       answerType: expression
-      answer: "8*sqrt(17)/17"
+      answer: "sqrt(2)/2"
       hints:
         - |-
           $d=\dfrac{|\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}|}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}$.
       solution: |-
-        $\overrightarrow{AB}=\left(6,\,6,\,7\right)$, $\overrightarrow{AD}=\left(3,\,4,\,3\right)$, $\overrightarrow{BC}=\left(-6,\,-6,\,-3\right)$. The box product is $24$ and $\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}=\left(6,\,-9,\,6\right)$ has the length $3 \sqrt{17}$, so $d=\frac{8 \sqrt{17}}{17}$.
+        $\overrightarrow{AB}=\left(-1,\,0,\,1\right)$, $\overrightarrow{AD}=\left(0,\,0,\,1\right)$, $\overrightarrow{BC}=\left(1,\,-1,\,0\right)$. The box product is $-1$ and $\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}=\left(1,\,1,\,0\right)$ has the length $\sqrt{2}$, so $d=\frac{\sqrt{2}}{2}$.
     - id: st-nc
       statement: |-
-        The tetrahedron has the vertices $A\left(-1,\,-3,\,1\right)$, $B\left(5,\,3,\,8\right)$, $C\left(-1,\,-3,\,5\right)$, $D\left(2,\,1,\,4\right)$. The center of the circumsphere is
+        The tetrahedron has the vertices $A\left(2,\,3,\,-3\right)$, $B\left(1,\,3,\,-2\right)$, $C\left(2,\,2,\,-2\right)$, $D\left(2,\,3,\,-2\right)$. The center of the circumsphere is
       answerType: vector
-      answer: "(19, -61/4, 3)"
+      answer: "(3/2, 5/2, -5/2)"
       hints:
         - "The center is $(-m,-n,-p)$."
       solution: |-
-        Solving the four linear equations: $m=-19$, $n=\frac{61}{4}$, $p=-3$, $q=\frac{97}{2}$. The center is $\left(19,\,- \frac{61}{4},\,3\right)$ and $\rho^2=\frac{8865}{16}$.
+        Solving the four linear equations: $m=- \frac{3}{2}$, $n=- \frac{5}{2}$, $p=\frac{5}{2}$, $q=14$. The center is $\left(\frac{3}{2},\,\frac{5}{2},\,- \frac{5}{2}\right)$ and $\rho^2=\frac{3}{4}$.
     - id: st-na
       statement: |-
-        The tetrahedron has the vertices $A\left(-1,\,-3,\,1\right)$, $B\left(5,\,3,\,8\right)$, $C\left(-1,\,-3,\,5\right)$, $D\left(2,\,1,\,4\right)$. The area of the circumsphere (unit squ: number only) is
+        The tetrahedron has the vertices $A\left(2,\,3,\,-3\right)$, $B\left(1,\,3,\,-2\right)$, $C\left(2,\,2,\,-2\right)$, $D\left(2,\,3,\,-2\right)$. The area of the circumsphere (unit squ: number only) is
       answerType: expression
-      answer: "8865*pi/4"
+      answer: "3*pi"
       hints:
         - |-
           $4\pi\rho^2$.
       solution: |-
-        Solving the four linear equations: $m=-19$, $n=\frac{61}{4}$, $p=-3$, $q=\frac{97}{2}$. The center is $\left(19,\,- \frac{61}{4},\,3\right)$ and $\rho^2=\frac{8865}{16}$. The area is $4\pi\rho^2=\frac{8865 \pi}{4}$.
+        Solving the four linear equations: $m=- \frac{3}{2}$, $n=- \frac{5}{2}$, $p=\frac{5}{2}$, $q=14$. The center is $\left(\frac{3}{2},\,\frac{5}{2},\,- \frac{5}{2}\right)$ and $\rho^2=\frac{3}{4}$. The area is $4\pi\rho^2=3 \pi$.
     - id: st-nv
       statement: |-
-        The tetrahedron has the vertices $A\left(-1,\,-3,\,1\right)$, $B\left(5,\,3,\,8\right)$, $C\left(-1,\,-3,\,5\right)$, $D\left(2,\,1,\,4\right)$. The volume of the circumsphere (unit cu: number only) is
+        The tetrahedron has the vertices $A\left(2,\,3,\,-3\right)$, $B\left(1,\,3,\,-2\right)$, $C\left(2,\,2,\,-2\right)$, $D\left(2,\,3,\,-2\right)$. The volume of the circumsphere (unit cu: number only) is
       answerType: expression
-      answer: "8865*sqrt(985)*pi/16"
+      answer: "sqrt(3)*pi/2"
       hints:
         - |-
           $\dfrac43\pi\rho^3$.
       solution: |-
-        Solving the four linear equations: $m=-19$, $n=\frac{61}{4}$, $p=-3$, $q=\frac{97}{2}$. The center is $\left(19,\,- \frac{61}{4},\,3\right)$ and $\rho^2=\frac{8865}{16}$. The volume is $\dfrac43\pi\rho^3=\frac{8865 \sqrt{985} \pi}{16}$.
+        Solving the four linear equations: $m=- \frac{3}{2}$, $n=- \frac{5}{2}$, $p=\frac{5}{2}$, $q=14$. The center is $\left(\frac{3}{2},\,\frac{5}{2},\,- \frac{5}{2}\right)$ and $\rho^2=\frac{3}{4}$. The volume is $\dfrac43\pi\rho^3=\frac{\sqrt{3} \pi}{2}$.
     - id: st-as
       statement: |-
         The tetrahedron has the vertices $A\left(0,\,0,\,0\right)$, $B\left(3,\,0,\,0\right)$, $C\left(0,\,4,\,0\right)$, $D\left(0,\,0,\,12\right)$. The sine of the angle between the edge $AD$ and the face $ABC$ is
