@@ -157,6 +157,48 @@ sections:
     note: |
       These are the coordinates of the point at equal distance from $A$, $B$, $C$. If $D=0$ the three points are on one line and there is no circumcircle.
 
+  - id: circumcenter-determinants
+    type: formula
+    title: The circumcenter with determinants
+    formula: |
+      O\left(\dfrac{1}{4S}\begin{vmatrix}x_1^2+y_1^2&y_1&1\\x_2^2+y_2^2&y_2&1\\x_3^2+y_3^2&y_3&1\end{vmatrix},\ \dfrac{1}{4S}\begin{vmatrix}x_1&x_1^2+y_1^2&1\\x_2&x_2^2+y_2^2&1\\x_3&x_3^2+y_3^2&1\end{vmatrix}\right),\qquad S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}
+    note: |
+      Keep the **sign** of $S$ and of the two determinants: if the vertices are written clockwise, $S$ is negative and so are the determinants, and the signs cancel in the quotient. The first column of each determinant is what changes: it holds $x_i^2+y_i^2$ for $x_O$ and $x_i$ for $y_O$.
+
+  - id: ex-circumcenter-det
+    type: example
+    title: The circumcenter with the determinants
+    problem: |
+      Find the circumcenter of the triangle $A(-3,2)$, $B(1,5)$, $C(5,-7)$.
+    steps:
+      - text: |
+          $x_1^2+y_1^2=13$, $x_2^2+y_2^2=26$, $x_3^2+y_3^2=74$. The signed area is $S=\dfrac12\begin{vmatrix}-3&2&1\\1&5&1\\5&-7&1\end{vmatrix}=-30$, so $4S=-120$.
+        why: |
+          The vertices are clockwise, so the signed area is negative; the area is $30$ squ. The determinant is $-3(5+7)-2(1-5)+(-7-25)=-36+8-32=-60$, and half of it is $-30$.
+      - text: |
+          $x_O=\dfrac{1}{-120}\begin{vmatrix}13&2&1\\26&5&1\\74&-7&1\end{vmatrix}=\dfrac{-300}{-120}=\dfrac52$.
+        why: |
+          The determinant is $13(5+7)-2(26-74)+(-182-370)=156+96-552=-300$.
+      - text: |
+          $y_O=\dfrac{1}{-120}\begin{vmatrix}-3&13&1\\1&26&1\\5&74&1\end{vmatrix}=\dfrac{140}{-120}=-\dfrac76$.
+        why: |
+          The determinant is $-3(26-74)-13(1-5)+(74-130)=144+52-56=140$.
+      - text: |
+          Check: $OA^2=\left(\dfrac52+3\right)^2+\left(-\dfrac76-2\right)^2=\dfrac{121}4+\dfrac{361}{36}=\dfrac{725}{18}$, and $OB^2$ and $OC^2$ give the same value.
+        why: |
+          $OB^2=\left(\dfrac52-1\right)^2+\left(-\dfrac76-5\right)^2=\dfrac94+\dfrac{1369}{36}=\dfrac{1450}{36}=\dfrac{725}{18}$.
+    answer: |
+      $O\left(\dfrac52,-\dfrac76\right)$, with $R=\dfrac{5\sqrt{58}}{6}$ lu.
+    verify:
+      - expr: "(13*(5+7)-2*(26-74)+(-182-370))/(-120)"
+        equals: "5/2"
+      - expr: "(-3*(26-74)-13*(1-5)+(74-130))/(-120)"
+        equals: "-7/6"
+      - expr: "(5/2+3)^2+(-7/6-2)^2"
+        equals: "725/18"
+      - expr: "(5/2-1)^2+(-7/6-5)^2"
+        equals: "725/18"
+
   - id: circumcircle-formulas
     type: formula
     title: Radius and the relations with the other centers

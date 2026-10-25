@@ -58,7 +58,7 @@ pnpm dev
 
 The two tokens must be the same text. When the website says `Ready`, open **http://localhost:3000**.
 
-**The very first page can take 1 to 2 minutes** (the site reads and prepares all 108 lessons); every page after that is fast. Keep both windows open while you use the site, and close them (Ctrl+C) when you finish.
+**The very first page can take 1 to 2 minutes** (the site reads and prepares all 109 lessons); every page after that is fast. Keep both windows open while you use the site, and close them (Ctrl+C) when you finish.
 
 To check that the engine is alive, open http://127.0.0.1:8001/health in the browser: it must show `{"status":"ok"}`.
 

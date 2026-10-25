@@ -167,3 +167,155 @@
           $R=\dfrac{abc}{4S}$.
       solution: |-
         $R=\dfrac{abc}{4S}=\dfrac{3840}{4\cdot96}=10$.
+- id: add-circ-det
+  task: The circumcenter with determinants.
+  format: "Type a point as `(x, y, z)`, an exact value such as `sqrt(7)/4`, or an equation with `=`."
+  items:
+    - id: cd-1s
+      statement: |-
+        For the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$ the signed area $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ is The unit is squ: give the number only.
+      answerType: expression
+      answer: "-30"
+      hints:
+        - Expand the determinant.
+      solution: "$S=-30$ (the sign shows the orientation of $A,B,C$)."
+    - id: cd-1x
+      statement: |-
+        For the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$ the circumcenter coordinate $x_O$ (with the determinants and the signed $4S$) is
+      answerType: expression
+      answer: "5/2"
+      hints:
+        - |-
+          $x_O=\dfrac1{4S}\begin{vmatrix}x_i^2+y_i^2&y_i&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=-30$, so $4S=-120$. The determinants are $-300$ and $140$, so $O=\left(\dfrac{-300}{-120},\dfrac{140}{-120}\right)=\left(\frac{5}{2},\,- \frac{7}{6}\right)$.
+    - id: cd-1y
+      statement: |-
+        For the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$ the circumcenter coordinate $y_O$ is
+      answerType: expression
+      answer: "-7/6"
+      hints:
+        - |-
+          $y_O=\dfrac1{4S}\begin{vmatrix}x_i&x_i^2+y_i^2&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=-30$, so $4S=-120$. The determinants are $-300$ and $140$, so $O=\left(\dfrac{-300}{-120},\dfrac{140}{-120}\right)=\left(\frac{5}{2},\,- \frac{7}{6}\right)$.
+    - id: cd-1r
+      statement: |-
+        For the triangle $A\left(-3,\,2\right)$, $B\left(1,\,5\right)$, $C\left(5,\,-7\right)$ the circumradius $R$ (unit lu: number only) is
+      answerType: expression
+      answer: "5*sqrt(58)/6"
+      hints:
+        - "$R=OA$."
+      solution: |-
+        The signed area is $S=-30$, so $4S=-120$. The determinants are $-300$ and $140$, so $O=\left(\dfrac{-300}{-120},\dfrac{140}{-120}\right)=\left(\frac{5}{2},\,- \frac{7}{6}\right)$. Then $R^2=OA^2=\frac{725}{18}$ and $R=\frac{5 \sqrt{58}}{6}$.
+    - id: cd-2s
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the signed area $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ is The unit is squ: give the number only.
+      answerType: expression
+      answer: "84"
+      hints:
+        - Expand the determinant.
+      solution: "$S=84$ (the sign shows the orientation of $A,B,C$)."
+    - id: cd-2x
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the circumcenter coordinate $x_O$ (with the determinants and the signed $4S$) is
+      answerType: expression
+      answer: "7"
+      hints:
+        - |-
+          $x_O=\dfrac1{4S}\begin{vmatrix}x_i^2+y_i^2&y_i&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=84$, so $4S=336$. The determinants are $2352$ and $1386$, so $O=\left(\dfrac{2352}{336},\dfrac{1386}{336}\right)=\left(7,\,\frac{33}{8}\right)$.
+    - id: cd-2y
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the circumcenter coordinate $y_O$ is
+      answerType: expression
+      answer: "33/8"
+      hints:
+        - |-
+          $y_O=\dfrac1{4S}\begin{vmatrix}x_i&x_i^2+y_i^2&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=84$, so $4S=336$. The determinants are $2352$ and $1386$, so $O=\left(\dfrac{2352}{336},\dfrac{1386}{336}\right)=\left(7,\,\frac{33}{8}\right)$.
+    - id: cd-2r
+      statement: |-
+        For the triangle $A\left(0,\,0\right)$, $B\left(14,\,0\right)$, $C\left(5,\,12\right)$ the circumradius $R$ (unit lu: number only) is
+      answerType: expression
+      answer: "65/8"
+      hints:
+        - "$R=OA$."
+      solution: |-
+        The signed area is $S=84$, so $4S=336$. The determinants are $2352$ and $1386$, so $O=\left(\dfrac{2352}{336},\dfrac{1386}{336}\right)=\left(7,\,\frac{33}{8}\right)$. Then $R^2=OA^2=\frac{4225}{64}$ and $R=\frac{65}{8}$.
+    - id: cd-3s
+      statement: |-
+        For the triangle $A\left(1,\,1\right)$, $B\left(5,\,1\right)$, $C\left(1,\,4\right)$ the signed area $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ is The unit is squ: give the number only.
+      answerType: expression
+      answer: "6"
+      hints:
+        - Expand the determinant.
+      solution: "$S=6$ (the sign shows the orientation of $A,B,C$)."
+    - id: cd-3x
+      statement: |-
+        For the triangle $A\left(1,\,1\right)$, $B\left(5,\,1\right)$, $C\left(1,\,4\right)$ the circumcenter coordinate $x_O$ (with the determinants and the signed $4S$) is
+      answerType: expression
+      answer: "3"
+      hints:
+        - |-
+          $x_O=\dfrac1{4S}\begin{vmatrix}x_i^2+y_i^2&y_i&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=6$, so $4S=24$. The determinants are $72$ and $60$, so $O=\left(\dfrac{72}{24},\dfrac{60}{24}\right)=\left(3,\,\frac{5}{2}\right)$.
+    - id: cd-3y
+      statement: |-
+        For the triangle $A\left(1,\,1\right)$, $B\left(5,\,1\right)$, $C\left(1,\,4\right)$ the circumcenter coordinate $y_O$ is
+      answerType: expression
+      answer: "5/2"
+      hints:
+        - |-
+          $y_O=\dfrac1{4S}\begin{vmatrix}x_i&x_i^2+y_i^2&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=6$, so $4S=24$. The determinants are $72$ and $60$, so $O=\left(\dfrac{72}{24},\dfrac{60}{24}\right)=\left(3,\,\frac{5}{2}\right)$.
+    - id: cd-3r
+      statement: |-
+        For the triangle $A\left(1,\,1\right)$, $B\left(5,\,1\right)$, $C\left(1,\,4\right)$ the circumradius $R$ (unit lu: number only) is
+      answerType: expression
+      answer: "5/2"
+      hints:
+        - "$R=OA$."
+      solution: |-
+        The signed area is $S=6$, so $4S=24$. The determinants are $72$ and $60$, so $O=\left(\dfrac{72}{24},\dfrac{60}{24}\right)=\left(3,\,\frac{5}{2}\right)$. Then $R^2=OA^2=\frac{25}{4}$ and $R=\frac{5}{2}$.
+    - id: cd-4s
+      statement: |-
+        For the triangle $A\left(-2,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,6\right)$ the signed area $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ is The unit is squ: give the number only.
+      answerType: expression
+      answer: "18"
+      hints:
+        - Expand the determinant.
+      solution: "$S=18$ (the sign shows the orientation of $A,B,C$)."
+    - id: cd-4x
+      statement: |-
+        For the triangle $A\left(-2,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,6\right)$ the circumcenter coordinate $x_O$ (with the determinants and the signed $4S$) is
+      answerType: expression
+      answer: "1"
+      hints:
+        - |-
+          $x_O=\dfrac1{4S}\begin{vmatrix}x_i^2+y_i^2&y_i&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=18$, so $4S=72$. The determinants are $72$ and $168$, so $O=\left(\dfrac{72}{72},\dfrac{168}{72}\right)=\left(1,\,\frac{7}{3}\right)$.
+    - id: cd-4y
+      statement: |-
+        For the triangle $A\left(-2,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,6\right)$ the circumcenter coordinate $y_O$ is
+      answerType: expression
+      answer: "7/3"
+      hints:
+        - |-
+          $y_O=\dfrac1{4S}\begin{vmatrix}x_i&x_i^2+y_i^2&1\end{vmatrix}$ (three rows).
+      solution: |-
+        The signed area is $S=18$, so $4S=72$. The determinants are $72$ and $168$, so $O=\left(\dfrac{72}{72},\dfrac{168}{72}\right)=\left(1,\,\frac{7}{3}\right)$.
+    - id: cd-4r
+      statement: |-
+        For the triangle $A\left(-2,\,0\right)$, $B\left(4,\,0\right)$, $C\left(0,\,6\right)$ the circumradius $R$ (unit lu: number only) is
+      answerType: expression
+      answer: "sqrt(130)/3"
+      hints:
+        - "$R=OA$."
+      solution: |-
+        The signed area is $S=18$, so $4S=72$. The determinants are $72$ and $168$, so $O=\left(\dfrac{72}{72},\dfrac{168}{72}\right)=\left(1,\,\frac{7}{3}\right)$. Then $R^2=OA^2=\frac{130}{9}$ and $R=\frac{\sqrt{130}}{3}$.
