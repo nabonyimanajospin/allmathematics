@@ -58,7 +58,7 @@ pnpm seed
 
 Start the website again (`pnpm dev`). You can also click **Create account** and make your own.
 
-### Your own administrator account (without the demo accounts)
+### Your own administrator account (without the demo caccounts)
 
 Before starting the website, list your e-mail, then sign up with it on the site; that account becomes an administrator:
 
