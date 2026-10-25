@@ -1,0 +1,166 @@
+id: geo-m03-u02-l06
+title: A complete study of a tetrahedron - edge and face angle, distance between edges, circumsphere
+estMinutes: 60
+version: 1
+status: draft
+skills:
+  - angle-edge-face
+  - distance-between-edges
+  - circumsphere-four-points
+objectives:
+  - Find the angle between an edge and a face of a tetrahedron from the normal vector of the face.
+  - Find the distance between two opposite edges with the box product and the cross product.
+  - Find the equation, the area and the volume of the circumsphere by solving four linear equations.
+sections:
+  - id: why
+    type: concept
+    title: Three more questions about one tetrahedron
+    body: |
+      A complete study of a tetrahedron asks, for the same four vertices, for the edges, the faces, the volume and the altitudes (the previous lessons), and then for three more things: the **angle between an edge and a face**, the **distance between two opposite edges**, and the **circumsphere** (its equation, its area and its volume).
+
+      We work with one tetrahedron through the whole lesson: $A(-1,-3,1)$, $B(5,3,8)$, $C(-1,-3,5)$, $D(2,1,4)$.
+
+  - id: formulas
+    type: formula
+    title: Angle between an edge and a face, distance between two edges
+    formula: |
+      \begin{aligned}
+      \vec N_{ABC}&=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}},\qquad \sin\theta=\dfrac{\left|\dotp{\vec N_{ABC}}{\overrightarrow{AD}}\right|}{\norm{\vec N_{ABC}}\,\norm{\overrightarrow{AD}}}\quad(\theta\text{ between the edge }AD\text{ and the face }ABC),\\
+      d(AD,BC)&=\dfrac{\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}\right|}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}\quad(\text{distance between the opposite edges }AD\text{ and }BC).
+      \end{aligned}
+    note: |
+      The angle between a line and a plane is the angle between the line and its projection on the plane, so it is the complement of the angle between the line and the normal vector: this is why a **sine** appears. The two edges $AD$ and $BC$ have no common vertex; they are skew lines (or, at best, parallel), and the distance between them is the height of the parallelepiped built on $\overrightarrow{AB}$, $\overrightarrow{AD}$, $\overrightarrow{BC}$ over its base, the parallelogram of $\overrightarrow{AD}$ and $\overrightarrow{BC}$.
+
+  - id: ex-angle
+    type: example
+    title: The angle between the edge AD and the face ABC
+    problem: |
+      For $A(-1,-3,1)$, $B(5,3,8)$, $C(-1,-3,5)$, $D(2,1,4)$ find the angle between the edge $AD$ and the face $ABC$.
+    steps:
+      - text: |
+          $\overrightarrow{AB}=(6,6,7)$, $\overrightarrow{AC}=(0,0,4)$ and $\overrightarrow{AD}=(3,4,3)$.
+        why: |
+          Each vector is the end point minus the starting point.
+      - text: |
+          $\vec N_{ABC}=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}=(24,-24,0)$.
+        why: |
+          $\crossp{(6,6,7)}{(0,0,4)}=(6\cdot4-7\cdot0,\ 7\cdot0-6\cdot4,\ 6\cdot0-6\cdot0)=(24,-24,0)$. This vector is perpendicular to the face $ABC$ and its length is twice the area of the face: $S_{ABC}=12\sqrt2$ squ.
+      - text: |
+          $\dotp{\vec N_{ABC}}{\overrightarrow{AD}}=24\cdot3-24\cdot4+0\cdot3=-24$, $\norm{\vec N_{ABC}}=24\sqrt2$ and $\norm{\overrightarrow{AD}}=\sqrt{34}$.
+        why: |
+          $\norm{\vec N_{ABC}}=\sqrt{24^2+24^2}=24\sqrt2$ and $\norm{\overrightarrow{AD}}=\sqrt{9+16+9}=\sqrt{34}$.
+      - text: |
+          $\sin\theta=\dfrac{|-24|}{\norm{\vec N_{ABC}}\norm{\overrightarrow{AD}}}$ where the product of the lengths is $24\sqrt2\cdot\sqrt{34}=48\sqrt{17}$. After rationalizing the denominator, $\sin\theta=\dfrac{\sqrt{17}}{34}$ and $\theta=\arcsin\dfrac{\sqrt{17}}{34}$.
+        why: |
+          $\sqrt2\cdot\sqrt{34}=\sqrt{68}=2\sqrt{17}$, so the quotient is $24$ divided by $48\sqrt{17}$, that is $\dfrac1{2}$ divided by $\sqrt{17}$, and multiplying top and bottom by $\sqrt{17}$ gives $\dfrac{\sqrt{17}}{34}$. The angle is not a familiar one, so we keep it as an arcsine: this is exact.
+    answer: |
+      $\theta=\arcsin\dfrac{\sqrt{17}}{34}$ (the sine is $\dfrac{\sqrt{17}}{34}$).
+    verify:
+      - expr: "norm(cross((6,6,7),(0,0,4)))/2"
+        equals: "12*sqrt(2)"
+      - expr: "24/(24*sqrt(2)*sqrt(34))"
+        equals: "sqrt(17)/34"
+
+  - id: ex-distance
+    type: example
+    title: The distance between the opposite edges AD and BC
+    problem: |
+      For the same tetrahedron find the distance between the edges $AD$ and $BC$.
+    steps:
+      - text: |
+          $\overrightarrow{AB}=(6,6,7)$, $\overrightarrow{AD}=(3,4,3)$ and $\overrightarrow{BC}=C-B=(-6,-6,-3)$.
+        why: |
+          $\overrightarrow{BC}=(-1-5,\ -3-3,\ 5-8)$.
+      - text: |
+          $\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}=(6,-9,6)$, so $\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}=\sqrt{36+81+36}=\sqrt{153}=3\sqrt{17}$.
+        why: |
+          $\crossp{(3,4,3)}{(-6,-6,-3)}=(4\cdot(-3)-3\cdot(-6),\ 3\cdot(-6)-3\cdot(-3),\ 3\cdot(-6)-4\cdot(-6))=(6,-9,6)$.
+      - text: |
+          $\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}=\dotp{\overrightarrow{AB}}{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}=6\cdot6+6\cdot(-9)+7\cdot6=24$.
+        why: |
+          A non-zero box product shows that the two edges are skew lines (they are not in one plane).
+      - text: |
+          $d(AD,BC)=\dfrac{24}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}$ with the length $3\sqrt{17}$; after rationalizing the denominator, $d=\dfrac{8\sqrt{17}}{17}$ lu.
+        why: |
+          $24$ divided by $3$ is $8$, and $8$ divided by $\sqrt{17}$ becomes $\dfrac{8\sqrt{17}}{17}$ when the top and the bottom are multiplied by $\sqrt{17}$.
+    answer: |
+      $d(AD,BC)=\dfrac{8\sqrt{17}}{17}$ lu.
+    verify:
+      - expr: "box((6,6,7),(3,4,3),(-6,-6,-3))"
+        equals: "24"
+      - expr: "norm(cross((3,4,3),(-6,-6,-3)))"
+        equals: "3*sqrt(17)"
+      - expr: "24/(3*sqrt(17))"
+        equals: "8*sqrt(17)/17"
+
+  - id: ex-circumsphere
+    type: example
+    title: The circumsphere - equation, area and volume
+    problem: |
+      For the same tetrahedron find the sphere through its four vertices: its equation, its center, its radius, its area and its volume.
+    steps:
+      - text: |
+          Put the four vertices in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$: $A$: $-2m-6n+2p+q=-11$; $B$: $10m+6n+16p+q=-98$; $C$: $-2m-6n+10p+q=-35$; $D$: $4m+2n+8p+q=-21$.
+        why: |
+          For $A(-1,-3,1)$ the squares add to $1+9+1=11$ and the terms $2mx,2ny,2pz$ become $-2m-6n+2p$. The other vertices are treated in the same way (squares $98$, $35$ and $21$).
+      - text: |
+          $A$ and $C$ differ only by $p$: subtracting the equations of $A$ and $C$ gives $-8p=24$, so $p=-3$.
+        why: |
+          $(-2m-6n+2p+q)-(-2m-6n+10p+q)=-8p$ and $-11-(-35)=24$.
+      - text: |
+          With $p=-3$: the equations of $B$ and $D$ give $6m+4n=-53$, and the equations of $D$ and $C$ give $6m+8n=8$. Subtracting the first from the second: $4n=61$, so $n=\dfrac{61}4$, then $m=-19$ and $q=\dfrac{97}2$.
+        why: |
+          Equation of $B$ minus equation of $D$: $6m+4n+8p=-77$, that is $6m+4n=-53$ because $8p=-24$. Equation of $D$ minus equation of $C$: $6m+8n-2p=14$, that is $6m+8n=8$ because $-2p=6$. Then $m=\dfrac{-53-61}{6}=-19$, and the equation of $A$ gives $q=-11+2m+6n-2p=\dfrac{97}2$.
+      - text: |
+          The equation is $x^2+y^2+z^2-38x+\dfrac{61}2y-6z+\dfrac{97}2=0$. The center is $(-m,-n,-p)=\left(19,-\dfrac{61}4,3\right)$ and $\rho^2=m^2+n^2+p^2-q=\dfrac{8865}{16}$, so $\rho=\dfrac{3\sqrt{985}}4$.
+        why: |
+          $361+\dfrac{3721}{16}+9-\dfrac{97}2=\dfrac{5776+3721+144-776}{16}=\dfrac{8865}{16}$, and $8865=9\cdot985$. Check with $B(5,3,8)$: $14^2+\left(\dfrac{73}4\right)^2+5^2=\dfrac{8865}{16}$.
+      - text: |
+          Area $4\pi\rho^2=\dfrac{8865\pi}4$ squ. Volume $\dfrac43\pi\rho^3=\dfrac{8865\sqrt{985}}{16}\pi$ cu.
+        why: |
+          $\rho^3=\dfrac{8865}{16}\cdot\dfrac{3\sqrt{985}}{4}$ and $\dfrac43\cdot\dfrac{3}{4}\cdot\dfrac{8865}{16}=\dfrac{8865}{16}$.
+    answer: |
+      $x^2+y^2+z^2-38x+\dfrac{61}2y-6z+\dfrac{97}2=0$; center $\left(19,-\dfrac{61}4,3\right)$; $\rho=\dfrac{3\sqrt{985}}4$; area $\dfrac{8865\pi}4$ squ; volume $\dfrac{8865\sqrt{985}}{16}\pi$ cu.
+    verify:
+      - expr: "(5-19)^2+(3+61/4)^2+(8-3)^2"
+        equals: "8865/16"
+      - expr: "(-1-19)^2+(-3+61/4)^2+(1-3)^2"
+        equals: "8865/16"
+      - expr: "4*pi*8865/16"
+        equals: "8865*pi/4"
+      - expr: "4/3*pi*(3*sqrt(985)/4)^3"
+        equals: "8865*sqrt(985)*pi/16"
+
+  - id: chk-angle
+    type: check
+    prompt: |
+      A face of a tetrahedron has the normal vector $\vec N=(0,0,2)$ and an edge has the direction $\vec d=(1,0,1)$. Find the sine of the angle between the edge and the face.
+    answerType: expression
+    answer: "sqrt(2)/2"
+    hints:
+      - |
+        $\sin\theta=\dfrac{|\dotp{\vec N}{\vec d}|}{\norm{\vec N}\norm{\vec d}}$.
+    explanation: |
+      $\dotp{\vec N}{\vec d}=2$, $\norm{\vec N}=2$ and $\norm{\vec d}=\sqrt2$, so $\sin\theta=\dfrac{2}{\norm{\vec N}\norm{\vec d}}$ with $\norm{\vec N}\norm{\vec d}=2\sqrt2$, which simplifies to $\dfrac{\sqrt2}2$; hence $\theta=\dfrac\pi4$.
+
+  - id: chk-distance
+    type: check
+    prompt: |
+      The opposite edges $AD$ and $BC$ of a tetrahedron have $\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}=12$ and $\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}=6$. Find the distance between them (the unit is lu: give the number only).
+    answerType: expression
+    answer: "2"
+    hints:
+      - |
+        $d=\dfrac{|\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}|}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}$.
+    explanation: |
+      $d=\dfrac{12}{6}=2$ lu.
+
+  - id: summary
+    type: summary
+    points:
+      - |
+        Edge and face: $\sin\theta=\dfrac{|\dotp{\vec N}{\overrightarrow{AD}}|}{\norm{\vec N}\norm{\overrightarrow{AD}}}$ with $\vec N=\crossp{\overrightarrow{AB}}{\overrightarrow{AC}}$ (a sine, because the normal is perpendicular to the face).
+      - |
+        Distance between opposite edges: $d(AD,BC)=\dfrac{|\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}|}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}$.
+      - |
+        Circumsphere: put the four vertices in $x^2+y^2+z^2+2mx+2ny+2pz+q=0$, solve the four linear equations (subtract equations to eliminate $q$), then the center is $(-m,-n,-p)$, the area $4\pi\rho^2$ and the volume $\dfrac43\pi\rho^3$.

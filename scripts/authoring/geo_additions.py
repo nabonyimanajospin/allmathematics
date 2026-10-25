@@ -292,6 +292,64 @@ def centers_items() -> list[dict]:
     return it
 
 
+# --- a complete study of a tetrahedron: edge and face, opposite edges, circumsphere -------------------------------------------------------------
+def study_items() -> list[dict]:
+    it: list[dict] = []
+    m, nn, p, q = sp.symbols("m n p q")
+    tets = {
+        "n": ((-1, -3, 1), (5, 3, 8), (-1, -3, 5), (2, 1, 4)),
+        "a": ((0, 0, 0), (3, 0, 0), (0, 4, 0), (0, 0, 12)),
+        "b": ((0, 0, 0), (4, 0, 0), (0, 4, 0), (0, 0, 4)),
+        "c": ((0, 0, 0), (2, 0, 0), (0, 2, 0), (1, 1, 2)),
+    }
+    for name, (A, B, C, D) in tets.items():
+        Am, Bm, Cm, Dm = (sp.Matrix(P) for P in (A, B, C, D))
+        AB, AC, AD, BC = Bm - Am, Cm - Am, Dm - Am, Cm - Bm
+        N = AB.cross(AC)
+        sin = rad(abs(N.dot(AD)) / (N.norm() * AD.norm()))
+        cr = AD.cross(BC)
+        box = sp.Matrix.hstack(AB, AD, BC).det()
+        d = rad(abs(box) / cr.norm())
+        head = "The tetrahedron has the vertices " + ", ".join(rf"${'ABCD'[i]}{pt3_tex(P)}$" for i, P in enumerate((A, B, C, D))) + ". "
+        it.append(item_num(f"st-{name}s", head + r"The sine of the angle between the edge $AD$ and the face $ABC$ is", sin,
+                           rf"$\vec N_{{ABC}}=\crossp{{\overrightarrow{{AB}}}}{{\overrightarrow{{AC}}}}={pt3_tex(tuple(N))}$ and $\overrightarrow{{AD}}={pt3_tex(tuple(AD))}$; $|\dotp{{\vec N}}{{\overrightarrow{{AD}}}}|={tex(abs(N.dot(AD)))}$, $\norm{{\vec N}}={tex(rad(N.norm()))}$, $\norm{{\overrightarrow{{AD}}}}={tex(rad(AD.norm()))}$, so $\sin\theta={tex(sin)}$.",
+                           [r"$\sin\theta=\dfrac{|\dotp{\vec N}{\overrightarrow{AD}}|}{\norm{\vec N}\norm{\overrightarrow{AD}}}$."]))
+        it.append(item_num(f"st-{name}d", head + r"The distance between the opposite edges $AD$ and $BC$ (unit lu: number only) is", d,
+                           rf"$\overrightarrow{{AB}}={pt3_tex(tuple(AB))}$, $\overrightarrow{{AD}}={pt3_tex(tuple(AD))}$, $\overrightarrow{{BC}}={pt3_tex(tuple(BC))}$. The box product is ${tex(box)}$ and $\crossp{{\overrightarrow{{AD}}}}{{\overrightarrow{{BC}}}}={pt3_tex(tuple(cr))}$ has the length ${tex(rad(cr.norm()))}$, so $d={tex(d)}$.",
+                           [r"$d=\dfrac{|\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}|}{\norm{\crossp{\overrightarrow{AD}}{\overrightarrow{BC}}}}$."]))
+        eqs = [P[0] ** 2 + P[1] ** 2 + P[2] ** 2 + 2 * m * P[0] + 2 * nn * P[1] + 2 * p * P[2] + q for P in (A, B, C, D)]
+        sol = sp.solve(eqs, (m, nn, p, q), dict=True)[0]
+        c = (rad(-sol[m]), rad(-sol[nn]), rad(-sol[p]))
+        rho2 = rad(sol[m] ** 2 + sol[nn] ** 2 + sol[p] ** 2 - sol[q])
+        rho = rad(sp.sqrt(rho2))
+        assert all(rad(sum((P[i] - c[i]) ** 2 for i in range(3)) - rho2) == 0 for P in (A, B, C, D))
+        txt = rf"Solving the four linear equations: $m={tex(sol[m])}$, $n={tex(sol[nn])}$, $p={tex(sol[p])}$, $q={tex(sol[q])}$. The center is ${pt3_tex(c)}$ and $\rho^2={tex(rho2)}$."
+        it.append(item_pt(f"st-{name}c", head + r"The center of the circumsphere is", c, txt, [r"The center is $(-m,-n,-p)$."]))
+        it.append(item_num(f"st-{name}a", head + r"The area of the circumsphere (unit squ: number only) is", rad(4 * PI * rho2), txt + rf" The area is $4\pi\rho^2={tex(rad(4 * PI * rho2))}$.", [r"$4\pi\rho^2$."]))
+        it.append(item_num(f"st-{name}v", head + r"The volume of the circumsphere (unit cu: number only) is", rad(sp.Rational(4, 3) * PI * rho**3), txt + rf" The volume is $\dfrac43\pi\rho^3={tex(rad(sp.Rational(4, 3) * PI * rho**3))}$.", [r"$\dfrac43\pi\rho^3$."]))
+    it.append(mc("st-m1", r"The box product $\boxp{\overrightarrow{AB}}{\overrightarrow{AD}}{\overrightarrow{BC}}$ of two opposite edges of a tetrahedron is never $0$ because", ["The edges are perpendicular", "The four vertices are not in one plane", "The edges have the same length", "The edges are parallel"], 1,
+                 r"The two opposite edges are not coplanar.", r"If the box product were $0$, the lines $AD$ and $BC$ would lie in one plane, and the four vertices would be coplanar: there would be no tetrahedron."))
+    return it
+
+
+def circ_det_items() -> list[dict]:
+    it: list[dict] = []
+    for n, P in enumerate((((-3, 2), (1, 5), (5, -7)), ((0, 0), (14, 0), (5, 12)), ((1, 1), (5, 1), (1, 4)), ((-2, 0), (4, 0), (0, 6))), 1):
+        S = rad(sp.Matrix([[x_, y_, 1] for x_, y_ in P]).det() / 2)
+        dx = sp.Matrix([[x_ * x_ + y_ * y_, y_, 1] for x_, y_ in P]).det()
+        dy = sp.Matrix([[x_, x_ * x_ + y_ * y_, 1] for x_, y_ in P]).det()
+        O = (rad(dx / (4 * S)), rad(dy / (4 * S)))
+        assert len({rad((O[0] - x_) ** 2 + (O[1] - y_) ** 2) for x_, y_ in P}) == 1
+        R2 = rad((O[0] - P[0][0]) ** 2 + (O[1] - P[0][1]) ** 2)
+        head = rf"For the triangle $A{pt2_tex(P[0])}$, $B{pt2_tex(P[1])}$, $C{pt2_tex(P[2])}$ "
+        sol = rf"The signed area is $S={tex(S)}$, so $4S={tex(4 * S)}$. The determinants are ${tex(dx)}$ and ${tex(dy)}$, so $O=\left(\dfrac{{{tex(dx)}}}{{{tex(4 * S)}}},\dfrac{{{tex(dy)}}}{{{tex(4 * S)}}}\right)={pt2_tex(O)}$."
+        it.append(item_num(f"cd-{n}s", head + r"the signed area $S=\dfrac12\begin{vmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{vmatrix}$ is", S, rf"$S={tex(S)}$ (the sign shows the orientation of $A,B,C$).", ["Expand the determinant."]))
+        it.append(item_num(f"cd-{n}x", head + r"the circumcenter coordinate $x_O$ (with the determinants and the signed $4S$) is", O[0], sol, [r"$x_O=\dfrac1{4S}\begin{vmatrix}x_i^2+y_i^2&y_i&1\end{vmatrix}$ (three rows)."]))
+        it.append(item_num(f"cd-{n}y", head + r"the circumcenter coordinate $y_O$ is", O[1], sol, [r"$y_O=\dfrac1{4S}\begin{vmatrix}x_i&x_i^2+y_i^2&1\end{vmatrix}$ (three rows)."]))
+        it.append(item_num(f"cd-{n}r", head + r"the circumradius $R$ (unit lu: number only) is", rad(sp.sqrt(R2)), sol + rf" Then $R^2=OA^2={tex(R2)}$ and $R={tex(rad(sp.sqrt(R2)))}$.", [r"$R=OA$."]))
+    return it
+
+
 @with_units
 def register() -> None:
     sets = [
@@ -304,6 +362,8 @@ def register() -> None:
         ("m02-plane/u05-conics-and-loci", "l02-the-ellipse", "add-ellipse", "The ellipse: area, latus rectum, directrices, parametric points.", ellipse_items(), False),
         ("m02-plane/u05-conics-and-loci", "l03-the-hyperbola", "add-hyperbola", "The hyperbola: eccentricity, latus rectum, directrices, asymptotes.", hyperbola_items(), False),
         ("m02-plane/u02-the-triangle", "l07-euler-line-and-complete-study", "add-centers", "The incenter and the radii of a triangle.", centers_items(), False),
+        ("m03-space/u02-the-tetrahedron", "l06-complete-study-of-a-tetrahedron", "add-study", "Edge and face angle, distance between opposite edges, circumsphere.", study_items(), True),
+        ("m02-plane/u02-the-triangle", "l05-perpendicular-bisectors-and-circumcenter", "add-circ-det", "The circumcenter with determinants.", circ_det_items(), False),
     ]
     for unit, lesson, sid, task, items, orphan in sets:
         for item in items:
