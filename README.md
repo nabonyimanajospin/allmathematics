@@ -103,6 +103,23 @@ See [docs/administration.md](docs/administration.md) for what an administrator c
 | You want the newest version later | In the project folder: `git pull`, then `pnpm install`, then stop and start both windows. Your accounts and progress stay in the `.data` folder (it is not in Git, so a new clone starts empty; run `pnpm seed` again for the demo accounts). |
 | The password reset code does not arrive | Without an e-mail service, the 6-digit code is printed in window 2 (the website's console). |
 
+## How progress is counted
+
+The same explanation is on the site itself (**How is my progress counted?** at the foot of every lesson and of *My learning*, page `/how-progress-works`). Every percentage is computed **on the server** from what the learner really did, with exact fractions (no floating point), and it is rounded **down**, so 100% means that everything is truly done. The browser never sends a percentage.
+
+| Level | How it is counted |
+|---|---|
+| **Lesson** | Two thirds sections, one third exercises: `(40 × sections credited ÷ all sections + 20 × exercises solved ÷ all exercises) ÷ 60`. A lesson is 100% only when every section is credited and every exercise is solved. |
+| **Section** | A reading section (concept, definition, theorem, formula, example, figure, summary) counts after its **minimum active time** (10 to 20 seconds, measured by the server's own clock), so scrolling past it does not count. A check question counts when it is answered correctly. |
+| **Exercise** | Counts when the math engine marks the answer correct (any equivalent exact form). Every exercise of the lesson is in the total. |
+| **Unit** | 80% the average of its lessons, weighted by their estimated minutes, plus 20% when the unit test is passed (7 correct answers out of 10). |
+| **Module** | The average of its units, weighted by minutes. |
+| **Course** | The average of its modules, weighted by minutes. |
+
+Example: a lesson with 10 sections and 20 exercises, 8 sections credited and 15 exercises solved: `(40 × 8/10 + 20 × 15/20) ÷ 60 = 47/60`, shown as **78%**.
+
+Because progress is recomputed from the learner's answers every time the dashboard opens, adding sections or exercises to a lesson makes the same work a smaller share; the lesson is complete again once the new items are done. The formulas are in `packages/core/src/progress.ts` (covered by unit tests) and the specification is section 9.2 of `MATH_PLATFORM_BUILD_SPEC.md`. The page on the site takes its numbers (the weights, the minimum seconds and the example) from that same code, so it cannot disagree with the real calculation.
+
 ## A tour for a presentation (10 minutes)
 
 1. **Sign in as the learner.** Choose a course (one at a time), open a lesson: sections unlock as you answer; the sidebar shows the whole course and the **unit test** of every unit.

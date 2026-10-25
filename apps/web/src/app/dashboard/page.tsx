@@ -171,6 +171,11 @@ export default async function DashboardPage() {
           </div>
         </section>
       ))}
+      <p className="mt-10 text-sm">
+        <Link href="/how-progress-works" className="font-semibold text-accent hover:underline">
+          {t("progressHelp.link")}
+        </Link>
+      </p>
     </div>
   );
 }

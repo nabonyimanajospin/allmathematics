@@ -424,7 +424,12 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, pre
             </div>
           </Card>
         ) : (
-          <p className="mt-10 text-sm text-muted">{t("lesson.toFinish")}</p>
+          <p className="mt-10 text-sm text-muted">
+            {t("lesson.toFinish")}{" "}
+            <Link href="/how-progress-works" className="font-semibold text-accent hover:underline">
+              {t("progressHelp.link")}
+            </Link>
+          </p>
         )}
 
         <p className="mt-8">
