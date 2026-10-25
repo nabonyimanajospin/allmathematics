@@ -4,5 +4,6 @@ packages:
   - "scripts"
 allowBuilds:
   esbuild: true
+  tesseract.js: false
 minimumReleaseAgeExclude:
   - "@electric-sql/pglite@0.5.11"

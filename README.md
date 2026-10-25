@@ -7,21 +7,37 @@ A university-level mathematics learning platform: **Geometry**, **Multivariable 
 - Tools inside the account: a **Solver** (step-by-step answers, no AI), a **Grapher** (2D, 3D, points, segments, exact roots), a personal **formula sheet**, and the **Resources** of the course.
 - An **admin panel**: users, statistics, feedback, resources, password resets.
 
-## Run it on your computer (Windows, about 5 minutes)
+## Run it on your computer (Windows, about 10 minutes)
 
-You need **Node 22+**, **pnpm** (`npm i -g pnpm`), **Python 3.11+** and **Git**. No Docker and no database server: the database runs inside the app.
+This is the whole procedure from an empty computer folder, for example after you deleted the project and want it back.
+No Docker and no database server are needed: the database runs inside the app.
 
-### 1. First time only
+### 0. What to install once
 
-Open PowerShell in the project folder:
+| Tool | Check in PowerShell | If missing |
+|---|---|---|
+| Git | `git --version` | https://git-scm.com |
+| Node 22 or newer | `node --version` | https://nodejs.org (LTS) |
+| pnpm | `pnpm --version` | `npm i -g pnpm` |
+| Python 3.11 or newer | `python --version` | https://www.python.org (tick **Add python.exe to PATH**) |
+
+**The first install needs the internet** (about 500 MB of packages: the website's packages with `pnpm`, and SymPy and FastAPI with `pip`). After that, everything works offline.
+
+### 1. Get the project and install it (first time only)
+
+Choose a **short** folder path (for example `C:\allmaths`): Windows fails on very long paths.
 
 ```powershell
+git clone https://github.com/nabonyimanajospin/allmathematics.git C:\allmaths
+cd C:\allmaths
 pnpm install
 cd apps/math-engine
 python -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements-dev.txt
 cd ../..
 ```
+
+`pnpm install` and `pip install` take a few minutes. Nothing else is needed: the lessons, the exercises and their verified answers are all in the repository, and the database is created by the website on its first start.
 
 ### 2. Every time: two PowerShell windows
 
@@ -42,6 +58,10 @@ pnpm dev
 
 The two tokens must be the same text. When the website says `Ready`, open **http://localhost:3000**.
 
+**The very first page can take 1 to 2 minutes** (the site reads and prepares all 108 lessons); every page after that is fast. Keep both windows open while you use the site, and close them (Ctrl+C) when you finish.
+
+To check that the engine is alive, open http://127.0.0.1:8001/health in the browser: it must show `{"status":"ok"}`.
+
 ### 3. Demo accounts (optional, recommended for a presentation)
 
 Stop the website (Ctrl+C in window 2), then run once:
@@ -58,7 +78,7 @@ pnpm seed
 
 Start the website again (`pnpm dev`). You can also click **Create account** and make your own.
 
-### Your own administrator account (without the demo caccounts)
+### Your own administrator account (without the demo accounts)
 
 Before starting the website, list your e-mail, then sign up with it on the site; that account becomes an administrator:
 
@@ -77,6 +97,10 @@ See [docs/administration.md](docs/administration.md) for what an administrator c
 | The Solver says "temporarily unavailable" | The math engine (window 1) is not running, or the two tokens differ. |
 | `Not enough space on the disk` | Free some space on drive C: (the browser tests and Next.js write temporary files). |
 | After an update, new pages show errors | Stop and start **both** windows: the website applies database changes when it starts, and the engine needs its new code. |
+| `No module named uvicorn` (or `fastapi`, `sympy`) | The `pip install` step did not finish or was skipped. Run it again from `apps/math-engine`: `.\.venv\Scripts\python -m pip install -r requirements-dev.txt` (needs the internet). |
+| `python` or `pnpm` is not recognised | Install it (table in step 0), then close and reopen PowerShell. |
+| `The system cannot find the path specified` while installing or starting | The project folder path is too long. Clone into a short folder such as `C:\allmaths`. |
+| You want the newest version later | In the project folder: `git pull`, then `pnpm install`, then stop and start both windows. Your accounts and progress stay in the `.data` folder (it is not in Git, so a new clone starts empty; run `pnpm seed` again for the demo accounts). |
 | The password reset code does not arrive | Without an e-mail service, the 6-digit code is printed in window 2 (the website's console). |
 
 ## A tour for a presentation (10 minutes)
