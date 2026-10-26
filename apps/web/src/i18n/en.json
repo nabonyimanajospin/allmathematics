@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "solver": "Solver", "grapher": "Grapher", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "solver": "Solver", "grapher": "Grapher", "triangle": "Triangle", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -105,6 +105,49 @@
     "enroll": "Enroll in this course", "switchTo": "Switch to this course", "current": "Your current course",
     "switchConfirm": "Switch to \"{title}\"? Your progress in your current course is kept.",
     "facts": "{modules} modules, {lessons} lessons, about {hours} hours", "switch": "Switch course"
+  },
+  "triangle": {
+    "title": "Triangle toolkit",
+    "lead": "Enter the three vertices of a triangle and get everything about it, exactly: the sides and the angles, the area and the perimeter, the centers G, I, O and H, the circles, and the eight equations of every side, median, altitude, angle bisector and perpendicular bisector.",
+    "exact": "Every value is exact: fractions, radicals and π, never decimals. A decimal that you type, such as 0.5, is read as the exact fraction 1/2.",
+    "vertices": "The three vertices", "vertex": "Vertex {name}", "coordinate": "Vertex {name}, coordinate {axis}",
+    "hint": "Whole numbers, or fractions such as 7/6.",
+    "calculate": "Calculate", "calculating": "Calculating…", "example": "Use another example",
+    "unavailable": "The triangle tool is temporarily unavailable. Please try again.",
+    "error": {
+      "bad_coordinate": "A coordinate must be a whole number, a fraction such as 7/6, or a decimal such as 0.5.",
+      "coordinate_range": "The coordinates are too large or too complicated: use numbers up to 10000 with a denominator up to 1000.",
+      "collinear": "The three points are on one straight line, so they do not make a triangle.",
+      "same_points": "The three vertices must be different points.",
+      "three_points": "Give the three vertices, each with an x and a y.",
+      "cannot_analyze": "I could not analyze this triangle."
+    },
+    "figureTitle": "Your triangle",
+    "figureAlt": "The triangle ABC with its centroid G, incenter I, circumcenter O and orthocenter H, its incircle and its circumcircle.",
+    "figureNote": "The picture only needs approximate positions to draw; every value written in the tables is exact.",
+    "measurements": "Sides, perimeter and area",
+    "side": "Side {name}", "longest": "longest side", "shortest": "shortest side",
+    "perimeter": "Perimeter", "semiperimeter": "Semiperimeter s", "area": "Area S", "kind": "Kind of triangle",
+    "kindSides": { "scalene": "Scalene (three different sides)", "isosceles": "Isosceles (two equal sides)", "equilateral": "Equilateral (three equal sides)" },
+    "kindAngles": { "acute": "acute (all angles smaller than a right angle)", "right": "right (one right angle)", "obtuse": "obtuse (one angle larger than a right angle)" },
+    "angles": "Angles", "angleAt": "Angle at {vertex}", "cos": "Cosine", "angle": "Angle", "degrees": "In degrees",
+    "centers": "The centers of the triangle",
+    "centerNames": { "G": "Centroid G (medians)", "I": "Incenter I (angle bisectors)", "O": "Circumcenter O (perpendicular bisectors)", "H": "Orthocenter H (altitudes)", "N": "Nine-point center N" },
+    "inradius": "Inradius r", "circumradius": "Circumradius R",
+    "euler": "The Euler line (through O, G and H)", "noEuler": "O and H are the same point, so there is no Euler line.",
+    "circles": "The circles",
+    "circleNames": { "incircle": "Incircle", "circumcircle": "Circumcircle", "ninepoint": "Nine-point circle" },
+    "center": "Center", "radius": "Radius", "analytic": "Analytic equation", "general": "General equation", "parametric": "Parametric equations", "circlePerimeter": "Perimeter", "circleArea": "Area",
+    "excircles": "The excircles", "excircleOf": "Excircle opposite {vertex}",
+    "lines": "The lines of the triangle",
+    "groups": { "side": "The sides", "median": "The medians", "altitude": "The altitudes", "bisector": "The angle bisectors", "perpbisector": "The perpendicular bisectors" },
+    "lineNames": { "side": "Side {label}", "median": "Median from {label}", "altitude": "Altitude from {label}", "bisector": "Bisector of the angle at {label}", "perpbisector": "Perpendicular bisector of {label}" },
+    "length": "Length", "lengthInside": "Length (the part inside the triangle)", "ends": "Ends of the segment",
+    "forms": {
+      "vector": "Vector equation", "parametric": "Parametric equations", "symmetric": "Symmetric (canonical) equation", "implicit": "Implicit equation",
+      "explicit": "Explicit equation", "normal": "Normal (Hesse) form", "polar": "Polar equation", "intercept": "Intercept form"
+    },
+    "noIntercept": "Not defined: the line is parallel to an axis or passes through the origin."
   },
   "progressHelp": {
     "link": "How is my progress counted?",

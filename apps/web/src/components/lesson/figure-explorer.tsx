@@ -354,7 +354,9 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
         const b = screen(seg[1]);
         const col = colorOf(it.color, "accent");
         lines.push(<line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={col} strokeWidth={2.4} strokeLinecap="round" strokeDasharray={it.dashed ? "6 5" : undefined} />);
-        if (it.label) labels.push(<Name key={`l${i}`} x={b.x - 6} y={b.y + (b.y > height / 2 ? -14 : 14)} text={it.label} color={col} size={13} anchor="end" />);
+        // the name goes at the right end of the line, so that it never leaves the picture on the left
+        const end = a.x > b.x ? a : b;
+        if (it.label) labels.push(<Name key={`l${i}`} x={end.x - 6} y={end.y + (end.y > height / 2 ? -14 : 14)} text={it.label} color={col} size={13} anchor="end" />);
       }
     } else if (it.t === "right") {
       const o = screen(ref(it.at));
