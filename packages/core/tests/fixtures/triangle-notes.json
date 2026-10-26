@@ -1,0 +1,481 @@
+{
+ "ok": true,
+ "data": {
+  "vertices": {
+   "A": "\\left(-3,\\,2\\right)",
+   "B": "\\left(1,\\,5\\right)",
+   "C": "\\left(5,\\,-7\\right)"
+  },
+  "sides": {
+   "a": {
+    "name": "BC",
+    "length": "4 \\sqrt{10}"
+   },
+   "b": {
+    "name": "CA",
+    "length": "\\sqrt{145}"
+   },
+   "c": {
+    "name": "AB",
+    "length": "5"
+   }
+  },
+  "longest": [
+   "BC"
+  ],
+  "shortest": [
+   "AB"
+  ],
+  "perimeter": "5 + \\sqrt{145} + 4 \\sqrt{10}",
+  "semiperimeter": "\\dfrac{5}{2} + \\dfrac{\\sqrt{145}}{2} + 2 \\sqrt{10}",
+  "area": "30",
+  "kind": {
+   "by_sides": "scalene",
+   "by_angles": "acute"
+  },
+  "angles": {
+   "A": {
+    "cos": "\\dfrac{\\sqrt{145}}{145}",
+    "angle": "\\arccos{\\left(\\dfrac{\\sqrt{145}}{145} \\right)}",
+    "degrees": null
+   },
+   "B": {
+    "cos": "\\dfrac{\\sqrt{10}}{10}",
+    "angle": "\\arccos{\\left(\\dfrac{\\sqrt{10}}{10} \\right)}",
+    "degrees": null
+   },
+   "C": {
+    "cos": "\\dfrac{7 \\sqrt{58}}{58}",
+    "angle": "\\arccos{\\left(\\dfrac{7 \\sqrt{58}}{58} \\right)}",
+    "degrees": null
+   }
+  },
+  "centers": {
+   "G": "\\left(1,\\,0\\right)",
+   "I": "\\left(- \\dfrac{3 \\sqrt{10}}{2} - \\dfrac{\\sqrt{58}}{2} + \\dfrac{5}{2} + \\dfrac{\\sqrt{145}}{2},\\,- \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{7}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{2 \\sqrt{58}}{3}\\right)",
+   "O": "\\left(\\dfrac{5}{2},\\,- \\dfrac{7}{6}\\right)",
+   "H": "\\left(-2,\\,\\dfrac{7}{3}\\right)",
+   "N": "\\left(\\dfrac{1}{4},\\,\\dfrac{7}{12}\\right)"
+  },
+  "radii": {
+   "r": "- \\dfrac{5 \\sqrt{58}}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{35}{6}",
+   "R": "\\dfrac{5 \\sqrt{58}}{6}"
+  },
+  "euler": {
+   "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}\\dfrac{5}{2}\\\\[0.7em]- \\dfrac{7}{6}\\end{pmatrix}+\\lambda\\begin{pmatrix}-9\\\\[0.7em]7\\end{pmatrix}",
+   "parametric": "\\begin{cases}x=\\dfrac{5}{2}-9\\lambda\\\\y=-\\dfrac{7}{6}+7\\lambda\\end{cases}",
+   "symmetric": "\\dfrac{x-\\tfrac{5}{2}}{-9}=\\dfrac{y+\\tfrac{7}{6}}{7}",
+   "implicit": "7x+9y-7=0",
+   "explicit": "y=-\\dfrac{7}{9}x+\\dfrac{7}{9}",
+   "normal": "\\dfrac{7 \\sqrt{130}}{130}x+\\dfrac{9 \\sqrt{130}}{130}y-\\dfrac{7 \\sqrt{130}}{130}=0",
+   "polar": "r\\left(7\\cos\\theta+9\\sin\\theta\\right)-7=0",
+   "intercept": "\\dfrac{x}{1}+\\dfrac{y}{\\tfrac{7}{9}}=1"
+  },
+  "circles": {
+   "incircle": {
+    "center": "\\left(- \\dfrac{3 \\sqrt{10}}{2} - \\dfrac{\\sqrt{58}}{2} + \\dfrac{5}{2} + \\dfrac{\\sqrt{145}}{2},\\,- \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{7}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{2 \\sqrt{58}}{3}\\right)",
+    "radius": "- \\dfrac{5 \\sqrt{58}}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{35}{6}",
+    "analytic": "\\left(x+\\left(- \\dfrac{\\sqrt{145}}{2} - \\dfrac{5}{2} + \\dfrac{\\sqrt{58}}{2} + \\dfrac{3 \\sqrt{10}}{2}\\right)\\right)^{2}+\\left(y-\\left(- \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{7}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{2 \\sqrt{58}}{3}\\right)\\right)^{2}=- \\dfrac{85 \\sqrt{58}}{9} - \\dfrac{55 \\sqrt{10}}{9} + \\dfrac{25 \\sqrt{145}}{18} + \\dfrac{1415}{18}",
+    "general": "x^{2}+y^{2}+\\left(- \\sqrt{145} - 5 + \\sqrt{58} + 3 \\sqrt{10}\\right)x-\\left(- \\dfrac{8 \\sqrt{10}}{3} - \\dfrac{7}{3} + \\dfrac{\\sqrt{145}}{3} + \\dfrac{4 \\sqrt{58}}{3}\\right)y-\\left(- \\dfrac{299}{6} - \\dfrac{\\sqrt{145}}{6} + \\dfrac{19 \\sqrt{10}}{3} + \\dfrac{13 \\sqrt{58}}{3}\\right)=0",
+    "parametric": "\\begin{cases}x=-\\left(- \\dfrac{\\sqrt{145}}{2} - \\dfrac{5}{2} + \\dfrac{\\sqrt{58}}{2} + \\dfrac{3 \\sqrt{10}}{2}\\right)+\\left(- \\dfrac{5 \\sqrt{58}}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{35}{6}\\right)\\cos t\\\\y=\\left(- \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{7}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{2 \\sqrt{58}}{3}\\right)+\\left(- \\dfrac{5 \\sqrt{58}}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{35}{6}\\right)\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "- \\dfrac{5 \\sqrt{58} \\pi}{3} + \\dfrac{\\sqrt{10} \\pi}{3} + \\dfrac{\\sqrt{145} \\pi}{3} + \\dfrac{35 \\pi}{3}",
+    "area": "- \\dfrac{85 \\sqrt{58} \\pi}{9} - \\dfrac{55 \\sqrt{10} \\pi}{9} + \\dfrac{25 \\sqrt{145} \\pi}{18} + \\dfrac{1415 \\pi}{18}"
+   },
+   "circumcircle": {
+    "center": "\\left(\\dfrac{5}{2},\\,- \\dfrac{7}{6}\\right)",
+    "radius": "\\dfrac{5 \\sqrt{58}}{6}",
+    "analytic": "\\left(x-\\dfrac{5}{2}\\right)^{2}+\\left(y+\\dfrac{7}{6}\\right)^{2}=\\dfrac{725}{18}",
+    "general": "x^{2}+y^{2}-5x+\\dfrac{7}{3}y-\\dfrac{98}{3}=0",
+    "parametric": "\\begin{cases}x=\\dfrac{5}{2}+\\dfrac{5 \\sqrt{58}}{6}\\cos t\\\\y=-\\dfrac{7}{6}+\\dfrac{5 \\sqrt{58}}{6}\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "\\dfrac{5 \\sqrt{58} \\pi}{3}",
+    "area": "\\dfrac{725 \\pi}{18}"
+   },
+   "ninepoint": {
+    "center": "\\left(\\dfrac{1}{4},\\,\\dfrac{7}{12}\\right)",
+    "radius": "\\dfrac{5 \\sqrt{58}}{12}",
+    "analytic": "\\left(x-\\dfrac{1}{4}\\right)^{2}+\\left(y-\\dfrac{7}{12}\\right)^{2}=\\dfrac{725}{72}",
+    "general": "x^{2}+y^{2}-\\dfrac{1}{2}x-\\dfrac{7}{6}y-\\dfrac{29}{3}=0",
+    "parametric": "\\begin{cases}x=\\dfrac{1}{4}+\\dfrac{5 \\sqrt{58}}{12}\\cos t\\\\y=\\dfrac{7}{12}+\\dfrac{5 \\sqrt{58}}{12}\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "\\dfrac{5 \\sqrt{58} \\pi}{6}",
+    "area": "\\dfrac{725 \\pi}{72}"
+   }
+  },
+  "excircles": {
+   "A": {
+    "center": "\\left(\\dfrac{5}{2} + \\dfrac{\\sqrt{58}}{2} + \\dfrac{3 \\sqrt{10}}{2} + \\dfrac{\\sqrt{145}}{2},\\,- \\dfrac{2 \\sqrt{58}}{3} - \\dfrac{7}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{4 \\sqrt{10}}{3}\\right)",
+    "radius": "- \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{35}{6} + \\dfrac{5 \\sqrt{58}}{6}"
+   },
+   "B": {
+    "center": "\\left(- \\dfrac{\\sqrt{145}}{2} - \\dfrac{3 \\sqrt{10}}{2} + \\dfrac{5}{2} + \\dfrac{\\sqrt{58}}{2},\\,- \\dfrac{2 \\sqrt{58}}{3} - \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{\\sqrt{145}}{6} - \\dfrac{7}{6}\\right)",
+    "radius": "- \\dfrac{\\sqrt{145}}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{35}{6} + \\dfrac{5 \\sqrt{58}}{6}"
+   },
+   "C": {
+    "center": "\\left(- \\dfrac{\\sqrt{145}}{2} - \\dfrac{\\sqrt{58}}{2} + \\dfrac{5}{2} + \\dfrac{3 \\sqrt{10}}{2},\\,- \\dfrac{\\sqrt{145}}{6} - \\dfrac{7}{6} + \\dfrac{4 \\sqrt{10}}{3} + \\dfrac{2 \\sqrt{58}}{3}\\right)",
+    "radius": "- \\dfrac{35}{6} + \\dfrac{\\sqrt{10}}{6} + \\dfrac{\\sqrt{145}}{6} + \\dfrac{5 \\sqrt{58}}{6}"
+   }
+  },
+  "lines": [
+   {
+    "id": "side-BC",
+    "group": "side",
+    "label": "BC",
+    "length": "4 \\sqrt{10}",
+    "from_point": "\\left(1,\\,5\\right)",
+    "to_point": "\\left(5,\\,-7\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}1\\\\[0.7em]5\\end{pmatrix}+\\lambda\\begin{pmatrix}1\\\\[0.7em]-3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=1+\\lambda\\\\y=5-3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-1}{1}=\\dfrac{y-5}{-3}",
+     "implicit": "3x+y-8=0",
+     "explicit": "y=-3x+8",
+     "normal": "\\dfrac{3 \\sqrt{10}}{10}x+\\dfrac{\\sqrt{10}}{10}y-\\dfrac{4 \\sqrt{10}}{5}=0",
+     "polar": "r\\left(3\\cos\\theta+\\sin\\theta\\right)-8=0",
+     "intercept": "\\dfrac{x}{\\tfrac{8}{3}}+\\dfrac{y}{8}=1"
+    },
+    "extra": {}
+   },
+   {
+    "id": "side-CA",
+    "group": "side",
+    "label": "CA",
+    "length": "\\sqrt{145}",
+    "from_point": "\\left(5,\\,-7\\right)",
+    "to_point": "\\left(-3,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}5\\\\[0.7em]-7\\end{pmatrix}+\\lambda\\begin{pmatrix}-8\\\\[0.7em]9\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=5-8\\lambda\\\\y=-7+9\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-5}{-8}=\\dfrac{y+7}{9}",
+     "implicit": "9x+8y+11=0",
+     "explicit": "y=-\\dfrac{9}{8}x-\\dfrac{11}{8}",
+     "normal": "-\\dfrac{9 \\sqrt{145}}{145}x-\\dfrac{8 \\sqrt{145}}{145}y-\\dfrac{11 \\sqrt{145}}{145}=0",
+     "polar": "r\\left(9\\cos\\theta+8\\sin\\theta\\right)+11=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{11}{9}}+\\dfrac{y}{- \\tfrac{11}{8}}=1"
+    },
+    "extra": {}
+   },
+   {
+    "id": "side-AB",
+    "group": "side",
+    "label": "AB",
+    "length": "5",
+    "from_point": "\\left(-3,\\,2\\right)",
+    "to_point": "\\left(1,\\,5\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-3\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}4\\\\[0.7em]3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-3+4\\lambda\\\\y=2+3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+3}{4}=\\dfrac{y-2}{3}",
+     "implicit": "3x-4y+17=0",
+     "explicit": "y=\\dfrac{3}{4}x+\\dfrac{17}{4}",
+     "normal": "-\\dfrac{3}{5}x+\\dfrac{4}{5}y-\\dfrac{17}{5}=0",
+     "polar": "r\\left(3\\cos\\theta-4\\sin\\theta\\right)+17=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{17}{3}}+\\dfrac{y}{\\tfrac{17}{4}}=1"
+    },
+    "extra": {}
+   },
+   {
+    "id": "perpbisector-BC",
+    "group": "perpbisector",
+    "label": "BC",
+    "length": "\\dfrac{6 \\sqrt{10}}{7}",
+    "from_point": "\\left(3,\\,-1\\right)",
+    "to_point": "\\left(\\dfrac{3}{7},\\,- \\dfrac{13}{7}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}3\\\\[0.7em]-1\\end{pmatrix}+\\lambda\\begin{pmatrix}3\\\\[0.7em]1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=3+3\\lambda\\\\y=-1+\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-3}{3}=\\dfrac{y+1}{1}",
+     "implicit": "x-3y-6=0",
+     "explicit": "y=\\dfrac{1}{3}x-2",
+     "normal": "\\dfrac{\\sqrt{10}}{10}x-\\dfrac{3 \\sqrt{10}}{10}y-\\dfrac{3 \\sqrt{10}}{5}=0",
+     "polar": "r\\left(\\cos\\theta-3\\sin\\theta\\right)-6=0",
+     "intercept": "\\dfrac{x}{6}+\\dfrac{y}{-2}=1"
+    },
+    "extra": {
+     "midpoint": "\\left(3,\\,-1\\right)"
+    }
+   },
+   {
+    "id": "perpbisector-CA",
+    "group": "perpbisector",
+    "label": "CA",
+    "length": "\\dfrac{3 \\sqrt{145}}{14}",
+    "from_point": "\\left(\\dfrac{41}{14},\\,- \\dfrac{11}{14}\\right)",
+    "to_point": "\\left(1,\\,- \\dfrac{5}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}1\\\\[0.7em]- \\dfrac{5}{2}\\end{pmatrix}+\\lambda\\begin{pmatrix}-9\\\\[0.7em]-8\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=1-9\\lambda\\\\y=-\\dfrac{5}{2}-8\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-1}{-9}=\\dfrac{y+\\tfrac{5}{2}}{-8}",
+     "implicit": "16x-18y-61=0",
+     "explicit": "y=\\dfrac{8}{9}x-\\dfrac{61}{18}",
+     "normal": "\\dfrac{8 \\sqrt{145}}{145}x-\\dfrac{9 \\sqrt{145}}{145}y-\\dfrac{61 \\sqrt{145}}{290}=0",
+     "polar": "r\\left(16\\cos\\theta-18\\sin\\theta\\right)-61=0",
+     "intercept": "\\dfrac{x}{\\tfrac{61}{16}}+\\dfrac{y}{- \\tfrac{61}{18}}=1"
+    },
+    "extra": {
+     "midpoint": "\\left(1,\\,- \\dfrac{5}{2}\\right)"
+    }
+   },
+   {
+    "id": "perpbisector-AB",
+    "group": "perpbisector",
+    "label": "AB",
+    "length": "\\dfrac{15}{2}",
+    "from_point": "\\left(-1,\\,\\dfrac{7}{2}\\right)",
+    "to_point": "\\left(\\dfrac{7}{2},\\,- \\dfrac{5}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-1\\\\[0.7em]\\dfrac{7}{2}\\end{pmatrix}+\\lambda\\begin{pmatrix}-3\\\\[0.7em]4\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-1-3\\lambda\\\\y=\\dfrac{7}{2}+4\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+1}{-3}=\\dfrac{y-\\tfrac{7}{2}}{4}",
+     "implicit": "8x+6y-13=0",
+     "explicit": "y=-\\dfrac{4}{3}x+\\dfrac{13}{6}",
+     "normal": "\\dfrac{4}{5}x+\\dfrac{3}{5}y-\\dfrac{13}{10}=0",
+     "polar": "r\\left(8\\cos\\theta+6\\sin\\theta\\right)-13=0",
+     "intercept": "\\dfrac{x}{\\tfrac{13}{8}}+\\dfrac{y}{\\tfrac{13}{6}}=1"
+    },
+    "extra": {
+     "midpoint": "\\left(-1,\\,\\dfrac{7}{2}\\right)"
+    }
+   },
+   {
+    "id": "median-A",
+    "group": "median",
+    "label": "A",
+    "length": "3 \\sqrt{5}",
+    "from_point": "\\left(-3,\\,2\\right)",
+    "to_point": "\\left(3,\\,-1\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-3\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}2\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-3+2\\lambda\\\\y=2-\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+3}{2}=\\dfrac{y-2}{-1}",
+     "implicit": "x+2y-1=0",
+     "explicit": "y=-\\dfrac{1}{2}x+\\dfrac{1}{2}",
+     "normal": "\\dfrac{\\sqrt{5}}{5}x+\\dfrac{2 \\sqrt{5}}{5}y-\\dfrac{\\sqrt{5}}{5}=0",
+     "polar": "r\\left(\\cos\\theta+2\\sin\\theta\\right)-1=0",
+     "intercept": "\\dfrac{x}{1}+\\dfrac{y}{\\tfrac{1}{2}}=1"
+    },
+    "extra": {
+     "foot": "\\left(3,\\,-1\\right)"
+    }
+   },
+   {
+    "id": "altitude-A",
+    "group": "altitude",
+    "label": "A",
+    "length": "\\dfrac{3 \\sqrt{10}}{2}",
+    "from_point": "\\left(-3,\\,2\\right)",
+    "to_point": "\\left(\\dfrac{3}{2},\\,\\dfrac{7}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-3\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}3\\\\[0.7em]1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-3+3\\lambda\\\\y=2+\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+3}{3}=\\dfrac{y-2}{1}",
+     "implicit": "x-3y+9=0",
+     "explicit": "y=\\dfrac{1}{3}x+3",
+     "normal": "-\\dfrac{\\sqrt{10}}{10}x+\\dfrac{3 \\sqrt{10}}{10}y-\\dfrac{9 \\sqrt{10}}{10}=0",
+     "polar": "r\\left(\\cos\\theta-3\\sin\\theta\\right)+9=0",
+     "intercept": "\\dfrac{x}{-9}+\\dfrac{y}{3}=1"
+    },
+    "extra": {
+     "foot": "\\left(\\dfrac{3}{2},\\,\\dfrac{7}{2}\\right)"
+    }
+   },
+   {
+    "id": "bisector-A",
+    "group": "bisector",
+    "label": "A",
+    "length": "\\dfrac{\\sqrt{725 - 40 \\sqrt{145}}}{3}",
+    "from_point": "\\left(-3,\\,2\\right)",
+    "to_point": "\\left(\\dfrac{1}{6} + \\dfrac{\\sqrt{145}}{6},\\,\\dfrac{15}{2} - \\dfrac{\\sqrt{145}}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-3\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}\\dfrac{\\sqrt{145}}{6} + \\dfrac{19}{6}\\\\[0.7em]\\dfrac{11}{2} - \\dfrac{\\sqrt{145}}{2}\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-3+\\left(\\dfrac{\\sqrt{145}}{6} + \\dfrac{19}{6}\\right)\\lambda\\\\y=2-\\left(- \\dfrac{11}{2} + \\dfrac{\\sqrt{145}}{2}\\right)\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+3}{\\tfrac{\\sqrt{145}}{6} + \\tfrac{19}{6}}=\\dfrac{y-2}{\\tfrac{11}{2} - \\tfrac{\\sqrt{145}}{2}}",
+     "implicit": "12x+\\left(59 + 5 \\sqrt{145}\\right)y-\\left(82 + 10 \\sqrt{145}\\right)=0",
+     "explicit": "y=-\\left(- \\dfrac{59}{12} + \\dfrac{5 \\sqrt{145}}{12}\\right)x+\\left(\\dfrac{67}{4} - \\dfrac{5 \\sqrt{145}}{4}\\right)",
+     "normal": "\\dfrac{12x+\\left(59 + 5 \\sqrt{145}\\right)y-\\left(82 + 10 \\sqrt{145}\\right)}{\\sqrt{590 \\sqrt{145} + 7250}}=0",
+     "polar": "r\\left(12\\cos\\theta+\\left(59 + 5 \\sqrt{145}\\right)\\sin\\theta\\right)-\\left(82 + 10 \\sqrt{145}\\right)=0",
+     "intercept": "\\dfrac{x}{\\tfrac{41}{6} + \\tfrac{5 \\sqrt{145}}{6}}+\\dfrac{y}{\\tfrac{67}{4} - \\tfrac{5 \\sqrt{145}}{4}}=1"
+    },
+    "extra": {
+     "foot": "\\left(\\dfrac{1}{6} + \\dfrac{\\sqrt{145}}{6},\\,\\dfrac{15}{2} - \\dfrac{\\sqrt{145}}{2}\\right)"
+    }
+   },
+   {
+    "id": "median-B",
+    "group": "median",
+    "label": "B",
+    "length": "\\dfrac{15}{2}",
+    "from_point": "\\left(1,\\,5\\right)",
+    "to_point": "\\left(1,\\,- \\dfrac{5}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}1\\\\[0.7em]5\\end{pmatrix}+\\lambda\\begin{pmatrix}0\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=1\\\\y=5-\\lambda\\end{cases}",
+     "symmetric": "x=1",
+     "implicit": "x-1=0",
+     "explicit": "x=1",
+     "normal": "x-1=0",
+     "polar": "r\\cos\\theta-1=0",
+     "intercept": null
+    },
+    "extra": {
+     "foot": "\\left(1,\\,- \\dfrac{5}{2}\\right)"
+    }
+   },
+   {
+    "id": "altitude-B",
+    "group": "altitude",
+    "label": "B",
+    "length": "\\dfrac{12 \\sqrt{145}}{29}",
+    "from_point": "\\left(1,\\,5\\right)",
+    "to_point": "\\left(- \\dfrac{79}{29},\\,\\dfrac{49}{29}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}1\\\\[0.7em]5\\end{pmatrix}+\\lambda\\begin{pmatrix}-9\\\\[0.7em]-8\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=1-9\\lambda\\\\y=5-8\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-1}{-9}=\\dfrac{y-5}{-8}",
+     "implicit": "8x-9y+37=0",
+     "explicit": "y=\\dfrac{8}{9}x+\\dfrac{37}{9}",
+     "normal": "-\\dfrac{8 \\sqrt{145}}{145}x+\\dfrac{9 \\sqrt{145}}{145}y-\\dfrac{37 \\sqrt{145}}{145}=0",
+     "polar": "r\\left(8\\cos\\theta-9\\sin\\theta\\right)+37=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{37}{8}}+\\dfrac{y}{\\tfrac{37}{9}}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{79}{29},\\,\\dfrac{49}{29}\\right)"
+    }
+   },
+   {
+    "id": "bisector-B",
+    "group": "bisector",
+    "label": "B",
+    "length": "\\dfrac{4 \\sqrt{2900 - 430 \\sqrt{10}}}{27}",
+    "from_point": "\\left(1,\\,5\\right)",
+    "to_point": "\\left(- \\dfrac{121}{27} + \\dfrac{32 \\sqrt{10}}{27},\\,\\dfrac{11}{3} - \\dfrac{4 \\sqrt{10}}{3}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}1\\\\[0.7em]5\\end{pmatrix}+\\lambda\\begin{pmatrix}- \\dfrac{148}{27} + \\dfrac{32 \\sqrt{10}}{27}\\\\[0.7em]- \\dfrac{4 \\sqrt{10}}{3} - \\dfrac{4}{3}\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=1-\\left(\\dfrac{148}{27} - \\dfrac{32 \\sqrt{10}}{27}\\right)\\lambda\\\\y=5-\\left(\\dfrac{4}{3} + \\dfrac{4 \\sqrt{10}}{3}\\right)\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-1}{- \\tfrac{148}{27} + \\tfrac{32 \\sqrt{10}}{27}}=\\dfrac{y-5}{- \\tfrac{4 \\sqrt{10}}{3} - \\tfrac{4}{3}}",
+     "implicit": "9x-\\left(-13 + 5 \\sqrt{10}\\right)y+\\left(-74 + 25 \\sqrt{10}\\right)=0",
+     "explicit": "y=\\left(\\dfrac{13}{9} + \\dfrac{5 \\sqrt{10}}{9}\\right)x+\\left(\\dfrac{32}{9} - \\dfrac{5 \\sqrt{10}}{9}\\right)",
+     "normal": "\\dfrac{-9x+\\left(-13 + 5 \\sqrt{10}\\right)y-\\left(-74 + 25 \\sqrt{10}\\right)}{\\sqrt{500 - 130 \\sqrt{10}}}=0",
+     "polar": "r\\left(9\\cos\\theta-\\left(-13 + 5 \\sqrt{10}\\right)\\sin\\theta\\right)+\\left(-74 + 25 \\sqrt{10}\\right)=0",
+     "intercept": "\\dfrac{x}{\\tfrac{74}{9} - \\tfrac{25 \\sqrt{10}}{9}}+\\dfrac{y}{\\tfrac{32}{9} - \\tfrac{5 \\sqrt{10}}{9}}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{121}{27} + \\dfrac{32 \\sqrt{10}}{27},\\,\\dfrac{11}{3} - \\dfrac{4 \\sqrt{10}}{3}\\right)"
+    }
+   },
+   {
+    "id": "median-C",
+    "group": "median",
+    "label": "C",
+    "length": "\\dfrac{3 \\sqrt{65}}{2}",
+    "from_point": "\\left(5,\\,-7\\right)",
+    "to_point": "\\left(-1,\\,\\dfrac{7}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}5\\\\[0.7em]-7\\end{pmatrix}+\\lambda\\begin{pmatrix}-4\\\\[0.7em]7\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=5-4\\lambda\\\\y=-7+7\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-5}{-4}=\\dfrac{y+7}{7}",
+     "implicit": "7x+4y-7=0",
+     "explicit": "y=-\\dfrac{7}{4}x+\\dfrac{7}{4}",
+     "normal": "\\dfrac{7 \\sqrt{65}}{65}x+\\dfrac{4 \\sqrt{65}}{65}y-\\dfrac{7 \\sqrt{65}}{65}=0",
+     "polar": "r\\left(7\\cos\\theta+4\\sin\\theta\\right)-7=0",
+     "intercept": "\\dfrac{x}{1}+\\dfrac{y}{\\tfrac{7}{4}}=1"
+    },
+    "extra": {
+     "foot": "\\left(-1,\\,\\dfrac{7}{2}\\right)"
+    }
+   },
+   {
+    "id": "altitude-C",
+    "group": "altitude",
+    "label": "C",
+    "length": "12",
+    "from_point": "\\left(5,\\,-7\\right)",
+    "to_point": "\\left(- \\dfrac{11}{5},\\,\\dfrac{13}{5}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}5\\\\[0.7em]-7\\end{pmatrix}+\\lambda\\begin{pmatrix}-3\\\\[0.7em]4\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=5-3\\lambda\\\\y=-7+4\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-5}{-3}=\\dfrac{y+7}{4}",
+     "implicit": "4x+3y+1=0",
+     "explicit": "y=-\\dfrac{4}{3}x-\\dfrac{1}{3}",
+     "normal": "-\\dfrac{4}{5}x-\\dfrac{3}{5}y-\\dfrac{1}{5}=0",
+     "polar": "r\\left(4\\cos\\theta+3\\sin\\theta\\right)+1=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{1}{4}}+\\dfrac{y}{- \\tfrac{1}{3}}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{11}{5},\\,\\dfrac{13}{5}\\right)"
+    }
+   },
+   {
+    "id": "bisector-C",
+    "group": "bisector",
+    "label": "C",
+    "length": "\\dfrac{4 \\sqrt{2900 - 370 \\sqrt{58}}}{3}",
+    "from_point": "\\left(5,\\,-7\\right)",
+    "to_point": "\\left(- \\dfrac{125}{3} + \\dfrac{16 \\sqrt{58}}{3},\\,-27 + 4 \\sqrt{58}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}5\\\\[0.7em]-7\\end{pmatrix}+\\lambda\\begin{pmatrix}- \\dfrac{140}{3} + \\dfrac{16 \\sqrt{58}}{3}\\\\[0.7em]-20 + 4 \\sqrt{58}\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=5-\\left(\\dfrac{140}{3} - \\dfrac{16 \\sqrt{58}}{3}\\right)\\lambda\\\\y=-7+\\left(-20 + 4 \\sqrt{58}\\right)\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-5}{- \\tfrac{140}{3} + \\tfrac{16 \\sqrt{58}}{3}}=\\dfrac{y+7}{-20 + 4 \\sqrt{58}}",
+     "implicit": "33x+\\left(-19 + 5 \\sqrt{58}\\right)y-\\left(298 - 35 \\sqrt{58}\\right)=0",
+     "explicit": "y=-\\left(\\dfrac{19}{33} + \\dfrac{5 \\sqrt{58}}{33}\\right)x+\\left(- \\dfrac{136}{33} + \\dfrac{25 \\sqrt{58}}{33}\\right)",
+     "normal": "\\dfrac{33x+\\left(-19 + 5 \\sqrt{58}\\right)y-\\left(298 - 35 \\sqrt{58}\\right)}{\\sqrt{2900 - 190 \\sqrt{58}}}=0",
+     "polar": "r\\left(33\\cos\\theta+\\left(-19 + 5 \\sqrt{58}\\right)\\sin\\theta\\right)-\\left(298 - 35 \\sqrt{58}\\right)=0",
+     "intercept": "\\dfrac{x}{\\tfrac{298}{33} - \\tfrac{35 \\sqrt{58}}{33}}+\\dfrac{y}{- \\tfrac{136}{33} + \\tfrac{25 \\sqrt{58}}{33}}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{125}{3} + \\dfrac{16 \\sqrt{58}}{3},\\,-27 + 4 \\sqrt{58}\\right)"
+    }
+   }
+  ],
+  "figure": {
+   "view": [
+    -4.862,
+    9.862,
+    -8.529,
+    6.195
+   ],
+   "points": {
+    "A": [
+     -3.0,
+     2.0
+    ],
+    "B": [
+     1.0,
+     5.0
+    ],
+    "C": [
+     5.0,
+     -7.0
+    ],
+    "G": [
+     1.0,
+     0.0
+    ],
+    "I": [
+     -0.030506,
+     1.701078
+    ],
+    "O": [
+     2.5,
+     -1.166667
+    ],
+    "H": [
+     -2.0,
+     2.333333
+    ]
+   },
+   "incircle": {
+    "center": [
+     -0.030506,
+     1.701078
+    ],
+    "r": 2.020834
+   },
+   "circumcircle": {
+    "center": [
+     2.5,
+     -1.166667
+    ],
+    "r": 6.346478
+   }
+  }
+ }
+}

@@ -1,6 +1,7 @@
 /** Typed HTTP client for the internal math engine. Used by the web backend and the content scripts. */
 
 import { z } from "zod";
+import { triangleResponseSchema } from "./triangle";
 
 const checkResponse = z.object({
   status: z.enum(["correct", "incorrect", "invalid"]),
@@ -158,6 +159,8 @@ export function createEngineClient(opts: EngineClientOptions) {
     /** The step-by-step solver. A solve is never retried (it can be slow) and gets a longer time limit than a check. */
     /** Exact coordinates for roots and intersections that the grapher found numerically (only those SymPy can prove). */
     graphExact: (body: EngineGraphExactRequest) => post("/v1/graph/exact", body, graphExactResponse, { timeoutMs: 20_000, retries: 0 }),
+    /** Everything about a triangle from its three vertices, exactly (sides, angles, centers, lines in eight forms, circles). */
+    triangle: (points: string[][]) => post("/v1/geometry/triangle", { points }, triangleResponseSchema, { timeoutMs: 30_000, retries: 0 }),
     solve: (input: string, operation: SolveOperation = "auto") => post("/v1/solve", { input, operation }, solveResponse, { timeoutMs: 25_000, retries: 0 }),
     async health(): Promise<boolean> {
       try {

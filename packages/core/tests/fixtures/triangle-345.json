@@ -1,0 +1,481 @@
+{
+ "ok": true,
+ "data": {
+  "vertices": {
+   "A": "\\left(-2,\\,2\\right)",
+   "B": "\\left(-2,\\,-1\\right)",
+   "C": "\\left(2,\\,2\\right)"
+  },
+  "sides": {
+   "a": {
+    "name": "BC",
+    "length": "5"
+   },
+   "b": {
+    "name": "CA",
+    "length": "4"
+   },
+   "c": {
+    "name": "AB",
+    "length": "3"
+   }
+  },
+  "longest": [
+   "BC"
+  ],
+  "shortest": [
+   "AB"
+  ],
+  "perimeter": "12",
+  "semiperimeter": "6",
+  "area": "6",
+  "kind": {
+   "by_sides": "scalene",
+   "by_angles": "right"
+  },
+  "angles": {
+   "A": {
+    "cos": "0",
+    "angle": "\\dfrac{\\pi}{2}",
+    "degrees": "90^\\circ"
+   },
+   "B": {
+    "cos": "\\dfrac{3}{5}",
+    "angle": "\\arccos{\\left(\\dfrac{3}{5} \\right)}",
+    "degrees": null
+   },
+   "C": {
+    "cos": "\\dfrac{4}{5}",
+    "angle": "\\arccos{\\left(\\dfrac{4}{5} \\right)}",
+    "degrees": null
+   }
+  },
+  "centers": {
+   "G": "\\left(- \\dfrac{2}{3},\\,1\\right)",
+   "I": "\\left(-1,\\,1\\right)",
+   "O": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+   "H": "\\left(-2,\\,2\\right)",
+   "N": "\\left(-1,\\,\\dfrac{5}{4}\\right)"
+  },
+  "radii": {
+   "r": "1",
+   "R": "\\dfrac{5}{2}"
+  },
+  "euler": {
+   "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}0\\\\[0.7em]\\dfrac{1}{2}\\end{pmatrix}+\\lambda\\begin{pmatrix}-4\\\\[0.7em]3\\end{pmatrix}",
+   "parametric": "\\begin{cases}x=-4\\lambda\\\\y=\\dfrac{1}{2}+3\\lambda\\end{cases}",
+   "symmetric": "\\dfrac{x}{-4}=\\dfrac{y-\\tfrac{1}{2}}{3}",
+   "implicit": "3x+4y-2=0",
+   "explicit": "y=-\\dfrac{3}{4}x+\\dfrac{1}{2}",
+   "normal": "\\dfrac{3}{5}x+\\dfrac{4}{5}y-\\dfrac{2}{5}=0",
+   "polar": "r\\left(3\\cos\\theta+4\\sin\\theta\\right)-2=0",
+   "intercept": "\\dfrac{x}{\\tfrac{2}{3}}+\\dfrac{y}{\\tfrac{1}{2}}=1"
+  },
+  "circles": {
+   "incircle": {
+    "center": "\\left(-1,\\,1\\right)",
+    "radius": "1",
+    "analytic": "\\left(x+1\\right)^{2}+\\left(y-1\\right)^{2}=1",
+    "general": "x^{2}+y^{2}+2x-2y+1=0",
+    "parametric": "\\begin{cases}x=-1+\\cos t\\\\y=1+\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "2 \\pi",
+    "area": "\\pi"
+   },
+   "circumcircle": {
+    "center": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+    "radius": "\\dfrac{5}{2}",
+    "analytic": "x^{2}+\\left(y-\\dfrac{1}{2}\\right)^{2}=\\dfrac{25}{4}",
+    "general": "x^{2}+y^{2}-y-6=0",
+    "parametric": "\\begin{cases}x=\\dfrac{5}{2}\\cos t\\\\y=\\dfrac{1}{2}+\\dfrac{5}{2}\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "5 \\pi",
+    "area": "\\dfrac{25 \\pi}{4}"
+   },
+   "ninepoint": {
+    "center": "\\left(-1,\\,\\dfrac{5}{4}\\right)",
+    "radius": "\\dfrac{5}{4}",
+    "analytic": "\\left(x+1\\right)^{2}+\\left(y-\\dfrac{5}{4}\\right)^{2}=\\dfrac{25}{16}",
+    "general": "x^{2}+y^{2}+2x-\\dfrac{5}{2}y+1=0",
+    "parametric": "\\begin{cases}x=-1+\\dfrac{5}{4}\\cos t\\\\y=\\dfrac{5}{4}+\\dfrac{5}{4}\\sin t\\end{cases},\\ t\\in[0,2\\pi)",
+    "perimeter": "\\dfrac{5 \\pi}{2}",
+    "area": "\\dfrac{25 \\pi}{16}"
+   }
+  },
+  "excircles": {
+   "A": {
+    "center": "\\left(4,\\,-4\\right)",
+    "radius": "6"
+   },
+   "B": {
+    "center": "\\left(1,\\,5\\right)",
+    "radius": "3"
+   },
+   "C": {
+    "center": "\\left(-4,\\,0\\right)",
+    "radius": "2"
+   }
+  },
+  "lines": [
+   {
+    "id": "side-BC",
+    "group": "side",
+    "label": "BC",
+    "length": "5",
+    "from_point": "\\left(-2,\\,-1\\right)",
+    "to_point": "\\left(2,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]-1\\end{pmatrix}+\\lambda\\begin{pmatrix}4\\\\[0.7em]3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+4\\lambda\\\\y=-1+3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{4}=\\dfrac{y+1}{3}",
+     "implicit": "3x-4y+2=0",
+     "explicit": "y=\\dfrac{3}{4}x+\\dfrac{1}{2}",
+     "normal": "-\\dfrac{3}{5}x+\\dfrac{4}{5}y-\\dfrac{2}{5}=0",
+     "polar": "r\\left(3\\cos\\theta-4\\sin\\theta\\right)+2=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{2}{3}}+\\dfrac{y}{\\tfrac{1}{2}}=1"
+    },
+    "extra": {}
+   },
+   {
+    "id": "side-CA",
+    "group": "side",
+    "label": "CA",
+    "length": "4",
+    "from_point": "\\left(2,\\,2\\right)",
+    "to_point": "\\left(-2,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}-1\\\\[0.7em]0\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=2-\\lambda\\\\y=2\\end{cases}",
+     "symmetric": "y=2",
+     "implicit": "y-2=0",
+     "explicit": "y=2",
+     "normal": "y-2=0",
+     "polar": "r\\sin\\theta-2=0",
+     "intercept": null
+    },
+    "extra": {}
+   },
+   {
+    "id": "side-AB",
+    "group": "side",
+    "label": "AB",
+    "length": "3",
+    "from_point": "\\left(-2,\\,2\\right)",
+    "to_point": "\\left(-2,\\,-1\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}0\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2\\\\y=2-\\lambda\\end{cases}",
+     "symmetric": "x=-2",
+     "implicit": "x+2=0",
+     "explicit": "x=-2",
+     "normal": "-x-2=0",
+     "polar": "r\\cos\\theta+2=0",
+     "intercept": null
+    },
+    "extra": {}
+   },
+   {
+    "id": "perpbisector-BC",
+    "group": "perpbisector",
+    "label": "BC",
+    "length": "\\dfrac{15}{8}",
+    "from_point": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+    "to_point": "\\left(- \\dfrac{9}{8},\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}0\\\\[0.7em]\\dfrac{1}{2}\\end{pmatrix}+\\lambda\\begin{pmatrix}-3\\\\[0.7em]4\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-3\\lambda\\\\y=\\dfrac{1}{2}+4\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x}{-3}=\\dfrac{y-\\tfrac{1}{2}}{4}",
+     "implicit": "8x+6y-3=0",
+     "explicit": "y=-\\dfrac{4}{3}x+\\dfrac{1}{2}",
+     "normal": "\\dfrac{4}{5}x+\\dfrac{3}{5}y-\\dfrac{3}{10}=0",
+     "polar": "r\\left(8\\cos\\theta+6\\sin\\theta\\right)-3=0",
+     "intercept": "\\dfrac{x}{\\tfrac{3}{8}}+\\dfrac{y}{\\tfrac{1}{2}}=1"
+    },
+    "extra": {
+     "midpoint": "\\left(0,\\,\\dfrac{1}{2}\\right)"
+    }
+   },
+   {
+    "id": "perpbisector-CA",
+    "group": "perpbisector",
+    "label": "CA",
+    "length": "\\dfrac{3}{2}",
+    "from_point": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+    "to_point": "\\left(0,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}0\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}0\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=0\\\\y=2-\\lambda\\end{cases}",
+     "symmetric": "x=0",
+     "implicit": "x=0",
+     "explicit": "x=0",
+     "normal": "x=0",
+     "polar": "r\\cos\\theta=0",
+     "intercept": null
+    },
+    "extra": {
+     "midpoint": "\\left(0,\\,2\\right)"
+    }
+   },
+   {
+    "id": "perpbisector-AB",
+    "group": "perpbisector",
+    "label": "AB",
+    "length": "2",
+    "from_point": "\\left(-2,\\,\\dfrac{1}{2}\\right)",
+    "to_point": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]\\dfrac{1}{2}\\end{pmatrix}+\\lambda\\begin{pmatrix}1\\\\[0.7em]0\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+\\lambda\\\\y=\\dfrac{1}{2}\\end{cases}",
+     "symmetric": "y=\\dfrac{1}{2}",
+     "implicit": "2y-1=0",
+     "explicit": "y=\\dfrac{1}{2}",
+     "normal": "y-\\dfrac{1}{2}=0",
+     "polar": "r2\\sin\\theta-1=0",
+     "intercept": null
+    },
+    "extra": {
+     "midpoint": "\\left(-2,\\,\\dfrac{1}{2}\\right)"
+    }
+   },
+   {
+    "id": "median-A",
+    "group": "median",
+    "label": "A",
+    "length": "\\dfrac{5}{2}",
+    "from_point": "\\left(-2,\\,2\\right)",
+    "to_point": "\\left(0,\\,\\dfrac{1}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}4\\\\[0.7em]-3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+4\\lambda\\\\y=2-3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{4}=\\dfrac{y-2}{-3}",
+     "implicit": "3x+4y-2=0",
+     "explicit": "y=-\\dfrac{3}{4}x+\\dfrac{1}{2}",
+     "normal": "\\dfrac{3}{5}x+\\dfrac{4}{5}y-\\dfrac{2}{5}=0",
+     "polar": "r\\left(3\\cos\\theta+4\\sin\\theta\\right)-2=0",
+     "intercept": "\\dfrac{x}{\\tfrac{2}{3}}+\\dfrac{y}{\\tfrac{1}{2}}=1"
+    },
+    "extra": {
+     "foot": "\\left(0,\\,\\dfrac{1}{2}\\right)"
+    }
+   },
+   {
+    "id": "altitude-A",
+    "group": "altitude",
+    "label": "A",
+    "length": "\\dfrac{12}{5}",
+    "from_point": "\\left(-2,\\,2\\right)",
+    "to_point": "\\left(- \\dfrac{14}{25},\\,\\dfrac{2}{25}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}-3\\\\[0.7em]4\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2-3\\lambda\\\\y=2+4\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{-3}=\\dfrac{y-2}{4}",
+     "implicit": "4x+3y+2=0",
+     "explicit": "y=-\\dfrac{4}{3}x-\\dfrac{2}{3}",
+     "normal": "-\\dfrac{4}{5}x-\\dfrac{3}{5}y-\\dfrac{2}{5}=0",
+     "polar": "r\\left(4\\cos\\theta+3\\sin\\theta\\right)+2=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{1}{2}}+\\dfrac{y}{- \\tfrac{2}{3}}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{14}{25},\\,\\dfrac{2}{25}\\right)"
+    }
+   },
+   {
+    "id": "bisector-A",
+    "group": "bisector",
+    "label": "A",
+    "length": "\\dfrac{12 \\sqrt{2}}{7}",
+    "from_point": "\\left(-2,\\,2\\right)",
+    "to_point": "\\left(- \\dfrac{2}{7},\\,\\dfrac{2}{7}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}1\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+\\lambda\\\\y=2-\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{1}=\\dfrac{y-2}{-1}",
+     "implicit": "x+y=0",
+     "explicit": "y=-x",
+     "normal": "\\dfrac{\\sqrt{2}}{2}x+\\dfrac{\\sqrt{2}}{2}y=0",
+     "polar": "r\\left(\\cos\\theta+\\sin\\theta\\right)=0",
+     "intercept": null
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{2}{7},\\,\\dfrac{2}{7}\\right)"
+    }
+   },
+   {
+    "id": "median-B",
+    "group": "median",
+    "label": "B",
+    "length": "\\sqrt{13}",
+    "from_point": "\\left(-2,\\,-1\\right)",
+    "to_point": "\\left(0,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]-1\\end{pmatrix}+\\lambda\\begin{pmatrix}2\\\\[0.7em]3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+2\\lambda\\\\y=-1+3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{2}=\\dfrac{y+1}{3}",
+     "implicit": "3x-2y+4=0",
+     "explicit": "y=\\dfrac{3}{2}x+2",
+     "normal": "-\\dfrac{3 \\sqrt{13}}{13}x+\\dfrac{2 \\sqrt{13}}{13}y-\\dfrac{4 \\sqrt{13}}{13}=0",
+     "polar": "r\\left(3\\cos\\theta-2\\sin\\theta\\right)+4=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{4}{3}}+\\dfrac{y}{2}=1"
+    },
+    "extra": {
+     "foot": "\\left(0,\\,2\\right)"
+    }
+   },
+   {
+    "id": "altitude-B",
+    "group": "altitude",
+    "label": "B",
+    "length": "3",
+    "from_point": "\\left(-2,\\,-1\\right)",
+    "to_point": "\\left(-2,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]-1\\end{pmatrix}+\\lambda\\begin{pmatrix}0\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2\\\\y=-1-\\lambda\\end{cases}",
+     "symmetric": "x=-2",
+     "implicit": "x+2=0",
+     "explicit": "x=-2",
+     "normal": "-x-2=0",
+     "polar": "r\\cos\\theta+2=0",
+     "intercept": null
+    },
+    "extra": {
+     "foot": "\\left(-2,\\,2\\right)"
+    }
+   },
+   {
+    "id": "bisector-B",
+    "group": "bisector",
+    "label": "B",
+    "length": "\\dfrac{3 \\sqrt{5}}{2}",
+    "from_point": "\\left(-2,\\,-1\\right)",
+    "to_point": "\\left(- \\dfrac{1}{2},\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}-2\\\\[0.7em]-1\\end{pmatrix}+\\lambda\\begin{pmatrix}1\\\\[0.7em]2\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=-2+\\lambda\\\\y=-1+2\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x+2}{1}=\\dfrac{y+1}{2}",
+     "implicit": "2x-y+3=0",
+     "explicit": "y=2x+3",
+     "normal": "-\\dfrac{2 \\sqrt{5}}{5}x+\\dfrac{\\sqrt{5}}{5}y-\\dfrac{3 \\sqrt{5}}{5}=0",
+     "polar": "r\\left(2\\cos\\theta-\\sin\\theta\\right)+3=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{3}{2}}+\\dfrac{y}{3}=1"
+    },
+    "extra": {
+     "foot": "\\left(- \\dfrac{1}{2},\\,2\\right)"
+    }
+   },
+   {
+    "id": "median-C",
+    "group": "median",
+    "label": "C",
+    "length": "\\dfrac{\\sqrt{73}}{2}",
+    "from_point": "\\left(2,\\,2\\right)",
+    "to_point": "\\left(-2,\\,\\dfrac{1}{2}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}-8\\\\[0.7em]-3\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=2-8\\lambda\\\\y=2-3\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-2}{-8}=\\dfrac{y-2}{-3}",
+     "implicit": "3x-8y+10=0",
+     "explicit": "y=\\dfrac{3}{8}x+\\dfrac{5}{4}",
+     "normal": "-\\dfrac{3 \\sqrt{73}}{73}x+\\dfrac{8 \\sqrt{73}}{73}y-\\dfrac{10 \\sqrt{73}}{73}=0",
+     "polar": "r\\left(3\\cos\\theta-8\\sin\\theta\\right)+10=0",
+     "intercept": "\\dfrac{x}{- \\tfrac{10}{3}}+\\dfrac{y}{\\tfrac{5}{4}}=1"
+    },
+    "extra": {
+     "foot": "\\left(-2,\\,\\dfrac{1}{2}\\right)"
+    }
+   },
+   {
+    "id": "altitude-C",
+    "group": "altitude",
+    "label": "C",
+    "length": "4",
+    "from_point": "\\left(2,\\,2\\right)",
+    "to_point": "\\left(-2,\\,2\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}1\\\\[0.7em]0\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=2+\\lambda\\\\y=2\\end{cases}",
+     "symmetric": "y=2",
+     "implicit": "y-2=0",
+     "explicit": "y=2",
+     "normal": "y-2=0",
+     "polar": "r\\sin\\theta-2=0",
+     "intercept": null
+    },
+    "extra": {
+     "foot": "\\left(-2,\\,2\\right)"
+    }
+   },
+   {
+    "id": "bisector-C",
+    "group": "bisector",
+    "label": "C",
+    "length": "\\dfrac{4 \\sqrt{10}}{3}",
+    "from_point": "\\left(2,\\,2\\right)",
+    "to_point": "\\left(-2,\\,\\dfrac{2}{3}\\right)",
+    "forms": {
+     "vector": "\\begin{pmatrix}x\\\\[0.7em]y\\end{pmatrix}=\\begin{pmatrix}2\\\\[0.7em]2\\end{pmatrix}+\\lambda\\begin{pmatrix}-3\\\\[0.7em]-1\\end{pmatrix}",
+     "parametric": "\\begin{cases}x=2-3\\lambda\\\\y=2-\\lambda\\end{cases}",
+     "symmetric": "\\dfrac{x-2}{-3}=\\dfrac{y-2}{-1}",
+     "implicit": "x-3y+4=0",
+     "explicit": "y=\\dfrac{1}{3}x+\\dfrac{4}{3}",
+     "normal": "-\\dfrac{\\sqrt{10}}{10}x+\\dfrac{3 \\sqrt{10}}{10}y-\\dfrac{2 \\sqrt{10}}{5}=0",
+     "polar": "r\\left(\\cos\\theta-3\\sin\\theta\\right)+4=0",
+     "intercept": "\\dfrac{x}{-4}+\\dfrac{y}{\\tfrac{4}{3}}=1"
+    },
+    "extra": {
+     "foot": "\\left(-2,\\,\\dfrac{2}{3}\\right)"
+    }
+   }
+  ],
+  "figure": {
+   "view": [
+    -2.9,
+    2.9,
+    -2.4,
+    3.4
+   ],
+   "points": {
+    "A": [
+     -2.0,
+     2.0
+    ],
+    "B": [
+     -2.0,
+     -1.0
+    ],
+    "C": [
+     2.0,
+     2.0
+    ],
+    "G": [
+     -0.666667,
+     1.0
+    ],
+    "I": [
+     -1.0,
+     1.0
+    ],
+    "O": [
+     0.0,
+     0.5
+    ],
+    "H": [
+     -2.0,
+     2.0
+    ]
+   },
+   "incircle": {
+    "center": [
+     -1.0,
+     1.0
+    ],
+    "r": 1.0
+   },
+   "circumcircle": {
+    "center": [
+     0.0,
+     0.5
+    ],
+    "r": 2.5
+   }
+  }
+ }
+}

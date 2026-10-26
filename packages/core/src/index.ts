@@ -8,3 +8,4 @@ export * from "./plot";
 export * from "./figure";
 export * from "./graph";
 export * from "./graph-geometry";
+export * from "./triangle";
