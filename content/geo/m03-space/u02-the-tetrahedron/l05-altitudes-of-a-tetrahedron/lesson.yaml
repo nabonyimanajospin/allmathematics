@@ -32,6 +32,28 @@ sections:
     note: |
       The two expressions of $h_A$ agree because $\left|\boxp{\overrightarrow{AB}}{\overrightarrow{AC}}{\overrightarrow{AD}}\right|=\left|\dotp{\overrightarrow{BA}}{\vec n}\right|$ and $\norm{\vec n}=2S_{BCD}$. The volume does not depend on the face chosen, so $3V=h_AS_{BCD}=h_BS_{ACD}=h_CS_{ABD}=h_DS_{ABC}$: **the bigger the face, the smaller the altitude to it**.
 
+  - id: fig-altitude
+    type: visual
+    kind: figure
+    title: The altitude from $A$ to the face $BCD$
+    caption: |
+      The tetrahedron $A(0,0,0)$, $B(3,0,0)$, $C(0,4,0)$, $D(0,0,12)$. The altitude from $A$ meets the face $BCD$ at the foot $H$, at a right angle. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A tetrahedron with vertices A, B, C and D, the face BCD shaded, and the altitude from A drawn as a segment to its foot H on that face, at a right angle."
+      view: [6]
+      items:
+        - {t: point, id: A, at: [0, 0, 0]}
+        - {t: point, id: B, at: [3, 0, 0]}
+        - {t: point, id: C, at: [0, 4, 0]}
+        - {t: point, id: D, at: [0, 0, 12], color: warning}
+        - {t: point, id: H, at: [24/13, 18/13, 6/13], color: success}
+        - {t: polygon, pts: [B, C, D], fill: accent, color: accent}
+        - {t: polygon, pts: [A, B, C], fill: muted, color: muted}
+        - {t: segment, from: A, to: D, color: muted}
+        - {t: segment, from: A, to: H, color: success, arrow: true, label: h}
+        - {t: right, at: H, a: A, b: B}
+
   - id: ex-altitude-a
     type: example
     title: The altitude from A

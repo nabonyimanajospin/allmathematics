@@ -115,11 +115,12 @@ const figPoint = z.array(coord).min(2).max(3);
 const figRef = z.union([z.string().min(1).max(20), figPoint]);
 const figColor = z.enum(["accent", "warning", "success", "danger", "ink", "muted"]);
 const figureItem = z.discriminatedUnion("t", [
-  z.strictObject({ t: z.literal("point"), id: z.string().min(1).max(20), at: figPoint, label: z.string().max(20).optional(), color: figColor.optional() }),
+  z.strictObject({ t: z.literal("point"), id: z.string().min(1).max(20), at: figPoint, label: z.string().max(20).optional(), color: figColor.optional(), guides: z.boolean().optional() }),
   z.strictObject({ t: z.literal("segment"), from: figRef, to: figRef, dashed: z.boolean().optional(), color: figColor.optional(), label: z.string().max(20).optional(), arrow: z.boolean().optional() }),
   z.strictObject({ t: z.literal("line"), through: z.tuple([figRef, figRef]), dashed: z.boolean().optional(), color: figColor.optional(), label: z.string().max(30).optional() }),
   z.strictObject({ t: z.literal("polygon"), pts: z.array(figRef).min(3).max(12), fill: figColor.optional(), color: figColor.optional() }),
   z.strictObject({ t: z.literal("circle"), center: figRef, r: coord, dashed: z.boolean().optional(), color: figColor.optional() }),
+  z.strictObject({ t: z.literal("sphere"), center: figRef, r: coord, color: figColor.optional() }),
   z.strictObject({ t: z.literal("right"), at: figRef, a: figRef, b: figRef }),
   z.strictObject({ t: z.literal("text"), at: figRef, text: z.string().min(1).max(40), color: figColor.optional() }),
 ]);
@@ -129,6 +130,8 @@ export const figureSchema = z.strictObject({
   alt: z.string().min(10).max(400),
   view: z.array(z.number()).min(1).max(4),
   axes: z.boolean().optional(),
+  yaw: z.number().min(-7).max(7).optional(),
+  pitch: z.number().min(-1.2).max(1.45).optional(),
   items: z.array(figureItem).min(1).max(60),
 });
 

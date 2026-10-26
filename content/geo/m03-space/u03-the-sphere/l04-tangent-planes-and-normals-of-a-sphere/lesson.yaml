@@ -20,6 +20,24 @@ sections:
 
       Both are built from the radius vector $\overrightarrow{CP_0}$. The tangent plane has it as **normal vector**, and the normal line has it as **direction vector**. The questions of this lesson are variations of these two facts.
 
+  - id: fig-tps-nps
+    type: visual
+    kind: figure
+    title: The tangent plane and the normal at $P_0(1,2,2)$
+    caption: |
+      The sphere $x^2+y^2+z^2=9$ with its center at the origin. The tangent plane (green) touches it at $P_0$ and is perpendicular to the radius; the normal line is the line of the radius, through the center. Drag the figure to turn it.
+    figure:
+      dim: 3
+      yaw: 0.15
+      pitch: 0.35
+      alt: "A sphere centered at the origin with the tangent plane at the point P0 drawn as a small square, and the normal line through the center and P0 with an arrow."
+      view: [4]
+      items:
+        - {t: sphere, center: [0, 0, 0], r: 3, color: accent}
+        - {t: point, id: P0, at: [1, 2, 2], label: P_0, color: warning}
+        - {t: polygon, pts: [[-1/3, 11/6, 17/6], [5/3, 5/6, 17/6], [7/3, 13/6, 7/6], [1/3, 19/6, 7/6]], fill: success, color: success}
+        - {t: segment, from: [0, 0, 0], to: [4/3, 8/3, 8/3], color: warning, arrow: true, label: n}
+
   - id: formulas
     type: formula
     title: Tangent plane and normal at $P_0(x_0,y_0,z_0)$ of the sphere with center $C(p,q,r_0)$

@@ -32,9 +32,9 @@ sections:
       alt: "A sphere with center C(1, -2, 3) and radius 5 drawn in three dimensions with the coordinate axes."
       view: [7]
       items:
-        - {t: point, id: C, at: [1, -2, 3], color: warning}
+        - {t: point, id: C, at: [1, -2, 3], color: warning, guides: true}
         - {t: point, id: T, at: [4, 2, 3], color: accent}
-        - {t: circle, center: C, r: 5, color: accent}
+        - {t: sphere, center: C, r: 5, color: accent}
         - {t: segment, from: C, to: T, color: success, label: r}
 
   - id: from-general

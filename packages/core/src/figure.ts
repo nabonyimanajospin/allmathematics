@@ -13,11 +13,13 @@ export type Ref = string | FigPoint;
 export type FigColor = "accent" | "warning" | "success" | "danger" | "ink" | "muted";
 
 export type FigureItem =
-  | { t: "point"; id: string; at: FigPoint; label?: string; color?: FigColor }
+  | { t: "point"; id: string; at: FigPoint; label?: string; color?: FigColor; guides?: boolean }
   | { t: "segment"; from: Ref; to: Ref; dashed?: boolean; color?: FigColor; label?: string; arrow?: boolean }
   | { t: "line"; through: [Ref, Ref]; dashed?: boolean; color?: FigColor; label?: string }
   | { t: "polygon"; pts: Ref[]; fill?: FigColor; color?: FigColor }
   | { t: "circle"; center: Ref; r: Coord; dashed?: boolean; color?: FigColor }
+  /** A sphere of a 3D figure: a shaded ball with its equator and two meridians (the back half dashed). */
+  | { t: "sphere"; center: Ref; r: Coord; color?: FigColor }
   | { t: "right"; at: Ref; a: Ref; b: Ref }
   | { t: "text"; at: Ref; text: string; color?: FigColor };
 
@@ -27,6 +29,9 @@ export interface Figure {
   /** 2D: [xmin, xmax, ymin, ymax]. 3D: the half-size of the box shown. */
   view: number[];
   axes?: boolean;
+  /** 3D only: the starting view, in radians (default yaw -0.62, pitch 0.42), for a figure that would otherwise be seen edge-on. */
+  yaw?: number;
+  pitch?: number;
   items: FigureItem[];
 }
 
@@ -92,6 +97,10 @@ export function validateFigure(fig: Figure): string | null {
       } else if (it.t === "circle") {
         resolveRef(fig, table, it.center);
         if (!(num(it.r) > 0)) return "a circle needs a positive radius";
+      } else if (it.t === "sphere") {
+        if (fig.dim !== 3) return "a sphere is only for 3D figures; use a circle in 2D";
+        resolveRef(fig, table, it.center);
+        if (!(num(it.r) > 0)) return "a sphere needs a positive radius";
       } else if (it.t === "right") {
         resolveRef(fig, table, it.at);
         resolveRef(fig, table, it.a);

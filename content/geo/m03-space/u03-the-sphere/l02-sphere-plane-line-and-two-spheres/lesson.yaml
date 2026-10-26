@@ -37,7 +37,7 @@ sections:
       items:
         - {t: point, id: C, at: [1, -2, 3], color: warning}
         - {t: point, id: T, at: [6, -2, 3], color: accent}
-        - {t: circle, center: C, r: 5, color: accent}
+        - {t: sphere, center: C, r: 5, color: accent}
         - {t: polygon, pts: [[6, -6, -1], [6, 2, -1], [6, 2, 7], [6, -6, 7]], fill: success, color: success}
         - {t: segment, from: C, to: T, color: warning, label: r}
 

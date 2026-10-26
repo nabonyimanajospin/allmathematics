@@ -51,6 +51,27 @@ sections:
     more: |
       **Why these formulas.** The projection of $P$ on the plane $xy$ is at distance $r=\rho\sin\varphi$ from the origin (in the right triangle formed by $O$, $P$ and the foot of the perpendicular, the side opposite $\varphi$), and $z=\rho\cos\varphi$ is the adjacent side. Writing $x=r\cos\theta$ and $y=r\sin\theta$ gives the formulas. In particular $r=\rho\sin\varphi$.
 
+  - id: fig-coordinates
+    type: visual
+    kind: figure
+    title: The point $P(1,1,2)$ in cylindrical and spherical coordinates
+    caption: |
+      $P'$ is the projection of $P$ on the plane $xy$. In cylindrical coordinates $r=OP'$, $\theta$ is the angle from the $x$-axis to $OP'$, and $z=P'P$. In spherical coordinates $\rho=OP$ and $\varphi$ is the angle between the $z$-axis and $OP$. Drag the figure to turn it.
+    figure:
+      dim: 3
+      alt: "A point P in space with its projection P' on the horizontal plane, the segments OP (rho), OP' (r) and P'P (z), and the angles theta in the plane xy and phi from the z-axis."
+      view: [3]
+      items:
+        - {t: point, id: P, at: [1, 1, 2], color: warning}
+        - {t: point, id: Pp, at: [1, 1, 0], label: "P'", color: accent}
+        - {t: polygon, pts: [[0, 0, 0], Pp, P], fill: accent, color: accent}
+        - {t: segment, from: [0, 0, 0], to: P, color: warning, label: ρ}
+        - {t: segment, from: [0, 0, 0], to: Pp, color: success, label: r}
+        - {t: segment, from: Pp, to: P, color: muted, dashed: true, label: z}
+        - {t: right, at: Pp, a: [0, 0, 0], b: P}
+        - {t: text, at: [0.9, 0.25, 0], text: θ, color: success}
+        - {t: text, at: [0.15, 0.15, 0.9], text: φ, color: warning}
+
   - id: between
     type: formula
     title: From one system to the other

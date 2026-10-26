@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useId, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { pointTable, project3, radius, resolveRef, validateFigure, type FigColor, type Figure, type FigureItem } from "@allmaths/core";
 import { t } from "@/i18n";
 
@@ -74,9 +74,12 @@ function clipLine(p: number[], q: number[], [x0, x1, y0, y1]: number[]): [number
 
 export function FigureExplorer({ figure }: { figure: Figure }) {
   const problem = validateFigure(figure);
-  const [yaw, setYaw] = useState(-0.62);
-  const [pitch, setPitch] = useState(0.42);
+  const startYaw = figure.yaw ?? -0.62;
+  const startPitch = figure.pitch ?? 0.42;
+  const [yaw, setYaw] = useState(startYaw);
+  const [pitch, setPitch] = useState(startPitch);
   const drag = useRef<{ x: number; y: number; yaw: number; pitch: number } | null>(null);
+  const gradId = useId().replace(/:/g, "");
   if (problem) return <p role="alert" className="text-warning">{problem}</p>;
 
   const is3 = figure.dim === 3;
@@ -88,15 +91,39 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
   let height: number;
   let screen: Screen;
   let unit3 = 1;
+  let axisH = 1;
   if (is3) {
     // the figure is centred on the middle of its points and scaled to fill the frame, whatever it looks like
-    const all = [...table.values()];
-    const lo = [0, 1, 2].map((k) => Math.min(0, ...all.map((p) => p[k]!)));
-    const hi = [0, 1, 2].map((k) => Math.max(0, ...all.map((p) => p[k]!)));
+    // the six extreme points of every sphere count as points of the figure, so that the ball is centred in the frame
+    const ballPts: number[][] = [];
+    for (const it of figure.items) {
+      if (it.t !== "sphere") continue;
+      const c = resolveRef(figure, table, it.center);
+      const r = radius(it.r);
+      for (const k of [0, 1, 2]) for (const s of [-1, 1]) ballPts.push(c.map((v, j) => (j === k ? v + s * r : v)));
+    }
+    // every point that is drawn (corners of polygons, ends of segments) must fit in the frame, not only the named points
+    const drawn: number[][] = [];
+    for (const it of figure.items) {
+      if (it.t === "polygon") for (const r of it.pts) drawn.push(resolveRef(figure, table, r));
+      else if (it.t === "segment") drawn.push(resolveRef(figure, table, it.from), resolveRef(figure, table, it.to));
+    }
+    const all = [...table.values(), ...ballPts, ...drawn];
+    // the origin belongs to the picture only when the axes are drawn
+    const withOrigin = figure.axes === false ? [] : [0];
+    const lo = [0, 1, 2].map((k) => Math.min(...withOrigin, ...all.map((p) => p[k]!)));
+    const hi = [0, 1, 2].map((k) => Math.max(...withOrigin, ...all.map((p) => p[k]!)));
     const mid = [0, 1, 2].map((k) => (lo[k]! + hi[k]!) / 2);
     // the farthest point from the middle, so that the figure fits in the frame in every position
     let extent = Math.max(0.5, ...all.map((p) => Math.hypot(...p.map((v, k) => v - mid[k]!))));
-    for (const it of figure.items) if (it.t === "circle") extent = Math.max(extent, radius(it.r) + Math.hypot(...resolveRef(figure, table, it.center).map((v, k) => v - mid[k]!)));
+    for (const it of figure.items) {
+      if (it.t === "circle" || it.t === "sphere") extent = Math.max(extent, radius(it.r) + Math.hypot(...resolveRef(figure, table, it.center).map((v, k) => v - mid[k]!)));
+    }
+    // the axes are as long as the figure needs, never longer than the author's view; their ends must fit in the frame too
+    axisH = Math.min(Math.max(figure.view[0]!, 1), extent * 1.05);
+    if (figure.axes !== false) {
+      for (const k of [0, 1, 2]) extent = Math.max(extent, Math.hypot(...[0, 1, 2].map((j) => (j === k ? axisH : 0) - mid[j]!)) * 0.9);
+    }
     unit3 = (W * 0.43 - PAD) / (extent * 1.1);
     width = W;
     height = W * 0.92;
@@ -128,15 +155,29 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
   const axes: ReactNode[] = [];
   if (figure.axes !== false) {
     if (is3) {
-      const h = Math.max(figure.view[0]!, 1);
+      const h = axisH;
       const names: [string, number[]][] = [["x", [h, 0, 0]], ["y", [0, h, 0]], ["z", [0, 0, h]]];
       for (const [n, end] of names) {
-        const a = screen(end.map((v) => -v * 0.0));
+        const o = screen([0, 0, 0]);
         const b = screen(end);
+        const neg = screen(end.map((v) => -v * 0.45));
+        const len = Math.hypot(b.x - o.x, b.y - o.y) || 1;
+        const ux = (b.x - o.x) / len;
+        const uy = (b.y - o.y) / len;
         axes.push(
-          <line key={`ax${n}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="var(--muted)" strokeWidth={1.4} />,
-          <text key={`an${n}`} x={b.x + (b.x - a.x) * 0.06 + 4} y={b.y + (b.y - a.y) * 0.06} fontSize={13} fontStyle="italic" fill="var(--ink)">
+          <line key={`axn${n}`} x1={o.x} y1={o.y} x2={neg.x} y2={neg.y} stroke="var(--muted)" strokeWidth={1.2} strokeDasharray="4 4" opacity={0.7} />,
+          <line key={`ax${n}`} x1={o.x} y1={o.y} x2={b.x} y2={b.y} stroke="var(--ink)" strokeWidth={1.5} opacity={0.8} />,
+          <polygon key={`ah${n}`} points={`${b.x},${b.y} ${b.x - ux * 10 - uy * 4},${b.y - uy * 10 + ux * 4} ${b.x - ux * 10 + uy * 4},${b.y - uy * 10 - ux * 4}`} fill="var(--ink)" opacity={0.8} />,
+          <text key={`an${n}`} x={b.x + ux * 12} y={b.y + uy * 12} textAnchor="middle" dominantBaseline="middle" fontSize={14} fontStyle="italic" fontWeight={700} fill="var(--ink)">
             {n}
+          </text>,
+        );
+      }
+      const o0 = screen([0, 0, 0]);
+      if (![...table.values()].some((p) => p.every((v) => v === 0))) {
+        axes.push(
+          <text key="o3" x={o0.x - 9} y={o0.y + 12} textAnchor="end" fontSize={11} fontWeight={700} fill="var(--ink)">
+            O
           </text>,
         );
       }
@@ -187,16 +228,20 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
         );
       }
       const o = screen([ox, oy]);
-      axes.push(
-        <text key="o" x={o.x - 8} y={o.y + 13} textAnchor="end" fontSize={11} fontWeight={700} fill="var(--ink)">
-          O
-        </text>,
-      );
+      // the letter O of the axes is left out when a named point already sits at the origin
+      if (![...table.values()].some((p) => p[0] === ox && p[1] === oy)) {
+        axes.push(
+          <text key="o" x={o.x - 8} y={o.y + 13} textAnchor="end" fontSize={11} fontWeight={700} fill="var(--ink)">
+            O
+          </text>,
+        );
+      }
     }
   }
 
   // --- items ---------------------------------------------------------------------------------------------------------
   const polygons: { depth: number; node: ReactNode }[] = [];
+  const spheres: ReactNode[] = [];
   const lines: ReactNode[] = [];
   const marks: ReactNode[] = [];
   const dots: ReactNode[] = [];
@@ -235,6 +280,49 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
           strokeWidth={2.2}
           strokeDasharray={it.dashed ? "6 5" : undefined}
         />,
+      );
+    } else if (it.t === "sphere") {
+      const cw = ref(it.center);
+      const c = screen(cw);
+      const rw = radius(it.r);
+      const col = colorOf(it.color, "accent");
+      const gid = `${gradId}s${i}`;
+      // great circles: the equator and two meridians; the half that is farther from the viewer is dashed and lighter
+      const arcs: [number[], number[]][] = [
+        [[1, 0, 0], [0, 1, 0]],
+        [[1, 0, 0], [0, 0, 1]],
+        [[0, 1, 0], [0, 0, 1]],
+      ];
+      const N = 96;
+      const front: string[] = [];
+      const back: string[] = [];
+      for (const [u, v] of arcs) {
+        const pts = Array.from({ length: N + 1 }, (_, k) => {
+          const a = (k / N) * 2 * Math.PI;
+          return screen([0, 1, 2].map((j) => cw[j]! + rw * (Math.cos(a) * u![j]! + Math.sin(a) * v![j]!)));
+        });
+        let side: boolean | null = null;
+        for (let k = 0; k < N; k++) {
+          const p = pts[k]!;
+          const q = pts[k + 1]!;
+          const far = (p.depth + q.depth) / 2 > c.depth;
+          const target = far ? back : front;
+          // one continuous path for a run of segments on the same side, so that the dashes are regular
+          if (side !== far) target.push(`M${p.x.toFixed(1)},${p.y.toFixed(1)}`);
+          target.push(`L${q.x.toFixed(1)},${q.y.toFixed(1)}`);
+          side = far;
+        }
+      }
+      spheres.push(
+        <defs key={`d${i}`}>
+          <radialGradient id={gid} cx="38%" cy="32%" r="75%">
+            <stop offset="0%" stopColor={col} stopOpacity={0.05} />
+            <stop offset="100%" stopColor={col} stopOpacity={0.3} />
+          </radialGradient>
+        </defs>,
+        <circle key={`f${i}`} cx={c.x} cy={c.y} r={rw * unit} fill={`url(#${gid})`} stroke={col} strokeWidth={2.4} />,
+        <path key={`b${i}`} d={back.join("")} fill="none" stroke={col} strokeWidth={1.3} strokeDasharray="4 4" opacity={0.55} />,
+        <path key={`g${i}`} d={front.join("")} fill="none" stroke={col} strokeWidth={1.5} opacity={0.85} />,
       );
     } else if (it.t === "segment") {
       const a = screen(ref(it.from));
@@ -286,6 +374,17 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
     } else if (it.t === "point") {
       const p = screen(table.get(it.id)!);
       const col = colorOf(it.color, "ink");
+      if (it.guides && is3) {
+        // a dashed box to the coordinate planes, so that the position of the point in space can be read
+        const w = table.get(it.id)!;
+        const foot = screen([w[0]!, w[1]!, 0]);
+        const onX = screen([w[0]!, 0, 0]);
+        const onY = screen([0, w[1]!, 0]);
+        const g = (key: string, a: { x: number; y: number }, b: { x: number; y: number }) => (
+          <line key={`${key}${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="var(--muted)" strokeWidth={1.3} strokeDasharray="4 4" />
+        );
+        lines.push(g("gz", p, foot), g("gx", foot, onX), g("gy", foot, onY));
+      }
       dots.push(<circle key={i} cx={p.x} cy={p.y} r={5} fill={col} stroke="var(--surface)" strokeWidth={2} />);
       const name = it.label ?? it.id;
       if (name !== "") {
@@ -333,6 +432,7 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
         onPointerCancel={() => (drag.current = null)}
         className={`mx-auto block w-full max-w-[30rem] rounded-[var(--radius-sm)] bg-surface ${is3 ? "cursor-grab touch-none" : ""}`}
       >
+        {spheres}
         {axes}
         {polygons.map((p) => p.node)}
         {lines}
@@ -346,8 +446,8 @@ export function FigureExplorer({ figure }: { figure: Figure }) {
           <button
             type="button"
             onClick={() => {
-              setYaw(-0.62);
-              setPitch(0.42);
+              setYaw(startYaw);
+              setPitch(startPitch);
             }}
             className="min-h-9 rounded-[var(--radius-sm)] border border-line bg-surface-2 px-3 font-semibold text-ink hover:bg-accent-soft"
           >
