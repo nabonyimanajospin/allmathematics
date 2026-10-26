@@ -78,9 +78,9 @@ test.describe("the grapher", () => {
     await expect(page.getByText("midpoint: (1, 1/2)")).toBeVisible();
     await expect(page.getByText("equation: y = (1/2)x")).toBeVisible();
 
-    // the point tool puts a point on the nearest half step and names it
+    // the point tool puts a point on the nearest whole number and names it: a touch a little off the grid still gives (3, 0)
     await page.getByRole("radio", { name: "Point" }).click();
-    await touch(150, 0);
+    await touch(143, 8);
     await expect(page.getByLabel("Expression 4")).toHaveValue("C = (3, 0)");
 
     // the line tool through two points, and touching an empty place makes a point

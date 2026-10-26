@@ -426,9 +426,12 @@ function Graph2D() {
     return best;
   }
 
-  /** A position under a touch, moved to the nearest half grid step so that coordinates stay simple. */
+  /**
+   * A position under a touch, moved to the nearest whole number so that points such as (1, 1) are easy to reach.
+   * Half steps only when the view is zoomed in a lot; whole numbers (or larger round steps) when it is zoomed out.
+   */
   function snapped(px: number, py: number): [number, number] {
-    const unit = niceStep(70 / view.scale) / 2;
+    const unit = view.scale >= 150 ? 0.5 : view.scale >= 18 ? 1 : Math.max(1, niceStep(20 / view.scale));
     const [wx, wy] = toWorld(px, py);
     const round = (v: number) => parseFloat((Math.round(v / unit) * unit).toFixed(6));
     return [round(wx), round(wy)];
