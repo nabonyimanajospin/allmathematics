@@ -4,7 +4,7 @@ A university-level mathematics learning platform: **Geometry**, **Multivariable 
 
 - Every answer is checked by a real math engine (SymPy), and every value is exact: fractions, radicals, π and e, never rounded decimals.
 - A learner follows **one course at a time**, reads lessons with figures and worked examples, solves at least 15 exercises per lesson, takes a test at the end of each unit, and sees a progress percentage that is computed on the server.
-- Tools inside the account: a **Solver** (step-by-step answers, no AI), a **Grapher** (2D, 3D, points, segments, exact roots), a personal **formula sheet**, and the **Resources** of the course.
+- Tools inside the account: a **Solver** (step-by-step answers, no AI), a **Grapher** (2D, 3D, points, segments, exact roots), a **Triangle toolkit** (three vertices in, everything out: sides, angles, centers, circles and the eight equations of every line, all exact), a personal **formula sheet**, and the **Resources** of the course.
 - An **admin panel**: users, statistics, feedback, resources, password resets.
 
 ## Run it on your computer (Windows, about 10 minutes)
@@ -126,9 +126,10 @@ Because progress is recomputed from the learner's answers every time the dashboa
 2. **Exercises**: type an answer in a stacked-fraction field; the engine checks it and explains the solution step by step. A hint is available, the percentage updates, and the lesson has a printable sheet.
 3. **Unit test**: 10 questions (at most 3 multiple choice), pass mark 7, new questions at every attempt.
 4. **Solver** (header): try *derivative of x^2\*sin(x)*, *critical points of x^3 - 3\*x\*y + y^3*, *determinant of [[2,1,0],[1,3,1],[0,1,4]]*, *double integral of x^2 + y^2 in polar coordinates over r from 0 to 2, theta from 0 to 2\*pi*. There is a clickable list of examples.
-5. **Grapher** (header): type `y = x^2 - 2` and `y = 2*x - 3`; exact roots and intersections are listed; use the tools to add points, segments and lines; open the 3D tab.
-6. **Formula sheet**: save formulas from lessons.
-7. **Sign in as the administrator**: statistics, users, feedback from learners, resources, audit log.
+5. **Triangle** (header): keep the example or type three vertices such as `-3 2`, `1 5`, `5 -7` (x and y in separate boxes) and press *Calculate*: exact sides, angles, G, I, O, H, circles, and the eight equations of every line. See [docs/triangle.md](docs/triangle.md).
+6. **Grapher** (header): type `y = x^2 - 2` and `y = 2*x - 3`; exact roots and intersections are listed; use the tools to add points, segments and lines; open the 3D tab.
+7. **Formula sheet**: save formulas from lessons.
+8. **Sign in as the administrator**: statistics, users, feedback from learners, resources, audit log.
 
 ## Daily commands
 
@@ -171,6 +172,7 @@ scripts/            verify-content, seed, content authoring (SymPy builders)
 - [docs/administration.md](docs/administration.md): the first administrator, users, feedback, announcements, audit log
 - [docs/solver-and-premium.md](docs/solver-and-premium.md): what the Solver understands, the free plan, Premium and payment
 - [docs/grapher.md](docs/grapher.md): what the Grapher draws and its tools
+- [docs/triangle.md](docs/triangle.md): the Triangle toolkit (what it gives, how it is built, how it is tested)
 - [docs/architecture.md](docs/architecture.md), [docs/security.md](docs/security.md): why it is built this way
 - [MATH_PLATFORM_BUILD_SPEC.md](MATH_PLATFORM_BUILD_SPEC.md): the specification
 
