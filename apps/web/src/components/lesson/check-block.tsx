@@ -113,11 +113,21 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
     }
   }
 
+  // One hint request at a time, and a hint is stored at its own index: a double click can never show the same hint twice.
+  const hintInFlight = useRef(false);
   async function nextHint() {
-    const r = await post<{ textHtml: string; hintsUsed: number; error?: { message: string } }>(`${base}/hint`, { index: hints.length });
-    if (r.ok && r.data) {
-      setHints((h) => [...h, r.data!.textHtml]);
-      setHintCountUsed(Math.max(hintCountUsed, r.data.hintsUsed));
+    if (hintInFlight.current) return;
+    hintInFlight.current = true;
+    const index = hints.length;
+    try {
+      const r = await post<{ textHtml: string; hintsUsed: number; error?: { message: string } }>(`${base}/hint`, { index });
+      if (r.ok && r.data) {
+        const { textHtml, hintsUsed: used } = r.data;
+        setHints((h) => (h.length > index ? h : [...h, textHtml]));
+        setHintCountUsed((n) => Math.max(n, used));
+      }
+    } finally {
+      hintInFlight.current = false;
     }
   }
 
