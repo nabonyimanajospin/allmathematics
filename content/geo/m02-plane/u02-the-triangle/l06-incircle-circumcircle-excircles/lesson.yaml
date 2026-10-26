@@ -23,7 +23,10 @@ sections:
 
       Its **perimeter** (circumference) is $2\pi\rho$ and its **area** is $\pi\rho^2$.
 
-      A triangle has two special circles. The **incircle** is inside the triangle and touches the three sides: center $I$, radius $r=\dfrac Ss$. The **circumcircle** passes through the three vertices: center $O$, radius $R=\dfrac{abc}{4S}$.
+      A triangle has two special circles. The **incircle** is inside the triangle and touches the three sides. The **circumcircle** passes through the three vertices. With $a=BC$, $b=CA$, $c=AB$, the area $S$ and the semiperimeter $s=\dfrac{a+b+c}2$:
+
+      - **Incircle:** center $I\left(\dfrac{ax_1+bx_2+cx_3}{a+b+c},\ \dfrac{ay_1+by_2+cy_3}{a+b+c}\right)$, radius $r=\dfrac Ss$.
+      - **Circumcircle:** center $O$, the point at equal distance from $A$, $B$, $C$, found with the formulas of the lesson on the circumcenter, and radius $R=\dfrac{abc}{4S}$.
 
   - id: fig-two-circles
     type: visual
