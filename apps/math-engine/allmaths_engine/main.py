@@ -7,10 +7,10 @@ from __future__ import annotations
 
 import hmac
 import os
-from typing import Annotated, Literal
+from typing import Annotated, Any, Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 
 from . import checker
 from . import ode as ode_mod
@@ -230,6 +230,33 @@ def solve(req: SolveRequest) -> SolveResponse:
     if "solution" in result:
         return SolveResponse(ok=True, solution=SolveSolution(**result["solution"]))
     return SolveResponse(ok=False, code=result["error"], message=result["message"])
+
+
+Coordinate = Annotated[str, StringConstraints(min_length=1, max_length=24)]
+
+
+class TriangleRequest(BaseModel):
+    """The three vertices, each as [x, y] written as a whole number, a fraction or a finite decimal (read as the exact fraction)."""
+
+    points: list[Annotated[list[Coordinate], Field(min_length=2, max_length=2)]] = Field(min_length=3, max_length=3)
+
+
+class TriangleResponse(BaseModel):
+    ok: bool
+    data: dict[str, Any] | None = None
+    code: str | None = None
+    message: str | None = None
+
+
+@app.post("/v1/geometry/triangle", response_model=TriangleResponse, dependencies=[Depends(require_token)])
+def triangle(req: TriangleRequest) -> TriangleResponse:
+    """Everything about a triangle from its three vertices, exactly (sides, angles, centers, lines in eight forms, circles)."""
+    from .triangle import analyze
+
+    try:
+        return TriangleResponse(ok=True, data=analyze(req.points))
+    except EngineError as e:
+        return TriangleResponse(ok=False, code=e.code, message=e.message)
 
 
 class GraphExactCandidate(BaseModel):
