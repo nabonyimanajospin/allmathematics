@@ -33,11 +33,6 @@ export async function SiteHeader() {
                   {t("nav.grapher")}
                 </Link>
               </span>
-              <span className="hidden lg:block">
-                <Link href="/triangle" className={buttonClass("ghost")}>
-                  {t("nav.triangle")}
-                </Link>
-              </span>
               <span className="hidden md:block">
                 <Link href="/solver" className={buttonClass("ghost")}>
                   {t("nav.solver")}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { LINE_FORMS, LINE_GROUPS, type Figure, type FigureItem, type LineForm } from "@allmaths/core";
-import { Button, Card, inputClass } from "@allmaths/ui";
+import { LINE_FORMS, LINE_GROUPS, type Figure, type FigureItem, type LineForm, type LineGroup } from "@allmaths/core";
+import { Button, Card, buttonClass, inputClass } from "@allmaths/ui";
 import { t, type MessageKey } from "@/i18n";
 import type { TriangleCircleDto, TriangleDto, TriangleLineDto, TriangleResponseDto } from "@/lib/triangle-types";
 import { FigureExplorer } from "./lesson/figure-explorer";
@@ -39,9 +39,9 @@ function buildFigure(d: TriangleDto): Figure {
   return { dim: 2, alt: t("triangle.figureAlt"), view: d.figure.view, items };
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <Card className="grid gap-3">
+    <Card id={id} className="grid scroll-mt-24 gap-3">
       <h2 className="text-xl font-bold">{title}</h2>
       {children}
     </Card>
@@ -89,30 +89,66 @@ function CircleBlock({ name, c }: { name: string; c: TriangleCircleDto }) {
   );
 }
 
-function LineBlock({ line }: { line: TriangleLineDto }) {
+/** One line with its length and its eight equations, all visible. */
+function LineCard({ line }: { line: TriangleLineDto }) {
   const inside = line.group === "perpbisector";
   return (
-    <details className="rounded-[var(--radius-sm)] border border-line bg-surface open:shadow-[var(--shadow-sm)]">
-      <summary className="flex min-h-11 cursor-pointer flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 font-semibold">
+    <Card className="grid gap-2">
+      <h3 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-lg font-bold">
         <span>{t(`triangle.lineNames.${line.group}` as MessageKey, { label: line.label })}</span>
         <span className="text-sm font-normal text-muted">
           {t(inside ? "triangle.lengthInside" : "triangle.length")}: <RichInline html={line.lengthHtml} />
         </span>
-      </summary>
-      <dl className="grid gap-2 px-3 pb-3">
+      </h3>
+      <dl className="grid gap-2">
         <Row label={t("triangle.ends")} html={`${line.fromHtml} → ${line.toHtml}`} />
         {LINE_FORMS.map((form: LineForm) => (
           <Row key={form} label={t(`triangle.forms.${form}` as MessageKey)} html={line.forms[form] ?? `<span class="text-muted">${t("triangle.noIntercept")}</span>`} />
         ))}
       </dl>
-    </details>
+    </Card>
   );
 }
 
-export function TriangleTool() {
+/** The fifteen lines, one kind at a time (sides, medians, altitudes, angle bisectors, perpendicular bisectors). */
+function LinesSection({ d }: { d: TriangleDto }) {
+  const uid = useId();
+  const [group, setGroup] = useState<LineGroup>("side");
+  return (
+    <Section id="triangle-lines" title={t("triangle.lines")}>
+      <p className="text-muted">{t("triangle.linesLead")}</p>
+      <div role="tablist" aria-label={t("triangle.lines")} className="flex flex-wrap gap-2">
+        {LINE_GROUPS.map((g) => (
+          <button
+            key={g}
+            type="button"
+            role="tab"
+            id={`${uid}-tab-${g}`}
+            aria-selected={g === group}
+            aria-controls={`${uid}-panel`}
+            onClick={() => setGroup(g)}
+            className={buttonClass(g === group ? "primary" : "secondary")}
+          >
+            {t(`triangle.groups.${g}` as MessageKey)}
+          </button>
+        ))}
+      </div>
+      <div role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${group}`} className="grid gap-4">
+        {d.lines
+          .filter((l) => l.group === group)
+          .map((l) => (
+            <LineCard key={l.id} line={l} />
+          ))}
+      </div>
+    </Section>
+  );
+}
+
+/** `start`: the points to begin with, and whether to analyze them at once (when the solver recognized a triangle problem). */
+export function TriangleTool({ start }: { start?: { points: string[][]; run: boolean } }) {
   const uid = useId();
   const [exampleIndex, setExampleIndex] = useState(0);
-  const [values, setValues] = useState<string[][]>(EXAMPLES[0]!);
+  const [values, setValues] = useState<string[][]>(start?.points ?? EXAMPLES[0]!);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<TriangleDto | null>(null);
@@ -127,13 +163,26 @@ export function TriangleTool() {
     setValues(EXAMPLES[next]!);
   }
 
-  async function submit(e: FormEvent) {
+  function submit(e: FormEvent) {
     e.preventDefault();
+    void analyze(values);
+  }
+
+  // the solver recognized a triangle problem: analyze it as soon as the tool opens
+  const started = useRef(false);
+  useEffect(() => {
+    if (start?.run && !started.current) {
+      started.current = true;
+      void analyze(start.points);
+    }
+  }, []); // once, when the tool opens
+
+  async function analyze(points: string[][]) {
     if (busy) return;
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/triangle", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ points: values.map((r) => r.map((c) => c.trim())) }) });
+      const res = await fetch("/api/triangle", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ points: points.map((r) => r.map((c) => c.trim())) }) });
       const data = (await res.json().catch(() => null)) as (TriangleResponseDto & { error?: { message?: string } }) | null;
       if (!res.ok || !data) {
         setResult(null);
@@ -206,12 +255,30 @@ export function TriangleTool() {
 
       {d ? (
         <div className="grid gap-6" data-testid="triangle-result">
-          <Section title={t("triangle.figureTitle")}>
+          <nav aria-label={t("triangle.jumpLabel")} className="flex flex-wrap items-center gap-2">
+            <span className="text-sm font-semibold text-muted">{t("triangle.jump")}:</span>
+            {(
+              [
+                ["triangle-measurements", t("triangle.measurements")],
+                ["triangle-angles", t("triangle.angles")],
+                ["triangle-centers", t("triangle.centers")],
+                ["triangle-lines", t("triangle.lines")],
+                ["triangle-circles", t("triangle.circles")],
+                ["triangle-excircles", t("triangle.excircles")],
+              ] as const
+            ).map(([id, label]) => (
+              <a key={id} href={`#${id}`} className={buttonClass("ghost")}>
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          <Section id="triangle-figure" title={t("triangle.figureTitle")}>
             <FigureExplorer figure={buildFigure(d)} />
             <p className="text-sm text-muted">{t("triangle.figureNote")}</p>
           </Section>
 
-          <Section title={t("triangle.measurements")}>
+          <Section id="triangle-measurements" title={t("triangle.measurements")}>
             <dl className="grid gap-2">
               {d.sides.map((s) => (
                 <Row
@@ -227,7 +294,7 @@ export function TriangleTool() {
             </dl>
           </Section>
 
-          <Section title={t("triangle.angles")}>
+          <Section id="triangle-angles" title={t("triangle.angles")}>
             <dl className="grid gap-2">
               {d.angles.map((a) => (
                 <Row key={a.vertex} label={t("triangle.angleAt", { vertex: a.vertex })} html={`${a.angleHtml}${a.degreesHtml ? ` = ${a.degreesHtml}` : ""}, ${t("triangle.cos").toLowerCase()} = ${a.cosHtml}`} />
@@ -235,7 +302,7 @@ export function TriangleTool() {
             </dl>
           </Section>
 
-          <Section title={t("triangle.centers")}>
+          <Section id="triangle-centers" title={t("triangle.centers")}>
             <dl className="grid gap-2">
               {(["G", "I", "O", "H", "N"] as const).map((k) => (
                 <Row key={k} label={t(`triangle.centerNames.${k}` as MessageKey)} html={d.centers[k] ?? ""} />
@@ -255,7 +322,9 @@ export function TriangleTool() {
             )}
           </Section>
 
-          <Section title={t("triangle.circles")}>
+          <LinesSection d={d} />
+
+          <Section id="triangle-circles" title={t("triangle.circles")}>
             <div className="grid gap-4 lg:grid-cols-2">
               <CircleBlock name={t("triangle.circleNames.incircle")} c={d.circles.incircle} />
               <CircleBlock name={t("triangle.circleNames.circumcircle")} c={d.circles.circumcircle} />
@@ -263,25 +332,12 @@ export function TriangleTool() {
             </div>
           </Section>
 
-          <Section title={t("triangle.excircles")}>
+          <Section id="triangle-excircles" title={t("triangle.excircles")}>
             <dl className="grid gap-2">
               {d.excircles.map((e) => (
                 <Row key={e.vertex} label={t("triangle.excircleOf", { vertex: e.vertex })} html={`${t("triangle.center")}: ${e.centerHtml}, ${t("triangle.radius").toLowerCase()}: ${e.radiusHtml}`} />
               ))}
             </dl>
-          </Section>
-
-          <Section title={t("triangle.lines")}>
-            {LINE_GROUPS.map((g) => (
-              <div key={g} className="grid gap-2">
-                <h3 className="text-lg font-bold">{t(`triangle.groups.${g}` as MessageKey)}</h3>
-                {d.lines
-                  .filter((l) => l.group === g)
-                  .map((l) => (
-                    <LineBlock key={l.id} line={l} />
-                  ))}
-              </div>
-            ))}
           </Section>
         </div>
       ) : null}

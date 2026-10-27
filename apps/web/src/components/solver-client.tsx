@@ -6,6 +6,7 @@ import { Button, Card, Field, inputClass } from "@allmaths/ui";
 import { t } from "@/i18n";
 import { SOLVER_OPERATIONS, type SolveResponseDto, type SolveResultDto, type SolverAccessDto, type SolverOperation } from "@/lib/solver-types";
 import { cleanRecognized } from "@/lib/recognized-text";
+import { findTriangleVertices } from "@/lib/triangle-input";
 import { Rich } from "./lesson/rich";
 
 /** What the solver understands, by topic: each example can be touched to put it in the problem box. */
@@ -75,9 +76,11 @@ function AccessLine({ access }: { access: SolverAccessDto }) {
   );
 }
 
-export function SolverClient({ initialAccess, canPay, justPaid }: { initialAccess: SolverAccessDto; canPay: boolean; justPaid: boolean }) {
+export function SolverClient({ initialAccess, canPay, justPaid, onTriangle }: { initialAccess: SolverAccessDto; canPay: boolean; justPaid: boolean; onTriangle?: (points: string[][]) => void }) {
   const uid = useId();
   const [input, setInput] = useState("");
+  // a triangle problem typed in the box (three points): the triangle toolkit is offered
+  const triangle = findTriangleVertices(input);
   const [operation, setOperation] = useState<SolverOperation>("auto");
   const [busy, setBusy] = useState(false);
   const [access, setAccess] = useState(initialAccess);
@@ -186,6 +189,18 @@ export function SolverClient({ initialAccess, canPay, justPaid }: { initialAcces
               className={`${inputClass} font-mono`}
             />
           </Field>
+          {triangle && onTriangle ? (
+            <div role="status" className="grid gap-2 rounded-[var(--radius-sm)] border-2 border-accent bg-accent-soft p-3">
+              <p className="font-semibold">{t("solver.triangleAsk")}</p>
+              <div>
+                <Button type="button" onClick={() => onTriangle(triangle)}>
+                  {t("solver.triangleAskButton")}
+                </Button>
+              </div>
+            </div>
+          ) : onTriangle ? (
+            <p className="text-sm text-muted">{t("solver.triangleAskTab")}</p>
+          ) : null}
           <div className="flex flex-wrap gap-2" role="group" aria-label={t("check.symbols")}>
             {SYMBOLS.map((s) => (
               <button

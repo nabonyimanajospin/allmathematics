@@ -1,7 +1,7 @@
 {
   "app": { "name": "Allmaths", "tagline": "University mathematics, taught from the first idea to the exam." },
   "nav": {
-    "resources": "Resources", "solver": "Solver", "grapher": "Grapher", "triangle": "Triangle", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
+    "resources": "Resources", "solver": "Solver", "grapher": "Grapher", "admin": "Admin", "formulas": "Formula sheet", "home": "Home", "dashboard": "My learning", "signIn": "Sign in", "signUp": "Create account", "signOut": "Sign out",
     "skip": "Skip to content", "theme": "Colour theme", "themeLight": "Light", "themeDark": "Dark", "themeSystem": "Automatic"
   },
   "home": {
@@ -64,6 +64,12 @@
     "extent": "Size of the picture: from -{n} to {n}", "wireframe": "Show only the grid lines"
   },
   "solver": {
+    "tabsLabel": "What do you want to solve?",
+    "tabProblem": "Any problem",
+    "tabTriangle": "A triangle (three vertices)",
+    "triangleAsk": "This looks like a problem about a triangle. Do you want everything about it: sides, angles, centers, circles and the eight equations of every line?",
+    "triangleAskButton": "Analyze this triangle",
+    "triangleAskTab": "Is your problem about a triangle? Choose “A triangle (three vertices)” above and type the coordinates.",
     "howTo": "How to write a problem (touch an example to use it)", "howToTip": "Matrices are written [[1,2],[3,4]] and vectors (1,2,3). Touch an example to put it in the box, then change the numbers.",
     "groups": { "calculus": "Calculus and series", "equations": "Equations and inequalities", "matrices": "Matrices and vectors", "multivariable": "Multivariable calculus", "other": "Matrices, series, tangents and more" },
     "say": { "derivative": "Derivative", "integral": "Integral", "limit": "Limit", "tangent": "Tangent line", "taylor": "Taylor series", "sum": "Sum of a series", "area": "Area between curves", "fractions": "Partial fractions", "equation": "Equation", "system": "System of equations", "inequality": "Inequality", "ode": "Differential equation", "factor": "Factor", "determinant": "Determinant", "inverse": "Inverse", "eigen": "Eigenvalues, eigenvectors", "rref": "Row reduction and rank", "product": "Product of matrices", "norm": "Length of a vector", "cross": "Cross product", "partial": "Partial derivative", "gradient": "Gradient", "critical": "Maxima, minima, saddles", "lagrange": "Lagrange multipliers", "plane": "Tangent plane", "double": "Double integral", "polar": "Polar coordinates", "line": "Line integral" },
@@ -147,6 +153,8 @@
       "vector": "Vector equation", "parametric": "Parametric equations", "symmetric": "Symmetric (canonical) equation", "implicit": "Implicit equation",
       "explicit": "Explicit equation", "normal": "Normal (Hesse) form", "polar": "Polar equation", "intercept": "Intercept form"
     },
+    "jump": "Go to", "jumpLabel": "Parts of the result",
+    "linesLead": "Choose a kind of line. Every line is given with its length and in all eight forms, from the vector equation to the intercept form.",
     "noIntercept": "Not defined: the line is parallel to an axis or passes through the origin."
   },
   "progressHelp": {
