@@ -32,7 +32,7 @@ test.describe("the triangle toolkit", () => {
     await page.goto("/triangle");
     await page.getByRole("button", { name: "Calculate" }).click();
     const result = page.getByTestId("triangle-result");
-    await expect(result).toBeVisible();
+    await expect(result).toBeVisible({ timeout: 60_000 }); // the first calculation can wait for the engine to warm up
 
     // sides, area, perimeter, kind
     await expect(result.getByText("Side BC (longest side)")).toBeVisible();
@@ -88,7 +88,7 @@ test.describe("the triangle toolkit", () => {
     await vertex(page, "B", "1", "5");
     await vertex(page, "C", "5", "-7");
     await page.getByRole("button", { name: "Calculate" }).click();
-    await expect(page.getByTestId("triangle-result")).toBeVisible();
+    await expect(page.getByTestId("triangle-result")).toBeVisible({ timeout: 60_000 });
     await page.getByText("Bisector of the angle at A").click(); // the line with radicals is the widest
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);

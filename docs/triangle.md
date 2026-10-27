@@ -5,7 +5,7 @@ Page `/triangle` (signed-in learners, like the Grapher). The learner types the t
 - the three sides, the longest and the shortest, the perimeter, the semiperimeter and the area, and the kind of triangle (by sides and by angles);
 - the three angles (cosine, exact angle, and degrees when the angle is a rational multiple of π);
 - the centers **G**, **I**, **O**, **H** and the nine-point center, the radii `r` and `R`, and the Euler line;
-- the incircle, the circumcircle and the nine-point circle: center, radius, analytic equation, general equation, parametric equations, perimeter and area;
+- the incircle, the circumcircle and the nine-point circle: center, radius, canonical equation, analytic implicit equation, parametric equations, perimeter and area;
 - the three excircles (center and radius);
 - fifteen lines (the three sides, medians, altitudes, angle bisectors and perpendicular bisectors), each with its **length** and its **eight equations**: vector, parametric, symmetric (canonical), implicit, explicit, normal (Hesse), polar and intercept form;
 - a figure with the triangle, the circles, the centers and the Euler line.

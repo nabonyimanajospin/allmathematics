@@ -137,7 +137,7 @@
     "euler": "The Euler line (through O, G and H)", "noEuler": "O and H are the same point, so there is no Euler line.",
     "circles": "The circles",
     "circleNames": { "incircle": "Incircle", "circumcircle": "Circumcircle", "ninepoint": "Nine-point circle" },
-    "center": "Center", "radius": "Radius", "analytic": "Analytic equation", "general": "General equation", "parametric": "Parametric equations", "circlePerimeter": "Perimeter", "circleArea": "Area",
+    "center": "Center", "radius": "Radius", "analytic": "Canonical equation", "general": "Analytic implicit equation", "parametric": "Parametric equations", "circlePerimeter": "Perimeter", "circleArea": "Area",
     "excircles": "The excircles", "excircleOf": "Excircle opposite {vertex}",
     "lines": "The lines of the triangle",
     "groups": { "side": "The sides", "median": "The medians", "altitude": "The altitudes", "bisector": "The angle bisectors", "perpbisector": "The perpendicular bisectors" },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { LINE_FORMS, LINE_GROUPS, type Figure, type FigureItem, type LineForm } from "@allmaths/core";
 import { Button, Card, inputClass } from "@allmaths/ui";
 import { t, type MessageKey } from "@/i18n";
@@ -50,10 +50,22 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 /** A label with a formula; a long formula scrolls inside its row instead of widening the page. */
 function Row({ label, html }: { label: string; html: string }) {
+  const cell = useRef<HTMLElement>(null);
+  const [scrolls, setScrolls] = useState(false);
+  // an equation stays on one line; when it is wider than its cell the cell scrolls, and then it can be reached with the keyboard
+  useEffect(() => {
+    const el = cell.current;
+    if (!el) return;
+    const measure = () => setScrolls(el.scrollWidth > el.clientWidth + 1);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [html]);
   return (
     <div className="grid gap-1 border-t border-line pt-2 sm:grid-cols-[minmax(11rem,16rem)_1fr] sm:gap-4">
       <dt className="text-sm font-semibold text-muted">{label}</dt>
-      <dd className="min-w-0 overflow-x-auto">
+      <dd ref={cell} tabIndex={scrolls ? 0 : undefined} className="min-w-0 overflow-x-auto [&_.katex-html]:whitespace-nowrap">
         <RichInline html={html} />
       </dd>
     </div>
