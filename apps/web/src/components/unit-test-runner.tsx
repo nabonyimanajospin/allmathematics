@@ -88,6 +88,11 @@ export function UnitTestRunner({ unitId, passScore, questions, attempts, bestSco
                   <p className="text-sm font-bold uppercase tracking-wide text-muted">
                     {t("unitTest.question", { n: q.index + 1 })} · {r?.correct ? t("unitTest.correct") : t("unitTest.incorrect")}
                   </p>
+                  {q.taskHtml ? (
+                    <p className="mb-1 font-semibold">
+                      <RichInline html={q.taskHtml} />
+                    </p>
+                  ) : null}
                   <Rich html={q.promptHtml} />
                   <details className="mt-3">
                     <summary className="cursor-pointer font-semibold text-accent">{t("unitTest.solution")}</summary>
@@ -143,6 +148,11 @@ export function UnitTestRunner({ unitId, passScore, questions, attempts, bestSco
           <li key={q.index}>
             <Card>
               <p className="mb-2 text-sm font-bold uppercase tracking-wide text-accent">{t("unitTest.question", { n: q.index + 1 })}</p>
+              {q.taskHtml ? (
+                <p className="mb-1 font-semibold">
+                  <RichInline html={q.taskHtml} />
+                </p>
+              ) : null}
               <Rich html={q.promptHtml} />
               <div className="mt-3">
                 {q.answerType === "multiple_choice" ? (

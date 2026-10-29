@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { canOpenCourse, Errors, findExercise, getEnrolledCourseId, startUnitTest } from "@allmaths/server";
+import { canOpenCourse, Errors, findExercise, findExerciseTask, getEnrolledCourseId, startUnitTest } from "@allmaths/server";
 import { assertSameOrigin, enforce, handle, json, readJson } from "@/server/http";
 import { renderInline, renderRich } from "@/server/render";
 import { getServices } from "@/server/runtime";
@@ -23,7 +23,8 @@ export function POST(req: Request): Promise<Response> {
     const questions = attempt.questions.map((q, index) => {
       const e = findExercise(store, q);
       if (!e) throw Errors.notFound("Question not found");
-      return { index, promptHtml: renderRich(e.statement), answerType: e.answerType, ...(e.choices ? { choicesHtml: e.choices.map((c) => renderInline(c.text)) } : {}) };
+      const task = findExerciseTask(store, q);
+      return { index, ...(task ? { taskHtml: renderInline(task) } : {}), promptHtml: renderRich(e.statement), answerType: e.answerType, ...(e.choices ? { choicesHtml: e.choices.map((c) => renderInline(c.text)) } : {}) };
     });
     const dto: StartedTestDto = { attemptId: attempt.attemptId, unitId: attempt.unitId, passScore: 7, questions };
     return json(dto);
