@@ -10,6 +10,7 @@ interface Props {
   sets: RExerciseSet[];
   solved: ReadonlySet<string>;
   hintsUsed: Record<string, number>;
+  completedChoices: Record<string, number>;
   onSolved: (exerciseId: string, progress: LessonStateDto["progress"] | undefined) => void;
 }
 
@@ -17,7 +18,7 @@ interface Props {
  * The practice area of a lesson. Exercises never block reading, but the lesson reaches 100% only when every exercise
  * is solved correctly (spec section 9.2). Every one has hints and a worked solution.
  */
-export function ExerciseSets({ lessonId, sets, solved, hintsUsed, onSolved }: Props) {
+export function ExerciseSets({ lessonId, sets, solved, hintsUsed, completedChoices, onSolved }: Props) {
   const total = sets.reduce((n, s) => n + s.items.length, 0);
   const done = sets.reduce((n, s) => n + s.items.filter((i) => solved.has(i.id)).length, 0);
   let counter = 0;
@@ -70,6 +71,7 @@ export function ExerciseSets({ lessonId, sets, solved, hintsUsed, onSolved }: Pr
                         hintCount: item.hintCount,
                       }}
                       completed={solved.has(item.id)}
+                      completedChoice={completedChoices[item.id]}
                       hintsUsed={hintsUsed[item.id] ?? 0}
                       onCorrect={(progress) => onSolved(item.id, progress)}
                     />

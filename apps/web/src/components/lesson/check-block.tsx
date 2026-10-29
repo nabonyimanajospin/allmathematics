@@ -26,6 +26,8 @@ interface Props {
   /** Label above the explanation shown after a correct answer ("Explanation" or "Worked solution"). */
   explanationLabel?: string;
   completed: boolean;
+  /** For a multiple-choice question that was answered before: the option that was chosen, shown as selected. */
+  completedChoice?: number | undefined;
   hintsUsed: number;
   onCorrect: (progress: LessonStateDto["progress"] | undefined) => void;
 }
@@ -47,7 +49,7 @@ type Feedback =
   | { kind: "invalid"; message: string }
   | { kind: "error"; message: string };
 
-export function CheckBlock({ lessonId, section, heading, compact = false, explanationLabel, completed, hintsUsed, onCorrect }: Props) {
+export function CheckBlock({ lessonId, section, heading, compact = false, explanationLabel, completed, completedChoice, hintsUsed, onCorrect }: Props) {
   const uid = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const mathRef = useRef<MathFieldHandle>(null);
@@ -70,7 +72,7 @@ export function CheckBlock({ lessonId, section, heading, compact = false, explan
     }
   }
   const [value, setValue] = useState("");
-  const [choice, setChoice] = useState<number | null>(null);
+  const [choice, setChoice] = useState<number | null>(completedChoice ?? null);
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<Feedback>({ kind: "none" });
   const [shaking, setShaking] = useState(false);

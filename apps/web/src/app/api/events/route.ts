@@ -24,6 +24,7 @@ export function POST(req: Request): Promise<Response> {
           completedSectionIds: s.completedSectionIds,
           solvedExerciseIds: s.solvedExerciseIds,
           hintsUsed: s.hintsUsed,
+          completedChoices: s.completedChoices,
           resumeSectionId: s.resumeSectionId,
           progress: s.progress,
         };

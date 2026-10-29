@@ -116,6 +116,15 @@ export function findExercise(store: ContentStore, ref: TestQuestionRef): Exercis
   return lesson ? allExercises(lesson).find((e) => e.id === ref.exerciseId) : undefined;
 }
 
+/**
+ * What to do with the exercise, written once for its whole set ("Find the domain of definition of each function."). In a lesson it stands above
+ * the list; in a test each question is alone, so it is shown with the question: many statements are only an equation.
+ */
+export function findExerciseTask(store: ContentStore, ref: TestQuestionRef): string | undefined {
+  const lesson = store.lesson(ref.lessonId)?.lesson;
+  return lesson?.exerciseSets.find((s) => s.items.some((e) => e.id === ref.exerciseId))?.task;
+}
+
 export interface OpenAttempt {
   attemptId: string;
   unitId: string;

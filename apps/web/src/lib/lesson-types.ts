@@ -72,6 +72,8 @@ export interface LessonStateDto {
   completedSectionIds: string[];
   solvedExerciseIds: string[];
   hintsUsed: Record<string, number>;
+  /** The chosen (correct) option of every multiple-choice question that is already answered, so that it is shown as chosen. */
+  completedChoices: Record<string, number>;
   resumeSectionId: string;
   progress: {
     lesson: { exact: string; percent: number };

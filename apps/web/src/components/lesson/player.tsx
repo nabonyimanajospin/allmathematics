@@ -380,6 +380,7 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, pre
                     lessonId={lesson.id}
                     section={s}
                     completed={completed.has(s.id)}
+                    completedChoice={initial.completedChoices[s.id]}
                     hintsUsed={initial.hintsUsed[s.id] ?? 0}
                     onCorrect={(progress) => {
                       setCompleted((p) => new Set(p).add(s.id));
@@ -402,6 +403,7 @@ export function LessonPlayer({ lesson, initial, userId, savedFormulas, next, pre
             sets={lesson.exerciseSets}
             solved={solved}
             hintsUsed={initial.hintsUsed}
+            completedChoices={initial.completedChoices}
             onSolved={(id, progress) => {
               setSolved((p) => new Set(p).add(id));
               if (progress) setServerProgress(progress);

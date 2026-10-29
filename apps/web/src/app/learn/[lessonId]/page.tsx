@@ -49,6 +49,7 @@ export default async function LessonPage({ params }: Params) {
         completedSectionIds: state.completedSectionIds,
         solvedExerciseIds: state.solvedExerciseIds,
         hintsUsed: state.hintsUsed,
+        completedChoices: state.completedChoices,
         resumeSectionId: state.resumeSectionId,
         progress: state.progress,
       }}

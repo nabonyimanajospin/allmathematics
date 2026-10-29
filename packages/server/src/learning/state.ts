@@ -17,6 +17,11 @@ export interface LessonState {
   solvedExerciseIds: string[];
   exercisesTotal: number;
   hintsUsed: Record<string, number>;
+  /**
+   * For a multiple-choice question that is already answered correctly: the option that was right (content id -> option index).
+   * Only completed questions are listed, so nothing is revealed before the learner has answered; the page shows the option as chosen.
+   */
+  completedChoices: Record<string, number>;
   /** Section to open: the one the student touched last ("resume where I left off"). */
   resumeSectionId: string;
   /** First section that is not complete yet, or null when the lesson is finished. */
@@ -52,6 +57,13 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
     if (r.completedAt) completed.add(id);
     if (r.hintsUsed > 0) hints[id] = r.hintsUsed;
   }
+  const completedChoices: Record<string, number> = {};
+  for (const s of ref.lesson.sections) {
+    if (s.type === "check" && s.answerType === "multiple_choice" && s.correctIndex !== undefined && completed.has(s.id)) completedChoices[s.id] = s.correctIndex;
+  }
+  for (const e of allExercises(ref.lesson)) {
+    if (e.answerType === "multiple_choice" && e.correctIndex !== undefined && solved.has(e.id)) completedChoices[e.id] = e.correctIndex;
+  }
   const firstIncomplete = ref.lesson.sections.find((s) => !completed.has(s.id))?.id ?? null;
   const lastTouched = rows.map((r) => toContentId(r.sectionId)).find((id) => contentIds.has(id));
   const first = ref.lesson.sections[0]?.id ?? "";
@@ -73,6 +85,7 @@ export async function getLessonState(db: AppDb, store: ContentStore, userId: str
     solvedExerciseIds: allExercises(ref.lesson).filter((e) => solved.has(e.id)).map((e) => e.id),
     exercisesTotal: exerciseIds.size,
     hintsUsed: hints,
+    completedChoices,
     resumeSectionId: resume,
     nextIncompleteSectionId: firstIncomplete,
     progress: {
