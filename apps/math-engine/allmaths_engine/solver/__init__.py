@@ -12,7 +12,7 @@ import sympy as sp
 
 from ..errors import EngineError
 from ..parser import _WORDS, _split_name, parse
-from . import algebra, derivative, integral, limits, more_text, multivar_text, odes, vector_ops
+from . import algebra, derivative, integral, limits, more_text, multivar_text, odes, phrasing, vector_ops
 from .types import Solution, SolverError
 
 MAX_INPUT = 300
@@ -27,8 +27,10 @@ def _check_words(text: str) -> None:
             continue
         tokens = [t.text for t in _split_name(run)]
         if all(len(t) == 1 for t in tokens):
+            verb = phrasing.suggest(run)
+            hint = f" Did you mean “{verb}”? Write for example “{verb} of x^2”." if verb else ""
             raise SolverError(
-                f"I could not read “{run}”. Write products with a * (for example x*y*z) and functions with parentheses (for example sin(x)).",
+                f"I could not read “{run}”. Write products with a * (for example x*y*z) and functions with parentheses (for example sin(x)).{hint}",
                 "unknown_word",
             )
 
@@ -181,9 +183,18 @@ def _vector(low: str, text: str) -> Solution | None:
 
 
 def solve_text(raw: str, operation: str = "auto") -> Solution:
+    """Reads the problem the way a learner writes it ("derive sin x", "please integrate x^2", "roots of x^2-4") and solves it."""
     if operation not in OPERATIONS:
         raise SolverError("Unknown operation.", "bad_operation")
     text = _clean(raw)
+    rewritten = phrasing.normalize(text) if operation == "auto" else text
+    solution = _solve(rewritten, operation)
+    if rewritten != text:
+        solution.notes.insert(0, f"I read “{text}” as “{rewritten}”.")
+    return solution
+
+
+def _solve(text: str, operation: str) -> Solution:
     if not text:
         raise SolverError("Type a problem to solve.", "empty")
     if len(text) > MAX_INPUT:

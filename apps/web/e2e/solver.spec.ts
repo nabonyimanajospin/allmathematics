@@ -64,6 +64,24 @@ test.describe("the solver", () => {
     expect((await page.request.post("/api/payments/webhook", { data: { event: "charge.completed" } })).status()).toBe(503);
   });
 
+  test("understands natural phrasing and says how it read the problem", async ({ page }) => {
+    await signUp(page);
+    await page.goto("/solver");
+    // "derive" is not in the grammar, but it means "derivative of": the solver rewrites the first words and says so
+    await solve(page, "derive sin x");
+    await expect(page.locator("p.font-mono")).toHaveText("cos(x)");
+    await expect(page.getByText("I read “derive sin x” as “derivative of sin x”.")).toBeVisible();
+    await solve(page, "please integrate x^2 from 0 to 1");
+    await expect(page.locator("p.font-mono")).toHaveText("1/3");
+    await solve(page, "roots of x^2-4");
+    await expect(page.locator("p.font-mono")).toContainText("x=-2");
+    // a misspelled verb is understood, and an unreadable one gets a suggestion
+    await solve(page, "dervative of x^3");
+    await expect(page.locator("p.font-mono")).toHaveText("3*x^2");
+    await solve(page, "dervatv of x");
+    await expect(page.getByText(/Did you mean “derivative”/)).toBeVisible();
+  });
+
   test("solves multivariable problems: partial derivatives, extrema, Lagrange, double and line integrals", async ({ page }) => {
     await signUp(page);
     await page.goto("/solver");
