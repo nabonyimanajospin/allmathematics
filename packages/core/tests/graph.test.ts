@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface, specialPoints, namedPoints, measure } from "../src/graph";
+import { classify, drawable, evalConstant, marchingSquares, normalizeExpr, parameterNames, sampleCurve3, sampleFunction, sampleSurface, specialPoints, namedPoints, measure, pointAtPlace, pointPositions, rejectDuplicatePoints } from "../src/graph";
 import { compileExpr } from "../src/plot";
 
 const VIEW = { xmin: -6, xmax: 6, ymin: -4, ymax: 4 };
@@ -245,5 +245,97 @@ describe("circles, polygons and differential equations", () => {
   });
   it("uses sliders in a slope field", () => {
     expect(parameterNames([classify("y' = a*y")])).toEqual(["a"]);
+  });
+});
+
+describe("two points cannot be in the same place or have the same name", () => {
+  const read = (...rows: string[]) => rows.map(classify);
+  const message = (item: ReturnType<typeof classify> | undefined) => (item && item.kind === "error" ? item.message : "");
+
+  it("keeps the first point and rejects a later point at the same coordinates, saying where the other one is", () => {
+    const items = rejectDuplicatePoints(read("G = (5, -2)", "H = (4, -2)", "I = (4, -2)"), {});
+    expect(items.map((i) => i.kind)).toEqual(["point", "point", "error"]);
+    expect(message(items[2])).toBe("The point H is already at (4, -2). Two points cannot be in the same place.");
+  });
+
+  it("compares unnamed points too, and a named one with an unnamed one", () => {
+    const items = rejectDuplicatePoints(read("(1, 2)", "(1, 2)", "A = (1, 2)", "B = (2, 1)"), {});
+    expect(items.map((i) => i.kind)).toEqual(["point", "error", "error", "point"]);
+    expect(message(items[1])).toBe("A point is already at (1, 2). Two points cannot be in the same place.");
+    expect(message(items[2])).toBe("A point is already at (1, 2). Two points cannot be in the same place.");
+  });
+
+  it("sees that the same position written differently is the same position", () => {
+    const items = rejectDuplicatePoints(read("A = (0.3, 1)", "B = (0.1 + 0.2, 2/2)", "C = (3/10, 1)"), {});
+    expect(items.map((i) => i.kind)).toEqual(["point", "error", "error"]);
+  });
+
+  it("rejects a name that is used twice, even at different places", () => {
+    const items = rejectDuplicatePoints(read("A = (1, 2)", "A = (3, 4)"), {});
+    expect(items.map((i) => i.kind)).toEqual(["point", "error"]);
+    expect(message(items[1])).toBe("The name A is already used by another point. Choose another letter.");
+  });
+
+  it("a rejected point is not available to the segments, so nothing is drawn through a point that is not there", () => {
+    const items = rejectDuplicatePoints(read("A = (1, 2)", "B = (1, 2)", "segment(A, B)"), {});
+    const points = namedPoints(items, {});
+    expect(Object.keys(points)).toEqual(["A"]);
+    expect(drawable(items[2]!, {}, VIEW, points)).toMatchObject({ kind: "error", message: expect.stringContaining("The point B is not defined") });
+  });
+
+  it("does not compare a point that moves with a slider (it can cross another point without being refused)", () => {
+    const items = rejectDuplicatePoints(read("Q = (1, 2)", "P = (a, 2)"), { a: 1 });
+    expect(items.map((i) => i.kind)).toEqual(["point", "point"]);
+  });
+
+  it("ignores rows that are empty or hidden (the page turns a hidden row into an empty one)", () => {
+    const items = rejectDuplicatePoints([classify("A = (1, 2)"), { kind: "empty" }, classify("B = (1, 2)")], {});
+    expect(items.map((i) => i.kind)).toEqual(["point", "empty", "error"]);
+    const afterHide = rejectDuplicatePoints([{ kind: "empty" }, classify("B = (1, 2)")], {});
+    expect(afterHide.map((i) => i.kind)).toEqual(["empty", "point"]);
+  });
+
+  it("finds the point that is at a place, leaving out the point that is being moved", () => {
+    const items = read("A = (1, 2)", "B = (3, 4)");
+    expect(pointAtPlace(items, {}, [3, 4])).toMatchObject({ index: 1, name: "B" });
+    expect(pointAtPlace(items, {}, [3, 4], 1)).toBeUndefined();
+    expect(pointAtPlace(items, {}, [9, 9])).toBeUndefined();
+    expect(pointPositions(items, {}).map((p) => p.at)).toEqual([[1, 2], [3, 4]]);
+  });
+});
+
+describe("what a learner types that the grapher used to refuse", () => {
+  const value = (src: string, x = 0) => compileExpr(normalizeExpr(src), ["x"])(x);
+
+  it("reads floor, ceil, round, sign, cbrt, sec, csc, cot, log10 and log2", () => {
+    expect(value("floor(x)", 2.7)).toBe(2);
+    expect(value("ceil(x)", 2.1)).toBe(3);
+    expect(value("round(x)", 2.6)).toBe(3);
+    expect(value("sign(x)", -3)).toBe(-1);
+    expect(value("cbrt(x)", -8)).toBe(-2);
+    expect(value("sec(x)", 0)).toBeCloseTo(1, 12);
+    expect(value("csc(x)", Math.PI / 2)).toBeCloseTo(1, 12);
+    expect(value("cot(x)", Math.PI / 4)).toBeCloseTo(1, 12);
+    expect(value("log10(x)", 1000)).toBeCloseTo(3, 12);
+    expect(value("log2(x)", 8)).toBeCloseTo(3, 12);
+    expect(value("log(x)", Math.E)).toBeCloseTo(1, 12); // log is still the natural logarithm, as on the rest of the platform
+    expect(value("2log10(x)", 100)).toBeCloseTo(4, 12);
+  });
+
+  it("draws them (a curve, not an error)", () => {
+    for (const row of ["y = sec(x)", "y = cot(x)", "y = floor(x)", "y = sign(x)", "y = log10(x)", "y = cbrt(x)"]) {
+      expect(drawable(classify(row), {}, VIEW, {})).toMatchObject({ kind: "lines" });
+    }
+  });
+
+  it("takes y = expression with y on both sides for an implicit curve, not a function that cannot be read", () => {
+    expect(classify("y = x^2 y")).toEqual({ kind: "implicit", lhs: "y", rhs: "x^2*y" });
+    expect(classify("y = x^2")).toMatchObject({ kind: "function" });
+    expect(drawable(classify("y = x^2 y"), {}, VIEW, {})).toMatchObject({ kind: "segments" });
+  });
+
+  it("says that a point needs a capital letter", () => {
+    expect(classify("a = (1, 2)")).toEqual({ kind: "error", message: "Name a point with a capital letter, for example A = (1, 2)." });
+    expect(classify("A = (1, 2)")).toMatchObject({ kind: "point", name: "A" });
   });
 });

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button, Card } from "@allmaths/ui";
-import { classify, drawable, evalConstant, measure, measureCircle, measurePolygon, namedPoints, parameterNames, parseParamSurface, sampleCurve3, sampleParamSurface, sampleSurface, specialPoints, type GraphItem, type Params, type Pt, type Pt3, type View } from "@allmaths/core";
+import { classify, drawable, evalConstant, measure, measureCircle, measurePolygon, namedPoints, parameterNames, parseParamSurface, pointAtPlace, rejectDuplicatePoints, sampleCurve3, sampleParamSurface, sampleSurface, specialPoints, type GraphItem, type Params, type Pt, type Pt3, type View } from "@allmaths/core";
 import { t } from "@/i18n";
 import { RichInline } from "./lesson/rich";
 import type { ExactPointDto } from "@/app/api/graph/exact/route";
@@ -127,14 +127,22 @@ function Graph2D() {
   const press = useRef<{ x: number; y: number; lx: number; ly: number; moved: boolean; multi: boolean } | null>(null);
   const dragging = useRef<{ rowId: number; name: string } | null>(null);
 
-  const items: GraphItem[] = useMemo(() => rows.map((r) => (r.visible ? classify(r.text) : { kind: "empty" as const })), [rows]);
-  const names = useMemo(() => parameterNames(items), [items]);
+  const typed: GraphItem[] = useMemo(() => rows.map((r) => (r.visible ? classify(r.text) : { kind: "empty" as const })), [rows]);
+  const names = useMemo(() => parameterNames(typed), [typed]);
   const values: Params = useMemo(() => Object.fromEntries(names.map((n) => [n, params[n] ?? 1])), [names, params]);
+  // two points cannot be in the same place or have the same name: the later row shows why, and is not drawn
+  const items: GraphItem[] = useMemo(() => rejectDuplicatePoints(typed, values), [typed, values]);
+  const [notice, setNotice] = useState<string | null>(null);
   const range: View = useMemo(
     () => ({ xmin: view.cx - w / 2 / view.scale, xmax: view.cx + w / 2 / view.scale, ymin: view.cy - h / 2 / view.scale, ymax: view.cy + h / 2 / view.scale }),
     [view, w, h],
   );
   const points = useMemo(() => namedPoints(items, values), [items, values]);
+  // a point that was chosen for a segment, a circle or a polygon and then removed (or refused) is no longer chosen
+  useEffect(() => {
+    if (pending !== null && !points[pending]) setPending(null);
+    if (polyPending.some((n) => !points[n])) setPolyPending((l) => l.filter((n) => points[n]));
+  }, [points, pending, polyPending]);
   const drawn = useMemo(() => items.map((it) => drawable(it, values, range, points)), [items, values, range, points]);
   const special = useMemo(() => specialPoints(items, values, range), [items, values, range]);
   const measures = useMemo(() => {
@@ -437,36 +445,58 @@ function Graph2D() {
     return [round(wx), round(wy)];
   }
 
-  function addPoint(at: [number, number]): string {
+  /** "A point is already at (4, -2): G. Two points cannot be in the same place." */
+  function pointThere(at: [number, number], name?: string): string {
+    const where = `(${fmt(at[0])}, ${fmt(at[1])})`;
+    return name ? t("grapher.pointThereNamed", { at: where, name }) : t("grapher.pointThere", { at: where });
+  }
+
+  /**
+   * A new named point at `at`. When a point is already there (the touch was far from it but snapped to the same coordinates) that point is
+   * used instead of a second one; null when nothing can be added (the list is full, or the place holds a point without a name).
+   */
+  function addPoint(at: [number, number]): { name: string; existing: boolean } | null {
+    const twin = pointAtPlace(items, values, at);
+    if (twin?.name) return { name: twin.name, existing: true };
+    if (twin) {
+      setNotice(pointThere(at));
+      return null;
+    }
     const used = new Set(items.flatMap((it) => (it.kind === "point" && it.name ? [it.name] : [])));
     const name = pointName(used);
-    addRow(`${name} = (${at[0]}, ${at[1]})`);
-    return name;
+    return addRow(`${name} = (${at[0]}, ${at[1]})`) ? { name, existing: false } : null;
   }
 
   function toolClick(px: number, py: number) {
+    setNotice(null);
     const hit = pointAt(px, py);
     if (tool === "point") {
-      if (!hit) addPoint(snapped(px, py));
+      if (hit) setNotice(pointThere(points[hit.name]!, hit.name));
+      else {
+        const at = snapped(px, py);
+        const added = addPoint(at);
+        if (added?.existing) setNotice(pointThere(at, added.name));
+      }
       return;
     }
     if (tool === "polygon") {
-      const name = hit ? hit.name : addPoint(snapped(px, py));
+      const name = hit ? hit.name : addPoint(snapped(px, py))?.name;
+      if (!name) return;
       if (polyPending.length >= 3 && name === polyPending[0]) finishPolygon();
       else if (polyPending[polyPending.length - 1] !== name && !polyPending.includes(name)) setPolyPending((l) => [...l, name]);
       return;
     }
     if (tool !== "segment" && tool !== "line" && tool !== "circle") return;
-    const name = hit ? hit.name : addPoint(snapped(px, py));
+    const name = hit ? hit.name : addPoint(snapped(px, py))?.name;
+    if (!name) return;
     if (pending === null) setPending(name);
     else if (pending !== name) {
-      addRow(`${tool}(${pending}, ${name})`);
-      setPending(null);
+      if (addRow(`${tool}(${pending}, ${name})`)) setPending(null);
     }
   }
 
   function finishPolygon() {
-    if (polyPending.length >= 3) addRow(`polygon(${polyPending.join(", ")})`);
+    if (polyPending.length >= 3 && !addRow(`polygon(${polyPending.join(", ")})`)) return;
     setPolyPending([]);
   }
 
@@ -501,6 +531,13 @@ function Graph2D() {
     if (dragging.current) {
       const [x, y] = snapped(e.clientX - rect.left, e.clientY - rect.top);
       const { rowId, name } = dragging.current;
+      // two points cannot be in the same place: the point stays where it was until it is over a free place
+      const twin = pointAtPlace(items, values, [x, y], rows.findIndex((r) => r.id === rowId));
+      if (twin) {
+        setNotice(pointThere([x, y], twin.name));
+        return;
+      }
+      setNotice(null);
       setRow(rowId, { text: `${name} = (${x}, ${y})` });
       return;
     }
@@ -549,10 +586,16 @@ function Graph2D() {
   function setRow(id: number, patch: Partial<Row>) {
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   }
-  function addRow(text: string) {
+  /** Adds a line; false (with a message) when the list already has the most lines it can hold. */
+  function addRow(text: string): boolean {
+    if (rows.length >= MAX_ROWS) {
+      setNotice(t("grapher.full", { n: MAX_ROWS }));
+      return false;
+    }
     const id = nextId.current;
     nextId.current += 1;
     setRows((rs) => (rs.length >= MAX_ROWS ? rs : [...rs, { id, text, color: COLORS[rs.length % COLORS.length]!, visible: true }]));
+    return true;
   }
   /** An example from the help goes into the first empty line, or into a new one. */
   function fillExample(text: string) {
@@ -663,6 +706,7 @@ function Graph2D() {
                 setTool(k.tool);
                 setPending(null);
                 setPolyPending([]);
+                setNotice(null);
               }}
               className={`min-h-10 rounded-[var(--radius-sm)] border px-3 font-semibold ${tool === k.tool ? "border-accent bg-accent-soft text-accent" : "border-line bg-surface hover:bg-surface-2"}`}
             >
@@ -700,6 +744,12 @@ function Graph2D() {
           {cursor ? (
             <p className="pointer-events-none absolute right-2 top-2 rounded bg-bg/90 px-2 py-1 font-mono text-xs tabular-nums">
               ({fmt(cursor[0])}, {fmt(cursor[1])})
+            </p>
+          ) : null}
+          {/* over the bottom of the picture, not above it: a message that pushed the picture down would move it under a drag in progress */}
+          {notice ? (
+            <p role="status" className="pointer-events-none absolute inset-x-2 bottom-2 rounded-[var(--radius-sm)] bg-warning-soft px-3 py-2 text-sm font-medium text-warning shadow-[var(--shadow-sm)]">
+              {notice}
             </p>
           ) : null}
         </div>

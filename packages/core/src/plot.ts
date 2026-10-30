@@ -23,6 +23,17 @@ const FUNCTIONS: Record<string, (x: number) => number> = {
   exp: Math.exp,
   ln: Math.log,
   abs: Math.abs,
+  floor: Math.floor,
+  ceil: Math.ceil,
+  round: Math.round,
+  sign: Math.sign,
+  cbrt: Math.cbrt,
+  sec: (x) => 1 / Math.cos(x),
+  csc: (x) => 1 / Math.sin(x),
+  cot: (x) => 1 / Math.tan(x),
+  // log10 and log2 are written with these names inside the evaluator (a digit would be read as a separate number)
+  logten: Math.log10,
+  logtwo: Math.log2,
 };
 const CONSTANTS: Record<string, number> = { pi: Math.PI, e: Math.E };
 

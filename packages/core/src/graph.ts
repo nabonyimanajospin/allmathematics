@@ -8,7 +8,7 @@ import { PlotExpressionError, compileExpr } from "./plot";
 
 export type Pt = [number, number];
 
-const FUNCTION_NAMES = new Set(["sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh", "sqrt", "exp", "ln", "abs", "log"]);
+const FUNCTION_NAMES = new Set(["sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh", "sqrt", "exp", "ln", "abs", "log", "floor", "ceil", "round", "sign", "cbrt", "sec", "csc", "cot", "logten", "logtwo"]);
 const CONSTANT_NAMES = new Set(["pi", "e"]);
 /** Letters that can be a slider (a parameter): not the variables, not the constants. */
 const PARAM_LETTERS = new Set("abcdfghjklmnpqsuvwz".split(""));
@@ -22,7 +22,8 @@ const SUPERSCRIPTS: Record<string, string> = { "²": "^2", "³": "^3", "⁴": "^
 export function normalizeExpr(src: string): string {
   let s = src.trim().replaceAll("−", "-").replaceAll("×", "*").replaceAll("·", "*").replaceAll("π", "pi").replaceAll("√", "sqrt");
   for (const [k, v] of Object.entries(SUPERSCRIPTS)) s = s.replaceAll(k, v);
-  s = s.replace(/\blog\(/g, "ln(");
+  // (a number may stand right before it: 2log10(x))
+  s = s.replace(/log10(?![A-Za-z0-9_])/g, "logten").replace(/log2(?![A-Za-z0-9_])/g, "logtwo").replace(/\blog\(/g, "ln(");
   const tokens = s.match(/\d+(?:\.\d+)?|[A-Za-z_]+|[-+*/^(),]|\s+/g) ?? [];
   const out: string[] = [];
   const items = tokens.filter((t) => !/^\s+$/.test(t));
@@ -123,6 +124,9 @@ export function classify(text: string): GraphItem {
       }
       return { kind: "error", message: `Write the point as ${named[1]!}(x, y), for example ${named[1]!}(2, 3).` };
     }
+    // a point needs a capital letter (a small letter is a slider or a variable)
+    const small = /^[a-z][A-Za-z0-9]*\s*=\s*\((.*)\)$/.exec(raw);
+    if (small && splitTopLevel(small[1]!, ",").length === 2) return { kind: "error", message: "Name a point with a capital letter, for example A = (1, 2)." };
     // (x(t), y(t)) with an optional range:  (cos(t), sin(t)), t in [0, 2pi]
     const m = /^\((.*)\)\s*(?:,\s*(?:for\s+)?t\s*(?:in|=)\s*\[?\s*(.+?)\s*(?:,|\.\.|to)\s*(.+?)\s*\]?)?$/.exec(raw);
     if (m && splitTopLevel(m[1]!, ",").length === 2) {
@@ -151,6 +155,8 @@ export function classify(text: string): GraphItem {
     if (sides.length === 2) {
       const left = sides[0]!.trim();
       const right = sides[1]!.trim();
+      // y = x^2*y is a relation between x and y (an implicit curve), not a function of x
+      if (/^y$/i.test(left) && usesName(right, "y")) return { kind: "implicit", lhs: "y", rhs: normalizeExpr(right) };
       if (/^(y|f\(x\))$/i.test(left)) return { kind: "function", expr: normalizeExpr(right) };
       if (/^x$/i.test(left) && !usesName(right, "x")) return { kind: "xfunction", expr: normalizeExpr(right) };
       if (/^r$/i.test(left)) return { kind: "polar", expr: normalizeExpr(right).replaceAll("theta", "t") };
@@ -315,6 +321,57 @@ export function namedPoints(items: GraphItem[], params: Params): Record<string, 
     }
   }
   return out;
+}
+
+const SAME_PLACE = 1e-9;
+const samePlace = (p: Pt, q: Pt): boolean => Math.abs(p[0] - q[0]) < SAME_PLACE && Math.abs(p[1] - q[1]) < SAME_PLACE;
+const shown = (v: number): string => String(parseFloat(v.toPrecision(6)));
+
+/** The position of every point item (named or not) that can be evaluated, with its row. */
+export function pointPositions(items: GraphItem[], params: Params): { index: number; name?: string; at: Pt }[] {
+  const out: { index: number; name?: string; at: Pt }[] = [];
+  items.forEach((it, index) => {
+    if (it.kind !== "point") return;
+    try {
+      const at: Pt = [bind(it.x, [], params)(), bind(it.y, [], params)()];
+      if (Number.isFinite(at[0]) && Number.isFinite(at[1])) out.push({ index, ...(it.name ? { name: it.name } : {}), at });
+    } catch {
+      /* a point that cannot be read has no position */
+    }
+  });
+  return out;
+}
+
+/** The point that is at `at` (the same place), if any; `except` is a row to leave out (the point that is being moved). */
+export function pointAtPlace(items: GraphItem[], params: Params, at: Pt, except?: number): { index: number; name?: string; at: Pt } | undefined {
+  return pointPositions(items, params).find((p) => p.index !== except && samePlace(p.at, at));
+}
+
+/**
+ * Two points cannot have the same name, and two points cannot be in the same place: the later row of such a pair becomes an error that
+ * says why, so it is not drawn and segments cannot use it. A point that depends on a slider (P(a, 2)) is not compared by place, because
+ * it moves with the slider; its name is still checked.
+ */
+export function rejectDuplicatePoints(items: GraphItem[], params: Params): GraphItem[] {
+  const positions = new Map(pointPositions(items, params).map((p) => [p.index, p.at]));
+  const names = new Set<string>();
+  const accepted: { name?: string; at: Pt }[] = [];
+  return items.map((it, index) => {
+    if (it.kind !== "point") return it;
+    if (it.name && names.has(it.name)) return { kind: "error", message: `The name ${it.name} is already used by another point. Choose another letter.` };
+    const at = positions.get(index);
+    const fixed = parameterNames([it]).length === 0;
+    if (at && fixed) {
+      const twin = accepted.find((p) => samePlace(p.at, at));
+      if (twin) {
+        const where = `(${shown(at[0])}, ${shown(at[1])})`;
+        return { kind: "error", message: `${twin.name ? `The point ${twin.name} is` : "A point is"} already at ${where}. Two points cannot be in the same place.` };
+      }
+    }
+    if (it.name) names.add(it.name);
+    if (at && fixed) accepted.push({ ...(it.name ? { name: it.name } : {}), at });
+    return it;
+  });
 }
 
 export function drawable(item: GraphItem, params: Params, view: View, points: Record<string, Pt> = {}): Drawable {

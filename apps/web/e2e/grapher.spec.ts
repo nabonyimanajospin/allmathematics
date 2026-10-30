@@ -262,6 +262,91 @@ test.describe("the grapher", () => {
     await expect(page.getByText(/Write the curve as/)).toBeVisible();
   });
 
+  test("two points cannot be in the same place or have the same name, and the learner is told why", async ({ page }) => {
+    await signUpAndOpen(page);
+    const alert = page.locator("p[role=alert]");
+    await page.getByLabel("Expression 1").fill("G = (5, -2)");
+    await page.getByLabel("Expression 2").fill("H = (4, -2)");
+    await page.getByRole("button", { name: "Add an expression" }).click();
+    await page.getByLabel("Expression 3").fill("I = (4, -2)");
+    await expect(alert).toHaveText("The point H is already at (4, -2). Two points cannot be in the same place.");
+
+    // the refused point is not available: a segment to it says so
+    await page.getByRole("button", { name: "Add an expression" }).click();
+    await page.getByLabel("Expression 4").fill("segment(H, I)");
+    await expect(alert).toHaveCount(2);
+    await expect(alert.nth(1)).toContainText("The point I is not defined");
+
+    // the same place written in another way is the same place; a name used twice is refused too
+    await page.getByLabel("Expression 3").fill("I = (8/2, -4/2)");
+    await expect(alert.first()).toHaveText("The point H is already at (4, -2). Two points cannot be in the same place.");
+    await page.getByLabel("Expression 3").fill("H = (0, 0)");
+    await expect(alert.first()).toHaveText("The name H is already used by another point. Choose another letter.");
+
+    // a free place and a free name make it a point again, and the segment is drawn
+    await page.getByLabel("Expression 3").fill("I = (3, 3)");
+    await expect(alert).toHaveCount(0);
+
+    // a point that moves with a slider is not refused when it crosses another point
+    await page.getByLabel("Expression 4").fill("P = (a, -2)");
+    await expect(alert).toHaveCount(0);
+  });
+
+  test("the point tool and the move tool do not put a second point on an existing one", async ({ page }) => {
+    await signUpAndOpen(page);
+    await page.getByLabel("Expression 1").fill("G = (2, -1)");
+    await page.getByLabel("Expression 2").fill("H = (1, -1)");
+    const canvas = page.locator("canvas");
+    const at = async (dx: number, dy: number): Promise<[number, number]> => {
+      await canvas.scrollIntoViewIfNeeded();
+      let box = (await canvas.boundingBox())!;
+      for (let i = 0; i < 20; i++) {
+        await page.waitForTimeout(150);
+        const next = (await canvas.boundingBox())!;
+        if (next.width === box.width && next.height === box.height && next.y === box.y) break;
+        box = next;
+      }
+      return [box.x + box.width / 2 + dx, box.y + box.height / 2 + dy];
+    };
+    const status = page.getByRole("status").filter({ hasText: "Two points cannot be in the same place" });
+
+    // the point tool on a point that exists: nothing is added, and the learner is told
+    await page.getByRole("radio", { name: "Point" }).click();
+    const [px, py] = await at(50, 50); // H(1, -1) at 50 px per unit
+    await page.mouse.click(px, py);
+    await expect(status).toContainText("The point H is already at (1, -1)");
+    await expect(page.getByLabel("Expression 3")).toHaveCount(0);
+
+    // the move tool: H cannot be dragged onto G, but it can be dragged to a free place
+    await page.getByRole("radio", { name: "Move" }).click();
+    const [hx, hy] = await at(50, 50);
+    const [gx] = await at(100, 50);
+    await page.mouse.move(hx, hy);
+    await page.mouse.down();
+    await page.mouse.move(gx, hy, { steps: 6 });
+    await page.mouse.up();
+    await expect(page.getByLabel("Expression 2")).toHaveValue("H = (1, -1)");
+    await expect(status).toContainText("The point G is already at (2, -1)");
+    await page.mouse.move(hx, hy);
+    await page.mouse.down();
+    await page.mouse.move(hx, hy - 50, { steps: 6 });
+    await page.mouse.up();
+    await expect(page.getByLabel("Expression 2")).toHaveValue("H = (1, 0)");
+    await expect(status).toHaveCount(0);
+  });
+
+  test("reads the functions that learners type: floor, sec, cot, log10 and an implicit y = x^2 y", async ({ page }) => {
+    await signUpAndOpen(page);
+    const alert = page.locator("p[role=alert]");
+    const rows = ["y = floor(x)", "y = sec(x)", "y = log10(x)", "y = x^2 y", "a = (1, 2)"];
+    for (const [i, text] of rows.entries()) {
+      if (i >= 2) await page.getByRole("button", { name: "Add an expression" }).click(); // the page starts with two lines
+      await page.getByLabel(`Expression ${i + 1}`).fill(text);
+    }
+    await expect(alert).toHaveCount(1);
+    await expect(alert).toHaveText("Name a point with a capital letter, for example A = (1, 2).");
+  });
+
   test("fits a phone screen", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 800 });
     await signUpAndOpen(page);

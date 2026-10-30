@@ -34,6 +34,9 @@
     "backToSignIn": "Back to sign in", "resetDone": "Your password was changed. Sign in with the new one."
   },
   "grapher": {
+    "pointThere": "A point is already at {at}. Two points cannot be in the same place.",
+    "pointThereNamed": "The point {name} is already at {at}. Two points cannot be in the same place.",
+    "full": "The list is full ({n} lines). Remove a line with × to add another.",
     "presetsTip": "Or write your own: z = f(x, y), or a parametric surface (x(u,v), y(u,v), z(u,v)), u in [a, b], v in [c, d]. Touch one to start.",
     "preset": { "paraboloid": "Paraboloid", "saddle": "Saddle", "sphere": "Sphere", "ellipsoid": "Ellipsoid", "cylinder": "Cylinder", "cone": "Cone", "torus": "Torus" },
     "toolCircle": "Circle",
