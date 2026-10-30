@@ -1,6 +1,8 @@
 # Allmaths
 
-A university-level mathematics learning platform: **Geometry**, **Multivariable Calculus and Differential Equations**, and **Probability and Statistics**.
+A mathematics learning platform for self-study, built to grow from secondary school to doctorate (about 100 modules planned). Today it holds three university courses: **Geometry**, **Multivariable Calculus and Differential Equations**, and **Probability and Statistics** (109 lessons).
+
+Everything on the platform follows one set of standards (one structure, one lesson template, one notation, one vocabulary): see [docs/standards](docs/standards/README.md).
 
 - Every answer is checked by a real math engine (SymPy), and every value is exact: fractions, radicals, π and e, never rounded decimals.
 - A learner follows **one course at a time**, reads lessons with figures and worked examples, solves at least 15 exercises per lesson, takes a test at the end of each unit, and sees a progress percentage that is computed on the server.
@@ -168,6 +170,18 @@ scripts/            verify-content, seed, content authoring (SymPy builders)
 
 ## Documentation
 
+**Standards (read first; they apply to every course and level):**
+
+- [docs/standards/README.md](docs/standards/README.md): the index and how the rules are labeled (Rule, Proposed, Target, Decision needed)
+- [docs/standards/vision-and-scope.md](docs/standards/vision-and-scope.md): what the platform is, the levels from secondary to doctorate, the principles
+- [docs/standards/curriculum-structure.md](docs/standards/curriculum-structure.md): the hierarchy, ids, the one lesson template, exercises, final answers, tests, the definition of done of a module
+- [docs/standards/notation-and-naming.md](docs/standards/notation-and-naming.md): one notation and vocabulary for the whole platform
+- [docs/standards/public-site.md](docs/standards/public-site.md): the public pages, the team page, design and accessibility
+- [docs/standards/solver.md](docs/standards/solver.md), [docs/standards/grapher.md](docs/standards/grapher.md), [docs/standards/math-input.md](docs/standards/math-input.md): the targets of the solver, the grapher (GeoGebra-class 2D and 3D) and the math input field
+- [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md): the rules for AI assistants and contributors
+
+**How the current platform works:**
+
 - [docs/running.md](docs/running.md): running, updating, browser tests, production notes
 - [docs/administration.md](docs/administration.md): the first administrator, users, feedback, announcements, audit log
 - [docs/solver-and-premium.md](docs/solver-and-premium.md): what the Solver understands, the free plan, Premium and payment
@@ -178,5 +192,15 @@ scripts/            verify-content, seed, content authoring (SymPy builders)
 
 ## Status
 
-Content: Geometry (modules 1 to 3), Multivariable Calculus and Differential Equations (modules 1 to 5), Probability and Statistics (modules 1 to 3), with at least 15 exercises in every lesson, each with hints and a worked solution.
-Not done yet: reading a picture of a handwritten problem, live online payment (needs the owner's payment keys), and the statistics inference module.
+**Done:** Geometry (modules 1 to 3), Multivariable Calculus and Differential Equations (modules 1 to 5), Probability and Statistics (modules 1 to 3): 109 lessons, at least 15 exercises in every lesson, each with hints and a worked solution; unit tests; progress tracking; the Solver (with the Triangle toolkit), the Grapher, the formula sheet, resources, feedback and the admin panel.
+
+**Next (described in [docs/standards](docs/standards/README.md), not built yet):**
+
+- the structure and the lesson template confirmed with the lecturer, then applied to every lesson (one order, one notation, one vocabulary);
+- the public pages: what is inside, how it works, the team;
+- a GeoGebra-class grapher (construction with dependent objects, 2D and 3D);
+- the solver's coverage of every computational exercise of the platform, measured by a coverage report;
+- one math input field everywhere;
+- new courses from secondary school to master's level, and later certification.
+
+**Not done yet (needs the owner):** live online payment (the owner's payment keys), e-mail for password reset (an e-mail service key), production hosting.
