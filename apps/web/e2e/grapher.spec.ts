@@ -347,6 +347,23 @@ test.describe("the grapher", () => {
     await expect(alert).toHaveText("Name a point with a capital letter, for example A = (1, 2).");
   });
 
+  test("Enter in a line goes on to the next line, and opens a new empty one after the last", async ({ page }) => {
+    await signUpAndOpen(page);
+    await page.getByLabel("Expression 1").press("Enter");
+    await expect(page.getByLabel("Expression 2")).toBeFocused(); // the page starts with two lines: Enter goes to the next one
+    await page.getByLabel("Expression 2").fill("A = (1, 2)");
+    await page.getByLabel("Expression 2").press("Enter");
+    await expect(page.getByLabel("Expression 3")).toBeFocused(); // a new empty line, ready for the next point
+    await page.keyboard.type("B = (3, 4)");
+    await page.keyboard.press("Enter");
+    await expect(page.getByLabel("Expression 4")).toBeFocused();
+    await expect(page.getByLabel("Expression 3")).toHaveValue("B = (3, 4)");
+    // an empty last line is not repeated
+    await page.getByLabel("Expression 4").press("Enter");
+    await expect(page.getByLabel("Expression 5")).toHaveCount(0);
+    await expect(page.locator("p[role=alert]")).toHaveCount(0);
+  });
+
   test("fits a phone screen", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 800 });
     await signUpAndOpen(page);

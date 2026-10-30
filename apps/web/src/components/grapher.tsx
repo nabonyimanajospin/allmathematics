@@ -597,6 +597,44 @@ function Graph2D() {
     setRows((rs) => (rs.length >= MAX_ROWS ? rs : [...rs, { id, text, color: COLORS[rs.length % COLORS.length]!, visible: true }]));
     return true;
   }
+  /** A new empty line at the end of the list; its id, or null (with a message) when the list is full. */
+  function addEmptyRow(): number | null {
+    if (rows.length >= MAX_ROWS) {
+      setNotice(t("grapher.full", { n: MAX_ROWS }));
+      return null;
+    }
+    const id = nextId.current;
+    nextId.current += 1;
+    setRows((rs) => [...rs, { id, text: "", color: COLORS[rs.length % COLORS.length]!, visible: true }]);
+    return id;
+  }
+
+  // the line to put the cursor in after the lines have been drawn again
+  const focusRow = useRef<number | null>(null);
+  useEffect(() => {
+    if (focusRow.current === null) return;
+    document.getElementById(`${uid}-row-${focusRow.current}`)?.focus();
+    focusRow.current = null;
+  }, [rows, uid]);
+
+  /**
+   * Enter in a line goes on to the next line, so that several points can be typed one after the other: on the last line it opens a new empty
+   * line (an empty last line is not repeated).
+   */
+  function enterOnRow(index: number) {
+    const current = rows[index];
+    if (!current) return;
+    const next = rows[index + 1];
+    if (next) {
+      focusRow.current = next.id;
+      document.getElementById(`${uid}-row-${next.id}`)?.focus();
+      return;
+    }
+    if (current.text.trim() === "") return;
+    const id = addEmptyRow();
+    if (id !== null) focusRow.current = id;
+  }
+
   /** An example from the help goes into the first empty line, or into a new one. */
   function fillExample(text: string) {
     const empty = rows.find((r) => r.text.trim() === "");
@@ -623,8 +661,15 @@ function Graph2D() {
                     style={{ accentColor: r.color }}
                   />
                   <input
+                    id={`${uid}-row-${r.id}`}
                     value={r.text}
                     onChange={(e) => setRow(r.id, { text: e.target.value })}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        enterOnRow(i);
+                      }
+                    }}
                     aria-label={t("grapher.expression", { n: i + 1 })}
                     maxLength={200}
                     spellCheck={false}
@@ -651,8 +696,8 @@ function Graph2D() {
           <Button
             variant="secondary"
             onClick={() => {
-              setRows((rs) => [...rs, { id: nextId.current, text: "", color: COLORS[rs.length % COLORS.length]!, visible: true }]);
-              nextId.current += 1;
+              const id = addEmptyRow();
+              if (id !== null) focusRow.current = id;
             }}
           >
             {t("grapher.add")}
