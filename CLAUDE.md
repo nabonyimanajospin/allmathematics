@@ -5,6 +5,26 @@ University-level math learning platform (vectors, analytic geometry,
 multivariable calculus, differential equations). Full spec:
 MATH_PLATFORM_BUILD_SPEC.md. Read it before any large change.
 
+## Global rules (read first)
+The standards in `docs/standards/` are the global rules of the platform, for every course and level (secondary to
+doctorate, about 100 modules planned). Read `docs/standards/README.md` before writing content or building a feature.
+In short:
+- One hierarchy (Course > Module > Unit > Lesson > Section; names may be changed once, everywhere, by the owner),
+  one lesson template in a fixed order (objectives, introduction, definitions and notation, results, key formulas,
+  figures, worked examples, quick checks, common mistakes, summary, exercises, final answers):
+  `docs/standards/curriculum-structure.md`.
+- One notation and one vocabulary for the whole platform (exact values, American spelling, sentence-case titles,
+  imperative exercise verbs, area of a triangle `S`, circle equations "canonical" and "analytic implicit"):
+  `docs/standards/notation-and-naming.md`.
+- Every exercise statement says what to do; hints never give the result; every exercise has a worked solution and
+  a verified final answer. How final answers are shown is a pending owner decision (curriculum-structure.md, section 6).
+- The solver and the grapher have written targets (no AI, verified answers, coverage measured; GeoGebra-class 2D/3D):
+  `docs/standards/solver.md`, `docs/standards/grapher.md`. One math input field everywhere: `docs/standards/math-input.md`.
+- Public site: very simple and professional; how it works, what is inside, how progress is counted, a discreet team
+  page (names, titles, roles): `docs/standards/public-site.md`.
+- "Rule" in those documents applies now; "Proposed" waits for the owner's confirmation; "Target" is not built yet.
+  Do not present a target as done.
+
 ## Non-negotiable rules
 1. Mathematical correctness first. Every answer is verified by the math
    engine (apps/math-engine). Never hard-code an answer you did not verify.
@@ -20,7 +40,8 @@ MATH_PLATFORM_BUILD_SPEC.md. Read it before any large change.
 
 ## Structure of content
 Course -> Module -> Unit -> Lesson -> Section (spec section 2.1).
-Courses: geo (Geometry), mvc (Multivariable Calculus and DE), stat (later).
+Courses: geo (Geometry), mvc (Multivariable Calculus and DE), stat (Probability and Statistics); more courses
+follow, each with a short code (docs/standards/curriculum-structure.md, section 2).
 Ids look like geo-m01-u01-l01. The owner's notes folder is reference only;
 write original content (spec section 12.2).
 
@@ -63,7 +84,7 @@ write original content (spec section 12.2).
 
 ## Current phase
 Phase 1 foundation done. Content written and verified (109 lessons): Course 1 (geo) Modules 1 to 3 (vectors and products, plane with triangle, circle, polar coordinates, conics and loci; space with tetrahedron, sphere, quadric surfaces); Course 2 (mvc) Modules 1 to 5 (including ODE and PDE with Fourier series); Course 3 (stat) Modules 1 to 3 (counting, probability, random variables, data and regression), including the whole STAT8225 exercise sheet of T. Hakizimana (permutations, binomial formula, probability rules, Bayes, moments and mgf, binomial/Poisson/exponential/normal with `Phi(z)`) and the solved mid-summer exam (unit "Practice exam"); sheet builders: `scripts/authoring/stat_sheet_*.py`, `stat_exam_practice.py`. Also built: resources page (signed-in only), formula sheet (save formulas and theorems from lessons), stacked-fraction answer field, figures in many geometry lessons.
-Added since: unit tests with at most 3 multiple-choice questions and the test listed in the course sidebar, resources shown only for the followed course, learner feedback with an admin inbox, announcements, audit log and CSV export (first admin via `ADMIN_EMAILS`, docs/administration.md), admin panel (users, stats, resource upload, Premium grants), forgot-password by e-mail code, one-course-at-a-time enrollment, printable lesson sheet, unit tests (10 typed questions, pass 7; a unit is 100% only after passing), progress recomputed from the student's answers, the step-by-step solver (`apps/math-engine/allmaths_engine/solver`, no AI, including multivariable calculus: partial derivatives, gradient, critical points, Lagrange multipliers, double/triple and line integrals, matrices, inequalities, tangent lines and planes, Taylor series, sums, partial fractions, areas; free 5 per day, Premium unlimited; see docs/solver-and-premium.md), Flutterwave payment code (tested with a simulated provider only), the triangle toolkit (/triangle, signed-in learners only; exact analysis of a triangle from its three vertices: `apps/math-engine/allmaths_engine/triangle.py`, docs/triangle.md), the grapher (/graph, signed-in learners only; points, segments, lines, exact roots; docs/grapher.md), new MVC lessons from the lecture notes, and at least 15 exercises in every lesson.
+Added since: unit tests with at most 3 multiple-choice questions and the test listed in the course sidebar, resources shown only for the followed course, learner feedback with an admin inbox, announcements, audit log and CSV export (first admin via `ADMIN_EMAILS`, docs/administration.md), admin panel (users, stats, resource upload, Premium grants), forgot-password by e-mail code, one-course-at-a-time enrollment, printable lesson sheet, unit tests (10 typed questions, pass 7; a unit is 100% only after passing), progress recomputed from the student's answers, the step-by-step solver (`apps/math-engine/allmaths_engine/solver`, no AI, including multivariable calculus: partial derivatives, gradient, critical points, Lagrange multipliers, double/triple and line integrals, matrices, inequalities, tangent lines and planes, Taylor series, sums, partial fractions, areas; free 5 per day, Premium unlimited; see docs/solver-and-premium.md), Flutterwave payment code (tested with a simulated provider only), the triangle toolkit (a tab of the Solver, /solver?mode=triangle; the old /triangle redirects; signed-in learners only; exact analysis of a triangle from its three vertices: `apps/math-engine/allmaths_engine/triangle.py`, docs/triangle.md), the grapher (/graph, signed-in learners only; points, segments, lines, exact roots; docs/grapher.md), new MVC lessons from the lecture notes, and at least 15 exercises in every lesson.
 Not done: photo input for the solver (needs OCR), live payments (needs the owner's Flutterwave keys), geometric constructions in the grapher.
 Browser tests: run them in isolation, never against the dev server on port 3000: `E2E_PORT=3100 E2E_ENGINE_PORT=8101 NEXT_DIST_DIR=.next-e2e PGLITE_DIR=<some empty folder> pnpm --filter @allmaths/web exec playwright test` (one run at a time).
 Next: Phase 2 (problem generator, quizzes, mastery, dashboard), figures for the remaining lessons, more `more`/`why` explanations, stat inference module.
