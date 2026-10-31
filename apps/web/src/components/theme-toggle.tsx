@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { t } from "@/i18n";
 
 type Mode = "system" | "light" | "dark";
-const ORDER: Mode[] = ["system", "light", "dark"];
+const ORDER: Mode[] = ["light", "dark", "system"];
 const KEY = "allmaths-theme";
 
 function apply(mode: Mode): void {
@@ -14,18 +14,18 @@ function apply(mode: Mode): void {
 }
 
 export function ThemeToggle() {
-  const [mode, setMode] = useState<Mode>("system");
+  const [mode, setMode] = useState<Mode>("light");
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(KEY);
-      if (saved === "light" || saved === "dark") setMode(saved);
+      if (saved === "light" || saved === "dark" || saved === "system") setMode(saved);
     } catch {
-      /* storage unavailable: stay on the system theme */
+      /* storage unavailable: stay on the light theme */
     }
   }, []);
 
-  const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] ?? "system";
+  const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] ?? "light";
   const label: Record<Mode, string> = {
     system: t("nav.themeSystem"),
     light: t("nav.themeLight"),
@@ -42,8 +42,7 @@ export function ThemeToggle() {
         setMode(next);
         apply(next);
         try {
-          if (next === "system") localStorage.removeItem(KEY);
-          else localStorage.setItem(KEY, next);
+          localStorage.setItem(KEY, next);
         } catch {
           /* ignore */
         }

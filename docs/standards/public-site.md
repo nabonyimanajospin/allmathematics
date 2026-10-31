@@ -23,7 +23,7 @@ Rules:
 ## 2. Visual design (Rule)
 
 - **One design system**: the tokens of `packages/ui` (colors, spacing, radius, shadows, typography) for every page; no page-specific colors or sizes.
-- Light and dark themes; white page background for lessons in the light theme.
+- Light and dark themes; the light theme is the default for every first visit, whatever the computer's setting; white page background for lessons in the light theme.
 - Typography: one font family for text, KaTeX for mathematics; headings in sentence case; line length about 70 characters for reading.
 - Components are reused (Card, Button, Field, ProgressBar); a new pattern is added to `packages/ui` before it is used twice.
 - Motion only to explain a change, and none when the learner prefers reduced motion.

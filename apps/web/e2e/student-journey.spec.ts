@@ -124,14 +124,24 @@ test.describe("quality", () => {
     expect(overflow).toBeLessThanOrEqual(1);
   });
 
+  test("the first visit is light, even when the computer prefers dark", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  });
+
   test("the theme toggle switches and remembers the theme", async ({ page }) => {
     await page.goto("/");
     const toggle = page.getByRole("button", { name: /Colour theme/ });
-    await toggle.click(); // automatic -> light
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-    await toggle.click(); // -> dark
+    await toggle.click(); // light -> dark
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await page.reload();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await toggle.click(); // -> automatic
+    await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
+    await page.reload();
+    await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
   });
 });

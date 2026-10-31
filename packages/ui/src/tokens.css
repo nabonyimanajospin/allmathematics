@@ -1,6 +1,7 @@
 /*
  * Design tokens (spec section 10). The single place where colours, type and motion are defined.
- * Light and dark themes; `data-theme="light|dark"` on <html> overrides the system preference.
+ * Light and dark themes; light is the default. `data-theme="light|dark"` on <html> overrides the system preference,
+ * which is followed only when the learner chooses Automatic (no data-theme).
  * Contrast: text/background and accent/background pairs meet WCAG 2.1 AA (4.5:1) in both themes.
  */
 

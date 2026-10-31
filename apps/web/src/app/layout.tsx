@@ -17,19 +17,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#10151c" },
-  ],
+  themeColor: "#ffffff",
 };
 
-/** Applies the saved theme before first paint so there is no flash of the wrong theme. */
-const themeScript = `try{var m=localStorage.getItem("allmaths-theme");if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m)}catch(e){}`;
+/** Applies the saved theme before first paint so there is no flash of the wrong theme. Without a saved theme the page stays light. */
+const themeScript = `try{var m=localStorage.getItem("allmaths-theme"),r=document.documentElement;if(m==="dark")r.setAttribute("data-theme",m);else if(m==="system")r.removeAttribute("data-theme")}catch(e){}`;
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const signedIn = (await getCurrentUser()) !== null;
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <body className="min-h-dvh">
         <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
         <a href="#main" className="skip-link">
